@@ -44,7 +44,7 @@ func NewAccruedInterestAmt(val decimal.Decimal, scale int32) AccruedInterestAmtF
 	return AccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AccruedInterestAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AccruedInterestAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AccruedInterestRateField is a PERCENTAGE field
 type AccruedInterestRateField struct{ quickfix.FIXDecimal }
@@ -57,9 +57,7 @@ func NewAccruedInterestRate(val decimal.Decimal, scale int32) AccruedInterestRat
 	return AccruedInterestRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AccruedInterestRateField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f AccruedInterestRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AcctIDSourceField is a enum.AcctIDSource field
 type AcctIDSourceField struct{ quickfix.FIXString }
@@ -299,9 +297,7 @@ func NewAllocAccruedInterestAmt(val decimal.Decimal, scale int32) AllocAccruedIn
 	return AllocAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocAccruedInterestAmtField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f AllocAccruedInterestAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocAcctIDSourceField is a INT field
 type AllocAcctIDSourceField struct{ quickfix.FIXInt }
@@ -327,7 +323,7 @@ func NewAllocAvgPx(val decimal.Decimal, scale int32) AllocAvgPxField {
 	return AllocAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocAvgPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocAvgPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocCancReplaceReasonField is a enum.AllocCancReplaceReason field
 type AllocCancReplaceReasonField struct{ quickfix.FIXString }
@@ -405,9 +401,7 @@ func NewAllocInterestAtMaturity(val decimal.Decimal, scale int32) AllocInterestA
 	return AllocInterestAtMaturityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocInterestAtMaturityField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f AllocInterestAtMaturityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocIntermedReqTypeField is a enum.AllocIntermedReqType field
 type AllocIntermedReqTypeField struct{ quickfix.FIXString }
@@ -471,7 +465,7 @@ func NewAllocNetMoney(val decimal.Decimal, scale int32) AllocNetMoneyField {
 	return AllocNetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocNetMoneyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocNetMoneyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocNoOrdersTypeField is a enum.AllocNoOrdersType field
 type AllocNoOrdersTypeField struct{ quickfix.FIXString }
@@ -512,7 +506,7 @@ func NewAllocPrice(val decimal.Decimal, scale int32) AllocPriceField {
 	return AllocPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocQtyField is a QTY field
 type AllocQtyField struct{ quickfix.FIXDecimal }
@@ -525,7 +519,7 @@ func NewAllocQty(val decimal.Decimal, scale int32) AllocQtyField {
 	return AllocQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocRejCodeField is a enum.AllocRejCode field
 type AllocRejCodeField struct{ quickfix.FIXString }
@@ -588,7 +582,7 @@ func NewAllocSettlCurrAmt(val decimal.Decimal, scale int32) AllocSettlCurrAmtFie
 	return AllocSettlCurrAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocSettlCurrAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocSettlCurrAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocSettlCurrencyField is a CURRENCY field
 type AllocSettlCurrencyField struct{ quickfix.FIXString }
@@ -628,7 +622,7 @@ func NewAllocShares(val decimal.Decimal, scale int32) AllocSharesField {
 	return AllocSharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllocSharesField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AllocSharesField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllocStatusField is a enum.AllocStatus field
 type AllocStatusField struct{ quickfix.FIXString }
@@ -703,9 +697,7 @@ func NewAllowableOneSidednessPct(val decimal.Decimal, scale int32) AllowableOneS
 	return AllowableOneSidednessPctField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllowableOneSidednessPctField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f AllowableOneSidednessPctField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AllowableOneSidednessValueField is a AMT field
 type AllowableOneSidednessValueField struct{ quickfix.FIXDecimal }
@@ -718,9 +710,7 @@ func NewAllowableOneSidednessValue(val decimal.Decimal, scale int32) AllowableOn
 	return AllowableOneSidednessValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AllowableOneSidednessValueField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f AllowableOneSidednessValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AltMDSourceIDField is a STRING field
 type AltMDSourceIDField struct{ quickfix.FIXString }
@@ -1066,7 +1056,7 @@ func NewAssignmentUnit(val decimal.Decimal, scale int32) AssignmentUnitField {
 	return AssignmentUnitField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AssignmentUnitField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AssignmentUnitField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AttachmentPointField is a PERCENTAGE field
 type AttachmentPointField struct{ quickfix.FIXDecimal }
@@ -1079,7 +1069,7 @@ func NewAttachmentPoint(val decimal.Decimal, scale int32) AttachmentPointField {
 	return AttachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AttachmentPointField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AttachmentPointField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AutoAcceptIndicatorField is a BOOLEAN field
 type AutoAcceptIndicatorField struct{ quickfix.FIXBoolean }
@@ -1105,7 +1095,7 @@ func NewAvgParPx(val decimal.Decimal, scale int32) AvgParPxField {
 	return AvgParPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AvgParPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AvgParPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AvgPrxPrecisionField is a INT field
 type AvgPrxPrecisionField struct{ quickfix.FIXInt }
@@ -1131,7 +1121,7 @@ func NewAvgPx(val decimal.Decimal, scale int32) AvgPxField {
 	return AvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f AvgPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f AvgPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //AvgPxIndicatorField is a enum.AvgPxIndicator field
 type AvgPxIndicatorField struct{ quickfix.FIXString }
@@ -1182,7 +1172,7 @@ func NewBasisFeaturePrice(val decimal.Decimal, scale int32) BasisFeaturePriceFie
 	return BasisFeaturePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BasisFeaturePriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BasisFeaturePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BasisPxTypeField is a enum.BasisPxType field
 type BasisPxTypeField struct{ quickfix.FIXString }
@@ -1285,7 +1275,7 @@ func NewBenchmarkPrice(val decimal.Decimal, scale int32) BenchmarkPriceField {
 	return BenchmarkPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BenchmarkPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BenchmarkPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BenchmarkPriceTypeField is a INT field
 type BenchmarkPriceTypeField struct{ quickfix.FIXInt }
@@ -1364,7 +1354,7 @@ func NewBidForwardPoints(val decimal.Decimal, scale int32) BidForwardPointsField
 	return BidForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidForwardPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidForwardPoints2Field is a PRICEOFFSET field
 type BidForwardPoints2Field struct{ quickfix.FIXDecimal }
@@ -1377,7 +1367,7 @@ func NewBidForwardPoints2(val decimal.Decimal, scale int32) BidForwardPoints2Fie
 	return BidForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidForwardPoints2Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidForwardPoints2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidIDField is a STRING field
 type BidIDField struct{ quickfix.FIXString }
@@ -1403,7 +1393,7 @@ func NewBidPx(val decimal.Decimal, scale int32) BidPxField {
 	return BidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidRequestTransTypeField is a enum.BidRequestTransType field
 type BidRequestTransTypeField struct{ quickfix.FIXString }
@@ -1430,7 +1420,7 @@ func NewBidSize(val decimal.Decimal, scale int32) BidSizeField {
 	return BidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidSpotRateField is a PRICE field
 type BidSpotRateField struct{ quickfix.FIXDecimal }
@@ -1443,7 +1433,7 @@ func NewBidSpotRate(val decimal.Decimal, scale int32) BidSpotRateField {
 	return BidSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidSpotRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidSpotRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidSwapPointsField is a PRICEOFFSET field
 type BidSwapPointsField struct{ quickfix.FIXDecimal }
@@ -1456,7 +1446,7 @@ func NewBidSwapPoints(val decimal.Decimal, scale int32) BidSwapPointsField {
 	return BidSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidSwapPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidSwapPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BidTradeTypeField is a enum.BidTradeType field
 type BidTradeTypeField struct{ quickfix.FIXString }
@@ -1493,7 +1483,7 @@ func NewBidYield(val decimal.Decimal, scale int32) BidYieldField {
 	return BidYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BidYieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BidYieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //BodyLengthField is a LENGTH field
 type BodyLengthField struct{ quickfix.FIXInt }
@@ -1596,7 +1586,7 @@ func NewBuyVolume(val decimal.Decimal, scale int32) BuyVolumeField {
 	return BuyVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f BuyVolumeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f BuyVolumeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CFICodeField is a STRING field
 type CFICodeField struct{ quickfix.FIXString }
@@ -1647,9 +1637,7 @@ func NewCalculatedCcyLastQty(val decimal.Decimal, scale int32) CalculatedCcyLast
 	return CalculatedCcyLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CalculatedCcyLastQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f CalculatedCcyLastQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CancellationRightsField is a enum.CancellationRights field
 type CancellationRightsField struct{ quickfix.FIXString }
@@ -1676,7 +1664,7 @@ func NewCapPrice(val decimal.Decimal, scale int32) CapPriceField {
 	return CapPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CapPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CapPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CardExpDateField is a LOCALMKTDATE field
 type CardExpDateField struct{ quickfix.FIXString }
@@ -1857,7 +1845,7 @@ func NewCashOrderQty(val decimal.Decimal, scale int32) CashOrderQtyField {
 	return CashOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CashOrderQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CashOrderQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CashOutstandingField is a AMT field
 type CashOutstandingField struct{ quickfix.FIXDecimal }
@@ -1870,7 +1858,7 @@ func NewCashOutstanding(val decimal.Decimal, scale int32) CashOutstandingField {
 	return CashOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CashOutstandingField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CashOutstandingField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CashSettlAgentAcctNameField is a STRING field
 type CashSettlAgentAcctNameField struct{ quickfix.FIXString }
@@ -1961,7 +1949,7 @@ func NewCcyAmt(val decimal.Decimal, scale int32) CcyAmtField {
 	return CcyAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CcyAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CcyAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CheckSumField is a STRING field
 type CheckSumField struct{ quickfix.FIXString }
@@ -2339,7 +2327,7 @@ func NewCommission(val decimal.Decimal, scale int32) CommissionField {
 	return CommissionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CommissionField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CommissionField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ComplexEventConditionField is a enum.ComplexEventCondition field
 type ComplexEventConditionField struct{ quickfix.FIXString }
@@ -2397,7 +2385,7 @@ func NewComplexEventPrice(val decimal.Decimal, scale int32) ComplexEventPriceFie
 	return ComplexEventPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ComplexEventPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ComplexEventPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ComplexEventPriceBoundaryMethodField is a enum.ComplexEventPriceBoundaryMethod field
 type ComplexEventPriceBoundaryMethodField struct{ quickfix.FIXString }
@@ -2428,9 +2416,7 @@ func NewComplexEventPriceBoundaryPrecision(val decimal.Decimal, scale int32) Com
 	return ComplexEventPriceBoundaryPrecisionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ComplexEventPriceBoundaryPrecisionField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f ComplexEventPriceBoundaryPrecisionField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ComplexEventPriceTimeTypeField is a enum.ComplexEventPriceTimeType field
 type ComplexEventPriceTimeTypeField struct{ quickfix.FIXString }
@@ -2500,9 +2486,7 @@ func NewComplexOptPayoutAmount(val decimal.Decimal, scale int32) ComplexOptPayou
 	return ComplexOptPayoutAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ComplexOptPayoutAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f ComplexOptPayoutAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ComplianceIDField is a STRING field
 type ComplianceIDField struct{ quickfix.FIXString }
@@ -2528,7 +2512,7 @@ func NewConcession(val decimal.Decimal, scale int32) ConcessionField {
 	return ConcessionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ConcessionField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ConcessionField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ConfirmIDField is a STRING field
 type ConfirmIDField struct{ quickfix.FIXString }
@@ -2653,7 +2637,7 @@ func NewContAmtValue(val decimal.Decimal, scale int32) ContAmtValueField {
 	return ContAmtValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ContAmtValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ContAmtValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ContIntRptIDField is a STRING field
 type ContIntRptIDField struct{ quickfix.FIXString }
@@ -2782,7 +2766,7 @@ func NewContraTradeQty(val decimal.Decimal, scale int32) ContraTradeQtyField {
 	return ContraTradeQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ContraTradeQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ContraTradeQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ContraTradeTimeField is a UTCTIMESTAMP field
 type ContraTradeTimeField struct{ quickfix.FIXUTCTimestamp }
@@ -2826,7 +2810,7 @@ func NewContractMultiplier(val decimal.Decimal, scale int32) ContractMultiplierF
 	return ContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ContractMultiplierField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ContractMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ContractMultiplierUnitField is a enum.ContractMultiplierUnit field
 type ContractMultiplierUnitField struct{ quickfix.FIXString }
@@ -2943,7 +2927,7 @@ func NewCouponRate(val decimal.Decimal, scale int32) CouponRateField {
 	return CouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CouponRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CouponRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CoveredOrUncoveredField is a enum.CoveredOrUncovered field
 type CoveredOrUncoveredField struct{ quickfix.FIXString }
@@ -2996,7 +2980,7 @@ func NewCrossPercent(val decimal.Decimal, scale int32) CrossPercentField {
 	return CrossPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CrossPercentField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CrossPercentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CrossPrioritizationField is a enum.CrossPrioritization field
 type CrossPrioritizationField struct{ quickfix.FIXString }
@@ -3048,7 +3032,7 @@ func NewCumQty(val decimal.Decimal, scale int32) CumQtyField {
 	return CumQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CumQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CumQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CurrencyField is a CURRENCY field
 type CurrencyField struct{ quickfix.FIXString }
@@ -3074,7 +3058,7 @@ func NewCurrencyRatio(val decimal.Decimal, scale int32) CurrencyRatioField {
 	return CurrencyRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CurrencyRatioField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CurrencyRatioField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CustDirectedOrderField is a BOOLEAN field
 type CustDirectedOrderField struct{ quickfix.FIXBoolean }
@@ -3140,7 +3124,7 @@ func NewCxlQty(val decimal.Decimal, scale int32) CxlQtyField {
 	return CxlQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f CxlQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f CxlQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //CxlRejReasonField is a enum.CxlRejReason field
 type CxlRejReasonField struct{ quickfix.FIXString }
@@ -3227,7 +3211,7 @@ func NewDayAvgPx(val decimal.Decimal, scale int32) DayAvgPxField {
 	return DayAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DayAvgPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DayAvgPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DayBookingInstField is a enum.DayBookingInst field
 type DayBookingInstField struct{ quickfix.FIXString }
@@ -3252,7 +3236,7 @@ func NewDayCumQty(val decimal.Decimal, scale int32) DayCumQtyField {
 	return DayCumQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DayCumQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DayCumQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DayOrderQtyField is a QTY field
 type DayOrderQtyField struct{ quickfix.FIXDecimal }
@@ -3265,7 +3249,7 @@ func NewDayOrderQty(val decimal.Decimal, scale int32) DayOrderQtyField {
 	return DayOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DayOrderQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DayOrderQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DealingCapacityField is a enum.DealingCapacity field
 type DealingCapacityField struct{ quickfix.FIXString }
@@ -3290,7 +3274,7 @@ func NewDefBidSize(val decimal.Decimal, scale int32) DefBidSizeField {
 	return DefBidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DefBidSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DefBidSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DefOfferSizeField is a QTY field
 type DefOfferSizeField struct{ quickfix.FIXDecimal }
@@ -3303,7 +3287,7 @@ func NewDefOfferSize(val decimal.Decimal, scale int32) DefOfferSizeField {
 	return DefOfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DefOfferSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DefOfferSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DefaultApplExtIDField is a INT field
 type DefaultApplExtIDField struct{ quickfix.FIXInt }
@@ -3484,7 +3468,7 @@ func NewDerivativeCapPrice(val decimal.Decimal, scale int32) DerivativeCapPriceF
 	return DerivativeCapPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeCapPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DerivativeCapPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeContractMultiplierField is a FLOAT field
 type DerivativeContractMultiplierField struct{ quickfix.FIXDecimal }
@@ -3497,9 +3481,7 @@ func NewDerivativeContractMultiplier(val decimal.Decimal, scale int32) Derivativ
 	return DerivativeContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeContractMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeContractMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeContractMultiplierUnitField is a INT field
 type DerivativeContractMultiplierUnitField struct{ quickfix.FIXInt }
@@ -3622,7 +3604,7 @@ func NewDerivativeEventPx(val decimal.Decimal, scale int32) DerivativeEventPxFie
 	return DerivativeEventPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeEventPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DerivativeEventPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeEventTextField is a STRING field
 type DerivativeEventTextField struct{ quickfix.FIXString }
@@ -3692,9 +3674,7 @@ func NewDerivativeFloorPrice(val decimal.Decimal, scale int32) DerivativeFloorPr
 	return DerivativeFloorPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeFloorPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeFloorPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeFlowScheduleTypeField is a INT field
 type DerivativeFlowScheduleTypeField struct{ quickfix.FIXInt }
@@ -3953,9 +3933,7 @@ func NewDerivativeMinPriceIncrement(val decimal.Decimal, scale int32) Derivative
 	return DerivativeMinPriceIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeMinPriceIncrementField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeMinPriceIncrementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeMinPriceIncrementAmountField is a AMT field
 type DerivativeMinPriceIncrementAmountField struct{ quickfix.FIXDecimal }
@@ -3970,9 +3948,7 @@ func NewDerivativeMinPriceIncrementAmount(val decimal.Decimal, scale int32) Deri
 	return DerivativeMinPriceIncrementAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeMinPriceIncrementAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeMinPriceIncrementAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeNTPositionLimitField is a INT field
 type DerivativeNTPositionLimitField struct{ quickfix.FIXInt }
@@ -4011,9 +3987,7 @@ func NewDerivativeOptPayAmount(val decimal.Decimal, scale int32) DerivativeOptPa
 	return DerivativeOptPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeOptPayAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeOptPayAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativePositionLimitField is a INT field
 type DerivativePositionLimitField struct{ quickfix.FIXInt }
@@ -4067,9 +4041,7 @@ func NewDerivativePriceUnitOfMeasureQty(val decimal.Decimal, scale int32) Deriva
 	return DerivativePriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativePriceUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativePriceUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeProductField is a INT field
 type DerivativeProductField struct{ quickfix.FIXInt }
@@ -4362,9 +4334,7 @@ func NewDerivativeStrikeMultiplier(val decimal.Decimal, scale int32) DerivativeS
 	return DerivativeStrikeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeStrikeMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeStrikeMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeStrikePriceField is a PRICE field
 type DerivativeStrikePriceField struct{ quickfix.FIXDecimal }
@@ -4377,9 +4347,7 @@ func NewDerivativeStrikePrice(val decimal.Decimal, scale int32) DerivativeStrike
 	return DerivativeStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeStrikePriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeStrikePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeStrikeValueField is a FLOAT field
 type DerivativeStrikeValueField struct{ quickfix.FIXDecimal }
@@ -4392,9 +4360,7 @@ func NewDerivativeStrikeValue(val decimal.Decimal, scale int32) DerivativeStrike
 	return DerivativeStrikeValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeStrikeValueField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeStrikeValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeSymbolField is a STRING field
 type DerivativeSymbolField struct{ quickfix.FIXString }
@@ -4459,9 +4425,7 @@ func NewDerivativeUnitOfMeasureQty(val decimal.Decimal, scale int32) DerivativeU
 	return DerivativeUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DerivativeUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DerivativeUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DerivativeValuationMethodField is a STRING field
 type DerivativeValuationMethodField struct{ quickfix.FIXString }
@@ -4551,7 +4515,7 @@ func NewDetachmentPoint(val decimal.Decimal, scale int32) DetachmentPointField {
 	return DetachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DetachmentPointField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DetachmentPointField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DiscretionInstField is a enum.DiscretionInst field
 type DiscretionInstField struct{ quickfix.FIXString }
@@ -4604,7 +4568,7 @@ func NewDiscretionOffset(val decimal.Decimal, scale int32) DiscretionOffsetField
 	return DiscretionOffsetField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DiscretionOffsetField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DiscretionOffsetField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DiscretionOffsetTypeField is a enum.DiscretionOffsetType field
 type DiscretionOffsetTypeField struct{ quickfix.FIXString }
@@ -4631,9 +4595,7 @@ func NewDiscretionOffsetValue(val decimal.Decimal, scale int32) DiscretionOffset
 	return DiscretionOffsetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DiscretionOffsetValueField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f DiscretionOffsetValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DiscretionPriceField is a PRICE field
 type DiscretionPriceField struct{ quickfix.FIXDecimal }
@@ -4646,7 +4608,7 @@ func NewDiscretionPrice(val decimal.Decimal, scale int32) DiscretionPriceField {
 	return DiscretionPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DiscretionPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DiscretionPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DiscretionRoundDirectionField is a enum.DiscretionRoundDirection field
 type DiscretionRoundDirectionField struct{ quickfix.FIXString }
@@ -4685,7 +4647,7 @@ func NewDisplayHighQty(val decimal.Decimal, scale int32) DisplayHighQtyField {
 	return DisplayHighQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DisplayHighQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DisplayHighQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DisplayLowQtyField is a QTY field
 type DisplayLowQtyField struct{ quickfix.FIXDecimal }
@@ -4698,7 +4660,7 @@ func NewDisplayLowQty(val decimal.Decimal, scale int32) DisplayLowQtyField {
 	return DisplayLowQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DisplayLowQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DisplayLowQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DisplayMethodField is a enum.DisplayMethod field
 type DisplayMethodField struct{ quickfix.FIXString }
@@ -4723,7 +4685,7 @@ func NewDisplayMinIncr(val decimal.Decimal, scale int32) DisplayMinIncrField {
 	return DisplayMinIncrField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DisplayMinIncrField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DisplayMinIncrField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DisplayQtyField is a QTY field
 type DisplayQtyField struct{ quickfix.FIXDecimal }
@@ -4736,7 +4698,7 @@ func NewDisplayQty(val decimal.Decimal, scale int32) DisplayQtyField {
 	return DisplayQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DisplayQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DisplayQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DisplayWhenField is a enum.DisplayWhen field
 type DisplayWhenField struct{ quickfix.FIXString }
@@ -4775,7 +4737,7 @@ func NewDistribPercentage(val decimal.Decimal, scale int32) DistribPercentageFie
 	return DistribPercentageField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DistribPercentageField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DistribPercentageField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DividendYieldField is a PERCENTAGE field
 type DividendYieldField struct{ quickfix.FIXDecimal }
@@ -4788,7 +4750,7 @@ func NewDividendYield(val decimal.Decimal, scale int32) DividendYieldField {
 	return DividendYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f DividendYieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f DividendYieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //DlvyInstField is a STRING field
 type DlvyInstField struct{ quickfix.FIXString }
@@ -4839,7 +4801,7 @@ func NewEFPTrackingError(val decimal.Decimal, scale int32) EFPTrackingErrorField
 	return EFPTrackingErrorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EFPTrackingErrorField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f EFPTrackingErrorField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EffectiveTimeField is a UTCTIMESTAMP field
 type EffectiveTimeField struct{ quickfix.FIXUTCTimestamp }
@@ -5366,9 +5328,7 @@ func NewEndAccruedInterestAmt(val decimal.Decimal, scale int32) EndAccruedIntere
 	return EndAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EndAccruedInterestAmtField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f EndAccruedInterestAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EndCashField is a AMT field
 type EndCashField struct{ quickfix.FIXDecimal }
@@ -5381,7 +5341,7 @@ func NewEndCash(val decimal.Decimal, scale int32) EndCashField {
 	return EndCashField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EndCashField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f EndCashField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EndDateField is a LOCALMKTDATE field
 type EndDateField struct{ quickfix.FIXString }
@@ -5433,7 +5393,7 @@ func NewEndStrikePxRange(val decimal.Decimal, scale int32) EndStrikePxRangeField
 	return EndStrikePxRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EndStrikePxRangeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f EndStrikePxRangeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EndTickPriceRangeField is a PRICE field
 type EndTickPriceRangeField struct{ quickfix.FIXDecimal }
@@ -5446,7 +5406,7 @@ func NewEndTickPriceRange(val decimal.Decimal, scale int32) EndTickPriceRangeFie
 	return EndTickPriceRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EndTickPriceRangeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f EndTickPriceRangeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EventDateField is a LOCALMKTDATE field
 type EventDateField struct{ quickfix.FIXString }
@@ -5472,7 +5432,7 @@ func NewEventPx(val decimal.Decimal, scale int32) EventPxField {
 	return EventPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f EventPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f EventPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //EventTextField is a STRING field
 type EventTextField struct{ quickfix.FIXString }
@@ -5669,9 +5629,7 @@ func NewExecPriceAdjustment(val decimal.Decimal, scale int32) ExecPriceAdjustmen
 	return ExecPriceAdjustmentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ExecPriceAdjustmentField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f ExecPriceAdjustmentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ExecPriceTypeField is a enum.ExecPriceType field
 type ExecPriceTypeField struct{ quickfix.FIXString }
@@ -5789,7 +5747,7 @@ func NewExpQty(val decimal.Decimal, scale int32) ExpQtyField {
 	return ExpQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ExpQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ExpQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ExpTypeField is a enum.ExpType field
 type ExpTypeField struct{ quickfix.FIXString }
@@ -5871,7 +5829,7 @@ func NewFactor(val decimal.Decimal, scale int32) FactorField {
 	return FactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FactorField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FactorField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FairValueField is a AMT field
 type FairValueField struct{ quickfix.FIXDecimal }
@@ -5884,7 +5842,7 @@ func NewFairValue(val decimal.Decimal, scale int32) FairValueField {
 	return FairValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FairValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FairValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FeeMultiplierField is a FLOAT field
 type FeeMultiplierField struct{ quickfix.FIXDecimal }
@@ -5897,7 +5855,7 @@ func NewFeeMultiplier(val decimal.Decimal, scale int32) FeeMultiplierField {
 	return FeeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FeeMultiplierField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FeeMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FillExecIDField is a STRING field
 type FillExecIDField struct{ quickfix.FIXString }
@@ -5936,7 +5894,7 @@ func NewFillPx(val decimal.Decimal, scale int32) FillPxField {
 	return FillPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FillPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FillPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FillQtyField is a QTY field
 type FillQtyField struct{ quickfix.FIXDecimal }
@@ -5949,7 +5907,7 @@ func NewFillQty(val decimal.Decimal, scale int32) FillQtyField {
 	return FillQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FillQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FillQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FinancialStatusField is a enum.FinancialStatus field
 type FinancialStatusField struct{ quickfix.FIXString }
@@ -5987,7 +5945,7 @@ func NewFirstPx(val decimal.Decimal, scale int32) FirstPxField {
 	return FirstPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FirstPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FirstPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FlexProductEligibilityIndicatorField is a BOOLEAN field
 type FlexProductEligibilityIndicatorField struct{ quickfix.FIXBoolean }
@@ -6028,7 +5986,7 @@ func NewFloorPrice(val decimal.Decimal, scale int32) FloorPriceField {
 	return FloorPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f FloorPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f FloorPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //FlowScheduleTypeField is a enum.FlowScheduleType field
 type FlowScheduleTypeField struct{ quickfix.FIXString }
@@ -6143,7 +6101,7 @@ func NewGrossTradeAmt(val decimal.Decimal, scale int32) GrossTradeAmtField {
 	return GrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f GrossTradeAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f GrossTradeAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //HaltReasonCharField is a enum.HaltReasonChar field
 type HaltReasonCharField struct{ quickfix.FIXString }
@@ -6218,7 +6176,7 @@ func NewHighLimitPrice(val decimal.Decimal, scale int32) HighLimitPriceField {
 	return HighLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f HighLimitPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f HighLimitPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //HighPxField is a PRICE field
 type HighPxField struct{ quickfix.FIXDecimal }
@@ -6231,7 +6189,7 @@ func NewHighPx(val decimal.Decimal, scale int32) HighPxField {
 	return HighPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f HighPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f HighPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //HopCompIDField is a STRING field
 type HopCompIDField struct{ quickfix.FIXString }
@@ -6657,7 +6615,7 @@ func NewInterestAtMaturity(val decimal.Decimal, scale int32) InterestAtMaturityF
 	return InterestAtMaturityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f InterestAtMaturityField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f InterestAtMaturityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //InvestorCountryOfResidenceField is a COUNTRY field
 type InvestorCountryOfResidenceField struct{ quickfix.FIXString }
@@ -6734,7 +6692,7 @@ func NewLastForwardPoints(val decimal.Decimal, scale int32) LastForwardPointsFie
 	return LastForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastForwardPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastForwardPoints2Field is a PRICEOFFSET field
 type LastForwardPoints2Field struct{ quickfix.FIXDecimal }
@@ -6747,7 +6705,7 @@ func NewLastForwardPoints2(val decimal.Decimal, scale int32) LastForwardPoints2F
 	return LastForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastForwardPoints2Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastForwardPoints2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastFragmentField is a BOOLEAN field
 type LastFragmentField struct{ quickfix.FIXBoolean }
@@ -6824,7 +6782,7 @@ func NewLastParPx(val decimal.Decimal, scale int32) LastParPxField {
 	return LastParPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastParPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastParPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastPxField is a PRICE field
 type LastPxField struct{ quickfix.FIXDecimal }
@@ -6837,7 +6795,7 @@ func NewLastPx(val decimal.Decimal, scale int32) LastPxField {
 	return LastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastQtyField is a QTY field
 type LastQtyField struct{ quickfix.FIXDecimal }
@@ -6850,7 +6808,7 @@ func NewLastQty(val decimal.Decimal, scale int32) LastQtyField {
 	return LastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastRptRequestedField is a BOOLEAN field
 type LastRptRequestedField struct{ quickfix.FIXBoolean }
@@ -6876,7 +6834,7 @@ func NewLastShares(val decimal.Decimal, scale int32) LastSharesField {
 	return LastSharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastSharesField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastSharesField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastSpotRateField is a PRICE field
 type LastSpotRateField struct{ quickfix.FIXDecimal }
@@ -6889,7 +6847,7 @@ func NewLastSpotRate(val decimal.Decimal, scale int32) LastSpotRateField {
 	return LastSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastSpotRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastSpotRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastSwapPointsField is a PRICEOFFSET field
 type LastSwapPointsField struct{ quickfix.FIXDecimal }
@@ -6902,7 +6860,7 @@ func NewLastSwapPoints(val decimal.Decimal, scale int32) LastSwapPointsField {
 	return LastSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LastSwapPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LastSwapPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LastUpdateTimeField is a UTCTIMESTAMP field
 type LastUpdateTimeField struct{ quickfix.FIXUTCTimestamp }
@@ -6946,7 +6904,7 @@ func NewLeavesQty(val decimal.Decimal, scale int32) LeavesQtyField {
 	return LeavesQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LeavesQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LeavesQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegAllocAccountField is a STRING field
 type LegAllocAccountField struct{ quickfix.FIXString }
@@ -6998,7 +6956,7 @@ func NewLegAllocQty(val decimal.Decimal, scale int32) LegAllocQtyField {
 	return LegAllocQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegAllocQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegAllocQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegAllocSettlCurrencyField is a CURRENCY field
 type LegAllocSettlCurrencyField struct{ quickfix.FIXString }
@@ -7063,7 +7021,7 @@ func NewLegBenchmarkPrice(val decimal.Decimal, scale int32) LegBenchmarkPriceFie
 	return LegBenchmarkPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegBenchmarkPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegBenchmarkPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegBenchmarkPriceTypeField is a INT field
 type LegBenchmarkPriceTypeField struct{ quickfix.FIXInt }
@@ -7089,9 +7047,7 @@ func NewLegBidForwardPoints(val decimal.Decimal, scale int32) LegBidForwardPoint
 	return LegBidForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegBidForwardPointsField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegBidForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegBidPxField is a PRICE field
 type LegBidPxField struct{ quickfix.FIXDecimal }
@@ -7104,7 +7060,7 @@ func NewLegBidPx(val decimal.Decimal, scale int32) LegBidPxField {
 	return LegBidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegBidPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegBidPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegCFICodeField is a STRING field
 type LegCFICodeField struct{ quickfix.FIXString }
@@ -7130,9 +7086,7 @@ func NewLegCalculatedCcyLastQty(val decimal.Decimal, scale int32) LegCalculatedC
 	return LegCalculatedCcyLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegCalculatedCcyLastQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegCalculatedCcyLastQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegContractMultiplierField is a FLOAT field
 type LegContractMultiplierField struct{ quickfix.FIXDecimal }
@@ -7145,9 +7099,7 @@ func NewLegContractMultiplier(val decimal.Decimal, scale int32) LegContractMulti
 	return LegContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegContractMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegContractMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegContractMultiplierUnitField is a INT field
 type LegContractMultiplierUnitField struct{ quickfix.FIXInt }
@@ -7212,7 +7164,7 @@ func NewLegCouponRate(val decimal.Decimal, scale int32) LegCouponRateField {
 	return LegCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegCouponRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegCouponRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegCoveredOrUncoveredField is a INT field
 type LegCoveredOrUncoveredField struct{ quickfix.FIXInt }
@@ -7264,7 +7216,7 @@ func NewLegCurrencyRatio(val decimal.Decimal, scale int32) LegCurrencyRatioField
 	return LegCurrencyRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegCurrencyRatioField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegCurrencyRatioField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegDatedDateField is a LOCALMKTDATE field
 type LegDatedDateField struct{ quickfix.FIXString }
@@ -7290,7 +7242,7 @@ func NewLegDividendYield(val decimal.Decimal, scale int32) LegDividendYieldField
 	return LegDividendYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegDividendYieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegDividendYieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegExecInstField is a MULTIPLECHARVALUE field
 type LegExecInstField struct{ quickfix.FIXString }
@@ -7329,7 +7281,7 @@ func NewLegFactor(val decimal.Decimal, scale int32) LegFactorField {
 	return LegFactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegFactorField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegFactorField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegFlowScheduleTypeField is a INT field
 type LegFlowScheduleTypeField struct{ quickfix.FIXInt }
@@ -7368,7 +7320,7 @@ func NewLegGrossTradeAmt(val decimal.Decimal, scale int32) LegGrossTradeAmtField
 	return LegGrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegGrossTradeAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegGrossTradeAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegIOIQtyField is a STRING field
 type LegIOIQtyField struct{ quickfix.FIXString }
@@ -7459,9 +7411,7 @@ func NewLegLastForwardPoints(val decimal.Decimal, scale int32) LegLastForwardPoi
 	return LegLastForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegLastForwardPointsField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegLastForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegLastPxField is a PRICE field
 type LegLastPxField struct{ quickfix.FIXDecimal }
@@ -7474,7 +7424,7 @@ func NewLegLastPx(val decimal.Decimal, scale int32) LegLastPxField {
 	return LegLastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegLastPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegLastPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegLastQtyField is a QTY field
 type LegLastQtyField struct{ quickfix.FIXDecimal }
@@ -7487,7 +7437,7 @@ func NewLegLastQty(val decimal.Decimal, scale int32) LegLastQtyField {
 	return LegLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegLastQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegLastQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegLocaleOfIssueField is a STRING field
 type LegLocaleOfIssueField struct{ quickfix.FIXString }
@@ -7565,9 +7515,7 @@ func NewLegOfferForwardPoints(val decimal.Decimal, scale int32) LegOfferForwardP
 	return LegOfferForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegOfferForwardPointsField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegOfferForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegOfferPxField is a PRICE field
 type LegOfferPxField struct{ quickfix.FIXDecimal }
@@ -7580,7 +7528,7 @@ func NewLegOfferPx(val decimal.Decimal, scale int32) LegOfferPxField {
 	return LegOfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegOfferPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegOfferPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegOptAttributeField is a CHAR field
 type LegOptAttributeField struct{ quickfix.FIXString }
@@ -7606,7 +7554,7 @@ func NewLegOptionRatio(val decimal.Decimal, scale int32) LegOptionRatioField {
 	return LegOptionRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegOptionRatioField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegOptionRatioField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegOrderQtyField is a QTY field
 type LegOrderQtyField struct{ quickfix.FIXDecimal }
@@ -7619,7 +7567,7 @@ func NewLegOrderQty(val decimal.Decimal, scale int32) LegOrderQtyField {
 	return LegOrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegOrderQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegOrderQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegPoolField is a STRING field
 type LegPoolField struct{ quickfix.FIXString }
@@ -7658,7 +7606,7 @@ func NewLegPrice(val decimal.Decimal, scale int32) LegPriceField {
 	return LegPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegPriceTypeField is a INT field
 type LegPriceTypeField struct{ quickfix.FIXInt }
@@ -7697,9 +7645,7 @@ func NewLegPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) LegPriceUnitO
 	return LegPriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegPriceUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegPriceUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegProductField is a INT field
 type LegProductField struct{ quickfix.FIXInt }
@@ -7738,7 +7684,7 @@ func NewLegQty(val decimal.Decimal, scale int32) LegQtyField {
 	return LegQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegRatioQtyField is a FLOAT field
 type LegRatioQtyField struct{ quickfix.FIXDecimal }
@@ -7751,7 +7697,7 @@ func NewLegRatioQty(val decimal.Decimal, scale int32) LegRatioQtyField {
 	return LegRatioQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegRatioQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegRatioQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegRedemptionDateField is a LOCALMKTDATE field
 type LegRedemptionDateField struct{ quickfix.FIXString }
@@ -7818,7 +7764,7 @@ func NewLegRepurchaseRate(val decimal.Decimal, scale int32) LegRepurchaseRateFie
 	return LegRepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegRepurchaseRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegRepurchaseRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegRepurchaseTermField is a INT field
 type LegRepurchaseTermField struct{ quickfix.FIXInt }
@@ -8065,7 +8011,7 @@ func NewLegStrikePrice(val decimal.Decimal, scale int32) LegStrikePriceField {
 	return LegStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegStrikePriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegStrikePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegSwapTypeField is a enum.LegSwapType field
 type LegSwapTypeField struct{ quickfix.FIXString }
@@ -8142,9 +8088,7 @@ func NewLegUnitOfMeasureQty(val decimal.Decimal, scale int32) LegUnitOfMeasureQt
 	return LegUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f LegUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegVolatilityField is a FLOAT field
 type LegVolatilityField struct{ quickfix.FIXDecimal }
@@ -8157,7 +8101,7 @@ func NewLegVolatility(val decimal.Decimal, scale int32) LegVolatilityField {
 	return LegVolatilityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LegVolatilityField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LegVolatilityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LegalConfirmField is a BOOLEAN field
 type LegalConfirmField struct{ quickfix.FIXBoolean }
@@ -8221,7 +8165,7 @@ func NewLiquidityPctHigh(val decimal.Decimal, scale int32) LiquidityPctHighField
 	return LiquidityPctHighField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LiquidityPctHighField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LiquidityPctHighField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LiquidityPctLowField is a PERCENTAGE field
 type LiquidityPctLowField struct{ quickfix.FIXDecimal }
@@ -8234,7 +8178,7 @@ func NewLiquidityPctLow(val decimal.Decimal, scale int32) LiquidityPctLowField {
 	return LiquidityPctLowField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LiquidityPctLowField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LiquidityPctLowField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LiquidityValueField is a AMT field
 type LiquidityValueField struct{ quickfix.FIXDecimal }
@@ -8247,7 +8191,7 @@ func NewLiquidityValue(val decimal.Decimal, scale int32) LiquidityValueField {
 	return LiquidityValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LiquidityValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LiquidityValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ListExecInstField is a STRING field
 type ListExecInstField struct{ quickfix.FIXString }
@@ -8450,7 +8394,7 @@ func NewLongQty(val decimal.Decimal, scale int32) LongQtyField {
 	return LongQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LongQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LongQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LotTypeField is a enum.LotType field
 type LotTypeField struct{ quickfix.FIXString }
@@ -8475,7 +8419,7 @@ func NewLowLimitPrice(val decimal.Decimal, scale int32) LowLimitPriceField {
 	return LowLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LowLimitPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LowLimitPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //LowPxField is a PRICE field
 type LowPxField struct{ quickfix.FIXDecimal }
@@ -8488,7 +8432,7 @@ func NewLowPx(val decimal.Decimal, scale int32) LowPxField {
 	return LowPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f LowPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f LowPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDBookTypeField is a enum.MDBookType field
 type MDBookTypeField struct{ quickfix.FIXString }
@@ -8539,9 +8483,7 @@ func NewMDEntryForwardPoints(val decimal.Decimal, scale int32) MDEntryForwardPoi
 	return MDEntryForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MDEntryForwardPointsField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f MDEntryForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDEntryIDField is a STRING field
 type MDEntryIDField struct{ quickfix.FIXString }
@@ -8593,7 +8535,7 @@ func NewMDEntryPx(val decimal.Decimal, scale int32) MDEntryPxField {
 	return MDEntryPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MDEntryPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MDEntryPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDEntryRefIDField is a STRING field
 type MDEntryRefIDField struct{ quickfix.FIXString }
@@ -8632,7 +8574,7 @@ func NewMDEntrySize(val decimal.Decimal, scale int32) MDEntrySizeField {
 	return MDEntrySizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MDEntrySizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MDEntrySizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDEntrySpotRateField is a FLOAT field
 type MDEntrySpotRateField struct{ quickfix.FIXDecimal }
@@ -8645,7 +8587,7 @@ func NewMDEntrySpotRate(val decimal.Decimal, scale int32) MDEntrySpotRateField {
 	return MDEntrySpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MDEntrySpotRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MDEntrySpotRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDEntryTimeField is a UTCTIMEONLY field
 type MDEntryTimeField struct{ quickfix.FIXString }
@@ -8797,7 +8739,7 @@ func NewMDSecSize(val decimal.Decimal, scale int32) MDSecSizeField {
 	return MDSecSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MDSecSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MDSecSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MDSecSizeTypeField is a enum.MDSecSizeType field
 type MDSecSizeTypeField struct{ quickfix.FIXString }
@@ -8911,7 +8853,7 @@ func NewMarginExcess(val decimal.Decimal, scale int32) MarginExcessField {
 	return MarginExcessField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MarginExcessField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MarginExcessField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MarginRatioField is a PERCENTAGE field
 type MarginRatioField struct{ quickfix.FIXDecimal }
@@ -8924,7 +8866,7 @@ func NewMarginRatio(val decimal.Decimal, scale int32) MarginRatioField {
 	return MarginRatioField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MarginRatioField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MarginRatioField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MarketDepthField is a INT field
 type MarketDepthField struct{ quickfix.FIXInt }
@@ -9176,7 +9118,7 @@ func NewMatchIncrement(val decimal.Decimal, scale int32) MatchIncrementField {
 	return MatchIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MatchIncrementField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MatchIncrementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MatchStatusField is a enum.MatchStatus field
 type MatchStatusField struct{ quickfix.FIXString }
@@ -9295,7 +9237,7 @@ func NewMaturityNetMoney(val decimal.Decimal, scale int32) MaturityNetMoneyField
 	return MaturityNetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MaturityNetMoneyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MaturityNetMoneyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MaturityRuleIDField is a STRING field
 type MaturityRuleIDField struct{ quickfix.FIXString }
@@ -9334,7 +9276,7 @@ func NewMaxFloor(val decimal.Decimal, scale int32) MaxFloorField {
 	return MaxFloorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MaxFloorField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MaxFloorField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MaxMessageSizeField is a LENGTH field
 type MaxMessageSizeField struct{ quickfix.FIXInt }
@@ -9373,7 +9315,7 @@ func NewMaxPriceVariation(val decimal.Decimal, scale int32) MaxPriceVariationFie
 	return MaxPriceVariationField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MaxPriceVariationField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MaxPriceVariationField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MaxShowField is a QTY field
 type MaxShowField struct{ quickfix.FIXDecimal }
@@ -9386,7 +9328,7 @@ func NewMaxShow(val decimal.Decimal, scale int32) MaxShowField {
 	return MaxShowField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MaxShowField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MaxShowField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MaxTradeVolField is a QTY field
 type MaxTradeVolField struct{ quickfix.FIXDecimal }
@@ -9399,7 +9341,7 @@ func NewMaxTradeVol(val decimal.Decimal, scale int32) MaxTradeVolField {
 	return MaxTradeVolField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MaxTradeVolField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MaxTradeVolField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MessageEncodingField is a enum.MessageEncoding field
 type MessageEncodingField struct{ quickfix.FIXString }
@@ -9437,7 +9379,7 @@ func NewMidPx(val decimal.Decimal, scale int32) MidPxField {
 	return MidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MidPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MidPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MidYieldField is a PERCENTAGE field
 type MidYieldField struct{ quickfix.FIXDecimal }
@@ -9450,7 +9392,7 @@ func NewMidYield(val decimal.Decimal, scale int32) MidYieldField {
 	return MidYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MidYieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MidYieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinBidSizeField is a QTY field
 type MinBidSizeField struct{ quickfix.FIXDecimal }
@@ -9463,7 +9405,7 @@ func NewMinBidSize(val decimal.Decimal, scale int32) MinBidSizeField {
 	return MinBidSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinBidSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinBidSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinLotSizeField is a QTY field
 type MinLotSizeField struct{ quickfix.FIXDecimal }
@@ -9476,7 +9418,7 @@ func NewMinLotSize(val decimal.Decimal, scale int32) MinLotSizeField {
 	return MinLotSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinLotSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinLotSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinOfferSizeField is a QTY field
 type MinOfferSizeField struct{ quickfix.FIXDecimal }
@@ -9489,7 +9431,7 @@ func NewMinOfferSize(val decimal.Decimal, scale int32) MinOfferSizeField {
 	return MinOfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinOfferSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinOfferSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinPriceIncrementField is a FLOAT field
 type MinPriceIncrementField struct{ quickfix.FIXDecimal }
@@ -9502,7 +9444,7 @@ func NewMinPriceIncrement(val decimal.Decimal, scale int32) MinPriceIncrementFie
 	return MinPriceIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinPriceIncrementField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinPriceIncrementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinPriceIncrementAmountField is a AMT field
 type MinPriceIncrementAmountField struct{ quickfix.FIXDecimal }
@@ -9515,9 +9457,7 @@ func NewMinPriceIncrementAmount(val decimal.Decimal, scale int32) MinPriceIncrem
 	return MinPriceIncrementAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinPriceIncrementAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f MinPriceIncrementAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinQtyField is a QTY field
 type MinQtyField struct{ quickfix.FIXDecimal }
@@ -9530,7 +9470,7 @@ func NewMinQty(val decimal.Decimal, scale int32) MinQtyField {
 	return MinQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MinTradeVolField is a QTY field
 type MinTradeVolField struct{ quickfix.FIXDecimal }
@@ -9543,7 +9483,7 @@ func NewMinTradeVol(val decimal.Decimal, scale int32) MinTradeVolField {
 	return MinTradeVolField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MinTradeVolField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MinTradeVolField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MiscFeeAmtField is a AMT field
 type MiscFeeAmtField struct{ quickfix.FIXDecimal }
@@ -9556,7 +9496,7 @@ func NewMiscFeeAmt(val decimal.Decimal, scale int32) MiscFeeAmtField {
 	return MiscFeeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MiscFeeAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MiscFeeAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MiscFeeBasisField is a enum.MiscFeeBasis field
 type MiscFeeBasisField struct{ quickfix.FIXString }
@@ -9606,7 +9546,7 @@ func NewMktBidPx(val decimal.Decimal, scale int32) MktBidPxField {
 	return MktBidPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MktBidPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MktBidPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //MktOfferPxField is a PRICE field
 type MktOfferPxField struct{ quickfix.FIXDecimal }
@@ -9619,7 +9559,7 @@ func NewMktOfferPx(val decimal.Decimal, scale int32) MktOfferPxField {
 	return MktOfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f MktOfferPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f MktOfferPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ModelTypeField is a enum.ModelType field
 type ModelTypeField struct{ quickfix.FIXString }
@@ -10048,7 +9988,7 @@ func NewNetChgPrevDay(val decimal.Decimal, scale int32) NetChgPrevDayField {
 	return NetChgPrevDayField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f NetChgPrevDayField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f NetChgPrevDayField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //NetGrossIndField is a enum.NetGrossInd field
 type NetGrossIndField struct{ quickfix.FIXString }
@@ -10073,7 +10013,7 @@ func NewNetMoney(val decimal.Decimal, scale int32) NetMoneyField {
 	return NetMoneyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f NetMoneyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f NetMoneyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //NetworkRequestIDField is a STRING field
 type NetworkRequestIDField struct{ quickfix.FIXString }
@@ -11943,9 +11883,7 @@ func NewNotionalPercentageOutstanding(val decimal.Decimal, scale int32) Notional
 	return NotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f NotionalPercentageOutstandingField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f NotionalPercentageOutstandingField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //NumBiddersField is a INT field
 type NumBiddersField struct{ quickfix.FIXInt }
@@ -12023,7 +11961,7 @@ func NewOfferForwardPoints(val decimal.Decimal, scale int32) OfferForwardPointsF
 	return OfferForwardPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferForwardPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferForwardPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferForwardPoints2Field is a PRICEOFFSET field
 type OfferForwardPoints2Field struct{ quickfix.FIXDecimal }
@@ -12036,9 +11974,7 @@ func NewOfferForwardPoints2(val decimal.Decimal, scale int32) OfferForwardPoints
 	return OfferForwardPoints2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferForwardPoints2Field) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f OfferForwardPoints2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferPxField is a PRICE field
 type OfferPxField struct{ quickfix.FIXDecimal }
@@ -12051,7 +11987,7 @@ func NewOfferPx(val decimal.Decimal, scale int32) OfferPxField {
 	return OfferPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferSizeField is a QTY field
 type OfferSizeField struct{ quickfix.FIXDecimal }
@@ -12064,7 +12000,7 @@ func NewOfferSize(val decimal.Decimal, scale int32) OfferSizeField {
 	return OfferSizeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferSizeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferSizeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferSpotRateField is a PRICE field
 type OfferSpotRateField struct{ quickfix.FIXDecimal }
@@ -12077,7 +12013,7 @@ func NewOfferSpotRate(val decimal.Decimal, scale int32) OfferSpotRateField {
 	return OfferSpotRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferSpotRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferSpotRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferSwapPointsField is a PRICEOFFSET field
 type OfferSwapPointsField struct{ quickfix.FIXDecimal }
@@ -12090,7 +12026,7 @@ func NewOfferSwapPoints(val decimal.Decimal, scale int32) OfferSwapPointsField {
 	return OfferSwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferSwapPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferSwapPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OfferYieldField is a PERCENTAGE field
 type OfferYieldField struct{ quickfix.FIXDecimal }
@@ -12103,7 +12039,7 @@ func NewOfferYield(val decimal.Decimal, scale int32) OfferYieldField {
 	return OfferYieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OfferYieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OfferYieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OnBehalfOfCompIDField is a STRING field
 type OnBehalfOfCompIDField struct{ quickfix.FIXString }
@@ -12213,7 +12149,7 @@ func NewOpenInterest(val decimal.Decimal, scale int32) OpenInterestField {
 	return OpenInterestField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OpenInterestField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OpenInterestField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OptAttributeField is a CHAR field
 type OptAttributeField struct{ quickfix.FIXString }
@@ -12239,7 +12175,7 @@ func NewOptPayAmount(val decimal.Decimal, scale int32) OptPayAmountField {
 	return OptPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OptPayAmountField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OptPayAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OptPayoutAmountField is a AMT field
 type OptPayoutAmountField struct{ quickfix.FIXDecimal }
@@ -12252,7 +12188,7 @@ func NewOptPayoutAmount(val decimal.Decimal, scale int32) OptPayoutAmountField {
 	return OptPayoutAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OptPayoutAmountField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OptPayoutAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OptPayoutTypeField is a enum.OptPayoutType field
 type OptPayoutTypeField struct{ quickfix.FIXString }
@@ -12326,7 +12262,7 @@ func NewOrderAvgPx(val decimal.Decimal, scale int32) OrderAvgPxField {
 	return OrderAvgPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderAvgPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderAvgPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderBookingQtyField is a QTY field
 type OrderBookingQtyField struct{ quickfix.FIXDecimal }
@@ -12339,7 +12275,7 @@ func NewOrderBookingQty(val decimal.Decimal, scale int32) OrderBookingQtyField {
 	return OrderBookingQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderBookingQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderBookingQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderCapacityField is a enum.OrderCapacity field
 type OrderCapacityField struct{ quickfix.FIXString }
@@ -12364,7 +12300,7 @@ func NewOrderCapacityQty(val decimal.Decimal, scale int32) OrderCapacityQtyField
 	return OrderCapacityQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderCapacityQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderCapacityQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderCategoryField is a enum.OrderCategory field
 type OrderCategoryField struct{ quickfix.FIXString }
@@ -12454,7 +12390,7 @@ func NewOrderPercent(val decimal.Decimal, scale int32) OrderPercentField {
 	return OrderPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderPercentField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderPercentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderQtyField is a QTY field
 type OrderQtyField struct{ quickfix.FIXDecimal }
@@ -12467,7 +12403,7 @@ func NewOrderQty(val decimal.Decimal, scale int32) OrderQtyField {
 	return OrderQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderQty2Field is a QTY field
 type OrderQty2Field struct{ quickfix.FIXDecimal }
@@ -12480,7 +12416,7 @@ func NewOrderQty2(val decimal.Decimal, scale int32) OrderQty2Field {
 	return OrderQty2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OrderQty2Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OrderQty2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OrderRestrictionsField is a enum.OrderRestrictions field
 type OrderRestrictionsField struct{ quickfix.FIXString }
@@ -12668,9 +12604,7 @@ func NewOriginalNotionalPercentageOutstanding(val decimal.Decimal, scale int32) 
 	return OriginalNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OriginalNotionalPercentageOutstandingField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f OriginalNotionalPercentageOutstandingField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OutMainCntryUIndexField is a AMT field
 type OutMainCntryUIndexField struct{ quickfix.FIXDecimal }
@@ -12683,7 +12617,7 @@ func NewOutMainCntryUIndex(val decimal.Decimal, scale int32) OutMainCntryUIndexF
 	return OutMainCntryUIndexField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OutMainCntryUIndexField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OutMainCntryUIndexField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OutsideIndexPctField is a PERCENTAGE field
 type OutsideIndexPctField struct{ quickfix.FIXDecimal }
@@ -12696,7 +12630,7 @@ func NewOutsideIndexPct(val decimal.Decimal, scale int32) OutsideIndexPctField {
 	return OutsideIndexPctField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f OutsideIndexPctField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f OutsideIndexPctField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //OwnerTypeField is a enum.OwnerType field
 type OwnerTypeField struct{ quickfix.FIXString }
@@ -12746,7 +12680,7 @@ func NewParticipationRate(val decimal.Decimal, scale int32) ParticipationRateFie
 	return ParticipationRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ParticipationRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ParticipationRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PartyAltIDField is a STRING field
 type PartyAltIDField struct{ quickfix.FIXString }
@@ -13005,7 +12939,7 @@ func NewPctAtRisk(val decimal.Decimal, scale int32) PctAtRiskField {
 	return PctAtRiskField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PctAtRiskField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PctAtRiskField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PegDifferenceField is a PRICEOFFSET field
 type PegDifferenceField struct{ quickfix.FIXDecimal }
@@ -13018,7 +12952,7 @@ func NewPegDifference(val decimal.Decimal, scale int32) PegDifferenceField {
 	return PegDifferenceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PegDifferenceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PegDifferenceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PegLimitTypeField is a enum.PegLimitType field
 type PegLimitTypeField struct{ quickfix.FIXString }
@@ -13067,7 +13001,7 @@ func NewPegOffsetValue(val decimal.Decimal, scale int32) PegOffsetValueField {
 	return PegOffsetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PegOffsetValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PegOffsetValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PegPriceTypeField is a enum.PegPriceType field
 type PegPriceTypeField struct{ quickfix.FIXString }
@@ -13170,7 +13104,7 @@ func NewPeggedPrice(val decimal.Decimal, scale int32) PeggedPriceField {
 	return PeggedPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PeggedPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PeggedPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PeggedRefPriceField is a PRICE field
 type PeggedRefPriceField struct{ quickfix.FIXDecimal }
@@ -13183,7 +13117,7 @@ func NewPeggedRefPrice(val decimal.Decimal, scale int32) PeggedRefPriceField {
 	return PeggedRefPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PeggedRefPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PeggedRefPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PoolField is a STRING field
 type PoolField struct{ quickfix.FIXString }
@@ -13209,7 +13143,7 @@ func NewPosAmt(val decimal.Decimal, scale int32) PosAmtField {
 	return PosAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PosAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PosAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PosAmtTypeField is a enum.PosAmtType field
 type PosAmtTypeField struct{ quickfix.FIXString }
@@ -13470,7 +13404,7 @@ func NewPrevClosePx(val decimal.Decimal, scale int32) PrevClosePxField {
 	return PrevClosePxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PrevClosePxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PrevClosePxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PreviouslyReportedField is a BOOLEAN field
 type PreviouslyReportedField struct{ quickfix.FIXBoolean }
@@ -13496,7 +13430,7 @@ func NewPrice(val decimal.Decimal, scale int32) PriceField {
 	return PriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //Price2Field is a PRICE field
 type Price2Field struct{ quickfix.FIXDecimal }
@@ -13509,7 +13443,7 @@ func NewPrice2(val decimal.Decimal, scale int32) Price2Field {
 	return Price2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f Price2Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f Price2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PriceDeltaField is a FLOAT field
 type PriceDeltaField struct{ quickfix.FIXDecimal }
@@ -13522,7 +13456,7 @@ func NewPriceDelta(val decimal.Decimal, scale int32) PriceDeltaField {
 	return PriceDeltaField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PriceDeltaField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PriceDeltaField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PriceImprovementField is a PRICEOFFSET field
 type PriceImprovementField struct{ quickfix.FIXDecimal }
@@ -13535,7 +13469,7 @@ func NewPriceImprovement(val decimal.Decimal, scale int32) PriceImprovementField
 	return PriceImprovementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PriceImprovementField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PriceImprovementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PriceLimitTypeField is a enum.PriceLimitType field
 type PriceLimitTypeField struct{ quickfix.FIXString }
@@ -13611,9 +13545,7 @@ func NewPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) PriceUnitOfMeasu
 	return PriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PriceUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f PriceUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PriorSettlPriceField is a PRICE field
 type PriorSettlPriceField struct{ quickfix.FIXDecimal }
@@ -13626,7 +13558,7 @@ func NewPriorSettlPrice(val decimal.Decimal, scale int32) PriorSettlPriceField {
 	return PriorSettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f PriorSettlPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f PriorSettlPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //PriorSpreadIndicatorField is a BOOLEAN field
 type PriorSpreadIndicatorField struct{ quickfix.FIXBoolean }
@@ -13778,7 +13710,7 @@ func NewQuantity(val decimal.Decimal, scale int32) QuantityField {
 	return QuantityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f QuantityField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f QuantityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //QuantityDateField is a LOCALMKTDATE field
 type QuantityDateField struct{ quickfix.FIXString }
@@ -14139,7 +14071,7 @@ func NewRatioQty(val decimal.Decimal, scale int32) RatioQtyField {
 	return RatioQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RatioQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RatioQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RawDataField is a DATA field
 type RawDataField struct{ quickfix.FIXString }
@@ -14423,7 +14355,7 @@ func NewRefreshQty(val decimal.Decimal, scale int32) RefreshQtyField {
 	return RefreshQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RefreshQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RefreshQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RegistAcctTypeField is a STRING field
 type RegistAcctTypeField struct{ quickfix.FIXString }
@@ -14804,9 +14736,7 @@ func NewRelationshipRiskCouponRate(val decimal.Decimal, scale int32) Relationshi
 	return RelationshipRiskCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RelationshipRiskCouponRateField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RelationshipRiskCouponRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RelationshipRiskEncodedSecurityDescField is a DATA field
 type RelationshipRiskEncodedSecurityDescField struct{ quickfix.FIXString }
@@ -14866,9 +14796,7 @@ func NewRelationshipRiskInstrumentMultiplier(val decimal.Decimal, scale int32) R
 	return RelationshipRiskInstrumentMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RelationshipRiskInstrumentMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RelationshipRiskInstrumentMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RelationshipRiskInstrumentOperatorField is a INT field
 type RelationshipRiskInstrumentOperatorField struct{ quickfix.FIXInt }
@@ -14911,9 +14839,7 @@ func NewRelationshipRiskLimitAmount(val decimal.Decimal, scale int32) Relationsh
 	return RelationshipRiskLimitAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RelationshipRiskLimitAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RelationshipRiskLimitAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RelationshipRiskLimitCurrencyField is a CURRENCY field
 type RelationshipRiskLimitCurrencyField struct{ quickfix.FIXString }
@@ -15238,9 +15164,7 @@ func NewRelationshipRiskWarningLevelPercent(val decimal.Decimal, scale int32) Re
 	return RelationshipRiskWarningLevelPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RelationshipRiskWarningLevelPercentField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RelationshipRiskWarningLevelPercentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RepoCollateralSecurityTypeField is a INT field
 type RepoCollateralSecurityTypeField struct{ quickfix.FIXInt }
@@ -15279,7 +15203,7 @@ func NewReportedPx(val decimal.Decimal, scale int32) ReportedPxField {
 	return ReportedPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ReportedPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ReportedPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ReportedPxDiffField is a BOOLEAN field
 type ReportedPxDiffField struct{ quickfix.FIXBoolean }
@@ -15305,7 +15229,7 @@ func NewRepurchaseRate(val decimal.Decimal, scale int32) RepurchaseRateField {
 	return RepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RepurchaseRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RepurchaseRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RepurchaseTermField is a INT field
 type RepurchaseTermField struct{ quickfix.FIXInt }
@@ -15436,7 +15360,7 @@ func NewRiskCouponRate(val decimal.Decimal, scale int32) RiskCouponRateField {
 	return RiskCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RiskCouponRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RiskCouponRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RiskEncodedSecurityDescField is a DATA field
 type RiskEncodedSecurityDescField struct{ quickfix.FIXString }
@@ -15488,7 +15412,7 @@ func NewRiskFreeRate(val decimal.Decimal, scale int32) RiskFreeRateField {
 	return RiskFreeRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RiskFreeRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RiskFreeRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RiskInstrumentMultiplierField is a FLOAT field
 type RiskInstrumentMultiplierField struct{ quickfix.FIXDecimal }
@@ -15501,9 +15425,7 @@ func NewRiskInstrumentMultiplier(val decimal.Decimal, scale int32) RiskInstrumen
 	return RiskInstrumentMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RiskInstrumentMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RiskInstrumentMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RiskInstrumentOperatorField is a enum.RiskInstrumentOperator field
 type RiskInstrumentOperatorField struct{ quickfix.FIXString }
@@ -15543,7 +15465,7 @@ func NewRiskLimitAmount(val decimal.Decimal, scale int32) RiskLimitAmountField {
 	return RiskLimitAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RiskLimitAmountField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RiskLimitAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RiskLimitCurrencyField is a CURRENCY field
 type RiskLimitCurrencyField struct{ quickfix.FIXString }
@@ -15841,9 +15763,7 @@ func NewRiskWarningLevelPercent(val decimal.Decimal, scale int32) RiskWarningLev
 	return RiskWarningLevelPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RiskWarningLevelPercentField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f RiskWarningLevelPercentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RndPxField is a PRICE field
 type RndPxField struct{ quickfix.FIXDecimal }
@@ -15856,7 +15776,7 @@ func NewRndPx(val decimal.Decimal, scale int32) RndPxField {
 	return RndPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RndPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RndPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RootPartyIDField is a STRING field
 type RootPartyIDField struct{ quickfix.FIXString }
@@ -15934,7 +15854,7 @@ func NewRoundLot(val decimal.Decimal, scale int32) RoundLotField {
 	return RoundLotField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RoundLotField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RoundLotField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RoundingDirectionField is a enum.RoundingDirection field
 type RoundingDirectionField struct{ quickfix.FIXString }
@@ -15961,7 +15881,7 @@ func NewRoundingModulus(val decimal.Decimal, scale int32) RoundingModulusField {
 	return RoundingModulusField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f RoundingModulusField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f RoundingModulusField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //RoutingIDField is a STRING field
 type RoutingIDField struct{ quickfix.FIXString }
@@ -16087,9 +16007,7 @@ func NewSecondaryDisplayQty(val decimal.Decimal, scale int32) SecondaryDisplayQt
 	return SecondaryDisplayQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SecondaryDisplayQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f SecondaryDisplayQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SecondaryExecIDField is a STRING field
 type SecondaryExecIDField struct{ quickfix.FIXString }
@@ -16128,9 +16046,7 @@ func NewSecondaryHighLimitPrice(val decimal.Decimal, scale int32) SecondaryHighL
 	return SecondaryHighLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SecondaryHighLimitPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f SecondaryHighLimitPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SecondaryIndividualAllocIDField is a STRING field
 type SecondaryIndividualAllocIDField struct{ quickfix.FIXString }
@@ -16156,9 +16072,7 @@ func NewSecondaryLowLimitPrice(val decimal.Decimal, scale int32) SecondaryLowLim
 	return SecondaryLowLimitPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SecondaryLowLimitPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f SecondaryLowLimitPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SecondaryOrderIDField is a STRING field
 type SecondaryOrderIDField struct{ quickfix.FIXString }
@@ -16238,9 +16152,7 @@ func NewSecondaryTradingReferencePrice(val decimal.Decimal, scale int32) Seconda
 	return SecondaryTradingReferencePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SecondaryTradingReferencePriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f SecondaryTradingReferencePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SecondaryTrdTypeField is a INT field
 type SecondaryTrdTypeField struct{ quickfix.FIXInt }
@@ -16755,7 +16667,7 @@ func NewSellVolume(val decimal.Decimal, scale int32) SellVolumeField {
 	return SellVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SellVolumeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SellVolumeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SellerDaysField is a INT field
 type SellerDaysField struct{ quickfix.FIXInt }
@@ -16902,7 +16814,7 @@ func NewSettlCurrAmt(val decimal.Decimal, scale int32) SettlCurrAmtField {
 	return SettlCurrAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SettlCurrAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SettlCurrAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SettlCurrBidFxRateField is a FLOAT field
 type SettlCurrBidFxRateField struct{ quickfix.FIXDecimal }
@@ -16915,7 +16827,7 @@ func NewSettlCurrBidFxRate(val decimal.Decimal, scale int32) SettlCurrBidFxRateF
 	return SettlCurrBidFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SettlCurrBidFxRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SettlCurrBidFxRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SettlCurrFxRateField is a FLOAT field
 type SettlCurrFxRateField struct{ quickfix.FIXDecimal }
@@ -16928,7 +16840,7 @@ func NewSettlCurrFxRate(val decimal.Decimal, scale int32) SettlCurrFxRateField {
 	return SettlCurrFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SettlCurrFxRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SettlCurrFxRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SettlCurrFxRateCalcField is a enum.SettlCurrFxRateCalc field
 type SettlCurrFxRateCalcField struct{ quickfix.FIXString }
@@ -16955,9 +16867,7 @@ func NewSettlCurrOfferFxRate(val decimal.Decimal, scale int32) SettlCurrOfferFxR
 	return SettlCurrOfferFxRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SettlCurrOfferFxRateField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f SettlCurrOfferFxRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SettlCurrencyField is a CURRENCY field
 type SettlCurrencyField struct{ quickfix.FIXString }
@@ -17319,7 +17229,7 @@ func NewSettlPrice(val decimal.Decimal, scale int32) SettlPriceField {
 	return SettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SettlPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SettlPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SettlPriceTypeField is a enum.SettlPriceType field
 type SettlPriceTypeField struct{ quickfix.FIXString }
@@ -17419,7 +17329,7 @@ func NewSharedCommission(val decimal.Decimal, scale int32) SharedCommissionField
 	return SharedCommissionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SharedCommissionField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SharedCommissionField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SharesField is a QTY field
 type SharesField struct{ quickfix.FIXDecimal }
@@ -17432,7 +17342,7 @@ func NewShares(val decimal.Decimal, scale int32) SharesField {
 	return SharesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SharesField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SharesField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ShortQtyField is a QTY field
 type ShortQtyField struct{ quickfix.FIXDecimal }
@@ -17445,7 +17355,7 @@ func NewShortQty(val decimal.Decimal, scale int32) ShortQtyField {
 	return ShortQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ShortQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ShortQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //ShortSaleReasonField is a enum.ShortSaleReason field
 type ShortSaleReasonField struct{ quickfix.FIXString }
@@ -17534,7 +17444,7 @@ func NewSideGrossTradeAmt(val decimal.Decimal, scale int32) SideGrossTradeAmtFie
 	return SideGrossTradeAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SideGrossTradeAmtField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SideGrossTradeAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SideLastQtyField is a INT field
 type SideLastQtyField struct{ quickfix.FIXInt }
@@ -17713,7 +17623,7 @@ func NewSideValue1(val decimal.Decimal, scale int32) SideValue1Field {
 	return SideValue1Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SideValue1Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SideValue1Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SideValue2Field is a AMT field
 type SideValue2Field struct{ quickfix.FIXDecimal }
@@ -17726,7 +17636,7 @@ func NewSideValue2(val decimal.Decimal, scale int32) SideValue2Field {
 	return SideValue2Field{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SideValue2Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SideValue2Field) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SideValueIndField is a enum.SideValueInd field
 type SideValueIndField struct{ quickfix.FIXString }
@@ -17790,7 +17700,7 @@ func NewSpread(val decimal.Decimal, scale int32) SpreadField {
 	return SpreadField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SpreadField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SpreadField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SpreadToBenchmarkField is a PRICEOFFSET field
 type SpreadToBenchmarkField struct{ quickfix.FIXDecimal }
@@ -17803,7 +17713,7 @@ func NewSpreadToBenchmark(val decimal.Decimal, scale int32) SpreadToBenchmarkFie
 	return SpreadToBenchmarkField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SpreadToBenchmarkField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SpreadToBenchmarkField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StandInstDbIDField is a STRING field
 type StandInstDbIDField struct{ quickfix.FIXString }
@@ -17854,7 +17764,7 @@ func NewStartCash(val decimal.Decimal, scale int32) StartCashField {
 	return StartCashField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StartCashField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StartCashField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StartDateField is a LOCALMKTDATE field
 type StartDateField struct{ quickfix.FIXString }
@@ -17893,7 +17803,7 @@ func NewStartStrikePxRange(val decimal.Decimal, scale int32) StartStrikePxRangeF
 	return StartStrikePxRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StartStrikePxRangeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StartStrikePxRangeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StartTickPriceRangeField is a PRICE field
 type StartTickPriceRangeField struct{ quickfix.FIXDecimal }
@@ -17906,9 +17816,7 @@ func NewStartTickPriceRange(val decimal.Decimal, scale int32) StartTickPriceRang
 	return StartTickPriceRangeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StartTickPriceRangeField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f StartTickPriceRangeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StateOrProvinceOfIssueField is a STRING field
 type StateOrProvinceOfIssueField struct{ quickfix.FIXString }
@@ -17996,7 +17904,7 @@ func NewStopPx(val decimal.Decimal, scale int32) StopPxField {
 	return StopPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StopPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StopPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StrategyParameterNameField is a STRING field
 type StrategyParameterNameField struct{ quickfix.FIXString }
@@ -18155,7 +18063,7 @@ func NewStrikeIncrement(val decimal.Decimal, scale int32) StrikeIncrementField {
 	return StrikeIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StrikeIncrementField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StrikeIncrementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StrikeMultiplierField is a FLOAT field
 type StrikeMultiplierField struct{ quickfix.FIXDecimal }
@@ -18168,7 +18076,7 @@ func NewStrikeMultiplier(val decimal.Decimal, scale int32) StrikeMultiplierField
 	return StrikeMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StrikeMultiplierField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StrikeMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StrikePriceField is a PRICE field
 type StrikePriceField struct{ quickfix.FIXDecimal }
@@ -18181,7 +18089,7 @@ func NewStrikePrice(val decimal.Decimal, scale int32) StrikePriceField {
 	return StrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StrikePriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StrikePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StrikePriceBoundaryMethodField is a enum.StrikePriceBoundaryMethod field
 type StrikePriceBoundaryMethodField struct{ quickfix.FIXString }
@@ -18208,9 +18116,7 @@ func NewStrikePriceBoundaryPrecision(val decimal.Decimal, scale int32) StrikePri
 	return StrikePriceBoundaryPrecisionField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StrikePriceBoundaryPrecisionField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f StrikePriceBoundaryPrecisionField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //StrikePriceDeterminationMethodField is a enum.StrikePriceDeterminationMethod field
 type StrikePriceDeterminationMethodField struct{ quickfix.FIXString }
@@ -18270,7 +18176,7 @@ func NewStrikeValue(val decimal.Decimal, scale int32) StrikeValueField {
 	return StrikeValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f StrikeValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f StrikeValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SubjectField is a STRING field
 type SubjectField struct{ quickfix.FIXString }
@@ -18310,7 +18216,7 @@ func NewSwapPoints(val decimal.Decimal, scale int32) SwapPointsField {
 	return SwapPointsField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f SwapPointsField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f SwapPointsField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //SymbolField is a STRING field
 type SymbolField struct{ quickfix.FIXString }
@@ -18451,9 +18357,7 @@ func NewTargetStrategyPerformance(val decimal.Decimal, scale int32) TargetStrate
 	return TargetStrategyPerformanceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TargetStrategyPerformanceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f TargetStrategyPerformanceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TargetSubIDField is a STRING field
 type TargetSubIDField struct{ quickfix.FIXString }
@@ -18542,7 +18446,7 @@ func NewThresholdAmount(val decimal.Decimal, scale int32) ThresholdAmountField {
 	return ThresholdAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ThresholdAmountField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ThresholdAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TickDirectionField is a enum.TickDirection field
 type TickDirectionField struct{ quickfix.FIXString }
@@ -18567,7 +18471,7 @@ func NewTickIncrement(val decimal.Decimal, scale int32) TickIncrementField {
 	return TickIncrementField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TickIncrementField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TickIncrementField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TickRuleTypeField is a enum.TickRuleType field
 type TickRuleTypeField struct{ quickfix.FIXString }
@@ -18630,7 +18534,7 @@ func NewTimeToExpiration(val decimal.Decimal, scale int32) TimeToExpirationField
 	return TimeToExpirationField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TimeToExpirationField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TimeToExpirationField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TimeUnitField is a enum.TimeUnit field
 type TimeUnitField struct{ quickfix.FIXString }
@@ -18850,9 +18754,7 @@ func NewTotalAccruedInterestAmt(val decimal.Decimal, scale int32) TotalAccruedIn
 	return TotalAccruedInterestAmtField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TotalAccruedInterestAmtField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f TotalAccruedInterestAmtField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TotalAffectedOrdersField is a INT field
 type TotalAffectedOrdersField struct{ quickfix.FIXInt }
@@ -18878,7 +18780,7 @@ func NewTotalNetValue(val decimal.Decimal, scale int32) TotalNetValueField {
 	return TotalNetValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TotalNetValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TotalNetValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TotalNumPosReportsField is a INT field
 type TotalNumPosReportsField struct{ quickfix.FIXInt }
@@ -18930,7 +18832,7 @@ func NewTotalTakedown(val decimal.Decimal, scale int32) TotalTakedownField {
 	return TotalTakedownField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TotalTakedownField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TotalTakedownField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TotalVolumeTradedField is a QTY field
 type TotalVolumeTradedField struct{ quickfix.FIXDecimal }
@@ -18943,7 +18845,7 @@ func NewTotalVolumeTraded(val decimal.Decimal, scale int32) TotalVolumeTradedFie
 	return TotalVolumeTradedField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TotalVolumeTradedField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TotalVolumeTradedField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TotalVolumeTradedDateField is a UTCDATEONLY field
 type TotalVolumeTradedDateField struct{ quickfix.FIXString }
@@ -19436,7 +19338,7 @@ func NewTradeVolume(val decimal.Decimal, scale int32) TradeVolumeField {
 	return TradeVolumeField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TradeVolumeField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TradeVolumeField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TradedFlatSwitchField is a BOOLEAN field
 type TradedFlatSwitchField struct{ quickfix.FIXBoolean }
@@ -19475,9 +19377,7 @@ func NewTradingReferencePrice(val decimal.Decimal, scale int32) TradingReference
 	return TradingReferencePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TradingReferencePriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f TradingReferencePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TradingSessionDescField is a STRING field
 type TradingSessionDescField struct{ quickfix.FIXString }
@@ -19710,7 +19610,7 @@ func NewTriggerNewPrice(val decimal.Decimal, scale int32) TriggerNewPriceField {
 	return TriggerNewPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TriggerNewPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TriggerNewPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TriggerNewQtyField is a QTY field
 type TriggerNewQtyField struct{ quickfix.FIXDecimal }
@@ -19723,7 +19623,7 @@ func NewTriggerNewQty(val decimal.Decimal, scale int32) TriggerNewQtyField {
 	return TriggerNewQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TriggerNewQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TriggerNewQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TriggerOrderTypeField is a enum.TriggerOrderType field
 type TriggerOrderTypeField struct{ quickfix.FIXString }
@@ -19748,7 +19648,7 @@ func NewTriggerPrice(val decimal.Decimal, scale int32) TriggerPriceField {
 	return TriggerPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f TriggerPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f TriggerPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //TriggerPriceDirectionField is a enum.TriggerPriceDirection field
 type TriggerPriceDirectionField struct{ quickfix.FIXString }
@@ -19904,9 +19804,7 @@ func NewUnderlyingAdjustedQuantity(val decimal.Decimal, scale int32) UnderlyingA
 	return UnderlyingAdjustedQuantityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingAdjustedQuantityField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingAdjustedQuantityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingAllocationPercentField is a PERCENTAGE field
 type UnderlyingAllocationPercentField struct{ quickfix.FIXDecimal }
@@ -19919,9 +19817,7 @@ func NewUnderlyingAllocationPercent(val decimal.Decimal, scale int32) Underlying
 	return UnderlyingAllocationPercentField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingAllocationPercentField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingAllocationPercentField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingAttachmentPointField is a PERCENTAGE field
 type UnderlyingAttachmentPointField struct{ quickfix.FIXDecimal }
@@ -19934,9 +19830,7 @@ func NewUnderlyingAttachmentPoint(val decimal.Decimal, scale int32) UnderlyingAt
 	return UnderlyingAttachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingAttachmentPointField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingAttachmentPointField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingCFICodeField is a STRING field
 type UnderlyingCFICodeField struct{ quickfix.FIXString }
@@ -19988,7 +19882,7 @@ func NewUnderlyingCapValue(val decimal.Decimal, scale int32) UnderlyingCapValueF
 	return UnderlyingCapValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingCapValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingCapValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingCashAmountField is a AMT field
 type UnderlyingCashAmountField struct{ quickfix.FIXDecimal }
@@ -20001,9 +19895,7 @@ func NewUnderlyingCashAmount(val decimal.Decimal, scale int32) UnderlyingCashAmo
 	return UnderlyingCashAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingCashAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingCashAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingCashTypeField is a enum.UnderlyingCashType field
 type UnderlyingCashTypeField struct{ quickfix.FIXString }
@@ -20030,9 +19922,7 @@ func NewUnderlyingCollectAmount(val decimal.Decimal, scale int32) UnderlyingColl
 	return UnderlyingCollectAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingCollectAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingCollectAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingContractMultiplierField is a FLOAT field
 type UnderlyingContractMultiplierField struct{ quickfix.FIXDecimal }
@@ -20045,9 +19935,7 @@ func NewUnderlyingContractMultiplier(val decimal.Decimal, scale int32) Underlyin
 	return UnderlyingContractMultiplierField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingContractMultiplierField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingContractMultiplierField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingContractMultiplierUnitField is a INT field
 type UnderlyingContractMultiplierUnitField struct{ quickfix.FIXInt }
@@ -20101,9 +19989,7 @@ func NewUnderlyingCouponRate(val decimal.Decimal, scale int32) UnderlyingCouponR
 	return UnderlyingCouponRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingCouponRateField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingCouponRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingCreditRatingField is a STRING field
 type UnderlyingCreditRatingField struct{ quickfix.FIXString }
@@ -20142,9 +20028,7 @@ func NewUnderlyingCurrentValue(val decimal.Decimal, scale int32) UnderlyingCurre
 	return UnderlyingCurrentValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingCurrentValueField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingCurrentValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingDeliveryAmountField is a AMT field
 type UnderlyingDeliveryAmountField struct{ quickfix.FIXDecimal }
@@ -20157,9 +20041,7 @@ func NewUnderlyingDeliveryAmount(val decimal.Decimal, scale int32) UnderlyingDel
 	return UnderlyingDeliveryAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingDeliveryAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingDeliveryAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingDetachmentPointField is a PERCENTAGE field
 type UnderlyingDetachmentPointField struct{ quickfix.FIXDecimal }
@@ -20172,9 +20054,7 @@ func NewUnderlyingDetachmentPoint(val decimal.Decimal, scale int32) UnderlyingDe
 	return UnderlyingDetachmentPointField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingDetachmentPointField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingDetachmentPointField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingDirtyPriceField is a PRICE field
 type UnderlyingDirtyPriceField struct{ quickfix.FIXDecimal }
@@ -20187,9 +20067,7 @@ func NewUnderlyingDirtyPrice(val decimal.Decimal, scale int32) UnderlyingDirtyPr
 	return UnderlyingDirtyPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingDirtyPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingDirtyPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingEndPriceField is a PRICE field
 type UnderlyingEndPriceField struct{ quickfix.FIXDecimal }
@@ -20202,7 +20080,7 @@ func NewUnderlyingEndPrice(val decimal.Decimal, scale int32) UnderlyingEndPriceF
 	return UnderlyingEndPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingEndPriceField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingEndPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingEndValueField is a AMT field
 type UnderlyingEndValueField struct{ quickfix.FIXDecimal }
@@ -20215,7 +20093,7 @@ func NewUnderlyingEndValue(val decimal.Decimal, scale int32) UnderlyingEndValueF
 	return UnderlyingEndValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingEndValueField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingEndValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingExerciseStyleField is a INT field
 type UnderlyingExerciseStyleField struct{ quickfix.FIXInt }
@@ -20241,7 +20119,7 @@ func NewUnderlyingFXRate(val decimal.Decimal, scale int32) UnderlyingFXRateField
 	return UnderlyingFXRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingFXRateField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingFXRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingFXRateCalcField is a enum.UnderlyingFXRateCalc field
 type UnderlyingFXRateCalcField struct{ quickfix.FIXString }
@@ -20268,7 +20146,7 @@ func NewUnderlyingFactor(val decimal.Decimal, scale int32) UnderlyingFactorField
 	return UnderlyingFactorField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingFactorField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingFactorField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingFlowScheduleTypeField is a INT field
 type UnderlyingFlowScheduleTypeField struct{ quickfix.FIXInt }
@@ -20419,7 +20297,7 @@ func NewUnderlyingLastPx(val decimal.Decimal, scale int32) UnderlyingLastPxField
 	return UnderlyingLastPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingLastPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingLastPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingLastQtyField is a QTY field
 type UnderlyingLastQtyField struct{ quickfix.FIXDecimal }
@@ -20432,7 +20310,7 @@ func NewUnderlyingLastQty(val decimal.Decimal, scale int32) UnderlyingLastQtyFie
 	return UnderlyingLastQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingLastQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingLastQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingLegCFICodeField is a STRING field
 type UnderlyingLegCFICodeField struct{ quickfix.FIXString }
@@ -20635,9 +20513,7 @@ func NewUnderlyingLegStrikePrice(val decimal.Decimal, scale int32) UnderlyingLeg
 	return UnderlyingLegStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingLegStrikePriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingLegStrikePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingLegSymbolField is a STRING field
 type UnderlyingLegSymbolField struct{ quickfix.FIXString }
@@ -20743,9 +20619,7 @@ func NewUnderlyingNotionalPercentageOutstanding(val decimal.Decimal, scale int32
 	return UnderlyingNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingNotionalPercentageOutstandingField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingNotionalPercentageOutstandingField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingOptAttributeField is a CHAR field
 type UnderlyingOptAttributeField struct{ quickfix.FIXString }
@@ -20773,8 +20647,8 @@ func NewUnderlyingOriginalNotionalPercentageOutstanding(val decimal.Decimal, sca
 	return UnderlyingOriginalNotionalPercentageOutstandingField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingOriginalNotionalPercentageOutstandingField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
+func (f UnderlyingOriginalNotionalPercentageOutstandingField) Value() (val decimal.Decimal) {
+	return f.Decimal
 }
 
 //UnderlyingPayAmountField is a AMT field
@@ -20788,9 +20662,7 @@ func NewUnderlyingPayAmount(val decimal.Decimal, scale int32) UnderlyingPayAmoun
 	return UnderlyingPayAmountField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingPayAmountField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingPayAmountField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingPriceDeterminationMethodField is a enum.UnderlyingPriceDeterminationMethod field
 type UnderlyingPriceDeterminationMethodField struct{ quickfix.FIXString }
@@ -20834,9 +20706,7 @@ func NewUnderlyingPriceUnitOfMeasureQty(val decimal.Decimal, scale int32) Underl
 	return UnderlyingPriceUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingPriceUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingPriceUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingProductField is a INT field
 type UnderlyingProductField struct{ quickfix.FIXInt }
@@ -20875,7 +20745,7 @@ func NewUnderlyingPx(val decimal.Decimal, scale int32) UnderlyingPxField {
 	return UnderlyingPxField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingPxField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingPxField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingQtyField is a QTY field
 type UnderlyingQtyField struct{ quickfix.FIXDecimal }
@@ -20888,7 +20758,7 @@ func NewUnderlyingQty(val decimal.Decimal, scale int32) UnderlyingQtyField {
 	return UnderlyingQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnderlyingQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingRedemptionDateField is a LOCALMKTDATE field
 type UnderlyingRedemptionDateField struct{ quickfix.FIXString }
@@ -20929,9 +20799,7 @@ func NewUnderlyingRepurchaseRate(val decimal.Decimal, scale int32) UnderlyingRep
 	return UnderlyingRepurchaseRateField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingRepurchaseRateField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingRepurchaseRateField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingRepurchaseTermField is a INT field
 type UnderlyingRepurchaseTermField struct{ quickfix.FIXInt }
@@ -21102,9 +20970,7 @@ func NewUnderlyingSettlPrice(val decimal.Decimal, scale int32) UnderlyingSettlPr
 	return UnderlyingSettlPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingSettlPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingSettlPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingSettlPriceTypeField is a INT field
 type UnderlyingSettlPriceTypeField struct{ quickfix.FIXInt }
@@ -21170,9 +21036,7 @@ func NewUnderlyingStartValue(val decimal.Decimal, scale int32) UnderlyingStartVa
 	return UnderlyingStartValueField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingStartValueField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingStartValueField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingStateOrProvinceOfIssueField is a STRING field
 type UnderlyingStateOrProvinceOfIssueField struct{ quickfix.FIXString }
@@ -21239,9 +21103,7 @@ func NewUnderlyingStrikePrice(val decimal.Decimal, scale int32) UnderlyingStrike
 	return UnderlyingStrikePriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingStrikePriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingStrikePriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnderlyingSymbolField is a STRING field
 type UnderlyingSymbolField struct{ quickfix.FIXString }
@@ -21334,9 +21196,7 @@ func NewUnderlyingUnitOfMeasureQty(val decimal.Decimal, scale int32) UnderlyingU
 	return UnderlyingUnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnderlyingUnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f UnderlyingUnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UndlyInstrumentPartyIDField is a STRING field
 type UndlyInstrumentPartyIDField struct{ quickfix.FIXString }
@@ -21428,7 +21288,7 @@ func NewUnitOfMeasureQty(val decimal.Decimal, scale int32) UnitOfMeasureQtyField
 	return UnitOfMeasureQtyField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f UnitOfMeasureQtyField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f UnitOfMeasureQtyField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //UnsolicitedIndicatorField is a BOOLEAN field
 type UnsolicitedIndicatorField struct{ quickfix.FIXBoolean }
@@ -21559,7 +21419,7 @@ func NewValueOfFutures(val decimal.Decimal, scale int32) ValueOfFuturesField {
 	return ValueOfFuturesField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f ValueOfFuturesField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f ValueOfFuturesField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //VenueTypeField is a enum.VenueType field
 type VenueTypeField struct{ quickfix.FIXString }
@@ -21584,7 +21444,7 @@ func NewVolatility(val decimal.Decimal, scale int32) VolatilityField {
 	return VolatilityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f VolatilityField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f VolatilityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //WaveNoField is a STRING field
 type WaveNoField struct{ quickfix.FIXString }
@@ -21623,7 +21483,7 @@ func NewWtAverageLiquidity(val decimal.Decimal, scale int32) WtAverageLiquidityF
 	return WtAverageLiquidityField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f WtAverageLiquidityField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f WtAverageLiquidityField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //XmlDataField is a DATA field
 type XmlDataField struct{ quickfix.FIXString }
@@ -21662,7 +21522,7 @@ func NewYield(val decimal.Decimal, scale int32) YieldField {
 	return YieldField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f YieldField) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f YieldField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //YieldCalcDateField is a LOCALMKTDATE field
 type YieldCalcDateField struct{ quickfix.FIXString }
@@ -21701,9 +21561,7 @@ func NewYieldRedemptionPrice(val decimal.Decimal, scale int32) YieldRedemptionPr
 	return YieldRedemptionPriceField{quickfix.FIXDecimal{Decimal: val, Scale: scale}}
 }
 
-func (f YieldRedemptionPriceField) Value() (val decimal.Decimal, scale int32) {
-	return f.Decimal, f.Scale
-}
+func (f YieldRedemptionPriceField) Value() (val decimal.Decimal) { return f.Decimal }
 
 //YieldRedemptionPriceTypeField is a INT field
 type YieldRedemptionPriceTypeField struct{ quickfix.FIXInt }

@@ -262,11 +262,10 @@ func (m SecurityStatus) GetIDSource() (v enum.IDSource, err quickfix.MessageReje
 }
 
 //GetLastPx gets LastPx, Tag 31
-func (m SecurityStatus) GetLastPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetLastPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LastPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -353,11 +352,10 @@ func (m SecurityStatus) GetPutOrCall() (v enum.PutOrCall, err quickfix.MessageRe
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m SecurityStatus) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -390,21 +388,19 @@ func (m SecurityStatus) GetSecurityExchange() (v string, err quickfix.MessageRej
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m SecurityStatus) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m SecurityStatus) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -482,41 +478,37 @@ func (m SecurityStatus) GetDueToRelated() (v bool, err quickfix.MessageRejectErr
 }
 
 //GetBuyVolume gets BuyVolume, Tag 330
-func (m SecurityStatus) GetBuyVolume() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetBuyVolume() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BuyVolumeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetSellVolume gets SellVolume, Tag 331
-func (m SecurityStatus) GetSellVolume() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetSellVolume() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SellVolumeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetHighPx gets HighPx, Tag 332
-func (m SecurityStatus) GetHighPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetHighPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.HighPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetLowPx gets LowPx, Tag 333
-func (m SecurityStatus) GetLowPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m SecurityStatus) GetLowPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LowPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

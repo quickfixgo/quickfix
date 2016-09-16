@@ -459,21 +459,19 @@ func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseTerm() (v int, err
 }
 
 //GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
-func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingFactor gets UnderlyingFactor, Tag 246
-func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -587,11 +585,10 @@ func (m DerivativeSecurityListRequest) GetUnderlyingMaturityMonthYear() (v strin
 }
 
 //GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
-func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -687,21 +684,19 @@ func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDesc() (v str
 }
 
 //GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
-func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
-func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -813,11 +808,10 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecuritySubType() (v string,
 }
 
 //GetUnderlyingPx gets UnderlyingPx, Tag 810
-func (m DerivativeSecurityListRequest) GetUnderlyingPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -841,61 +835,55 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCPRegType() (v string, err q
 }
 
 //GetUnderlyingQty gets UnderlyingQty, Tag 879
-func (m DerivativeSecurityListRequest) GetUnderlyingQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
-func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingDirtyPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
-func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
-func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStartValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
-func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrentValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
-func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -917,21 +905,19 @@ func (m DerivativeSecurityListRequest) GetUnderlyingStrikeCurrency() (v string, 
 }
 
 //GetUnderlyingAllocationPercent gets UnderlyingAllocationPercent, Tag 972
-func (m DerivativeSecurityListRequest) GetUnderlyingAllocationPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingAllocationPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingAllocationPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingCashAmount gets UnderlyingCashAmount, Tag 973
-func (m DerivativeSecurityListRequest) GetUnderlyingCashAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingCashAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCashAmountField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -973,11 +959,10 @@ func (m DerivativeSecurityListRequest) GetUnderlyingTimeUnit() (v string, err qu
 }
 
 //GetUnderlyingCapValue gets UnderlyingCapValue, Tag 1038
-func (m DerivativeSecurityListRequest) GetUnderlyingCapValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingCapValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCapValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -992,21 +977,19 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSettlMethod() (v string, err
 }
 
 //GetUnderlyingAdjustedQuantity gets UnderlyingAdjustedQuantity, Tag 1044
-func (m DerivativeSecurityListRequest) GetUnderlyingAdjustedQuantity() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingAdjustedQuantity() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingAdjustedQuantityField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingFXRate gets UnderlyingFXRate, Tag 1045
-func (m DerivativeSecurityListRequest) GetUnderlyingFXRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DerivativeSecurityListRequest) GetUnderlyingFXRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFXRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

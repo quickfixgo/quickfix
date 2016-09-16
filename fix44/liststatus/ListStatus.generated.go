@@ -378,11 +378,10 @@ func (m NoOrders) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectErr
 }
 
 //GetCumQty gets CumQty, Tag 14
-func (m NoOrders) GetCumQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetCumQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CumQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -406,31 +405,28 @@ func (m NoOrders) GetWorkingIndicator() (v bool, err quickfix.MessageRejectError
 }
 
 //GetLeavesQty gets LeavesQty, Tag 151
-func (m NoOrders) GetLeavesQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetLeavesQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LeavesQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetCxlQty gets CxlQty, Tag 84
-func (m NoOrders) GetCxlQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetCxlQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CxlQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetAvgPx gets AvgPx, Tag 6
-func (m NoOrders) GetAvgPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetAvgPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.AvgPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

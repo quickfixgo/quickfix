@@ -413,31 +413,28 @@ func (m NoOrders) GetNoNested2PartyIDs() (NoNested2PartyIDsRepeatingGroup, quick
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m NoOrders) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOrderAvgPx gets OrderAvgPx, Tag 799
-func (m NoOrders) GetOrderAvgPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetOrderAvgPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderAvgPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOrderBookingQty gets OrderBookingQty, Tag 800
-func (m NoOrders) GetOrderBookingQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoOrders) GetOrderBookingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderBookingQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

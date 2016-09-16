@@ -883,11 +883,10 @@ func (m NoRiskLimits) GetRiskLimitType() (v enum.RiskLimitType, err quickfix.Mes
 }
 
 //GetRiskLimitAmount gets RiskLimitAmount, Tag 1531
-func (m NoRiskLimits) GetRiskLimitAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRiskLimits) GetRiskLimitAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RiskLimitAmountField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1245,11 +1244,10 @@ func (m NoRiskInstruments) GetRiskFlexibleIndicator() (v bool, err quickfix.Mess
 }
 
 //GetRiskCouponRate gets RiskCouponRate, Tag 1555
-func (m NoRiskInstruments) GetRiskCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRiskInstruments) GetRiskCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RiskCouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1300,11 +1298,10 @@ func (m NoRiskInstruments) GetRiskInstrumentSettlType() (v string, err quickfix.
 }
 
 //GetRiskInstrumentMultiplier gets RiskInstrumentMultiplier, Tag 1558
-func (m NoRiskInstruments) GetRiskInstrumentMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRiskInstruments) GetRiskInstrumentMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RiskInstrumentMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1539,11 +1536,10 @@ func (m NoRiskWarningLevels) SetRiskWarningLevelName(v string) {
 }
 
 //GetRiskWarningLevelPercent gets RiskWarningLevelPercent, Tag 1560
-func (m NoRiskWarningLevels) GetRiskWarningLevelPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRiskWarningLevels) GetRiskWarningLevelPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RiskWarningLevelPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2188,11 +2184,10 @@ func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitType() (v int, err qui
 }
 
 //GetRelationshipRiskLimitAmount gets RelationshipRiskLimitAmount, Tag 1584
-func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RelationshipRiskLimitAmountField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2550,11 +2545,10 @@ func (m NoRelationshipRiskInstruments) GetRelationshipRiskFlexibleIndicator() (v
 }
 
 //GetRelationshipRiskCouponRate gets RelationshipRiskCouponRate, Tag 1608
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RelationshipRiskCouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2605,11 +2599,10 @@ func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentSettlType() 
 }
 
 //GetRelationshipRiskInstrumentMultiplier gets RelationshipRiskInstrumentMultiplier, Tag 1612
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RelationshipRiskInstrumentMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2844,11 +2837,10 @@ func (m NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelName(v s
 }
 
 //GetRelationshipRiskWarningLevelPercent gets RelationshipRiskWarningLevelPercent, Tag 1614
-func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RelationshipRiskWarningLevelPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

@@ -340,11 +340,10 @@ func (m MarketDataSnapshotFullRefresh) GetMaturityMonthYear() (v string, err qui
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m MarketDataSnapshotFullRefresh) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -368,11 +367,10 @@ func (m MarketDataSnapshotFullRefresh) GetSecurityExchange() (v string, err quic
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m MarketDataSnapshotFullRefresh) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -405,31 +403,28 @@ func (m MarketDataSnapshotFullRefresh) GetRepurchaseTerm() (v int, err quickfix.
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m MarketDataSnapshotFullRefresh) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m MarketDataSnapshotFullRefresh) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m MarketDataSnapshotFullRefresh) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -532,11 +527,10 @@ func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDesc() (v string, err q
 }
 
 //GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
-func (m MarketDataSnapshotFullRefresh) GetTotalVolumeTraded() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetTotalVolumeTraded() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TotalVolumeTradedField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -560,11 +554,10 @@ func (m MarketDataSnapshotFullRefresh) GetTotalVolumeTradedTime() (v string, err
 }
 
 //GetNetChgPrevDay gets NetChgPrevDay, Tag 451
-func (m MarketDataSnapshotFullRefresh) GetNetChgPrevDay() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDataSnapshotFullRefresh) GetNetChgPrevDay() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.NetChgPrevDayField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1019,11 +1012,10 @@ func (m NoMDEntries) GetMDEntryType() (v enum.MDEntryType, err quickfix.MessageR
 }
 
 //GetMDEntryPx gets MDEntryPx, Tag 270
-func (m NoMDEntries) GetMDEntryPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoMDEntries) GetMDEntryPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MDEntryPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1038,11 +1030,10 @@ func (m NoMDEntries) GetCurrency() (v string, err quickfix.MessageRejectError) {
 }
 
 //GetMDEntrySize gets MDEntrySize, Tag 271
-func (m NoMDEntries) GetMDEntrySize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoMDEntries) GetMDEntrySize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MDEntrySizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1183,11 +1174,10 @@ func (m NoMDEntries) GetExpireTime() (v time.Time, err quickfix.MessageRejectErr
 }
 
 //GetMinQty gets MinQty, Tag 110
-func (m NoMDEntries) GetMinQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoMDEntries) GetMinQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

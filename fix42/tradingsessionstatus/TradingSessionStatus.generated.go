@@ -266,11 +266,10 @@ func (m TradingSessionStatus) GetEncodedText() (v string, err quickfix.MessageRe
 }
 
 //GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
-func (m TradingSessionStatus) GetTotalVolumeTraded() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m TradingSessionStatus) GetTotalVolumeTraded() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TotalVolumeTradedField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

@@ -321,11 +321,10 @@ func (m IndicationofInterest) GetIOITransType() (v enum.IOITransType, err quickf
 }
 
 //GetPrice gets Price, Tag 44
-func (m IndicationofInterest) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -464,11 +463,10 @@ func (m IndicationofInterest) GetPutOrCall() (v enum.PutOrCall, err quickfix.Mes
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m IndicationofInterest) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -508,11 +506,10 @@ func (m IndicationofInterest) GetNoRoutingIDs() (NoRoutingIDsRepeatingGroup, qui
 }
 
 //GetSpreadToBenchmark gets SpreadToBenchmark, Tag 218
-func (m IndicationofInterest) GetSpreadToBenchmark() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetSpreadToBenchmark() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SpreadToBenchmarkField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -527,21 +524,19 @@ func (m IndicationofInterest) GetBenchmark() (v enum.Benchmark, err quickfix.Mes
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m IndicationofInterest) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m IndicationofInterest) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

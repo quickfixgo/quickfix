@@ -331,21 +331,19 @@ func (m BidRequest) GetNumTickets() (v int, err quickfix.MessageRejectError) {
 }
 
 //GetSideValue1 gets SideValue1, Tag 396
-func (m BidRequest) GetSideValue1() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m BidRequest) GetSideValue1() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SideValue1Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetSideValue2 gets SideValue2, Tag 397
-func (m BidRequest) GetSideValue2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m BidRequest) GetSideValue2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SideValue2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -367,11 +365,10 @@ func (m BidRequest) GetLiquidityIndType() (v enum.LiquidityIndType, err quickfix
 }
 
 //GetWtAverageLiquidity gets WtAverageLiquidity, Tag 410
-func (m BidRequest) GetWtAverageLiquidity() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m BidRequest) GetWtAverageLiquidity() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.WtAverageLiquidityField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -386,21 +383,19 @@ func (m BidRequest) GetExchangeForPhysical() (v bool, err quickfix.MessageReject
 }
 
 //GetOutMainCntryUIndex gets OutMainCntryUIndex, Tag 412
-func (m BidRequest) GetOutMainCntryUIndex() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m BidRequest) GetOutMainCntryUIndex() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OutMainCntryUIndexField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetCrossPercent gets CrossPercent, Tag 413
-func (m BidRequest) GetCrossPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m BidRequest) GetCrossPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CrossPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -708,11 +703,10 @@ func (m NoBidDescriptors) GetSideValueInd() (v enum.SideValueInd, err quickfix.M
 }
 
 //GetLiquidityValue gets LiquidityValue, Tag 404
-func (m NoBidDescriptors) GetLiquidityValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetLiquidityValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LiquidityValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -727,61 +721,55 @@ func (m NoBidDescriptors) GetLiquidityNumSecurities() (v int, err quickfix.Messa
 }
 
 //GetLiquidityPctLow gets LiquidityPctLow, Tag 402
-func (m NoBidDescriptors) GetLiquidityPctLow() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetLiquidityPctLow() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LiquidityPctLowField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetLiquidityPctHigh gets LiquidityPctHigh, Tag 403
-func (m NoBidDescriptors) GetLiquidityPctHigh() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetLiquidityPctHigh() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LiquidityPctHighField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetEFPTrackingError gets EFPTrackingError, Tag 405
-func (m NoBidDescriptors) GetEFPTrackingError() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetEFPTrackingError() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EFPTrackingErrorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFairValue gets FairValue, Tag 406
-func (m NoBidDescriptors) GetFairValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetFairValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FairValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOutsideIndexPct gets OutsideIndexPct, Tag 407
-func (m NoBidDescriptors) GetOutsideIndexPct() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetOutsideIndexPct() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OutsideIndexPctField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetValueOfFutures gets ValueOfFutures, Tag 408
-func (m NoBidDescriptors) GetValueOfFutures() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidDescriptors) GetValueOfFutures() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ValueOfFuturesField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

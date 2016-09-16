@@ -373,11 +373,10 @@ func (m OrderCancelRequest) GetOrderID() (v string, err quickfix.MessageRejectEr
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m OrderCancelRequest) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -473,11 +472,10 @@ func (m OrderCancelRequest) GetSecurityDesc() (v string, err quickfix.MessageRej
 }
 
 //GetCashOrderQty gets CashOrderQty, Tag 152
-func (m OrderCancelRequest) GetCashOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetCashOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CashOrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -501,11 +499,10 @@ func (m OrderCancelRequest) GetMaturityMonthYear() (v string, err quickfix.Messa
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m OrderCancelRequest) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -529,11 +526,10 @@ func (m OrderCancelRequest) GetSecurityExchange() (v string, err quickfix.Messag
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m OrderCancelRequest) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -566,31 +562,28 @@ func (m OrderCancelRequest) GetRepurchaseTerm() (v int, err quickfix.MessageReje
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m OrderCancelRequest) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m OrderCancelRequest) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m OrderCancelRequest) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -727,11 +720,10 @@ func (m OrderCancelRequest) GetRoundingDirection() (v enum.RoundingDirection, er
 }
 
 //GetRoundingModulus gets RoundingModulus, Tag 469
-func (m OrderCancelRequest) GetRoundingModulus() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetRoundingModulus() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RoundingModulusField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -764,11 +756,10 @@ func (m OrderCancelRequest) GetLocaleOfIssue() (v string, err quickfix.MessageRe
 }
 
 //GetOrderPercent gets OrderPercent, Tag 516
-func (m OrderCancelRequest) GetOrderPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetOrderPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

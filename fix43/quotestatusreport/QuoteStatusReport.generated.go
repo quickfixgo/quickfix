@@ -448,11 +448,10 @@ func (m QuoteStatusReport) GetAccount() (v string, err quickfix.MessageRejectErr
 }
 
 //GetCommission gets Commission, Tag 12
-func (m QuoteStatusReport) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetCommission() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CommissionField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -593,41 +592,37 @@ func (m QuoteStatusReport) GetQuoteReqID() (v string, err quickfix.MessageReject
 }
 
 //GetBidPx gets BidPx, Tag 132
-func (m QuoteStatusReport) GetBidPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferPx gets OfferPx, Tag 133
-func (m QuoteStatusReport) GetOfferPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetBidSize gets BidSize, Tag 134
-func (m QuoteStatusReport) GetBidSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferSize gets OfferSize, Tag 135
-func (m QuoteStatusReport) GetOfferSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -651,51 +646,46 @@ func (m QuoteStatusReport) GetSecurityType() (v enum.SecurityType, err quickfix.
 }
 
 //GetBidSpotRate gets BidSpotRate, Tag 188
-func (m QuoteStatusReport) GetBidSpotRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidSpotRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidSpotRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetBidForwardPoints gets BidForwardPoints, Tag 189
-func (m QuoteStatusReport) GetBidForwardPoints() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidForwardPoints() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidForwardPointsField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferSpotRate gets OfferSpotRate, Tag 190
-func (m QuoteStatusReport) GetOfferSpotRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferSpotRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferSpotRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferForwardPoints gets OfferForwardPoints, Tag 191
-func (m QuoteStatusReport) GetOfferForwardPoints() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferForwardPoints() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferForwardPointsField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOrderQty2 gets OrderQty2, Tag 192
-func (m QuoteStatusReport) GetOrderQty2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOrderQty2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQty2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -719,11 +709,10 @@ func (m QuoteStatusReport) GetMaturityMonthYear() (v string, err quickfix.Messag
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m QuoteStatusReport) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -747,11 +736,10 @@ func (m QuoteStatusReport) GetSecurityExchange() (v string, err quickfix.Message
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m QuoteStatusReport) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -784,31 +772,28 @@ func (m QuoteStatusReport) GetRepurchaseTerm() (v int, err quickfix.MessageRejec
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m QuoteStatusReport) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m QuoteStatusReport) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m QuoteStatusReport) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1008,101 +993,91 @@ func (m QuoteStatusReport) GetTradingSessionSubID() (v enum.TradingSessionSubID,
 }
 
 //GetMidPx gets MidPx, Tag 631
-func (m QuoteStatusReport) GetMidPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMidPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MidPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetBidYield gets BidYield, Tag 632
-func (m QuoteStatusReport) GetBidYield() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidYield() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidYieldField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMidYield gets MidYield, Tag 633
-func (m QuoteStatusReport) GetMidYield() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMidYield() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MidYieldField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferYield gets OfferYield, Tag 634
-func (m QuoteStatusReport) GetOfferYield() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferYield() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferYieldField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetBidForwardPoints2 gets BidForwardPoints2, Tag 642
-func (m QuoteStatusReport) GetBidForwardPoints2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetBidForwardPoints2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidForwardPoints2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferForwardPoints2 gets OfferForwardPoints2, Tag 643
-func (m QuoteStatusReport) GetOfferForwardPoints2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetOfferForwardPoints2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferForwardPoints2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMktBidPx gets MktBidPx, Tag 645
-func (m QuoteStatusReport) GetMktBidPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMktBidPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MktBidPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMktOfferPx gets MktOfferPx, Tag 646
-func (m QuoteStatusReport) GetMktOfferPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMktOfferPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MktOfferPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMinBidSize gets MinBidSize, Tag 647
-func (m QuoteStatusReport) GetMinBidSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMinBidSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinBidSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMinOfferSize gets MinOfferSize, Tag 648
-func (m QuoteStatusReport) GetMinOfferSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetMinOfferSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinOfferSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1117,21 +1092,19 @@ func (m QuoteStatusReport) GetQuoteStatusReqID() (v string, err quickfix.Message
 }
 
 //GetSettlCurrBidFxRate gets SettlCurrBidFxRate, Tag 656
-func (m QuoteStatusReport) GetSettlCurrBidFxRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetSettlCurrBidFxRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SettlCurrBidFxRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetSettlCurrOfferFxRate gets SettlCurrOfferFxRate, Tag 657
-func (m QuoteStatusReport) GetSettlCurrOfferFxRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteStatusReport) GetSettlCurrOfferFxRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SettlCurrOfferFxRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

@@ -212,41 +212,37 @@ func (m Quote) GetQuoteReqID() (v string, err quickfix.MessageRejectError) {
 }
 
 //GetBidPx gets BidPx, Tag 132
-func (m Quote) GetBidPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Quote) GetBidPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferPx gets OfferPx, Tag 133
-func (m Quote) GetOfferPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Quote) GetOfferPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetBidSize gets BidSize, Tag 134
-func (m Quote) GetBidSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Quote) GetBidSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BidSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetOfferSize gets OfferSize, Tag 135
-func (m Quote) GetOfferSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Quote) GetOfferSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OfferSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

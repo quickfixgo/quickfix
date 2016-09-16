@@ -256,11 +256,10 @@ func (m Advertisement) GetLastMkt() (v string, err quickfix.MessageRejectError) 
 }
 
 //GetPrice gets Price, Tag 44
-func (m Advertisement) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Advertisement) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -275,11 +274,10 @@ func (m Advertisement) GetSecurityID() (v string, err quickfix.MessageRejectErro
 }
 
 //GetShares gets Shares, Tag 53
-func (m Advertisement) GetShares() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Advertisement) GetShares() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SharesField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -384,11 +382,10 @@ func (m Advertisement) GetPutOrCall() (v enum.PutOrCall, err quickfix.MessageRej
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m Advertisement) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m Advertisement) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

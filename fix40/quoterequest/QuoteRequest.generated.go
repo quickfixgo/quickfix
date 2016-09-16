@@ -124,11 +124,10 @@ func (m QuoteRequest) GetIDSource() (v enum.IDSource, err quickfix.MessageReject
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m QuoteRequest) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteRequest) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -197,11 +196,10 @@ func (m QuoteRequest) GetQuoteReqID() (v string, err quickfix.MessageRejectError
 }
 
 //GetPrevClosePx gets PrevClosePx, Tag 140
-func (m QuoteRequest) GetPrevClosePx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m QuoteRequest) GetPrevClosePx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PrevClosePxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

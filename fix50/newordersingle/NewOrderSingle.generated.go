@@ -1130,11 +1130,10 @@ func (m NewOrderSingle) GetClOrdID() (v string, err quickfix.MessageRejectError)
 }
 
 //GetCommission gets Commission, Tag 12
-func (m NewOrderSingle) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetCommission() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CommissionField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1194,11 +1193,10 @@ func (m NewOrderSingle) GetIOIID() (v string, err quickfix.MessageRejectError) {
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m NewOrderSingle) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1213,11 +1211,10 @@ func (m NewOrderSingle) GetOrdType() (v enum.OrdType, err quickfix.MessageReject
 }
 
 //GetPrice gets Price, Tag 44
-func (m NewOrderSingle) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1347,11 +1344,10 @@ func (m NewOrderSingle) GetProcessCode() (v enum.ProcessCode, err quickfix.Messa
 }
 
 //GetStopPx gets StopPx, Tag 99
-func (m NewOrderSingle) GetStopPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetStopPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StopPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1384,21 +1380,19 @@ func (m NewOrderSingle) GetSecurityDesc() (v string, err quickfix.MessageRejectE
 }
 
 //GetMinQty gets MinQty, Tag 110
-func (m NewOrderSingle) GetMinQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMinQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMaxFloor gets MaxFloor, Tag 111
-func (m NewOrderSingle) GetMaxFloor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMaxFloor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MaxFloorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1449,21 +1443,19 @@ func (m NewOrderSingle) GetExpireTime() (v time.Time, err quickfix.MessageReject
 }
 
 //GetPrevClosePx gets PrevClosePx, Tag 140
-func (m NewOrderSingle) GetPrevClosePx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetPrevClosePx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PrevClosePxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetCashOrderQty gets CashOrderQty, Tag 152
-func (m NewOrderSingle) GetCashOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetCashOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CashOrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1487,11 +1479,10 @@ func (m NewOrderSingle) GetEffectiveTime() (v time.Time, err quickfix.MessageRej
 }
 
 //GetOrderQty2 gets OrderQty2, Tag 192
-func (m NewOrderSingle) GetOrderQty2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetOrderQty2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQty2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1515,11 +1506,10 @@ func (m NewOrderSingle) GetMaturityMonthYear() (v string, err quickfix.MessageRe
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m NewOrderSingle) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1552,31 +1542,28 @@ func (m NewOrderSingle) GetSecurityExchange() (v string, err quickfix.MessageRej
 }
 
 //GetMaxShow gets MaxShow, Tag 210
-func (m NewOrderSingle) GetMaxShow() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMaxShow() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MaxShowField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetPegOffsetValue gets PegOffsetValue, Tag 211
-func (m NewOrderSingle) GetPegOffsetValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetPegOffsetValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PegOffsetValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetSpread gets Spread, Tag 218
-func (m NewOrderSingle) GetSpread() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetSpread() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SpreadField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1609,11 +1596,10 @@ func (m NewOrderSingle) GetBenchmarkCurvePoint() (v string, err quickfix.Message
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m NewOrderSingle) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1646,21 +1632,19 @@ func (m NewOrderSingle) GetRepurchaseTerm() (v int, err quickfix.MessageRejectEr
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m NewOrderSingle) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m NewOrderSingle) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1675,11 +1659,10 @@ func (m NewOrderSingle) GetTradeOriginationDate() (v string, err quickfix.Messag
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m NewOrderSingle) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1701,11 +1684,10 @@ func (m NewOrderSingle) GetYieldType() (v enum.YieldType, err quickfix.MessageRe
 }
 
 //GetYield gets Yield, Tag 236
-func (m NewOrderSingle) GetYield() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetYield() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.YieldField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1826,11 +1808,10 @@ func (m NewOrderSingle) GetDiscretionInst() (v enum.DiscretionInst, err quickfix
 }
 
 //GetDiscretionOffsetValue gets DiscretionOffsetValue, Tag 389
-func (m NewOrderSingle) GetDiscretionOffsetValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetDiscretionOffsetValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DiscretionOffsetValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1904,11 +1885,10 @@ func (m NewOrderSingle) GetRoundingDirection() (v enum.RoundingDirection, err qu
 }
 
 //GetRoundingModulus gets RoundingModulus, Tag 469
-func (m NewOrderSingle) GetRoundingModulus() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetRoundingModulus() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RoundingModulusField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -1995,11 +1975,10 @@ func (m NewOrderSingle) GetRegistID() (v string, err quickfix.MessageRejectError
 }
 
 //GetOrderPercent gets OrderPercent, Tag 516
-func (m NewOrderSingle) GetOrderPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetOrderPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2122,11 +2101,10 @@ func (m NewOrderSingle) GetClearingFeeIndicator() (v enum.ClearingFeeIndicator, 
 }
 
 //GetPrice2 gets Price2, Tag 640
-func (m NewOrderSingle) GetPrice2() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetPrice2() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.Price2Field
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2141,11 +2119,10 @@ func (m NewOrderSingle) GetAcctIDSource() (v enum.AcctIDSource, err quickfix.Mes
 }
 
 //GetBenchmarkPrice gets BenchmarkPrice, Tag 662
-func (m NewOrderSingle) GetBenchmarkPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetBenchmarkPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BenchmarkPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2187,11 +2164,10 @@ func (m NewOrderSingle) GetYieldRedemptionDate() (v string, err quickfix.Message
 }
 
 //GetYieldRedemptionPrice gets YieldRedemptionPrice, Tag 697
-func (m NewOrderSingle) GetYieldRedemptionPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetYieldRedemptionPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.YieldRedemptionPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2382,11 +2358,10 @@ func (m NewOrderSingle) GetTargetStrategyParameters() (v string, err quickfix.Me
 }
 
 //GetParticipationRate gets ParticipationRate, Tag 849
-func (m NewOrderSingle) GetParticipationRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetParticipationRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ParticipationRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2444,11 +2419,10 @@ func (m NewOrderSingle) GetCPRegType() (v string, err quickfix.MessageRejectErro
 }
 
 //GetMarginRatio gets MarginRatio, Tag 898
-func (m NewOrderSingle) GetMarginRatio() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMarginRatio() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MarginRatioField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2551,31 +2525,28 @@ func (m NewOrderSingle) GetSettleOnOpenFlag() (v string, err quickfix.MessageRej
 }
 
 //GetStrikeMultiplier gets StrikeMultiplier, Tag 967
-func (m NewOrderSingle) GetStrikeMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetStrikeMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikeMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetStrikeValue gets StrikeValue, Tag 968
-func (m NewOrderSingle) GetStrikeValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetStrikeValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikeValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMinPriceIncrement gets MinPriceIncrement, Tag 969
-func (m NewOrderSingle) GetMinPriceIncrement() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMinPriceIncrement() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinPriceIncrementField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2705,11 +2676,10 @@ func (m NewOrderSingle) GetRefOrderIDSource() (v enum.RefOrderIDSource, err quic
 }
 
 //GetSecondaryDisplayQty gets SecondaryDisplayQty, Tag 1082
-func (m NewOrderSingle) GetSecondaryDisplayQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetSecondaryDisplayQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SecondaryDisplayQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2733,51 +2703,46 @@ func (m NewOrderSingle) GetDisplayMethod() (v enum.DisplayMethod, err quickfix.M
 }
 
 //GetDisplayLowQty gets DisplayLowQty, Tag 1085
-func (m NewOrderSingle) GetDisplayLowQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetDisplayLowQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DisplayLowQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetDisplayHighQty gets DisplayHighQty, Tag 1086
-func (m NewOrderSingle) GetDisplayHighQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetDisplayHighQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DisplayHighQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetDisplayMinIncr gets DisplayMinIncr, Tag 1087
-func (m NewOrderSingle) GetDisplayMinIncr() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetDisplayMinIncr() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DisplayMinIncrField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetRefreshQty gets RefreshQty, Tag 1088
-func (m NewOrderSingle) GetRefreshQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetRefreshQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RefreshQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMatchIncrement gets MatchIncrement, Tag 1089
-func (m NewOrderSingle) GetMatchIncrement() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetMatchIncrement() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MatchIncrementField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2873,11 +2838,10 @@ func (m NewOrderSingle) GetTriggerAction() (v enum.TriggerAction, err quickfix.M
 }
 
 //GetTriggerPrice gets TriggerPrice, Tag 1102
-func (m NewOrderSingle) GetTriggerPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetTriggerPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TriggerPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2946,11 +2910,10 @@ func (m NewOrderSingle) GetTriggerPriceDirection() (v enum.TriggerPriceDirection
 }
 
 //GetTriggerNewPrice gets TriggerNewPrice, Tag 1110
-func (m NewOrderSingle) GetTriggerNewPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetTriggerNewPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TriggerNewPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -2965,11 +2928,10 @@ func (m NewOrderSingle) GetTriggerOrderType() (v enum.TriggerOrderType, err quic
 }
 
 //GetTriggerNewQty gets TriggerNewQty, Tag 1112
-func (m NewOrderSingle) GetTriggerNewQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetTriggerNewQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TriggerNewQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -3002,11 +2964,10 @@ func (m NewOrderSingle) GetExDestinationIDSource() (v enum.ExDestinationIDSource
 }
 
 //GetDisplayQty gets DisplayQty, Tag 1138
-func (m NewOrderSingle) GetDisplayQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NewOrderSingle) GetDisplayQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DisplayQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -4135,11 +4096,10 @@ func (m NoAllocs) GetNoNestedPartyIDs() (NoNestedPartyIDsRepeatingGroup, quickfi
 }
 
 //GetAllocQty gets AllocQty, Tag 80
-func (m NoAllocs) GetAllocQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoAllocs) GetAllocQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.AllocQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5160,21 +5120,19 @@ func (m NoUnderlyings) GetUnderlyingRepurchaseTerm() (v int, err quickfix.Messag
 }
 
 //GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
-func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingFactor gets UnderlyingFactor, Tag 246
-func (m NoUnderlyings) GetUnderlyingFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5234,11 +5192,10 @@ func (m NoUnderlyings) GetUnderlyingRedemptionDate() (v string, err quickfix.Mes
 }
 
 //GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
-func (m NoUnderlyings) GetUnderlyingStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5262,21 +5219,19 @@ func (m NoUnderlyings) GetUnderlyingOptAttribute() (v string, err quickfix.Messa
 }
 
 //GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
-func (m NoUnderlyings) GetUnderlyingContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
-func (m NoUnderlyings) GetUnderlyingCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5372,71 +5327,64 @@ func (m NoUnderlyings) GetUnderlyingCurrency() (v string, err quickfix.MessageRe
 }
 
 //GetUnderlyingQty gets UnderlyingQty, Tag 879
-func (m NoUnderlyings) GetUnderlyingQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingPx gets UnderlyingPx, Tag 810
-func (m NoUnderlyings) GetUnderlyingPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
-func (m NoUnderlyings) GetUnderlyingDirtyPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingDirtyPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
-func (m NoUnderlyings) GetUnderlyingEndPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
-func (m NoUnderlyings) GetUnderlyingStartValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingStartValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStartValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
-func (m NoUnderlyings) GetUnderlyingCurrentValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingCurrentValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrentValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
-func (m NoUnderlyings) GetUnderlyingEndValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5449,11 +5397,10 @@ func (m NoUnderlyings) GetNoUnderlyingStips() (NoUnderlyingStipsRepeatingGroup, 
 }
 
 //GetUnderlyingAllocationPercent gets UnderlyingAllocationPercent, Tag 972
-func (m NoUnderlyings) GetUnderlyingAllocationPercent() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingAllocationPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingAllocationPercentField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5468,11 +5415,10 @@ func (m NoUnderlyings) GetUnderlyingSettlementType() (v enum.UnderlyingSettlemen
 }
 
 //GetUnderlyingCashAmount gets UnderlyingCashAmount, Tag 973
-func (m NoUnderlyings) GetUnderlyingCashAmount() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingCashAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCashAmountField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5505,11 +5451,10 @@ func (m NoUnderlyings) GetUnderlyingTimeUnit() (v string, err quickfix.MessageRe
 }
 
 //GetUnderlyingCapValue gets UnderlyingCapValue, Tag 1038
-func (m NoUnderlyings) GetUnderlyingCapValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingCapValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCapValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -5531,21 +5476,19 @@ func (m NoUnderlyings) GetUnderlyingSettlMethod() (v string, err quickfix.Messag
 }
 
 //GetUnderlyingAdjustedQuantity gets UnderlyingAdjustedQuantity, Tag 1044
-func (m NoUnderlyings) GetUnderlyingAdjustedQuantity() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingAdjustedQuantity() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingAdjustedQuantityField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetUnderlyingFXRate gets UnderlyingFXRate, Tag 1045
-func (m NoUnderlyings) GetUnderlyingFXRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoUnderlyings) GetUnderlyingFXRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFXRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -6358,11 +6301,10 @@ func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
 }
 
 //GetEventPx gets EventPx, Tag 867
-func (m NoEvents) GetEventPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoEvents) GetEventPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EventPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

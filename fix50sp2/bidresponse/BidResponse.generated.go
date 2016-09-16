@@ -213,11 +213,10 @@ func (m NoBidComponents) SetEncodedText(v string) {
 }
 
 //GetCommission gets Commission, Tag 12
-func (m NoBidComponents) GetCommission() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidComponents) GetCommission() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CommissionField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -277,11 +276,10 @@ func (m NoBidComponents) GetSide() (v enum.Side, err quickfix.MessageRejectError
 }
 
 //GetPrice gets Price, Tag 44
-func (m NoBidComponents) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidComponents) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -296,11 +294,10 @@ func (m NoBidComponents) GetPriceType() (v enum.PriceType, err quickfix.MessageR
 }
 
 //GetFairValue gets FairValue, Tag 406
-func (m NoBidComponents) GetFairValue() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoBidComponents) GetFairValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FairValueField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

@@ -170,11 +170,10 @@ func (m AllocationReportAck) SetAvgPxIndicator(v enum.AvgPxIndicator) {
 }
 
 //GetQuantity gets Quantity, Tag 53
-func (m AllocationReportAck) GetQuantity() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m AllocationReportAck) GetQuantity() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.QuantityField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -554,11 +553,10 @@ func (m NoAllocs) GetAllocAcctIDSource() (v int, err quickfix.MessageRejectError
 }
 
 //GetAllocPrice gets AllocPrice, Tag 366
-func (m NoAllocs) GetAllocPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoAllocs) GetAllocPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.AllocPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -636,11 +634,10 @@ func (m NoAllocs) GetIndividualAllocType() (v enum.IndividualAllocType, err quic
 }
 
 //GetAllocQty gets AllocQty, Tag 80
-func (m NoAllocs) GetAllocQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoAllocs) GetAllocQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.AllocQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

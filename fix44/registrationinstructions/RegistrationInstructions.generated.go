@@ -856,11 +856,10 @@ func (m NoDistribInsts) GetDistribPaymentMethod() (v enum.DistribPaymentMethod, 
 }
 
 //GetDistribPercentage gets DistribPercentage, Tag 512
-func (m NoDistribInsts) GetDistribPercentage() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoDistribInsts) GetDistribPercentage() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.DistribPercentageField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

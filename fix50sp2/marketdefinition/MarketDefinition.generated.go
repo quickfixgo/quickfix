@@ -299,21 +299,19 @@ func (m MarketDefinition) GetPriceType() (v enum.PriceType, err quickfix.Message
 }
 
 //GetRoundLot gets RoundLot, Tag 561
-func (m MarketDefinition) GetRoundLot() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetRoundLot() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RoundLotField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMinTradeVol gets MinTradeVol, Tag 562
-func (m MarketDefinition) GetMinTradeVol() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetMinTradeVol() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinTradeVolField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -328,21 +326,19 @@ func (m MarketDefinition) GetExpirationCycle() (v enum.ExpirationCycle, err quic
 }
 
 //GetMaxTradeVol gets MaxTradeVol, Tag 1140
-func (m MarketDefinition) GetMaxTradeVol() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetMaxTradeVol() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MaxTradeVolField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetMaxPriceVariation gets MaxPriceVariation, Tag 1143
-func (m MarketDefinition) GetMaxPriceVariation() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetMaxPriceVariation() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MaxPriceVariationField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -357,31 +353,28 @@ func (m MarketDefinition) GetImpliedMarketIndicator() (v enum.ImpliedMarketIndic
 }
 
 //GetLowLimitPrice gets LowLimitPrice, Tag 1148
-func (m MarketDefinition) GetLowLimitPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetLowLimitPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LowLimitPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetHighLimitPrice gets HighLimitPrice, Tag 1149
-func (m MarketDefinition) GetHighLimitPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetHighLimitPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.HighLimitPriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetTradingReferencePrice gets TradingReferencePrice, Tag 1150
-func (m MarketDefinition) GetTradingReferencePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m MarketDefinition) GetTradingReferencePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TradingReferencePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -771,31 +764,28 @@ func (m NoTickRules) SetTickRuleType(v enum.TickRuleType) {
 }
 
 //GetStartTickPriceRange gets StartTickPriceRange, Tag 1206
-func (m NoTickRules) GetStartTickPriceRange() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoTickRules) GetStartTickPriceRange() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StartTickPriceRangeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetEndTickPriceRange gets EndTickPriceRange, Tag 1207
-func (m NoTickRules) GetEndTickPriceRange() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoTickRules) GetEndTickPriceRange() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EndTickPriceRangeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetTickIncrement gets TickIncrement, Tag 1208
-func (m NoTickRules) GetTickIncrement() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoTickRules) GetTickIncrement() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TickIncrementField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -924,11 +914,10 @@ func (m NoLotTypeRules) GetLotType() (v enum.LotType, err quickfix.MessageReject
 }
 
 //GetMinLotSize gets MinLotSize, Tag 1231
-func (m NoLotTypeRules) GetMinLotSize() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoLotTypeRules) GetMinLotSize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinLotSizeField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

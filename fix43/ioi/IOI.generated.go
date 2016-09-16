@@ -415,11 +415,10 @@ func (m IOI) GetIOITransType() (v enum.IOITransType, err quickfix.MessageRejectE
 }
 
 //GetPrice gets Price, Tag 44
-func (m IOI) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -549,11 +548,10 @@ func (m IOI) GetMaturityMonthYear() (v string, err quickfix.MessageRejectError) 
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m IOI) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -584,11 +582,10 @@ func (m IOI) GetNoRoutingIDs() (NoRoutingIDsRepeatingGroup, quickfix.MessageReje
 }
 
 //GetSpread gets Spread, Tag 218
-func (m IOI) GetSpread() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetSpread() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SpreadField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -630,11 +627,10 @@ func (m IOI) GetBenchmarkCurvePoint() (v string, err quickfix.MessageRejectError
 }
 
 //GetCouponRate gets CouponRate, Tag 223
-func (m IOI) GetCouponRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -667,31 +663,28 @@ func (m IOI) GetRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 }
 
 //GetRepurchaseRate gets RepurchaseRate, Tag 227
-func (m IOI) GetRepurchaseRate() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetFactor gets Factor, Tag 228
-func (m IOI) GetFactor() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetContractMultiplier gets ContractMultiplier, Tag 231
-func (m IOI) GetContractMultiplier() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IOI) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

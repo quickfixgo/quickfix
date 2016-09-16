@@ -123,21 +123,19 @@ func (m DontKnowTrade) GetExecID() (v string, err quickfix.MessageRejectError) {
 }
 
 //GetLastPx gets LastPx, Tag 31
-func (m DontKnowTrade) GetLastPx() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DontKnowTrade) GetLastPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LastPxField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
 
 //GetLastShares gets LastShares, Tag 32
-func (m DontKnowTrade) GetLastShares() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DontKnowTrade) GetLastShares() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LastSharesField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -152,11 +150,10 @@ func (m DontKnowTrade) GetOrderID() (v string, err quickfix.MessageRejectError) 
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m DontKnowTrade) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m DontKnowTrade) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

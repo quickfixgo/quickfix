@@ -282,11 +282,10 @@ func (m OrderStatusRequest) GetPutOrCall() (v enum.PutOrCall, err quickfix.Messa
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m OrderStatusRequest) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderStatusRequest) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

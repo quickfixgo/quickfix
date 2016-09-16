@@ -209,11 +209,10 @@ func (m OrderCancelRequest) GetOrderID() (v string, err quickfix.MessageRejectEr
 }
 
 //GetOrderQty gets OrderQty, Tag 38
-func (m OrderCancelRequest) GetOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.OrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -318,11 +317,10 @@ func (m OrderCancelRequest) GetClientID() (v string, err quickfix.MessageRejectE
 }
 
 //GetCashOrderQty gets CashOrderQty, Tag 152
-func (m OrderCancelRequest) GetCashOrderQty() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetCashOrderQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CashOrderQtyField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
@@ -355,11 +353,10 @@ func (m OrderCancelRequest) GetPutOrCall() (v enum.PutOrCall, err quickfix.Messa
 }
 
 //GetStrikePrice gets StrikePrice, Tag 202
-func (m OrderCancelRequest) GetStrikePrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m OrderCancelRequest) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

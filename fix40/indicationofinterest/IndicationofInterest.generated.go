@@ -235,11 +235,10 @@ func (m IndicationofInterest) GetIOITransType() (v enum.IOITransType, err quickf
 }
 
 //GetPrice gets Price, Tag 44
-func (m IndicationofInterest) GetPrice() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m IndicationofInterest) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }

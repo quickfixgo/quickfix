@@ -306,11 +306,10 @@ func (m NoTradingSessions) GetTradSesEndTime() (v time.Time, err quickfix.Messag
 }
 
 //GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
-func (m NoTradingSessions) GetTotalVolumeTraded() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+func (m NoTradingSessions) GetTotalVolumeTraded() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TotalVolumeTradedField
 	if err = m.Get(&f); err == nil {
-		v = f.Decimal
-		scale = f.Scale
+		v = f.Value()
 	}
 	return
 }
