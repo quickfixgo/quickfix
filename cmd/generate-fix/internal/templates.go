@@ -74,18 +74,13 @@ Get{{ .Name }}() (f field.{{ .Name }}Field, err quickfix.MessageRejectError) {
 {{- if and $ft.Enums (ne $bt "FIXBoolean") -}}
 Get{{ .Name }}() (v enum.{{ .Name }}, err quickfix.MessageRejectError) {
 {{- else if eq $bt "FIXDecimal" -}}
-Get{{ .Name }}() (v decimal.Decimal, scale int32, err quickfix.MessageRejectError) {
+Get{{ .Name }}() (v decimal.Decimal, err quickfix.MessageRejectError) {
 {{- else -}}
 Get{{ .Name }}() (v {{ quickfixValueType $bt }}, err quickfix.MessageRejectError) {
 {{- end }}
 	var f field.{{ .Name }}Field
 	if err = {{ template "receiver" }}.Get(&f); err == nil {
-{{ if eq $bt "FIXDecimal" -}}
-		v = f.Decimal
-		scale = f.Scale
-{{ else -}}
 		v = f.Value()
-{{ end -}}
 	}
 	return
 }
@@ -370,7 +365,7 @@ func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 {{ if and  .Enums (ne $base_type "FIXBoolean") }}
 func (f {{ .Name }}Field) Value() enum.{{ .Name }} { return enum.{{ .Name }}(f.String()) }
 {{ else if eq $base_type "FIXDecimal" }}
-func (f {{ .Name }}Field) Value() (val decimal.Decimal, scale int32) { return f.Decimal, f.Scale }
+func (f {{ .Name }}Field) Value() (val decimal.Decimal) { return f.Decimal }
 {{ else }}
 func (f {{ .Name }}Field) Value() ({{ quickfixValueType $base_type }}) {
 {{- if eq $base_type "FIXString" -}}
