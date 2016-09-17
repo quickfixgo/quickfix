@@ -78,6 +78,14 @@ For week long sessions, the ending day of week for the session. Use in combinati
 
  Full day of week in English, or 3 letter abbreviation (i.e. Monday and Mon are valid)
 
+EnableLastMsgSeqNumProcessed
+
+Add the last message sequence number processed in the header (optional tag 369).  Valid Values:
+ Y
+ N
+
+Defaults to N.
+
 ResendRequestChunkSize
 
 Setting to limit the size of a resend request in case of missing messages. This is useful when the remote FIX engine does not allow to ask for more than n message for a ResendRequest.  E.g. if the ResendRequestChunkSize is set to 5 and a gap of 7 messages is detected, a first resend request will be sent for 5 messages. When this gap has been filled, another resend request for 2 messages will be sent. If the ResendRequestChunkSize is set to 0, only one ResendRequest for all the missing messages will be sent. Value must be positive integer. Defaults to 0 (disables splitting).
