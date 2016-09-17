@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -113,7 +114,7 @@ func (m PartyDetailsListReport) SetPartyDetailsListReportID(v string) {
 }
 
 //SetPartyDetailsRequestResult sets PartyDetailsRequestResult, Tag 1511
-func (m PartyDetailsListReport) SetPartyDetailsRequestResult(v int) {
+func (m PartyDetailsListReport) SetPartyDetailsRequestResult(v enum.PartyDetailsRequestResult) {
 	m.Set(field.NewPartyDetailsRequestResult(v))
 }
 
@@ -128,74 +129,110 @@ func (m PartyDetailsListReport) SetNoPartyList(f NoPartyListRepeatingGroup) {
 }
 
 //GetText gets Text, Tag 58
-func (m PartyDetailsListReport) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m PartyDetailsListReport) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m PartyDetailsListReport) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLastFragment gets LastFragment, Tag 893
-func (m PartyDetailsListReport) GetLastFragment() (f field.LastFragmentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetLastFragment() (v bool, err quickfix.MessageRejectError) {
+	var f field.LastFragmentField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplID gets ApplID, Tag 1180
-func (m PartyDetailsListReport) GetApplID() (f field.ApplIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetApplID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplSeqNum gets ApplSeqNum, Tag 1181
-func (m PartyDetailsListReport) GetApplSeqNum() (f field.ApplSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetApplSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplLastSeqNum gets ApplLastSeqNum, Tag 1350
-func (m PartyDetailsListReport) GetApplLastSeqNum() (f field.ApplLastSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetApplLastSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplLastSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplResendFlag gets ApplResendFlag, Tag 1352
-func (m PartyDetailsListReport) GetApplResendFlag() (f field.ApplResendFlagField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetApplResendFlag() (v bool, err quickfix.MessageRejectError) {
+	var f field.ApplResendFlagField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyDetailsListRequestID gets PartyDetailsListRequestID, Tag 1505
-func (m PartyDetailsListReport) GetPartyDetailsListRequestID() (f field.PartyDetailsListRequestIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetPartyDetailsListRequestID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyDetailsListRequestIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyDetailsListReportID gets PartyDetailsListReportID, Tag 1510
-func (m PartyDetailsListReport) GetPartyDetailsListReportID() (f field.PartyDetailsListReportIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetPartyDetailsListReportID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyDetailsListReportIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyDetailsRequestResult gets PartyDetailsRequestResult, Tag 1511
-func (m PartyDetailsListReport) GetPartyDetailsRequestResult() (f field.PartyDetailsRequestResultField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetPartyDetailsRequestResult() (v enum.PartyDetailsRequestResult, err quickfix.MessageRejectError) {
+	var f field.PartyDetailsRequestResultField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotNoPartyList gets TotNoPartyList, Tag 1512
-func (m PartyDetailsListReport) GetTotNoPartyList() (f field.TotNoPartyListField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListReport) GetTotNoPartyList() (v int, err quickfix.MessageRejectError) {
+	var f field.TotNoPartyListField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -282,12 +319,12 @@ func (m NoPartyList) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyList) SetPartyIDSource(v string) {
+func (m NoPartyList) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyList) SetPartyRole(v int) {
+func (m NoPartyList) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -317,20 +354,29 @@ func (m NoPartyList) SetNoRelatedPartyIDs(f NoRelatedPartyIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyList) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyList) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyList) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyList) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyList) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyList) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -420,19 +466,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -490,14 +542,20 @@ func (m NoPartyAltIDs) SetNoPartyAltSubIDs(f NoPartyAltSubIDsRepeatingGroup) {
 }
 
 //GetPartyAltID gets PartyAltID, Tag 1517
-func (m NoPartyAltIDs) GetPartyAltID() (f field.PartyAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyAltIDs) GetPartyAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyAltIDSource gets PartyAltIDSource, Tag 1518
-func (m NoPartyAltIDs) GetPartyAltIDSource() (f field.PartyAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyAltIDs) GetPartyAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -539,14 +597,20 @@ func (m NoPartyAltSubIDs) SetPartyAltSubIDType(v int) {
 }
 
 //GetPartyAltSubID gets PartyAltSubID, Tag 1520
-func (m NoPartyAltSubIDs) GetPartyAltSubID() (f field.PartyAltSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyAltSubIDs) GetPartyAltSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyAltSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyAltSubIDType gets PartyAltSubIDType, Tag 1521
-func (m NoPartyAltSubIDs) GetPartyAltSubIDType() (f field.PartyAltSubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyAltSubIDs) GetPartyAltSubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.PartyAltSubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -632,20 +696,29 @@ func (m NoContextPartyIDs) SetNoContextPartySubIDs(f NoContextPartySubIDsRepeati
 }
 
 //GetContextPartyID gets ContextPartyID, Tag 1523
-func (m NoContextPartyIDs) GetContextPartyID() (f field.ContextPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoContextPartyIDs) GetContextPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.ContextPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetContextPartyIDSource gets ContextPartyIDSource, Tag 1524
-func (m NoContextPartyIDs) GetContextPartyIDSource() (f field.ContextPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoContextPartyIDs) GetContextPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.ContextPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetContextPartyRole gets ContextPartyRole, Tag 1525
-func (m NoContextPartyIDs) GetContextPartyRole() (f field.ContextPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoContextPartyIDs) GetContextPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.ContextPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -692,14 +765,20 @@ func (m NoContextPartySubIDs) SetContextPartySubIDType(v int) {
 }
 
 //GetContextPartySubID gets ContextPartySubID, Tag 1527
-func (m NoContextPartySubIDs) GetContextPartySubID() (f field.ContextPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoContextPartySubIDs) GetContextPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.ContextPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetContextPartySubIDType gets ContextPartySubIDType, Tag 1528
-func (m NoContextPartySubIDs) GetContextPartySubIDType() (f field.ContextPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoContextPartySubIDs) GetContextPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.ContextPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -765,7 +844,7 @@ type NoRiskLimits struct {
 }
 
 //SetRiskLimitType sets RiskLimitType, Tag 1530
-func (m NoRiskLimits) SetRiskLimitType(v int) {
+func (m NoRiskLimits) SetRiskLimitType(v enum.RiskLimitType) {
 	m.Set(field.NewRiskLimitType(v))
 }
 
@@ -795,26 +874,38 @@ func (m NoRiskLimits) SetNoRiskWarningLevels(f NoRiskWarningLevelsRepeatingGroup
 }
 
 //GetRiskLimitType gets RiskLimitType, Tag 1530
-func (m NoRiskLimits) GetRiskLimitType() (f field.RiskLimitTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskLimits) GetRiskLimitType() (v enum.RiskLimitType, err quickfix.MessageRejectError) {
+	var f field.RiskLimitTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskLimitAmount gets RiskLimitAmount, Tag 1531
-func (m NoRiskLimits) GetRiskLimitAmount() (f field.RiskLimitAmountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskLimits) GetRiskLimitAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RiskLimitAmountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskLimitCurrency gets RiskLimitCurrency, Tag 1532
-func (m NoRiskLimits) GetRiskLimitCurrency() (f field.RiskLimitCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskLimits) GetRiskLimitCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskLimitCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskLimitPlatform gets RiskLimitPlatform, Tag 1533
-func (m NoRiskLimits) GetRiskLimitPlatform() (f field.RiskLimitPlatformField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskLimits) GetRiskLimitPlatform() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskLimitPlatformField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -868,7 +959,7 @@ type NoRiskInstruments struct {
 }
 
 //SetRiskInstrumentOperator sets RiskInstrumentOperator, Tag 1535
-func (m NoRiskInstruments) SetRiskInstrumentOperator(v int) {
+func (m NoRiskInstruments) SetRiskInstrumentOperator(v enum.RiskInstrumentOperator) {
 	m.Set(field.NewRiskInstrumentOperator(v))
 }
 
@@ -993,32 +1084,47 @@ func (m NoRiskInstruments) SetRiskInstrumentMultiplier(value decimal.Decimal, sc
 }
 
 //GetRiskInstrumentOperator gets RiskInstrumentOperator, Tag 1535
-func (m NoRiskInstruments) GetRiskInstrumentOperator() (f field.RiskInstrumentOperatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskInstrumentOperator() (v enum.RiskInstrumentOperator, err quickfix.MessageRejectError) {
+	var f field.RiskInstrumentOperatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSymbol gets RiskSymbol, Tag 1536
-func (m NoRiskInstruments) GetRiskSymbol() (f field.RiskSymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSymbolSfx gets RiskSymbolSfx, Tag 1537
-func (m NoRiskInstruments) GetRiskSymbolSfx() (f field.RiskSymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSymbolSfx() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityID gets RiskSecurityID, Tag 1538
-func (m NoRiskInstruments) GetRiskSecurityID() (f field.RiskSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityIDSource gets RiskSecurityIDSource, Tag 1539
-func (m NoRiskInstruments) GetRiskSecurityIDSource() (f field.RiskSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1030,116 +1136,173 @@ func (m NoRiskInstruments) GetNoRiskSecurityAltID() (NoRiskSecurityAltIDRepeatin
 }
 
 //GetRiskProduct gets RiskProduct, Tag 1543
-func (m NoRiskInstruments) GetRiskProduct() (f field.RiskProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskProduct() (v int, err quickfix.MessageRejectError) {
+	var f field.RiskProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskProductComplex gets RiskProductComplex, Tag 1544
-func (m NoRiskInstruments) GetRiskProductComplex() (f field.RiskProductComplexField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskProductComplex() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskProductComplexField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityGroup gets RiskSecurityGroup, Tag 1545
-func (m NoRiskInstruments) GetRiskSecurityGroup() (f field.RiskSecurityGroupField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityGroup() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityGroupField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskCFICode gets RiskCFICode, Tag 1546
-func (m NoRiskInstruments) GetRiskCFICode() (f field.RiskCFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskCFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityType gets RiskSecurityType, Tag 1547
-func (m NoRiskInstruments) GetRiskSecurityType() (f field.RiskSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityType() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecuritySubType gets RiskSecuritySubType, Tag 1548
-func (m NoRiskInstruments) GetRiskSecuritySubType() (f field.RiskSecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskMaturityMonthYear gets RiskMaturityMonthYear, Tag 1549
-func (m NoRiskInstruments) GetRiskMaturityMonthYear() (f field.RiskMaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskMaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskMaturityTime gets RiskMaturityTime, Tag 1550
-func (m NoRiskInstruments) GetRiskMaturityTime() (f field.RiskMaturityTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskMaturityTime() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskMaturityTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskRestructuringType gets RiskRestructuringType, Tag 1551
-func (m NoRiskInstruments) GetRiskRestructuringType() (f field.RiskRestructuringTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskRestructuringType() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskRestructuringTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSeniority gets RiskSeniority, Tag 1552
-func (m NoRiskInstruments) GetRiskSeniority() (f field.RiskSeniorityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSeniority() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSeniorityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskPutOrCall gets RiskPutOrCall, Tag 1553
-func (m NoRiskInstruments) GetRiskPutOrCall() (f field.RiskPutOrCallField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskPutOrCall() (v int, err quickfix.MessageRejectError) {
+	var f field.RiskPutOrCallField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskFlexibleIndicator gets RiskFlexibleIndicator, Tag 1554
-func (m NoRiskInstruments) GetRiskFlexibleIndicator() (f field.RiskFlexibleIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskFlexibleIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.RiskFlexibleIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskCouponRate gets RiskCouponRate, Tag 1555
-func (m NoRiskInstruments) GetRiskCouponRate() (f field.RiskCouponRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RiskCouponRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityExchange gets RiskSecurityExchange, Tag 1616
-func (m NoRiskInstruments) GetRiskSecurityExchange() (f field.RiskSecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityDesc gets RiskSecurityDesc, Tag 1556
-func (m NoRiskInstruments) GetRiskSecurityDesc() (f field.RiskSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskEncodedSecurityDescLen gets RiskEncodedSecurityDescLen, Tag 1620
-func (m NoRiskInstruments) GetRiskEncodedSecurityDescLen() (f field.RiskEncodedSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.RiskEncodedSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskEncodedSecurityDesc gets RiskEncodedSecurityDesc, Tag 1621
-func (m NoRiskInstruments) GetRiskEncodedSecurityDesc() (f field.RiskEncodedSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskEncodedSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskInstrumentSettlType gets RiskInstrumentSettlType, Tag 1557
-func (m NoRiskInstruments) GetRiskInstrumentSettlType() (f field.RiskInstrumentSettlTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskInstrumentSettlType() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskInstrumentSettlTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskInstrumentMultiplier gets RiskInstrumentMultiplier, Tag 1558
-func (m NoRiskInstruments) GetRiskInstrumentMultiplier() (f field.RiskInstrumentMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskInstruments) GetRiskInstrumentMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RiskInstrumentMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1284,14 +1447,20 @@ func (m NoRiskSecurityAltID) SetRiskSecurityAltIDSource(v string) {
 }
 
 //GetRiskSecurityAltID gets RiskSecurityAltID, Tag 1541
-func (m NoRiskSecurityAltID) GetRiskSecurityAltID() (f field.RiskSecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskSecurityAltID) GetRiskSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskSecurityAltIDSource gets RiskSecurityAltIDSource, Tag 1542
-func (m NoRiskSecurityAltID) GetRiskSecurityAltIDSource() (f field.RiskSecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskSecurityAltID) GetRiskSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskSecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1367,14 +1536,20 @@ func (m NoRiskWarningLevels) SetRiskWarningLevelName(v string) {
 }
 
 //GetRiskWarningLevelPercent gets RiskWarningLevelPercent, Tag 1560
-func (m NoRiskWarningLevels) GetRiskWarningLevelPercent() (f field.RiskWarningLevelPercentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskWarningLevels) GetRiskWarningLevelPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RiskWarningLevelPercentField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRiskWarningLevelName gets RiskWarningLevelName, Tag 1561
-func (m NoRiskWarningLevels) GetRiskWarningLevelName() (f field.RiskWarningLevelNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRiskWarningLevels) GetRiskWarningLevelName() (v string, err quickfix.MessageRejectError) {
+	var f field.RiskWarningLevelNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1480,20 +1655,29 @@ func (m NoRelatedPartyIDs) SetNoPartyRelationships(f NoPartyRelationshipsRepeati
 }
 
 //GetRelatedPartyID gets RelatedPartyID, Tag 1563
-func (m NoRelatedPartyIDs) GetRelatedPartyID() (f field.RelatedPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyIDs) GetRelatedPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedPartyIDSource gets RelatedPartyIDSource, Tag 1564
-func (m NoRelatedPartyIDs) GetRelatedPartyIDSource() (f field.RelatedPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyIDs) GetRelatedPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedPartyRole gets RelatedPartyRole, Tag 1565
-func (m NoRelatedPartyIDs) GetRelatedPartyRole() (f field.RelatedPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyIDs) GetRelatedPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1588,14 +1772,20 @@ func (m NoRelatedPartySubIDs) SetRelatedPartySubIDType(v int) {
 }
 
 //GetRelatedPartySubID gets RelatedPartySubID, Tag 1567
-func (m NoRelatedPartySubIDs) GetRelatedPartySubID() (f field.RelatedPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartySubIDs) GetRelatedPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedPartySubIDType gets RelatedPartySubIDType, Tag 1568
-func (m NoRelatedPartySubIDs) GetRelatedPartySubIDType() (f field.RelatedPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartySubIDs) GetRelatedPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.RelatedPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1653,14 +1843,20 @@ func (m NoRelatedPartyAltIDs) SetNoRelatedPartyAltSubIDs(f NoRelatedPartyAltSubI
 }
 
 //GetRelatedPartyAltID gets RelatedPartyAltID, Tag 1570
-func (m NoRelatedPartyAltIDs) GetRelatedPartyAltID() (f field.RelatedPartyAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyAltIDs) GetRelatedPartyAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedPartyAltIDSource gets RelatedPartyAltIDSource, Tag 1571
-func (m NoRelatedPartyAltIDs) GetRelatedPartyAltIDSource() (f field.RelatedPartyAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyAltIDs) GetRelatedPartyAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1702,14 +1898,20 @@ func (m NoRelatedPartyAltSubIDs) SetRelatedPartyAltSubIDType(v int) {
 }
 
 //GetRelatedPartyAltSubID gets RelatedPartyAltSubID, Tag 1573
-func (m NoRelatedPartyAltSubIDs) GetRelatedPartyAltSubID() (f field.RelatedPartyAltSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyAltSubIDs) GetRelatedPartyAltSubID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyAltSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedPartyAltSubIDType gets RelatedPartyAltSubIDType, Tag 1574
-func (m NoRelatedPartyAltSubIDs) GetRelatedPartyAltSubIDType() (f field.RelatedPartyAltSubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedPartyAltSubIDs) GetRelatedPartyAltSubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.RelatedPartyAltSubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1795,20 +1997,29 @@ func (m NoRelatedContextPartyIDs) SetNoRelatedContextPartySubIDs(f NoRelatedCont
 }
 
 //GetRelatedContextPartyID gets RelatedContextPartyID, Tag 1576
-func (m NoRelatedContextPartyIDs) GetRelatedContextPartyID() (f field.RelatedContextPartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedContextPartyIDs) GetRelatedContextPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedContextPartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedContextPartyIDSource gets RelatedContextPartyIDSource, Tag 1577
-func (m NoRelatedContextPartyIDs) GetRelatedContextPartyIDSource() (f field.RelatedContextPartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedContextPartyIDs) GetRelatedContextPartyIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedContextPartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedContextPartyRole gets RelatedContextPartyRole, Tag 1578
-func (m NoRelatedContextPartyIDs) GetRelatedContextPartyRole() (f field.RelatedContextPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedContextPartyIDs) GetRelatedContextPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.RelatedContextPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1855,14 +2066,20 @@ func (m NoRelatedContextPartySubIDs) SetRelatedContextPartySubIDType(v int) {
 }
 
 //GetRelatedContextPartySubID gets RelatedContextPartySubID, Tag 1580
-func (m NoRelatedContextPartySubIDs) GetRelatedContextPartySubID() (f field.RelatedContextPartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedContextPartySubIDs) GetRelatedContextPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatedContextPartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatedContextPartySubIDType gets RelatedContextPartySubIDType, Tag 1581
-func (m NoRelatedContextPartySubIDs) GetRelatedContextPartySubIDType() (f field.RelatedContextPartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelatedContextPartySubIDs) GetRelatedContextPartySubIDType() (v int, err quickfix.MessageRejectError) {
+	var f field.RelatedContextPartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -1958,26 +2175,38 @@ func (m NoRelationshipRiskLimits) SetNoRelationshipRiskWarningLevels(f NoRelatio
 }
 
 //GetRelationshipRiskLimitType gets RelationshipRiskLimitType, Tag 1583
-func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitType() (f field.RelationshipRiskLimitTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitType() (v int, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskLimitTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskLimitAmount gets RelationshipRiskLimitAmount, Tag 1584
-func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitAmount() (f field.RelationshipRiskLimitAmountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitAmount() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskLimitAmountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskLimitCurrency gets RelationshipRiskLimitCurrency, Tag 1585
-func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitCurrency() (f field.RelationshipRiskLimitCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskLimitCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskLimitPlatform gets RelationshipRiskLimitPlatform, Tag 1586
-func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitPlatform() (f field.RelationshipRiskLimitPlatformField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskLimits) GetRelationshipRiskLimitPlatform() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskLimitPlatformField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2156,32 +2385,47 @@ func (m NoRelationshipRiskInstruments) SetRelationshipRiskInstrumentMultiplier(v
 }
 
 //GetRelationshipRiskInstrumentOperator gets RelationshipRiskInstrumentOperator, Tag 1588
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentOperator() (f field.RelationshipRiskInstrumentOperatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentOperator() (v int, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskInstrumentOperatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSymbol gets RelationshipRiskSymbol, Tag 1589
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSymbol() (f field.RelationshipRiskSymbolField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSymbol() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSymbolField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSymbolSfx gets RelationshipRiskSymbolSfx, Tag 1590
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSymbolSfx() (f field.RelationshipRiskSymbolSfxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSymbolSfx() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSymbolSfxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityID gets RelationshipRiskSecurityID, Tag 1591
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityID() (f field.RelationshipRiskSecurityIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityIDSource gets RelationshipRiskSecurityIDSource, Tag 1592
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityIDSource() (f field.RelationshipRiskSecurityIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2193,116 +2437,173 @@ func (m NoRelationshipRiskInstruments) GetNoRelationshipRiskSecurityAltID() (NoR
 }
 
 //GetRelationshipRiskProduct gets RelationshipRiskProduct, Tag 1596
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskProduct() (f field.RelationshipRiskProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskProduct() (v int, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskProductComplex gets RelationshipRiskProductComplex, Tag 1597
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskProductComplex() (f field.RelationshipRiskProductComplexField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskProductComplex() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskProductComplexField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityGroup gets RelationshipRiskSecurityGroup, Tag 1598
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityGroup() (f field.RelationshipRiskSecurityGroupField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityGroup() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityGroupField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskCFICode gets RelationshipRiskCFICode, Tag 1599
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskCFICode() (f field.RelationshipRiskCFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskCFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityType gets RelationshipRiskSecurityType, Tag 1600
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityType() (f field.RelationshipRiskSecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityType() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecuritySubType gets RelationshipRiskSecuritySubType, Tag 1601
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecuritySubType() (f field.RelationshipRiskSecuritySubTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecuritySubType() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecuritySubTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskMaturityMonthYear gets RelationshipRiskMaturityMonthYear, Tag 1602
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskMaturityMonthYear() (f field.RelationshipRiskMaturityMonthYearField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskMaturityMonthYearField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskMaturityTime gets RelationshipRiskMaturityTime, Tag 1603
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskMaturityTime() (f field.RelationshipRiskMaturityTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskMaturityTime() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskMaturityTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskRestructuringType gets RelationshipRiskRestructuringType, Tag 1604
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskRestructuringType() (f field.RelationshipRiskRestructuringTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskRestructuringType() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskRestructuringTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSeniority gets RelationshipRiskSeniority, Tag 1605
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSeniority() (f field.RelationshipRiskSeniorityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSeniority() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSeniorityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskPutOrCall gets RelationshipRiskPutOrCall, Tag 1606
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskPutOrCall() (f field.RelationshipRiskPutOrCallField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskPutOrCall() (v int, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskPutOrCallField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskFlexibleIndicator gets RelationshipRiskFlexibleIndicator, Tag 1607
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskFlexibleIndicator() (f field.RelationshipRiskFlexibleIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskFlexibleIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskFlexibleIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskCouponRate gets RelationshipRiskCouponRate, Tag 1608
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskCouponRate() (f field.RelationshipRiskCouponRateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskCouponRateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityExchange gets RelationshipRiskSecurityExchange, Tag 1609
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityExchange() (f field.RelationshipRiskSecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityDesc gets RelationshipRiskSecurityDesc, Tag 1610
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityDesc() (f field.RelationshipRiskSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskEncodedSecurityDescLen gets RelationshipRiskEncodedSecurityDescLen, Tag 1618
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskEncodedSecurityDescLen() (f field.RelationshipRiskEncodedSecurityDescLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskEncodedSecurityDescLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskEncodedSecurityDesc gets RelationshipRiskEncodedSecurityDesc, Tag 1619
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskEncodedSecurityDesc() (f field.RelationshipRiskEncodedSecurityDescField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskEncodedSecurityDescField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskInstrumentSettlType gets RelationshipRiskInstrumentSettlType, Tag 1611
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentSettlType() (f field.RelationshipRiskInstrumentSettlTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentSettlType() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskInstrumentSettlTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskInstrumentMultiplier gets RelationshipRiskInstrumentMultiplier, Tag 1612
-func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentMultiplier() (f field.RelationshipRiskInstrumentMultiplierField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskInstruments) GetRelationshipRiskInstrumentMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskInstrumentMultiplierField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2447,14 +2748,20 @@ func (m NoRelationshipRiskSecurityAltID) SetRelationshipRiskSecurityAltIDSource(
 }
 
 //GetRelationshipRiskSecurityAltID gets RelationshipRiskSecurityAltID, Tag 1594
-func (m NoRelationshipRiskSecurityAltID) GetRelationshipRiskSecurityAltID() (f field.RelationshipRiskSecurityAltIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskSecurityAltID) GetRelationshipRiskSecurityAltID() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityAltIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskSecurityAltIDSource gets RelationshipRiskSecurityAltIDSource, Tag 1595
-func (m NoRelationshipRiskSecurityAltID) GetRelationshipRiskSecurityAltIDSource() (f field.RelationshipRiskSecurityAltIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskSecurityAltID) GetRelationshipRiskSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskSecurityAltIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2530,14 +2837,20 @@ func (m NoRelationshipRiskWarningLevels) SetRelationshipRiskWarningLevelName(v s
 }
 
 //GetRelationshipRiskWarningLevelPercent gets RelationshipRiskWarningLevelPercent, Tag 1614
-func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelPercent() (f field.RelationshipRiskWarningLevelPercentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskWarningLevelPercentField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelationshipRiskWarningLevelName gets RelationshipRiskWarningLevelName, Tag 1615
-func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelName() (f field.RelationshipRiskWarningLevelNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRelationshipRiskWarningLevels) GetRelationshipRiskWarningLevelName() (v string, err quickfix.MessageRejectError) {
+	var f field.RelationshipRiskWarningLevelNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -2603,13 +2916,16 @@ type NoPartyRelationships struct {
 }
 
 //SetPartyRelationship sets PartyRelationship, Tag 1515
-func (m NoPartyRelationships) SetPartyRelationship(v int) {
+func (m NoPartyRelationships) SetPartyRelationship(v enum.PartyRelationship) {
 	m.Set(field.NewPartyRelationship(v))
 }
 
 //GetPartyRelationship gets PartyRelationship, Tag 1515
-func (m NoPartyRelationships) GetPartyRelationship() (f field.PartyRelationshipField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyRelationships) GetPartyRelationship() (v enum.PartyRelationship, err quickfix.MessageRejectError) {
+	var f field.PartyRelationshipField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

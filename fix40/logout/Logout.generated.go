@@ -66,8 +66,11 @@ func (m Logout) SetText(v string) {
 }
 
 //GetText gets Text, Tag 58
-func (m Logout) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Logout) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

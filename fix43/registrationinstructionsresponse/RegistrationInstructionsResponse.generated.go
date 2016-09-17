@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
 	"github.com/quickfixgo/quickfix/tag"
@@ -85,12 +86,12 @@ func (m RegistrationInstructionsResponse) SetRegistRejReasonText(v string) {
 }
 
 //SetRegistStatus sets RegistStatus, Tag 506
-func (m RegistrationInstructionsResponse) SetRegistStatus(v string) {
+func (m RegistrationInstructionsResponse) SetRegistStatus(v enum.RegistStatus) {
 	m.Set(field.NewRegistStatus(v))
 }
 
 //SetRegistRejReasonCode sets RegistRejReasonCode, Tag 507
-func (m RegistrationInstructionsResponse) SetRegistRejReasonCode(v int) {
+func (m RegistrationInstructionsResponse) SetRegistRejReasonCode(v enum.RegistRejReasonCode) {
 	m.Set(field.NewRegistRejReasonCode(v))
 }
 
@@ -105,19 +106,25 @@ func (m RegistrationInstructionsResponse) SetRegistID(v string) {
 }
 
 //SetRegistTransType sets RegistTransType, Tag 514
-func (m RegistrationInstructionsResponse) SetRegistTransType(v string) {
+func (m RegistrationInstructionsResponse) SetRegistTransType(v enum.RegistTransType) {
 	m.Set(field.NewRegistTransType(v))
 }
 
 //GetAccount gets Account, Tag 1
-func (m RegistrationInstructionsResponse) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m RegistrationInstructionsResponse) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -129,38 +136,56 @@ func (m RegistrationInstructionsResponse) GetNoPartyIDs() (NoPartyIDsRepeatingGr
 }
 
 //GetRegistRejReasonText gets RegistRejReasonText, Tag 496
-func (m RegistrationInstructionsResponse) GetRegistRejReasonText() (f field.RegistRejReasonTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistRejReasonText() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistRejReasonTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistStatus gets RegistStatus, Tag 506
-func (m RegistrationInstructionsResponse) GetRegistStatus() (f field.RegistStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistStatus() (v enum.RegistStatus, err quickfix.MessageRejectError) {
+	var f field.RegistStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistRejReasonCode gets RegistRejReasonCode, Tag 507
-func (m RegistrationInstructionsResponse) GetRegistRejReasonCode() (f field.RegistRejReasonCodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistRejReasonCode() (v enum.RegistRejReasonCode, err quickfix.MessageRejectError) {
+	var f field.RegistRejReasonCodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistRefID gets RegistRefID, Tag 508
-func (m RegistrationInstructionsResponse) GetRegistRefID() (f field.RegistRefIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistRefID() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistRefIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistID gets RegistID, Tag 513
-func (m RegistrationInstructionsResponse) GetRegistID() (f field.RegistIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistID() (v string, err quickfix.MessageRejectError) {
+	var f field.RegistIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRegistTransType gets RegistTransType, Tag 514
-func (m RegistrationInstructionsResponse) GetRegistTransType() (f field.RegistTransTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m RegistrationInstructionsResponse) GetRegistTransType() (v enum.RegistTransType, err quickfix.MessageRejectError) {
+	var f field.RegistTransTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -220,12 +245,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -235,26 +260,38 @@ func (m NoPartyIDs) SetPartySubID(v string) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartyIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

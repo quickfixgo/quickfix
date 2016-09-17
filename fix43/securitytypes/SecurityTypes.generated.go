@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix43"
 	"github.com/quickfixgo/quickfix/tag"
@@ -69,7 +70,7 @@ func (m SecurityTypes) SetText(v string) {
 }
 
 //SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
-func (m SecurityTypes) SetSubscriptionRequestType(v string) {
+func (m SecurityTypes) SetSubscriptionRequestType(v enum.SubscriptionRequestType) {
 	m.Set(field.NewSubscriptionRequestType(v))
 }
 
@@ -84,12 +85,12 @@ func (m SecurityTypes) SetSecurityResponseID(v string) {
 }
 
 //SetSecurityResponseType sets SecurityResponseType, Tag 323
-func (m SecurityTypes) SetSecurityResponseType(v int) {
+func (m SecurityTypes) SetSecurityResponseType(v enum.SecurityResponseType) {
 	m.Set(field.NewSecurityResponseType(v))
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m SecurityTypes) SetTradingSessionID(v string) {
+func (m SecurityTypes) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
@@ -114,61 +115,88 @@ func (m SecurityTypes) SetNoSecurityTypes(f NoSecurityTypesRepeatingGroup) {
 }
 
 //SetTradingSessionSubID sets TradingSessionSubID, Tag 625
-func (m SecurityTypes) SetTradingSessionSubID(v string) {
+func (m SecurityTypes) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
 //GetText gets Text, Tag 58
-func (m SecurityTypes) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
-func (m SecurityTypes) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetSubscriptionRequestType() (v enum.SubscriptionRequestType, err quickfix.MessageRejectError) {
+	var f field.SubscriptionRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityReqID gets SecurityReqID, Tag 320
-func (m SecurityTypes) GetSecurityReqID() (f field.SecurityReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetSecurityReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityResponseID gets SecurityResponseID, Tag 322
-func (m SecurityTypes) GetSecurityResponseID() (f field.SecurityResponseIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetSecurityResponseID() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityResponseIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityResponseType gets SecurityResponseType, Tag 323
-func (m SecurityTypes) GetSecurityResponseType() (f field.SecurityResponseTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetSecurityResponseType() (v enum.SecurityResponseType, err quickfix.MessageRejectError) {
+	var f field.SecurityResponseTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m SecurityTypes) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m SecurityTypes) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m SecurityTypes) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotalNumSecurityTypes gets TotalNumSecurityTypes, Tag 557
-func (m SecurityTypes) GetTotalNumSecurityTypes() (f field.TotalNumSecurityTypesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetTotalNumSecurityTypes() (v int, err quickfix.MessageRejectError) {
+	var f field.TotalNumSecurityTypesField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -180,8 +208,11 @@ func (m SecurityTypes) GetNoSecurityTypes() (NoSecurityTypesRepeatingGroup, quic
 }
 
 //GetTradingSessionSubID gets TradingSessionSubID, Tag 625
-func (m SecurityTypes) GetTradingSessionSubID() (f field.TradingSessionSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SecurityTypes) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -246,12 +277,12 @@ type NoSecurityTypes struct {
 }
 
 //SetSecurityType sets SecurityType, Tag 167
-func (m NoSecurityTypes) SetSecurityType(v string) {
+func (m NoSecurityTypes) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
 //SetProduct sets Product, Tag 460
-func (m NoSecurityTypes) SetProduct(v int) {
+func (m NoSecurityTypes) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
@@ -261,20 +292,29 @@ func (m NoSecurityTypes) SetCFICode(v string) {
 }
 
 //GetSecurityType gets SecurityType, Tag 167
-func (m NoSecurityTypes) GetSecurityType() (f field.SecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoSecurityTypes) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
+	var f field.SecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetProduct gets Product, Tag 460
-func (m NoSecurityTypes) GetProduct() (f field.ProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoSecurityTypes) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
+	var f field.ProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCFICode gets CFICode, Tag 461
-func (m NoSecurityTypes) GetCFICode() (f field.CFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoSecurityTypes) GetCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.CFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

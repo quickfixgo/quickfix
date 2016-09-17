@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -82,37 +83,52 @@ func (m UserNotification) SetUsername(v string) {
 }
 
 //SetUserStatus sets UserStatus, Tag 926
-func (m UserNotification) SetUserStatus(v int) {
+func (m UserNotification) SetUserStatus(v enum.UserStatus) {
 	m.Set(field.NewUserStatus(v))
 }
 
 //GetText gets Text, Tag 58
-func (m UserNotification) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserNotification) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m UserNotification) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserNotification) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m UserNotification) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserNotification) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUsername gets Username, Tag 553
-func (m UserNotification) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserNotification) GetUsername() (v string, err quickfix.MessageRejectError) {
+	var f field.UsernameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserStatus gets UserStatus, Tag 926
-func (m UserNotification) GetUserStatus() (f field.UserStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserNotification) GetUserStatus() (v enum.UserStatus, err quickfix.MessageRejectError) {
+	var f field.UserStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

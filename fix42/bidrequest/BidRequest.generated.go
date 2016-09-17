@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix42"
 	"github.com/quickfixgo/quickfix/tag"
@@ -98,7 +99,7 @@ func (m BidRequest) SetEncodedText(v string) {
 }
 
 //SetBidRequestTransType sets BidRequestTransType, Tag 374
-func (m BidRequest) SetBidRequestTransType(v string) {
+func (m BidRequest) SetBidRequestTransType(v enum.BidRequestTransType) {
 	m.Set(field.NewBidRequestTransType(v))
 }
 
@@ -123,7 +124,7 @@ func (m BidRequest) SetTotalNumSecurities(v int) {
 }
 
 //SetBidType sets BidType, Tag 394
-func (m BidRequest) SetBidType(v int) {
+func (m BidRequest) SetBidType(v enum.BidType) {
 	m.Set(field.NewBidType(v))
 }
 
@@ -148,7 +149,7 @@ func (m BidRequest) SetNoBidDescriptors(f NoBidDescriptorsRepeatingGroup) {
 }
 
 //SetLiquidityIndType sets LiquidityIndType, Tag 409
-func (m BidRequest) SetLiquidityIndType(v int) {
+func (m BidRequest) SetLiquidityIndType(v enum.LiquidityIndType) {
 	m.Set(field.NewLiquidityIndType(v))
 }
 
@@ -173,7 +174,7 @@ func (m BidRequest) SetCrossPercent(value decimal.Decimal, scale int32) {
 }
 
 //SetProgRptReqs sets ProgRptReqs, Tag 414
-func (m BidRequest) SetProgRptReqs(v int) {
+func (m BidRequest) SetProgRptReqs(v enum.ProgRptReqs) {
 	m.Set(field.NewProgRptReqs(v))
 }
 
@@ -183,7 +184,7 @@ func (m BidRequest) SetProgPeriodInterval(v int) {
 }
 
 //SetIncTaxInd sets IncTaxInd, Tag 416
-func (m BidRequest) SetIncTaxInd(v int) {
+func (m BidRequest) SetIncTaxInd(v enum.IncTaxInd) {
 	m.Set(field.NewIncTaxInd(v))
 }
 
@@ -193,12 +194,12 @@ func (m BidRequest) SetNumBidders(v int) {
 }
 
 //SetTradeType sets TradeType, Tag 418
-func (m BidRequest) SetTradeType(v string) {
+func (m BidRequest) SetTradeType(v enum.TradeType) {
 	m.Set(field.NewTradeType(v))
 }
 
 //SetBasisPxType sets BasisPxType, Tag 419
-func (m BidRequest) SetBasisPxType(v string) {
+func (m BidRequest) SetBasisPxType(v enum.BasisPxType) {
 	m.Set(field.NewBasisPxType(v))
 }
 
@@ -213,92 +214,137 @@ func (m BidRequest) SetStrikeTime(v time.Time) {
 }
 
 //GetCurrency gets Currency, Tag 15
-func (m BidRequest) GetCurrency() (f field.CurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.CurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m BidRequest) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeDate gets TradeDate, Tag 75
-func (m BidRequest) GetTradeDate() (f field.TradeDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetTradeDate() (v string, err quickfix.MessageRejectError) {
+	var f field.TradeDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetForexReq gets ForexReq, Tag 121
-func (m BidRequest) GetForexReq() (f field.ForexReqField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetForexReq() (v bool, err quickfix.MessageRejectError) {
+	var f field.ForexReqField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m BidRequest) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m BidRequest) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidRequestTransType gets BidRequestTransType, Tag 374
-func (m BidRequest) GetBidRequestTransType() (f field.BidRequestTransTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetBidRequestTransType() (v enum.BidRequestTransType, err quickfix.MessageRejectError) {
+	var f field.BidRequestTransTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidID gets BidID, Tag 390
-func (m BidRequest) GetBidID() (f field.BidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.BidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetClientBidID gets ClientBidID, Tag 391
-func (m BidRequest) GetClientBidID() (f field.ClientBidIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetClientBidID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClientBidIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListName gets ListName, Tag 392
-func (m BidRequest) GetListName() (f field.ListNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetListName() (v string, err quickfix.MessageRejectError) {
+	var f field.ListNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotalNumSecurities gets TotalNumSecurities, Tag 393
-func (m BidRequest) GetTotalNumSecurities() (f field.TotalNumSecuritiesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetTotalNumSecurities() (v int, err quickfix.MessageRejectError) {
+	var f field.TotalNumSecuritiesField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidType gets BidType, Tag 394
-func (m BidRequest) GetBidType() (f field.BidTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetBidType() (v enum.BidType, err quickfix.MessageRejectError) {
+	var f field.BidTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNumTickets gets NumTickets, Tag 395
-func (m BidRequest) GetNumTickets() (f field.NumTicketsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetNumTickets() (v int, err quickfix.MessageRejectError) {
+	var f field.NumTicketsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSideValue1 gets SideValue1, Tag 396
-func (m BidRequest) GetSideValue1() (f field.SideValue1Field, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetSideValue1() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.SideValue1Field
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSideValue2 gets SideValue2, Tag 397
-func (m BidRequest) GetSideValue2() (f field.SideValue2Field, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetSideValue2() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.SideValue2Field
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -310,68 +356,101 @@ func (m BidRequest) GetNoBidDescriptors() (NoBidDescriptorsRepeatingGroup, quick
 }
 
 //GetLiquidityIndType gets LiquidityIndType, Tag 409
-func (m BidRequest) GetLiquidityIndType() (f field.LiquidityIndTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetLiquidityIndType() (v enum.LiquidityIndType, err quickfix.MessageRejectError) {
+	var f field.LiquidityIndTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWtAverageLiquidity gets WtAverageLiquidity, Tag 410
-func (m BidRequest) GetWtAverageLiquidity() (f field.WtAverageLiquidityField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetWtAverageLiquidity() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.WtAverageLiquidityField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExchangeForPhysical gets ExchangeForPhysical, Tag 411
-func (m BidRequest) GetExchangeForPhysical() (f field.ExchangeForPhysicalField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetExchangeForPhysical() (v bool, err quickfix.MessageRejectError) {
+	var f field.ExchangeForPhysicalField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOutMainCntryUIndex gets OutMainCntryUIndex, Tag 412
-func (m BidRequest) GetOutMainCntryUIndex() (f field.OutMainCntryUIndexField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetOutMainCntryUIndex() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.OutMainCntryUIndexField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCrossPercent gets CrossPercent, Tag 413
-func (m BidRequest) GetCrossPercent() (f field.CrossPercentField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetCrossPercent() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.CrossPercentField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetProgRptReqs gets ProgRptReqs, Tag 414
-func (m BidRequest) GetProgRptReqs() (f field.ProgRptReqsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetProgRptReqs() (v enum.ProgRptReqs, err quickfix.MessageRejectError) {
+	var f field.ProgRptReqsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetProgPeriodInterval gets ProgPeriodInterval, Tag 415
-func (m BidRequest) GetProgPeriodInterval() (f field.ProgPeriodIntervalField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetProgPeriodInterval() (v int, err quickfix.MessageRejectError) {
+	var f field.ProgPeriodIntervalField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetIncTaxInd gets IncTaxInd, Tag 416
-func (m BidRequest) GetIncTaxInd() (f field.IncTaxIndField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetIncTaxInd() (v enum.IncTaxInd, err quickfix.MessageRejectError) {
+	var f field.IncTaxIndField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNumBidders gets NumBidders, Tag 417
-func (m BidRequest) GetNumBidders() (f field.NumBiddersField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetNumBidders() (v int, err quickfix.MessageRejectError) {
+	var f field.NumBiddersField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradeType gets TradeType, Tag 418
-func (m BidRequest) GetTradeType() (f field.TradeTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetTradeType() (v enum.TradeType, err quickfix.MessageRejectError) {
+	var f field.TradeTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBasisPxType gets BasisPxType, Tag 419
-func (m BidRequest) GetBasisPxType() (f field.BasisPxTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetBasisPxType() (v enum.BasisPxType, err quickfix.MessageRejectError) {
+	var f field.BasisPxTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -383,8 +462,11 @@ func (m BidRequest) GetNoBidComponents() (NoBidComponentsRepeatingGroup, quickfi
 }
 
 //GetStrikeTime gets StrikeTime, Tag 443
-func (m BidRequest) GetStrikeTime() (f field.StrikeTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BidRequest) GetStrikeTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.StrikeTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -539,7 +621,7 @@ type NoBidDescriptors struct {
 }
 
 //SetBidDescriptorType sets BidDescriptorType, Tag 399
-func (m NoBidDescriptors) SetBidDescriptorType(v int) {
+func (m NoBidDescriptors) SetBidDescriptorType(v enum.BidDescriptorType) {
 	m.Set(field.NewBidDescriptorType(v))
 }
 
@@ -549,7 +631,7 @@ func (m NoBidDescriptors) SetBidDescriptor(v string) {
 }
 
 //SetSideValueInd sets SideValueInd, Tag 401
-func (m NoBidDescriptors) SetSideValueInd(v int) {
+func (m NoBidDescriptors) SetSideValueInd(v enum.SideValueInd) {
 	m.Set(field.NewSideValueInd(v))
 }
 
@@ -594,68 +676,101 @@ func (m NoBidDescriptors) SetValueOfFutures(value decimal.Decimal, scale int32) 
 }
 
 //GetBidDescriptorType gets BidDescriptorType, Tag 399
-func (m NoBidDescriptors) GetBidDescriptorType() (f field.BidDescriptorTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetBidDescriptorType() (v enum.BidDescriptorType, err quickfix.MessageRejectError) {
+	var f field.BidDescriptorTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBidDescriptor gets BidDescriptor, Tag 400
-func (m NoBidDescriptors) GetBidDescriptor() (f field.BidDescriptorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetBidDescriptor() (v string, err quickfix.MessageRejectError) {
+	var f field.BidDescriptorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSideValueInd gets SideValueInd, Tag 401
-func (m NoBidDescriptors) GetSideValueInd() (f field.SideValueIndField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetSideValueInd() (v enum.SideValueInd, err quickfix.MessageRejectError) {
+	var f field.SideValueIndField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLiquidityValue gets LiquidityValue, Tag 404
-func (m NoBidDescriptors) GetLiquidityValue() (f field.LiquidityValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetLiquidityValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.LiquidityValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLiquidityNumSecurities gets LiquidityNumSecurities, Tag 441
-func (m NoBidDescriptors) GetLiquidityNumSecurities() (f field.LiquidityNumSecuritiesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetLiquidityNumSecurities() (v int, err quickfix.MessageRejectError) {
+	var f field.LiquidityNumSecuritiesField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLiquidityPctLow gets LiquidityPctLow, Tag 402
-func (m NoBidDescriptors) GetLiquidityPctLow() (f field.LiquidityPctLowField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetLiquidityPctLow() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.LiquidityPctLowField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLiquidityPctHigh gets LiquidityPctHigh, Tag 403
-func (m NoBidDescriptors) GetLiquidityPctHigh() (f field.LiquidityPctHighField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetLiquidityPctHigh() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.LiquidityPctHighField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEFPTrackingError gets EFPTrackingError, Tag 405
-func (m NoBidDescriptors) GetEFPTrackingError() (f field.EFPTrackingErrorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetEFPTrackingError() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.EFPTrackingErrorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFairValue gets FairValue, Tag 406
-func (m NoBidDescriptors) GetFairValue() (f field.FairValueField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetFairValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.FairValueField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOutsideIndexPct gets OutsideIndexPct, Tag 407
-func (m NoBidDescriptors) GetOutsideIndexPct() (f field.OutsideIndexPctField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetOutsideIndexPct() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.OutsideIndexPctField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetValueOfFutures gets ValueOfFutures, Tag 408
-func (m NoBidDescriptors) GetValueOfFutures() (f field.ValueOfFuturesField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidDescriptors) GetValueOfFutures() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.ValueOfFuturesField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -748,22 +863,22 @@ func (m NoBidComponents) SetListID(v string) {
 }
 
 //SetSide sets Side, Tag 54
-func (m NoBidComponents) SetSide(v string) {
+func (m NoBidComponents) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m NoBidComponents) SetTradingSessionID(v string) {
+func (m NoBidComponents) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
 //SetNetGrossInd sets NetGrossInd, Tag 430
-func (m NoBidComponents) SetNetGrossInd(v int) {
+func (m NoBidComponents) SetNetGrossInd(v enum.NetGrossInd) {
 	m.Set(field.NewNetGrossInd(v))
 }
 
 //SetSettlmntTyp sets SettlmntTyp, Tag 63
-func (m NoBidComponents) SetSettlmntTyp(v string) {
+func (m NoBidComponents) SetSettlmntTyp(v enum.SettlmntTyp) {
 	m.Set(field.NewSettlmntTyp(v))
 }
 
@@ -778,44 +893,65 @@ func (m NoBidComponents) SetAccount(v string) {
 }
 
 //GetListID gets ListID, Tag 66
-func (m NoBidComponents) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSide gets Side, Tag 54
-func (m NoBidComponents) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
+	var f field.SideField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m NoBidComponents) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetNetGrossInd gets NetGrossInd, Tag 430
-func (m NoBidComponents) GetNetGrossInd() (f field.NetGrossIndField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetNetGrossInd() (v enum.NetGrossInd, err quickfix.MessageRejectError) {
+	var f field.NetGrossIndField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlmntTyp gets SettlmntTyp, Tag 63
-func (m NoBidComponents) GetSettlmntTyp() (f field.SettlmntTypField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetSettlmntTyp() (v enum.SettlmntTyp, err quickfix.MessageRejectError) {
+	var f field.SettlmntTypField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetFutSettDate gets FutSettDate, Tag 64
-func (m NoBidComponents) GetFutSettDate() (f field.FutSettDateField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetFutSettDate() (v string, err quickfix.MessageRejectError) {
+	var f field.FutSettDateField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAccount gets Account, Tag 1
-func (m NoBidComponents) GetAccount() (f field.AccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoBidComponents) GetAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

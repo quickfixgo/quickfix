@@ -17,7 +17,7 @@ func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 		return handleStateError(session, err)
 	}
 
-	switch string(msgType) {
+	switch enum.MsgType(msgType) {
 	case enum.MsgType_LOGON:
 		if err := session.handleLogon(msg); err != nil {
 			if err := session.initiateLogout(""); err != nil {

@@ -67,8 +67,11 @@ func (m TestRequest) SetTestReqID(v string) {
 }
 
 //GetTestReqID gets TestReqID, Tag 112
-func (m TestRequest) GetTestReqID() (f field.TestReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m TestRequest) GetTestReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.TestReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

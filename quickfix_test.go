@@ -124,7 +124,7 @@ func (m *MessageFactory) buildMessage(msgType string) Message {
 	m.seqNum++
 	msg := NewMessage()
 	msg.Header.
-		SetField(tagBeginString, FIXString(enum.BeginStringFIX42)).
+		SetField(tagBeginString, FIXString(string(enum.BeginStringFIX42))).
 		SetField(tagSenderCompID, FIXString("TW")).
 		SetField(tagTargetCompID, FIXString("ISLD")).
 		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()}).
@@ -134,23 +134,23 @@ func (m *MessageFactory) buildMessage(msgType string) Message {
 }
 
 func (m *MessageFactory) Logout() Message {
-	return m.buildMessage(enum.MsgType_LOGOUT)
+	return m.buildMessage(string(enum.MsgType_LOGOUT))
 }
 
 func (m *MessageFactory) NewOrderSingle() Message {
-	return m.buildMessage(enum.MsgType_ORDER_SINGLE)
+	return m.buildMessage(string(enum.MsgType_ORDER_SINGLE))
 }
 
 func (m *MessageFactory) Heartbeat() Message {
-	return m.buildMessage(enum.MsgType_HEARTBEAT)
+	return m.buildMessage(string(enum.MsgType_HEARTBEAT))
 }
 
 func (m *MessageFactory) Logon() Message {
-	return m.buildMessage(enum.MsgType_LOGON)
+	return m.buildMessage(string(enum.MsgType_LOGON))
 }
 
 func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
-	msg := m.buildMessage(enum.MsgType_RESEND_REQUEST)
+	msg := m.buildMessage(string(enum.MsgType_RESEND_REQUEST))
 	msg.Body.SetField(tagBeginSeqNo, FIXInt(beginSeqNo))
 	msg.Body.SetField(tagEndSeqNo, FIXInt(0))
 
@@ -158,7 +158,7 @@ func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
 }
 
 func (m *MessageFactory) SequenceReset(seqNo int) Message {
-	msg := m.buildMessage(enum.MsgType_SEQUENCE_RESET)
+	msg := m.buildMessage(string(enum.MsgType_SEQUENCE_RESET))
 	msg.Body.SetField(tagNewSeqNo, FIXInt(seqNo))
 
 	return msg

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -83,7 +84,7 @@ func (m ApplicationMessageRequest) SetApplReqID(v string) {
 }
 
 //SetApplReqType sets ApplReqType, Tag 1347
-func (m ApplicationMessageRequest) SetApplReqType(v int) {
+func (m ApplicationMessageRequest) SetApplReqType(v enum.ApplReqType) {
 	m.Set(field.NewApplReqType(v))
 }
 
@@ -93,32 +94,47 @@ func (m ApplicationMessageRequest) SetNoApplIDs(f NoApplIDsRepeatingGroup) {
 }
 
 //GetText gets Text, Tag 58
-func (m ApplicationMessageRequest) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequest) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m ApplicationMessageRequest) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m ApplicationMessageRequest) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplReqID gets ApplReqID, Tag 1346
-func (m ApplicationMessageRequest) GetApplReqID() (f field.ApplReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequest) GetApplReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.ApplReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplReqType gets ApplReqType, Tag 1347
-func (m ApplicationMessageRequest) GetApplReqType() (f field.ApplReqTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ApplicationMessageRequest) GetApplReqType() (v enum.ApplReqType, err quickfix.MessageRejectError) {
+	var f field.ApplReqTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -180,20 +196,29 @@ func (m NoApplIDs) SetApplEndSeqNum(v int) {
 }
 
 //GetRefApplID gets RefApplID, Tag 1355
-func (m NoApplIDs) GetRefApplID() (f field.RefApplIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetRefApplID() (v string, err quickfix.MessageRejectError) {
+	var f field.RefApplIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplBegSeqNum gets ApplBegSeqNum, Tag 1182
-func (m NoApplIDs) GetApplBegSeqNum() (f field.ApplBegSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplBegSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplBegSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetApplEndSeqNum gets ApplEndSeqNum, Tag 1183
-func (m NoApplIDs) GetApplEndSeqNum() (f field.ApplEndSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoApplIDs) GetApplEndSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.ApplEndSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

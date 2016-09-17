@@ -73,14 +73,20 @@ func (m ResendRequest) SetEndSeqNo(v int) {
 }
 
 //GetBeginSeqNo gets BeginSeqNo, Tag 7
-func (m ResendRequest) GetBeginSeqNo() (f field.BeginSeqNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ResendRequest) GetBeginSeqNo() (v int, err quickfix.MessageRejectError) {
+	var f field.BeginSeqNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEndSeqNo gets EndSeqNo, Tag 16
-func (m ResendRequest) GetEndSeqNo() (f field.EndSeqNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ResendRequest) GetEndSeqNo() (v int, err quickfix.MessageRejectError) {
+	var f field.EndSeqNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

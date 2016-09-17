@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
 	"github.com/quickfixgo/quickfix/tag"
@@ -83,7 +84,7 @@ func (m News) SetText(v string) {
 }
 
 //SetUrgency sets Urgency, Tag 61
-func (m News) SetUrgency(v string) {
+func (m News) SetUrgency(v enum.Urgency) {
 	m.Set(field.NewUrgency(v))
 }
 
@@ -98,44 +99,65 @@ func (m News) SetRawData(v string) {
 }
 
 //GetLinesOfText gets LinesOfText, Tag 33
-func (m News) GetLinesOfText() (f field.LinesOfTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetLinesOfText() (v int, err quickfix.MessageRejectError) {
+	var f field.LinesOfTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetOrigTime gets OrigTime, Tag 42
-func (m News) GetOrigTime() (f field.OrigTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetOrigTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.OrigTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRelatdSym gets RelatdSym, Tag 46
-func (m News) GetRelatdSym() (f field.RelatdSymField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetRelatdSym() (v string, err quickfix.MessageRejectError) {
+	var f field.RelatdSymField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m News) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUrgency gets Urgency, Tag 61
-func (m News) GetUrgency() (f field.UrgencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetUrgency() (v enum.Urgency, err quickfix.MessageRejectError) {
+	var f field.UrgencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawDataLength gets RawDataLength, Tag 95
-func (m News) GetRawDataLength() (f field.RawDataLengthField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetRawDataLength() (v int, err quickfix.MessageRejectError) {
+	var f field.RawDataLengthField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRawData gets RawData, Tag 96
-func (m News) GetRawData() (f field.RawDataField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m News) GetRawData() (v string, err quickfix.MessageRejectError) {
+	var f field.RawDataField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

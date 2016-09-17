@@ -51,7 +51,7 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message,
 			applVerID = FIXString(session.TargetDefaultApplicationVersionID())
 		}
 
-		switch string(applVerID) {
+		switch enum.ApplVerID(applVerID) {
 		case enum.ApplVerID_FIX40:
 			fixVersion = enum.BeginStringFIX40
 		case enum.ApplVerID_FIX41:

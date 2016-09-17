@@ -90,8 +90,11 @@ func (m ListStatus) SetWaveNo(v string) {
 }
 
 //GetListID gets ListID, Tag 66
-func (m ListStatus) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -103,20 +106,29 @@ func (m ListStatus) GetNoOrders() (NoOrdersRepeatingGroup, quickfix.MessageRejec
 }
 
 //GetNoRpts gets NoRpts, Tag 82
-func (m ListStatus) GetNoRpts() (f field.NoRptsField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetNoRpts() (v int, err quickfix.MessageRejectError) {
+	var f field.NoRptsField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRptSeq gets RptSeq, Tag 83
-func (m ListStatus) GetRptSeq() (f field.RptSeqField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetRptSeq() (v int, err quickfix.MessageRejectError) {
+	var f field.RptSeqField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWaveNo gets WaveNo, Tag 105
-func (m ListStatus) GetWaveNo() (f field.WaveNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatus) GetWaveNo() (v string, err quickfix.MessageRejectError) {
+	var f field.WaveNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -176,32 +188,47 @@ func (m NoOrders) SetAvgPx(value decimal.Decimal, scale int32) {
 }
 
 //GetClOrdID gets ClOrdID, Tag 11
-func (m NoOrders) GetClOrdID() (f field.ClOrdIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetClOrdID() (v string, err quickfix.MessageRejectError) {
+	var f field.ClOrdIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCumQty gets CumQty, Tag 14
-func (m NoOrders) GetCumQty() (f field.CumQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCumQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.CumQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLeavesQty gets LeavesQty, Tag 151
-func (m NoOrders) GetLeavesQty() (f field.LeavesQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetLeavesQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.LeavesQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCxlQty gets CxlQty, Tag 84
-func (m NoOrders) GetCxlQty() (f field.CxlQtyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetCxlQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.CxlQtyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAvgPx gets AvgPx, Tag 6
-func (m NoOrders) GetAvgPx() (f field.AvgPxField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoOrders) GetAvgPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.AvgPxField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

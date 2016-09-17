@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -72,8 +73,11 @@ func (m TradingSessionList) SetNoTradingSessions(f NoTradingSessionsRepeatingGro
 }
 
 //GetTradSesReqID gets TradSesReqID, Tag 335
-func (m TradingSessionList) GetTradSesReqID() (f field.TradSesReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m TradingSessionList) GetTradSesReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.TradSesReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -100,12 +104,12 @@ type NoTradingSessions struct {
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
-func (m NoTradingSessions) SetTradingSessionID(v string) {
+func (m NoTradingSessions) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
 //SetTradingSessionSubID sets TradingSessionSubID, Tag 625
-func (m NoTradingSessions) SetTradingSessionSubID(v string) {
+func (m NoTradingSessions) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
@@ -115,12 +119,12 @@ func (m NoTradingSessions) SetSecurityExchange(v string) {
 }
 
 //SetTradSesMethod sets TradSesMethod, Tag 338
-func (m NoTradingSessions) SetTradSesMethod(v int) {
+func (m NoTradingSessions) SetTradSesMethod(v enum.TradSesMethod) {
 	m.Set(field.NewTradSesMethod(v))
 }
 
 //SetTradSesMode sets TradSesMode, Tag 339
-func (m NoTradingSessions) SetTradSesMode(v int) {
+func (m NoTradingSessions) SetTradSesMode(v enum.TradSesMode) {
 	m.Set(field.NewTradSesMode(v))
 }
 
@@ -130,12 +134,12 @@ func (m NoTradingSessions) SetUnsolicitedIndicator(v bool) {
 }
 
 //SetTradSesStatus sets TradSesStatus, Tag 340
-func (m NoTradingSessions) SetTradSesStatus(v int) {
+func (m NoTradingSessions) SetTradSesStatus(v enum.TradSesStatus) {
 	m.Set(field.NewTradSesStatus(v))
 }
 
 //SetTradSesStatusRejReason sets TradSesStatusRejReason, Tag 567
-func (m NoTradingSessions) SetTradSesStatusRejReason(v int) {
+func (m NoTradingSessions) SetTradSesStatusRejReason(v enum.TradSesStatusRejReason) {
 	m.Set(field.NewTradSesStatusRejReason(v))
 }
 
@@ -185,104 +189,155 @@ func (m NoTradingSessions) SetEncodedText(v string) {
 }
 
 //GetTradingSessionID gets TradingSessionID, Tag 336
-func (m NoTradingSessions) GetTradingSessionID() (f field.TradingSessionIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradingSessionSubID gets TradingSessionSubID, Tag 625
-func (m NoTradingSessions) GetTradingSessionSubID() (f field.TradingSessionSubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
+	var f field.TradingSessionSubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityExchange gets SecurityExchange, Tag 207
-func (m NoTradingSessions) GetSecurityExchange() (f field.SecurityExchangeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetSecurityExchange() (v string, err quickfix.MessageRejectError) {
+	var f field.SecurityExchangeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesMethod gets TradSesMethod, Tag 338
-func (m NoTradingSessions) GetTradSesMethod() (f field.TradSesMethodField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesMethod() (v enum.TradSesMethod, err quickfix.MessageRejectError) {
+	var f field.TradSesMethodField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesMode gets TradSesMode, Tag 339
-func (m NoTradingSessions) GetTradSesMode() (f field.TradSesModeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesMode() (v enum.TradSesMode, err quickfix.MessageRejectError) {
+	var f field.TradSesModeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUnsolicitedIndicator gets UnsolicitedIndicator, Tag 325
-func (m NoTradingSessions) GetUnsolicitedIndicator() (f field.UnsolicitedIndicatorField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetUnsolicitedIndicator() (v bool, err quickfix.MessageRejectError) {
+	var f field.UnsolicitedIndicatorField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesStatus gets TradSesStatus, Tag 340
-func (m NoTradingSessions) GetTradSesStatus() (f field.TradSesStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesStatus() (v enum.TradSesStatus, err quickfix.MessageRejectError) {
+	var f field.TradSesStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesStatusRejReason gets TradSesStatusRejReason, Tag 567
-func (m NoTradingSessions) GetTradSesStatusRejReason() (f field.TradSesStatusRejReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesStatusRejReason() (v enum.TradSesStatusRejReason, err quickfix.MessageRejectError) {
+	var f field.TradSesStatusRejReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesStartTime gets TradSesStartTime, Tag 341
-func (m NoTradingSessions) GetTradSesStartTime() (f field.TradSesStartTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesStartTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TradSesStartTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesOpenTime gets TradSesOpenTime, Tag 342
-func (m NoTradingSessions) GetTradSesOpenTime() (f field.TradSesOpenTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesOpenTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TradSesOpenTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesPreCloseTime gets TradSesPreCloseTime, Tag 343
-func (m NoTradingSessions) GetTradSesPreCloseTime() (f field.TradSesPreCloseTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesPreCloseTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TradSesPreCloseTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesCloseTime gets TradSesCloseTime, Tag 344
-func (m NoTradingSessions) GetTradSesCloseTime() (f field.TradSesCloseTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesCloseTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TradSesCloseTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTradSesEndTime gets TradSesEndTime, Tag 345
-func (m NoTradingSessions) GetTradSesEndTime() (f field.TradSesEndTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTradSesEndTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TradSesEndTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
-func (m NoTradingSessions) GetTotalVolumeTraded() (f field.TotalVolumeTradedField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetTotalVolumeTraded() (v decimal.Decimal, err quickfix.MessageRejectError) {
+	var f field.TotalVolumeTradedField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m NoTradingSessions) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m NoTradingSessions) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m NoTradingSessions) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoTradingSessions) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

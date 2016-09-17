@@ -72,14 +72,20 @@ func (m Reject) SetText(v string) {
 }
 
 //GetRefSeqNum gets RefSeqNum, Tag 45
-func (m Reject) GetRefSeqNum() (f field.RefSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Reject) GetRefSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.RefSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m Reject) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m Reject) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

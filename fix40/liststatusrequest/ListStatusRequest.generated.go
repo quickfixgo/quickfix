@@ -77,20 +77,29 @@ func (m ListStatusRequest) SetWaveNo(v string) {
 }
 
 //GetText gets Text, Tag 58
-func (m ListStatusRequest) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatusRequest) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetListID gets ListID, Tag 66
-func (m ListStatusRequest) GetListID() (f field.ListIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatusRequest) GetListID() (v string, err quickfix.MessageRejectError) {
+	var f field.ListIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetWaveNo gets WaveNo, Tag 105
-func (m ListStatusRequest) GetWaveNo() (f field.WaveNoField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m ListStatusRequest) GetWaveNo() (v string, err quickfix.MessageRejectError) {
+	var f field.WaveNoField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

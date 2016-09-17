@@ -108,6 +108,43 @@ func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err er
 	return
 }
 
+func checkIfEnumImportRequired(m *datadictionary.MessageDef) (required bool, err error) {
+	for _, f := range m.Fields {
+		required, err = checkFieldEnumRequired(f)
+		if err != nil || required {
+			return
+		}
+	}
+
+	return
+}
+
+func checkFieldEnumRequired(f *datadictionary.FieldDef) (required bool, err error) {
+	var globalType *datadictionary.FieldType
+	if globalType, err = getGlobalFieldType(f); err != nil {
+		return
+	}
+
+	if globalType.Enums != nil && 0 < len(globalType.Enums) {
+		var t string
+		if t, err = quickfixType(globalType); err != nil {
+			return
+		}
+		if t != "FIXBoolean" {
+			required = true
+			return
+		}
+	}
+
+	for _, groupField := range f.Fields {
+		if required, err = checkFieldEnumRequired(groupField); required || err != nil {
+			return
+		}
+	}
+
+	return
+}
+
 func quickfixValueType(quickfixType string) (goType string, err error) {
 	switch quickfixType {
 	case "FIXString":

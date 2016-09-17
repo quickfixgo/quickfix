@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix42"
 	"github.com/quickfixgo/quickfix/tag"
@@ -93,49 +94,70 @@ func (m BusinessMessageReject) SetBusinessRejectRefID(v string) {
 }
 
 //SetBusinessRejectReason sets BusinessRejectReason, Tag 380
-func (m BusinessMessageReject) SetBusinessRejectReason(v int) {
+func (m BusinessMessageReject) SetBusinessRejectReason(v enum.BusinessRejectReason) {
 	m.Set(field.NewBusinessRejectReason(v))
 }
 
 //GetRefSeqNum gets RefSeqNum, Tag 45
-func (m BusinessMessageReject) GetRefSeqNum() (f field.RefSeqNumField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetRefSeqNum() (v int, err quickfix.MessageRejectError) {
+	var f field.RefSeqNumField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetText gets Text, Tag 58
-func (m BusinessMessageReject) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m BusinessMessageReject) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m BusinessMessageReject) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetRefMsgType gets RefMsgType, Tag 372
-func (m BusinessMessageReject) GetRefMsgType() (f field.RefMsgTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetRefMsgType() (v string, err quickfix.MessageRejectError) {
+	var f field.RefMsgTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBusinessRejectRefID gets BusinessRejectRefID, Tag 379
-func (m BusinessMessageReject) GetBusinessRejectRefID() (f field.BusinessRejectRefIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetBusinessRejectRefID() (v string, err quickfix.MessageRejectError) {
+	var f field.BusinessRejectRefIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetBusinessRejectReason gets BusinessRejectReason, Tag 380
-func (m BusinessMessageReject) GetBusinessRejectReason() (f field.BusinessRejectReasonField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m BusinessMessageReject) GetBusinessRejectReason() (v enum.BusinessRejectReason, err quickfix.MessageRejectError) {
+	var f field.BusinessRejectReasonField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

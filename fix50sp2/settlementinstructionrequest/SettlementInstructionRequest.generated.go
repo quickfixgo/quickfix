@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -63,7 +64,7 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 }
 
 //SetSide sets Side, Tag 54
-func (m SettlementInstructionRequest) SetSide(v string) {
+func (m SettlementInstructionRequest) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
@@ -88,7 +89,7 @@ func (m SettlementInstructionRequest) SetExpireTime(v time.Time) {
 }
 
 //SetSecurityType sets SecurityType, Tag 167
-func (m SettlementInstructionRequest) SetSecurityType(v string) {
+func (m SettlementInstructionRequest) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
@@ -98,7 +99,7 @@ func (m SettlementInstructionRequest) SetEffectiveTime(v time.Time) {
 }
 
 //SetStandInstDbType sets StandInstDbType, Tag 169
-func (m SettlementInstructionRequest) SetStandInstDbType(v int) {
+func (m SettlementInstructionRequest) SetStandInstDbType(v enum.StandInstDbType) {
 	m.Set(field.NewStandInstDbType(v))
 }
 
@@ -118,7 +119,7 @@ func (m SettlementInstructionRequest) SetNoPartyIDs(f NoPartyIDsRepeatingGroup) 
 }
 
 //SetProduct sets Product, Tag 460
-func (m SettlementInstructionRequest) SetProduct(v int) {
+func (m SettlementInstructionRequest) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
@@ -143,62 +144,92 @@ func (m SettlementInstructionRequest) SetSettlInstReqID(v string) {
 }
 
 //GetSide gets Side, Tag 54
-func (m SettlementInstructionRequest) GetSide() (f field.SideField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
+	var f field.SideField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetTransactTime gets TransactTime, Tag 60
-func (m SettlementInstructionRequest) GetTransactTime() (f field.TransactTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.TransactTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocAccount gets AllocAccount, Tag 79
-func (m SettlementInstructionRequest) GetAllocAccount() (f field.AllocAccountField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetAllocAccount() (v string, err quickfix.MessageRejectError) {
+	var f field.AllocAccountField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlCurrency gets SettlCurrency, Tag 120
-func (m SettlementInstructionRequest) GetSettlCurrency() (f field.SettlCurrencyField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetSettlCurrency() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlCurrencyField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetExpireTime gets ExpireTime, Tag 126
-func (m SettlementInstructionRequest) GetExpireTime() (f field.ExpireTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetExpireTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.ExpireTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSecurityType gets SecurityType, Tag 167
-func (m SettlementInstructionRequest) GetSecurityType() (f field.SecurityTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
+	var f field.SecurityTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEffectiveTime gets EffectiveTime, Tag 168
-func (m SettlementInstructionRequest) GetEffectiveTime() (f field.EffectiveTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetEffectiveTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.EffectiveTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStandInstDbType gets StandInstDbType, Tag 169
-func (m SettlementInstructionRequest) GetStandInstDbType() (f field.StandInstDbTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetStandInstDbType() (v enum.StandInstDbType, err quickfix.MessageRejectError) {
+	var f field.StandInstDbTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStandInstDbName gets StandInstDbName, Tag 170
-func (m SettlementInstructionRequest) GetStandInstDbName() (f field.StandInstDbNameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetStandInstDbName() (v string, err quickfix.MessageRejectError) {
+	var f field.StandInstDbNameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetStandInstDbID gets StandInstDbID, Tag 171
-func (m SettlementInstructionRequest) GetStandInstDbID() (f field.StandInstDbIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetStandInstDbID() (v string, err quickfix.MessageRejectError) {
+	var f field.StandInstDbIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -210,32 +241,47 @@ func (m SettlementInstructionRequest) GetNoPartyIDs() (NoPartyIDsRepeatingGroup,
 }
 
 //GetProduct gets Product, Tag 460
-func (m SettlementInstructionRequest) GetProduct() (f field.ProductField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
+	var f field.ProductField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetCFICode gets CFICode, Tag 461
-func (m SettlementInstructionRequest) GetCFICode() (f field.CFICodeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetCFICode() (v string, err quickfix.MessageRejectError) {
+	var f field.CFICodeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetAllocAcctIDSource gets AllocAcctIDSource, Tag 661
-func (m SettlementInstructionRequest) GetAllocAcctIDSource() (f field.AllocAcctIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetAllocAcctIDSource() (v int, err quickfix.MessageRejectError) {
+	var f field.AllocAcctIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetLastUpdateTime gets LastUpdateTime, Tag 779
-func (m SettlementInstructionRequest) GetLastUpdateTime() (f field.LastUpdateTimeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetLastUpdateTime() (v time.Time, err quickfix.MessageRejectError) {
+	var f field.LastUpdateTimeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSettlInstReqID gets SettlInstReqID, Tag 791
-func (m SettlementInstructionRequest) GetSettlInstReqID() (f field.SettlInstReqIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m SettlementInstructionRequest) GetSettlInstReqID() (v string, err quickfix.MessageRejectError) {
+	var f field.SettlInstReqIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -330,12 +376,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -345,20 +391,29 @@ func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -400,19 +455,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

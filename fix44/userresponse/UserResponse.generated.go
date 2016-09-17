@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix44"
 	"github.com/quickfixgo/quickfix/tag"
@@ -73,7 +74,7 @@ func (m UserResponse) SetUserRequestID(v string) {
 }
 
 //SetUserStatus sets UserStatus, Tag 926
-func (m UserResponse) SetUserStatus(v int) {
+func (m UserResponse) SetUserStatus(v enum.UserStatus) {
 	m.Set(field.NewUserStatus(v))
 }
 
@@ -83,26 +84,38 @@ func (m UserResponse) SetUserStatusText(v string) {
 }
 
 //GetUsername gets Username, Tag 553
-func (m UserResponse) GetUsername() (f field.UsernameField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserResponse) GetUsername() (v string, err quickfix.MessageRejectError) {
+	var f field.UsernameField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserRequestID gets UserRequestID, Tag 923
-func (m UserResponse) GetUserRequestID() (f field.UserRequestIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserResponse) GetUserRequestID() (v string, err quickfix.MessageRejectError) {
+	var f field.UserRequestIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserStatus gets UserStatus, Tag 926
-func (m UserResponse) GetUserStatus() (f field.UserStatusField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserResponse) GetUserStatus() (v enum.UserStatus, err quickfix.MessageRejectError) {
+	var f field.UserStatusField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetUserStatusText gets UserStatusText, Tag 927
-func (m UserResponse) GetUserStatusText() (f field.UserStatusTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m UserResponse) GetUserStatusText() (v string, err quickfix.MessageRejectError) {
+	var f field.UserStatusTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 

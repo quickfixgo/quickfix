@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fixt11"
 	"github.com/quickfixgo/quickfix/tag"
@@ -67,7 +68,7 @@ func (m PartyDetailsListRequest) SetText(v string) {
 }
 
 //SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
-func (m PartyDetailsListRequest) SetSubscriptionRequestType(v string) {
+func (m PartyDetailsListRequest) SetSubscriptionRequestType(v enum.SubscriptionRequestType) {
 	m.Set(field.NewSubscriptionRequestType(v))
 }
 
@@ -107,26 +108,38 @@ func (m PartyDetailsListRequest) SetNoPartyRelationships(f NoPartyRelationshipsR
 }
 
 //GetText gets Text, Tag 58
-func (m PartyDetailsListRequest) GetText() (f field.TextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListRequest) GetText() (v string, err quickfix.MessageRejectError) {
+	var f field.TextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
-func (m PartyDetailsListRequest) GetSubscriptionRequestType() (f field.SubscriptionRequestTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListRequest) GetSubscriptionRequestType() (v enum.SubscriptionRequestType, err quickfix.MessageRejectError) {
+	var f field.SubscriptionRequestTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedTextLen gets EncodedTextLen, Tag 354
-func (m PartyDetailsListRequest) GetEncodedTextLen() (f field.EncodedTextLenField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
+	var f field.EncodedTextLenField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetEncodedText gets EncodedText, Tag 355
-func (m PartyDetailsListRequest) GetEncodedText() (f field.EncodedTextField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
+	var f field.EncodedTextField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -138,8 +151,11 @@ func (m PartyDetailsListRequest) GetNoPartyIDs() (NoPartyIDsRepeatingGroup, quic
 }
 
 //GetPartyDetailsListRequestID gets PartyDetailsListRequestID, Tag 1505
-func (m PartyDetailsListRequest) GetPartyDetailsListRequestID() (f field.PartyDetailsListRequestIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m PartyDetailsListRequest) GetPartyDetailsListRequestID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyDetailsListRequestIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -220,12 +236,12 @@ func (m NoPartyIDs) SetPartyID(v string) {
 }
 
 //SetPartyIDSource sets PartyIDSource, Tag 447
-func (m NoPartyIDs) SetPartyIDSource(v string) {
+func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
 //SetPartyRole sets PartyRole, Tag 452
-func (m NoPartyIDs) SetPartyRole(v int) {
+func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
@@ -235,20 +251,29 @@ func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 }
 
 //GetPartyID gets PartyID, Tag 448
-func (m NoPartyIDs) GetPartyID() (f field.PartyIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartyIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyIDSource gets PartyIDSource, Tag 447
-func (m NoPartyIDs) GetPartyIDSource() (f field.PartyIDSourceField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
+	var f field.PartyIDSourceField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartyRole gets PartyRole, Tag 452
-func (m NoPartyIDs) GetPartyRole() (f field.PartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
+	var f field.PartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -290,19 +315,25 @@ func (m NoPartySubIDs) SetPartySubID(v string) {
 }
 
 //SetPartySubIDType sets PartySubIDType, Tag 803
-func (m NoPartySubIDs) SetPartySubIDType(v int) {
+func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
 //GetPartySubID gets PartySubID, Tag 523
-func (m NoPartySubIDs) GetPartySubID() (f field.PartySubIDField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
+	var f field.PartySubIDField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
 //GetPartySubIDType gets PartySubIDType, Tag 803
-func (m NoPartySubIDs) GetPartySubIDType() (f field.PartySubIDTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
+	var f field.PartySubIDTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -368,13 +399,16 @@ type NoPartyListResponseTypes struct {
 }
 
 //SetPartyListResponseType sets PartyListResponseType, Tag 1507
-func (m NoPartyListResponseTypes) SetPartyListResponseType(v int) {
+func (m NoPartyListResponseTypes) SetPartyListResponseType(v enum.PartyListResponseType) {
 	m.Set(field.NewPartyListResponseType(v))
 }
 
 //GetPartyListResponseType gets PartyListResponseType, Tag 1507
-func (m NoPartyListResponseTypes) GetPartyListResponseType() (f field.PartyListResponseTypeField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyListResponseTypes) GetPartyListResponseType() (v enum.PartyListResponseType, err quickfix.MessageRejectError) {
+	var f field.PartyListResponseTypeField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -417,8 +451,11 @@ func (m NoRequestedPartyRoles) SetRequestedPartyRole(v int) {
 }
 
 //GetRequestedPartyRole gets RequestedPartyRole, Tag 1509
-func (m NoRequestedPartyRoles) GetRequestedPartyRole() (f field.RequestedPartyRoleField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoRequestedPartyRoles) GetRequestedPartyRole() (v int, err quickfix.MessageRejectError) {
+	var f field.RequestedPartyRoleField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
@@ -456,13 +493,16 @@ type NoPartyRelationships struct {
 }
 
 //SetPartyRelationship sets PartyRelationship, Tag 1515
-func (m NoPartyRelationships) SetPartyRelationship(v int) {
+func (m NoPartyRelationships) SetPartyRelationship(v enum.PartyRelationship) {
 	m.Set(field.NewPartyRelationship(v))
 }
 
 //GetPartyRelationship gets PartyRelationship, Tag 1515
-func (m NoPartyRelationships) GetPartyRelationship() (f field.PartyRelationshipField, err quickfix.MessageRejectError) {
-	err = m.Get(&f)
+func (m NoPartyRelationships) GetPartyRelationship() (v enum.PartyRelationship, err quickfix.MessageRejectError) {
+	var f field.PartyRelationshipField
+	if err = m.Get(&f); err == nil {
+		v = f.Value()
+	}
 	return
 }
 
