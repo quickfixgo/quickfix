@@ -263,6 +263,14 @@ func (s *SessionSuiteRig) NextSenderMsgSeqNum(expected int) {
 	s.Equal(expected, s.session.store.NextSenderMsgSeqNum(), "NextSenderMsgSeqNum should be %v", expected)
 }
 
+func (s *SessionSuiteRig) IncrNextSenderMsgSeqNum() {
+	s.Require().Nil(s.session.store.IncrNextSenderMsgSeqNum())
+}
+
+func (s *SessionSuiteRig) IncrNextTargetMsgSeqNum() {
+	s.Require().Nil(s.session.store.IncrNextTargetMsgSeqNum())
+}
+
 func (s *SessionSuiteRig) NoMessagePersisted(seqNum int) {
 	persistedMessages, err := s.session.store.GetMessages(seqNum, seqNum)
 	s.Nil(err)

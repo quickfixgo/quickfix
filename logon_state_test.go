@@ -66,9 +66,9 @@ func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogon() {
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -92,7 +92,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -119,9 +119,9 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 	s.session.InitiateLogon = true
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -160,8 +160,8 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonExpectResetSeqNum() 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonUnExpectedResetSeqNum() {
 	s.session.InitiateLogon = true
 	s.session.sentReset = false
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -219,9 +219,9 @@ func (s *LogonStateTestSuite) TestStop() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))

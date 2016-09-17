@@ -214,7 +214,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminThenApp() {
 	s.LastToAdminMessageSent()
 
 	s.MockApp.On("ToApp").Return(nil)
-	s.session.send(s.NewOrderSingle())
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
 	s.LastToAppMessageSent()
 
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
@@ -251,7 +251,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.LastToAdminMessageSent()
 
 	s.MockApp.On("ToApp").Return(nil)
-	s.session.send(s.NewOrderSingle())
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
 	s.LastToAppMessageSent()
 
 	s.session.Timeout(s.session, internal.NeedHeartbeat)
@@ -285,7 +285,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
-	s.session.store.IncrNextTargetMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
 
 	s.MockApp.On("ToAdmin")
 	s.fixMsgIn(s.session, s.NewOrderSingle())
@@ -297,7 +297,7 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDup() {
-	s.session.store.IncrNextTargetMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
 
 	s.MockApp.On("ToAdmin")
 	nos := s.NewOrderSingle()
