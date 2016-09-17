@@ -71,7 +71,7 @@ func (s *resendStateTestSuite) TestFixMsgIn() {
 	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_RESEND_REQUEST), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 	s.NextTargetMsgSeqNum(1)
 
@@ -108,7 +108,7 @@ func (s *resendStateTestSuite) TestFixMsgInSequenceReset() {
 	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_RESEND_REQUEST), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 	s.NextTargetMsgSeqNum(1)
 
@@ -140,7 +140,7 @@ func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
 	s.MockApp.AssertExpectations(s.T())
 	s.State(resendState{})
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_RESEND_REQUEST), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagEndSeqNo, 2, s.MockApp.lastToAdmin.Body)
 	s.NextTargetMsgSeqNum(1)
@@ -170,7 +170,7 @@ func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
 	s.NextTargetMsgSeqNum(3)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_RESEND_REQUEST), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 3, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagEndSeqNo, 0, s.MockApp.lastToAdmin.Body)
 }
