@@ -96,15 +96,31 @@ func (s *session) insertSendingTime(header Header) {
 	}
 }
 
-func (s *session) fillDefaultHeader(msg Message) {
+func (s *session) fillDefaultHeader(msg Message, inReplyTo *Message) {
 	msg.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
 	msg.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
 	msg.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
 
 	s.insertSendingTime(msg.Header)
+
+	if s.EnableLastMsgSeqNumProcessed {
+		if inReplyTo != nil {
+			if lastSeqNum, err := inReplyTo.Header.GetInt(tagMsgSeqNum); err != nil {
+				s.logError(err)
+			} else {
+				msg.Header.SetInt(tagLastMsgSeqNumProcessed, lastSeqNum)
+			}
+		} else {
+			msg.Header.SetInt(tagLastMsgSeqNumProcessed, s.store.NextTargetMsgSeqNum()-1)
+		}
+	}
 }
 
 func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
+	return s.sendLogonInReplyTo(resetStore, setResetSeqNum, nil)
+}
+
+func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo *Message) error {
 	logon := NewMessage()
 	logon.Header.SetField(tagMsgType, FIXString("A"))
 	logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -121,7 +137,7 @@ func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
 		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.DefaultApplVerID))
 	}
 
-	if err := s.dropAndSend(logon, resetStore); err != nil {
+	if err := s.dropAndSendInReplyTo(logon, resetStore, inReplyTo); err != nil {
 		return err
 	}
 
@@ -142,8 +158,12 @@ func (s *session) buildLogout(reason string) Message {
 }
 
 func (s *session) sendLogout(reason string) error {
+	return s.sendLogoutInReplyTo(reason, nil)
+}
+
+func (s *session) sendLogoutInReplyTo(reason string, inReplyTo *Message) error {
 	logout := s.buildLogout(reason)
-	return s.send(logout)
+	return s.sendInReplyTo(logout, inReplyTo)
 }
 
 func (s *session) resend(msg Message) bool {
@@ -164,7 +184,7 @@ func (s *session) queueForSend(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err := s.prepMessageForSend(&msg); err != nil {
+	if err := s.prepMessageForSend(&msg, nil); err != nil {
 		return err
 	}
 
@@ -180,6 +200,9 @@ func (s *session) queueForSend(msg Message) error {
 
 //send will validate, persist, queue the message. If the session is logged on, send all messages in the queue
 func (s *session) send(msg Message) error {
+	return s.sendInReplyTo(msg, nil)
+}
+func (s *session) sendInReplyTo(msg Message, inReplyTo *Message) error {
 	if !s.IsLoggedOn() {
 		return s.queueForSend(msg)
 	}
@@ -187,7 +210,7 @@ func (s *session) send(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err := s.prepMessageForSend(&msg); err != nil {
+	if err := s.prepMessageForSend(&msg, inReplyTo); err != nil {
 		return err
 	}
 
@@ -208,7 +231,9 @@ func (s *session) dropAndReset() error {
 
 //dropAndSend will optionally reset the store, validate and persist the message, then drops the send queue and sends the message.
 func (s *session) dropAndSend(msg Message, resetStore bool) error {
-
+	return s.dropAndSendInReplyTo(msg, resetStore, nil)
+}
+func (s *session) dropAndSendInReplyTo(msg Message, resetStore bool, inReplyTo *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
@@ -218,7 +243,7 @@ func (s *session) dropAndSend(msg Message, resetStore bool) error {
 		}
 	}
 
-	if err := s.prepMessageForSend(&msg); err != nil {
+	if err := s.prepMessageForSend(&msg, inReplyTo); err != nil {
 		return err
 	}
 
@@ -229,8 +254,8 @@ func (s *session) dropAndSend(msg Message, resetStore bool) error {
 	return nil
 }
 
-func (s *session) prepMessageForSend(msg *Message) error {
-	s.fillDefaultHeader(*msg)
+func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
+	s.fillDefaultHeader(*msg, inReplyTo)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
@@ -392,7 +417,7 @@ func (s *session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.sendLogon(resetStore, resetSeqNumFlag.Bool()); err != nil {
+		if err := s.sendLogonInReplyTo(resetStore, resetSeqNumFlag.Bool(), &msg); err != nil {
 			return err
 		}
 	}
@@ -409,7 +434,11 @@ func (s *session) handleLogon(msg Message) error {
 }
 
 func (s *session) initiateLogout(reason string) (err error) {
-	if err = s.sendLogout(reason); err != nil {
+	return s.initiateLogoutInReplyTo(reason, nil)
+}
+
+func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (err error) {
+	if err = s.sendLogoutInReplyTo(reason, inReplyTo); err != nil {
 		s.logError(err)
 		return
 	}
@@ -597,7 +626,7 @@ func (s *session) doReject(msg Message, rej MessageRejectError) error {
 	}
 
 	s.log.OnEventf("Message Rejected: %v", rej.Error())
-	return s.send(reply)
+	return s.sendInReplyTo(reply, &msg)
 }
 
 type fixIn struct {

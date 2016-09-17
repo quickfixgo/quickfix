@@ -91,6 +91,28 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.NextSenderMsgSeqNum(3)
 }
 
+func (s *LogonStateTestSuite) TestFixMsgInLogonEnableLastMsgSeqNumProcessed() {
+	s.session.EnableLastMsgSeqNumProcessed = true
+
+	s.MessageFactory.SetNextSeqNum(2)
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagLastMsgSeqNumProcessed, 2, s.MockApp.lastToAdmin.Header)
+}
+
 func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
 	s.IncrNextTargetMsgSeqNum()
 

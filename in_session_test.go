@@ -43,6 +43,21 @@ func (s *InSessionTestSuite) TestLogout() {
 	s.NextSenderMsgSeqNum(2)
 }
 
+func (s *InSessionTestSuite) TestLogoutEnableLastMsgSeqNumProcessed() {
+	s.session.EnableLastMsgSeqNumProcessed = true
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.MockApp.On("OnLogout")
+	s.session.fixMsgIn(s.session, s.Logout())
+
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+
+	s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagLastMsgSeqNumProcessed, 1, s.MockApp.lastToAdmin.Header)
+}
+
 func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 	s.session.ResetOnLogout = true
 
@@ -109,6 +124,20 @@ func (s *InSessionTestSuite) TestStop() {
 	s.MockApp.AssertExpectations(s.T())
 	s.Stopped()
 	s.Disconnected()
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighEnableLastMsgSeqNumProcessed() {
+	s.session.EnableLastMsgSeqNumProcessed = true
+	s.MessageFactory.seqNum = 5
+
+	s.MockApp.On("ToAdmin")
+	msgSeqNumTooHigh := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNumTooHigh)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagLastMsgSeqNumProcessed, 0, s.MockApp.lastToAdmin.Header)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
