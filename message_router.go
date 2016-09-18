@@ -34,8 +34,8 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectErro
 		return nil
 	}
 
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.Header.GetMsgType()
+	if err != nil {
 		return err
 	}
 
