@@ -234,7 +234,7 @@ func (s *session) prepMessageForSend(msg *Message) error {
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
-	msgType, err := msg.Header.GetMsgType()
+	msgType, err := msg.MsgType()
 	if err != nil {
 		return err
 	}
@@ -465,7 +465,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 }
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
-	msgType, err := msg.Header.GetMsgType()
+	msgType, err := msg.MsgType()
 	if err != nil {
 		return err
 	}

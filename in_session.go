@@ -12,7 +12,7 @@ type inSession struct{ loggedOn }
 func (state inSession) String() string { return "In Session" }
 
 func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
-	msgType, err := msg.Header.GetMsgType()
+	msgType, err := msg.MsgType()
 	if err != nil {
 		return handleStateError(session, err)
 	}

@@ -43,7 +43,7 @@ func TestMessage_ParseMessage(t *testing.T) {
 		t.Errorf("Expected %v fields, got %v", expectedLenFields, len(msg.fields))
 	}
 
-	msgType, err := msg.Header.GetMsgType()
+	msgType, err := msg.MsgType()
 	if err != nil {
 		t.Error("Unexpected error, ", err)
 	}
@@ -52,11 +52,11 @@ func TestMessage_ParseMessage(t *testing.T) {
 		t.Errorf("Expected msgType MsgType_ORDER_SINGLE, got %#v", msgType)
 	}
 
-	if !msg.Header.HasMsgTypeOf(enum.MsgType_ORDER_SINGLE) {
+	if !msg.IsMsgTypeOf(enum.MsgType_ORDER_SINGLE) {
 		t.Errorf("Expected Header.HasMsgTypeOf(MsgType_ORDER_SINGLE) is true")
 	}
 
-	if msg.Header.HasMsgTypeOf(enum.MsgType_LOGON) {
+	if msg.IsMsgTypeOf(enum.MsgType_LOGON) {
 		t.Errorf("Expected Header.HasMsgTypeOf(MsgType_LOGON) is false")
 	}
 }

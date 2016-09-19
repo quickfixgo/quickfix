@@ -10,7 +10,7 @@ type logonState struct{ connectedNotLoggedOn }
 func (s logonState) String() string { return "Logon State" }
 
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	msgType, err := msg.Header.GetMsgType()
+	msgType, err := msg.MsgType()
 	if err != nil {
 		return handleStateError(session, err)
 	}
