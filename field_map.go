@@ -70,6 +70,15 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
+//GetBool is a GetField wrapper for bool fields
+func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
+	var val FIXBoolean
+	if err := m.GetField(tag, &val); err != nil {
+		return false, err
+	}
+	return bool(val), nil
+}
+
 //GetInt is a GetField wrapper for int fields
 func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	var val FIXInt
@@ -111,6 +120,11 @@ func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
 	tValues[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
 	return m
+}
+
+//SetBool is a SetField wrapper for bool fields
+func (m FieldMap) SetBool(tag Tag, value bool) FieldMap {
+	return m.SetField(tag, FIXBoolean(value))
 }
 
 //SetInt is a SetField wrapper for int fields
