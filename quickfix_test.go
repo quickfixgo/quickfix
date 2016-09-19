@@ -20,8 +20,8 @@ type KnowsFieldMap interface {
 	GetField(Tag, FieldValueReader) MessageRejectError
 }
 
-func (s *QuickFIXSuite) MessageType(msgType string, msg Message) {
-	s.FieldEquals(tagMsgType, msgType, msg.Header)
+func (s *QuickFIXSuite) MessageType(msgType enum.MsgType, msg Message) {
+	s.FieldEquals(tagMsgType, string(msgType), msg.Header)
 }
 
 func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap KnowsFieldMap) {
@@ -261,6 +261,14 @@ func (s *SessionSuiteRig) NextTargetMsgSeqNum(expected int) {
 
 func (s *SessionSuiteRig) NextSenderMsgSeqNum(expected int) {
 	s.Equal(expected, s.session.store.NextSenderMsgSeqNum(), "NextSenderMsgSeqNum should be %v", expected)
+}
+
+func (s *SessionSuiteRig) IncrNextSenderMsgSeqNum() {
+	s.Require().Nil(s.session.store.IncrNextSenderMsgSeqNum())
+}
+
+func (s *SessionSuiteRig) IncrNextTargetMsgSeqNum() {
+	s.Require().Nil(s.session.store.IncrNextTargetMsgSeqNum())
 }
 
 func (s *SessionSuiteRig) NoMessagePersisted(seqNum int) {

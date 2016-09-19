@@ -20,7 +20,7 @@ func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
 	switch enum.MsgType(msgType) {
 	case enum.MsgType_LOGON:
 		if err := session.handleLogon(msg); err != nil {
-			if err := session.initiateLogout(""); err != nil {
+			if err := session.initiateLogoutInReplyTo("", &msg); err != nil {
 				return handleStateError(session, err)
 			}
 			return logoutState{}
@@ -80,7 +80,7 @@ func (state inSession) handleLogout(session *session, msg Message) (nextState se
 		session.log.OnEvent("Received logout request")
 		session.log.OnEvent("Sending logout response")
 
-		if err := session.sendLogout(""); err != nil {
+		if err := session.sendLogoutInReplyTo("", &msg); err != nil {
 			session.logError(err)
 		}
 	} else {
@@ -111,7 +111,7 @@ func (state inSession) handleTestRequest(session *session, msg Message) (nextSta
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
 		heartBt.Body.SetField(tagTestReqID, testReq)
-		if err := session.send(heartBt); err != nil {
+		if err := session.sendInReplyTo(heartBt, &msg); err != nil {
 			return handleStateError(session, err)
 		}
 	}
@@ -183,7 +183,7 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 		endSeqNo = expectedSeqNum - 1
 	}
 
-	if err := state.resendMessages(session, int(beginSeqNo), endSeqNo); err != nil {
+	if err := state.resendMessages(session, int(beginSeqNo), endSeqNo, msg); err != nil {
 		return handleStateError(session, err)
 	}
 
@@ -201,7 +201,7 @@ func (state inSession) handleResendRequest(session *session, msg Message) (nextS
 	return state
 }
 
-func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int) (err error) {
+func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int, inReplyTo Message) (err error) {
 	msgs, err := session.store.GetMessages(beginSeqNo, endSeqNo)
 	if err != nil {
 		session.log.OnEventf("error retrieving messages from store: %s", err.Error())
@@ -226,7 +226,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		}
 
 		if seqNum != sentMessageSeqNum {
-			if err = state.generateSequenceReset(session, seqNum, sentMessageSeqNum); err != nil {
+			if err = state.generateSequenceReset(session, seqNum, sentMessageSeqNum, inReplyTo); err != nil {
 				return err
 			}
 		}
@@ -242,7 +242,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	}
 
 	if seqNum != nextSeqNum { // gapfill for catch-up
-		if err = state.generateSequenceReset(session, seqNum, nextSeqNum); err != nil {
+		if err = state.generateSequenceReset(session, seqNum, nextSeqNum, inReplyTo); err != nil {
 			return err
 		}
 	}
@@ -324,7 +324,9 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 	}
 
 	if !msg.Header.Has(tagOrigSendingTime) {
-		session.doReject(msg, RequiredTagMissing(tagOrigSendingTime))
+		if err := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); err != nil {
+			return handleStateError(session, err)
+		}
 		return state
 	}
 
@@ -355,9 +357,9 @@ func (state inSession) doTargetTooLow(session *session, msg Message, rej targetT
 	return state
 }
 
-func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int) (err error) {
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
 	sequenceReset := NewMessage()
-	session.fillDefaultHeader(sequenceReset)
+	session.fillDefaultHeader(sequenceReset, &inReplyTo)
 
 	sequenceReset.Header.SetField(tagMsgType, FIXString("4"))
 	sequenceReset.Header.SetField(tagMsgSeqNum, FIXInt(beginSeqNo))

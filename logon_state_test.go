@@ -66,9 +66,9 @@ func (s *LogonStateTestSuite) TestFixMsgInNotLogon() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogon() {
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -84,15 +84,37 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.Equal(32*time.Second, s.session.HeartBtInt)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_LOGON), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(3)
 }
 
+func (s *LogonStateTestSuite) TestFixMsgInLogonEnableLastMsgSeqNumProcessed() {
+	s.session.EnableLastMsgSeqNumProcessed = true
+
+	s.MessageFactory.SetNextSeqNum(2)
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagLastMsgSeqNumProcessed, 2, s.MockApp.lastToAdmin.Header)
+}
+
 func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -109,7 +131,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
 	s.Equal(32*time.Second, s.session.HeartBtInt)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_LOGON), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagResetSeqNumFlag, true, s.MockApp.lastToAdmin.Body)
 
@@ -119,9 +141,9 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogon() {
 	s.session.InitiateLogon = true
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -160,8 +182,8 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonExpectResetSeqNum() 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonUnExpectedResetSeqNum() {
 	s.session.InitiateLogon = true
 	s.session.sentReset = false
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -219,9 +241,9 @@ func (s *LogonStateTestSuite) TestStop() {
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
-	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+	s.IncrNextSenderMsgSeqNum()
 	s.MessageFactory.seqNum = 1
-	s.Require().Nil(s.store.IncrNextTargetMsgSeqNum())
+	s.IncrNextTargetMsgSeqNum()
 
 	logon := s.Logon()
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
@@ -235,7 +257,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
 	s.State(latentState{})
 
 	s.LastToAdminMessageSent()
-	s.MessageType(string(enum.MsgType_LOGOUT), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagText, "reject message", s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
@@ -261,10 +283,10 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.Require().True(ok)
 	sentMessage, err := ParseMessage(msgBytesSent)
 	s.Require().Nil(err)
-	s.MessageType(string(enum.MsgType_LOGON), sentMessage)
+	s.MessageType(enum.MsgType_LOGON, sentMessage)
 
 	s.session.sendQueued()
-	s.MessageType(string(enum.MsgType_RESEND_REQUEST), s.MockApp.lastToAdmin)
+	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 
 	s.MockApp.On("FromAdmin").Return(nil)
