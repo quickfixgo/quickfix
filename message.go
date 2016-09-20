@@ -203,6 +203,23 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 	return msg, nil
 }
 
+// MsgType returns MsgType (tag 35) field's value
+func (m Message) MsgType() (enum.MsgType, MessageRejectError) {
+	s, err := m.Header.GetString(tagMsgType)
+	if err != nil {
+		return enum.MsgType(""), err
+	}
+	return enum.MsgType(s), nil
+}
+
+// IsMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.
+func (m Message) IsMsgTypeOf(msgType enum.MsgType) bool {
+	if v, err := m.MsgType(); err == nil {
+		return v == msgType
+	}
+	return false
+}
+
 //reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m Message) reverseRoute() Message {
 	reverseMsg := NewMessage()

@@ -10,12 +10,12 @@ type logonState struct{ connectedNotLoggedOn }
 func (s logonState) String() string { return "Logon State" }
 
 func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return handleStateError(session, err)
 	}
 
-	if enum.MsgType(msgType) != enum.MsgType_LOGON {
+	if msgType != enum.MsgType_LOGON {
 		session.log.OnEventf("Invalid Session State: Received Msg %s while waiting for Logon", msg)
 		return latentState{}
 	}

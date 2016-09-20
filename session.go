@@ -259,15 +259,15 @@ func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return err
 	}
 
 	if isAdminMessageType(string(msgType)) {
 		s.application.ToAdmin(*msg, s.sessionID)
 
-		if enum.MsgType(msgType) == enum.MsgType_LOGON {
+		if msgType == enum.MsgType_LOGON {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
 				if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {
@@ -292,12 +292,11 @@ func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
 		}
 	}
 
-	msgBytes, err := msg.Build()
-	if err == nil {
-		err = s.persist(seqNum, msgBytes)
+	if msgBytes, err := msg.Build(); err != nil {
+		return err
+	} else {
+		return s.persist(seqNum, msgBytes)
 	}
-
-	return err
 }
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {
@@ -495,8 +494,8 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 }
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return err
 	}
 

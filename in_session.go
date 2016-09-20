@@ -12,12 +12,12 @@ type inSession struct{ loggedOn }
 func (state inSession) String() string { return "In Session" }
 
 func (state inSession) FixMsgIn(session *session, msg Message) sessionState {
-	var msgType FIXString
-	if err := msg.Header.GetField(tagMsgType, &msgType); err != nil {
+	msgType, err := msg.MsgType()
+	if err != nil {
 		return handleStateError(session, err)
 	}
 
-	switch enum.MsgType(msgType) {
+	switch msgType {
 	case enum.MsgType_LOGON:
 		if err := session.handleLogon(msg); err != nil {
 			if err := session.initiateLogoutInReplyTo("", &msg); err != nil {
