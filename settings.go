@@ -46,8 +46,24 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 			sessionID.TargetCompID, _ = settings.Setting(config.TargetCompID)
 		}
 
+		if settings.HasSetting(config.TargetSubID) {
+			sessionID.TargetSubID, _ = settings.Setting(config.TargetSubID)
+		}
+
+		if settings.HasSetting(config.TargetLocationID) {
+			sessionID.TargetLocationID, _ = settings.Setting(config.TargetLocationID)
+		}
+
 		if settings.HasSetting(config.SenderCompID) {
 			sessionID.SenderCompID, _ = settings.Setting(config.SenderCompID)
+		}
+
+		if settings.HasSetting(config.SenderSubID) {
+			sessionID.SenderSubID, _ = settings.Setting(config.SenderSubID)
+		}
+
+		if settings.HasSetting(config.SenderLocationID) {
+			sessionID.SenderLocationID, _ = settings.Setting(config.SenderLocationID)
 		}
 
 		if settings.HasSetting(config.SessionQualifier) {

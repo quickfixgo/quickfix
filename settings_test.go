@@ -11,24 +11,14 @@ import (
 
 func TestSettings_New(t *testing.T) {
 	s := NewSettings()
-
-	if s == nil {
-		t.Error("New returned nil")
-	}
+	assert.NotNil(t, s)
 
 	globalSettings := s.GlobalSettings()
-	if globalSettings == nil {
-		t.Error("global settings is nil")
-	}
+	assert.NotNil(t, globalSettings)
 
 	sessionSettings := s.SessionSettings()
-	if sessionSettings == nil {
-		t.Error("session settings is nil")
-	}
-
-	if len(sessionSettings) != 0 {
-		t.Errorf("Expected %v settings, got %v", 0, len(sessionSettings))
-	}
+	assert.NotNil(t, sessionSettings)
+	assert.Empty(t, sessionSettings)
 }
 
 func TestSettings_AddSession(t *testing.T) {
@@ -147,7 +137,11 @@ DataDictionary=somewhere/FIX40.xml
 
 [SESSION]
 BeginString=FIX.4.2
+SenderSubID=TWSub
+SenderLocationID=TWLoc
 TargetCompID=INCA
+TargetSubID=INCASub
+TargetLocationID=INCALoc
 StartTime=12:30:00
 EndTime=21:30:00
 # overide default setting for RecconnectInterval
@@ -165,14 +159,8 @@ DataDictionary=somewhere/FIX42.xml
 
 	stringReader := strings.NewReader(cfg)
 	s, err := ParseSettings(stringReader)
-
-	if err != nil {
-		t.Error("Error in Read: ", err)
-	}
-
-	if s == nil {
-		t.Error("settings is nil")
-	}
+	assert.Nil(t, err)
+	assert.NotNil(t, s)
 
 	var globalTCs = []struct {
 		setting  string
@@ -186,25 +174,20 @@ DataDictionary=somewhere/FIX42.xml
 	globalSettings := s.GlobalSettings()
 	for _, tc := range globalTCs {
 		actual, err := globalSettings.Setting(tc.setting)
+		assert.Nil(t, err)
 
-		if err != nil {
-			t.Error("Got Error checking global", err)
-		}
-
-		if actual != tc.expected {
-			t.Errorf("Expected %v, got %v", tc.expected, actual)
-		}
+		assert.Equal(t, tc.expected, actual)
 	}
 
 	sessionSettings := s.SessionSettings()
-
-	if len(sessionSettings) != 3 {
-		t.Errorf("Expected %v sessions, got %v", 3, len(sessionSettings))
-	}
+	assert.Len(t, sessionSettings, 3)
 
 	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "TW", TargetCompID: "ARCA"}
 	sessionID2 := SessionID{BeginString: "FIX.4.0", SenderCompID: "TW", TargetCompID: "ISLD"}
-	sessionID3 := SessionID{BeginString: "FIX.4.2", SenderCompID: "TW", TargetCompID: "INCA"}
+	sessionID3 := SessionID{
+		BeginString:  "FIX.4.2",
+		SenderCompID: "TW", SenderSubID: "TWSub", SenderLocationID: "TWLoc",
+		TargetCompID: "INCA", TargetSubID: "INCASub", TargetLocationID: "INCALoc"}
 
 	var sessionTCs = []struct {
 		sessionID SessionID
@@ -254,18 +237,11 @@ DataDictionary=somewhere/FIX42.xml
 
 	for _, tc := range sessionTCs {
 		settings, ok := sessionSettings[tc.sessionID]
-		if !ok {
-			t.Fatal("No Session recalled for", tc.sessionID)
-		}
+		require.True(t, ok, "No Session recalled for %v", tc.sessionID)
 		actual, err := settings.Setting(tc.setting)
 
-		if err != nil {
-			t.Error("Got Error", err)
-		}
-
-		if tc.expected != actual {
-			t.Errorf("Expected %v, got %v", tc.expected, actual)
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, tc.expected, actual)
 	}
 }
 
