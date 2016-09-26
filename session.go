@@ -96,10 +96,22 @@ func (s *session) insertSendingTime(header Header) {
 	}
 }
 
+func optionallySetID(header Header, field Tag, value string) {
+	if len(value) != 0 {
+		header.SetString(field, value)
+	}
+}
+
 func (s *session) fillDefaultHeader(msg Message, inReplyTo *Message) {
 	msg.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
+
 	msg.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+	optionallySetID(msg.Header, tagSenderSubID, s.sessionID.SenderSubID)
+	optionallySetID(msg.Header, tagSenderLocationID, s.sessionID.SenderLocationID)
+
 	msg.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
+	optionallySetID(msg.Header, tagTargetSubID, s.sessionID.TargetSubID)
+	optionallySetID(msg.Header, tagTargetLocationID, s.sessionID.TargetLocationID)
 
 	s.insertSendingTime(msg.Header)
 
@@ -259,6 +271,7 @@ func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
+	var err error
 	msgType, err := msg.MsgType()
 	if err != nil {
 		return err
@@ -292,11 +305,12 @@ func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
 		}
 	}
 
-	if msgBytes, err := msg.Build(); err != nil {
-		return err
-	} else {
-		return s.persist(seqNum, msgBytes)
+	msgBytes, err := msg.Build()
+	if err == nil {
+		err = s.persist(seqNum, msgBytes)
 	}
+
+	return err
 }
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {

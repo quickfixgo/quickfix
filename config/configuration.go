@@ -6,7 +6,11 @@ package config
 const (
 	BeginString                  string = "BeginString"
 	SenderCompID                 string = "SenderCompID"
+	SenderSubID                  string = "SenderSubID"
+	SenderLocationID             string = "SenderLocationID"
 	TargetCompID                 string = "TargetCompID"
+	TargetSubID                  string = "TargetSubID"
+	TargetLocationID             string = "TargetLocationID"
 	SessionQualifier             string = "SessionQualifier"
 	SocketAcceptHost             string = "SocketAcceptHost"
 	SocketAcceptPort             string = "SocketAcceptPort"

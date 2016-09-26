@@ -30,6 +30,40 @@ func (s *SessionSuite) SetupTest() {
 	s.session.State = latentState{}
 }
 
+func (s *SessionSuite) TestFillDefaultHeader() {
+	s.session.sessionID.BeginString = "FIX.4.2"
+	s.session.sessionID.TargetCompID = "TAR"
+	s.session.sessionID.SenderCompID = "SND"
+
+	msg := NewMessage()
+	s.session.fillDefaultHeader(msg, nil)
+	s.FieldEquals(tagBeginString, "FIX.4.2", msg.Header)
+	s.FieldEquals(tagTargetCompID, "TAR", msg.Header)
+	s.FieldEquals(tagSenderCompID, "SND", msg.Header)
+	s.False(msg.Header.Has(tagSenderSubID))
+	s.False(msg.Header.Has(tagSenderLocationID))
+	s.False(msg.Header.Has(tagTargetSubID))
+	s.False(msg.Header.Has(tagTargetLocationID))
+
+	s.session.sessionID.BeginString = "FIX.4.3"
+	s.session.sessionID.TargetCompID = "TAR"
+	s.session.sessionID.TargetSubID = "TARS"
+	s.session.sessionID.TargetLocationID = "TARL"
+	s.session.sessionID.SenderCompID = "SND"
+	s.session.sessionID.SenderSubID = "SNDS"
+	s.session.sessionID.SenderLocationID = "SNDL"
+
+	msg = NewMessage()
+	s.session.fillDefaultHeader(msg, nil)
+	s.FieldEquals(tagBeginString, "FIX.4.3", msg.Header)
+	s.FieldEquals(tagTargetCompID, "TAR", msg.Header)
+	s.FieldEquals(tagTargetSubID, "TARS", msg.Header)
+	s.FieldEquals(tagTargetLocationID, "TARL", msg.Header)
+	s.FieldEquals(tagSenderCompID, "SND", msg.Header)
+	s.FieldEquals(tagSenderSubID, "SNDS", msg.Header)
+	s.FieldEquals(tagSenderLocationID, "SNDL", msg.Header)
+}
+
 func (s *SessionSuite) TestCheckCorrectCompID() {
 	s.session.sessionID.TargetCompID = "TAR"
 	s.session.sessionID.SenderCompID = "SND"
