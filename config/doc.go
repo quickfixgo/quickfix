@@ -16,9 +16,25 @@ SenderCompID
 
 Your ID as associated with this FIX session. Value is	case-sensitive alpha-numeric string.
 
+SenderSubID
+
+(Optional) Your subID as associated with this FIX session.  Value is case-sensitive alpha-numeric string.
+
+SenderLocationID
+
+(Optional) Your locationID as associated with this FIX session.  Value is case-sensitive alpha-numeric string.
+
 TargetCompID
 
 Counter parties ID as associated with this FIX session. Value is case-sensitive alpha-numeric string.
+
+TargetSubID
+
+(Optional) Counterparty's subID as associated with this FIX session.  Value is case-sensitive alpha-numeric string.
+
+TargetLocationID
+
+(Optional) Counterparty's locationID as associated with this FIX session. Value is case-sensitive alpha-numeric string.
 
 SessionQualifier
 
