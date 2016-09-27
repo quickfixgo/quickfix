@@ -21,7 +21,7 @@ type session struct {
 	messageIn  <-chan fixIn
 
 	//application messages are queued up for send here
-	toSend []Message
+	toSend [][]byte
 
 	//mutex for access to toSend
 	sendMutex sync.Mutex
@@ -196,11 +196,12 @@ func (s *session) queueForSend(msg Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err := s.prepMessageForSend(&msg, nil); err != nil {
+	msgBytes, err := s.prepMessageForSend(msg, nil)
+	if err != nil {
 		return err
 	}
 
-	s.toSend = append(s.toSend, msg)
+	s.toSend = append(s.toSend, msgBytes)
 
 	select {
 	case s.messageEvent <- true:
@@ -222,11 +223,12 @@ func (s *session) sendInReplyTo(msg Message, inReplyTo *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
-	if err := s.prepMessageForSend(&msg, inReplyTo); err != nil {
+	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
+	if err != nil {
 		return err
 	}
 
-	s.toSend = append(s.toSend, msg)
+	s.toSend = append(s.toSend, msgBytes)
 	s.sendQueued()
 
 	return nil
@@ -255,42 +257,42 @@ func (s *session) dropAndSendInReplyTo(msg Message, resetStore bool, inReplyTo *
 		}
 	}
 
-	if err := s.prepMessageForSend(&msg, inReplyTo); err != nil {
+	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
+	if err != nil {
 		return err
 	}
 
 	s.dropQueued()
-	s.toSend = append(s.toSend, msg)
+	s.toSend = append(s.toSend, msgBytes)
 	s.sendQueued()
 
 	return nil
 }
 
-func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
-	s.fillDefaultHeader(*msg, inReplyTo)
+func (s *session) prepMessageForSend(msg Message, inReplyTo *Message) (msgBytes []byte, err error) {
+	s.fillDefaultHeader(msg, inReplyTo)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
-	var err error
 	msgType, err := msg.MsgType()
 	if err != nil {
-		return err
+		return
 	}
 
 	if isAdminMessageType(string(msgType)) {
-		s.application.ToAdmin(*msg, s.sessionID)
+		s.application.ToAdmin(msg, s.sessionID)
 
 		if msgType == enum.MsgType_LOGON {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
-				if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {
-					return err
+				if err = msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {
+					return
 				}
 			}
 
 			if resetSeqNumFlag.Bool() {
-				if err := s.store.Reset(); err != nil {
-					return err
+				if err = s.store.Reset(); err != nil {
+					return
 				}
 
 				s.sentReset = true
@@ -300,17 +302,15 @@ func (s *session) prepMessageForSend(msg, inReplyTo *Message) error {
 
 		}
 	} else {
-		if err := s.application.ToApp(*msg, s.sessionID); err != nil {
-			return err
+		if err = s.application.ToApp(msg, s.sessionID); err != nil {
+			return
 		}
 	}
 
-	msgBytes, err := msg.Build()
-	if err == nil {
-		err = s.persist(seqNum, msgBytes)
-	}
+	msgBytes = msg.build()
+	err = s.persist(seqNum, msgBytes)
 
-	return err
+	return
 }
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {
@@ -322,8 +322,8 @@ func (s *session) persist(seqNum int, msgBytes []byte) error {
 }
 
 func (s *session) sendQueued() {
-	for _, msg := range s.toSend {
-		s.sendBytes(msg.rawMessage)
+	for _, msgBytes := range s.toSend {
+		s.sendBytes(msgBytes)
 	}
 
 	s.dropQueued()

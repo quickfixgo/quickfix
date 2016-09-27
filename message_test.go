@@ -2,8 +2,9 @@ package quickfix
 
 import (
 	"bytes"
-	"github.com/quickfixgo/quickfix/enum"
 	"testing"
+
+	"github.com/quickfixgo/quickfix/enum"
 )
 
 var msgResult Message
@@ -82,11 +83,7 @@ func TestMessage_Build(t *testing.T) {
 	builder.Body.SetField(Tag(554), FIXString("secret"))
 
 	expectedBytes := []byte("8=FIX.4.49=4935=A52=20140615-19:49:56553=my_user554=secret10=072")
-	result, err := builder.Build()
-	if err != nil {
-		t.Error("Unexpected error", err)
-	}
-
+	result := builder.build()
 	if !bytes.Equal(expectedBytes, result) {
 		t.Error("Unexpected bytes, got ", string(result))
 	}
@@ -100,12 +97,12 @@ func TestMessage_ReBuild(t *testing.T) {
 	msg.Header.SetField(tagOrigSendingTime, FIXString("20140515-19:49:56.659"))
 	msg.Header.SetField(tagSendingTime, FIXString("20140615-19:49:56"))
 
-	msg.Build()
+	rebuildBytes := msg.build()
 
 	expectedBytes := []byte("8=FIX.4.29=12635=D34=249=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=128")
 
-	if !bytes.Equal(expectedBytes, msg.rawMessage) {
-		t.Errorf("Unexpected bytes,\n +%s\n-%s", msg.rawMessage, expectedBytes)
+	if !bytes.Equal(expectedBytes, rebuildBytes) {
+		t.Errorf("Unexpected bytes,\n +%s\n-%s", rebuildBytes, expectedBytes)
 	}
 
 	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")

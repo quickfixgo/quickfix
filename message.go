@@ -283,8 +283,8 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 	return buffer[(endIndex + 1):], err
 }
 
-func (m *Message) String() string {
-	return string(m.rawMessage)
+func (m Message) String() string {
+	return string(m.build())
 }
 
 func newCheckSum(value int) FIXString {
@@ -292,17 +292,14 @@ func newCheckSum(value int) FIXString {
 }
 
 //Build constructs a []byte from a Message instance
-func (m *Message) Build() ([]byte, error) {
+func (m Message) build() []byte {
 	m.cook()
 
 	var b bytes.Buffer
 	m.Header.write(&b)
 	m.Body.write(&b)
 	m.Trailer.write(&b)
-
-	m.rawMessage = b.Bytes()
-
-	return m.rawMessage, nil
+	return b.Bytes()
 }
 
 func (m Message) cook() {

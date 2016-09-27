@@ -232,10 +232,8 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		}
 
 		session.log.OnEventf("Resending Message: %v", sentMessageSeqNum)
-		if _, err := msg.Build(); err != nil {
-			return err
-		}
-		session.sendBytes(msg.rawMessage)
+		msgBytes = msg.build()
+		session.sendBytes(msgBytes)
 
 		seqNum = sentMessageSeqNum + 1
 		nextSeqNum = seqNum
@@ -374,10 +372,7 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 
 	session.application.ToAdmin(sequenceReset, session.sessionID)
 
-	msgBytes, err := sequenceReset.Build()
-	if err != nil {
-		return
-	}
+	msgBytes := sequenceReset.build()
 
 	session.sendBytes(msgBytes)
 	session.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)

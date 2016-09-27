@@ -160,8 +160,8 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	stashedMsg, ok := resendState.messageStash[6]
 	s.True(ok)
 
-	rawMsg, _ := msgSeqNumTooHigh.Build()
-	stashedRawMsg, _ := stashedMsg.Build()
+	rawMsg := msgSeqNumTooHigh.build()
+	stashedRawMsg := stashedMsg.build()
 	s.Equal(string(rawMsg), string(stashedRawMsg))
 }
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighResendRequestChunkSize() {
@@ -198,8 +198,8 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighResendRequestChunkSize() {
 		stashedMsg, ok := resendState.messageStash[6]
 		s.True(ok)
 
-		rawMsg, _ := msgSeqNumTooHigh.Build()
-		stashedRawMsg, _ := stashedMsg.Build()
+		rawMsg := msgSeqNumTooHigh.build()
+		stashedRawMsg := stashedMsg.build()
 		s.Equal(string(rawMsg), string(stashedRawMsg))
 	}
 }
