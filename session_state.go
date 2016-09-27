@@ -67,7 +67,7 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 		return
 	}
 
-	session.log.OnIncoming(string(m.bytes))
+	session.log.OnIncoming(m.bytes)
 	if msg, err := ParseMessage(m.bytes); err != nil {
 		session.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
 	} else {

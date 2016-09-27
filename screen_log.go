@@ -9,12 +9,12 @@ type screenLog struct {
 	prefix string
 }
 
-func (l screenLog) OnIncoming(s string) {
+func (l screenLog) OnIncoming(s []byte) {
 	logTime := time.Now().UTC()
 	fmt.Printf("<%v, %s, incoming>\n  (%s)\n", logTime, l.prefix, s)
 }
 
-func (l screenLog) OnOutgoing(s string) {
+func (l screenLog) OnOutgoing(s []byte) {
 	logTime := time.Now().UTC()
 	fmt.Printf("<%v, %s, outgoing>\n  (%s)\n", logTime, l.prefix, s)
 }

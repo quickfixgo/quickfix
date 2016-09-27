@@ -46,10 +46,9 @@ func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap
 	}
 }
 
-func (s *QuickFIXSuite) MessageEqualsBytes(msgBytes []byte, msg Message) {
-	_, err := msg.Build()
-	s.Require().Nil(err)
-	s.Equal(string(msg.rawMessage), string(msgBytes))
+func (s *QuickFIXSuite) MessageEqualsBytes(expectedBytes []byte, msg Message) {
+	actualBytes := msg.build()
+	s.Equal(string(actualBytes), string(expectedBytes))
 }
 
 //MockStore wraps a memory store and mocks Refresh for convenience

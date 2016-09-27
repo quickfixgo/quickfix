@@ -107,7 +107,7 @@ func TestFileLog_Append(t *testing.T) {
 	messageScanner := bufio.NewScanner(messageLogFile)
 	eventScanner := bufio.NewScanner(eventLogFile)
 
-	helper.Log.OnIncoming("incoming")
+	helper.Log.OnIncoming([]byte("incoming"))
 	if !messageScanner.Scan() {
 		t.Error("Unexpected EOF")
 	}
@@ -118,7 +118,7 @@ func TestFileLog_Append(t *testing.T) {
 	}
 
 	newHelper := newFileLogHelper(t)
-	newHelper.Log.OnIncoming("incoming")
+	newHelper.Log.OnIncoming([]byte("incoming"))
 	if !messageScanner.Scan() {
 		t.Error("Unexpected EOF")
 	}
