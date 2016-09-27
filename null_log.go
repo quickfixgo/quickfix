@@ -2,9 +2,9 @@ package quickfix
 
 type nullLog struct{}
 
-func (l nullLog) OnIncoming(s string)                      {}
-func (l nullLog) OnOutgoing(s string)                      {}
-func (l nullLog) OnEvent(s string)                         {}
+func (l nullLog) OnIncoming([]byte)                        {}
+func (l nullLog) OnOutgoing([]byte)                        {}
+func (l nullLog) OnEvent(string)                           {}
 func (l nullLog) OnEventf(format string, a ...interface{}) {}
 
 type nullLogFactory struct{}

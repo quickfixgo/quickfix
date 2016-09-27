@@ -334,7 +334,7 @@ func (s *session) dropQueued() {
 }
 
 func (s *session) sendBytes(msg []byte) {
-	s.log.OnOutgoing(string(msg))
+	s.log.OnOutgoing(msg)
 	s.messageOut <- msg
 	s.stateTimer.Reset(s.HeartBtInt)
 }

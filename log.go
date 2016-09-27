@@ -3,10 +3,10 @@ package quickfix
 //Log is a generic interface for logging FIX messages and events.
 type Log interface {
 	//log incoming fix message
-	OnIncoming(string)
+	OnIncoming([]byte)
 
 	//log outgoing fix message
-	OnOutgoing(string)
+	OnOutgoing([]byte)
 
 	//log fix event
 	OnEvent(string)
