@@ -1,7 +1,10 @@
 package quickfix
 
 import (
+	"bytes"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFieldMap_Clear(t *testing.T) {
@@ -40,19 +43,12 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 		err := fMap.GetField(tc.tag, &testField)
 
 		if tc.expectErr {
-			if err == nil {
-				t.Error("Expected Error")
-			}
+			assert.NotNil(t, err, "Expected Error")
 			continue
 		}
 
-		if err != nil {
-			t.Error("Unexpected Error", err)
-		}
-
-		if string(testField) != tc.expectValue {
-			t.Errorf("Expected %v got %v", tc.expectValue, testField)
-		}
+		assert.Nil(t, err, "Unexpected error")
+		assert.Equal(t, tc.expectValue, string(testField))
 	}
 }
 
@@ -64,10 +60,7 @@ func TestFieldMap_Length(t *testing.T) {
 	fMap.SetField(8, FIXString("FIX.4.4"))
 	fMap.SetField(9, FIXInt(100))
 	fMap.SetField(10, FIXString("100"))
-
-	if fMap.length() != 16 {
-		t.Error("Length should include all fields but beginString, bodyLength, and checkSum- got ", fMap.length())
-	}
+	assert.Equal(t, 16, fMap.length(), "Length should include all fields but beginString, bodyLength, and checkSum")
 }
 
 func TestFieldMap_Total(t *testing.T) {
@@ -80,9 +73,7 @@ func TestFieldMap_Total(t *testing.T) {
 	fMap.SetField(Tag(9), FIXInt(100))
 	fMap.SetField(10, FIXString("100"))
 
-	if fMap.total() != 2116 {
-		t.Error("Total should includes all fields but checkSum- got ", fMap.total())
-	}
+	assert.Equal(t, 2116, fMap.total(), "Total should includes all fields but checkSum")
 }
 
 func TestFieldMap_TypedSetAndGet(t *testing.T) {
@@ -93,30 +84,23 @@ func TestFieldMap_TypedSetAndGet(t *testing.T) {
 	fMap.SetInt(2, 256)
 
 	s, err := fMap.GetString(1)
-	if err != nil {
-		t.Error("Unexpected Error", err)
-	} else if s != "hello" {
-		t.Errorf("Expected %v got %v", "hello", s)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "hello", s)
 
 	i, err := fMap.GetInt(2)
-	if err != nil {
-		t.Error("Unexpected Error", err)
-	} else if i != 256 {
-		t.Errorf("Expected %v got %v", 256, i)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, 256, i)
 
 	_, err = fMap.GetInt(1)
-	if err == nil {
-		t.Error("Type mismatch should occur error but nil")
-	}
+	assert.NotNil(t, err, "Type mismatch should occur error")
 
 	s, err = fMap.GetString(2)
-	if err != nil {
-		t.Error("Type mismatch should occur error but nil")
-	} else if s != "256" {
-		t.Errorf("Expected %v got %v", "256", s)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, "256", s)
+
+	b, err := fMap.GetBytes(1)
+	assert.Nil(t, err)
+	assert.True(t, bytes.Equal([]byte("hello"), b))
 }
 
 func TestFieldMap_BoolTypedSetAndGet(t *testing.T) {
@@ -125,25 +109,19 @@ func TestFieldMap_BoolTypedSetAndGet(t *testing.T) {
 
 	fMap.SetBool(1, true)
 	v, err := fMap.GetBool(1)
-	if err != nil {
-		t.Error("Unexpected Error", err)
-	} else if !v {
-		t.Errorf("Expected %v got %v", true, v)
-	}
-	s, _ := fMap.GetString(1)
-	if s != "Y" {
-		t.Errorf("Expected %v got %v", "Y", s)
-	}
+	assert.Nil(t, err)
+	assert.True(t, v)
+
+	s, err := fMap.GetString(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "Y", s)
 
 	fMap.SetBool(2, false)
 	v, err = fMap.GetBool(2)
-	if err != nil {
-		t.Error("Unexpected Error", err)
-	} else if v {
-		t.Errorf("Expected %v got %v", false, v)
-	}
-	s, _ = fMap.GetString(2)
-	if s != "N" {
-		t.Errorf("Expected %v got %v", "N", s)
-	}
+	assert.Nil(t, err)
+	assert.False(t, v)
+
+	s, err = fMap.GetString(2)
+	assert.Nil(t, err)
+	assert.Equal(t, "N", s)
 }
