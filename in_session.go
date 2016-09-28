@@ -212,7 +212,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	nextSeqNum := seqNum
 	for _, msgBytes := range msgs {
 		msg, _ := ParseMessage(msgBytes)
-		msgType, _ := msg.Header.GetString(tagMsgType)
+		msgType, _ := msg.Header.GetBytes(tagMsgType)
 		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 
 		if isAdminMessageType(msgType) {

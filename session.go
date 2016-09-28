@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"sync"
@@ -274,15 +275,15 @@ func (s *session) prepMessageForSend(msg Message, inReplyTo *Message) (msgBytes 
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 
-	msgType, err := msg.MsgType()
+	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
 		return
 	}
 
-	if isAdminMessageType(string(msgType)) {
+	if isAdminMessageType(msgType) {
 		s.application.ToAdmin(msg, s.sessionID)
 
-		if msgType == enum.MsgType_LOGON {
+		if bytes.Equal(msgType, msgTypeLogon) {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
 				if err = msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err != nil {
@@ -508,12 +509,12 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 }
 
 func (s *session) fromCallback(msg Message) MessageRejectError {
-	msgType, err := msg.MsgType()
+	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
 		return err
 	}
 
-	if isAdminMessageType(string(msgType)) {
+	if isAdminMessageType(msgType) {
 		return s.application.FromAdmin(msg, s.sessionID)
 	}
 

@@ -44,7 +44,9 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectErro
 
 func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message, sessionID SessionID) MessageRejectError {
 	fixVersion := beginString
-	if beginString == enum.BeginStringFIXT11 && !isAdminMessageType(msgType) {
+	isAdminMsg := isAdminMessageType([]byte(msgType))
+
+	if beginString == enum.BeginStringFIXT11 && !isAdminMsg {
 		var applVerID FIXString
 		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
 			session, _ := lookupSession(sessionID)
@@ -72,7 +74,7 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message,
 	}
 
 	switch {
-	case isAdminMessageType(msgType) || msgType == "j":
+	case isAdminMsg || msgType == "j":
 		return nil
 	}
 

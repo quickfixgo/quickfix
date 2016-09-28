@@ -70,6 +70,16 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
+//GetBytes is a zero-copy GetField wrapper for []bytes fields
+func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
+	tagValues, ok := m.tagLookup[tag]
+	if !ok {
+		return nil, ConditionallyRequiredFieldMissing(tag)
+	}
+
+	return tagValues[0].value, nil
+}
+
 //GetBool is a GetField wrapper for bool fields
 func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 	var val FIXBoolean
