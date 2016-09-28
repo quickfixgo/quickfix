@@ -15,11 +15,11 @@ type fileLog struct {
 }
 
 func (l fileLog) OnIncoming(msg []byte) {
-	l.messageLogger.Print(msg)
+	l.messageLogger.Print(string(msg))
 }
 
 func (l fileLog) OnOutgoing(msg []byte) {
-	l.messageLogger.Print(msg)
+	l.messageLogger.Print(string(msg))
 }
 
 func (l fileLog) OnEvent(msg string) {
