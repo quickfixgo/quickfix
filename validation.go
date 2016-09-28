@@ -53,7 +53,7 @@ func (v *fixtValidator) Validate(msg Message) MessageRejectError {
 		return err
 	}
 
-	if isAdminMessageType(msgType) {
+	if isAdminMessageType([]byte(msgType)) {
 		return validateFIX(v.transportDataDictionary, v.settings, msgType, msg)
 	}
 	return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, msgType, msg)
