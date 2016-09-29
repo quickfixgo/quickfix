@@ -235,8 +235,6 @@ func (f sessionFactory) newSession(
 	s.messageEvent = make(chan bool, 1)
 	s.admin = make(chan interface{})
 	s.application = application
-	s.stateTimer = internal.EventTimer{Task: func() { s.sessionEvent <- internal.NeedHeartbeat }}
-	s.peerTimer = internal.EventTimer{Task: func() { s.sessionEvent <- internal.PeerTimeout }}
 	return
 }
 

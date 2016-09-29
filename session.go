@@ -32,8 +32,8 @@ type session struct {
 	application  Application
 	validator
 	stateMachine
-	stateTimer internal.EventTimer
-	peerTimer  internal.EventTimer
+	stateTimer *internal.EventTimer
+	peerTimer  *internal.EventTimer
 	sentReset  bool
 
 	targetDefaultApplVerID string
@@ -691,7 +691,10 @@ func (s *session) onAdmin(msg interface{}) {
 func (s *session) run() {
 	s.Start(s)
 
+	s.stateTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.NeedHeartbeat })
+	s.peerTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.PeerTimeout })
 	ticker := time.NewTicker(time.Second)
+
 	defer func() {
 		s.stateTimer.Stop()
 		s.peerTimer.Stop()
