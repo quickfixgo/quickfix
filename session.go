@@ -546,11 +546,8 @@ func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
 }
 
 func (s *session) checkCompID(msg Message) MessageRejectError {
-	var senderCompID FIXString
-	var targetCompID FIXString
-
-	haveSender := msg.Header.GetField(tagSenderCompID, &senderCompID)
-	haveTarget := msg.Header.GetField(tagTargetCompID, &targetCompID)
+	senderCompID, haveSender := msg.Header.GetBytes(tagSenderCompID)
+	targetCompID, haveTarget := msg.Header.GetBytes(tagTargetCompID)
 
 	switch {
 	case haveSender != nil:
@@ -586,8 +583,7 @@ func (s *session) checkSendingTime(msg Message) MessageRejectError {
 }
 
 func (s *session) checkBeginString(msg Message) MessageRejectError {
-	var beginString FIXString
-	switch err := msg.Header.GetField(tagBeginString, &beginString); {
+	switch beginString, err := msg.Header.GetBytes(tagBeginString); {
 	case err != nil:
 		return RequiredTagMissing(tagBeginString)
 	case s.sessionID.BeginString != string(beginString):
@@ -695,9 +691,11 @@ func (s *session) onAdmin(msg interface{}) {
 func (s *session) run() {
 	s.Start(s)
 
+	ticker := time.NewTicker(time.Second)
 	defer func() {
 		s.stateTimer.Stop()
 		s.peerTimer.Stop()
+		ticker.Stop()
 	}()
 
 	for !s.Stopped() {
@@ -719,7 +717,7 @@ func (s *session) run() {
 		case evt := <-s.sessionEvent:
 			s.Timeout(s, evt)
 
-		case now := <-time.After(time.Second):
+		case now := <-ticker.C:
 			s.CheckSessionTime(s, now)
 		}
 	}

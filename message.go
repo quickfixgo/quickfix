@@ -12,35 +12,37 @@ import (
 //Header is first section of a FIX Message
 type Header struct{ FieldMap }
 
+//in the message header, the first 3 tags in the message header must be 8,9,35
+func headerFieldOrdering(i, j Tag) bool {
+	var ordering = func(t Tag) uint32 {
+		switch t {
+		case tagBeginString:
+			return 1
+		case tagBodyLength:
+			return 2
+		case tagMsgType:
+			return 3
+		}
+
+		return math.MaxUint32
+	}
+
+	orderi := ordering(i)
+	orderj := ordering(j)
+
+	switch {
+	case orderi < orderj:
+		return true
+	case orderi > orderj:
+		return false
+	}
+
+	return i < j
+}
+
 //Init initializes the Header instance
 func (h *Header) Init() {
-	//in the message header, the first 3 tags in the message header must be 8,9,35
-	h.initWithOrdering(func(i, j Tag) bool {
-		var ordering = func(t Tag) uint32 {
-			switch t {
-			case tagBeginString:
-				return 1
-			case tagBodyLength:
-				return 2
-			case tagMsgType:
-				return 3
-			}
-
-			return math.MaxUint32
-		}
-
-		orderi := ordering(i)
-		orderj := ordering(j)
-
-		switch {
-		case orderi < orderj:
-			return true
-		case orderi > orderj:
-			return false
-		}
-
-		return i < j
-	})
+	h.initWithOrdering(headerFieldOrdering)
 }
 
 //Body is the primary application section of a FIX message
@@ -54,19 +56,21 @@ func (b *Body) Init() {
 //Trailer is the last section of a FIX message
 type Trailer struct{ FieldMap }
 
+// In the trailer, CheckSum (tag 10) must be last
+func trailerFieldOrdering(i, j Tag) bool {
+	switch {
+	case i == tagCheckSum:
+		return false
+	case j == tagCheckSum:
+		return true
+	}
+
+	return i < j
+}
+
 //Init initializes the FIX message
 func (t *Trailer) Init() {
-	// In the trailer, CheckSum (tag 10) must be last
-	t.initWithOrdering(func(i, j Tag) bool {
-		switch {
-		case i == tagCheckSum:
-			return false
-		case j == tagCheckSum:
-			return true
-		}
-
-		return i < j
-	})
+	t.initWithOrdering(trailerFieldOrdering)
 }
 
 //Message is a FIX Message abstraction.
