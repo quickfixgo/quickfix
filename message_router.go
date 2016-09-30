@@ -29,12 +29,12 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
 func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectError {
-	var beginString FIXString
-	if err := msg.Header.GetField(tagBeginString, &beginString); err != nil {
+	beginString, err := msg.Header.GetBytes(tagBeginString)
+	if err != nil {
 		return nil
 	}
 
-	msgType, err := msg.MsgType()
+	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
 		return err
 	}

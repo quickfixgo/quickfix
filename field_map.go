@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"sort"
+	"time"
 )
 
 //FieldMap is a collection of fix fields that make up a fix message.
@@ -91,11 +92,32 @@ func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 
 //GetInt is a GetField wrapper for int fields
 func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
-	var val FIXInt
-	if err := m.GetField(tag, &val); err != nil {
+	bytes, err := m.GetBytes(tag)
+	if err != nil {
 		return 0, err
 	}
-	return int(val), nil
+
+	var val FIXInt
+	if val.Read(bytes) != nil {
+		err = IncorrectDataFormatForValue(tag)
+	}
+
+	return int(val), err
+}
+
+//GetTime is a GetField wrapper for utc timestamp fields
+func (m FieldMap) GetTime(tag Tag) (t time.Time, err MessageRejectError) {
+	bytes, err := m.GetBytes(tag)
+	if err != nil {
+		return
+	}
+
+	var val FIXUTCTimestamp
+	if val.Read(bytes) != nil {
+		err = IncorrectDataFormatForValue(tag)
+	}
+
+	return val.Time, err
 }
 
 //GetString is a GetField wrapper for string fields
