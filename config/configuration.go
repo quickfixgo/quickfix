@@ -42,4 +42,5 @@ const (
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
+	CheckLatency                 string = "CheckLatency"
 )

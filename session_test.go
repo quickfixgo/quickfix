@@ -169,6 +169,12 @@ func (s *SessionSuite) TestCheckSendingTime() {
 	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 
 	s.Nil(s.session.checkSendingTime(msg), "sending time should be ok")
+
+	s.session.SkipCheckLatency = true
+	sendingTime = time.Now().Add(time.Duration(-200) * time.Second)
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
+	err = s.session.checkSendingTime(msg)
+	s.Require().Nil(err, "should skip latency check")
 }
 
 func (s *SessionSuite) TestCheckTargetTooLow() {

@@ -47,6 +47,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.False(session.InitiateLogon)
 	s.Equal(0, session.ResendRequestChunkSize)
 	s.False(session.EnableLastMsgSeqNumProcessed)
+	s.False(session.SkipCheckLatency)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -126,6 +127,23 @@ func (s *SessionFactorySuite) TestEnableLastMsgSeqNumProcessed() {
 		s.NotNil(session)
 
 		s.Equal(test.expected, session.EnableLastMsgSeqNumProcessed)
+	}
+}
+
+func (s *SessionFactorySuite) TestCheckLatency() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", false}, {"N", true}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.CheckLatency, test.setting)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.SkipCheckLatency)
 	}
 }
 

@@ -185,6 +185,14 @@ If set to N, fields that are out of order (i.e. body fields in the header, or he
 
 Defaults to Y.
 
+CheckLatency
+
+If set to Y, messages must be received from the counterparty within a defined number of seconds. It is useful to turn this off if a system uses localtime for it's timestamps instead of GMT. Valid Values:
+ Y
+ N
+
+Defaults to Y.
+
 ReconnectInterval
 
 Time between reconnection attempts in seconds. Only used for initiators.    Value must be positive integer.

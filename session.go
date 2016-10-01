@@ -576,6 +576,10 @@ func (s *session) checkCompID(msg Message) MessageRejectError {
 }
 
 func (s *session) checkSendingTime(msg Message) MessageRejectError {
+	if s.SkipCheckLatency {
+		return nil
+	}
+
 	if ok := msg.Header.Has(tagSendingTime); !ok {
 		return RequiredTagMissing(tagSendingTime)
 	}
