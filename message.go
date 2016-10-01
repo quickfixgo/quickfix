@@ -195,12 +195,12 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		}
 	}
 
-	var bodyLength FIXInt
-	if err := msg.Header.GetField(tagBodyLength, &bodyLength); err != nil {
+	bodyLength, err := msg.Header.GetInt(tagBodyLength)
+	if err != nil {
 		return msg, parseError{OrigError: err.Error()}
 	}
 
-	if length != int(bodyLength) {
+	if length != bodyLength {
 		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 

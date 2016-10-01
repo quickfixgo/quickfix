@@ -522,24 +522,34 @@ func (s *session) fromCallback(msg Message) MessageRejectError {
 }
 
 func (s *session) checkTargetTooLow(msg Message) MessageRejectError {
-	var seqNum FIXInt
-	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
-	case err != nil:
+	if !msg.Header.Has(tagMsgSeqNum) {
 		return RequiredTagMissing(tagMsgSeqNum)
-	case int(seqNum) < s.store.NextTargetMsgSeqNum():
-		return targetTooLow{ReceivedTarget: int(seqNum), ExpectedTarget: s.store.NextTargetMsgSeqNum()}
+	}
+
+	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	if err != nil {
+		return err
+	}
+
+	if seqNum < s.store.NextTargetMsgSeqNum() {
+		return targetTooLow{ReceivedTarget: seqNum, ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
 
 	return nil
 }
 
 func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
-	var seqNum FIXInt
-	switch err := msg.Header.GetField(tagMsgSeqNum, &seqNum); {
-	case err != nil:
+	if !msg.Header.Has(tagMsgSeqNum) {
 		return RequiredTagMissing(tagMsgSeqNum)
-	case int(seqNum) > s.store.NextTargetMsgSeqNum():
-		return targetTooHigh{ReceivedTarget: int(seqNum), ExpectedTarget: s.store.NextTargetMsgSeqNum()}
+	}
+
+	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	if err != nil {
+		return err
+	}
+
+	if seqNum > s.store.NextTargetMsgSeqNum() {
+		return targetTooHigh{ReceivedTarget: seqNum, ExpectedTarget: s.store.NextTargetMsgSeqNum()}
 	}
 
 	return nil
@@ -570,12 +580,12 @@ func (s *session) checkSendingTime(msg Message) MessageRejectError {
 		return RequiredTagMissing(tagSendingTime)
 	}
 
-	sendingTime := new(FIXUTCTimestamp)
-	if err := msg.Header.GetField(tagSendingTime, sendingTime); err != nil {
+	sendingTime, err := msg.Header.GetTime(tagSendingTime)
+	if err != nil {
 		return err
 	}
 
-	if delta := time.Since(sendingTime.Time); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+	if delta := time.Since(sendingTime); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
 		return sendingTimeAccuracyProblem()
 	}
 
