@@ -40,6 +40,8 @@ type session struct {
 
 	admin chan interface{}
 	internal.SessionSettings
+
+	messagePool
 }
 
 func (s *session) logError(err error) {

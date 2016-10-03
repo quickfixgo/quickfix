@@ -119,7 +119,7 @@ func (m *MessageFactory) SetNextSeqNum(next int) {
 	m.seqNum = next - 1
 }
 
-func (m *MessageFactory) buildMessage(msgType string) Message {
+func (m *MessageFactory) buildMessage(msgType string) *Message {
 	m.seqNum++
 	msg := NewMessage()
 	msg.Header.
@@ -129,26 +129,26 @@ func (m *MessageFactory) buildMessage(msgType string) Message {
 		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()}).
 		SetField(tagMsgSeqNum, FIXInt(m.seqNum)).
 		SetField(tagMsgType, FIXString(msgType))
-	return msg
+	return &msg
 }
 
-func (m *MessageFactory) Logout() Message {
+func (m *MessageFactory) Logout() *Message {
 	return m.buildMessage(string(enum.MsgType_LOGOUT))
 }
 
-func (m *MessageFactory) NewOrderSingle() Message {
+func (m *MessageFactory) NewOrderSingle() *Message {
 	return m.buildMessage(string(enum.MsgType_ORDER_SINGLE))
 }
 
-func (m *MessageFactory) Heartbeat() Message {
+func (m *MessageFactory) Heartbeat() *Message {
 	return m.buildMessage(string(enum.MsgType_HEARTBEAT))
 }
 
-func (m *MessageFactory) Logon() Message {
+func (m *MessageFactory) Logon() *Message {
 	return m.buildMessage(string(enum.MsgType_LOGON))
 }
 
-func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
+func (m *MessageFactory) ResendRequest(beginSeqNo int) *Message {
 	msg := m.buildMessage(string(enum.MsgType_RESEND_REQUEST))
 	msg.Body.SetField(tagBeginSeqNo, FIXInt(beginSeqNo))
 	msg.Body.SetField(tagEndSeqNo, FIXInt(0))
@@ -156,7 +156,7 @@ func (m *MessageFactory) ResendRequest(beginSeqNo int) Message {
 	return msg
 }
 
-func (m *MessageFactory) SequenceReset(seqNo int) Message {
+func (m *MessageFactory) SequenceReset(seqNo int) *Message {
 	msg := m.buildMessage(string(enum.MsgType_SEQUENCE_RESET))
 	msg.Body.SetField(tagNewSeqNo, FIXInt(seqNo))
 
