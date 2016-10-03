@@ -111,8 +111,10 @@ func NewMessage() (m Message) {
 }
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
-func ParseMessage(rawMessage []byte) (Message, error) {
-	msg := NewMessage()
+func ParseMessage(msg *Message, rawMessage []byte) (err error) {
+	msg.Header.Clear()
+	msg.Body.Clear()
+	msg.Trailer.Clear()
 	msg.rawMessage = rawMessage
 
 	//allocate fields in one chunk
@@ -122,14 +124,18 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 			fieldCount++
 		}
 	}
-	msg.fields = make(TagValues, fieldCount)
+
+	if cap(msg.fields) < fieldCount {
+		msg.fields = make(TagValues, fieldCount)
+	} else {
+		msg.fields = msg.fields[0:fieldCount]
+	}
 
 	fieldIndex := 0
-	var err error
 
 	//message must start with begin string, body length, msg type
 	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawMessage); err != nil {
-		return msg, err
+		return
 	}
 
 	msg.Header.tagLookup[msg.fields[fieldIndex].tag] = msg.fields[fieldIndex : fieldIndex+1]
@@ -137,7 +143,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawMessage); err != nil {
-		return msg, err
+		return
 	}
 
 	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
@@ -145,7 +151,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
 	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagMsgType, rawMessage); err != nil {
-		return msg, err
+		return
 	}
 
 	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
@@ -157,7 +163,7 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 		parsedFieldBytes = &msg.fields[fieldIndex]
 		rawMessage, err = extractField(parsedFieldBytes, rawMessage)
 		if err != nil {
-			return msg, err
+			return
 		}
 
 		switch {
@@ -197,14 +203,12 @@ func ParseMessage(rawMessage []byte) (Message, error) {
 
 	bodyLength, err := msg.Header.GetInt(tagBodyLength)
 	if err != nil {
-		return msg, parseError{OrigError: err.Error()}
+		err = parseError{OrigError: err.Error()}
+	} else if length != bodyLength {
+		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 
-	if length != bodyLength {
-		return msg, parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
-	}
-
-	return msg, nil
+	return
 }
 
 // MsgType returns MsgType (tag 35) field's value

@@ -38,18 +38,15 @@ func (suite *MessageRouterTestSuite) givenTheRoute(beginString, msgType string) 
 }
 
 func (suite *MessageRouterTestSuite) givenTheMessage(msgBytes []byte) {
-	msg, err := ParseMessage(msgBytes)
+	err := ParseMessage(&suite.msg, msgBytes)
 	suite.Nil(err)
-	suite.NotNil(msg)
-
-	suite.msg = msg
 
 	var beginString FIXString
-	suite.Require().Nil(msg.Header.GetField(tagBeginString, &beginString))
+	suite.Require().Nil(suite.msg.Header.GetField(tagBeginString, &beginString))
 	var senderCompID FIXString
-	suite.Require().Nil(msg.Header.GetField(tagSenderCompID, &senderCompID))
+	suite.Require().Nil(suite.msg.Header.GetField(tagSenderCompID, &senderCompID))
 	var targetCompID FIXString
-	suite.Require().Nil(msg.Header.GetField(tagTargetCompID, &targetCompID))
+	suite.Require().Nil(suite.msg.Header.GetField(tagTargetCompID, &targetCompID))
 	suite.sessionID = SessionID{BeginString: string(beginString), SenderCompID: string(targetCompID), TargetCompID: string(senderCompID)}
 }
 
@@ -99,6 +96,7 @@ func (suite *MessageRouterTestSuite) SetupTest() {
 	defer sessionsLock.Unlock()
 
 	sessions = make(map[SessionID]*session)
+	suite.msg = NewMessage()
 }
 
 func (suite *MessageRouterTestSuite) TestNoRoute() {

@@ -68,7 +68,9 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 	}
 
 	session.log.OnIncoming(m.bytes)
-	if msg, err := ParseMessage(m.bytes); err != nil {
+
+	msg := NewMessage()
+	if err := ParseMessage(&msg, m.bytes); err != nil {
 		session.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
 	} else {
 		msg.ReceiveTime = m.receiveTime

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/stretchr/testify/assert"
 )
 
 type validateTest struct {
@@ -37,8 +38,9 @@ func TestValidate(t *testing.T) {
 		tcFieldNotFoundHeader(),
 	}
 
+	msg := NewMessage()
 	for _, test := range tests {
-		msg, _ := ParseMessage(test.MessageBytes)
+		assert.Nil(t, ParseMessage(&msg, test.MessageBytes))
 		reject := test.Validator.Validate(msg)
 
 		switch {

@@ -281,7 +281,8 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
 	msgBytesSent, ok := s.Receiver.LastMessage()
 	s.Require().True(ok)
-	sentMessage, err := ParseMessage(msgBytesSent)
+	sentMessage := NewMessage()
+	err := ParseMessage(&sentMessage, msgBytesSent)
 	s.Require().Nil(err)
 	s.MessageType(enum.MsgType_LOGON, sentMessage)
 

@@ -171,7 +171,9 @@ func (m FieldMap) SetString(tag Tag, value string) FieldMap {
 
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
-	m.tagLookup = make(map[Tag]TagValues)
+	for k := range m.tagLookup {
+		delete(m.tagLookup, k)
+	}
 }
 
 //Set is a setter for fields
