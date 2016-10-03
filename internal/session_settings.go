@@ -12,6 +12,7 @@ type SessionSettings struct {
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
 	EnableLastMsgSeqNumProcessed bool
+	SkipCheckLatency             bool
 
 	//required on logon for FIX.T.1 messages
 	DefaultApplVerID string

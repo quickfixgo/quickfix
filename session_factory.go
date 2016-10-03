@@ -146,6 +146,15 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.CheckLatency) {
+		var doCheckLatency bool
+		if doCheckLatency, err = settings.BoolSetting(config.CheckLatency); err != nil {
+			return
+		}
+
+		s.SkipCheckLatency = !doCheckLatency
+	}
+
 	if settings.HasSetting(config.ResendRequestChunkSize) {
 		if s.ResendRequestChunkSize, err = settings.IntSetting(config.ResendRequestChunkSize); err != nil {
 			return
