@@ -9,7 +9,7 @@ import (
 )
 
 func BenchmarkParseMessage(b *testing.B) {
-	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	var msg Message
 	for i := 0; i < b.N; i++ {
@@ -31,12 +31,12 @@ func (s *MessageSuite) SetupTest() {
 }
 
 func (s *MessageSuite) TestParseMessage() {
-	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	err := ParseMessage(&s.msg, rawMsg)
 	s.Nil(err)
 
-	s.True(bytes.Equal(rawMsg, s.msg.rawMessage), "Expected msg bytes to equal raw bytes")
+	s.True(bytes.Equal(rawMsg.Bytes(), s.msg.rawMessage.Bytes()), "Expected msg bytes to equal raw bytes")
 
 	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")
 
@@ -55,7 +55,7 @@ func (s *MessageSuite) TestParseMessage() {
 
 func (s *MessageSuite) TestParseOutOfOrder() {
 	//allow fields out of order, save for validation
-	rawMsg := []byte("8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250")
+	rawMsg := bytes.NewBufferString("8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250")
 	s.Nil(ParseMessage(&s.msg, rawMsg))
 }
 
@@ -73,7 +73,7 @@ func (s *MessageSuite) TestBuild() {
 }
 
 func (s *MessageSuite) TestReBuild() {
-	rawMsg := []byte("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
 	s.Nil(ParseMessage(&s.msg, rawMsg))
 
@@ -92,7 +92,7 @@ func (s *MessageSuite) TestReBuild() {
 }
 
 func (s *MessageSuite) TestReverseRoute() {
-	s.Nil(ParseMessage(&s.msg, []byte("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(&s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
 	builder := s.msg.reverseRoute()
 
@@ -123,7 +123,7 @@ func (s *MessageSuite) TestReverseRoute() {
 }
 
 func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
-	s.Nil(ParseMessage(&s.msg, []byte("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(&s.msg, bytes.NewBufferString("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 	builder := s.msg.reverseRoute()
 
 	s.False(builder.Header.Has(tagDeliverToCompID), "Should not reverse if empty")
@@ -131,7 +131,7 @@ func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
 
 func (s *MessageSuite) TestReverseRouteFIX40() {
 	//onbehalfof/deliverto location id not supported in fix 4.0
-	s.Nil(ParseMessage(&s.msg, []byte("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(&s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
 	builder := s.msg.reverseRoute()
 

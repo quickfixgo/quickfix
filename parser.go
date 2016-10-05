@@ -4,11 +4,15 @@ import (
 	"bytes"
 	"io"
 	"time"
+
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 const (
 	defaultBufSize = 4096
 )
+
+var bufferPool internal.BufferPool
 
 type parser struct {
 	buffer   []byte
@@ -97,25 +101,27 @@ func (p *parser) jumpLength() (int, error) {
 	return offset + length, nil
 }
 
-func (p *parser) ReadMessage() ([]byte, error) {
+func (p *parser) ReadMessage() (msgBytes *bytes.Buffer, err error) {
 	start, err := p.findStart()
 	if err != nil {
-		return []byte{}, err
+		return
 	}
 	p.buffer = p.buffer[start:]
 
 	index, err := p.jumpLength()
 	if err != nil {
-		return []byte{}, err
+		return
 	}
 
 	index, err = p.findEndAfterOffset(index)
 	if err != nil {
-		return []byte{}, err
+		return
 	}
 
-	msgBytes := p.buffer[:index:index]
+	msgBytes = bufferPool.Get()
+	msgBytes.Reset()
+	msgBytes.Write(p.buffer[:index])
 	p.buffer = p.buffer[index:]
 
-	return msgBytes, nil
+	return
 }

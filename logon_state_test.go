@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"testing"
 	"time"
 
@@ -282,7 +283,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	msgBytesSent, ok := s.Receiver.LastMessage()
 	s.Require().True(ok)
 	sentMessage := NewMessage()
-	err := ParseMessage(&sentMessage, msgBytesSent)
+	err := ParseMessage(&sentMessage, bytes.NewBuffer(msgBytesSent))
 	s.Require().Nil(err)
 	s.MessageType(enum.MsgType_LOGON, sentMessage)
 
