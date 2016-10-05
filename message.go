@@ -295,6 +295,10 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 }
 
 func (m Message) String() string {
+	if m.rawMessage != nil {
+		return string(m.rawMessage)
+	}
+
 	return string(m.build())
 }
 
