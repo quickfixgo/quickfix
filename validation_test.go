@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"testing"
 	"time"
 
@@ -40,7 +41,7 @@ func TestValidate(t *testing.T) {
 
 	msg := NewMessage()
 	for _, test := range tests {
-		assert.Nil(t, ParseMessage(&msg, test.MessageBytes))
+		assert.Nil(t, ParseMessage(&msg, bytes.NewBuffer(test.MessageBytes)))
 		reject := test.Validator.Validate(msg)
 
 		switch {

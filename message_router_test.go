@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"fmt"
 	"testing"
 
@@ -38,7 +39,7 @@ func (suite *MessageRouterTestSuite) givenTheRoute(beginString, msgType string) 
 }
 
 func (suite *MessageRouterTestSuite) givenTheMessage(msgBytes []byte) {
-	err := ParseMessage(&suite.msg, msgBytes)
+	err := ParseMessage(&suite.msg, bytes.NewBuffer(msgBytes))
 	suite.Nil(err)
 
 	var beginString FIXString

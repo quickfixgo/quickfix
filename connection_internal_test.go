@@ -51,8 +51,8 @@ func TestReadLoop(t *testing.T) {
 			continue
 		}
 
-		if string(msg.bytes) != test.expectedMsg {
-			t.Errorf("Expected %v got %v", test.expectedMsg, string(msg.bytes))
+		if msg.bytes.String() != test.expectedMsg {
+			t.Errorf("Expected %v got %v", test.expectedMsg, msg.bytes.String())
 		}
 	}
 }

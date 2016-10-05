@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"time"
 
 	"github.com/quickfixgo/quickfix/enum"
@@ -212,7 +213,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	nextSeqNum := seqNum
 	msg := NewMessage()
 	for _, msgBytes := range msgs {
-		_ = ParseMessage(&msg, msgBytes)
+		_ = ParseMessage(&msg, bytes.NewBuffer(msgBytes))
 		msgType, _ := msg.Header.GetBytes(tagMsgType)
 		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 

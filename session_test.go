@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"bytes"
 	"testing"
 	"time"
 
@@ -418,7 +419,7 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 		msg := s.NewOrderSingle()
 		msgBytes := msg.build()
 
-		s.session.Incoming(s.session, fixIn{bytes: msgBytes})
+		s.session.Incoming(s.session, fixIn{bytes: bytes.NewBuffer(msgBytes)})
 		s.MockApp.AssertExpectations(s.T())
 		s.State(notSessionTime{})
 	}

@@ -2,8 +2,11 @@ package quickfix
 
 import (
 	"bufio"
+	"bytes"
 	"crypto/tls"
+	"io"
 	"net"
+	"runtime/debug"
 	"strconv"
 	"sync"
 
@@ -128,14 +131,14 @@ func (a *Acceptor) listenForConnections() {
 	}
 }
 
-func (a *Acceptor) invalidMessage(msg []byte, err error) {
-	a.globalLog.OnEventf("Invalid Message: %s, %v", msg, err.Error())
+func (a *Acceptor) invalidMessage(msg *bytes.Buffer, err error) {
+	a.globalLog.OnEventf("Invalid Message: %s, %v", msg.Bytes(), err.Error())
 }
 
 func (a *Acceptor) handleConnection(netConn net.Conn) {
 	defer func() {
 		if err := recover(); err != nil {
-			a.globalLog.OnEventf("Connection Terminated: %v", err)
+			a.globalLog.OnEventf("Connection Terminated with Panic: %s", debug.Stack())
 		}
 
 		if err := netConn.Close(); err != nil {
@@ -148,7 +151,11 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 
 	msgBytes, err := parser.ReadMessage()
 	if err != nil {
-		a.globalLog.OnEvent(err.Error())
+		if err == io.EOF {
+			a.globalLog.OnEvent("Connection Terminated")
+		} else {
+			a.globalLog.OnEvent(err.Error())
+		}
 		return
 	}
 

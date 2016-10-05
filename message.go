@@ -82,7 +82,7 @@ type Message struct {
 	//ReceiveTime is the time that this message was read from the socket connection
 	ReceiveTime time.Time
 
-	rawMessage []byte
+	rawMessage *bytes.Buffer
 
 	//slice of Bytes corresponding to the message body
 	bodyBytes []byte
@@ -114,15 +114,17 @@ func NewMessage() (m Message) {
 }
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
-func ParseMessage(msg *Message, rawMessage []byte) (err error) {
+func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 	msg.Header.Clear()
 	msg.Body.Clear()
 	msg.Trailer.Clear()
 	msg.rawMessage = rawMessage
 
+	rawBytes := rawMessage.Bytes()
+
 	//allocate fields in one chunk
 	fieldCount := 0
-	for _, b := range rawMessage {
+	for _, b := range rawBytes {
 		if b == '\001' {
 			fieldCount++
 		}
@@ -137,7 +139,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 	fieldIndex := 0
 
 	//message must start with begin string, body length, msg type
-	if rawMessage, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawMessage); err != nil {
+	if rawBytes, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawBytes); err != nil {
 		return
 	}
 
@@ -145,7 +147,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
-	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawMessage); err != nil {
+	if rawBytes, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawBytes); err != nil {
 		return
 	}
 
@@ -153,7 +155,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
-	if rawMessage, err = extractSpecificField(parsedFieldBytes, tagMsgType, rawMessage); err != nil {
+	if rawBytes, err = extractSpecificField(parsedFieldBytes, tagMsgType, rawBytes); err != nil {
 		return
 	}
 
@@ -164,7 +166,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 	foundBody := false
 	for {
 		parsedFieldBytes = &msg.fields[fieldIndex]
-		rawMessage, err = extractField(parsedFieldBytes, rawMessage)
+		rawBytes, err = extractField(parsedFieldBytes, rawBytes)
 		if err != nil {
 			return
 		}
@@ -176,7 +178,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 			msg.Trailer.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 		default:
 			foundBody = true
-			trailerBytes = rawMessage
+			trailerBytes = rawBytes
 			msg.Body.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
 		}
 		if parsedFieldBytes.tag == tagCheckSum {
@@ -184,7 +186,7 @@ func ParseMessage(msg *Message, rawMessage []byte) (err error) {
 		}
 
 		if !foundBody {
-			msg.bodyBytes = rawMessage
+			msg.bodyBytes = rawBytes
 		}
 
 		fieldIndex++
@@ -296,7 +298,7 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 
 func (m Message) String() string {
 	if m.rawMessage != nil {
-		return string(m.rawMessage)
+		return m.rawMessage.String()
 	}
 
 	return string(m.build())

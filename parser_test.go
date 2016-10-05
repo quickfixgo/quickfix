@@ -3,6 +3,8 @@ package quickfix
 import (
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func BenchmarkParser_ReadMessage(b *testing.B) {
@@ -40,8 +42,8 @@ func TestParser_BadLength(t *testing.T) {
 
 	bytes, _ := parser.ReadMessage()
 
-	if stream != string(bytes) {
-		t.Errorf("Expected %v, got %v", stream, string(bytes))
+	if stream != bytes.String() {
+		t.Errorf("Expected %v, got %v", stream, bytes.String())
 	}
 
 }
@@ -93,9 +95,7 @@ func TestParser_ReadEOF(t *testing.T) {
 		reader := strings.NewReader(tc.stream)
 		parser := newParser(reader)
 		bytes, err := parser.ReadMessage()
-		if len(bytes) != 0 {
-			t.Error("Length of bytes should be 0")
-		}
+		assert.Nil(t, bytes)
 
 		if err == nil || err.Error() != "EOF" {
 			t.Error("Expected EOF")
@@ -124,12 +124,8 @@ func TestParser_ReadMessage(t *testing.T) {
 			t.Error("Unexpected error", err)
 		}
 
-		if tc.expectedBytes != string(msg) {
-			t.Errorf("Expected %v got %v", tc.expectedBytes, string(msg))
-		}
-
-		if len(tc.expectedBytes) != cap(msg) {
-			t.Errorf("Expected capacity %v got %v", len(tc.expectedBytes), cap(msg))
+		if tc.expectedBytes != msg.String() {
+			t.Errorf("Expected '%v' got '%v'", tc.expectedBytes, msg.String())
 		}
 
 		if cap(parser.buffer) != tc.expectedBufferCap {
@@ -174,8 +170,8 @@ func TestParser_ReadMessageGrowBuffer(t *testing.T) {
 			t.Fatal("unexpected err: ", err)
 		}
 
-		if string(msg) != "8=FIX.4.09=5blah10=103" {
-			t.Error("Didn't get expected message, got ", string(msg))
+		if msg.String() != "8=FIX.4.09=5blah10=103" {
+			t.Error("Didn't get expected message, got ", msg.String())
 		}
 
 		if cap(parser.buffer) != tc.expectedBufferCap {
