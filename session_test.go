@@ -449,7 +449,7 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 		s.IncrNextTargetMsgSeqNum()
 
 		s.MockApp.On("ToApp").Return(nil)
-		s.Require().Nil(s.queueForSend(s.NewOrderSingle()))
+		s.Require().Nil(s.queueForSend(*s.NewOrderSingle()))
 		s.MockApp.AssertExpectations(s.T())
 
 		now := time.Now().UTC()
@@ -670,7 +670,7 @@ func (suite *SessionSendTestSuite) SetupTest() {
 
 func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 	suite.MockApp.On("ToApp").Return(nil)
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessageSent()
@@ -681,7 +681,7 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
 	suite.MockApp.On("ToApp").Return(ErrDoNotSend)
-	suite.Equal(ErrDoNotSend, suite.queueForSend(suite.NewOrderSingle()))
+	suite.Equal(ErrDoNotSend, suite.queueForSend(*suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessagePersisted(1)
@@ -689,7 +689,7 @@ func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
 	suite.NextSenderMsgSeqNum(1)
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.send(*suite.Heartbeat()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.LastToAdminMessageSent()
@@ -699,7 +699,7 @@ func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
 
 func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.Heartbeat()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.MessagePersisted(suite.MockApp.lastToAdmin)
@@ -709,7 +709,7 @@ func (suite *SessionSendTestSuite) TestQueueForSendAdminMessage() {
 
 func (suite *SessionSendTestSuite) TestSendAppMessage() {
 	suite.MockApp.On("ToApp").Return(nil)
-	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.send(*suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.MessagePersisted(suite.MockApp.lastToApp)
@@ -719,7 +719,7 @@ func (suite *SessionSendTestSuite) TestSendAppMessage() {
 
 func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
 	suite.MockApp.On("ToApp").Return(ErrDoNotSend)
-	suite.Equal(ErrDoNotSend, suite.send(suite.NewOrderSingle()))
+	suite.Equal(ErrDoNotSend, suite.send(*suite.NewOrderSingle()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NextSenderMsgSeqNum(1)
@@ -728,7 +728,7 @@ func (suite *SessionSendTestSuite) TestSendAppDoNotSendMessage() {
 
 func (suite *SessionSendTestSuite) TestSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.send(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.send(*suite.Heartbeat()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	suite.LastToAdminMessageSent()
@@ -738,8 +738,8 @@ func (suite *SessionSendTestSuite) TestSendAdminMessage() {
 func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 	suite.MockApp.On("ToApp").Return(nil)
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
-	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.Heartbeat()))
 
 	order1 := suite.MockApp.lastToApp
 	heartbeat := suite.MockApp.lastToAdmin
@@ -748,7 +748,7 @@ func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToApp").Return(nil)
-	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.send(*suite.NewOrderSingle()))
 	suite.MockApp.AssertExpectations(suite.T())
 	order2 := suite.MockApp.lastToApp
 	suite.MessageSentEquals(order1)
@@ -760,8 +760,8 @@ func (suite *SessionSendTestSuite) TestSendFlushesQueue() {
 func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 	suite.MockApp.On("ToApp").Return(nil)
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
-	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.Heartbeat()))
 
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessageSent()
@@ -771,7 +771,7 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 	for _, test := range tests {
 		suite.MockApp.On("ToApp").Return(nil)
 		suite.session.State = test
-		require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+		require.Nil(suite.T(), suite.send(*suite.NewOrderSingle()))
 		suite.MockApp.AssertExpectations(suite.T())
 		suite.NoMessageSent()
 	}
@@ -784,7 +784,7 @@ func (suite *SessionSendTestSuite) TestSendEnableLastMsgSeqNumProcessed() {
 	suite.Require().Nil(suite.session.store.SetNextTargetMsgSeqNum(45))
 
 	suite.MockApp.On("ToApp").Return(nil)
-	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.send(*suite.NewOrderSingle()))
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.LastToAppMessageSent()
 
@@ -793,7 +793,7 @@ func (suite *SessionSendTestSuite) TestSendEnableLastMsgSeqNumProcessed() {
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
-	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))
+	suite.Require().Nil(suite.dropAndSend(*suite.Heartbeat(), false))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	suite.MessagePersisted(suite.MockApp.lastToAdmin)
@@ -803,14 +803,14 @@ func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.MockApp.On("ToApp").Return(nil)
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
-	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.Heartbeat()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
+	require.Nil(suite.T(), suite.dropAndSend(*suite.Logon(), false))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	msg := suite.MockApp.lastToAdmin
@@ -825,13 +825,13 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.MockApp.On("ToApp").Return(nil)
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.queueForSend(suite.NewOrderSingle()))
-	require.Nil(suite.T(), suite.queueForSend(suite.Heartbeat()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.NewOrderSingle()))
+	require.Nil(suite.T(), suite.queueForSend(*suite.Heartbeat()))
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
+	require.Nil(suite.T(), suite.dropAndSend(*suite.Logon(), true))
 	suite.MockApp.AssertExpectations(suite.T())
 	msg := suite.MockApp.lastToAdmin
 

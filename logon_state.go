@@ -9,7 +9,7 @@ type logonState struct{ connectedNotLoggedOn }
 
 func (s logonState) String() string { return "Logon State" }
 
-func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionState) {
+func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionState) {
 	msgType, err := msg.MsgType()
 	if err != nil {
 		return handleStateError(session, err)
@@ -20,13 +20,13 @@ func (s logonState) FixMsgIn(session *session, msg Message) (nextState sessionSt
 		return latentState{}
 	}
 
-	if err := session.handleLogon(msg); err != nil {
+	if err := session.handleLogon(*msg); err != nil {
 		switch err := err.(type) {
 		case RejectLogon:
 			session.log.OnEvent(err.Text)
 			logout := session.buildLogout(err.Text)
 
-			if err := session.dropAndSendInReplyTo(logout, false, &msg); err != nil {
+			if err := session.dropAndSendInReplyTo(logout, false, msg); err != nil {
 				session.logError(err)
 			}
 

@@ -68,16 +68,22 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 	}
 
 	session.log.OnIncoming(m.bytes)
-	if msg, err := ParseMessage(m.bytes); err != nil {
+
+	msg := session.messagePool.Get()
+	if err := ParseMessage(msg, m.bytes); err != nil {
 		session.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
 	} else {
 		msg.ReceiveTime = m.receiveTime
 		sm.fixMsgIn(session, msg)
 	}
+
+	if !msg.keepMessage {
+		session.messagePool.Put(msg)
+	}
 	session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.HeartBtInt)))
 }
 
-func (sm *stateMachine) fixMsgIn(session *session, m Message) {
+func (sm *stateMachine) fixMsgIn(session *session, m *Message) {
 	sm.setState(session, sm.State.FixMsgIn(session, m))
 }
 
@@ -193,7 +199,7 @@ func handleStateError(s *session, err error) sessionState {
 type sessionState interface {
 	//FixMsgIn is called by the session on incoming messages from the counter party.  The return type is the next session state
 	//following message processing
-	FixMsgIn(*session, Message) (nextState sessionState)
+	FixMsgIn(*session, *Message) (nextState sessionState)
 
 	//Timeout is called by the session on a timeout event.
 	Timeout(*session, internal.Event) (nextState sessionState)
