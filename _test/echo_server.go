@@ -30,23 +30,23 @@ func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
-func (e EchoApplication) ToAdmin(msgBuilder quickfix.Message, sessionID quickfix.SessionID) {
+func (e EchoApplication) ToAdmin(msgBuilder *quickfix.Message, sessionID quickfix.SessionID) {
 }
 
-func (e EchoApplication) ToApp(msgBuilder quickfix.Message, sessionID quickfix.SessionID) (err error) {
+func (e EchoApplication) ToApp(msgBuilder *quickfix.Message, sessionID quickfix.SessionID) (err error) {
 	return
 }
 
-func (e EchoApplication) FromAdmin(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+func (e EchoApplication) FromAdmin(msg *quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	return
 }
 
-func (e *EchoApplication) FromApp(msg quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
+func (e *EchoApplication) FromApp(msg *quickfix.Message, sessionID quickfix.SessionID) (err quickfix.MessageRejectError) {
 	e.log.Println("Got Message ", msg)
 	return router.Route(msg, sessionID)
 }
 
-func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+func (e *EchoApplication) processMsg(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 	var possResend field.PossResendField
 	msg.Header.Get(&possResend)
 
@@ -77,7 +77,7 @@ func (e *EchoApplication) processMsg(msg quickfix.Message, sessionID quickfix.Se
 	return nil
 }
 
-func copyMessage(msg quickfix.Message) quickfix.Message {
+func copyMessage(msg *quickfix.Message) *quickfix.Message {
 	msgType := new(field.MsgTypeField)
 	msg.Header.Get(msgType)
 

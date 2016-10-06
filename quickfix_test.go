@@ -20,7 +20,7 @@ type KnowsFieldMap interface {
 	GetField(Tag, FieldValueReader) MessageRejectError
 }
 
-func (s *QuickFIXSuite) MessageType(msgType enum.MsgType, msg Message) {
+func (s *QuickFIXSuite) MessageType(msgType enum.MsgType, msg *Message) {
 	s.FieldEquals(tagMsgType, string(msgType), msg.Header)
 }
 
@@ -46,7 +46,7 @@ func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap
 	}
 }
 
-func (s *QuickFIXSuite) MessageEqualsBytes(expectedBytes []byte, msg Message) {
+func (s *QuickFIXSuite) MessageEqualsBytes(expectedBytes []byte, msg *Message) {
 	actualBytes := msg.build()
 	s.Equal(string(actualBytes), string(expectedBytes))
 }
@@ -64,9 +64,9 @@ func (s *MockStore) Refresh() error {
 type MockApp struct {
 	mock.Mock
 
-	decorateToAdmin func(Message)
-	lastToAdmin     Message
-	lastToApp       Message
+	decorateToAdmin func(*Message)
+	lastToAdmin     *Message
+	lastToApp       *Message
 }
 
 func (e *MockApp) OnCreate(sessionID SessionID) {
@@ -80,7 +80,7 @@ func (e *MockApp) OnLogout(sessionID SessionID) {
 	e.Called()
 }
 
-func (e *MockApp) FromAdmin(msg Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromAdmin(msg *Message, sessionID SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}
@@ -88,7 +88,7 @@ func (e *MockApp) FromAdmin(msg Message, sessionID SessionID) (reject MessageRej
 	return nil
 }
 
-func (e *MockApp) ToAdmin(msg Message, sessionID SessionID) {
+func (e *MockApp) ToAdmin(msg *Message, sessionID SessionID) {
 	e.Called()
 
 	if e.decorateToAdmin != nil {
@@ -98,12 +98,12 @@ func (e *MockApp) ToAdmin(msg Message, sessionID SessionID) {
 	e.lastToAdmin = msg
 }
 
-func (e *MockApp) ToApp(msg Message, sessionID SessionID) (err error) {
+func (e *MockApp) ToApp(msg *Message, sessionID SessionID) (err error) {
 	e.lastToApp = msg
 	return e.Called().Error(0)
 }
 
-func (e *MockApp) FromApp(msg Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromApp(msg *Message, sessionID SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}
@@ -129,7 +129,7 @@ func (m *MessageFactory) buildMessage(msgType string) *Message {
 		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()}).
 		SetField(tagMsgSeqNum, FIXInt(m.seqNum)).
 		SetField(tagMsgType, FIXString(msgType))
-	return &msg
+	return msg
 }
 
 func (m *MessageFactory) Logout() *Message {
@@ -211,7 +211,7 @@ func (s *SessionSuiteRig) State(state sessionState) {
 	s.IsType(state, s.session.State, "session state should be %v", state)
 }
 
-func (s *SessionSuiteRig) MessageSentEquals(msg Message) {
+func (s *SessionSuiteRig) MessageSentEquals(msg *Message) {
 	msgBytes, ok := s.Receiver.LastMessage()
 	s.True(ok, "Should be connected")
 	s.NotNil(msgBytes, "Message should have been sent")
@@ -276,7 +276,7 @@ func (s *SessionSuiteRig) NoMessagePersisted(seqNum int) {
 	s.Empty(persistedMessages, "The message should not be persisted")
 }
 
-func (s *SessionSuiteRig) MessagePersisted(msg Message) {
+func (s *SessionSuiteRig) MessagePersisted(msg *Message) {
 	var err error
 	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
 	s.Nil(err, "message should have seq num")

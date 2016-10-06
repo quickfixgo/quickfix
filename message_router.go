@@ -10,7 +10,7 @@ type routeKey struct {
 }
 
 //A MessageRoute is a function that can process a fromApp/fromAdmin callback
-type MessageRoute func(msg Message, sessionID SessionID) MessageRejectError
+type MessageRoute func(msg *Message, sessionID SessionID) MessageRejectError
 
 //A MessageRouter is a mutex for MessageRoutes
 type MessageRouter struct {
@@ -28,7 +28,7 @@ func (c MessageRouter) AddRoute(beginString string, msgType string, router Messa
 }
 
 //Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
-func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectError {
+func (c MessageRouter) Route(msg *Message, sessionID SessionID) MessageRejectError {
 	beginString, err := msg.Header.GetBytes(tagBeginString)
 	if err != nil {
 		return nil
@@ -42,7 +42,7 @@ func (c MessageRouter) Route(msg Message, sessionID SessionID) MessageRejectErro
 	return c.tryRoute(string(beginString), string(msgType), msg, sessionID)
 }
 
-func (c MessageRouter) tryRoute(beginString string, msgType string, msg Message, sessionID SessionID) MessageRejectError {
+func (c MessageRouter) tryRoute(beginString string, msgType string, msg *Message, sessionID SessionID) MessageRejectError {
 	fixVersion := beginString
 	isAdminMsg := isAdminMessageType([]byte(msgType))
 

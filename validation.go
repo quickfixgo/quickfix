@@ -5,7 +5,7 @@ import (
 )
 
 type validator interface {
-	Validate(Message) MessageRejectError
+	Validate(*Message) MessageRejectError
 }
 
 type validatorSettings struct {
@@ -30,7 +30,7 @@ type fixtValidator struct {
 }
 
 //Validate tests the message against the provided data dictionary.
-func (v *fixValidator) Validate(msg Message) MessageRejectError {
+func (v *fixValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)
 	}
@@ -44,7 +44,7 @@ func (v *fixValidator) Validate(msg Message) MessageRejectError {
 
 //Validate tests the message against the provided transport and app data dictionaries.
 //If the message is an admin message, it will be validated against the transport data dictionary.
-func (v *fixtValidator) Validate(msg Message) MessageRejectError {
+func (v *fixtValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)
 	}
@@ -59,7 +59,7 @@ func (v *fixtValidator) Validate(msg Message) MessageRejectError {
 	return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, msgType, msg)
 }
 
-func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg Message) MessageRejectError {
+func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg *Message) MessageRejectError {
 	if err := validateMsgType(d, msgType, msg); err != nil {
 		return err
 	}
@@ -85,7 +85,7 @@ func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, m
 	return nil
 }
 
-func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg Message) MessageRejectError {
+func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg *Message) MessageRejectError {
 	if err := validateMsgType(appDD, msgType, msg); err != nil {
 		return err
 	}
@@ -111,14 +111,14 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings va
 	return nil
 }
 
-func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
 	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
 		return InvalidMessageType()
 	}
 	return nil
 }
 
-func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, msg Message) MessageRejectError {
+func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
 	remainingFields := msg.fields
 	iteratedTags := make(datadictionary.TagSet)
 
@@ -220,7 +220,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 	return fieldStack, nil
 }
 
-func validateOrder(msg Message) MessageRejectError {
+func validateOrder(msg *Message) MessageRejectError {
 	inHeader := true
 	inTrailer := false
 	for _, field := range msg.fields {
@@ -241,7 +241,7 @@ func validateOrder(msg Message) MessageRejectError {
 	return nil
 }
 
-func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) MessageRejectError {
+func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message *Message) MessageRejectError {
 	if err := validateRequiredFieldMap(message, transportDD.Header.RequiredTags, message.Header.FieldMap); err != nil {
 		return err
 	}
@@ -257,7 +257,7 @@ func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadic
 	return nil
 }
 
-func validateRequiredFieldMap(msg Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
+func validateRequiredFieldMap(msg *Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
 	for required := range requiredTags {
 		requiredTag := Tag(required)
 		if !fieldMap.Has(requiredTag) {
@@ -268,7 +268,7 @@ func validateRequiredFieldMap(msg Message, requiredTags map[int]struct{}, fieldM
 	return nil
 }
 
-func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message Message) MessageRejectError {
+func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message *Message) MessageRejectError {
 	for _, field := range message.fields {
 		switch {
 		case field.tag.IsHeader():

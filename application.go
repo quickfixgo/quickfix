@@ -13,14 +13,14 @@ type Application interface {
 	OnLogout(sessionID SessionID)
 
 	//Notification of admin message being sent to target.
-	ToAdmin(message Message, sessionID SessionID)
+	ToAdmin(message *Message, sessionID SessionID)
 
 	//Notification of app message being sent to target.
-	ToApp(message Message, sessionID SessionID) error
+	ToApp(message *Message, sessionID SessionID) error
 
 	//Notification of admin message being received from target.
-	FromAdmin(message Message, sessionID SessionID) MessageRejectError
+	FromAdmin(message *Message, sessionID SessionID) MessageRejectError
 
 	//Notification of app message being received from target.
-	FromApp(message Message, sessionID SessionID) MessageRejectError
+	FromApp(message *Message, sessionID SessionID) MessageRejectError
 }

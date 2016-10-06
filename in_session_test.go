@@ -62,7 +62,7 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 	s.session.ResetOnLogout = true
 
 	s.MockApp.On("ToApp").Return(nil)
-	s.Nil(s.queueForSend(*s.NewOrderSingle()))
+	s.Nil(s.queueForSend(s.NewOrderSingle()))
 	s.MockApp.AssertExpectations(s.T())
 
 	s.MockApp.On("FromAdmin").Return(nil)
@@ -243,7 +243,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminThenApp() {
 	s.LastToAdminMessageSent()
 
 	s.MockApp.On("ToApp").Return(nil)
-	s.Require().Nil(s.session.send(*s.NewOrderSingle()))
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
 	s.LastToAppMessageSent()
 
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
@@ -280,7 +280,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.LastToAdminMessageSent()
 
 	s.MockApp.On("ToApp").Return(nil)
-	s.Require().Nil(s.session.send(*s.NewOrderSingle()))
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
 	s.LastToAppMessageSent()
 
 	s.session.Timeout(s.session, internal.NeedHeartbeat)

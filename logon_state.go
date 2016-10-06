@@ -20,7 +20,7 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 		return latentState{}
 	}
 
-	if err := session.handleLogon(*msg); err != nil {
+	if err := session.handleLogon(msg); err != nil {
 		switch err := err.(type) {
 		case RejectLogon:
 			session.log.OnEvent(err.Text)

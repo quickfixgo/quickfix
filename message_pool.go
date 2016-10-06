@@ -6,7 +6,7 @@ type messagePool struct {
 
 func (p *messagePool) New() *Message {
 	msg := NewMessage()
-	return &msg
+	return msg
 }
 
 func (p *messagePool) Get() (msg *Message) {

@@ -105,7 +105,7 @@ func optionallySetID(header Header, field Tag, value string) {
 	}
 }
 
-func (s *session) fillDefaultHeader(msg Message, inReplyTo *Message) {
+func (s *session) fillDefaultHeader(msg *Message, inReplyTo *Message) {
 	msg.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
 
 	msg.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
@@ -159,7 +159,7 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 	return nil
 }
 
-func (s *session) buildLogout(reason string) Message {
+func (s *session) buildLogout(reason string) *Message {
 	logout := NewMessage()
 	logout.Header.SetField(tagMsgType, FIXString("5"))
 	logout.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -181,7 +181,7 @@ func (s *session) sendLogoutInReplyTo(reason string, inReplyTo *Message) error {
 	return s.sendInReplyTo(logout, inReplyTo)
 }
 
-func (s *session) resend(msg Message) bool {
+func (s *session) resend(msg *Message) bool {
 	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
 	var origSendingTime FIXString
@@ -195,7 +195,7 @@ func (s *session) resend(msg Message) bool {
 }
 
 //queueForSend will validate, persist, and queue the message for send
-func (s *session) queueForSend(msg Message) error {
+func (s *session) queueForSend(msg *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
@@ -215,10 +215,10 @@ func (s *session) queueForSend(msg Message) error {
 }
 
 //send will validate, persist, queue the message. If the session is logged on, send all messages in the queue
-func (s *session) send(msg Message) error {
+func (s *session) send(msg *Message) error {
 	return s.sendInReplyTo(msg, nil)
 }
-func (s *session) sendInReplyTo(msg Message, inReplyTo *Message) error {
+func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	if !s.IsLoggedOn() {
 		return s.queueForSend(msg)
 	}
@@ -247,10 +247,10 @@ func (s *session) dropAndReset() error {
 }
 
 //dropAndSend will optionally reset the store, validate and persist the message, then drops the send queue and sends the message.
-func (s *session) dropAndSend(msg Message, resetStore bool) error {
+func (s *session) dropAndSend(msg *Message, resetStore bool) error {
 	return s.dropAndSendInReplyTo(msg, resetStore, nil)
 }
-func (s *session) dropAndSendInReplyTo(msg Message, resetStore bool, inReplyTo *Message) error {
+func (s *session) dropAndSendInReplyTo(msg *Message, resetStore bool, inReplyTo *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
@@ -272,7 +272,7 @@ func (s *session) dropAndSendInReplyTo(msg Message, resetStore bool, inReplyTo *
 	return nil
 }
 
-func (s *session) prepMessageForSend(msg Message, inReplyTo *Message) (msgBytes []byte, err error) {
+func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes []byte, err error) {
 	s.fillDefaultHeader(msg, inReplyTo)
 	seqNum := s.store.NextSenderMsgSeqNum()
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
@@ -380,7 +380,7 @@ func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState
 	return
 }
 
-func (s *session) handleLogon(msg Message) error {
+func (s *session) handleLogon(msg *Message) error {
 	//Grab default app ver id from fixt.1.1 logon
 	if s.sessionID.BeginString == enum.BeginStringFIXT11 {
 		var targetApplVerID FIXString
@@ -433,7 +433,7 @@ func (s *session) handleLogon(msg Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.sendLogonInReplyTo(resetStore, resetSeqNumFlag.Bool(), &msg); err != nil {
+		if err := s.sendLogonInReplyTo(resetStore, resetSeqNumFlag.Bool(), msg); err != nil {
 			return err
 		}
 	}
@@ -464,19 +464,19 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 	return
 }
 
-func (s *session) verify(msg Message) MessageRejectError {
+func (s *session) verify(msg *Message) MessageRejectError {
 	return s.verifySelect(msg, true, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHigh(msg Message) MessageRejectError {
+func (s *session) verifyIgnoreSeqNumTooHigh(msg *Message) MessageRejectError {
 	return s.verifySelect(msg, false, true)
 }
 
-func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg Message) MessageRejectError {
+func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg *Message) MessageRejectError {
 	return s.verifySelect(msg, false, false)
 }
 
-func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
+func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
 	if reject := s.checkBeginString(msg); reject != nil {
 		return reject
 	}
@@ -510,7 +510,7 @@ func (s *session) verifySelect(msg Message, checkTooHigh bool, checkTooLow bool)
 	return s.fromCallback(msg)
 }
 
-func (s *session) fromCallback(msg Message) MessageRejectError {
+func (s *session) fromCallback(msg *Message) MessageRejectError {
 	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
 		return err
@@ -523,7 +523,7 @@ func (s *session) fromCallback(msg Message) MessageRejectError {
 	return s.application.FromApp(msg, s.sessionID)
 }
 
-func (s *session) checkTargetTooLow(msg Message) MessageRejectError {
+func (s *session) checkTargetTooLow(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgSeqNum) {
 		return RequiredTagMissing(tagMsgSeqNum)
 	}
@@ -540,7 +540,7 @@ func (s *session) checkTargetTooLow(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
+func (s *session) checkTargetTooHigh(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgSeqNum) {
 		return RequiredTagMissing(tagMsgSeqNum)
 	}
@@ -557,7 +557,7 @@ func (s *session) checkTargetTooHigh(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) checkCompID(msg Message) MessageRejectError {
+func (s *session) checkCompID(msg *Message) MessageRejectError {
 	senderCompID, haveSender := msg.Header.GetBytes(tagSenderCompID)
 	targetCompID, haveTarget := msg.Header.GetBytes(tagTargetCompID)
 
@@ -577,7 +577,7 @@ func (s *session) checkCompID(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) checkSendingTime(msg Message) MessageRejectError {
+func (s *session) checkSendingTime(msg *Message) MessageRejectError {
 	if s.SkipCheckLatency {
 		return nil
 	}
@@ -598,7 +598,7 @@ func (s *session) checkSendingTime(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) checkBeginString(msg Message) MessageRejectError {
+func (s *session) checkBeginString(msg *Message) MessageRejectError {
 	switch beginString, err := msg.Header.GetBytes(tagBeginString); {
 	case err != nil:
 		return RequiredTagMissing(tagBeginString)
@@ -609,7 +609,7 @@ func (s *session) checkBeginString(msg Message) MessageRejectError {
 	return nil
 }
 
-func (s *session) doReject(msg Message, rej MessageRejectError) error {
+func (s *session) doReject(msg *Message, rej MessageRejectError) error {
 	reply := msg.reverseRoute()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
@@ -652,7 +652,7 @@ func (s *session) doReject(msg Message, rej MessageRejectError) error {
 	}
 
 	s.log.OnEventf("Message Rejected: %v", rej.Error())
-	return s.sendInReplyTo(reply, &msg)
+	return s.sendInReplyTo(reply, msg)
 }
 
 type fixIn struct {

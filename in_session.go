@@ -20,7 +20,7 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 
 	switch enum.MsgType(msgType) {
 	case enum.MsgType_LOGON:
-		if err := session.handleLogon(*msg); err != nil {
+		if err := session.handleLogon(msg); err != nil {
 			if err := session.initiateLogoutInReplyTo("", msg); err != nil {
 				return handleStateError(session, err)
 			}
@@ -37,7 +37,7 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 	case enum.MsgType_TEST_REQUEST:
 		return state.handleTestRequest(session, msg)
 	default:
-		if err := session.verify(*msg); err != nil {
+		if err := session.verify(msg); err != nil {
 			return state.processReject(session, msg, err)
 		}
 	}
@@ -73,7 +73,7 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 }
 
 func (state inSession) handleLogout(session *session, msg *Message) (nextState sessionState) {
-	if err := session.verifySelect(*msg, false, false); err != nil {
+	if err := session.verifySelect(msg, false, false); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
@@ -102,7 +102,7 @@ func (state inSession) handleLogout(session *session, msg *Message) (nextState s
 }
 
 func (state inSession) handleTestRequest(session *session, msg *Message) (nextState sessionState) {
-	if err := session.verify(*msg); err != nil {
+	if err := session.verify(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
 	var testReq FIXString
@@ -131,7 +131,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 		}
 	}
 
-	if err := session.verifySelect(*msg, bool(gapFillFlag), bool(gapFillFlag)); err != nil {
+	if err := session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag)); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
@@ -147,7 +147,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 			}
 		case newSeqNo < expectedSeqNum:
 			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
-			if err := session.doReject(*msg, valueIsIncorrectNoTag()); err != nil {
+			if err := session.doReject(msg, valueIsIncorrectNoTag()); err != nil {
 				return handleStateError(session, err)
 			}
 		}
@@ -156,7 +156,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 }
 
 func (state inSession) handleResendRequest(session *session, msg *Message) (nextState sessionState) {
-	if err := session.verifyIgnoreSeqNumTooHighOrLow(*msg); err != nil {
+	if err := session.verifyIgnoreSeqNumTooHighOrLow(msg); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
@@ -188,11 +188,11 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 		return handleStateError(session, err)
 	}
 
-	if err := session.checkTargetTooLow(*msg); err != nil {
+	if err := session.checkTargetTooLow(msg); err != nil {
 		return state
 	}
 
-	if err := session.checkTargetTooHigh(*msg); err != nil {
+	if err := session.checkTargetTooHigh(msg); err != nil {
 		return state
 	}
 
@@ -213,7 +213,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	nextSeqNum := seqNum
 	msg := NewMessage()
 	for _, msgBytes := range msgs {
-		_ = ParseMessage(&msg, bytes.NewBuffer(msgBytes))
+		_ = ParseMessage(msg, bytes.NewBuffer(msgBytes))
 		msgType, _ := msg.Header.GetBytes(tagMsgType)
 		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 
@@ -287,7 +287,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 
 	switch rej.RejectReason() {
 	case rejectReasonCompIDProblem, rejectReasonSendingTimeAccuracyProblem:
-		if err := session.doReject(*msg, rej); err != nil {
+		if err := session.doReject(msg, rej); err != nil {
 			return handleStateError(session, err)
 		}
 
@@ -296,7 +296,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		}
 		return logoutState{}
 	default:
-		if err := session.doReject(*msg, rej); err != nil {
+		if err := session.doReject(msg, rej); err != nil {
 			return handleStateError(session, err)
 		}
 
@@ -311,7 +311,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 	var posDupFlag FIXBoolean
 	if msg.Header.Has(tagPossDupFlag) {
 		if err := msg.Header.GetField(tagPossDupFlag, &posDupFlag); err != nil {
-			if rejErr := session.doReject(*msg, err); rejErr != nil {
+			if rejErr := session.doReject(msg, err); rejErr != nil {
 				return handleStateError(session, rejErr)
 			}
 			return state
@@ -326,7 +326,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 	}
 
 	if !msg.Header.Has(tagOrigSendingTime) {
-		if err := session.doReject(*msg, RequiredTagMissing(tagOrigSendingTime)); err != nil {
+		if err := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); err != nil {
 			return handleStateError(session, err)
 		}
 		return state
@@ -334,7 +334,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 
 	var origSendingTime FIXUTCTimestamp
 	if err := msg.Header.GetField(tagOrigSendingTime, &origSendingTime); err != nil {
-		if rejErr := session.doReject(*msg, err); rejErr != nil {
+		if rejErr := session.doReject(msg, err); rejErr != nil {
 			return handleStateError(session, rejErr)
 		}
 		return state
@@ -346,7 +346,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 	}
 
 	if sendingTime.Before(origSendingTime.Time) {
-		if err := session.doReject(*msg, sendingTimeAccuracyProblem()); err != nil {
+		if err := session.doReject(msg, sendingTimeAccuracyProblem()); err != nil {
 			return handleStateError(session, err)
 		}
 

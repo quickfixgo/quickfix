@@ -160,7 +160,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}
 
 	msg := NewMessage()
-	err = ParseMessage(&msg, msgBytes)
+	err = ParseMessage(msg, msgBytes)
 	if err != nil {
 		a.invalidMessage(msgBytes, err)
 		return
