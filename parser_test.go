@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
 func BenchmarkParser_ReadMessage(b *testing.B) {
@@ -17,38 +17,40 @@ func BenchmarkParser_ReadMessage(b *testing.B) {
 	}
 }
 
-func TestParser_JumpLength(t *testing.T) {
+type ParserSuite struct {
+	suite.Suite
+	*parser
+}
+
+func TestParserSuite(t *testing.T) {
+	suite.Run(t, new(ParserSuite))
+}
+
+func (s *ParserSuite) SetupTest() {
+	s.parser = new(parser)
+}
+
+func (s *ParserSuite) TestJumpLength() {
 	stream := "8=FIXT.1.19=11135=D34=449=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=2348=FIXT.1.19=9535=D34=549=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=198"
 
-	reader := strings.NewReader(stream)
-	parser := newParser(reader)
-	index, err := parser.jumpLength()
-
-	if err != nil {
-		t.Error("Unexpected error: ", err)
-	}
+	s.reader = strings.NewReader(stream)
+	index, err := s.parser.jumpLength()
+	s.Nil(err)
 
 	expectedIndex := 111 + 17 - 1
-	if index != expectedIndex {
-		t.Error("expected index ", expectedIndex, " got ", index)
-	}
+	s.Equal(expectedIndex, index)
 }
 
-func TestParser_BadLength(t *testing.T) {
+func (s *ParserSuite) TestBadLength() {
 	stream := "8=FIXT.1.19=11135=D34=449=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=2348=FIXT.1.19=9535=D34=549=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=198"
 
-	reader := strings.NewReader(stream)
-	parser := newParser(reader)
+	s.reader = strings.NewReader(stream)
+	bytes, _ := s.parser.ReadMessage()
 
-	bytes, _ := parser.ReadMessage()
-
-	if stream != bytes.String() {
-		t.Errorf("Expected %v, got %v", stream, bytes.String())
-	}
-
+	s.Equal(stream, bytes.String())
 }
 
-func TestParser_findStart(t *testing.T) {
+func (s *ParserSuite) TestFindStart() {
 	var testCases = []struct {
 		stream        string
 		expectError   bool
@@ -59,31 +61,22 @@ func TestParser_findStart(t *testing.T) {
 		{stream: "hello8=FIX.4.0", expectedStart: 5},
 	}
 	for _, tc := range testCases {
-		reader := strings.NewReader(tc.stream)
-		parser := newParser(reader)
+		s.SetupTest()
 
-		start, err := parser.findStart()
+		s.reader = strings.NewReader(tc.stream)
 
-		if err != nil {
-			if !tc.expectError {
-				t.Error("unxpected error", err)
-			}
+		start, err := s.parser.findStart()
+		if tc.expectError {
+			s.NotNil(err)
 			continue
 		}
 
-		if err == nil && tc.expectError {
-			t.Error("expected error")
-		}
-
-		if start != tc.expectedStart {
-			t.Errorf("Expected start to be %v, but was %v", tc.expectedStart, start)
-		}
+		s.Nil(err)
+		s.Equal(tc.expectedStart, start)
 	}
-
 }
 
-func TestParser_ReadEOF(t *testing.T) {
-
+func (s *ParserSuite) TestReadEOF() {
 	var testCases = []struct {
 		stream string
 	}{
@@ -92,21 +85,20 @@ func TestParser_ReadEOF(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		reader := strings.NewReader(tc.stream)
-		parser := newParser(reader)
-		bytes, err := parser.ReadMessage()
-		assert.Nil(t, bytes)
+		s.SetupTest()
 
-		if err == nil || err.Error() != "EOF" {
-			t.Error("Expected EOF")
-		}
+		s.reader = strings.NewReader(tc.stream)
+		bytes, err := s.parser.ReadMessage()
+		s.Nil(bytes)
+
+		s.NotNil(err)
+		s.Equal("EOF", err.Error())
 	}
 }
 
-func TestParser_ReadMessage(t *testing.T) {
+func (s *ParserSuite) TestReadMessage() {
 	stream := "hello8=FIX.4.09=5blah10=1038=FIX.4.09=4foo10=103"
-	reader := strings.NewReader(stream)
-	parser := newParser(reader)
+	s.reader = strings.NewReader(stream)
 
 	var testCases = []struct {
 		expectedBytes     string
@@ -118,68 +110,50 @@ func TestParser_ReadMessage(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		msg, err := parser.ReadMessage()
+		msg, err := s.parser.ReadMessage()
+		s.Nil(err)
 
-		if err != nil {
-			t.Error("Unexpected error", err)
-		}
-
-		if tc.expectedBytes != msg.String() {
-			t.Errorf("Expected '%v' got '%v'", tc.expectedBytes, msg.String())
-		}
-
-		if cap(parser.buffer) != tc.expectedBufferCap {
-			t.Errorf("Expected capacity %v got %v", tc.expectedBufferCap, cap(parser.buffer))
-		}
-
-		if len(parser.buffer) != tc.expectedBufferLen {
-			t.Errorf("Expected len %v got %v", tc.expectedBufferLen, len(parser.buffer))
-		}
-
+		s.Equal(tc.expectedBytes, msg.String())
+		s.Equal(tc.expectedBufferCap, cap(s.parser.buffer))
+		s.Equal(tc.expectedBufferLen, len(s.parser.buffer))
 	}
 }
 
-func TestParser_ReadMessageGrowBuffer(t *testing.T) {
+func (s *ParserSuite) TestReadMessageGrowBuffer() {
 	stream := "hello8=FIX.4.09=5blah10=1038=FIX.4.09=4foo10=103"
 
 	var testCases = []struct {
-		initialBufCap     int
-		expectedBytes     string
-		expectedBufferLen int
-		expectedBufferCap int
+		initialBufCap        int
+		expectedBytes        string
+		expectedBufferLen    int
+		expectedBufferCap    int
+		expectedBigBufferLen int
 	}{
-		{initialBufCap: 0, expectedBufferCap: defaultBufSize - 31, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 4, expectedBufferCap: defaultBufSize - 27, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 8, expectedBufferCap: defaultBufSize - 23, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 14, expectedBufferCap: defaultBufSize - 17, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 16, expectedBufferCap: defaultBufSize - 15, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 23, expectedBufferCap: defaultBufSize - 8, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 30, expectedBufferCap: defaultBufSize - 1, expectedBufferLen: len(stream) - 31},
-		{initialBufCap: 31, expectedBufferCap: 0, expectedBufferLen: 0},
-		{initialBufCap: 40, expectedBufferCap: 9, expectedBufferLen: 9},
-		{initialBufCap: 60, expectedBufferCap: 29, expectedBufferLen: 25},
-		{initialBufCap: 80, expectedBufferCap: 49, expectedBufferLen: 25},
+		{initialBufCap: 0, expectedBufferCap: defaultBufSize - 31, expectedBufferLen: len(stream) - 31, expectedBigBufferLen: defaultBufSize},
+		{initialBufCap: 4, expectedBufferCap: 6, expectedBufferLen: 6, expectedBigBufferLen: 32},
+		{initialBufCap: 8, expectedBufferCap: 6, expectedBufferLen: 6, expectedBigBufferLen: 32},
+		{initialBufCap: 14, expectedBufferCap: 10, expectedBufferLen: 10, expectedBigBufferLen: 36},
+		{initialBufCap: 16, expectedBufferCap: 18, expectedBufferLen: 18, expectedBigBufferLen: 44},
+		{initialBufCap: 23, expectedBufferCap: 10, expectedBufferLen: 10, expectedBigBufferLen: 36},
+		{initialBufCap: 30, expectedBufferCap: 24, expectedBufferLen: 24, expectedBigBufferLen: 50},
+		{initialBufCap: 31, expectedBufferCap: 0, expectedBufferLen: 0, expectedBigBufferLen: 31},
+		{initialBufCap: 40, expectedBufferCap: 9, expectedBufferLen: 9, expectedBigBufferLen: 40},
+		{initialBufCap: 60, expectedBufferCap: 29, expectedBufferLen: 25, expectedBigBufferLen: 60},
+		{initialBufCap: 80, expectedBufferCap: 49, expectedBufferLen: 25, expectedBigBufferLen: 80},
 	}
 
 	for _, tc := range testCases {
-		parser := newParser(strings.NewReader(stream))
-		parser.buffer = make([]byte, 0, tc.initialBufCap)
-		msg, err := parser.ReadMessage()
+		s.SetupTest()
 
-		if err != nil {
-			t.Fatal("unexpected err: ", err)
-		}
+		s.reader = strings.NewReader(stream)
+		s.parser.bigBuffer = make([]byte, tc.initialBufCap)
+		s.parser.buffer = s.parser.bigBuffer[0:0]
+		msg, err := s.parser.ReadMessage()
 
-		if msg.String() != "8=FIX.4.09=5blah10=103" {
-			t.Error("Didn't get expected message, got ", msg.String())
-		}
-
-		if cap(parser.buffer) != tc.expectedBufferCap {
-			t.Errorf("expected cap %v, got %v", tc.expectedBufferCap, cap(parser.buffer))
-		}
-
-		if len(parser.buffer) != tc.expectedBufferLen {
-			t.Errorf("expected len %v, got %v", tc.expectedBufferLen, len(parser.buffer))
-		}
+		s.Nil(err)
+		s.Equal("8=FIX.4.09=5blah10=103", msg.String())
+		s.Equal(tc.expectedBigBufferLen, len(s.parser.bigBuffer))
+		s.Equal(tc.expectedBufferCap, cap(s.parser.buffer))
+		s.Equal(tc.expectedBufferLen, len(s.parser.buffer))
 	}
 }

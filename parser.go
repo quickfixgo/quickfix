@@ -15,9 +15,10 @@ const (
 var bufferPool internal.BufferPool
 
 type parser struct {
-	buffer   []byte
-	reader   io.Reader
-	lastRead time.Time
+	//buffer is a slice of bigBuffer
+	bigBuffer, buffer []byte
+	reader            io.Reader
+	lastRead          time.Time
 }
 
 func newParser(reader io.Reader) *parser {
@@ -26,7 +27,23 @@ func newParser(reader io.Reader) *parser {
 
 func (p *parser) readMore() (int, error) {
 	if len(p.buffer) == cap(p.buffer) {
-		newBuffer := make([]byte, len(p.buffer), len(p.buffer)+defaultBufSize)
+		var newBuffer []byte
+		switch {
+		//initialize the parser
+		case len(p.bigBuffer) == 0:
+			p.bigBuffer = make([]byte, defaultBufSize)
+			newBuffer = p.bigBuffer[0:0]
+
+		//shift buffer back to the start of bigBuffer
+		case 2*len(p.buffer) <= len(p.bigBuffer):
+			newBuffer = p.bigBuffer[0:len(p.buffer)]
+
+		//reallocate big buffer with enough space to shift buffer
+		default:
+			p.bigBuffer = make([]byte, 2*len(p.buffer))
+			newBuffer = p.bigBuffer[0:len(p.buffer)]
+		}
+
 		copy(newBuffer, p.buffer)
 		p.buffer = newBuffer
 	}
