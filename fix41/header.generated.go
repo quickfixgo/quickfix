@@ -11,12 +11,12 @@ import (
 
 //Header is the fix41 Header type
 type Header struct {
-	quickfix.Header
+	*quickfix.Header
 }
 
 //NewHeader returns a new, initialized Header instance
-func NewHeader() (h Header) {
-	h.Init()
+func NewHeader(header *quickfix.Header) (h Header) {
+	h.Header = header
 	h.SetBeginString("FIX.4.1")
 	return
 }

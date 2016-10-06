@@ -1,8 +1,6 @@
 package orderstatusrequest
 
 import (
-	"time"
-
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
@@ -13,37 +11,32 @@ import (
 //OrderStatusRequest is the fix40 OrderStatusRequest type, MsgType = H
 type OrderStatusRequest struct {
 	fix40.Header
-	quickfix.Body
+	*quickfix.Body
 	fix40.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a OrderStatusRequest from a quickfix.Message instance
-func FromMessage(m quickfix.Message) OrderStatusRequest {
+func FromMessage(m *quickfix.Message) OrderStatusRequest {
 	return OrderStatusRequest{
-		Header:      fix40.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix40.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix40.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix40.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m OrderStatusRequest) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m OrderStatusRequest) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a OrderStatusRequest initialized with the required fields for OrderStatusRequest
 func New(clordid field.ClOrdIDField, symbol field.SymbolField, side field.SideField) (m OrderStatusRequest) {
-	m.Header = fix40.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix40.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("H"))
 	m.Set(clordid)
@@ -58,7 +51,7 @@ type RouteOut func(msg OrderStatusRequest, sessionID quickfix.SessionID) quickfi
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.0", "H", r

@@ -14,37 +14,32 @@ import (
 //OrderCancelReplaceRequest is the fix42 OrderCancelReplaceRequest type, MsgType = G
 type OrderCancelReplaceRequest struct {
 	fix42.Header
-	quickfix.Body
+	*quickfix.Body
 	fix42.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a OrderCancelReplaceRequest from a quickfix.Message instance
-func FromMessage(m quickfix.Message) OrderCancelReplaceRequest {
+func FromMessage(m *quickfix.Message) OrderCancelReplaceRequest {
 	return OrderCancelReplaceRequest{
-		Header:      fix42.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix42.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix42.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix42.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m OrderCancelReplaceRequest) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m OrderCancelReplaceRequest) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a OrderCancelReplaceRequest initialized with the required fields for OrderCancelReplaceRequest
 func New(origclordid field.OrigClOrdIDField, clordid field.ClOrdIDField, handlinst field.HandlInstField, symbol field.SymbolField, side field.SideField, transacttime field.TransactTimeField, ordtype field.OrdTypeField) (m OrderCancelReplaceRequest) {
-	m.Header = fix42.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix42.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("G"))
 	m.Set(origclordid)
@@ -63,7 +58,7 @@ type RouteOut func(msg OrderCancelReplaceRequest, sessionID quickfix.SessionID) 
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.2", "G", r

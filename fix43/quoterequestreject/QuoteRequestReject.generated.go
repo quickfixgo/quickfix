@@ -14,37 +14,32 @@ import (
 //QuoteRequestReject is the fix43 QuoteRequestReject type, MsgType = AG
 type QuoteRequestReject struct {
 	fix43.Header
-	quickfix.Body
+	*quickfix.Body
 	fix43.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a QuoteRequestReject from a quickfix.Message instance
-func FromMessage(m quickfix.Message) QuoteRequestReject {
+func FromMessage(m *quickfix.Message) QuoteRequestReject {
 	return QuoteRequestReject{
-		Header:      fix43.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix43.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix43.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix43.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m QuoteRequestReject) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m QuoteRequestReject) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a QuoteRequestReject initialized with the required fields for QuoteRequestReject
 func New(quotereqid field.QuoteReqIDField, quoterequestrejectreason field.QuoteRequestRejectReasonField) (m QuoteRequestReject) {
-	m.Header = fix43.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix43.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("AG"))
 	m.Set(quotereqid)
@@ -58,7 +53,7 @@ type RouteOut func(msg QuoteRequestReject, sessionID quickfix.SessionID) quickfi
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.3", "AG", r

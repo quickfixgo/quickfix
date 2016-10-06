@@ -2,7 +2,6 @@ package securitydefinitionrequest
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //SecurityDefinitionRequest is the fix42 SecurityDefinitionRequest type, MsgType = c
 type SecurityDefinitionRequest struct {
 	fix42.Header
-	quickfix.Body
+	*quickfix.Body
 	fix42.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a SecurityDefinitionRequest from a quickfix.Message instance
-func FromMessage(m quickfix.Message) SecurityDefinitionRequest {
+func FromMessage(m *quickfix.Message) SecurityDefinitionRequest {
 	return SecurityDefinitionRequest{
-		Header:      fix42.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix42.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix42.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix42.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m SecurityDefinitionRequest) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m SecurityDefinitionRequest) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a SecurityDefinitionRequest initialized with the required fields for SecurityDefinitionRequest
 func New(securityreqid field.SecurityReqIDField, securityrequesttype field.SecurityRequestTypeField) (m SecurityDefinitionRequest) {
-	m.Header = fix42.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix42.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("c"))
 	m.Set(securityreqid)
@@ -58,7 +52,7 @@ type RouteOut func(msg SecurityDefinitionRequest, sessionID quickfix.SessionID) 
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.2", "c", r

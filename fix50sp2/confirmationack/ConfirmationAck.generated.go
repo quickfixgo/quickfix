@@ -13,37 +13,32 @@ import (
 //ConfirmationAck is the fix50sp2 ConfirmationAck type, MsgType = AU
 type ConfirmationAck struct {
 	fixt11.Header
-	quickfix.Body
+	*quickfix.Body
 	fixt11.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a ConfirmationAck from a quickfix.Message instance
-func FromMessage(m quickfix.Message) ConfirmationAck {
+func FromMessage(m *quickfix.Message) ConfirmationAck {
 	return ConfirmationAck{
-		Header:      fixt11.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fixt11.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fixt11.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m ConfirmationAck) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m ConfirmationAck) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a ConfirmationAck initialized with the required fields for ConfirmationAck
 func New(confirmid field.ConfirmIDField, tradedate field.TradeDateField, transacttime field.TransactTimeField, affirmstatus field.AffirmStatusField) (m ConfirmationAck) {
-	m.Header = fixt11.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fixt11.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("AU"))
 	m.Set(confirmid)
@@ -59,7 +54,7 @@ type RouteOut func(msg ConfirmationAck, sessionID quickfix.SessionID) quickfix.M
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "9", "AU", r

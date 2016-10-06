@@ -2,7 +2,6 @@ package ordercancelrequest
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //OrderCancelRequest is the fix40 OrderCancelRequest type, MsgType = F
 type OrderCancelRequest struct {
 	fix40.Header
-	quickfix.Body
+	*quickfix.Body
 	fix40.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a OrderCancelRequest from a quickfix.Message instance
-func FromMessage(m quickfix.Message) OrderCancelRequest {
+func FromMessage(m *quickfix.Message) OrderCancelRequest {
 	return OrderCancelRequest{
-		Header:      fix40.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix40.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix40.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix40.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m OrderCancelRequest) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m OrderCancelRequest) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a OrderCancelRequest initialized with the required fields for OrderCancelRequest
 func New(origclordid field.OrigClOrdIDField, clordid field.ClOrdIDField, cxltype field.CxlTypeField, symbol field.SymbolField, side field.SideField, orderqty field.OrderQtyField) (m OrderCancelRequest) {
-	m.Header = fix40.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix40.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("F"))
 	m.Set(origclordid)
@@ -62,7 +56,7 @@ type RouteOut func(msg OrderCancelRequest, sessionID quickfix.SessionID) quickfi
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.0", "F", r

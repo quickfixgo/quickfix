@@ -1,8 +1,6 @@
 package reject
 
 import (
-	"time"
-
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/fix40"
@@ -12,37 +10,32 @@ import (
 //Reject is the fix40 Reject type, MsgType = 3
 type Reject struct {
 	fix40.Header
-	quickfix.Body
+	*quickfix.Body
 	fix40.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a Reject from a quickfix.Message instance
-func FromMessage(m quickfix.Message) Reject {
+func FromMessage(m *quickfix.Message) Reject {
 	return Reject{
-		Header:      fix40.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix40.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix40.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix40.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m Reject) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m Reject) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a Reject initialized with the required fields for Reject
 func New(refseqnum field.RefSeqNumField) (m Reject) {
-	m.Header = fix40.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix40.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("3"))
 	m.Set(refseqnum)
@@ -55,7 +48,7 @@ type RouteOut func(msg Reject, sessionID quickfix.SessionID) quickfix.MessageRej
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.0", "3", r

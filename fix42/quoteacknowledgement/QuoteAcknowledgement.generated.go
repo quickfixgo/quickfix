@@ -2,7 +2,6 @@ package quoteacknowledgement
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //QuoteAcknowledgement is the fix42 QuoteAcknowledgement type, MsgType = b
 type QuoteAcknowledgement struct {
 	fix42.Header
-	quickfix.Body
+	*quickfix.Body
 	fix42.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a QuoteAcknowledgement from a quickfix.Message instance
-func FromMessage(m quickfix.Message) QuoteAcknowledgement {
+func FromMessage(m *quickfix.Message) QuoteAcknowledgement {
 	return QuoteAcknowledgement{
-		Header:      fix42.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix42.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix42.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix42.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m QuoteAcknowledgement) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m QuoteAcknowledgement) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a QuoteAcknowledgement initialized with the required fields for QuoteAcknowledgement
 func New(quoteackstatus field.QuoteAckStatusField) (m QuoteAcknowledgement) {
-	m.Header = fix42.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix42.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("b"))
 	m.Set(quoteackstatus)
@@ -57,7 +51,7 @@ type RouteOut func(msg QuoteAcknowledgement, sessionID quickfix.SessionID) quick
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.2", "b", r
