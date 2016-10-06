@@ -176,12 +176,12 @@ import(
 
 //Header is the {{ .Package }} Header type
 type Header struct {
-	quickfix.Header
+	*quickfix.Header
 }
 
 //NewHeader returns a new, initialized Header instance
-func NewHeader() (h Header) {
-	h.Init()
+func NewHeader(header *quickfix.Header) (h Header) {
+	h.Header = header
 	h.SetBeginString("{{ beginString .FIXSpec }}")
 	return
 }
@@ -211,7 +211,7 @@ import(
 
 //Trailer is the {{ .Package }} Trailer type
 type Trailer struct {
-	quickfix.Trailer
+	*quickfix.Trailer
 }
 
 {{ template "setters" .}}
@@ -225,7 +225,6 @@ type Trailer struct {
 package {{ .Package }}
 
 import(
-	"time"
 	{{- range collectExtraImports .MessageDef }}
 	"{{ . }}"
 	{{- end }}
@@ -242,38 +241,33 @@ import(
 //{{ .Name }} is the {{ .FIXPackage }} {{ .Name }} type, MsgType = {{ .MsgType }}
 type {{ .Name }} struct {
 	{{ .TransportPackage }}.Header
-	quickfix.Body
+	*quickfix.Body
 	{{ .TransportPackage }}.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a {{ .Name }} from a quickfix.Message instance
-func FromMessage(m quickfix.Message) {{ .Name }} {
+func FromMessage(m *quickfix.Message) {{ .Name }} {
 	return {{ .Name }}{
-		Header: {{ .TransportPackage }}.Header{ Header: m.Header },
-		Body: m.Body,
-		Trailer: {{ .TransportPackage }}.Trailer{ Trailer: m.Trailer },
-		ReceiveTime: m.ReceiveTime,
+		Header: {{ .TransportPackage}}.Header{&m.Header},
+		Body: &m.Body,
+		Trailer: {{ .TransportPackage}}.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m {{ .Name }}) ToMessage() quickfix.Message {
-	return quickfix.Message {
-		Header: m.Header.Header,
-		Body: m.Body,
-		Trailer: m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m {{ .Name }}) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 {{ $required_fields := requiredFields .MessageDef -}}
 //New returns a {{ .Name }} initialized with the required fields for {{ .Name }}
 func New({{template "field_args" $required_fields }}) (m {{ .Name }}) {
-	m.Header = {{ .TransportPackage }}.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = {{ .TransportPackage }}.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("{{ .MessageDef.MsgType }}"))
 	{{- range $required_fields }}
@@ -288,7 +282,7 @@ type RouteOut func(msg {{ .Name }}, sessionID quickfix.SessionID) quickfix.Messa
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r:=func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r:=func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "{{ routerBeginString .FIXSpec }}", "{{ .MessageDef.MsgType }}", r
