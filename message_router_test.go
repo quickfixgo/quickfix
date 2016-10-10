@@ -12,12 +12,12 @@ import (
 type MessageRouterTestSuite struct {
 	suite.Suite
 	*MessageRouter
-	msg             Message
+	msg             *Message
 	sessionID       SessionID
 	returnReject    MessageRejectError
 	routedBy        string
 	routedSessionID SessionID
-	routedMessage   Message
+	routedMessage   *Message
 }
 
 func TestMessageRouterTestSuite(t *testing.T) {
@@ -28,7 +28,7 @@ func (suite *MessageRouterTestSuite) givenTheRoute(beginString, msgType string) 
 	suite.AddRoute(
 		beginString,
 		msgType,
-		func(msg Message, sessionID SessionID) MessageRejectError {
+		func(msg *Message, sessionID SessionID) MessageRejectError {
 			suite.routedBy = fmt.Sprintf("%v:%v", beginString, msgType)
 			suite.routedSessionID = sessionID
 			suite.routedMessage = msg
@@ -39,7 +39,7 @@ func (suite *MessageRouterTestSuite) givenTheRoute(beginString, msgType string) 
 }
 
 func (suite *MessageRouterTestSuite) givenTheMessage(msgBytes []byte) {
-	err := ParseMessage(&suite.msg, bytes.NewBuffer(msgBytes))
+	err := ParseMessage(suite.msg, bytes.NewBuffer(msgBytes))
 	suite.Nil(err)
 
 	var beginString FIXString
@@ -87,7 +87,7 @@ func (suite *MessageRouterTestSuite) resetRouter() {
 	suite.MessageRouter = NewMessageRouter()
 	suite.routedBy = ""
 	suite.routedSessionID = SessionID{}
-	suite.routedMessage = Message{}
+	suite.routedMessage = &Message{}
 	suite.returnReject = nil
 }
 

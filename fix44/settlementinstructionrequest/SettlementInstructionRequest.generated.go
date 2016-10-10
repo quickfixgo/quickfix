@@ -13,37 +13,32 @@ import (
 //SettlementInstructionRequest is the fix44 SettlementInstructionRequest type, MsgType = AV
 type SettlementInstructionRequest struct {
 	fix44.Header
-	quickfix.Body
+	*quickfix.Body
 	fix44.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a SettlementInstructionRequest from a quickfix.Message instance
-func FromMessage(m quickfix.Message) SettlementInstructionRequest {
+func FromMessage(m *quickfix.Message) SettlementInstructionRequest {
 	return SettlementInstructionRequest{
-		Header:      fix44.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix44.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix44.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix44.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m SettlementInstructionRequest) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m SettlementInstructionRequest) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a SettlementInstructionRequest initialized with the required fields for SettlementInstructionRequest
 func New(settlinstreqid field.SettlInstReqIDField, transacttime field.TransactTimeField) (m SettlementInstructionRequest) {
-	m.Header = fix44.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix44.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("AV"))
 	m.Set(settlinstreqid)
@@ -57,7 +52,7 @@ type RouteOut func(msg SettlementInstructionRequest, sessionID quickfix.SessionI
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.4", "AV", r

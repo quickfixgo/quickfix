@@ -14,37 +14,32 @@ import (
 //ExecutionReport is the fix44 ExecutionReport type, MsgType = 8
 type ExecutionReport struct {
 	fix44.Header
-	quickfix.Body
+	*quickfix.Body
 	fix44.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a ExecutionReport from a quickfix.Message instance
-func FromMessage(m quickfix.Message) ExecutionReport {
+func FromMessage(m *quickfix.Message) ExecutionReport {
 	return ExecutionReport{
-		Header:      fix44.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix44.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix44.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix44.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m ExecutionReport) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m ExecutionReport) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a ExecutionReport initialized with the required fields for ExecutionReport
 func New(orderid field.OrderIDField, execid field.ExecIDField, exectype field.ExecTypeField, ordstatus field.OrdStatusField, side field.SideField, leavesqty field.LeavesQtyField, cumqty field.CumQtyField, avgpx field.AvgPxField) (m ExecutionReport) {
-	m.Header = fix44.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix44.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("8"))
 	m.Set(orderid)
@@ -64,7 +59,7 @@ type RouteOut func(msg ExecutionReport, sessionID quickfix.SessionID) quickfix.M
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.4", "8", r

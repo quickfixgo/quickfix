@@ -2,7 +2,6 @@ package dontknowtrade
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //DontKnowTrade is the fix40 DontKnowTrade type, MsgType = Q
 type DontKnowTrade struct {
 	fix40.Header
-	quickfix.Body
+	*quickfix.Body
 	fix40.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a DontKnowTrade from a quickfix.Message instance
-func FromMessage(m quickfix.Message) DontKnowTrade {
+func FromMessage(m *quickfix.Message) DontKnowTrade {
 	return DontKnowTrade{
-		Header:      fix40.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix40.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix40.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix40.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m DontKnowTrade) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m DontKnowTrade) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a DontKnowTrade initialized with the required fields for DontKnowTrade
 func New(dkreason field.DKReasonField, symbol field.SymbolField, side field.SideField, orderqty field.OrderQtyField, lastshares field.LastSharesField, lastpx field.LastPxField) (m DontKnowTrade) {
-	m.Header = fix40.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix40.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("Q"))
 	m.Set(dkreason)
@@ -62,7 +56,7 @@ type RouteOut func(msg DontKnowTrade, sessionID quickfix.SessionID) quickfix.Mes
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.0", "Q", r

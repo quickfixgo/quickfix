@@ -14,37 +14,32 @@ import (
 //News is the fix42 News type, MsgType = B
 type News struct {
 	fix42.Header
-	quickfix.Body
+	*quickfix.Body
 	fix42.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a News from a quickfix.Message instance
-func FromMessage(m quickfix.Message) News {
+func FromMessage(m *quickfix.Message) News {
 	return News{
-		Header:      fix42.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix42.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix42.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix42.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m News) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m News) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a News initialized with the required fields for News
 func New(headline field.HeadlineField) (m News) {
-	m.Header = fix42.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix42.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("B"))
 	m.Set(headline)
@@ -57,7 +52,7 @@ type RouteOut func(msg News, sessionID quickfix.SessionID) quickfix.MessageRejec
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.2", "B", r

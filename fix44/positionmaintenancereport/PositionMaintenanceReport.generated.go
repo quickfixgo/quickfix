@@ -14,37 +14,32 @@ import (
 //PositionMaintenanceReport is the fix44 PositionMaintenanceReport type, MsgType = AM
 type PositionMaintenanceReport struct {
 	fix44.Header
-	quickfix.Body
+	*quickfix.Body
 	fix44.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a PositionMaintenanceReport from a quickfix.Message instance
-func FromMessage(m quickfix.Message) PositionMaintenanceReport {
+func FromMessage(m *quickfix.Message) PositionMaintenanceReport {
 	return PositionMaintenanceReport{
-		Header:      fix44.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix44.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix44.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix44.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m PositionMaintenanceReport) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m PositionMaintenanceReport) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a PositionMaintenanceReport initialized with the required fields for PositionMaintenanceReport
 func New(posmaintrptid field.PosMaintRptIDField, postranstype field.PosTransTypeField, posmaintaction field.PosMaintActionField, origposreqrefid field.OrigPosReqRefIDField, posmaintstatus field.PosMaintStatusField, clearingbusinessdate field.ClearingBusinessDateField, account field.AccountField, accounttype field.AccountTypeField, transacttime field.TransactTimeField) (m PositionMaintenanceReport) {
-	m.Header = fix44.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix44.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("AM"))
 	m.Set(posmaintrptid)
@@ -65,7 +60,7 @@ type RouteOut func(msg PositionMaintenanceReport, sessionID quickfix.SessionID) 
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.4", "AM", r

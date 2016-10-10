@@ -14,37 +14,32 @@ import (
 //DontKnowTrade is the fix50sp2 DontKnowTrade type, MsgType = Q
 type DontKnowTrade struct {
 	fixt11.Header
-	quickfix.Body
+	*quickfix.Body
 	fixt11.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a DontKnowTrade from a quickfix.Message instance
-func FromMessage(m quickfix.Message) DontKnowTrade {
+func FromMessage(m *quickfix.Message) DontKnowTrade {
 	return DontKnowTrade{
-		Header:      fixt11.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fixt11.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fixt11.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m DontKnowTrade) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m DontKnowTrade) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a DontKnowTrade initialized with the required fields for DontKnowTrade
 func New(orderid field.OrderIDField, execid field.ExecIDField, dkreason field.DKReasonField, side field.SideField) (m DontKnowTrade) {
-	m.Header = fixt11.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fixt11.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("Q"))
 	m.Set(orderid)
@@ -60,7 +55,7 @@ type RouteOut func(msg DontKnowTrade, sessionID quickfix.SessionID) quickfix.Mes
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "9", "Q", r

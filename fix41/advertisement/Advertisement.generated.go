@@ -14,37 +14,32 @@ import (
 //Advertisement is the fix41 Advertisement type, MsgType = 7
 type Advertisement struct {
 	fix41.Header
-	quickfix.Body
+	*quickfix.Body
 	fix41.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a Advertisement from a quickfix.Message instance
-func FromMessage(m quickfix.Message) Advertisement {
+func FromMessage(m *quickfix.Message) Advertisement {
 	return Advertisement{
-		Header:      fix41.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix41.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix41.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix41.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m Advertisement) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m Advertisement) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a Advertisement initialized with the required fields for Advertisement
 func New(advid field.AdvIdField, advtranstype field.AdvTransTypeField, symbol field.SymbolField, advside field.AdvSideField, shares field.SharesField) (m Advertisement) {
-	m.Header = fix41.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix41.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("7"))
 	m.Set(advid)
@@ -61,7 +56,7 @@ type RouteOut func(msg Advertisement, sessionID quickfix.SessionID) quickfix.Mes
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.1", "7", r

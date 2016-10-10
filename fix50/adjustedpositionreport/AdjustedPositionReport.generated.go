@@ -2,7 +2,6 @@ package adjustedpositionreport
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //AdjustedPositionReport is the fix50 AdjustedPositionReport type, MsgType = BL
 type AdjustedPositionReport struct {
 	fixt11.Header
-	quickfix.Body
+	*quickfix.Body
 	fixt11.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a AdjustedPositionReport from a quickfix.Message instance
-func FromMessage(m quickfix.Message) AdjustedPositionReport {
+func FromMessage(m *quickfix.Message) AdjustedPositionReport {
 	return AdjustedPositionReport{
-		Header:      fixt11.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fixt11.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fixt11.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m AdjustedPositionReport) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m AdjustedPositionReport) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a AdjustedPositionReport initialized with the required fields for AdjustedPositionReport
 func New(posmaintrptid field.PosMaintRptIDField, clearingbusinessdate field.ClearingBusinessDateField) (m AdjustedPositionReport) {
-	m.Header = fixt11.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fixt11.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("BL"))
 	m.Set(posmaintrptid)
@@ -58,7 +52,7 @@ type RouteOut func(msg AdjustedPositionReport, sessionID quickfix.SessionID) qui
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "7", "BL", r

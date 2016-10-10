@@ -41,7 +41,7 @@ func TestValidate(t *testing.T) {
 
 	msg := NewMessage()
 	for _, test := range tests {
-		assert.Nil(t, ParseMessage(&msg, bytes.NewBuffer(test.MessageBytes)))
+		assert.Nil(t, ParseMessage(msg, bytes.NewBuffer(test.MessageBytes)))
 		reject := test.Validator.Validate(msg)
 
 		switch {
@@ -76,7 +76,7 @@ func TestValidate(t *testing.T) {
 	}
 }
 
-func createFIX40NewOrderSingle() Message {
+func createFIX40NewOrderSingle() *Message {
 	msg := NewMessage()
 	msg.Header.SetField(tagMsgType, FIXString("D"))
 	msg.Header.SetField(tagBeginString, FIXString("FIX.4.0"))
@@ -99,7 +99,7 @@ func createFIX40NewOrderSingle() Message {
 	return msg
 }
 
-func createFIX43NewOrderSingle() Message {
+func createFIX43NewOrderSingle() *Message {
 	msg := NewMessage()
 	msg.Header.SetField(tagMsgType, FIXString("D"))
 	msg.Header.SetField(tagBeginString, FIXString("FIX.4.3"))

@@ -8,7 +8,7 @@ import (
 
 //Trailer is the fix43 Trailer type
 type Trailer struct {
-	quickfix.Trailer
+	*quickfix.Trailer
 }
 
 //SetCheckSum sets CheckSum, Tag 10

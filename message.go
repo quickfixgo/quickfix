@@ -95,7 +95,7 @@ type Message struct {
 }
 
 //ToMessage returns the message itself
-func (m Message) ToMessage() Message { return m }
+func (m *Message) ToMessage() *Message { return m }
 
 //parseError is returned when bytes cannot be parsed as a FIX message.
 type parseError struct {
@@ -105,12 +105,13 @@ type parseError struct {
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
 //NewMessage returns a newly initialized Message instance
-func NewMessage() (m Message) {
+func NewMessage() *Message {
+	m := new(Message)
 	m.Header.Init()
 	m.Body.Init()
 	m.Trailer.Init()
 
-	return
+	return m
 }
 
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
@@ -217,7 +218,7 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 }
 
 // MsgType returns MsgType (tag 35) field's value
-func (m Message) MsgType() (enum.MsgType, MessageRejectError) {
+func (m *Message) MsgType() (enum.MsgType, MessageRejectError) {
 	s, err := m.Header.GetString(tagMsgType)
 	if err != nil {
 		return enum.MsgType(""), err
@@ -226,7 +227,7 @@ func (m Message) MsgType() (enum.MsgType, MessageRejectError) {
 }
 
 // IsMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.
-func (m Message) IsMsgTypeOf(msgType enum.MsgType) bool {
+func (m *Message) IsMsgTypeOf(msgType enum.MsgType) bool {
 	if v, err := m.MsgType(); err == nil {
 		return v == msgType
 	}
@@ -234,7 +235,7 @@ func (m Message) IsMsgTypeOf(msgType enum.MsgType) bool {
 }
 
 //reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
-func (m Message) reverseRoute() Message {
+func (m *Message) reverseRoute() *Message {
 	reverseMsg := NewMessage()
 
 	copy := func(src Tag, dest Tag) {
@@ -296,7 +297,7 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 	return buffer[(endIndex + 1):], err
 }
 
-func (m Message) String() string {
+func (m *Message) String() string {
 	if m.rawMessage != nil {
 		return m.rawMessage.String()
 	}
@@ -309,7 +310,7 @@ func newCheckSum(value int) FIXString {
 }
 
 //Build constructs a []byte from a Message instance
-func (m Message) build() []byte {
+func (m *Message) build() []byte {
 	m.cook()
 
 	var b bytes.Buffer
@@ -319,7 +320,7 @@ func (m Message) build() []byte {
 	return b.Bytes()
 }
 
-func (m Message) cook() {
+func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	m.Header.SetField(tagBodyLength, FIXInt(bodyLength))
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256

@@ -14,37 +14,32 @@ import (
 //Email is the fix43 Email type, MsgType = C
 type Email struct {
 	fix43.Header
-	quickfix.Body
+	*quickfix.Body
 	fix43.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a Email from a quickfix.Message instance
-func FromMessage(m quickfix.Message) Email {
+func FromMessage(m *quickfix.Message) Email {
 	return Email{
-		Header:      fix43.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix43.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix43.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix43.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m Email) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m Email) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a Email initialized with the required fields for Email
 func New(emailthreadid field.EmailThreadIDField, emailtype field.EmailTypeField, subject field.SubjectField) (m Email) {
-	m.Header = fix43.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix43.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("C"))
 	m.Set(emailthreadid)
@@ -59,7 +54,7 @@ type RouteOut func(msg Email, sessionID quickfix.SessionID) quickfix.MessageReje
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.3", "C", r

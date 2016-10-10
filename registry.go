@@ -12,7 +12,7 @@ var errUnknownSession = errors.New("Unknown session")
 
 //Messagable is a Message or something that can be converted to a Message
 type Messagable interface {
-	ToMessage() Message
+	ToMessage() *Message
 }
 
 //Send determines the session to send Messagable using header fields BeginString, TargetCompID, SenderCompID

@@ -13,37 +13,32 @@ import (
 //SettlementInstructions is the fix41 SettlementInstructions type, MsgType = T
 type SettlementInstructions struct {
 	fix41.Header
-	quickfix.Body
+	*quickfix.Body
 	fix41.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a SettlementInstructions from a quickfix.Message instance
-func FromMessage(m quickfix.Message) SettlementInstructions {
+func FromMessage(m *quickfix.Message) SettlementInstructions {
 	return SettlementInstructions{
-		Header:      fix41.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix41.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix41.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix41.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m SettlementInstructions) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m SettlementInstructions) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a SettlementInstructions initialized with the required fields for SettlementInstructions
 func New(settlinstid field.SettlInstIDField, settlinsttranstype field.SettlInstTransTypeField, settlinstmode field.SettlInstModeField, settlinstsource field.SettlInstSourceField, allocaccount field.AllocAccountField, transacttime field.TransactTimeField) (m SettlementInstructions) {
-	m.Header = fix41.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix41.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("T"))
 	m.Set(settlinstid)
@@ -61,7 +56,7 @@ type RouteOut func(msg SettlementInstructions, sessionID quickfix.SessionID) qui
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.1", "T", r

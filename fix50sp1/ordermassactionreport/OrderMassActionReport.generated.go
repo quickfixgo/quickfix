@@ -14,37 +14,32 @@ import (
 //OrderMassActionReport is the fix50sp1 OrderMassActionReport type, MsgType = BZ
 type OrderMassActionReport struct {
 	fixt11.Header
-	quickfix.Body
+	*quickfix.Body
 	fixt11.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a OrderMassActionReport from a quickfix.Message instance
-func FromMessage(m quickfix.Message) OrderMassActionReport {
+func FromMessage(m *quickfix.Message) OrderMassActionReport {
 	return OrderMassActionReport{
-		Header:      fixt11.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fixt11.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fixt11.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fixt11.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m OrderMassActionReport) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m OrderMassActionReport) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a OrderMassActionReport initialized with the required fields for OrderMassActionReport
 func New(massactionreportid field.MassActionReportIDField, massactiontype field.MassActionTypeField, massactionscope field.MassActionScopeField, massactionresponse field.MassActionResponseField) (m OrderMassActionReport) {
-	m.Header = fixt11.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fixt11.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("BZ"))
 	m.Set(massactionreportid)
@@ -60,7 +55,7 @@ type RouteOut func(msg OrderMassActionReport, sessionID quickfix.SessionID) quic
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "8", "BZ", r

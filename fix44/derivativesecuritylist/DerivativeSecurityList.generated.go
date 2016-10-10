@@ -2,7 +2,6 @@ package derivativesecuritylist
 
 import (
 	"github.com/shopspring/decimal"
-	"time"
 
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/enum"
@@ -14,37 +13,32 @@ import (
 //DerivativeSecurityList is the fix44 DerivativeSecurityList type, MsgType = AA
 type DerivativeSecurityList struct {
 	fix44.Header
-	quickfix.Body
+	*quickfix.Body
 	fix44.Trailer
-	//ReceiveTime is the time that this message was read from the socket connection
-	ReceiveTime time.Time
+	Message *quickfix.Message
 }
 
 //FromMessage creates a DerivativeSecurityList from a quickfix.Message instance
-func FromMessage(m quickfix.Message) DerivativeSecurityList {
+func FromMessage(m *quickfix.Message) DerivativeSecurityList {
 	return DerivativeSecurityList{
-		Header:      fix44.Header{Header: m.Header},
-		Body:        m.Body,
-		Trailer:     fix44.Trailer{Trailer: m.Trailer},
-		ReceiveTime: m.ReceiveTime,
+		Header:  fix44.Header{&m.Header},
+		Body:    &m.Body,
+		Trailer: fix44.Trailer{&m.Trailer},
+		Message: m,
 	}
 }
 
 //ToMessage returns a quickfix.Message instance
-func (m DerivativeSecurityList) ToMessage() quickfix.Message {
-	return quickfix.Message{
-		Header:      m.Header.Header,
-		Body:        m.Body,
-		Trailer:     m.Trailer.Trailer,
-		ReceiveTime: m.ReceiveTime,
-	}
+func (m DerivativeSecurityList) ToMessage() *quickfix.Message {
+	return m.Message
 }
 
 //New returns a DerivativeSecurityList initialized with the required fields for DerivativeSecurityList
 func New(securityreqid field.SecurityReqIDField, securityresponseid field.SecurityResponseIDField, securityrequestresult field.SecurityRequestResultField) (m DerivativeSecurityList) {
-	m.Header = fix44.NewHeader()
-	m.Init()
-	m.Trailer.Init()
+	m.Message = quickfix.NewMessage()
+	m.Header = fix44.NewHeader(&m.Message.Header)
+	m.Body = &m.Message.Body
+	m.Trailer.Trailer = &m.Message.Trailer
 
 	m.Header.Set(field.NewMsgType("AA"))
 	m.Set(securityreqid)
@@ -59,7 +53,7 @@ type RouteOut func(msg DerivativeSecurityList, sessionID quickfix.SessionID) qui
 
 //Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
-	r := func(msg quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
+	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
 	}
 	return "FIX.4.4", "AA", r
