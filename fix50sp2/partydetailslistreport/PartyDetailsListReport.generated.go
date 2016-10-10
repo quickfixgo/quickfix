@@ -304,7 +304,7 @@ func (m PartyDetailsListReport) HasNoPartyList() bool {
 
 //NoPartyList is a repeating group element, Tag 1513
 type NoPartyList struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -451,7 +451,7 @@ func (m NoPartyList) HasNoRelatedPartyIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -517,7 +517,7 @@ func (m NoPartySubIDsRepeatingGroup) Get(i int) NoPartySubIDs {
 
 //NoPartyAltIDs is a repeating group element, Tag 1516
 type NoPartyAltIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyAltID sets PartyAltID, Tag 1517
@@ -577,7 +577,7 @@ func (m NoPartyAltIDs) HasNoPartyAltSubIDs() bool {
 
 //NoPartyAltSubIDs is a repeating group element, Tag 1519
 type NoPartyAltSubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyAltSubID sets PartyAltSubID, Tag 1520
@@ -666,7 +666,7 @@ func (m NoPartyAltIDsRepeatingGroup) Get(i int) NoPartyAltIDs {
 
 //NoContextPartyIDs is a repeating group element, Tag 1522
 type NoContextPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContextPartyID sets ContextPartyID, Tag 1523
@@ -745,7 +745,7 @@ func (m NoContextPartyIDs) HasNoContextPartySubIDs() bool {
 
 //NoContextPartySubIDs is a repeating group element, Tag 1526
 type NoContextPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContextPartySubID sets ContextPartySubID, Tag 1527
@@ -834,7 +834,7 @@ func (m NoContextPartyIDsRepeatingGroup) Get(i int) NoContextPartyIDs {
 
 //NoRiskLimits is a repeating group element, Tag 1529
 type NoRiskLimits struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRiskLimitType sets RiskLimitType, Tag 1530
@@ -949,7 +949,7 @@ func (m NoRiskLimits) HasNoRiskWarningLevels() bool {
 
 //NoRiskInstruments is a repeating group element, Tag 1534
 type NoRiskInstruments struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRiskInstrumentOperator sets RiskInstrumentOperator, Tag 1535
@@ -1427,7 +1427,7 @@ func (m NoRiskInstruments) HasRiskInstrumentMultiplier() bool {
 
 //NoRiskSecurityAltID is a repeating group element, Tag 1540
 type NoRiskSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRiskSecurityAltID sets RiskSecurityAltID, Tag 1541
@@ -1516,7 +1516,7 @@ func (m NoRiskInstrumentsRepeatingGroup) Get(i int) NoRiskInstruments {
 
 //NoRiskWarningLevels is a repeating group element, Tag 1559
 type NoRiskWarningLevels struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRiskWarningLevelPercent sets RiskWarningLevelPercent, Tag 1560
@@ -1605,7 +1605,7 @@ func (m NoRiskLimitsRepeatingGroup) Get(i int) NoRiskLimits {
 
 //NoRelatedPartyIDs is a repeating group element, Tag 1562
 type NoRelatedPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedPartyID sets RelatedPartyID, Tag 1563
@@ -1752,7 +1752,7 @@ func (m NoRelatedPartyIDs) HasNoPartyRelationships() bool {
 
 //NoRelatedPartySubIDs is a repeating group element, Tag 1566
 type NoRelatedPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedPartySubID sets RelatedPartySubID, Tag 1567
@@ -1818,7 +1818,7 @@ func (m NoRelatedPartySubIDsRepeatingGroup) Get(i int) NoRelatedPartySubIDs {
 
 //NoRelatedPartyAltIDs is a repeating group element, Tag 1569
 type NoRelatedPartyAltIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedPartyAltID sets RelatedPartyAltID, Tag 1570
@@ -1878,7 +1878,7 @@ func (m NoRelatedPartyAltIDs) HasNoRelatedPartyAltSubIDs() bool {
 
 //NoRelatedPartyAltSubIDs is a repeating group element, Tag 1572
 type NoRelatedPartyAltSubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedPartyAltSubID sets RelatedPartyAltSubID, Tag 1573
@@ -1967,7 +1967,7 @@ func (m NoRelatedPartyAltIDsRepeatingGroup) Get(i int) NoRelatedPartyAltIDs {
 
 //NoRelatedContextPartyIDs is a repeating group element, Tag 1575
 type NoRelatedContextPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedContextPartyID sets RelatedContextPartyID, Tag 1576
@@ -2046,7 +2046,7 @@ func (m NoRelatedContextPartyIDs) HasNoRelatedContextPartySubIDs() bool {
 
 //NoRelatedContextPartySubIDs is a repeating group element, Tag 1579
 type NoRelatedContextPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatedContextPartySubID sets RelatedContextPartySubID, Tag 1580
@@ -2135,7 +2135,7 @@ func (m NoRelatedContextPartyIDsRepeatingGroup) Get(i int) NoRelatedContextParty
 
 //NoRelationshipRiskLimits is a repeating group element, Tag 1582
 type NoRelationshipRiskLimits struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelationshipRiskLimitType sets RelationshipRiskLimitType, Tag 1583
@@ -2250,7 +2250,7 @@ func (m NoRelationshipRiskLimits) HasNoRelationshipRiskWarningLevels() bool {
 
 //NoRelationshipRiskInstruments is a repeating group element, Tag 1587
 type NoRelationshipRiskInstruments struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelationshipRiskInstrumentOperator sets RelationshipRiskInstrumentOperator, Tag 1588
@@ -2728,7 +2728,7 @@ func (m NoRelationshipRiskInstruments) HasRelationshipRiskInstrumentMultiplier()
 
 //NoRelationshipRiskSecurityAltID is a repeating group element, Tag 1593
 type NoRelationshipRiskSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelationshipRiskSecurityAltID sets RelationshipRiskSecurityAltID, Tag 1594
@@ -2817,7 +2817,7 @@ func (m NoRelationshipRiskInstrumentsRepeatingGroup) Get(i int) NoRelationshipRi
 
 //NoRelationshipRiskWarningLevels is a repeating group element, Tag 1613
 type NoRelationshipRiskWarningLevels struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelationshipRiskWarningLevelPercent sets RelationshipRiskWarningLevelPercent, Tag 1614
@@ -2906,7 +2906,7 @@ func (m NoRelationshipRiskLimitsRepeatingGroup) Get(i int) NoRelationshipRiskLim
 
 //NoPartyRelationships is a repeating group element, Tag 1514
 type NoPartyRelationships struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyRelationship sets PartyRelationship, Tag 1515

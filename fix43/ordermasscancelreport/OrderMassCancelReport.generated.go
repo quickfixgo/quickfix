@@ -1614,7 +1614,7 @@ func (m OrderMassCancelReport) HasTradingSessionSubID() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1680,7 +1680,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -1746,7 +1746,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoAffectedOrders is a repeating group element, Tag 534
 type NoAffectedOrders struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetOrigClOrdID sets OrigClOrdID, Tag 41

@@ -248,7 +248,7 @@ func (m Email) HasEmailThreadID() bool {
 
 //LinesOfText is a repeating group element, Tag 33
 type LinesOfText struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetText sets Text, Tag 58
@@ -295,7 +295,7 @@ func (m LinesOfTextRepeatingGroup) Get(i int) LinesOfText {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatdSym sets RelatdSym, Tag 46

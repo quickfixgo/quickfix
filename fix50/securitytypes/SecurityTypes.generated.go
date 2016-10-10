@@ -285,7 +285,7 @@ func (m SecurityTypes) HasLastFragment() bool {
 
 //NoSecurityTypes is a repeating group element, Tag 558
 type NoSecurityTypes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityType sets SecurityType, Tag 167

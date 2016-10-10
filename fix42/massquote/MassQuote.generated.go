@@ -172,7 +172,7 @@ func (m MassQuote) HasQuoteResponseLevel() bool {
 
 //NoQuoteSets is a repeating group element, Tag 296
 type NoQuoteSets struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetQuoteSetID sets QuoteSetID, Tag 302
@@ -612,7 +612,7 @@ func (m NoQuoteSets) HasNoQuoteEntries() bool {
 
 //NoQuoteEntries is a repeating group element, Tag 295
 type NoQuoteEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetQuoteEntryID sets QuoteEntryID, Tag 299

@@ -1183,7 +1183,7 @@ func (m TradeCaptureReport) HasMatchType() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1249,7 +1249,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoSides is a repeating group element, Tag 552
 type NoSides struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSide sets Side, Tag 54
@@ -2101,7 +2101,7 @@ func (m NoSides) HasNoMiscFees() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -2205,7 +2205,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoClearingInstructions is a repeating group element, Tag 576
 type NoClearingInstructions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetClearingInstruction sets ClearingInstruction, Tag 577
@@ -2252,7 +2252,7 @@ func (m NoClearingInstructionsRepeatingGroup) Get(i int) NoClearingInstructions 
 
 //NoContAmts is a repeating group element, Tag 518
 type NoContAmts struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContAmtType sets ContAmtType, Tag 519
@@ -2337,7 +2337,7 @@ func (m NoContAmtsRepeatingGroup) Get(i int) NoContAmts {
 
 //NoMiscFees is a repeating group element, Tag 136
 type NoMiscFees struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137

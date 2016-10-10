@@ -1410,7 +1410,7 @@ func (m NewOrderSingle) HasClearingAccount() bool {
 
 //NoAllocs is a repeating group element, Tag 78
 type NoAllocs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAllocAccount sets AllocAccount, Tag 79
@@ -1476,7 +1476,7 @@ func (m NoAllocsRepeatingGroup) Get(i int) NoAllocs {
 
 //NoTradingSessions is a repeating group element, Tag 386
 type NoTradingSessions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336

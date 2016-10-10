@@ -169,7 +169,7 @@ func (m MarketDataRequestReject) HasNoAltMDSource() bool {
 
 //NoAltMDSource is a repeating group element, Tag 816
 type NoAltMDSource struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAltMDSourceID sets AltMDSourceID, Tag 817

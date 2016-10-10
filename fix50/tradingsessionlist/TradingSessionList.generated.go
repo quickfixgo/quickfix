@@ -95,7 +95,7 @@ func (m TradingSessionList) HasNoTradingSessions() bool {
 
 //NoTradingSessions is a repeating group element, Tag 386
 type NoTradingSessions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336

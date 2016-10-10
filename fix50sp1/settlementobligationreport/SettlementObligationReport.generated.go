@@ -306,7 +306,7 @@ func (m SettlementObligationReport) HasApplResendFlag() bool {
 
 //NoSettlOblig is a repeating group element, Tag 1165
 type NoSettlOblig struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNetGrossInd sets NetGrossInd, Tag 430
@@ -1992,7 +1992,7 @@ func (m NoSettlOblig) HasNoSettlDetails() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -2058,7 +2058,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetEventType sets EventType, Tag 865
@@ -2181,7 +2181,7 @@ func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 
 //NoInstrumentParties is a repeating group element, Tag 1018
 type NoInstrumentParties struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetInstrumentPartyID sets InstrumentPartyID, Tag 1019
@@ -2260,7 +2260,7 @@ func (m NoInstrumentParties) HasNoInstrumentPartySubIDs() bool {
 
 //NoInstrumentPartySubIDs is a repeating group element, Tag 1052
 type NoInstrumentPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetInstrumentPartySubID sets InstrumentPartySubID, Tag 1053
@@ -2349,7 +2349,7 @@ func (m NoInstrumentPartiesRepeatingGroup) Get(i int) NoInstrumentParties {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -2428,7 +2428,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -2517,7 +2517,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoSettlDetails is a repeating group element, Tag 1158
 type NoSettlDetails struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlObligSource sets SettlObligSource, Tag 1164
@@ -2558,7 +2558,7 @@ func (m NoSettlDetails) HasNoSettlPartyIDs() bool {
 
 //NoSettlPartyIDs is a repeating group element, Tag 781
 type NoSettlPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlPartyID sets SettlPartyID, Tag 782
@@ -2637,7 +2637,7 @@ func (m NoSettlPartyIDs) HasNoSettlPartySubIDs() bool {
 
 //NoSettlPartySubIDs is a repeating group element, Tag 801
 type NoSettlPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlPartySubID sets SettlPartySubID, Tag 785

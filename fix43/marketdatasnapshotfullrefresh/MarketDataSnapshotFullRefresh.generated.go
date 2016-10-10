@@ -834,7 +834,7 @@ func (m MarketDataSnapshotFullRefresh) HasInstrRegistry() bool {
 
 //NoMDEntries is a repeating group element, Tag 268
 type NoMDEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMDEntryType sets MDEntryType, Tag 269
@@ -1470,7 +1470,7 @@ func (m NoMDEntriesRepeatingGroup) Get(i int) NoMDEntries {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455

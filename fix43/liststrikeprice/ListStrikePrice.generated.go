@@ -115,7 +115,7 @@ func (m ListStrikePrice) HasNoStrikes() bool {
 
 //NoStrikes is a repeating group element, Tag 428
 type NoStrikes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55
@@ -916,7 +916,7 @@ func (m NoStrikes) HasEncodedText() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455

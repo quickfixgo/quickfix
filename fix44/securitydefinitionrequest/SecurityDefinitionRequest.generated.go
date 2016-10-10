@@ -1133,7 +1133,7 @@ func (m SecurityDefinitionRequest) HasStrikeCurrency() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1199,7 +1199,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoLegs is a repeating group element, Tag 555
 type NoLegs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSymbol sets LegSymbol, Tag 600
@@ -2000,7 +2000,7 @@ func (m NoLegs) HasLegInterestAccrualDate() bool {
 
 //NoLegSecurityAltID is a repeating group element, Tag 604
 type NoLegSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSecurityAltID sets LegSecurityAltID, Tag 605
@@ -2089,7 +2089,7 @@ func (m NoLegsRepeatingGroup) Get(i int) NoLegs {
 
 //NoUnderlyings is a repeating group element, Tag 711
 type NoUnderlyings struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
@@ -2964,7 +2964,7 @@ func (m NoUnderlyings) HasNoUnderlyingStips() bool {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -3030,7 +3030,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingStipType sets UnderlyingStipType, Tag 888
@@ -3119,7 +3119,7 @@ func (m NoUnderlyingsRepeatingGroup) Get(i int) NoUnderlyings {
 
 //NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetEventType sets EventType, Tag 865
@@ -3223,7 +3223,7 @@ func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 
 //NoInstrAttrib is a repeating group element, Tag 870
 type NoInstrAttrib struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetInstrAttribType sets InstrAttribType, Tag 871

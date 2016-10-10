@@ -1815,7 +1815,7 @@ func (m ExecutionReport) HasMultiLegReportingType() bool {
 
 //NoContraBrokers is a repeating group element, Tag 382
 type NoContraBrokers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContraBroker sets ContraBroker, Tag 375

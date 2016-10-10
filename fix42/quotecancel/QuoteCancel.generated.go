@@ -172,7 +172,7 @@ func (m QuoteCancel) HasTradingSessionID() bool {
 
 //NoQuoteEntries is a repeating group element, Tag 295
 type NoQuoteEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55

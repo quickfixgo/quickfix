@@ -754,7 +754,7 @@ func (m MarketDefinitionUpdateReport) HasEncodedMktSegmDesc() bool {
 
 //NoTickRules is a repeating group element, Tag 1205
 type NoTickRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetStartTickPriceRange sets StartTickPriceRange, Tag 1206
@@ -858,7 +858,7 @@ func (m NoTickRulesRepeatingGroup) Get(i int) NoTickRules {
 
 //NoExecInstRules is a repeating group element, Tag 1232
 type NoExecInstRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetExecInstValue sets ExecInstValue, Tag 1308
@@ -905,7 +905,7 @@ func (m NoExecInstRulesRepeatingGroup) Get(i int) NoExecInstRules {
 
 //NoLotTypeRules is a repeating group element, Tag 1234
 type NoLotTypeRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLotType sets LotType, Tag 1093
@@ -971,7 +971,7 @@ func (m NoLotTypeRulesRepeatingGroup) Get(i int) NoLotTypeRules {
 
 //NoOrdTypeRules is a repeating group element, Tag 1237
 type NoOrdTypeRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -1018,7 +1018,7 @@ func (m NoOrdTypeRulesRepeatingGroup) Get(i int) NoOrdTypeRules {
 
 //NoTimeInForceRules is a repeating group element, Tag 1239
 type NoTimeInForceRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTimeInForce sets TimeInForce, Tag 59

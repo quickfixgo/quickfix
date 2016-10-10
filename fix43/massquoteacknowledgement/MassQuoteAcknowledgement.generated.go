@@ -265,7 +265,7 @@ func (m MassQuoteAcknowledgement) HasAccountType() bool {
 
 //NoQuoteSets is a repeating group element, Tag 296
 type NoQuoteSets struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetQuoteSetID sets QuoteSetID, Tag 302
@@ -950,7 +950,7 @@ func (m NoQuoteSets) HasNoQuoteEntries() bool {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -1016,7 +1016,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoQuoteEntries is a repeating group element, Tag 295
 type NoQuoteEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetQuoteEntryID sets QuoteEntryID, Tag 299
@@ -2121,7 +2121,7 @@ func (m NoQuoteEntries) HasQuoteEntryRejectReason() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -2233,7 +2233,7 @@ func (m NoQuoteSetsRepeatingGroup) Get(i int) NoQuoteSets {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448

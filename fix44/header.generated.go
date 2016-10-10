@@ -534,7 +534,7 @@ func (h Header) HasNoHops() bool {
 
 //NoHops is a repeating group element, Tag 627
 type NoHops struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetHopCompID sets HopCompID, Tag 628

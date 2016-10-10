@@ -612,7 +612,7 @@ func (m BidRequest) HasStrikeTime() bool {
 
 //NoBidDescriptors is a repeating group element, Tag 398
 type NoBidDescriptors struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetBidDescriptorType sets BidDescriptorType, Tag 399
@@ -849,7 +849,7 @@ func (m NoBidDescriptorsRepeatingGroup) Get(i int) NoBidDescriptors {
 
 //NoBidComponents is a repeating group element, Tag 420
 type NoBidComponents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetListID sets ListID, Tag 66

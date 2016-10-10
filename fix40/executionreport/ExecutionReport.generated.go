@@ -923,7 +923,7 @@ func (m ExecutionReport) HasNoMiscFees() bool {
 
 //NoMiscFees is a repeating group element, Tag 136
 type NoMiscFees struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137

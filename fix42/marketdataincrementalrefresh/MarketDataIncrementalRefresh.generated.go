@@ -95,7 +95,7 @@ func (m MarketDataIncrementalRefresh) HasNoMDEntries() bool {
 
 //NoMDEntries is a repeating group element, Tag 268
 type NoMDEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMDUpdateAction sets MDUpdateAction, Tag 279

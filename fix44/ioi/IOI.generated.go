@@ -1797,7 +1797,7 @@ func (m IOI) HasStrikeCurrency() bool {
 
 //NoIOIQualifiers is a repeating group element, Tag 199
 type NoIOIQualifiers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetIOIQualifier sets IOIQualifier, Tag 104
@@ -1844,7 +1844,7 @@ func (m NoIOIQualifiersRepeatingGroup) Get(i int) NoIOIQualifiers {
 
 //NoRoutingIDs is a repeating group element, Tag 215
 type NoRoutingIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRoutingType sets RoutingType, Tag 216
@@ -1910,7 +1910,7 @@ func (m NoRoutingIDsRepeatingGroup) Get(i int) NoRoutingIDs {
 
 //NoStipulations is a repeating group element, Tag 232
 type NoStipulations struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetStipulationType sets StipulationType, Tag 233
@@ -1976,7 +1976,7 @@ func (m NoStipulationsRepeatingGroup) Get(i int) NoStipulations {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -2042,7 +2042,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoLegs is a repeating group element, Tag 555
 type NoLegs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSymbol sets LegSymbol, Tag 600
@@ -2879,7 +2879,7 @@ func (m NoLegs) HasNoLegStipulations() bool {
 
 //NoLegSecurityAltID is a repeating group element, Tag 604
 type NoLegSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSecurityAltID sets LegSecurityAltID, Tag 605
@@ -2945,7 +2945,7 @@ func (m NoLegSecurityAltIDRepeatingGroup) Get(i int) NoLegSecurityAltID {
 
 //NoLegStipulations is a repeating group element, Tag 683
 type NoLegStipulations struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegStipulationType sets LegStipulationType, Tag 688
@@ -3034,7 +3034,7 @@ func (m NoLegsRepeatingGroup) Get(i int) NoLegs {
 
 //NoUnderlyings is a repeating group element, Tag 711
 type NoUnderlyings struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
@@ -3909,7 +3909,7 @@ func (m NoUnderlyings) HasNoUnderlyingStips() bool {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -3975,7 +3975,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingStipType sets UnderlyingStipType, Tag 888
@@ -4064,7 +4064,7 @@ func (m NoUnderlyingsRepeatingGroup) Get(i int) NoUnderlyings {
 
 //NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetEventType sets EventType, Tag 865
