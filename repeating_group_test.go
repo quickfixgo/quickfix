@@ -92,17 +92,17 @@ func TestRepeatingGroup_Write(t *testing.T) {
 func TestRepeatingGroup_ReadError(t *testing.T) {
 	singleFieldTemplate := GroupTemplate{GroupElement(1)}
 	tests := []struct {
-		tv               TagValues
+		tv               []TagValue
 		expectedGroupNum int
 	}{
 		{
-			TagValues{
+			[]TagValue{
 				TagValue{value: []byte("1")},
 				TagValue{tag: Tag(2), value: []byte("not in template")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 			}, 0},
 		{
-			TagValues{
+			[]TagValue{
 				TagValue{value: []byte("2")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 				TagValue{tag: Tag(2), value: []byte("not in template")},
@@ -125,45 +125,45 @@ func TestRepeatingGroup_Read(t *testing.T) {
 
 	tests := []struct {
 		groupTemplate    GroupTemplate
-		tv               TagValues
-		expectedGroupTvs []TagValues
+		tv               []TagValue
+		expectedGroupTvs [][]TagValue
 	}{
-		{singleFieldTemplate, TagValues{TagValue{value: []byte("0")}},
-			[]TagValues{}},
-		{singleFieldTemplate, TagValues{TagValue{value: []byte("1")}, TagValue{tag: Tag(1), value: []byte("hello")}},
-			[]TagValues{{TagValue{tag: Tag(1), value: []byte("hello")}}}},
+		{singleFieldTemplate, []TagValue{TagValue{value: []byte("0")}},
+			[][]TagValue{}},
+		{singleFieldTemplate, []TagValue{TagValue{value: []byte("1")}, TagValue{tag: Tag(1), value: []byte("hello")}},
+			[][]TagValue{{TagValue{tag: Tag(1), value: []byte("hello")}}}},
 		{singleFieldTemplate,
-			TagValues{TagValue{value: []byte("1")},
+			[]TagValue{TagValue{value: []byte("1")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 				TagValue{tag: Tag(2), value: []byte("not in group")}},
-			[]TagValues{
+			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}}}},
 		{singleFieldTemplate,
-			TagValues{TagValue{value: []byte("2")},
+			[]TagValue{TagValue{value: []byte("2")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 				TagValue{tag: Tag(1), value: []byte("world")}},
-			[]TagValues{
+			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
 				{TagValue{tag: Tag(1), value: []byte("world")}},
 			}},
 		{multiFieldTemplate,
-			TagValues{
+			[]TagValue{
 				TagValue{value: []byte("2")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 				TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")},
 			},
-			[]TagValues{
+			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
 				{TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")}},
 			}},
 		{multiFieldTemplate,
-			TagValues{
+			[]TagValue{
 				TagValue{value: []byte("3")},
 				TagValue{tag: Tag(1), value: []byte("hello")},
 				TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")},
 				TagValue{tag: Tag(1), value: []byte("another")},
 			},
-			[]TagValues{
+			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
 				{TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")}},
 				{TagValue{tag: Tag(1), value: []byte("another")}},
@@ -199,7 +199,7 @@ func TestRepeatingGroup_ReadRecursive(t *testing.T) {
 	parentTemplate := GroupTemplate{GroupElement(2), NewRepeatingGroup(Tag(3), singleFieldTemplate), GroupElement(5)}
 
 	f := NewRepeatingGroup(Tag(1), parentTemplate)
-	_, err := f.Read(TagValues{
+	_, err := f.Read([]TagValue{
 		TagValue{value: []byte("2")},
 		TagValue{tag: Tag(2), value: []byte("hello")},
 		TagValue{tag: 3, value: []byte("1")}, TagValue{tag: 4, value: []byte("foo")},

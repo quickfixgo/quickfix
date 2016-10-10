@@ -6,9 +6,14 @@ import (
 	"time"
 )
 
+//tagValues stores a slice of TagValues
+type tagValues struct {
+	tvs []TagValue
+}
+
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	tagLookup map[Tag]TagValues
+	tagLookup map[Tag]*tagValues
 	tagOrder
 }
 
@@ -32,7 +37,7 @@ func (m *FieldMap) init() {
 }
 
 func (m *FieldMap) initWithOrdering(ordering tagOrder) {
-	m.tagLookup = make(map[Tag]TagValues)
+	m.tagLookup = make(map[Tag]*tagValues)
 	m.tagOrder = ordering
 }
 
@@ -64,7 +69,7 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 		return ConditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(tagValues[0].value); err != nil {
+	if err := parser.Read(tagValues.tvs[0].value); err != nil {
 		return IncorrectDataFormatForValue(tag)
 	}
 
@@ -78,7 +83,7 @@ func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 		return nil, ConditionallyRequiredFieldMissing(tag)
 	}
 
-	return tagValues[0].value, nil
+	return tagValues.tvs[0].value, nil
 }
 
 //GetBool is a GetField wrapper for bool fields
@@ -136,7 +141,7 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 		return ConditionallyRequiredFieldMissing(parser.Tag())
 	}
 
-	if _, err := parser.Read(tagValues); err != nil {
+	if _, err := parser.Read(tagValues.tvs); err != nil {
 		if msgRejErr, ok := err.(MessageRejectError); ok {
 			return msgRejErr
 		}
@@ -147,25 +152,26 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 }
 
 //SetField sets the field with Tag tag
-func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
-	tValues := make(TagValues, 1)
-	tValues[0].init(tag, field.Write())
+func (m *FieldMap) SetField(tag Tag, field FieldValueWriter) *FieldMap {
+	tValues := new(tagValues)
+	tValues.tvs = make([]TagValue, 1)
+	tValues.tvs[0].init(tag, field.Write())
 	m.tagLookup[tag] = tValues
 	return m
 }
 
 //SetBool is a SetField wrapper for bool fields
-func (m FieldMap) SetBool(tag Tag, value bool) FieldMap {
+func (m *FieldMap) SetBool(tag Tag, value bool) *FieldMap {
 	return m.SetField(tag, FIXBoolean(value))
 }
 
 //SetInt is a SetField wrapper for int fields
-func (m FieldMap) SetInt(tag Tag, value int) FieldMap {
+func (m *FieldMap) SetInt(tag Tag, value int) *FieldMap {
 	return m.SetField(tag, FIXInt(value))
 }
 
 //SetString is a SetField wrapper for string fields
-func (m FieldMap) SetString(tag Tag, value string) FieldMap {
+func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 	return m.SetField(tag, FIXString(value))
 }
 
@@ -177,16 +183,17 @@ func (m *FieldMap) Clear() {
 }
 
 //Set is a setter for fields
-func (m FieldMap) Set(field FieldWriter) FieldMap {
-	tValues := make(TagValues, 1)
-	tValues[0].init(field.Tag(), field.Write())
+func (m *FieldMap) Set(field FieldWriter) *FieldMap {
+	tValues := new(tagValues)
+	tValues.tvs = make([]TagValue, 1)
+	tValues.tvs[0].init(field.Tag(), field.Write())
 	m.tagLookup[field.Tag()] = tValues
 	return m
 }
 
 //SetGroup is a setter specific to group fields
-func (m FieldMap) SetGroup(field FieldGroupWriter) FieldMap {
-	m.tagLookup[field.Tag()] = field.Write()
+func (m *FieldMap) SetGroup(field FieldGroupWriter) *FieldMap {
+	m.tagLookup[field.Tag()] = &tagValues{field.Write()}
 	return m
 }
 
@@ -205,7 +212,7 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 
 	for _, tag := range tags {
 		if fields, ok := m.tagLookup[tag]; ok {
-			for _, tv := range fields {
+			for _, tv := range fields.tvs {
 				buffer.Write(tv.bytes)
 			}
 		}
@@ -215,7 +222,7 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 func (m FieldMap) total() int {
 	total := 0
 	for _, fields := range m.tagLookup {
-		for _, tv := range fields {
+		for _, tv := range fields.tvs {
 			switch tv.tag {
 			case tagCheckSum: //tag does not contribute to total
 			default:
@@ -230,7 +237,7 @@ func (m FieldMap) total() int {
 func (m FieldMap) length() int {
 	length := 0
 	for _, fields := range m.tagLookup {
-		for _, tv := range fields {
+		for _, tv := range fields.tvs {
 			switch tv.tag {
 			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 			default:

@@ -475,7 +475,7 @@ func TestValidateVisitField(t *testing.T) {
 
 	var tests = []struct {
 		fieldDef             *datadictionary.FieldDef
-		fields               TagValues
+		fields               []TagValue
 		expectedRemFields    int
 		expectReject         bool
 		expectedRejectReason int
@@ -483,38 +483,38 @@ func TestValidateVisitField(t *testing.T) {
 		//non-repeating
 		{expectedRemFields: 0,
 			fieldDef: fieldDef0,
-			fields:   TagValues{field}},
+			fields:   []TagValue{field}},
 		//single field group
 		{expectedRemFields: 0,
 			fieldDef: groupFieldDef,
-			fields:   TagValues{groupID, repField1}},
+			fields:   []TagValue{groupID, repField1}},
 		//multiple field group
 		{expectedRemFields: 0,
 			fieldDef: groupFieldDef,
-			fields:   TagValues{groupID, repField1, repField2}},
+			fields:   []TagValue{groupID, repField1, repField2}},
 		//test with trailing tag not in group
 		{expectedRemFields: 1,
 			fieldDef: groupFieldDef,
-			fields:   TagValues{groupID, repField1, repField2, field}},
+			fields:   []TagValue{groupID, repField1, repField2, field}},
 		//repeats
 		{expectedRemFields: 1,
 			fieldDef: groupFieldDef,
-			fields:   TagValues{groupID2, repField1, repField2, repField1, repField2, field}},
+			fields:   []TagValue{groupID2, repField1, repField2, repField1, repField2, field}},
 		//REJECT: group size declared > actual group size
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               TagValues{groupID3, repField1, repField2, repField1, repField2, field},
+			fields:               []TagValue{groupID3, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               TagValues{groupID3, repField1, repField1, field},
+			fields:               []TagValue{groupID3, repField1, repField1, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 		//REJECT: group size declared < actual group size
 		{expectReject: true,
 			fieldDef:             groupFieldDef,
-			fields:               TagValues{groupID, repField1, repField2, repField1, repField2, field},
+			fields:               []TagValue{groupID, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
 	}
