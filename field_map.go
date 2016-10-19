@@ -11,10 +11,8 @@ type tagValues struct {
 	tvs []TagValue
 }
 
-//FieldMap is a collection of fix fields that make up a fix message.
-type FieldMap struct {
-	tagLookup map[Tag]*tagValues
-	tagOrder
+func (f *tagValues) Tag() Tag {
+	return f.tvs[0].tag
 }
 
 // tagOrder true if tag i should occur before tag j
@@ -29,6 +27,12 @@ func (t tagSort) Len() int           { return len(t.tags) }
 func (t tagSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
 func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
+//FieldMap is a collection of fix fields that make up a fix message.
+type FieldMap struct {
+	tagLookup map[Tag]*tagValues
+	tagSort
+}
+
 // ascending tags
 func normalFieldOrder(i, j Tag) bool { return i < j }
 
@@ -38,7 +42,7 @@ func (m *FieldMap) init() {
 
 func (m *FieldMap) initWithOrdering(ordering tagOrder) {
 	m.tagLookup = make(map[Tag]*tagValues)
-	m.tagOrder = ordering
+	m.compare = ordering
 }
 
 //Tags returns all of the Field Tags in this FieldMap
@@ -153,10 +157,9 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 
 //SetField sets the field with Tag tag
 func (m *FieldMap) SetField(tag Tag, field FieldValueWriter) *FieldMap {
-	tValues := new(tagValues)
+	tValues := m.getOrCreate(tag)
 	tValues.tvs = make([]TagValue, 1)
 	tValues.tvs[0].init(tag, field.Write())
-	m.tagLookup[tag] = tValues
 	return m
 }
 
@@ -177,14 +180,34 @@ func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
+	m.tags = m.tags[0:0]
 	for k := range m.tagLookup {
 		delete(m.tagLookup, k)
 	}
 }
 
+func (m *FieldMap) add(f *tagValues) {
+	if _, ok := m.tagLookup[f.Tag()]; !ok {
+		m.tags = append(m.tags, f.Tag())
+	}
+
+	m.tagLookup[f.Tag()] = f
+}
+
+func (m *FieldMap) getOrCreate(tag Tag) *tagValues {
+	if f, ok := m.tagLookup[tag]; ok {
+		return f
+	}
+
+	f := new(tagValues)
+	m.tagLookup[tag] = f
+	m.tags = append(m.tags, tag)
+	return f
+}
+
 //Set is a setter for fields
 func (m *FieldMap) Set(field FieldWriter) *FieldMap {
-	tValues := new(tagValues)
+	tValues := m.getOrCreate(field.Tag())
 	tValues.tvs = make([]TagValue, 1)
 	tValues.tvs[0].init(field.Tag(), field.Write())
 	m.tagLookup[field.Tag()] = tValues
@@ -193,24 +216,18 @@ func (m *FieldMap) Set(field FieldWriter) *FieldMap {
 
 //SetGroup is a setter specific to group fields
 func (m *FieldMap) SetGroup(field FieldGroupWriter) *FieldMap {
-	m.tagLookup[field.Tag()] = &tagValues{field.Write()}
+	f := m.getOrCreate(field.Tag())
+	f.tvs = field.Write()
 	return m
 }
 
-func (m FieldMap) sortedTags() []Tag {
-	sortedTags := make([]Tag, len(m.tagLookup))
-	for tag := range m.tagLookup {
-		sortedTags = append(sortedTags, tag)
-	}
-
-	sort.Sort(tagSort{sortedTags, m.tagOrder})
-	return sortedTags
+func (m *FieldMap) sortedTags() []Tag {
+	sort.Sort(m)
+	return m.tags
 }
 
 func (m FieldMap) write(buffer *bytes.Buffer) {
-	tags := m.sortedTags()
-
-	for _, tag := range tags {
+	for _, tag := range m.sortedTags() {
 		if fields, ok := m.tagLookup[tag]; ok {
 			for _, tv := range fields.tvs {
 				buffer.Write(tv.bytes)

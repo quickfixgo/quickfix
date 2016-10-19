@@ -89,13 +89,13 @@ func (s *session) waitForInSessionTime() {
 	}
 }
 
-func (s *session) insertSendingTime(header Header) {
+func (s *session) insertSendingTime(msg *Message) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
-		header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
+		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	} else {
-		header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, NoMillis: true})
+		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, NoMillis: true})
 	}
 }
 
@@ -116,7 +116,7 @@ func (s *session) fillDefaultHeader(msg *Message, inReplyTo *Message) {
 	optionallySetID(msg.Header, tagTargetSubID, s.sessionID.TargetSubID)
 	optionallySetID(msg.Header, tagTargetLocationID, s.sessionID.TargetLocationID)
 
-	s.insertSendingTime(msg.Header)
+	s.insertSendingTime(msg)
 
 	if s.EnableLastMsgSeqNumProcessed {
 		if inReplyTo != nil {
@@ -189,7 +189,7 @@ func (s *session) resend(msg *Message) bool {
 		msg.Header.SetField(tagOrigSendingTime, origSendingTime)
 	}
 
-	s.insertSendingTime(msg.Header)
+	s.insertSendingTime(msg)
 
 	return s.application.ToApp(msg, s.sessionID) == nil
 }
