@@ -571,7 +571,7 @@ func (m Allocation) HasNoMiscFees() bool {
 
 //NoOrders is a repeating group element, Tag 73
 type NoOrders struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetClOrdID sets ClOrdID, Tag 11
@@ -675,7 +675,7 @@ func (m NoOrdersRepeatingGroup) Get(i int) NoOrders {
 
 //NoAllocs is a repeating group element, Tag 78
 type NoAllocs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAllocAccount sets AllocAccount, Tag 79
@@ -893,7 +893,7 @@ func (m NoAllocsRepeatingGroup) Get(i int) NoAllocs {
 
 //NoExecs is a repeating group element, Tag 124
 type NoExecs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetExecID sets ExecID, Tag 17
@@ -997,7 +997,7 @@ func (m NoExecsRepeatingGroup) Get(i int) NoExecs {
 
 //NoMiscFees is a repeating group element, Tag 136
 type NoMiscFees struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMiscFeeAmt sets MiscFeeAmt, Tag 137

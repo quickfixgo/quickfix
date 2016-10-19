@@ -2633,7 +2633,7 @@ func (m DerivativeSecurityListRequest) HasUnderlyingPriceUnitOfMeasureQty() bool
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -2699,7 +2699,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingStipType sets UnderlyingStipType, Tag 888
@@ -2765,7 +2765,7 @@ func (m NoUnderlyingStipsRepeatingGroup) Get(i int) NoUnderlyingStips {
 
 //NoUndlyInstrumentParties is a repeating group element, Tag 1058
 type NoUndlyInstrumentParties struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUndlyInstrumentPartyID sets UndlyInstrumentPartyID, Tag 1059
@@ -2844,7 +2844,7 @@ func (m NoUndlyInstrumentParties) HasNoUndlyInstrumentPartySubIDs() bool {
 
 //NoUndlyInstrumentPartySubIDs is a repeating group element, Tag 1062
 type NoUndlyInstrumentPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUndlyInstrumentPartySubID sets UndlyInstrumentPartySubID, Tag 1063
@@ -2933,7 +2933,7 @@ func (m NoUndlyInstrumentPartiesRepeatingGroup) Get(i int) NoUndlyInstrumentPart
 
 //NoDerivativeSecurityAltID is a repeating group element, Tag 1218
 type NoDerivativeSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetDerivativeSecurityAltID sets DerivativeSecurityAltID, Tag 1219
@@ -2999,7 +2999,7 @@ func (m NoDerivativeSecurityAltIDRepeatingGroup) Get(i int) NoDerivativeSecurity
 
 //NoDerivativeEvents is a repeating group element, Tag 1286
 type NoDerivativeEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetDerivativeEventType sets DerivativeEventType, Tag 1287
@@ -3122,7 +3122,7 @@ func (m NoDerivativeEventsRepeatingGroup) Get(i int) NoDerivativeEvents {
 
 //NoDerivativeInstrumentParties is a repeating group element, Tag 1292
 type NoDerivativeInstrumentParties struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetDerivativeInstrumentPartyID sets DerivativeInstrumentPartyID, Tag 1293
@@ -3201,7 +3201,7 @@ func (m NoDerivativeInstrumentParties) HasNoDerivativeInstrumentPartySubIDs() bo
 
 //NoDerivativeInstrumentPartySubIDs is a repeating group element, Tag 1296
 type NoDerivativeInstrumentPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetDerivativeInstrumentPartySubID sets DerivativeInstrumentPartySubID, Tag 1297

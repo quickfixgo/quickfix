@@ -264,7 +264,7 @@ func (m RegistrationInstructions) HasOwnershipType() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -368,7 +368,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoRegistDtls is a repeating group element, Tag 473
 type NoRegistDtls struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRegistDetls sets RegistDetls, Tag 509
@@ -523,7 +523,7 @@ func (m NoRegistDtls) HasInvestorCountryOfResidence() bool {
 
 //NoNestedPartyIDs is a repeating group element, Tag 539
 type NoNestedPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNestedPartyID sets NestedPartyID, Tag 524
@@ -650,7 +650,7 @@ func (m NoRegistDtlsRepeatingGroup) Get(i int) NoRegistDtls {
 
 //NoDistribInsts is a repeating group element, Tag 510
 type NoDistribInsts struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetDistribPaymentMethod sets DistribPaymentMethod, Tag 477

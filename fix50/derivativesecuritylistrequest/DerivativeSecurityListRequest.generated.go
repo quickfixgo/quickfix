@@ -1346,7 +1346,7 @@ func (m DerivativeSecurityListRequest) HasNoUndlyInstrumentParties() bool {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -1412,7 +1412,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingStipType sets UnderlyingStipType, Tag 888
@@ -1478,7 +1478,7 @@ func (m NoUnderlyingStipsRepeatingGroup) Get(i int) NoUnderlyingStips {
 
 //NoUndlyInstrumentParties is a repeating group element, Tag 1058
 type NoUndlyInstrumentParties struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUndlyInstrumentPartyID sets UndlyInstrumentPartyID, Tag 1059
@@ -1557,7 +1557,7 @@ func (m NoUndlyInstrumentParties) HasNoUndlyInstrumentPartySubIDs() bool {
 
 //NoUndlyInstrumentPartySubIDs is a repeating group element, Tag 1062
 type NoUndlyInstrumentPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUndlyInstrumentPartySubID sets UndlyInstrumentPartySubID, Tag 1063

@@ -190,7 +190,7 @@ func (m MarketDataRequest) HasNoMDEntryTypes() bool {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55
@@ -598,7 +598,7 @@ func (m NoRelatedSymRepeatingGroup) Get(i int) NoRelatedSym {
 
 //NoMDEntryTypes is a repeating group element, Tag 267
 type NoMDEntryTypes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMDEntryType sets MDEntryType, Tag 269

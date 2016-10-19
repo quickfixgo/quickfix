@@ -594,7 +594,7 @@ func (m IndicationofInterest) HasSecurityExchange() bool {
 
 //NoIOIQualifiers is a repeating group element, Tag 199
 type NoIOIQualifiers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetIOIQualifier sets IOIQualifier, Tag 104

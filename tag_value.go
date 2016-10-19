@@ -13,9 +13,6 @@ type TagValue struct {
 	bytes []byte
 }
 
-//TagValues is a slice of TagValue
-type TagValues []TagValue
-
 func (tv *TagValue) init(tag Tag, value []byte) {
 	var buf bytes.Buffer
 	buf.WriteString(strconv.Itoa(int(tag)))

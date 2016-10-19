@@ -1140,7 +1140,7 @@ func (m IOI) HasInstrRegistry() bool {
 
 //NoIOIQualifiers is a repeating group element, Tag 199
 type NoIOIQualifiers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetIOIQualifier sets IOIQualifier, Tag 104
@@ -1187,7 +1187,7 @@ func (m NoIOIQualifiersRepeatingGroup) Get(i int) NoIOIQualifiers {
 
 //NoRoutingIDs is a repeating group element, Tag 215
 type NoRoutingIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRoutingType sets RoutingType, Tag 216
@@ -1253,7 +1253,7 @@ func (m NoRoutingIDsRepeatingGroup) Get(i int) NoRoutingIDs {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455

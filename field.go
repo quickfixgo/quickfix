@@ -33,18 +33,18 @@ type Field interface {
 //FieldGroupWriter is an interface for writing a FieldGroup
 type FieldGroupWriter interface {
 	Tag() Tag
-	Write() TagValues
+	Write() []TagValue
 }
 
 //FieldGroupReader is an interface for reading a FieldGroup
 type FieldGroupReader interface {
 	Tag() Tag
-	Read(TagValues) (TagValues, error)
+	Read([]TagValue) ([]TagValue, error)
 }
 
 //FieldGroup is the interface implemented by all typed Groups in a Message
 type FieldGroup interface {
 	Tag() Tag
-	Write() TagValues
-	Read(TagValues) (TagValues, error)
+	Write() []TagValue
+	Read([]TagValue) ([]TagValue, error)
 }

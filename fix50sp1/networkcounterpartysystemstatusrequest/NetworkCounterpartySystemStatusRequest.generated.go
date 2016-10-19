@@ -113,7 +113,7 @@ func (m NetworkCounterpartySystemStatusRequest) HasNoCompIDs() bool {
 
 //NoCompIDs is a repeating group element, Tag 936
 type NoCompIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRefCompID sets RefCompID, Tag 930

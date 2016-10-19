@@ -170,7 +170,7 @@ func (m ApplicationMessageReport) HasApplReportType() bool {
 
 //NoApplIDs is a repeating group element, Tag 1351
 type NoApplIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRefApplID sets RefApplID, Tag 1355

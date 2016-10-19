@@ -115,7 +115,7 @@ func (m ListStrikePrice) HasNoStrikes() bool {
 
 //NoStrikes is a repeating group element, Tag 428
 type NoStrikes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55

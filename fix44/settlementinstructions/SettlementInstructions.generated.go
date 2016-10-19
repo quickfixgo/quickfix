@@ -249,7 +249,7 @@ func (m SettlementInstructions) HasSettlInstReqRejCode() bool {
 
 //NoSettlInst is a repeating group element, Tag 778
 type NoSettlInst struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlInstID sets SettlInstID, Tag 162
@@ -725,7 +725,7 @@ func (m NoSettlInst) HasPaymentRemitterID() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -804,7 +804,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -893,7 +893,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoDlvyInst is a repeating group element, Tag 85
 type NoDlvyInst struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlInstSource sets SettlInstSource, Tag 165
@@ -953,7 +953,7 @@ func (m NoDlvyInst) HasNoSettlPartyIDs() bool {
 
 //NoSettlPartyIDs is a repeating group element, Tag 781
 type NoSettlPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlPartyID sets SettlPartyID, Tag 782
@@ -1032,7 +1032,7 @@ func (m NoSettlPartyIDs) HasNoSettlPartySubIDs() bool {
 
 //NoSettlPartySubIDs is a repeating group element, Tag 801
 type NoSettlPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSettlPartySubID sets SettlPartySubID, Tag 785

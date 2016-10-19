@@ -967,7 +967,7 @@ func (m TradeCaptureReportRequest) HasNoDates() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -1071,7 +1071,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1137,7 +1137,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoDates is a repeating group element, Tag 580
 type NoDates struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTradeDate sets TradeDate, Tag 75

@@ -2239,7 +2239,7 @@ func (m NewOrderSingle) HasPrice2() bool {
 
 //NoAllocs is a repeating group element, Tag 78
 type NoAllocs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAllocAccount sets AllocAccount, Tag 79
@@ -2318,7 +2318,7 @@ func (m NoAllocs) HasAllocQty() bool {
 
 //NoNestedPartyIDs is a repeating group element, Tag 539
 type NoNestedPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNestedPartyID sets NestedPartyID, Tag 524
@@ -2445,7 +2445,7 @@ func (m NoAllocsRepeatingGroup) Get(i int) NoAllocs {
 
 //NoStipulations is a repeating group element, Tag 232
 type NoStipulations struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetStipulationType sets StipulationType, Tag 233
@@ -2511,7 +2511,7 @@ func (m NoStipulationsRepeatingGroup) Get(i int) NoStipulations {
 
 //NoTradingSessions is a repeating group element, Tag 386
 type NoTradingSessions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
@@ -2577,7 +2577,7 @@ func (m NoTradingSessionsRepeatingGroup) Get(i int) NoTradingSessions {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -2681,7 +2681,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455

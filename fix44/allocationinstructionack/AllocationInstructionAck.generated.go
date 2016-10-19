@@ -362,7 +362,7 @@ func (m AllocationInstructionAck) HasAllocIntermedReqType() bool {
 
 //NoAllocs is a repeating group element, Tag 78
 type NoAllocs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAllocAccount sets AllocAccount, Tag 79
@@ -542,7 +542,7 @@ func (m NoAllocsRepeatingGroup) Get(i int) NoAllocs {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -621,7 +621,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523

@@ -88,7 +88,7 @@ type Message struct {
 	bodyBytes []byte
 
 	//field bytes as they appear in the raw message
-	fields TagValues
+	fields []TagValue
 
 	//flag is true if this message should not be returned to pool after use
 	keepMessage bool
@@ -132,7 +132,7 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 	}
 
 	if cap(msg.fields) < fieldCount {
-		msg.fields = make(TagValues, fieldCount)
+		msg.fields = make([]TagValue, fieldCount)
 	} else {
 		msg.fields = msg.fields[0:fieldCount]
 	}
@@ -144,7 +144,7 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 		return
 	}
 
-	msg.Header.tagLookup[msg.fields[fieldIndex].tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 	fieldIndex++
 
 	parsedFieldBytes := &msg.fields[fieldIndex]
@@ -152,7 +152,7 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 		return
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 	fieldIndex++
 
 	parsedFieldBytes = &msg.fields[fieldIndex]
@@ -160,7 +160,7 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 		return
 	}
 
-	msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+	msg.Header.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 	fieldIndex++
 
 	trailerBytes := []byte{}
@@ -174,13 +174,13 @@ func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 
 		switch {
 		case parsedFieldBytes.tag.IsHeader():
-			msg.Header.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Header.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 		case parsedFieldBytes.tag.IsTrailer():
-			msg.Trailer.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Trailer.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 		default:
 			foundBody = true
 			trailerBytes = rawBytes
-			msg.Body.tagLookup[parsedFieldBytes.tag] = msg.fields[fieldIndex : fieldIndex+1]
+			msg.Body.add(&tagValues{msg.fields[fieldIndex : fieldIndex+1]})
 		}
 		if parsedFieldBytes.tag == tagCheckSum {
 			break

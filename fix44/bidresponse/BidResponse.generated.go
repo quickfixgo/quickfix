@@ -113,7 +113,7 @@ func (m BidResponse) HasNoBidComponents() bool {
 
 //NoBidComponents is a repeating group element, Tag 420
 type NoBidComponents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetCommission sets Commission, Tag 12

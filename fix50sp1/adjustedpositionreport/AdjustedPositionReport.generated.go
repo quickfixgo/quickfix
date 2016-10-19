@@ -245,7 +245,7 @@ func (m AdjustedPositionReport) HasPriorSettlPrice() bool {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55
@@ -1650,7 +1650,7 @@ func (m NoRelatedSym) HasFuturesValuationMethod() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1716,7 +1716,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetEventType sets EventType, Tag 865
@@ -1839,7 +1839,7 @@ func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 
 //NoInstrumentParties is a repeating group element, Tag 1018
 type NoInstrumentParties struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetInstrumentPartyID sets InstrumentPartyID, Tag 1019
@@ -1918,7 +1918,7 @@ func (m NoInstrumentParties) HasNoInstrumentPartySubIDs() bool {
 
 //NoInstrumentPartySubIDs is a repeating group element, Tag 1052
 type NoInstrumentPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetInstrumentPartySubID sets InstrumentPartySubID, Tag 1053
@@ -2030,7 +2030,7 @@ func (m NoRelatedSymRepeatingGroup) Get(i int) NoRelatedSym {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -2109,7 +2109,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -2198,7 +2198,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoPositions is a repeating group element, Tag 702
 type NoPositions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPosType sets PosType, Tag 703
@@ -2315,7 +2315,7 @@ func (m NoPositions) HasQuantityDate() bool {
 
 //NoNestedPartyIDs is a repeating group element, Tag 539
 type NoNestedPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNestedPartyID sets NestedPartyID, Tag 524
@@ -2394,7 +2394,7 @@ func (m NoNestedPartyIDs) HasNoNestedPartySubIDs() bool {
 
 //NoNestedPartySubIDs is a repeating group element, Tag 804
 type NoNestedPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNestedPartySubID sets NestedPartySubID, Tag 545

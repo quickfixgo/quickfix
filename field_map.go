@@ -6,10 +6,13 @@ import (
 	"time"
 )
 
-//FieldMap is a collection of fix fields that make up a fix message.
-type FieldMap struct {
-	tagLookup map[Tag]TagValues
-	tagOrder
+//tagValues stores a slice of TagValues
+type tagValues struct {
+	tvs []TagValue
+}
+
+func (f *tagValues) Tag() Tag {
+	return f.tvs[0].tag
 }
 
 // tagOrder true if tag i should occur before tag j
@@ -24,6 +27,12 @@ func (t tagSort) Len() int           { return len(t.tags) }
 func (t tagSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
 func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
+//FieldMap is a collection of fix fields that make up a fix message.
+type FieldMap struct {
+	tagLookup map[Tag]*tagValues
+	tagSort
+}
+
 // ascending tags
 func normalFieldOrder(i, j Tag) bool { return i < j }
 
@@ -32,8 +41,8 @@ func (m *FieldMap) init() {
 }
 
 func (m *FieldMap) initWithOrdering(ordering tagOrder) {
-	m.tagLookup = make(map[Tag]TagValues)
-	m.tagOrder = ordering
+	m.tagLookup = make(map[Tag]*tagValues)
+	m.compare = ordering
 }
 
 //Tags returns all of the Field Tags in this FieldMap
@@ -64,7 +73,7 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 		return ConditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(tagValues[0].value); err != nil {
+	if err := parser.Read(tagValues.tvs[0].value); err != nil {
 		return IncorrectDataFormatForValue(tag)
 	}
 
@@ -78,7 +87,7 @@ func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 		return nil, ConditionallyRequiredFieldMissing(tag)
 	}
 
-	return tagValues[0].value, nil
+	return tagValues.tvs[0].value, nil
 }
 
 //GetBool is a GetField wrapper for bool fields
@@ -136,7 +145,7 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 		return ConditionallyRequiredFieldMissing(parser.Tag())
 	}
 
-	if _, err := parser.Read(tagValues); err != nil {
+	if _, err := parser.Read(tagValues.tvs); err != nil {
 		if msgRejErr, ok := err.(MessageRejectError); ok {
 			return msgRejErr
 		}
@@ -147,65 +156,80 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 }
 
 //SetField sets the field with Tag tag
-func (m FieldMap) SetField(tag Tag, field FieldValueWriter) FieldMap {
-	tValues := make(TagValues, 1)
-	tValues[0].init(tag, field.Write())
-	m.tagLookup[tag] = tValues
+func (m *FieldMap) SetField(tag Tag, field FieldValueWriter) *FieldMap {
+	tValues := m.getOrCreate(tag)
+	tValues.tvs = make([]TagValue, 1)
+	tValues.tvs[0].init(tag, field.Write())
 	return m
 }
 
 //SetBool is a SetField wrapper for bool fields
-func (m FieldMap) SetBool(tag Tag, value bool) FieldMap {
+func (m *FieldMap) SetBool(tag Tag, value bool) *FieldMap {
 	return m.SetField(tag, FIXBoolean(value))
 }
 
 //SetInt is a SetField wrapper for int fields
-func (m FieldMap) SetInt(tag Tag, value int) FieldMap {
+func (m *FieldMap) SetInt(tag Tag, value int) *FieldMap {
 	return m.SetField(tag, FIXInt(value))
 }
 
 //SetString is a SetField wrapper for string fields
-func (m FieldMap) SetString(tag Tag, value string) FieldMap {
+func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 	return m.SetField(tag, FIXString(value))
 }
 
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
+	m.tags = m.tags[0:0]
 	for k := range m.tagLookup {
 		delete(m.tagLookup, k)
 	}
 }
 
+func (m *FieldMap) add(f *tagValues) {
+	if _, ok := m.tagLookup[f.Tag()]; !ok {
+		m.tags = append(m.tags, f.Tag())
+	}
+
+	m.tagLookup[f.Tag()] = f
+}
+
+func (m *FieldMap) getOrCreate(tag Tag) *tagValues {
+	if f, ok := m.tagLookup[tag]; ok {
+		return f
+	}
+
+	f := new(tagValues)
+	m.tagLookup[tag] = f
+	m.tags = append(m.tags, tag)
+	return f
+}
+
 //Set is a setter for fields
-func (m FieldMap) Set(field FieldWriter) FieldMap {
-	tValues := make(TagValues, 1)
-	tValues[0].init(field.Tag(), field.Write())
+func (m *FieldMap) Set(field FieldWriter) *FieldMap {
+	tValues := m.getOrCreate(field.Tag())
+	tValues.tvs = make([]TagValue, 1)
+	tValues.tvs[0].init(field.Tag(), field.Write())
 	m.tagLookup[field.Tag()] = tValues
 	return m
 }
 
 //SetGroup is a setter specific to group fields
-func (m FieldMap) SetGroup(field FieldGroupWriter) FieldMap {
-	m.tagLookup[field.Tag()] = field.Write()
+func (m *FieldMap) SetGroup(field FieldGroupWriter) *FieldMap {
+	f := m.getOrCreate(field.Tag())
+	f.tvs = field.Write()
 	return m
 }
 
-func (m FieldMap) sortedTags() []Tag {
-	sortedTags := make([]Tag, len(m.tagLookup))
-	for tag := range m.tagLookup {
-		sortedTags = append(sortedTags, tag)
-	}
-
-	sort.Sort(tagSort{sortedTags, m.tagOrder})
-	return sortedTags
+func (m *FieldMap) sortedTags() []Tag {
+	sort.Sort(m)
+	return m.tags
 }
 
 func (m FieldMap) write(buffer *bytes.Buffer) {
-	tags := m.sortedTags()
-
-	for _, tag := range tags {
+	for _, tag := range m.sortedTags() {
 		if fields, ok := m.tagLookup[tag]; ok {
-			for _, tv := range fields {
+			for _, tv := range fields.tvs {
 				buffer.Write(tv.bytes)
 			}
 		}
@@ -215,7 +239,7 @@ func (m FieldMap) write(buffer *bytes.Buffer) {
 func (m FieldMap) total() int {
 	total := 0
 	for _, fields := range m.tagLookup {
-		for _, tv := range fields {
+		for _, tv := range fields.tvs {
 			switch tv.tag {
 			case tagCheckSum: //tag does not contribute to total
 			default:
@@ -230,7 +254,7 @@ func (m FieldMap) total() int {
 func (m FieldMap) length() int {
 	length := 0
 	for _, fields := range m.tagLookup {
-		for _, tv := range fields {
+		for _, tv := range fields.tvs {
 			switch tv.tag {
 			case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
 			default:

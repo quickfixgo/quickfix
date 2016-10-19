@@ -123,7 +123,7 @@ quickfix.GroupTemplate{
 {{ if .IsGroup }}
 //{{ .Name }} is a repeating group element, Tag {{ .Tag }}
 type {{ .Name }} struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 {{ template "setters" .}}

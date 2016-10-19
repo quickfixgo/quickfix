@@ -171,7 +171,7 @@ func (m TradingSessionListUpdateReport) HasApplResendFlag() bool {
 
 //NoTradingSessions is a repeating group element, Tag 386
 type NoTradingSessions struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTradingSessionID sets TradingSessionID, Tag 336
@@ -679,7 +679,7 @@ func (m NoTradingSessions) HasTradSesUpdateAction() bool {
 
 //NoOrdTypeRules is a repeating group element, Tag 1237
 type NoOrdTypeRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetOrdType sets OrdType, Tag 40
@@ -726,7 +726,7 @@ func (m NoOrdTypeRulesRepeatingGroup) Get(i int) NoOrdTypeRules {
 
 //NoTimeInForceRules is a repeating group element, Tag 1239
 type NoTimeInForceRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetTimeInForce sets TimeInForce, Tag 59
@@ -773,7 +773,7 @@ func (m NoTimeInForceRulesRepeatingGroup) Get(i int) NoTimeInForceRules {
 
 //NoExecInstRules is a repeating group element, Tag 1232
 type NoExecInstRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetExecInstValue sets ExecInstValue, Tag 1308
@@ -820,7 +820,7 @@ func (m NoExecInstRulesRepeatingGroup) Get(i int) NoExecInstRules {
 
 //NoMatchRules is a repeating group element, Tag 1235
 type NoMatchRules struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMatchAlgorithm sets MatchAlgorithm, Tag 1142
@@ -886,7 +886,7 @@ func (m NoMatchRulesRepeatingGroup) Get(i int) NoMatchRules {
 
 //NoMDFeedTypes is a repeating group element, Tag 1141
 type NoMDFeedTypes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetMDFeedType sets MDFeedType, Tag 1022

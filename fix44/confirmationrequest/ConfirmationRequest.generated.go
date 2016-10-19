@@ -307,7 +307,7 @@ func (m ConfirmationRequest) HasConfirmReqID() bool {
 
 //NoOrders is a repeating group element, Tag 73
 type NoOrders struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetClOrdID sets ClOrdID, Tag 11
@@ -481,7 +481,7 @@ func (m NoOrders) HasOrderBookingQty() bool {
 
 //NoNested2PartyIDs is a repeating group element, Tag 756
 type NoNested2PartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNested2PartyID sets Nested2PartyID, Tag 757
@@ -560,7 +560,7 @@ func (m NoNested2PartyIDs) HasNoNested2PartySubIDs() bool {
 
 //NoNested2PartySubIDs is a repeating group element, Tag 806
 type NoNested2PartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNested2PartySubID sets Nested2PartySubID, Tag 760

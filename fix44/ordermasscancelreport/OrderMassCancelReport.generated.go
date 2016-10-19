@@ -2028,7 +2028,7 @@ func (m OrderMassCancelReport) HasStrikeCurrency() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -2094,7 +2094,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
@@ -2160,7 +2160,7 @@ func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurity
 
 //NoAffectedOrders is a repeating group element, Tag 534
 type NoAffectedOrders struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetOrigClOrdID sets OrigClOrdID, Tag 41
@@ -2245,7 +2245,7 @@ func (m NoAffectedOrdersRepeatingGroup) Get(i int) NoAffectedOrders {
 
 //NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetEventType sets EventType, Tag 865
@@ -2349,7 +2349,7 @@ func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 
 //NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingStipType sets UnderlyingStipType, Tag 888

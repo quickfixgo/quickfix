@@ -172,7 +172,7 @@ func (m QuoteRequest) HasRFQReqID() bool {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55
@@ -1332,7 +1332,7 @@ func (m NoRelatedSym) HasYield() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -1398,7 +1398,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoStipulations is a repeating group element, Tag 232
 type NoStipulations struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetStipulationType sets StipulationType, Tag 233

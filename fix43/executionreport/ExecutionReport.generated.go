@@ -3076,7 +3076,7 @@ func (m ExecutionReport) HasUnderlyingLastQty() bool {
 
 //NoStipulations is a repeating group element, Tag 232
 type NoStipulations struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetStipulationType sets StipulationType, Tag 233
@@ -3142,7 +3142,7 @@ func (m NoStipulationsRepeatingGroup) Get(i int) NoStipulations {
 
 //NoContraBrokers is a repeating group element, Tag 382
 type NoContraBrokers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContraBroker sets ContraBroker, Tag 375
@@ -3265,7 +3265,7 @@ func (m NoContraBrokersRepeatingGroup) Get(i int) NoContraBrokers {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -3369,7 +3369,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -3435,7 +3435,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoContAmts is a repeating group element, Tag 518
 type NoContAmts struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetContAmtType sets ContAmtType, Tag 519
@@ -3520,7 +3520,7 @@ func (m NoContAmtsRepeatingGroup) Get(i int) NoContAmts {
 
 //NoLegs is a repeating group element, Tag 555
 type NoLegs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSymbol sets LegSymbol, Tag 600
@@ -4338,7 +4338,7 @@ func (m NoLegs) HasLegLastPx() bool {
 
 //NoLegSecurityAltID is a repeating group element, Tag 604
 type NoLegSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetLegSecurityAltID sets LegSecurityAltID, Tag 605
@@ -4404,7 +4404,7 @@ func (m NoLegSecurityAltIDRepeatingGroup) Get(i int) NoLegSecurityAltID {
 
 //NoNestedPartyIDs is a repeating group element, Tag 539
 type NoNestedPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetNestedPartyID sets NestedPartyID, Tag 524

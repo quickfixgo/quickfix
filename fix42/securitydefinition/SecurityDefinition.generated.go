@@ -610,7 +610,7 @@ func (m SecurityDefinition) HasTotalNumSecurities() bool {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311

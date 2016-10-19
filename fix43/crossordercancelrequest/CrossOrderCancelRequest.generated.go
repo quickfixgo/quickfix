@@ -820,7 +820,7 @@ func (m CrossOrderCancelRequest) HasNoSides() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -886,7 +886,7 @@ func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 
 //NoSides is a repeating group element, Tag 552
 type NoSides struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSide sets Side, Tag 54
@@ -1212,7 +1212,7 @@ func (m NoSides) HasEncodedText() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448

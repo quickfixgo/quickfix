@@ -189,7 +189,7 @@ func (m Logon) HasNoMsgTypes() bool {
 
 //NoMsgTypes is a repeating group element, Tag 384
 type NoMsgTypes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRefMsgType sets RefMsgType, Tag 372

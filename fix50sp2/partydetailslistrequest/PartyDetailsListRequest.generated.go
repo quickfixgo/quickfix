@@ -220,7 +220,7 @@ func (m PartyDetailsListRequest) HasNoPartyRelationships() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -299,7 +299,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -388,7 +388,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoPartyListResponseTypes is a repeating group element, Tag 1506
 type NoPartyListResponseTypes struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyListResponseType sets PartyListResponseType, Tag 1507
@@ -435,7 +435,7 @@ func (m NoPartyListResponseTypesRepeatingGroup) Get(i int) NoPartyListResponseTy
 
 //NoRequestedPartyRoles is a repeating group element, Tag 1508
 type NoRequestedPartyRoles struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRequestedPartyRole sets RequestedPartyRole, Tag 1509
@@ -482,7 +482,7 @@ func (m NoRequestedPartyRolesRepeatingGroup) Get(i int) NoRequestedPartyRoles {
 
 //NoPartyRelationships is a repeating group element, Tag 1514
 type NoPartyRelationships struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyRelationship sets PartyRelationship, Tag 1515

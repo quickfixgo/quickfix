@@ -303,7 +303,7 @@ func (m Email) HasEncodedSubject() bool {
 
 //LinesOfText is a repeating group element, Tag 33
 type LinesOfText struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetText sets Text, Tag 58
@@ -388,7 +388,7 @@ func (m LinesOfTextRepeatingGroup) Get(i int) LinesOfText {
 
 //NoRelatedSym is a repeating group element, Tag 146
 type NoRelatedSym struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRelatdSym sets RelatdSym, Tag 46
@@ -777,7 +777,7 @@ func (m NoRelatedSymRepeatingGroup) Get(i int) NoRelatedSym {
 
 //NoRoutingIDs is a repeating group element, Tag 215
 type NoRoutingIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRoutingType sets RoutingType, Tag 216

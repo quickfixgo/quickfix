@@ -782,7 +782,7 @@ func (m IndicationofInterest) HasEncodedText() bool {
 
 //NoIOIQualifiers is a repeating group element, Tag 199
 type NoIOIQualifiers struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetIOIQualifier sets IOIQualifier, Tag 104
@@ -829,7 +829,7 @@ func (m NoIOIQualifiersRepeatingGroup) Get(i int) NoIOIQualifiers {
 
 //NoRoutingIDs is a repeating group element, Tag 215
 type NoRoutingIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetRoutingType sets RoutingType, Tag 216

@@ -329,7 +329,7 @@ func (m ListStatus) HasListRejectReason() bool {
 
 //NoOrders is a repeating group element, Tag 73
 type NoOrders struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetClOrdID sets ClOrdID, Tag 11

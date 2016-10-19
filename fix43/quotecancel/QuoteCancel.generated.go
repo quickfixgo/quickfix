@@ -246,7 +246,7 @@ func (m QuoteCancel) HasTradingSessionSubID() bool {
 
 //NoQuoteEntries is a repeating group element, Tag 295
 type NoQuoteEntries struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSymbol sets Symbol, Tag 55
@@ -876,7 +876,7 @@ func (m NoQuoteEntries) HasEncodedSecurityDesc() bool {
 
 //NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetSecurityAltID sets SecurityAltID, Tag 455
@@ -965,7 +965,7 @@ func (m NoQuoteEntriesRepeatingGroup) Get(i int) NoQuoteEntries {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448

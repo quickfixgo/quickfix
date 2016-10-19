@@ -186,7 +186,7 @@ func (m MarketDataRequestReject) HasNoAltMDSource() bool {
 
 //NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartyID sets PartyID, Tag 448
@@ -265,7 +265,7 @@ func (m NoPartyIDs) HasNoPartySubIDs() bool {
 
 //NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetPartySubID sets PartySubID, Tag 523
@@ -354,7 +354,7 @@ func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 
 //NoAltMDSource is a repeating group element, Tag 816
 type NoAltMDSource struct {
-	quickfix.Group
+	*quickfix.Group
 }
 
 //SetAltMDSourceID sets AltMDSourceID, Tag 817
