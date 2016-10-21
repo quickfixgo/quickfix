@@ -6,13 +6,24 @@ import (
 	"time"
 )
 
-//tagValues stores a slice of TagValues
-type tagValues struct {
+//field stores a slice of TagValues
+type field struct {
 	tvs []TagValue
 }
 
-func (f *tagValues) Tag() Tag {
+func (f *field) Tag() Tag {
 	return f.tvs[0].tag
+}
+
+func (f *field) init(tag Tag, value []byte) {
+	f.tvs = make([]TagValue, 1)
+	f.tvs[0].init(tag, value)
+}
+
+func (f *field) write(buffer *bytes.Buffer) {
+	for _, tv := range f.tvs {
+		buffer.Write(tv.bytes)
+	}
 }
 
 // tagOrder true if tag i should occur before tag j
@@ -29,7 +40,7 @@ func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
-	tagLookup map[Tag]*tagValues
+	tagLookup map[Tag]*field
 	tagSort
 }
 
@@ -41,7 +52,7 @@ func (m *FieldMap) init() {
 }
 
 func (m *FieldMap) initWithOrdering(ordering tagOrder) {
-	m.tagLookup = make(map[Tag]*tagValues)
+	m.tagLookup = make(map[Tag]*field)
 	m.compare = ordering
 }
 
@@ -68,12 +79,12 @@ func (m FieldMap) Has(tag Tag) bool {
 
 //GetField parses of a field with Tag tag. Returned reject may indicate the field is not present, or the field value is invalid.
 func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError {
-	tagValues, ok := m.tagLookup[tag]
+	f, ok := m.tagLookup[tag]
 	if !ok {
 		return ConditionallyRequiredFieldMissing(tag)
 	}
 
-	if err := parser.Read(tagValues.tvs[0].value); err != nil {
+	if err := parser.Read(f.tvs[0].value); err != nil {
 		return IncorrectDataFormatForValue(tag)
 	}
 
@@ -82,12 +93,12 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 
 //GetBytes is a zero-copy GetField wrapper for []bytes fields
 func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
-	tagValues, ok := m.tagLookup[tag]
+	f, ok := m.tagLookup[tag]
 	if !ok {
 		return nil, ConditionallyRequiredFieldMissing(tag)
 	}
 
-	return tagValues.tvs[0].value, nil
+	return f.tvs[0].value, nil
 }
 
 //GetBool is a GetField wrapper for bool fields
@@ -140,12 +151,12 @@ func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
 
 //GetGroup is a Get function specific to Group Fields.
 func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
-	tagValues, ok := m.tagLookup[parser.Tag()]
+	f, ok := m.tagLookup[parser.Tag()]
 	if !ok {
 		return ConditionallyRequiredFieldMissing(parser.Tag())
 	}
 
-	if _, err := parser.Read(tagValues.tvs); err != nil {
+	if _, err := parser.Read(f.tvs); err != nil {
 		if msgRejErr, ok := err.(MessageRejectError); ok {
 			return msgRejErr
 		}
@@ -157,9 +168,8 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 
 //SetField sets the field with Tag tag
 func (m *FieldMap) SetField(tag Tag, field FieldValueWriter) *FieldMap {
-	tValues := m.getOrCreate(tag)
-	tValues.tvs = make([]TagValue, 1)
-	tValues.tvs[0].init(tag, field.Write())
+	f := m.getOrCreate(tag)
+	f.init(tag, field.Write())
 	return m
 }
 
@@ -186,7 +196,7 @@ func (m *FieldMap) Clear() {
 	}
 }
 
-func (m *FieldMap) add(f *tagValues) {
+func (m *FieldMap) add(f *field) {
 	if _, ok := m.tagLookup[f.Tag()]; !ok {
 		m.tags = append(m.tags, f.Tag())
 	}
@@ -194,12 +204,12 @@ func (m *FieldMap) add(f *tagValues) {
 	m.tagLookup[f.Tag()] = f
 }
 
-func (m *FieldMap) getOrCreate(tag Tag) *tagValues {
+func (m *FieldMap) getOrCreate(tag Tag) *field {
 	if f, ok := m.tagLookup[tag]; ok {
 		return f
 	}
 
-	f := new(tagValues)
+	f := new(field)
 	m.tagLookup[tag] = f
 	m.tags = append(m.tags, tag)
 	return f
@@ -207,10 +217,8 @@ func (m *FieldMap) getOrCreate(tag Tag) *tagValues {
 
 //Set is a setter for fields
 func (m *FieldMap) Set(field FieldWriter) *FieldMap {
-	tValues := m.getOrCreate(field.Tag())
-	tValues.tvs = make([]TagValue, 1)
-	tValues.tvs[0].init(field.Tag(), field.Write())
-	m.tagLookup[field.Tag()] = tValues
+	f := m.getOrCreate(field.Tag())
+	f.init(field.Tag(), field.Write())
 	return m
 }
 
@@ -228,10 +236,8 @@ func (m *FieldMap) sortedTags() []Tag {
 
 func (m FieldMap) write(buffer *bytes.Buffer) {
 	for _, tag := range m.sortedTags() {
-		if fields, ok := m.tagLookup[tag]; ok {
-			for _, tv := range fields.tvs {
-				buffer.Write(tv.bytes)
-			}
+		if f, ok := m.tagLookup[tag]; ok {
+			f.write(buffer)
 		}
 	}
 }
