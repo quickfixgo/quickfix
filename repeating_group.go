@@ -182,24 +182,24 @@ func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
 	group := new(Group)
 	group.initWithOrdering(tagOrdering)
 	for len(tv) > 0 {
-		field, ok := f.findItemInGroupTemplate(tv[0].tag)
+		gi, ok := f.findItemInGroupTemplate(tv[0].tag)
 		if !ok {
 			break
 		}
 
 		tvRange := tv
-		if tv, err = field.Read(tv); err != nil {
+		if tv, err = gi.Read(tv); err != nil {
 			return tv, err
 		}
 
-		if f.isDelimiter(field.Tag()) {
+		if f.isDelimiter(gi.Tag()) {
 			group = new(Group)
 			group.initWithOrdering(tagOrdering)
 
 			f.groups = append(f.groups, group)
 		}
 
-		group.tagLookup[tvRange[0].tag] = &tagValues{tvRange}
+		group.tagLookup[tvRange[0].tag] = &field{tvRange}
 	}
 
 	if len(f.groups) != expectedGroupSize {

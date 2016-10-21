@@ -59,5 +59,5 @@ func (f *FIXInt) Read(bytes []byte) error {
 }
 
 func (f FIXInt) Write() []byte {
-	return []byte(strconv.Itoa(int(f)))
+	return strconv.AppendInt(nil, int64(f), 10)
 }
