@@ -16,7 +16,11 @@ func (f *field) Tag() Tag {
 }
 
 func (f *field) init(tag Tag, value []byte) {
-	f.tvs = make([]TagValue, 1)
+	if len(f.tvs) == 0 {
+		f.tvs = make([]TagValue, 1)
+	} else {
+		f.tvs = f.tvs[:1]
+	}
 	f.tvs[0].init(tag, value)
 }
 
@@ -168,8 +172,13 @@ func (m FieldMap) GetGroup(parser FieldGroupReader) MessageRejectError {
 
 //SetField sets the field with Tag tag
 func (m *FieldMap) SetField(tag Tag, field FieldValueWriter) *FieldMap {
+	return m.SetBytes(tag, field.Write())
+}
+
+//SetBytes sets bytes
+func (m *FieldMap) SetBytes(tag Tag, value []byte) *FieldMap {
 	f := m.getOrCreate(tag)
-	f.init(tag, field.Write())
+	f.init(tag, value)
 	return m
 }
 
@@ -180,12 +189,13 @@ func (m *FieldMap) SetBool(tag Tag, value bool) *FieldMap {
 
 //SetInt is a SetField wrapper for int fields
 func (m *FieldMap) SetInt(tag Tag, value int) *FieldMap {
-	return m.SetField(tag, FIXInt(value))
+	v := FIXInt(value)
+	return m.SetBytes(tag, v.Write())
 }
 
 //SetString is a SetField wrapper for string fields
 func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
-	return m.SetField(tag, FIXString(value))
+	return m.SetBytes(tag, []byte(value))
 }
 
 //Clear purges all fields from field map

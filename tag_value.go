@@ -14,14 +14,12 @@ type TagValue struct {
 }
 
 func (tv *TagValue) init(tag Tag, value []byte) {
-	var buf bytes.Buffer
-	buf.WriteString(strconv.Itoa(int(tag)))
-	buf.WriteString("=")
-	buf.Write(value)
-	buf.WriteString("")
+	tv.bytes = strconv.AppendInt(nil, int64(tag), 10)
+	tv.bytes = append(tv.bytes, []byte("=")...)
+	tv.bytes = append(tv.bytes, value...)
+	tv.bytes = append(tv.bytes, []byte("")...)
 
 	tv.tag = tag
-	tv.bytes = buf.Bytes()
 	tv.value = value
 }
 
@@ -41,8 +39,9 @@ func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
 	}
 
 	tv.tag = Tag(parsedTag)
-	tv.value = rawFieldBytes[(sepIndex + 1):(len(rawFieldBytes) - 1)]
-	tv.bytes = rawFieldBytes
+	n := len(rawFieldBytes)
+	tv.value = rawFieldBytes[(sepIndex + 1):(n - 1):(n - 1)]
+	tv.bytes = rawFieldBytes[:n:n]
 
 	return
 }

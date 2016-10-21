@@ -305,8 +305,8 @@ func (m *Message) String() string {
 	return string(m.build())
 }
 
-func newCheckSum(value int) FIXString {
-	return FIXString(fmt.Sprintf("%03d", value))
+func formatCheckSum(value int) string {
+	return fmt.Sprintf("%03d", value)
 }
 
 //Build constructs a []byte from a Message instance
@@ -322,7 +322,7 @@ func (m *Message) build() []byte {
 
 func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
-	m.Header.SetField(tagBodyLength, FIXInt(bodyLength))
+	m.Header.SetInt(tagBodyLength, bodyLength)
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
-	m.Trailer.SetField(tagCheckSum, newCheckSum(checkSum))
+	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
 }

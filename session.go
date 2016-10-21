@@ -99,22 +99,21 @@ func (s *session) insertSendingTime(msg *Message) {
 	}
 }
 
-func optionallySetID(header Header, field Tag, value string) {
+func optionallySetID(msg *Message, field Tag, value string) {
 	if len(value) != 0 {
-		header.SetString(field, value)
+		msg.Header.SetString(field, value)
 	}
 }
 
 func (s *session) fillDefaultHeader(msg *Message, inReplyTo *Message) {
-	msg.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
+	msg.Header.SetString(tagBeginString, s.sessionID.BeginString)
+	msg.Header.SetString(tagSenderCompID, s.sessionID.SenderCompID)
+	optionallySetID(msg, tagSenderSubID, s.sessionID.SenderSubID)
+	optionallySetID(msg, tagSenderLocationID, s.sessionID.SenderLocationID)
 
-	msg.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
-	optionallySetID(msg.Header, tagSenderSubID, s.sessionID.SenderSubID)
-	optionallySetID(msg.Header, tagSenderLocationID, s.sessionID.SenderLocationID)
-
-	msg.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
-	optionallySetID(msg.Header, tagTargetSubID, s.sessionID.TargetSubID)
-	optionallySetID(msg.Header, tagTargetLocationID, s.sessionID.TargetLocationID)
+	msg.Header.SetString(tagTargetCompID, s.sessionID.TargetCompID)
+	optionallySetID(msg, tagTargetSubID, s.sessionID.TargetSubID)
+	optionallySetID(msg, tagTargetLocationID, s.sessionID.TargetLocationID)
 
 	s.insertSendingTime(msg)
 
