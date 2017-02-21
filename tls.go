@@ -68,8 +68,9 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	tlsConfig.ClientCAs = certPool
 	tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
 
+	minVersion := "TLS12"
 	if settings.HasSetting(config.SocketMinimumTLSVersion) {
-		minVersion, err := settings.Setting(config.SocketMinimumTLSVersion)
+		minVersion, err = settings.Setting(config.SocketMinimumTLSVersion)
 		if err != nil {
 			return
 		}
@@ -82,8 +83,6 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		case "TLS11":
 			tlsConfig.MinVersion = tls.VersionTLS11
 		case "TLS12":
-			tlsConfig.MinVersion = tls.VersionTLS12
-		default:
 			tlsConfig.MinVersion = tls.VersionTLS12
 		}
 	}
