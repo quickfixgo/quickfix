@@ -111,6 +111,9 @@ func (s *TLSTestSuite) TestInsecureSkipVerifyAndCerts() {
 }
 
 func (s *TLSTestSuite) TestMinimumTLSVersion() {
+	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
+	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
+
 	// SSL30
 	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "SSL30")
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
