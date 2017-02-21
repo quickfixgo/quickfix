@@ -109,3 +109,37 @@ func (s *TLSTestSuite) TestInsecureSkipVerifyAndCerts() {
 	s.True(tlsConfig.InsecureSkipVerify)
 	s.Len(tlsConfig.Certificates, 1)
 }
+
+func (s *TLSTestSuite) TestMinimumTLSVersion() {
+	// SSL30
+	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "SSL30")
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal(tlsConfig.MinVersion, tls.VersionSSL30)
+
+	// TLS10
+	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS10")
+	tlsConfig, err = loadTLSConfig(s.settings.GlobalSettings())
+
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal(tlsConfig.MinVersion, tls.VersionTLS10)
+
+	// TLS11
+	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS11")
+	tlsConfig, err = loadTLSConfig(s.settings.GlobalSettings())
+
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal(tlsConfig.MinVersion, tls.VersionTLS11)
+
+	// TLS12
+	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS12")
+	tlsConfig, err = loadTLSConfig(s.settings.GlobalSettings())
+
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal(tlsConfig.MinVersion, tls.VersionTLS12)
+}
