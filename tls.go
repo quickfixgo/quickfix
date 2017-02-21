@@ -69,7 +69,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
 
 	if settings.HasSetting(config.SocketMinimumTLSVersion) {
-		minVersion, err = settings.Setting(config.SocketMinimumTLSVersion)
+		minVersion, err := settings.Setting(config.SocketMinimumTLSVersion)
 		if err != nil {
 			return
 		}
@@ -78,11 +78,11 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		case "SSL30":
 			tlsConfig.MinVersion = tls.VersionSSL30
 		case "TLS10":
-			tlsConfig.MinVersion = tls.tls.VersionTLS10
+			tlsConfig.MinVersion = tls.VersionTLS10
 		case "TLS11":
-			tlsConfig.MinVersion = tls.tls.VersionTLS11
+			tlsConfig.MinVersion = tls.VersionTLS11
 		case "TLS12":
-			tlsConfig.MinVersion = tls.tls.VersionTLS12
+			tlsConfig.MinVersion = tls.VersionTLS12
 		default:
 			tlsConfig.MinVersion = tls.VersionTLS12
 		}
