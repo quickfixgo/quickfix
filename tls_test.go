@@ -120,7 +120,7 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
-	s.Equal(tlsConfig.MinVersion, tls.VersionSSL30)
+	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionSSL30))
 
 	// TLS10
 	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS10")
@@ -128,7 +128,7 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
-	s.Equal(tlsConfig.MinVersion, tls.VersionTLS10)
+	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionTLS10))
 
 	// TLS11
 	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS11")
@@ -136,7 +136,7 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
-	s.Equal(tlsConfig.MinVersion, tls.VersionTLS11)
+	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionTLS11))
 
 	// TLS12
 	s.settings.GlobalSettings().Set(config.SocketMinimumTLSVersion, "TLS12")
@@ -144,5 +144,5 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
-	s.Equal(tlsConfig.MinVersion, tls.VersionTLS12)
+	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionTLS12))
 }
