@@ -40,6 +40,26 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	tlsConfig.Certificates = make([]tls.Certificate, 1)
 	tlsConfig.InsecureSkipVerify = insecureSkipVerify
 
+	minVersion := "TLS12"
+	if settings.HasSetting(config.SocketMinimumTLSVersion) {
+		minVersion, err = settings.Setting(config.SocketMinimumTLSVersion)
+		if err != nil {
+			return
+		}
+
+		switch minVersion {
+		case "SSL30":
+			tlsConfig.MinVersion = tls.VersionSSL30
+		case "TLS10":
+			tlsConfig.MinVersion = tls.VersionTLS10
+		case "TLS11":
+			tlsConfig.MinVersion = tls.VersionTLS11
+		case "TLS12":
+			tlsConfig.MinVersion = tls.VersionTLS12
+		}
+	}
+
+
 	if tlsConfig.Certificates[0], err = tls.LoadX509KeyPair(certificateFile, privateKeyFile); err != nil {
 		return
 	}
