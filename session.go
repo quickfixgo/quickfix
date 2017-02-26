@@ -7,6 +7,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 )
@@ -40,6 +41,8 @@ type session struct {
 
 	admin chan interface{}
 	internal.SessionSettings
+	transportDataDictionary *datadictionary.DataDictionary
+	appDataDictionary       *datadictionary.DataDictionary
 
 	messagePool
 }
