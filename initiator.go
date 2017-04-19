@@ -49,6 +49,14 @@ func (i *Initiator) Stop() {
 	i.wg.Wait()
 }
 
+func (i *Initiator) GetSession(sessionID SessionID) *session {
+	if s, ok := i.sessions[sessionID]; ok {
+		return s
+	}
+
+	return nil
+}
+
 //NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := &Initiator{
