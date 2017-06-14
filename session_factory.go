@@ -97,16 +97,15 @@ func (f sessionFactory) newSession(
 				return
 			}
 
-			var transportDataDictionary, appDataDictionary *datadictionary.DataDictionary
-			if transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
+			if s.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
 				return
 			}
 
-			if appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
+			if s.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
 				return
 			}
 
-			s.validator = &fixtValidator{transportDataDictionary, appDataDictionary, validatorSettings}
+			s.validator = &fixtValidator{s.transportDataDictionary, s.appDataDictionary, validatorSettings}
 		}
 	} else if settings.HasSetting(config.DataDictionary) {
 		var dataDictionaryPath string
@@ -114,12 +113,11 @@ func (f sessionFactory) newSession(
 			return
 		}
 
-		var dataDictionary *datadictionary.DataDictionary
-		if dataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
+		if s.appDataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 			return
 		}
 
-		s.validator = &fixValidator{dataDictionary, validatorSettings}
+		s.validator = &fixValidator{s.appDataDictionary, validatorSettings}
 	}
 
 	if settings.HasSetting(config.ResetOnLogon) {

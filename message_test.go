@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/stretchr/testify/suite"
 )
@@ -18,7 +19,7 @@ func BenchmarkParseMessage(b *testing.B) {
 }
 
 type MessageSuite struct {
-	suite.Suite
+	QuickFIXSuite
 	msg *Message
 }
 
@@ -51,6 +52,26 @@ func (s *MessageSuite) TestParseMessage() {
 	s.True(s.msg.IsMsgTypeOf(enum.MsgType_ORDER_SINGLE))
 
 	s.False(s.msg.IsMsgTypeOf(enum.MsgType_LOGON))
+}
+
+func (s *MessageSuite) TestParseMessageWithDataDictionary() {
+	dict := new(datadictionary.DataDictionary)
+	dict.Header = &datadictionary.MessageDef{
+		Fields: map[int]*datadictionary.FieldDef{
+			10030: nil,
+		},
+	}
+	dict.Trailer = &datadictionary.MessageDef{
+		Fields: map[int]*datadictionary.FieldDef{
+			5050: nil,
+		},
+	}
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=039")
+
+	err := ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict)
+	s.Nil(err)
+	s.FieldEquals(Tag(10030), "CUST", s.msg.Header)
+	s.FieldEquals(Tag(5050), "HELLO", s.msg.Trailer)
 }
 
 func (s *MessageSuite) TestParseOutOfOrder() {
