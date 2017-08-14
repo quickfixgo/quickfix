@@ -2,7 +2,7 @@ CREATE SEQUENCE messages_log_sequence;
 
 CREATE TABLE messages_log (
   id INTEGER DEFAULT NEXTVAL('messages_log_sequence'),
-  time TIMESTAMP NOT NULL,
+  time TIMESTAMP WITH TIME ZONE NOT NULL,
   beginstring CHAR(8) NOT NULL,
   sendercompid VARCHAR(64) NOT NULL,
   sendersubid VARCHAR(64) NOT NULL,
