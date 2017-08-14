@@ -1,3 +1,29 @@
+## 0.6.0 (August 14, 2017)
+
+FEATURES
+
+* CheckLatency [GH 241, 266]
+* ResendRequestChunkSize [GH 243, 245]
+* EnableLastMsgSeqNumProcessed  [GH 253, 256]
+
+ENHANCEMENTS
+
+* config.SocketTLSForTesting(bool) [GH 235]
+* API Interface Enhancements [GH 251, 252, 254, 255, 257, 258, 259]
+* Misc. Performance Optimizations [GH 260, 261, 263, 264, 265, 268, 270, 271, 272, 273, 274, 275]
+* TLS Configuration [GH 279, 280]
+* Use data dictionary for parsing fix messages [GH 281]
+
+BUG FIXES
+
+* Resend logon fix [GH 244]
+* PossDup messages with seqnum too low should not be sent to FromCallbacks [GH 246, 247]
+* Router should not reject admin messages or business rejects [GH 249, 250]
+* Fixes file log output for incoming, outgoing [GH 262]
+* message.String() returns rawMessage if set, builds otherwise [GH 269]
+* Use timestamp with time zone for postgres sql [GH 286]
+
+
 ## 0.5.0 (September 1, 2016)
 
 FEATURES
