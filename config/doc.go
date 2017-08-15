@@ -130,6 +130,15 @@ Determines if session state should be restored from persistence layer when loggi
 
 Defaults to N.
 
+TimeStampPrecision
+
+Determines precision for timestamps in (Orig)SendingTime fields that are sent out. Only available for FIX.4.2 and greater, FIX versions earlier than FIX.4.2 will use timestamp resolution in seconds. Valid Values:
+ SECONDS
+ MILLIS
+ MICROS
+ NANOS
+
+Defaults to MILLIS.
 
 Validation
 

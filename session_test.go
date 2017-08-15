@@ -65,6 +65,37 @@ func (s *SessionSuite) TestFillDefaultHeader() {
 	s.FieldEquals(tagSenderLocationID, "SNDL", msg.Header)
 }
 
+func (s *SessionSuite) TestInsertSendingTime() {
+	var tests = []struct {
+		BeginString       string
+		Precision         TimestampPrecision
+		ExpectedPrecision TimestampPrecision
+	}{
+		{enum.BeginStringFIX40, Millis, Seconds}, //config is ignored for fix < 4.2
+		{enum.BeginStringFIX41, Millis, Seconds},
+
+		{enum.BeginStringFIX42, Millis, Millis},
+		{enum.BeginStringFIX42, Micros, Micros},
+		{enum.BeginStringFIX42, Nanos, Nanos},
+
+		{enum.BeginStringFIX43, Nanos, Nanos},
+		{enum.BeginStringFIX44, Nanos, Nanos},
+		{enum.BeginStringFIXT11, Nanos, Nanos},
+	}
+
+	for _, test := range tests {
+		s.session.sessionID.BeginString = test.BeginString
+		s.timestampPrecision = test.Precision
+
+		msg := NewMessage()
+		s.session.insertSendingTime(msg)
+
+		var f FIXUTCTimestamp
+		s.Nil(msg.Header.GetField(tagSendingTime, &f))
+		s.Equal(f.Precision, test.ExpectedPrecision)
+	}
+}
+
 func (s *SessionSuite) TestCheckCorrectCompID() {
 	s.session.sessionID.TargetCompID = "TAR"
 	s.session.sessionID.SenderCompID = "SND"

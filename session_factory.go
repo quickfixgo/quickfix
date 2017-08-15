@@ -224,6 +224,28 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.TimeStampPrecision) {
+		var precisionStr string
+		if precisionStr, err = settings.Setting(config.TimeStampPrecision); err != nil {
+			return
+		}
+
+		switch precisionStr {
+		case "SECONDS":
+			s.timestampPrecision = Seconds
+		case "MILLIS":
+			s.timestampPrecision = Millis
+		case "MICROS":
+			s.timestampPrecision = Micros
+		case "NANOS":
+			s.timestampPrecision = Nanos
+
+		default:
+			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: precisionStr}
+			return
+		}
+	}
+
 	if f.BuildInitiators {
 		if err = f.buildInitiatorSettings(s, settings); err != nil {
 			return

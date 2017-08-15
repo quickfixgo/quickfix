@@ -45,6 +45,7 @@ type session struct {
 	appDataDictionary       *datadictionary.DataDictionary
 
 	messagePool
+	timestampPrecision TimestampPrecision
 }
 
 func (s *session) logError(err error) {
@@ -96,9 +97,9 @@ func (s *session) insertSendingTime(msg *Message) {
 	sendingTime := time.Now().UTC()
 
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
-		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
+		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, Precision: s.timestampPrecision})
 	} else {
-		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, NoMillis: true})
+		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, Precision: Seconds})
 	}
 }
 
