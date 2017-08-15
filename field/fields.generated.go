@@ -2351,12 +2351,17 @@ func (f ComplexEventEndDateField) Tag() quickfix.Tag { return tag.ComplexEventEn
 
 //NewComplexEventEndDate returns a new ComplexEventEndDateField initialized with val
 func NewComplexEventEndDate(val time.Time) ComplexEventEndDateField {
-	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewComplexEventEndDateWithPrecision(val, quickfix.Millis)
 }
 
 //NewComplexEventEndDateNoMillis returns a new ComplexEventEndDateField initialized with val without millisecs
 func NewComplexEventEndDateNoMillis(val time.Time) ComplexEventEndDateField {
-	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewComplexEventEndDateWithPrecision(val, quickfix.Seconds)
+}
+
+//NewComplexEventEndDateWithPrecision returns a new ComplexEventEndDateField initialized with val of specified precision
+func NewComplexEventEndDateWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ComplexEventEndDateField {
+	return ComplexEventEndDateField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ComplexEventEndDateField) Value() time.Time { return f.Time }
@@ -2440,12 +2445,17 @@ func (f ComplexEventStartDateField) Tag() quickfix.Tag { return tag.ComplexEvent
 
 //NewComplexEventStartDate returns a new ComplexEventStartDateField initialized with val
 func NewComplexEventStartDate(val time.Time) ComplexEventStartDateField {
-	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewComplexEventStartDateWithPrecision(val, quickfix.Millis)
 }
 
 //NewComplexEventStartDateNoMillis returns a new ComplexEventStartDateField initialized with val without millisecs
 func NewComplexEventStartDateNoMillis(val time.Time) ComplexEventStartDateField {
-	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewComplexEventStartDateWithPrecision(val, quickfix.Seconds)
+}
+
+//NewComplexEventStartDateWithPrecision returns a new ComplexEventStartDateField initialized with val of specified precision
+func NewComplexEventStartDateWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ComplexEventStartDateField {
+	return ComplexEventStartDateField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ComplexEventStartDateField) Value() time.Time { return f.Time }
@@ -2776,12 +2786,17 @@ func (f ContraTradeTimeField) Tag() quickfix.Tag { return tag.ContraTradeTime }
 
 //NewContraTradeTime returns a new ContraTradeTimeField initialized with val
 func NewContraTradeTime(val time.Time) ContraTradeTimeField {
-	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewContraTradeTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewContraTradeTimeNoMillis returns a new ContraTradeTimeField initialized with val without millisecs
 func NewContraTradeTimeNoMillis(val time.Time) ContraTradeTimeField {
-	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewContraTradeTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewContraTradeTimeWithPrecision returns a new ContraTradeTimeField initialized with val of specified precision
+func NewContraTradeTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ContraTradeTimeField {
+	return ContraTradeTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ContraTradeTimeField) Value() time.Time { return f.Time }
@@ -3627,12 +3642,17 @@ func (f DerivativeEventTimeField) Tag() quickfix.Tag { return tag.DerivativeEven
 
 //NewDerivativeEventTime returns a new DerivativeEventTimeField initialized with val
 func NewDerivativeEventTime(val time.Time) DerivativeEventTimeField {
-	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewDerivativeEventTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewDerivativeEventTimeNoMillis returns a new DerivativeEventTimeField initialized with val without millisecs
 func NewDerivativeEventTimeNoMillis(val time.Time) DerivativeEventTimeField {
-	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewDerivativeEventTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewDerivativeEventTimeWithPrecision returns a new DerivativeEventTimeField initialized with val of specified precision
+func NewDerivativeEventTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) DerivativeEventTimeField {
+	return DerivativeEventTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f DerivativeEventTimeField) Value() time.Time { return f.Time }
@@ -4811,12 +4831,17 @@ func (f EffectiveTimeField) Tag() quickfix.Tag { return tag.EffectiveTime }
 
 //NewEffectiveTime returns a new EffectiveTimeField initialized with val
 func NewEffectiveTime(val time.Time) EffectiveTimeField {
-	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewEffectiveTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewEffectiveTimeNoMillis returns a new EffectiveTimeField initialized with val without millisecs
 func NewEffectiveTimeNoMillis(val time.Time) EffectiveTimeField {
-	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewEffectiveTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewEffectiveTimeWithPrecision returns a new EffectiveTimeField initialized with val of specified precision
+func NewEffectiveTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) EffectiveTimeField {
+	return EffectiveTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f EffectiveTimeField) Value() time.Time { return f.Time }
@@ -5455,12 +5480,17 @@ func (f EventTimeField) Tag() quickfix.Tag { return tag.EventTime }
 
 //NewEventTime returns a new EventTimeField initialized with val
 func NewEventTime(val time.Time) EventTimeField {
-	return EventTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewEventTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewEventTimeNoMillis returns a new EventTimeField initialized with val without millisecs
 func NewEventTimeNoMillis(val time.Time) EventTimeField {
-	return EventTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewEventTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewEventTimeWithPrecision returns a new EventTimeField initialized with val of specified precision
+func NewEventTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) EventTimeField {
+	return EventTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f EventTimeField) Value() time.Time { return f.Time }
@@ -5702,12 +5732,17 @@ func (f ExecValuationPointField) Tag() quickfix.Tag { return tag.ExecValuationPo
 
 //NewExecValuationPoint returns a new ExecValuationPointField initialized with val
 func NewExecValuationPoint(val time.Time) ExecValuationPointField {
-	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewExecValuationPointWithPrecision(val, quickfix.Millis)
 }
 
 //NewExecValuationPointNoMillis returns a new ExecValuationPointField initialized with val without millisecs
 func NewExecValuationPointNoMillis(val time.Time) ExecValuationPointField {
-	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewExecValuationPointWithPrecision(val, quickfix.Seconds)
+}
+
+//NewExecValuationPointWithPrecision returns a new ExecValuationPointField initialized with val of specified precision
+func NewExecValuationPointWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ExecValuationPointField {
+	return ExecValuationPointField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ExecValuationPointField) Value() time.Time { return f.Time }
@@ -5808,12 +5843,17 @@ func (f ExpireTimeField) Tag() quickfix.Tag { return tag.ExpireTime }
 
 //NewExpireTime returns a new ExpireTimeField initialized with val
 func NewExpireTime(val time.Time) ExpireTimeField {
-	return ExpireTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewExpireTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewExpireTimeNoMillis returns a new ExpireTimeField initialized with val without millisecs
 func NewExpireTimeNoMillis(val time.Time) ExpireTimeField {
-	return ExpireTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewExpireTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewExpireTimeWithPrecision returns a new ExpireTimeField initialized with val of specified precision
+func NewExpireTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ExpireTimeField {
+	return ExpireTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ExpireTimeField) Value() time.Time { return f.Time }
@@ -6225,12 +6265,17 @@ func (f HopSendingTimeField) Tag() quickfix.Tag { return tag.HopSendingTime }
 
 //NewHopSendingTime returns a new HopSendingTimeField initialized with val
 func NewHopSendingTime(val time.Time) HopSendingTimeField {
-	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewHopSendingTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewHopSendingTimeNoMillis returns a new HopSendingTimeField initialized with val without millisecs
 func NewHopSendingTimeNoMillis(val time.Time) HopSendingTimeField {
-	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewHopSendingTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewHopSendingTimeWithPrecision returns a new HopSendingTimeField initialized with val of specified precision
+func NewHopSendingTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) HopSendingTimeField {
+	return HopSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f HopSendingTimeField) Value() time.Time { return f.Time }
@@ -6870,12 +6915,17 @@ func (f LastUpdateTimeField) Tag() quickfix.Tag { return tag.LastUpdateTime }
 
 //NewLastUpdateTime returns a new LastUpdateTimeField initialized with val
 func NewLastUpdateTime(val time.Time) LastUpdateTimeField {
-	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewLastUpdateTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewLastUpdateTimeNoMillis returns a new LastUpdateTimeField initialized with val without millisecs
 func NewLastUpdateTimeNoMillis(val time.Time) LastUpdateTimeField {
-	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewLastUpdateTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewLastUpdateTimeWithPrecision returns a new LastUpdateTimeField initialized with val of specified precision
+func NewLastUpdateTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) LastUpdateTimeField {
+	return LastUpdateTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f LastUpdateTimeField) Value() time.Time { return f.Time }
@@ -12075,12 +12125,17 @@ func (f OnBehalfOfSendingTimeField) Tag() quickfix.Tag { return tag.OnBehalfOfSe
 
 //NewOnBehalfOfSendingTime returns a new OnBehalfOfSendingTimeField initialized with val
 func NewOnBehalfOfSendingTime(val time.Time) OnBehalfOfSendingTimeField {
-	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewOnBehalfOfSendingTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewOnBehalfOfSendingTimeNoMillis returns a new OnBehalfOfSendingTimeField initialized with val without millisecs
 func NewOnBehalfOfSendingTimeNoMillis(val time.Time) OnBehalfOfSendingTimeField {
-	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewOnBehalfOfSendingTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewOnBehalfOfSendingTimeWithPrecision returns a new OnBehalfOfSendingTimeField initialized with val of specified precision
+func NewOnBehalfOfSendingTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) OnBehalfOfSendingTimeField {
+	return OnBehalfOfSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f OnBehalfOfSendingTimeField) Value() time.Time { return f.Time }
@@ -12480,12 +12535,17 @@ func (f OrigOrdModTimeField) Tag() quickfix.Tag { return tag.OrigOrdModTime }
 
 //NewOrigOrdModTime returns a new OrigOrdModTimeField initialized with val
 func NewOrigOrdModTime(val time.Time) OrigOrdModTimeField {
-	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewOrigOrdModTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewOrigOrdModTimeNoMillis returns a new OrigOrdModTimeField initialized with val without millisecs
 func NewOrigOrdModTimeNoMillis(val time.Time) OrigOrdModTimeField {
-	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewOrigOrdModTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewOrigOrdModTimeWithPrecision returns a new OrigOrdModTimeField initialized with val of specified precision
+func NewOrigOrdModTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) OrigOrdModTimeField {
+	return OrigOrdModTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f OrigOrdModTimeField) Value() time.Time { return f.Time }
@@ -12524,12 +12584,17 @@ func (f OrigSendingTimeField) Tag() quickfix.Tag { return tag.OrigSendingTime }
 
 //NewOrigSendingTime returns a new OrigSendingTimeField initialized with val
 func NewOrigSendingTime(val time.Time) OrigSendingTimeField {
-	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewOrigSendingTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewOrigSendingTimeNoMillis returns a new OrigSendingTimeField initialized with val without millisecs
 func NewOrigSendingTimeNoMillis(val time.Time) OrigSendingTimeField {
-	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewOrigSendingTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewOrigSendingTimeWithPrecision returns a new OrigSendingTimeField initialized with val of specified precision
+func NewOrigSendingTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) OrigSendingTimeField {
+	return OrigSendingTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f OrigSendingTimeField) Value() time.Time { return f.Time }
@@ -12542,12 +12607,17 @@ func (f OrigTimeField) Tag() quickfix.Tag { return tag.OrigTime }
 
 //NewOrigTime returns a new OrigTimeField initialized with val
 func NewOrigTime(val time.Time) OrigTimeField {
-	return OrigTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewOrigTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewOrigTimeNoMillis returns a new OrigTimeField initialized with val without millisecs
 func NewOrigTimeNoMillis(val time.Time) OrigTimeField {
-	return OrigTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewOrigTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewOrigTimeWithPrecision returns a new OrigTimeField initialized with val of specified precision
+func NewOrigTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) OrigTimeField {
+	return OrigTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f OrigTimeField) Value() time.Time { return f.Time }
@@ -13976,12 +14046,17 @@ func (f QuoteSetValidUntilTimeField) Tag() quickfix.Tag { return tag.QuoteSetVal
 
 //NewQuoteSetValidUntilTime returns a new QuoteSetValidUntilTimeField initialized with val
 func NewQuoteSetValidUntilTime(val time.Time) QuoteSetValidUntilTimeField {
-	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewQuoteSetValidUntilTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewQuoteSetValidUntilTimeNoMillis returns a new QuoteSetValidUntilTimeField initialized with val without millisecs
 func NewQuoteSetValidUntilTimeNoMillis(val time.Time) QuoteSetValidUntilTimeField {
-	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewQuoteSetValidUntilTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewQuoteSetValidUntilTimeWithPrecision returns a new QuoteSetValidUntilTimeField initialized with val of specified precision
+func NewQuoteSetValidUntilTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) QuoteSetValidUntilTimeField {
+	return QuoteSetValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f QuoteSetValidUntilTimeField) Value() time.Time { return f.Time }
@@ -14507,12 +14582,17 @@ func (f RelSymTransactTimeField) Tag() quickfix.Tag { return tag.RelSymTransactT
 
 //NewRelSymTransactTime returns a new RelSymTransactTimeField initialized with val
 func NewRelSymTransactTime(val time.Time) RelSymTransactTimeField {
-	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewRelSymTransactTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewRelSymTransactTimeNoMillis returns a new RelSymTransactTimeField initialized with val without millisecs
 func NewRelSymTransactTimeNoMillis(val time.Time) RelSymTransactTimeField {
-	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewRelSymTransactTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewRelSymTransactTimeWithPrecision returns a new RelSymTransactTimeField initialized with val of specified precision
+func NewRelSymTransactTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) RelSymTransactTimeField {
+	return RelSymTransactTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f RelSymTransactTimeField) Value() time.Time { return f.Time }
@@ -16742,12 +16822,17 @@ func (f SendingTimeField) Tag() quickfix.Tag { return tag.SendingTime }
 
 //NewSendingTime returns a new SendingTimeField initialized with val
 func NewSendingTime(val time.Time) SendingTimeField {
-	return SendingTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewSendingTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewSendingTimeNoMillis returns a new SendingTimeField initialized with val without millisecs
 func NewSendingTimeNoMillis(val time.Time) SendingTimeField {
-	return SendingTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewSendingTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewSendingTimeWithPrecision returns a new SendingTimeField initialized with val of specified precision
+func NewSendingTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) SendingTimeField {
+	return SendingTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f SendingTimeField) Value() time.Time { return f.Time }
@@ -17533,12 +17618,17 @@ func (f SideTimeInForceField) Tag() quickfix.Tag { return tag.SideTimeInForce }
 
 //NewSideTimeInForce returns a new SideTimeInForceField initialized with val
 func NewSideTimeInForce(val time.Time) SideTimeInForceField {
-	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewSideTimeInForceWithPrecision(val, quickfix.Millis)
 }
 
 //NewSideTimeInForceNoMillis returns a new SideTimeInForceField initialized with val without millisecs
 func NewSideTimeInForceNoMillis(val time.Time) SideTimeInForceField {
-	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewSideTimeInForceWithPrecision(val, quickfix.Seconds)
+}
+
+//NewSideTimeInForceWithPrecision returns a new SideTimeInForceField initialized with val of specified precision
+func NewSideTimeInForceWithPrecision(val time.Time, precision quickfix.TimestampPrecision) SideTimeInForceField {
+	return SideTimeInForceField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f SideTimeInForceField) Value() time.Time { return f.Time }
@@ -17564,12 +17654,17 @@ func (f SideTrdRegTimestampField) Tag() quickfix.Tag { return tag.SideTrdRegTime
 
 //NewSideTrdRegTimestamp returns a new SideTrdRegTimestampField initialized with val
 func NewSideTrdRegTimestamp(val time.Time) SideTrdRegTimestampField {
-	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewSideTrdRegTimestampWithPrecision(val, quickfix.Millis)
 }
 
 //NewSideTrdRegTimestampNoMillis returns a new SideTrdRegTimestampField initialized with val without millisecs
 func NewSideTrdRegTimestampNoMillis(val time.Time) SideTrdRegTimestampField {
-	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewSideTrdRegTimestampWithPrecision(val, quickfix.Seconds)
+}
+
+//NewSideTrdRegTimestampWithPrecision returns a new SideTrdRegTimestampField initialized with val of specified precision
+func NewSideTrdRegTimestampWithPrecision(val time.Time, precision quickfix.TimestampPrecision) SideTrdRegTimestampField {
+	return SideTrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f SideTrdRegTimestampField) Value() time.Time { return f.Time }
@@ -18155,12 +18250,17 @@ func (f StrikeTimeField) Tag() quickfix.Tag { return tag.StrikeTime }
 
 //NewStrikeTime returns a new StrikeTimeField initialized with val
 func NewStrikeTime(val time.Time) StrikeTimeField {
-	return StrikeTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewStrikeTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewStrikeTimeNoMillis returns a new StrikeTimeField initialized with val without millisecs
 func NewStrikeTimeNoMillis(val time.Time) StrikeTimeField {
-	return StrikeTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewStrikeTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewStrikeTimeWithPrecision returns a new StrikeTimeField initialized with val of specified precision
+func NewStrikeTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) StrikeTimeField {
+	return StrikeTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f StrikeTimeField) Value() time.Time { return f.Time }
@@ -18881,12 +18981,17 @@ func (f TradSesCloseTimeField) Tag() quickfix.Tag { return tag.TradSesCloseTime 
 
 //NewTradSesCloseTime returns a new TradSesCloseTimeField initialized with val
 func NewTradSesCloseTime(val time.Time) TradSesCloseTimeField {
-	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTradSesCloseTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTradSesCloseTimeNoMillis returns a new TradSesCloseTimeField initialized with val without millisecs
 func NewTradSesCloseTimeNoMillis(val time.Time) TradSesCloseTimeField {
-	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTradSesCloseTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTradSesCloseTimeWithPrecision returns a new TradSesCloseTimeField initialized with val of specified precision
+func NewTradSesCloseTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TradSesCloseTimeField {
+	return TradSesCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TradSesCloseTimeField) Value() time.Time { return f.Time }
@@ -18899,12 +19004,17 @@ func (f TradSesEndTimeField) Tag() quickfix.Tag { return tag.TradSesEndTime }
 
 //NewTradSesEndTime returns a new TradSesEndTimeField initialized with val
 func NewTradSesEndTime(val time.Time) TradSesEndTimeField {
-	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTradSesEndTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTradSesEndTimeNoMillis returns a new TradSesEndTimeField initialized with val without millisecs
 func NewTradSesEndTimeNoMillis(val time.Time) TradSesEndTimeField {
-	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTradSesEndTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTradSesEndTimeWithPrecision returns a new TradSesEndTimeField initialized with val of specified precision
+func NewTradSesEndTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TradSesEndTimeField {
+	return TradSesEndTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TradSesEndTimeField) Value() time.Time { return f.Time }
@@ -18953,12 +19063,17 @@ func (f TradSesOpenTimeField) Tag() quickfix.Tag { return tag.TradSesOpenTime }
 
 //NewTradSesOpenTime returns a new TradSesOpenTimeField initialized with val
 func NewTradSesOpenTime(val time.Time) TradSesOpenTimeField {
-	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTradSesOpenTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTradSesOpenTimeNoMillis returns a new TradSesOpenTimeField initialized with val without millisecs
 func NewTradSesOpenTimeNoMillis(val time.Time) TradSesOpenTimeField {
-	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTradSesOpenTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTradSesOpenTimeWithPrecision returns a new TradSesOpenTimeField initialized with val of specified precision
+func NewTradSesOpenTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TradSesOpenTimeField {
+	return TradSesOpenTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TradSesOpenTimeField) Value() time.Time { return f.Time }
@@ -18971,12 +19086,17 @@ func (f TradSesPreCloseTimeField) Tag() quickfix.Tag { return tag.TradSesPreClos
 
 //NewTradSesPreCloseTime returns a new TradSesPreCloseTimeField initialized with val
 func NewTradSesPreCloseTime(val time.Time) TradSesPreCloseTimeField {
-	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTradSesPreCloseTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTradSesPreCloseTimeNoMillis returns a new TradSesPreCloseTimeField initialized with val without millisecs
 func NewTradSesPreCloseTimeNoMillis(val time.Time) TradSesPreCloseTimeField {
-	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTradSesPreCloseTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTradSesPreCloseTimeWithPrecision returns a new TradSesPreCloseTimeField initialized with val of specified precision
+func NewTradSesPreCloseTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TradSesPreCloseTimeField {
+	return TradSesPreCloseTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TradSesPreCloseTimeField) Value() time.Time { return f.Time }
@@ -19002,12 +19122,17 @@ func (f TradSesStartTimeField) Tag() quickfix.Tag { return tag.TradSesStartTime 
 
 //NewTradSesStartTime returns a new TradSesStartTimeField initialized with val
 func NewTradSesStartTime(val time.Time) TradSesStartTimeField {
-	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTradSesStartTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTradSesStartTimeNoMillis returns a new TradSesStartTimeField initialized with val without millisecs
 func NewTradSesStartTimeNoMillis(val time.Time) TradSesStartTimeField {
-	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTradSesStartTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTradSesStartTimeWithPrecision returns a new TradSesStartTimeField initialized with val of specified precision
+func NewTradSesStartTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TradSesStartTimeField {
+	return TradSesStartTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TradSesStartTimeField) Value() time.Time { return f.Time }
@@ -19426,12 +19551,17 @@ func (f TransBkdTimeField) Tag() quickfix.Tag { return tag.TransBkdTime }
 
 //NewTransBkdTime returns a new TransBkdTimeField initialized with val
 func NewTransBkdTime(val time.Time) TransBkdTimeField {
-	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTransBkdTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTransBkdTimeNoMillis returns a new TransBkdTimeField initialized with val without millisecs
 func NewTransBkdTimeNoMillis(val time.Time) TransBkdTimeField {
-	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTransBkdTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTransBkdTimeWithPrecision returns a new TransBkdTimeField initialized with val of specified precision
+func NewTransBkdTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TransBkdTimeField {
+	return TransBkdTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TransBkdTimeField) Value() time.Time { return f.Time }
@@ -19444,12 +19574,17 @@ func (f TransactTimeField) Tag() quickfix.Tag { return tag.TransactTime }
 
 //NewTransactTime returns a new TransactTimeField initialized with val
 func NewTransactTime(val time.Time) TransactTimeField {
-	return TransactTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTransactTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewTransactTimeNoMillis returns a new TransactTimeField initialized with val without millisecs
 func NewTransactTimeNoMillis(val time.Time) TransactTimeField {
-	return TransactTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTransactTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTransactTimeWithPrecision returns a new TransactTimeField initialized with val of specified precision
+func NewTransactTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TransactTimeField {
+	return TransactTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TransactTimeField) Value() time.Time { return f.Time }
@@ -19488,12 +19623,17 @@ func (f TrdRegTimestampField) Tag() quickfix.Tag { return tag.TrdRegTimestamp }
 
 //NewTrdRegTimestamp returns a new TrdRegTimestampField initialized with val
 func NewTrdRegTimestamp(val time.Time) TrdRegTimestampField {
-	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewTrdRegTimestampWithPrecision(val, quickfix.Millis)
 }
 
 //NewTrdRegTimestampNoMillis returns a new TrdRegTimestampField initialized with val without millisecs
 func NewTrdRegTimestampNoMillis(val time.Time) TrdRegTimestampField {
-	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewTrdRegTimestampWithPrecision(val, quickfix.Seconds)
+}
+
+//NewTrdRegTimestampWithPrecision returns a new TrdRegTimestampField initialized with val of specified precision
+func NewTrdRegTimestampWithPrecision(val time.Time, precision quickfix.TimestampPrecision) TrdRegTimestampField {
+	return TrdRegTimestampField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f TrdRegTimestampField) Value() time.Time { return f.Time }
@@ -21386,12 +21526,17 @@ func (f ValidUntilTimeField) Tag() quickfix.Tag { return tag.ValidUntilTime }
 
 //NewValidUntilTime returns a new ValidUntilTimeField initialized with val
 func NewValidUntilTime(val time.Time) ValidUntilTimeField {
-	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val}}
+	return NewValidUntilTimeWithPrecision(val, quickfix.Millis)
 }
 
 //NewValidUntilTimeNoMillis returns a new ValidUntilTimeField initialized with val without millisecs
 func NewValidUntilTimeNoMillis(val time.Time) ValidUntilTimeField {
-	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, NoMillis: true}}
+	return NewValidUntilTimeWithPrecision(val, quickfix.Seconds)
+}
+
+//NewValidUntilTimeWithPrecision returns a new ValidUntilTimeField initialized with val of specified precision
+func NewValidUntilTimeWithPrecision(val time.Time, precision quickfix.TimestampPrecision) ValidUntilTimeField {
+	return ValidUntilTimeField{quickfix.FIXUTCTimestamp{Time: val, Precision: precision}}
 }
 
 func (f ValidUntilTimeField) Value() time.Time { return f.Time }
