@@ -48,6 +48,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Equal(0, session.ResendRequestChunkSize)
 	s.False(session.EnableLastMsgSeqNumProcessed)
 	s.False(session.SkipCheckLatency)
+	s.Equal(Millis, session.timestampPrecision)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -443,4 +444,29 @@ func (s *SessionFactorySuite) TestConfigureSocketConnectAddressMulti() {
 
 	err = s.configureSocketConnectAddress(session, s.SessionSettings)
 	s.NotNil(err, "must have both host and port to be valid")
+}
+
+func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
+	s.SessionSettings.Set(config.TimeStampPrecision, "blah")
+
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+
+	var tests = []struct {
+		config    string
+		precision TimestampPrecision
+	}{
+		{"SECONDS", Seconds},
+		{"MILLIS", Millis},
+		{"MICROS", Micros},
+		{"NANOS", Nanos},
+	}
+
+	for _, test := range tests {
+		s.SessionSettings.Set(config.TimeStampPrecision, test.config)
+		session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+
+		s.Equal(session.timestampPrecision, test.precision)
+	}
 }

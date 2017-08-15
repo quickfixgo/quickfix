@@ -44,4 +44,5 @@ const (
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
 	CheckLatency                 string = "CheckLatency"
+	TimeStampPrecision           string = "TimeStampPrecision"
 )
