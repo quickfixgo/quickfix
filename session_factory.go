@@ -138,6 +138,12 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.ResetOnDisconnect) {
+		if s.ResetOnDisconnect, err = settings.BoolSetting(config.ResetOnDisconnect); err != nil {
+			return
+		}
+	}
+
 	if settings.HasSetting(config.EnableLastMsgSeqNumProcessed) {
 		if s.EnableLastMsgSeqNumProcessed, err = settings.BoolSetting(config.EnableLastMsgSeqNumProcessed); err != nil {
 			return

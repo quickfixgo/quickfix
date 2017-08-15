@@ -687,6 +687,20 @@ func (s *SessionSuite) TestOnAdminStop() {
 	s.Stopped()
 }
 
+func (s *SessionSuite) TestResetOnDisconnect() {
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	s.session.ResetOnDisconnect = false
+	s.session.onDisconnect()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.ResetOnDisconnect = true
+	s.session.onDisconnect()
+	s.ExpectStoreReset()
+}
+
 type SessionSendTestSuite struct {
 	SessionSuiteRig
 }

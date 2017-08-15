@@ -673,6 +673,12 @@ func (s *session) returnToPool(msg *Message) {
 
 func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
+	if s.ResetOnDisconnect {
+		if err := s.dropAndReset(); err != nil {
+			s.logError(err)
+		}
+	}
+
 	if s.messageOut != nil {
 		close(s.messageOut)
 		s.messageOut = nil
