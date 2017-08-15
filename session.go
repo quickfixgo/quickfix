@@ -98,7 +98,7 @@ func (s *session) insertSendingTime(msg *Message) {
 	if s.sessionID.BeginString >= enum.BeginStringFIX42 {
 		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime})
 	} else {
-		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, NoMillis: true})
+		msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: sendingTime, Precision: Seconds})
 	}
 }
 
