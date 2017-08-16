@@ -33,6 +33,7 @@ const (
 	ResetOnLogon                 string = "ResetOnLogon"
 	RefreshOnLogon               string = "RefreshOnLogon"
 	ResetOnLogout                string = "ResetOnLogout"
+	ResetOnDisconnect            string = "ResetOnDisconnect"
 	ReconnectInterval            string = "ReconnectInterval"
 	HeartBtInt                   string = "HeartBtInt"
 	FileLogPath                  string = "FileLogPath"

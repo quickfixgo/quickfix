@@ -7,6 +7,7 @@ type SessionSettings struct {
 	ResetOnLogon                 bool
 	RefreshOnLogon               bool
 	ResetOnLogout                bool
+	ResetOnDisconnect            bool
 	HeartBtInt                   time.Duration
 	SessionTime                  *TimeRange
 	InitiateLogon                bool

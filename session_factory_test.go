@@ -42,6 +42,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.False(session.ResetOnLogon)
 	s.False(session.RefreshOnLogon)
 	s.False(session.ResetOnLogout)
+	s.False(session.ResetOnDisconnect)
 	s.Nil(session.SessionTime, "By default, start and end time unset")
 	s.Equal("", session.DefaultApplVerID)
 	s.False(session.InitiateLogon)
@@ -99,6 +100,23 @@ func (s *SessionFactorySuite) TestResetOnLogout() {
 		s.NotNil(session)
 
 		s.Equal(test.expected, session.ResetOnLogout)
+	}
+}
+
+func (s *SessionFactorySuite) TestResetOnDisconnect() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", true}, {"N", false}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.ResetOnDisconnect, test.setting)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.ResetOnDisconnect)
 	}
 }
 

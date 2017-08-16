@@ -122,6 +122,14 @@ Determines if sequence numbers should be reset to 1 after a normal logout termin
 
 Defaults to N.
 
+ResetOnDisconnect
+
+Determines if sequence numbers should be reset to 1 after an abnormal termination. Valid Values:
+ Y
+ N
+
+Defaults to N.
+
 RefreshOnLogon
 
 Determines if session state should be restored from persistence layer when logging on. Useful for creating hot failover sessions. Valid Values:
