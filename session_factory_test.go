@@ -50,6 +50,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.False(session.EnableLastMsgSeqNumProcessed)
 	s.False(session.SkipCheckLatency)
 	s.Equal(Millis, session.timestampPrecision)
+	s.Equal(120*time.Second, session.MaxLatency)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -487,4 +488,23 @@ func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
 
 		s.Equal(session.timestampPrecision, test.precision)
 	}
+}
+
+func (s *SessionFactorySuite) TestNewSessionMaxLatency() {
+	s.SessionSettings.Set(config.MaxLatency, "not a number")
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "MaxLatency must be a number")
+
+	s.SessionSettings.Set(config.MaxLatency, "-20")
+	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "MaxLatency must be positive")
+
+	s.SessionSettings.Set(config.MaxLatency, "0")
+	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "MaxLatency must be positive")
+
+	s.SessionSettings.Set(config.MaxLatency, "20")
+	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.Equal(session.MaxLatency, 20*time.Second)
 }
