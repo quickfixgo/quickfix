@@ -177,6 +177,7 @@ func (s *SessionSuite) TestCheckTargetTooHigh() {
 }
 
 func (s *SessionSuite) TestCheckSendingTime() {
+	s.session.MaxLatency = time.Duration(120) * time.Second
 	msg := NewMessage()
 
 	err := s.session.checkSendingTime(msg)

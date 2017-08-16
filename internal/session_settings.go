@@ -14,6 +14,7 @@ type SessionSettings struct {
 	ResendRequestChunkSize       int
 	EnableLastMsgSeqNumProcessed bool
 	SkipCheckLatency             bool
+	MaxLatency                   time.Duration
 
 	//required on logon for FIX.T.1 messages
 	DefaultApplVerID string

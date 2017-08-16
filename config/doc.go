@@ -210,6 +210,12 @@ If set to Y, messages must be received from the counterparty within a defined nu
 
 Defaults to Y.
 
+MaxLatency
+
+If CheckLatency is set to Y, this defines the number of seconds latency allowed for a message to be processed. Value must be positive integer.
+
+Defaults to 120.
+
 ReconnectInterval
 
 Time between reconnection attempts in seconds. Only used for initiators.    Value must be positive integer.

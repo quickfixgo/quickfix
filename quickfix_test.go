@@ -205,6 +205,7 @@ func (s *SessionSuiteRig) Init() {
 		messageOut:   s.Receiver.sendChannel,
 		sessionEvent: make(chan internal.Event),
 	}
+	s.MaxLatency = 120 * time.Second
 }
 
 func (s *SessionSuiteRig) State(state sessionState) {

@@ -159,6 +159,22 @@ func (f sessionFactory) newSession(
 		s.SkipCheckLatency = !doCheckLatency
 	}
 
+	if !settings.HasSetting(config.MaxLatency) {
+		s.MaxLatency = 120 * time.Second
+	} else {
+		var maxLatency int
+		if maxLatency, err = settings.IntSetting(config.MaxLatency); err != nil {
+			return
+		}
+
+		if maxLatency <= 0 {
+			err = errors.New("MaxLatency must be a positive integer")
+			return
+		}
+
+		s.MaxLatency = time.Duration(maxLatency) * time.Second
+	}
+
 	if settings.HasSetting(config.ResendRequestChunkSize) {
 		if s.ResendRequestChunkSize, err = settings.IntSetting(config.ResendRequestChunkSize); err != nil {
 			return

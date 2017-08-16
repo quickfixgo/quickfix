@@ -46,4 +46,5 @@ const (
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
 	CheckLatency                 string = "CheckLatency"
 	TimeStampPrecision           string = "TimeStampPrecision"
+	MaxLatency                   string = "MaxLatency"
 )

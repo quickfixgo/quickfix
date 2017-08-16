@@ -594,7 +594,7 @@ func (s *session) checkSendingTime(msg *Message) MessageRejectError {
 		return err
 	}
 
-	if delta := time.Since(sendingTime); delta <= -1*time.Duration(120)*time.Second || delta >= time.Duration(120)*time.Second {
+	if delta := time.Since(sendingTime); delta <= -1*s.MaxLatency || delta >= s.MaxLatency {
 		return sendingTimeAccuracyProblem()
 	}
 
