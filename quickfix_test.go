@@ -6,6 +6,7 @@ import (
 	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -224,6 +225,7 @@ func (s *SessionSuiteRig) LastToAppMessageSent() {
 }
 
 func (s *SessionSuiteRig) LastToAdminMessageSent() {
+	require.NotNil(s.T(), s.MockApp.lastToAdmin, "No ToAdmin received")
 	s.MessageSentEquals(s.MockApp.lastToAdmin)
 }
 

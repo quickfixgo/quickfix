@@ -47,4 +47,5 @@ const (
 	CheckLatency                 string = "CheckLatency"
 	TimeStampPrecision           string = "TimeStampPrecision"
 	MaxLatency                   string = "MaxLatency"
+	PersistMessages              string = "PersistMessages"
 )
