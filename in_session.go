@@ -203,6 +203,11 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 }
 
 func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int, inReplyTo Message) (err error) {
+	if session.DisableMessagePersist {
+		err = state.generateSequenceReset(session, beginSeqNo, endSeqNo+1, inReplyTo)
+		return
+	}
+
 	msgs, err := session.store.GetMessages(beginSeqNo, endSeqNo)
 	if err != nil {
 		session.log.OnEventf("error retrieving messages from store: %s", err.Error())

@@ -51,6 +51,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.False(session.SkipCheckLatency)
 	s.Equal(Millis, session.timestampPrecision)
 	s.Equal(120*time.Second, session.MaxLatency)
+	s.False(session.DisableMessagePersist)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -507,4 +508,21 @@ func (s *SessionFactorySuite) TestNewSessionMaxLatency() {
 	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.Nil(err)
 	s.Equal(session.MaxLatency, 20*time.Second)
+}
+
+func (s *SessionFactorySuite) TestPersistMessages() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", false}, {"N", true}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.PersistMessages, test.setting)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.DisableMessagePersist)
+	}
 }

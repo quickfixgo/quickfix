@@ -266,6 +266,14 @@ SocketMinimumTLSVersion
 
 Specify the Minimum TLS version to use when creating a secure connection. The valid choices are SSL30, TLS10, TLS11, TLS12. Defaults to TLS12.
 
+PersistMessages
+
+If set to N, no messages will be persisted. This will force QuickFIX/Go to always send GapFills instead of resending messages. Use this if you know you never want to resend a message. Useful for market data streams.  Valid Values:
+ Y
+ N
+
+Defaults to Y.
+
 FileLogPath
 
 Directory to store logs.	Value must be valid directory for storing files, application must have write access.

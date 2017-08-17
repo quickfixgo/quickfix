@@ -838,6 +838,18 @@ func (suite *SessionSendTestSuite) TestSendEnableLastMsgSeqNumProcessed() {
 	suite.FieldEquals(tagLastMsgSeqNumProcessed, 44, suite.MockApp.lastToApp.Header)
 }
 
+func (suite *SessionSendTestSuite) TestSendDisableMessagePersist() {
+	suite.session.State = inSession{}
+	suite.session.DisableMessagePersist = true
+
+	suite.MockApp.On("ToApp").Return(nil)
+	require.Nil(suite.T(), suite.send(suite.NewOrderSingle()))
+	suite.MockApp.AssertExpectations(suite.T())
+	suite.LastToAppMessageSent()
+	suite.NoMessagePersisted(1)
+	suite.NextSenderMsgSeqNum(2)
+}
+
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
 	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))

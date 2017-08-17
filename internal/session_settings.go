@@ -15,6 +15,7 @@ type SessionSettings struct {
 	EnableLastMsgSeqNumProcessed bool
 	SkipCheckLatency             bool
 	MaxLatency                   time.Duration
+	DisableMessagePersist        bool
 
 	//required on logon for FIX.T.1 messages
 	DefaultApplVerID string

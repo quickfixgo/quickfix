@@ -268,6 +268,15 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.PersistMessages) {
+		var persistMessages bool
+		if persistMessages, err = settings.BoolSetting(config.PersistMessages); err != nil {
+			return
+		}
+
+		s.DisableMessagePersist = !persistMessages
+	}
+
 	if f.BuildInitiators {
 		if err = f.buildInitiatorSettings(s, settings); err != nil {
 			return

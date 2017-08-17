@@ -274,6 +274,34 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminThenApp() {
 	s.State(inSession{})
 }
 
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestNoMessagePersist() {
+	s.session.DisableMessagePersist = true
+
+	s.MockApp.On("ToApp").Return(nil)
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.LastToAppMessageSent()
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(2)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 1)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(enum.MsgType_SEQUENCE_RESET, s.MockApp.lastToAdmin)
+	s.FieldEquals(tagMsgSeqNum, 1, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagPossDupFlag, true, s.MockApp.lastToAdmin.Header)
+	s.FieldEquals(tagNewSeqNo, 2, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagGapFillFlag, true, s.MockApp.lastToAdmin.Body)
+
+	s.NextSenderMsgSeqNum(2)
+	s.State(inSession{})
+}
+
 func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.MockApp.On("ToAdmin")
 	s.session.Timeout(s.session, internal.NeedHeartbeat)
