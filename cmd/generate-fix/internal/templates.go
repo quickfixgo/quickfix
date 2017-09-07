@@ -168,10 +168,10 @@ import(
 
 	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
-	"github.com/quickfixgo/quickfix/enum"
+	"{{ importRootPath }}/enum"
 	{{- end }}
-	"github.com/quickfixgo/quickfix/field"
-	"github.com/quickfixgo/quickfix/tag"
+	"{{ importRootPath }}/field"
+	"{{ importRootPath }}/tag"
 )
 
 //Header is the {{ .Package }} Header type
@@ -203,10 +203,10 @@ import(
 
 	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
-	"github.com/quickfixgo/quickfix/enum"
+	"{{ importRootPath }}/enum"
 	{{- end }}
-	"github.com/quickfixgo/quickfix/field"
-	"github.com/quickfixgo/quickfix/tag"
+	"{{ importRootPath }}/field"
+	"{{ importRootPath }}/tag"
 )
 
 //Trailer is the {{ .Package }} Trailer type
