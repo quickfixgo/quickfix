@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
@@ -314,7 +313,7 @@ func (s *SessionFactorySuite) TestStartOrEndDayParseError() {
 }
 
 func (s *SessionFactorySuite) TestDefaultApplVerID() {
-	s.SessionID = SessionID{BeginString: enum.BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
+	s.SessionID = SessionID{BeginString: BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
 
 	var tests = []struct{ expected, config string }{
 		{"2", "2"},

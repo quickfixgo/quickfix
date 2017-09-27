@@ -8,7 +8,6 @@ import (
 
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 )
 
@@ -31,14 +30,14 @@ var dayLookup = map[string]time.Weekday{
 }
 
 var applVerIDLookup = map[string]string{
-	enum.BeginStringFIX40: "2",
-	enum.BeginStringFIX41: "3",
-	enum.BeginStringFIX42: "4",
-	enum.BeginStringFIX43: "5",
-	enum.BeginStringFIX44: "6",
-	"FIX.5.0":             "7",
-	"FIX.5.0SP1":          "8",
-	"FIX.5.0SP2":          "9",
+	BeginStringFIX40: "2",
+	BeginStringFIX41: "3",
+	BeginStringFIX42: "4",
+	BeginStringFIX43: "5",
+	BeginStringFIX44: "6",
+	"FIX.5.0":        "7",
+	"FIX.5.0SP1":     "8",
+	"FIX.5.0SP2":     "9",
 }
 
 type sessionFactory struct {

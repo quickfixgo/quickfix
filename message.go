@@ -301,7 +301,7 @@ func (m *Message) reverseRoute() *Message {
 	//tags added in 4.1
 	var beginString FIXString
 	if m.Header.GetField(tagBeginString, &beginString) == nil {
-		if string(beginString) != enum.BeginStringFIX40 {
+		if string(beginString) != BeginStringFIX40 {
 			copy(tagOnBehalfOfLocationID, tagDeliverToLocationID)
 			copy(tagDeliverToLocationID, tagOnBehalfOfLocationID)
 		}

@@ -81,7 +81,7 @@ func (s *MessageSuite) TestParseOutOfOrder() {
 }
 
 func (s *MessageSuite) TestBuild() {
-	s.msg.Header.SetField(tagBeginString, FIXString(enum.BeginStringFIX44))
+	s.msg.Header.SetField(tagBeginString, FIXString(BeginStringFIX44))
 	s.msg.Header.SetField(tagMsgType, FIXString("A"))
 	s.msg.Header.SetField(tagSendingTime, FIXString("20140615-19:49:56"))
 

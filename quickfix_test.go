@@ -124,7 +124,7 @@ func (m *MessageFactory) buildMessage(msgType string) *Message {
 	m.seqNum++
 	msg := NewMessage()
 	msg.Header.
-		SetField(tagBeginString, FIXString(string(enum.BeginStringFIX42))).
+		SetField(tagBeginString, FIXString(string(BeginStringFIX42))).
 		SetField(tagSenderCompID, FIXString("TW")).
 		SetField(tagTargetCompID, FIXString("ISLD")).
 		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()}).

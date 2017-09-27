@@ -71,16 +71,16 @@ func (s *SessionSuite) TestInsertSendingTime() {
 		Precision         TimestampPrecision
 		ExpectedPrecision TimestampPrecision
 	}{
-		{enum.BeginStringFIX40, Millis, Seconds}, //config is ignored for fix < 4.2
-		{enum.BeginStringFIX41, Millis, Seconds},
+		{BeginStringFIX40, Millis, Seconds}, //config is ignored for fix < 4.2
+		{BeginStringFIX41, Millis, Seconds},
 
-		{enum.BeginStringFIX42, Millis, Millis},
-		{enum.BeginStringFIX42, Micros, Micros},
-		{enum.BeginStringFIX42, Nanos, Nanos},
+		{BeginStringFIX42, Millis, Millis},
+		{BeginStringFIX42, Micros, Micros},
+		{BeginStringFIX42, Nanos, Nanos},
 
-		{enum.BeginStringFIX43, Nanos, Nanos},
-		{enum.BeginStringFIX44, Nanos, Nanos},
-		{enum.BeginStringFIXT11, Nanos, Nanos},
+		{BeginStringFIX43, Nanos, Nanos},
+		{BeginStringFIX44, Nanos, Nanos},
+		{BeginStringFIXT11, Nanos, Nanos},
 	}
 
 	for _, test := range tests {
@@ -601,7 +601,7 @@ func (s *SessionSuite) TestInitiateLogonResetSeqNumFlag() {
 }
 
 func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
-	s.session.sessionID.BeginString = string(enum.BeginStringFIXT11)
+	s.session.sessionID.BeginString = string(BeginStringFIXT11)
 	s.session.DefaultApplVerID = "8"
 	s.session.InitiateLogon = true
 

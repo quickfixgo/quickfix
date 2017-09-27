@@ -46,7 +46,7 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg *Message
 	fixVersion := beginString
 	isAdminMsg := isAdminMessageType([]byte(msgType))
 
-	if beginString == enum.BeginStringFIXT11 && !isAdminMsg {
+	if beginString == BeginStringFIXT11 && !isAdminMsg {
 		var applVerID FIXString
 		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
 			session, _ := lookupSession(sessionID)
@@ -55,15 +55,15 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg *Message
 
 		switch enum.ApplVerID(applVerID) {
 		case enum.ApplVerID_FIX40:
-			fixVersion = enum.BeginStringFIX40
+			fixVersion = BeginStringFIX40
 		case enum.ApplVerID_FIX41:
-			fixVersion = enum.BeginStringFIX41
+			fixVersion = BeginStringFIX41
 		case enum.ApplVerID_FIX42:
-			fixVersion = enum.BeginStringFIX42
+			fixVersion = BeginStringFIX42
 		case enum.ApplVerID_FIX43:
-			fixVersion = enum.BeginStringFIX43
+			fixVersion = BeginStringFIX43
 		case enum.ApplVerID_FIX44:
-			fixVersion = enum.BeginStringFIX44
+			fixVersion = BeginStringFIX44
 		default:
 			fixVersion = string(applVerID)
 		}
