@@ -8,7 +8,6 @@ import (
 	"os/signal"
 
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/field"
 	"github.com/quickfixgo/quickfix/tag"
 )
@@ -99,16 +98,16 @@ func main() {
 	router.AddRoute(quickfix.BeginStringFIX42, "D", app.processMsg)
 	router.AddRoute(quickfix.BeginStringFIX43, "D", app.processMsg)
 	router.AddRoute(quickfix.BeginStringFIX44, "D", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50), "D", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50SP1), "D", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50SP2), "D", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50, "D", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50SP1, "D", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50SP2, "D", app.processMsg)
 
 	router.AddRoute(quickfix.BeginStringFIX42, "d", app.processMsg)
 	router.AddRoute(quickfix.BeginStringFIX43, "d", app.processMsg)
 	router.AddRoute(quickfix.BeginStringFIX44, "d", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50), "d", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50SP1), "d", app.processMsg)
-	router.AddRoute(string(enum.ApplVerID_FIX50SP2), "d", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50, "d", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50SP1, "d", app.processMsg)
+	router.AddRoute(quickfix.ApplVerIDFIX50SP2, "d", app.processMsg)
 
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {
