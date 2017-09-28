@@ -1,7 +1,9 @@
 package datadictionary
 
 import (
+	"errors"
 	"fmt"
+	"strconv"
 )
 
 type builder struct {
@@ -11,14 +13,27 @@ type builder struct {
 }
 
 func (b *builder) build(doc *XMLDoc) (*DataDictionary, error) {
+	if doc.Type != "FIX" && doc.Type != "FIXT" {
+		return nil, errors.New("type attribute must be FIX or FIXT")
+	}
+
 	b.doc = doc
+	b.dict = &DataDictionary{FIXType: doc.Type, ServicePack: doc.ServicePack}
+
+	var err error
+	if b.dict.Major, err = strconv.Atoi(doc.Major); err != nil {
+		return nil, errors.New("major attribute not valid on <fix>")
+	}
+
+	if b.dict.Minor, err = strconv.Atoi(doc.Minor); err != nil {
+		return nil, errors.New("minor attribute not valid on <fix>")
+	}
 
 	b.componentByName = make(map[string]*XMLComponent)
 	for _, c := range doc.Components {
 		b.componentByName[c.Name] = c
 	}
 
-	b.dict = &DataDictionary{FIXType: doc.Type, Major: doc.Major, Minor: doc.Minor, ServicePack: doc.ServicePack}
 	b.buildFieldTypes()
 
 	if err := b.buildComponents(); err != nil {
@@ -29,12 +44,16 @@ func (b *builder) build(doc *XMLDoc) (*DataDictionary, error) {
 		return nil, err
 	}
 
-	var err error
-	if b.dict.Header, err = b.buildMessageDef(b.doc.Header); err != nil {
-		return nil, err
+	if b.doc.Header != nil {
+		if b.dict.Header, err = b.buildMessageDef(b.doc.Header); err != nil {
+			return nil, err
+		}
 	}
-	if b.dict.Trailer, err = b.buildMessageDef(b.doc.Trailer); err != nil {
-		return nil, err
+
+	if b.doc.Trailer != nil {
+		if b.dict.Trailer, err = b.buildMessageDef(b.doc.Trailer); err != nil {
+			return nil, err
+		}
 	}
 
 	return b.dict, nil

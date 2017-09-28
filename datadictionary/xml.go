@@ -7,8 +7,8 @@ import (
 //XMLDoc is the unmarshalled root of a FIX Dictionary.
 type XMLDoc struct {
 	Type        string `xml:"type,attr"`
-	Major       int    `xml:"major,attr"`
-	Minor       int    `xml:"minor,attr"`
+	Major       string `xml:"major,attr"`
+	Minor       string `xml:"minor,attr"`
 	ServicePack int    `xml:"servicepack,attr"`
 
 	Header     *XMLComponent   `xml:"header"`
