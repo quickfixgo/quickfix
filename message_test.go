@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -48,10 +47,10 @@ func (s *MessageSuite) TestParseMessage() {
 	msgType, err := s.msg.MsgType()
 	s.Nil(err)
 
-	s.Equal(enum.MsgType_ORDER_SINGLE, msgType)
-	s.True(s.msg.IsMsgTypeOf(enum.MsgType_ORDER_SINGLE))
+	s.Equal("D", msgType)
+	s.True(s.msg.IsMsgTypeOf("D"))
 
-	s.False(s.msg.IsMsgTypeOf(enum.MsgType_LOGON))
+	s.False(s.msg.IsMsgTypeOf("A"))
 }
 
 func (s *MessageSuite) TestParseMessageWithDataDictionary() {

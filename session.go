@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 )
 
@@ -356,7 +355,7 @@ func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState
 	nextState.resendRangeEnd = endSeq
 
 	resend := NewMessage()
-	resend.Header.SetField(tagMsgType, FIXString(enum.MsgType_RESEND_REQUEST))
+	resend.Header.SetBytes(tagMsgType, msgTypeResendRequest)
 	resend.Body.SetField(tagBeginSeqNo, FIXInt(beginSeq))
 
 	var endSeqNo int

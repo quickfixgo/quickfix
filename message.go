@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/enum"
 )
 
 //Header is first section of a FIX Message
@@ -256,16 +255,12 @@ func isTrailerField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
 }
 
 // MsgType returns MsgType (tag 35) field's value
-func (m *Message) MsgType() (enum.MsgType, MessageRejectError) {
-	s, err := m.Header.GetString(tagMsgType)
-	if err != nil {
-		return enum.MsgType(""), err
-	}
-	return enum.MsgType(s), nil
+func (m *Message) MsgType() (string, MessageRejectError) {
+	return m.Header.GetString(tagMsgType)
 }
 
 // IsMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.
-func (m *Message) IsMsgTypeOf(msgType enum.MsgType) bool {
+func (m *Message) IsMsgTypeOf(msgType string) bool {
 	if v, err := m.MsgType(); err == nil {
 		return v == msgType
 	}

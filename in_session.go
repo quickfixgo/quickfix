@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 )
 
@@ -18,8 +17,8 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 		return handleStateError(session, err)
 	}
 
-	switch enum.MsgType(msgType) {
-	case enum.MsgType_LOGON:
+	switch {
+	case bytes.Equal(msgTypeLogon, msgType):
 		if err := session.handleLogon(msg); err != nil {
 			if err := session.initiateLogoutInReplyTo("", msg); err != nil {
 				return handleStateError(session, err)
@@ -28,13 +27,13 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 		}
 
 		return state
-	case enum.MsgType_LOGOUT:
+	case bytes.Equal(msgTypeLogout, msgType):
 		return state.handleLogout(session, msg)
-	case enum.MsgType_RESEND_REQUEST:
+	case bytes.Equal(msgTypeResendRequest, msgType):
 		return state.handleResendRequest(session, msg)
-	case enum.MsgType_SEQUENCE_RESET:
+	case bytes.Equal(msgTypeSequenceReset, msgType):
 		return state.handleSequenceReset(session, msg)
-	case enum.MsgType_TEST_REQUEST:
+	case bytes.Equal(msgTypeTestRequest, msgType):
 		return state.handleTestRequest(session, msg)
 	default:
 		if err := session.verify(msg); err != nil {
