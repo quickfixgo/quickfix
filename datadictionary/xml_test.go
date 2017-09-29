@@ -99,8 +99,8 @@ func TestBoilerPlate(t *testing.T) {
 		ExpectedValue interface{}
 	}{
 		{doc.Type, "FIX"},
-		{doc.Major, 4},
-		{doc.Minor, 3},
+		{doc.Major, "4"},
+		{doc.Minor, "3"},
 		{doc.ServicePack, 0},
 	}
 
