@@ -9,10 +9,12 @@
 			"revisionTime": "2015-11-05T21:09:06Z"
 		},
 		{
-			"checksumSHA1": "KvUWnb+svMKP6VEKobmj9Y/sI4w=",
+			"checksumSHA1": "gQPNnwneFBYZXKVN0PaKrqiGemA=",
 			"path": "github.com/mattn/go-sqlite3",
-			"revision": "c3e9588849195eefa783417c3a53d092f6e93526",
-			"revisionTime": "2016-08-11T09:51:38Z"
+			"revision": "ca5e3819723d8eeaf170ad510e7da1d6d2e94a08",
+			"revisionTime": "2016-11-11T00:01:23Z",
+			"version": "v1.2.0",
+			"versionExact": "v1.2.0"
 		},
 		{
 			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
@@ -67,6 +69,12 @@
 			"path": "github.com/stretchr/testify/suite",
 			"revision": "d77da356e56a7428ad25149ca77381849a6a5232",
 			"revisionTime": "2016-06-15T09:26:46Z"
+		},
+		{
+			"checksumSHA1": "dr5+PfIRzXeN+l1VG+s0lea9qz8=",
+			"path": "golang.org/x/net/context",
+			"revision": "0a9397675ba34b2845f758fe3cd68828369c6517",
+			"revisionTime": "2017-07-19T03:24:12Z"
 		}
 	],
 	"rootPath": "github.com/quickfixgo/quickfix"
