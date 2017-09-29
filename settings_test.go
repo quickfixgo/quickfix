@@ -7,6 +7,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
 func TestSettings_New(t *testing.T) {
@@ -21,10 +22,50 @@ func TestSettings_New(t *testing.T) {
 	assert.Empty(t, sessionSettings)
 }
 
-func TestSettings_AddSession(t *testing.T) {
-	s := NewSettings()
-	globalSettings := s.GlobalSettings()
+type SettingsAddSessionSuite struct {
+	suite.Suite
+	settings *Settings
+}
 
+func TestSettingsAddSessionSuite(t *testing.T) {
+	suite.Run(t, new(SettingsAddSessionSuite))
+}
+
+func (s *SettingsAddSessionSuite) SetupTest() {
+	s.settings = NewSettings()
+}
+
+func (s *SettingsAddSessionSuite) TestBeginStringValidation() {
+	ss := NewSessionSettings()
+	ss.Set(config.SenderCompID, "CB")
+	ss.Set(config.TargetCompID, "SS")
+
+	_, err := s.settings.AddSession(ss)
+	s.NotNil(err)
+
+	ss.Set(config.BeginString, "NotAValidBeginString")
+	_, err = s.settings.AddSession(ss)
+	s.NotNil(err)
+
+	var cases = []string{
+		BeginStringFIX40,
+		BeginStringFIX41,
+		BeginStringFIX42,
+		BeginStringFIX43,
+		BeginStringFIX44,
+		BeginStringFIXT11,
+	}
+
+	for _, beginString := range cases {
+		ss.Set(config.BeginString, beginString)
+		sid, err := s.settings.AddSession(ss)
+		s.Nil(err)
+		s.Equal(sid, SessionID{BeginString: beginString, SenderCompID: "CB", TargetCompID: "SS"})
+	}
+}
+
+func (s *SettingsAddSessionSuite) TestGlobalOverlay() {
+	globalSettings := s.settings.GlobalSettings()
 	globalSettings.Set(config.BeginString, "FIX.4.0")
 	globalSettings.Set(config.SocketAcceptPort, "1000")
 
@@ -33,13 +74,12 @@ func TestSettings_AddSession(t *testing.T) {
 	s1.Set(config.SenderCompID, "CB")
 	s1.Set(config.TargetCompID, "SS")
 
-	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "CB", TargetCompID: "SS"}
-
 	s2 := NewSessionSettings()
 	s2.Set(config.ResetOnLogon, "Y")
 	s2.Set(config.SenderCompID, "CB")
 	s2.Set(config.TargetCompID, "SS")
 
+	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "CB", TargetCompID: "SS"}
 	sessionID2 := SessionID{BeginString: "FIX.4.0", SenderCompID: "CB", TargetCompID: "SS"}
 
 	var addCases = []struct {
@@ -51,28 +91,9 @@ func TestSettings_AddSession(t *testing.T) {
 	}
 
 	for _, tc := range addCases {
-		sid, err := s.AddSession(tc.settings)
-		if err != nil {
-			t.Fatal("Got Error adding session", err)
-		}
-
-		if sid != tc.expectedSessionID {
-			t.Fatalf("expected %v got %v", tc.expectedSessionID, sid)
-		}
-	}
-
-	s3 := NewSessionSettings()
-	s3.Set(config.ResetOnLogon, "Y")
-	s3.Set(config.SenderCompID, "CB")
-	s3.Set(config.TargetCompID, "SS")
-	if _, err := s.AddSession(s3); err == nil {
-		t.Error("Expected error for adding duplicate session")
-	}
-
-	sessionSettings := s.SessionSettings()
-
-	if len(sessionSettings) != 2 {
-		t.Errorf("Expected %v settings, got %v", 2, len(sessionSettings))
+		sid, err := s.settings.AddSession(tc.settings)
+		s.Nil(err)
+		s.Equal(sid, tc.expectedSessionID)
 	}
 
 	var cases = []struct {
@@ -87,18 +108,42 @@ func TestSettings_AddSession(t *testing.T) {
 		{sessionID2, config.ResetOnLogon, "Y"},
 	}
 
+	sessionSettings := s.settings.SessionSettings()
+	s.Len(sessionSettings, 2)
 	for _, tc := range cases {
 		settings := sessionSettings[tc.sessionID]
 
 		actual, err := settings.Setting(tc.input)
-		if err != nil {
-			t.Error("Unexpected Error", err)
-		}
-
-		if actual != tc.expected {
-			t.Errorf("Got %v, expected %v", actual, tc.expected)
-		}
+		s.Nil(err)
+		s.Equal(actual, tc.expected)
 	}
+}
+
+func (s *SettingsAddSessionSuite) TestRejectDuplicate() {
+	s1 := NewSessionSettings()
+	s1.Set(config.BeginString, "FIX.4.1")
+	s1.Set(config.SenderCompID, "CB")
+	s1.Set(config.TargetCompID, "SS")
+
+	s2 := NewSessionSettings()
+	s2.Set(config.BeginString, "FIX.4.0")
+	s2.Set(config.SenderCompID, "CB")
+	s2.Set(config.TargetCompID, "SS")
+
+	_, err := s.settings.AddSession(s1)
+	s.Nil(err)
+	_, err = s.settings.AddSession(s2)
+	s.Nil(err)
+
+	s3 := NewSessionSettings()
+	s1.Set(config.BeginString, "FIX.4.0")
+	s3.Set(config.SenderCompID, "CB")
+	s3.Set(config.TargetCompID, "SS")
+	_, err = s.settings.AddSession(s3)
+	s.NotNil(err, "Expected error for adding duplicate session")
+
+	sessionSettings := s.settings.SessionSettings()
+	s.Len(sessionSettings, 2)
 }
 
 func TestSettings_ParseSettings(t *testing.T) {
