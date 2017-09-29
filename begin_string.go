@@ -1,4 +1,4 @@
-package enum
+package quickfix
 
 //FIX BeginString string values
 const (

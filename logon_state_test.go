@@ -5,7 +5,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
@@ -85,7 +84,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.Equal(32*time.Second, s.session.HeartBtInt)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
@@ -110,7 +109,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonEnableLastMsgSeqNumProcessed() {
 	s.MockApp.AssertExpectations(s.T())
 
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagLastMsgSeqNumProcessed, 2, s.MockApp.lastToAdmin.Header)
 }
 
@@ -132,7 +131,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonResetSeqNum() {
 	s.Equal(32*time.Second, s.session.HeartBtInt)
 
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGON, s.MockApp.lastToAdmin)
+	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagResetSeqNumFlag, true, s.MockApp.lastToAdmin.Body)
 
@@ -258,7 +257,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonRejectLogon() {
 	s.State(latentState{})
 
 	s.LastToAdminMessageSent()
-	s.MessageType(enum.MsgType_LOGOUT, s.MockApp.lastToAdmin)
+	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagText, "reject message", s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
@@ -285,10 +284,10 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	sentMessage := NewMessage()
 	err := ParseMessage(sentMessage, bytes.NewBuffer(msgBytesSent))
 	s.Require().Nil(err)
-	s.MessageType(enum.MsgType_LOGON, sentMessage)
+	s.MessageType(string(msgTypeLogon), sentMessage)
 
 	s.session.sendQueued()
-	s.MessageType(enum.MsgType_RESEND_REQUEST, s.MockApp.lastToAdmin)
+	s.MessageType(string(msgTypeResendRequest), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 
 	s.MockApp.On("FromAdmin").Return(nil)

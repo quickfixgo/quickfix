@@ -3,7 +3,6 @@ package quickfix
 import (
 	"time"
 
-	"github.com/quickfixgo/quickfix/enum"
 	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -21,8 +20,8 @@ type KnowsFieldMap interface {
 	GetField(Tag, FieldValueReader) MessageRejectError
 }
 
-func (s *QuickFIXSuite) MessageType(msgType enum.MsgType, msg *Message) {
-	s.FieldEquals(tagMsgType, string(msgType), msg.Header)
+func (s *QuickFIXSuite) MessageType(msgType string, msg *Message) {
+	s.FieldEquals(tagMsgType, msgType, msg.Header)
 }
 
 func (s *QuickFIXSuite) FieldEquals(tag Tag, expectedValue interface{}, fieldMap KnowsFieldMap) {
@@ -124,7 +123,7 @@ func (m *MessageFactory) buildMessage(msgType string) *Message {
 	m.seqNum++
 	msg := NewMessage()
 	msg.Header.
-		SetField(tagBeginString, FIXString(string(enum.BeginStringFIX42))).
+		SetField(tagBeginString, FIXString(string(BeginStringFIX42))).
 		SetField(tagSenderCompID, FIXString("TW")).
 		SetField(tagTargetCompID, FIXString("ISLD")).
 		SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()}).
@@ -134,23 +133,23 @@ func (m *MessageFactory) buildMessage(msgType string) *Message {
 }
 
 func (m *MessageFactory) Logout() *Message {
-	return m.buildMessage(string(enum.MsgType_LOGOUT))
+	return m.buildMessage(string(msgTypeLogout))
 }
 
 func (m *MessageFactory) NewOrderSingle() *Message {
-	return m.buildMessage(string(enum.MsgType_ORDER_SINGLE))
+	return m.buildMessage("D")
 }
 
 func (m *MessageFactory) Heartbeat() *Message {
-	return m.buildMessage(string(enum.MsgType_HEARTBEAT))
+	return m.buildMessage(string(msgTypeHeartbeat))
 }
 
 func (m *MessageFactory) Logon() *Message {
-	return m.buildMessage(string(enum.MsgType_LOGON))
+	return m.buildMessage(string(msgTypeLogon))
 }
 
 func (m *MessageFactory) ResendRequest(beginSeqNo int) *Message {
-	msg := m.buildMessage(string(enum.MsgType_RESEND_REQUEST))
+	msg := m.buildMessage(string(msgTypeResendRequest))
 	msg.Body.SetField(tagBeginSeqNo, FIXInt(beginSeqNo))
 	msg.Body.SetField(tagEndSeqNo, FIXInt(0))
 
@@ -158,7 +157,7 @@ func (m *MessageFactory) ResendRequest(beginSeqNo int) *Message {
 }
 
 func (m *MessageFactory) SequenceReset(seqNo int) *Message {
-	msg := m.buildMessage(string(enum.MsgType_SEQUENCE_RESET))
+	msg := m.buildMessage(string(msgTypeSequenceReset))
 	msg.Body.SetField(tagNewSeqNo, FIXInt(seqNo))
 
 	return msg

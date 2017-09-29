@@ -1,13 +1,23 @@
 package quickfix
 
-import (
-	"github.com/quickfixgo/quickfix/enum"
-)
-
 type routeKey struct {
 	FIXVersion string
 	MsgType    string
 }
+
+//FIX ApplVerID string values
+const (
+	ApplVerIDFIX27    = "0"
+	ApplVerIDFIX30    = "1"
+	ApplVerIDFIX40    = "2"
+	ApplVerIDFIX41    = "3"
+	ApplVerIDFIX42    = "4"
+	ApplVerIDFIX43    = "5"
+	ApplVerIDFIX44    = "6"
+	ApplVerIDFIX50    = "7"
+	ApplVerIDFIX50SP1 = "8"
+	ApplVerIDFIX50SP2 = "9"
+)
 
 //A MessageRoute is a function that can process a fromApp/fromAdmin callback
 type MessageRoute func(msg *Message, sessionID SessionID) MessageRejectError
@@ -46,24 +56,24 @@ func (c MessageRouter) tryRoute(beginString string, msgType string, msg *Message
 	fixVersion := beginString
 	isAdminMsg := isAdminMessageType([]byte(msgType))
 
-	if beginString == enum.BeginStringFIXT11 && !isAdminMsg {
+	if beginString == BeginStringFIXT11 && !isAdminMsg {
 		var applVerID FIXString
 		if err := msg.Header.GetField(tagApplVerID, &applVerID); err != nil {
 			session, _ := lookupSession(sessionID)
 			applVerID = FIXString(session.TargetDefaultApplicationVersionID())
 		}
 
-		switch enum.ApplVerID(applVerID) {
-		case enum.ApplVerID_FIX40:
-			fixVersion = enum.BeginStringFIX40
-		case enum.ApplVerID_FIX41:
-			fixVersion = enum.BeginStringFIX41
-		case enum.ApplVerID_FIX42:
-			fixVersion = enum.BeginStringFIX42
-		case enum.ApplVerID_FIX43:
-			fixVersion = enum.BeginStringFIX43
-		case enum.ApplVerID_FIX44:
-			fixVersion = enum.BeginStringFIX44
+		switch applVerID {
+		case ApplVerIDFIX40:
+			fixVersion = BeginStringFIX40
+		case ApplVerIDFIX41:
+			fixVersion = BeginStringFIX41
+		case ApplVerIDFIX42:
+			fixVersion = BeginStringFIX42
+		case ApplVerIDFIX43:
+			fixVersion = BeginStringFIX43
+		case ApplVerIDFIX44:
+			fixVersion = BeginStringFIX44
 		default:
 			fixVersion = string(applVerID)
 		}
