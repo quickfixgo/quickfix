@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"time"
 
@@ -111,10 +112,19 @@ func (p *parser) jumpLength() (int, error) {
 		return 0, err
 	}
 
+	if offset == lengthIndex {
+		return 0, errors.New("No length given")
+	}
+
 	length, err := atoi(p.buffer[lengthIndex:offset])
 	if err != nil {
 		return length, err
 	}
+
+	if length <= 0 {
+		return length, errors.New("Invalid length")
+	}
+
 	return offset + length, nil
 }
 
