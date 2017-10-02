@@ -30,6 +30,20 @@ func (s *ParserSuite) SetupTest() {
 	s.parser = new(parser)
 }
 
+func (s *ParserSuite) TestInvalidNilLength() {
+	stream := "8=\x019=\x01"
+	s.reader = strings.NewReader(stream)
+	_, err := s.ReadMessage()
+	s.NotNil(err)
+}
+
+func (s *ParserSuite) TestOverflowLength() {
+	stream := "8=\x019=9300000000000000000\x01"
+	s.reader = strings.NewReader(stream)
+	_, err := s.ReadMessage()
+	s.NotNil(err)
+}
+
 func (s *ParserSuite) TestJumpLength() {
 	stream := "8=FIXT.1.19=11135=D34=449=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=2348=FIXT.1.19=9535=D34=549=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=198"
 

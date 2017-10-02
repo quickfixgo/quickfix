@@ -23,19 +23,19 @@ func (tv *TagValue) init(tag Tag, value []byte) {
 	tv.value = value
 }
 
-func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
+func (tv *TagValue) parse(rawFieldBytes []byte) error {
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
-	if sepIndex == -1 {
-		err = fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
-		return
+	switch sepIndex {
+	case -1:
+		return fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
+	case 0:
+		return fmt.Errorf("tagValue.Parse: No tag in '%s'", rawFieldBytes)
 	}
 
 	parsedTag, err := atoi(rawFieldBytes[:sepIndex])
-
 	if err != nil {
-		err = fmt.Errorf("tagValue.Parse: %s", err.Error())
-		return
+		return fmt.Errorf("tagValue.Parse: %s", err.Error())
 	}
 
 	tv.tag = Tag(parsedTag)
@@ -43,7 +43,7 @@ func (tv *TagValue) parse(rawFieldBytes []byte) (err error) {
 	tv.value = rawFieldBytes[(sepIndex + 1):(n - 1):(n - 1)]
 	tv.bytes = rawFieldBytes[:n:n]
 
-	return
+	return nil
 }
 
 func (tv TagValue) String() string {

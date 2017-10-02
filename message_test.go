@@ -30,6 +30,13 @@ func (s *MessageSuite) SetupTest() {
 	s.msg = NewMessage()
 }
 
+func (s *MessageSuite) TestParseMessageEmpty() {
+	rawMsg := bytes.NewBufferString("")
+
+	err := ParseMessage(s.msg, rawMsg)
+	s.NotNil(err)
+}
+
 func (s *MessageSuite) TestParseMessage() {
 	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
