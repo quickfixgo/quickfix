@@ -26,14 +26,8 @@ func TestTagValue_parse(t *testing.T) {
 	stringField := "8=FIX.4.0"
 	tv := TagValue{}
 	err := tv.parse([]byte(stringField))
-
-	if err != nil {
-		t.Error("Unexpected error", err)
-	}
-
-	if tv.tag != Tag(8) {
-		t.Error("Unexpected tag", tv.tag)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, Tag(8), tv.tag)
 
 	if !bytes.Equal(tv.bytes, []byte(stringField)) {
 		t.Errorf("Expected %v got %v", stringField, tv.bytes)
@@ -51,6 +45,9 @@ func TestTagValue_parseFail(t *testing.T) {
 	assert.NotNil(t, tv.parse([]byte(stringField)))
 
 	stringField = "tag_not_an_int=uhoh"
+	assert.NotNil(t, tv.parse([]byte(stringField)))
+
+	stringField = "=notag"
 	assert.NotNil(t, tv.parse([]byte(stringField)))
 }
 

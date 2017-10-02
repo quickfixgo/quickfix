@@ -141,6 +141,10 @@ func ParseMessageWithDataDictionary(
 		}
 	}
 
+	if fieldCount == 0 {
+		return parseError{OrigError: fmt.Sprintf("No Fields detected in %s", string(rawBytes))}
+	}
+
 	if cap(msg.fields) < fieldCount {
 		msg.fields = make([]TagValue, fieldCount)
 	} else {
