@@ -47,16 +47,16 @@ Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src
 
 ### Installing Dependencies
 
-QuickFIX/Go uses [govendor](https://github.com/kardianos/govendor) to manage the vendored dependencies. Install govendor with `go get`:
+QuickFIX/Go uses [dep](https://github.com/golang/dep) to manage the vendored dependencies. Install dep with `go get`:
 
 ```sh
-$ go get github.com/kardianos/govendor
+$ go get -u github.com/golang/dep/cmd/dep
 ```
 
-Run `govendor sync` to install the correct versioned dependencies into `vendor/, which Go 1.6+ automatically recognizes and loads.
+Run `dep ensure` to install the correct versioned dependencies into `vendor/`, which Go 1.6+ automatically recognizes and loads.
 
 ```sh
-$ $GOPATH/bin/govendor sync
+$ $GOPATH/bin/dep ensure
 ```
 
 **Note:** No vendored dependencies are included in the QuickFIX/Go source.
@@ -101,37 +101,34 @@ If you are developing QuickFIX/Go, there are a few tasks you might need to perfo
 
 #### Adding a dependency
 
-If you are adding a dependency, you will need update the govendor manifest in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
+If you are adding a dependency, you will need to update the dep manifest in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
 
 To add a dependency:
 
-Assuming your work is on a branch called `my-feature-branch`, the steps look like this:
-
-1. Add the new package to your GOPATH:
-
-    ```bash
-    go get github.com/quickfixgo/my-project
-    ```
-
-2.  Add the new package to your vendor/ directory:
-
-    ```bash
-    govendor add github.com/quickfixgo/my-project
-    ```
-
-3. Review the changes in git and commit them.
+1. Add the dependency using `dep`:
+```bash
+$ dep ensure -add github.com/foo/bar
+```
+2. Review the changes in git and commit them.
 
 #### Updating a dependency
 
-To update a dependency:
+To update a dependency to the latest version allowed by constraints in `Gopkg.toml`:
 
-1. Fetch the dependency:
-
-    ```bash
-    govendor fetch github.com/quickfixgo/my-project
-    ```
-
+1. Run:
+```bash
+$ dep ensure -update github.com/foo/bar
+```
 2. Review the changes in git and commit them.
+
+To change the allowed version/branch/revision of a dependency:
+
+1. Manually edit `Gopkg.toml`
+2. Run:
+```bash
+$ dep ensure
+```
+3. Review the changes in git and commit them.
 
 Licensing
 ---------
