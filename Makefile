@@ -1,13 +1,16 @@
 all: vet test
 
 generate:
-	go run cmd/generate-fix/generate-fix.go spec/*.xml
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
+
+generate-dist:
+	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
 
 fmt:
-	go fmt ./...
+	go fmt `go list ./... | grep -v quickfix/gen`
 
 vet:
-	go vet `go list ./... | grep -v /vendor | grep -v fix4 | grep -v fix5 | grep -v fixt`
+	go vet `go list ./... | grep -v quickfix/gen`
 
 lint:
 	go get github.com/golang/lint/golint
@@ -17,7 +20,7 @@ test:
 	go test -v -cover . ./datadictionary ./internal
 
 _build_all: 
-	go build -v `go list ./... | grep -v /vendor`
+	go build -v `go list ./...`
 
 build_accept: 
 	cd _test; go build -o echo_server
