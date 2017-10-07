@@ -24,4 +24,4 @@ install:
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure
 
-script: if [ -z "$FIX_TEST" ]; then make generate && make build && make; else make build_accept && make $FIX_TEST; fi
+script: make generate; if [ -z "$FIX_TEST" ]; then make build; make; else make build_accept; make $FIX_TEST; fi

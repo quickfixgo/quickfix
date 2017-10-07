@@ -59,7 +59,6 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		}
 	}
 
-
 	if tlsConfig.Certificates[0], err = tls.LoadX509KeyPair(certificateFile, privateKeyFile); err != nil {
 		return
 	}

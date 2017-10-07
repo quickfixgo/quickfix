@@ -1,8 +1,9 @@
 *~
 *.swp
 *.swo
-vendor/*/
+vendor
 _test/test
 _test/echo_server
 _test/tmp
 _vendor*
+gen
