@@ -3,6 +3,9 @@ all: vet test
 generate:
 	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
 
+generate-dist:
+	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
+
 fmt:
 	go fmt `go list ./... | grep -v quickfix/gen`
 
