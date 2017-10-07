@@ -32,7 +32,22 @@ See [examples](https://github.com/quickfixgo/examples) for some simple examples 
 
 ### FIX Message Generation
 
-QuickFIX/Go includes fields, enums, messages, and message components generated from the FIX 4.0 - FIX5.0SP2 specs. For most FIX applications, these generated resources are sufficient. Custom FIX applications may generate source specific to the FIX spec of that application using the `generate-fix` tool included with QuickFIX/Go.
+QuickFIX/Go includes separate packages for tags, fields, enums, messages, and message components generated from the FIX 4.0 - FIX5.0SP2 specs. See:
+
+* [github.com/quickfixgo/tag](https://github.com/quickfixgo/tag)
+* [github.com/quickfixgo/field](https://github.com/quickfixgo/field)
+* [github.com/quickfixgo/enum](https://github.com/quickfixgo/enum)
+* [github.com/quickfixgo/fix40](https://github.com/quickfixgo/fix40)
+* [github.com/quickfixgo/fix41](https://github.com/quickfixgo/fix41)
+* [github.com/quickfixgo/fix42](https://github.com/quickfixgo/fix42)
+* [github.com/quickfixgo/fix43](https://github.com/quickfixgo/fix43)
+* [github.com/quickfixgo/fix44](https://github.com/quickfixgo/fix44)
+* [github.com/quickfixgo/fix50](https://github.com/quickfixgo/fix50)
+* [github.com/quickfixgo/fix50sp1](https://github.com/quickfixgo/fix50sp1)
+* [github.com/quickfixgo/fix50sp2](https://github.com/quickfixgo/fix50sp2)
+* [github.com/quickfixgo/fixt11](https://github.com/quickfixgo/fixt11)
+
+For most FIX applications, these generated resources are sufficient. Custom FIX applications may generate source specific to the FIX spec of that application using the `generate-fix` tool included with QuickFIX/Go.
 
 Following installation, `generate-fix` is installed to `$GOPATH/bin/generate-fix`. Run `$GOPATH/bin/generate-fix --help` for usage instructions.
 
@@ -71,6 +86,16 @@ $ make
 
 If this exits with exit status 0, then everything is working!
 
+### Generated Code
+
+Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/quickfixgo).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
+
+```sh
+$ make generate-dist
+```
+
+If you are making changes to the generated code, please create Pull Requests for these changes for the affected repos.
+
 ### Acceptance Tests
 
 QuickFIX/Go has a comprehensive acceptance test suite covering the FIX protocol.  These are the same tests used across all QuickFIX implementations.
@@ -79,21 +104,14 @@ QuickFIX/Go acceptance tests depend on ruby in path.
 
 To run acceptance tests,
 
+        # generate code locally
+        make generate
+
 		# build acceptance test rig
 		make build_accept
 
 		# run acceptance tests
 		make accept
-
-### Generated Code
-
-For convenience, generated code from the FIX40-FIX50SP2 specs are included in the QuickFIX/Go repo.  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
-
-```sh
-$ make generate
-```
-
-If you are making changes to the generated code, you will need to include the generated source in the same Pull Request as the changes made to the code generator. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
 
 ### Dependencies
 
