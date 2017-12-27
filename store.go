@@ -1,6 +1,9 @@
 package quickfix
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
 //The MessageStore interface provides methods to record and retrieve messages for resend purposes
 type MessageStore interface {
@@ -30,43 +33,61 @@ type MessageStoreFactory interface {
 }
 
 type memoryStore struct {
+	sync.Mutex
 	senderMsgSeqNum, targetMsgSeqNum int
 	creationTime                     time.Time
 	messageMap                       map[int][]byte
 }
 
-func (store memoryStore) NextSenderMsgSeqNum() int {
+func (store *memoryStore) NextSenderMsgSeqNum() int {
+	store.Lock()
+	defer store.Unlock()
 	return store.senderMsgSeqNum + 1
 }
 
-func (store memoryStore) NextTargetMsgSeqNum() int {
+func (store *memoryStore) NextTargetMsgSeqNum() int {
+	store.Lock()
+	defer store.Unlock()
 	return store.targetMsgSeqNum + 1
 }
 
 func (store *memoryStore) IncrNextSenderMsgSeqNum() error {
+	store.Lock()
+	defer store.Unlock()
 	store.senderMsgSeqNum++
 	return nil
 }
 
 func (store *memoryStore) IncrNextTargetMsgSeqNum() error {
+	store.Lock()
+	defer store.Unlock()
 	store.targetMsgSeqNum++
 	return nil
 }
 
 func (store *memoryStore) SetNextSenderMsgSeqNum(nextSeqNum int) error {
+	store.Lock()
+	defer store.Unlock()
 	store.senderMsgSeqNum = nextSeqNum - 1
 	return nil
 }
 func (store *memoryStore) SetNextTargetMsgSeqNum(nextSeqNum int) error {
+	store.Lock()
+	defer store.Unlock()
 	store.targetMsgSeqNum = nextSeqNum - 1
 	return nil
 }
 
-func (store memoryStore) CreationTime() time.Time {
+func (store *memoryStore) CreationTime() time.Time {
+	store.Lock()
+	defer store.Unlock()
 	return store.creationTime
 }
 
 func (store *memoryStore) Reset() error {
+	store.Lock()
+	defer store.Unlock()
+
 	store.senderMsgSeqNum = 0
 	store.targetMsgSeqNum = 0
 	store.creationTime = time.Now()
@@ -85,6 +106,9 @@ func (store *memoryStore) Close() error {
 }
 
 func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
+	store.Lock()
+	defer store.Unlock()
+
 	if store.messageMap == nil {
 		store.messageMap = make(map[int][]byte)
 	}
@@ -93,7 +117,10 @@ func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
 	return nil
 }
 
-func (store memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	store.Lock()
+	defer store.Unlock()
+
 	var msgs [][]byte
 	for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
 		if m, ok := store.messageMap[seqNum]; ok {
