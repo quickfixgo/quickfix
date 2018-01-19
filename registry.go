@@ -50,6 +50,19 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	return session.queueForSend(msg)
 }
 
+//UnregisterSession removes a session from the set of known sessions
+func UnregisterSession(sessionID SessionID) error {
+	sessionsLock.Lock()
+	defer sessionsLock.Unlock()
+
+	if _, ok := sessions[sessionID]; ok {
+		delete(sessions, sessionID)
+		return nil
+	}
+
+	return errUnknownSession
+}
+
 func registerSession(s *session) error {
 	sessionsLock.Lock()
 	defer sessionsLock.Unlock()
