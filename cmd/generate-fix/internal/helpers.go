@@ -2,7 +2,7 @@ package internal
 
 import (
 	"os"
-	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -15,7 +15,7 @@ func getImportPathRoot() string {
 	if err != nil {
 		panic(err)
 	}
-	goSrcPath := path.Join(os.Getenv("GOPATH"), "src")
-	importPathRoot := strings.Replace(pwd, goSrcPath, "", 1)
+	goSrcPath := filepath.Join(os.Getenv("GOPATH"), "src")
+	importPathRoot := filepath.ToSlash(strings.Replace(pwd, goSrcPath, "", 1))
 	return strings.TrimLeft(importPathRoot, "/")
 }
