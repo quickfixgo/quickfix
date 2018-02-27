@@ -1,4 +1,4 @@
-// +build !windows
+// +build windows
 
 package internal
 
@@ -17,7 +17,8 @@ func getImportPathRoot() string {
 	if err != nil {
 		panic(err)
 	}
-	goSrcPath := filepath.Join(os.Getenv("GOPATH"), "src")
+	//goSrcPath := `C:\Users\Administrator\go\src\`
+	goSrcPath := filepath.Join(os.Getenv("USERPROFILE"), "Go", "src")
 	importPathRoot := filepath.ToSlash(strings.Replace(pwd, goSrcPath, "", 1))
 	return strings.TrimLeft(importPathRoot, "/")
 }
