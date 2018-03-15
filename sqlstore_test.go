@@ -1,7 +1,6 @@
 package quickfix
 
 import (
-	"database/sql"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -11,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -30,14 +30,14 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	sqlDsn := path.Join(suite.sqlStoreRootPath, fmt.Sprintf("%d.db", time.Now().UnixNano()))
 
 	// create tables
-	db, err := sql.Open(sqlDriver, sqlDsn)
+	db, err := gorm.Open(sqlDriver, sqlDsn)
 	require.Nil(suite.T(), err)
 	ddlFnames, err := filepath.Glob(fmt.Sprintf("_sql/%s/*.sql", sqlDriver))
 	require.Nil(suite.T(), err)
 	for _, fname := range ddlFnames {
 		sqlBytes, err := ioutil.ReadFile(fname)
 		require.Nil(suite.T(), err)
-		_, err = db.Exec(string(sqlBytes))
+		err = db.Exec(string(sqlBytes)).Error
 		require.Nil(suite.T(), err)
 	}
 
