@@ -32,23 +32,10 @@
   version = "v1.0.0"
 
 [[projects]]
-  name = "github.com/alpacahq/quickfix"
-  packages = [
-    ".",
-    "cmd/generate-fix/internal",
-    "config",
-    "datadictionary",
-    "enum",
-    "internal"
-  ]
-  revision = "90abc7fbcb82e4f15f75a593ea947667810c019e"
-  version = "v0.6.0"
-
-[[projects]]
-  branch = "master"
   name = "github.com/shopspring/decimal"
   packages = ["."]
-  revision = "2df3e6ddaf6e9531dd02d7b6337f2d310f5e4f22"
+  revision = "69b3a8ad1f5f2c8bd855cb6506d18593064a346b"
+  version = "1.0.1"
 
 [[projects]]
   name = "github.com/stretchr/objx"
@@ -70,6 +57,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0093a069e07c59b9db356f97ac99b4c721d9b857fda90b178dc4c68789ff6b37"
+  inputs-digest = "c8b1b076a5583aa04ed4263bc190ac8b0f26209f2876ec635474f93b0d2c68d3"
   solver-name = "gps-cdcl"
   solver-version = 1
