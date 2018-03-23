@@ -34,8 +34,8 @@ func (suite *MessageStoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_In
 	t := suite.T()
 
 	// Given a MessageStore with the following sender and target seqnums
-	suite.msgStore.SetNextSenderMsgSeqNum(867)
-	suite.msgStore.SetNextTargetMsgSeqNum(5309)
+	require.Nil(t, suite.msgStore.SetNextSenderMsgSeqNum(867))
+	require.Nil(t, suite.msgStore.SetNextTargetMsgSeqNum(5309))
 
 	// When the store is refreshed from its backing store
 	suite.msgStore.Refresh()
@@ -75,7 +75,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_Reset() {
 	assert.Equal(t, 1, suite.msgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
-	suite.msgStore.Refresh()
+	require.Nil(t, suite.msgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
 	assert.Equal(t, 1, suite.msgStore.NextSenderMsgSeqNum())
