@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/enum"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/enum"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //Header is the fix42 Header type

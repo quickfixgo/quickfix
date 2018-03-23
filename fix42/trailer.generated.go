@@ -2,8 +2,8 @@ package fix42
 
 import (
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //Trailer is the fix42 Trailer type

@@ -8,8 +8,8 @@ import (
 	"os/signal"
 
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()

@@ -2,8 +2,8 @@ package field
 
 import (
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/enum"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/enum"
+	"github.com/alpacahq/quickfix/tag"
 	"github.com/shopspring/decimal"
 	"time"
 )

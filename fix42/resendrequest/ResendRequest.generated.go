@@ -2,9 +2,9 @@ package resendrequest
 
 import (
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/fix42"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/fix42"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //ResendRequest is the fix42 ResendRequest type, MsgType = 2

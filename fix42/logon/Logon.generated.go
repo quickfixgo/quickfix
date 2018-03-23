@@ -2,10 +2,10 @@ package logon
 
 import (
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/enum"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/fix42"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/enum"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/fix42"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //Logon is the fix42 Logon type, MsgType = A

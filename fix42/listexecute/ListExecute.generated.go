@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/fix42"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/fix42"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //ListExecute is the fix42 ListExecute type, MsgType = L

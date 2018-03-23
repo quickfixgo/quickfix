@@ -2,10 +2,10 @@ package marketdatarequestreject
 
 import (
 	"github.com/alpacahq/quickfix"
-	"github.com/alpacahq/quickfix/gen/enum"
-	"github.com/alpacahq/quickfix/gen/field"
-	"github.com/alpacahq/quickfix/gen/fix42"
-	"github.com/alpacahq/quickfix/gen/tag"
+	"github.com/alpacahq/quickfix/enum"
+	"github.com/alpacahq/quickfix/field"
+	"github.com/alpacahq/quickfix/fix42"
+	"github.com/alpacahq/quickfix/tag"
 )
 
 //MarketDataRequestReject is the fix42 MarketDataRequestReject type, MsgType = Y
