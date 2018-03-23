@@ -8,38 +8,31 @@ import (
 type EventTimer struct {
 	f     func()
 	timer *time.Timer
-	reset chan time.Duration
+	done  chan struct{}
 	wg    sync.WaitGroup
 }
 
 func NewEventTimer(task func()) *EventTimer {
 	t := &EventTimer{
 		f:     task,
-		reset: make(chan time.Duration, 1),
+		timer: newStoppedTimer(),
+		done:  make(chan struct{}),
 	}
 
 	t.wg.Add(1)
 	go func() {
 		defer t.wg.Done()
-		var c <-chan time.Time
 
 		for {
 			select {
 
-			case <-c:
+			case <-t.timer.C:
 				t.f()
 
-			case d, ok := <-t.reset:
-				if !ok {
-					return
-				}
+			case <-t.done:
+				t.timer.Stop()
+				return
 
-				if t.timer != nil {
-					t.timer.Reset(d)
-				} else {
-					t.timer = time.NewTimer(d)
-					c = t.timer.C
-				}
 			}
 		}
 	}()
@@ -52,7 +45,7 @@ func (t *EventTimer) Stop() {
 		return
 	}
 
-	close(t.reset)
+	close(t.done)
 	t.wg.Wait()
 }
 
@@ -61,5 +54,13 @@ func (t *EventTimer) Reset(timeout time.Duration) {
 		return
 	}
 
-	t.reset <- timeout
+	t.timer.Reset(timeout)
+}
+
+func newStoppedTimer() *time.Timer {
+	timer := time.NewTimer(time.Second)
+	if !timer.Stop() {
+		<-timer.C
+	}
+	return timer
 }
