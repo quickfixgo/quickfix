@@ -1,6 +1,6 @@
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/alpacahq/quickfix/internal"
 
 type latentState struct{ inSessionTime }
 

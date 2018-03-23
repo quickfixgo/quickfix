@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/alpacahq/quickfix/config"
+	"github.com/jinzhu/gorm"
 )
 
 type sqlStoreFactory struct {
@@ -18,7 +19,7 @@ type sqlStore struct {
 	sqlDriver          string
 	sqlDataSourceName  string
 	sqlConnMaxLifetime time.Duration
-	db                 *sql.DB
+	db                 *gorm.DB
 }
 
 // NewSQLStoreFactory returns a sql-based implementation of MessageStoreFactory
@@ -60,12 +61,12 @@ func newSQLStore(sessionID SessionID, driver string, dataSourceName string, conn
 	}
 	store.cache.Reset()
 
-	if store.db, err = sql.Open(store.sqlDriver, store.sqlDataSourceName); err != nil {
+	if store.db, err = gorm.Open(store.sqlDriver, store.sqlDataSourceName); err != nil {
 		return nil, err
 	}
-	store.db.SetConnMaxLifetime(store.sqlConnMaxLifetime)
+	store.db.DB().SetConnMaxLifetime(store.sqlConnMaxLifetime)
 
-	if err = store.db.Ping(); err != nil { // ensure immediate connection
+	if err = store.db.DB().Ping(); err != nil { // ensure immediate connection
 		return nil, err
 	}
 	if err = store.populateCache(); err != nil {
@@ -76,16 +77,15 @@ func newSQLStore(sessionID SessionID, driver string, dataSourceName string, conn
 }
 
 // Reset deletes the store records and sets the seqnums back to 1
-func (store *sqlStore) Reset() error {
+func (store *sqlStore) Reset() (err error) {
 	s := store.sessionID
-	_, err := store.db.Exec(`DELETE FROM messages
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`,
+	if err = store.db.Exec(`DELETE FROM messages
+		WHERE beginstring = ? AND session_qualifier = ?
+		AND sendercompid = ? AND sendersubid = ? AND senderlocid = ?
+		AND targetcompid = ? AND targetsubid = ? AND targetlocid = ?`,
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-	if err != nil {
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error; err != nil {
 		return err
 	}
 
@@ -93,22 +93,20 @@ func (store *sqlStore) Reset() error {
 		return err
 	}
 
-	_, err = store.db.Exec(`UPDATE sessions
-		SET creation_time=?, incoming_seqnum=?, outgoing_seqnum=?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`,
+	return store.db.Exec(`UPDATE sessions
+		SET creation_time = ?, incoming_seqnum = ?, outgoing_seqnum = ?
+		WHERE beginstring = ? AND session_qualifier = ?
+		AND sendercompid= ? AND sendersubid = ? AND senderlocid = ?
+		AND targetcompid = ? AND targetsubid = ? AND targetlocid = ?`,
 		store.cache.CreationTime(), store.cache.NextTargetMsgSeqNum(), store.cache.NextSenderMsgSeqNum(),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-
-	return err
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error
 }
 
 // Refresh reloads the store from the database
-func (store *sqlStore) Refresh() error {
-	if err := store.cache.Reset(); err != nil {
+func (store *sqlStore) Refresh() (err error) {
+	if err = store.cache.Reset(); err != nil {
 		return err
 	}
 	return store.populateCache()
@@ -118,17 +116,16 @@ func (store *sqlStore) populateCache() (err error) {
 	s := store.sessionID
 	var creationTime time.Time
 	var incomingSeqNum, outgoingSeqNum int
-	row := store.db.QueryRow(`SELECT creation_time, incoming_seqnum, outgoing_seqnum
-	  FROM sessions
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`,
+	row := store.db.Raw(`SELECT creation_time, incoming_seqnum, outgoing_seqnum
+	  	FROM sessions
+		WHERE beginstring = ? AND session_qualifier = ?
+		AND sendercompid = ? AND sendersubid = ? AND senderlocid = ?
+		AND targetcompid = ? AND targetsubid = ? AND targetlocid = ?`,
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Row()
 
 	err = row.Scan(&creationTime, &incomingSeqNum, &outgoingSeqNum)
-
 	// session record found, load it
 	if err == nil {
 		store.cache.creationTime = creationTime
@@ -143,7 +140,7 @@ func (store *sqlStore) populateCache() (err error) {
 	}
 
 	// session record not found, create it
-	_, err = store.db.Exec(`INSERT INTO sessions (
+	return store.db.Exec(`INSERT INTO sessions (
 			creation_time, incoming_seqnum, outgoing_seqnum,
 			beginstring, session_qualifier,
 			sendercompid, sendersubid, senderlocid,
@@ -154,9 +151,7 @@ func (store *sqlStore) populateCache() (err error) {
 		store.cache.NextSenderMsgSeqNum(),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-
-	return err
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error
 }
 
 // NextSenderMsgSeqNum returns the next MsgSeqNum that will be sent
@@ -172,14 +167,13 @@ func (store *sqlStore) NextTargetMsgSeqNum() int {
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent
 func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
 	s := store.sessionID
-	_, err := store.db.Exec(`UPDATE sessions SET outgoing_seqnum = ?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`,
+	if err := store.db.Exec(`UPDATE sessions SET outgoing_seqnum = ?
+		WHERE beginstring = ? AND session_qualifier = ?
+		AND sendercompid = ? AND sendersubid = ? AND senderlocid = ?
+		AND targetcompid = ? AND targetsubid = ? AND targetlocid = ?`,
 		next, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-	if err != nil {
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error; err != nil {
 		return err
 	}
 	return store.cache.SetNextSenderMsgSeqNum(next)
@@ -188,14 +182,13 @@ func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received
 func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
 	s := store.sessionID
-	_, err := store.db.Exec(`UPDATE sessions SET incoming_seqnum = ?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`,
+	if err := store.db.Exec(`UPDATE sessions SET incoming_seqnum = ?
+		WHERE beginstring = ? AND session_qualifier = ?
+		AND sendercompid = ? AND sendersubid = ? AND senderlocid = ?
+		AND targetcompid = ? AND targetsubid = ? AND targetlocid = ?`,
 		next, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-	if err != nil {
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error; err != nil {
 		return err
 	}
 	return store.cache.SetNextTargetMsgSeqNum(next)
@@ -221,7 +214,7 @@ func (store *sqlStore) CreationTime() time.Time {
 func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 	s := store.sessionID
 
-	_, err := store.db.Exec(`INSERT INTO messages (
+	return store.db.Exec(`INSERT INTO messages (
 			msgseqnum, message,
 			beginstring, session_qualifier,
 			sendercompid, sendersubid, senderlocid,
@@ -230,24 +223,22 @@ func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 		seqNum, string(msg),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
-
-	return err
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error
 }
 
 func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
 	s := store.sessionID
 	var msgs [][]byte
-	rows, err := store.db.Query(`SELECT message FROM messages
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?
-		AND msgseqnum>=? AND msgseqnum<=?
+	rows, err := store.db.Raw(`SELECT message FROM messages
+		WHERE beginstring= ? AND session_qualifier= ?
+		AND sendercompid= ? AND sendersubid= ? AND senderlocid= ?
+		AND targetcompid= ? AND targetsubid= ? AND targetlocid= ?
+		AND msgseqnum>= ? AND msgseqnum<= ?
 		ORDER BY msgseqnum`,
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID,
-		beginSeqNum, endSeqNum)
+		beginSeqNum, endSeqNum).Rows()
 	if err != nil {
 		return nil, err
 	}
