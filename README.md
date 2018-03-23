@@ -1,7 +1,7 @@
 QuickFIX/Go
 ===========
 
-[![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Build Status](https://travis-ci.org/quickfixgo/quickfix.svg?branch=master)](https://travis-ci.org/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
+[![GoDoc](https://godoc.org/github.com/alpacahq/quickfix?status.png)](https://godoc.org/github.com/alpacahq/quickfix) [![Build Status](https://travis-ci.org/quickfixgo/quickfix.svg?branch=master)](https://travis-ci.org/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/alpacahq/quickfix)](https://goreportcard.com/report/github.com/alpacahq/quickfix)
 
 - Website: http://www.quickfixgo.org
 - Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/quickfixgo)
@@ -12,40 +12,40 @@ Getting Started and Documentation
 ---------------------------------
 
 * [User Manual](http://quickfixgo.org/docs)
-* [API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
+* [API Documentation](https://godoc.org/github.com/alpacahq/quickfix)
 
 ### Installation
 
 To install QuickFIX/Go, use `go get`:
 
 ```sh
-$ go get github.com/quickfixgo/quickfix
+$ go get github.com/alpacahq/quickfix
 ```
 
 ### Staying up to date
 
-To update QuickFIX/Go to the latest version, use `go get -u github.com/quickfixgo/quickfix`.
+To update QuickFIX/Go to the latest version, use `go get -u github.com/alpacahq/quickfix`.
 
 ### Example Apps
 
-See [examples](https://github.com/quickfixgo/examples) for some simple examples of using QuickFIX/Go.
+See [examples](https://github.com/alpacahq/examples) for some simple examples of using QuickFIX/Go.
 
 ### FIX Message Generation
 
 QuickFIX/Go includes separate packages for tags, fields, enums, messages, and message components generated from the FIX 4.0 - FIX5.0SP2 specs. See:
 
-* [github.com/quickfixgo/tag](https://github.com/quickfixgo/tag)
-* [github.com/quickfixgo/field](https://github.com/quickfixgo/field)
-* [github.com/quickfixgo/enum](https://github.com/quickfixgo/enum)
-* [github.com/quickfixgo/fix40](https://github.com/quickfixgo/fix40)
-* [github.com/quickfixgo/fix41](https://github.com/quickfixgo/fix41)
-* [github.com/quickfixgo/fix42](https://github.com/quickfixgo/fix42)
-* [github.com/quickfixgo/fix43](https://github.com/quickfixgo/fix43)
-* [github.com/quickfixgo/fix44](https://github.com/quickfixgo/fix44)
-* [github.com/quickfixgo/fix50](https://github.com/quickfixgo/fix50)
-* [github.com/quickfixgo/fix50sp1](https://github.com/quickfixgo/fix50sp1)
-* [github.com/quickfixgo/fix50sp2](https://github.com/quickfixgo/fix50sp2)
-* [github.com/quickfixgo/fixt11](https://github.com/quickfixgo/fixt11)
+* [github.com/alpacahq/tag](https://github.com/alpacahq/tag)
+* [github.com/alpacahq/field](https://github.com/alpacahq/field)
+* [github.com/alpacahq/enum](https://github.com/alpacahq/enum)
+* [github.com/alpacahq/fix40](https://github.com/alpacahq/fix40)
+* [github.com/alpacahq/fix41](https://github.com/alpacahq/fix41)
+* [github.com/alpacahq/fix42](https://github.com/alpacahq/fix42)
+* [github.com/alpacahq/fix43](https://github.com/alpacahq/fix43)
+* [github.com/alpacahq/fix44](https://github.com/alpacahq/fix44)
+* [github.com/alpacahq/fix50](https://github.com/alpacahq/fix50)
+* [github.com/alpacahq/fix50sp1](https://github.com/alpacahq/fix50sp1)
+* [github.com/alpacahq/fix50sp2](https://github.com/alpacahq/fix50sp2)
+* [github.com/alpacahq/fixt11](https://github.com/alpacahq/fixt11)
 
 For most FIX applications, these generated resources are sufficient. Custom FIX applications may generate source specific to the FIX spec of that application using the `generate-fix` tool included with QuickFIX/Go.
 
@@ -58,7 +58,7 @@ If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.g
 
 For local dev first make sure Go is properly installed, including setting up a [GOPATH](http://golang.org/doc/code.html#GOPATH).
 
-Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/quickfixgo/quickfix`. 
+Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/alpacahq/quickfix`. 
 
 ### Installing Dependencies
 
@@ -88,7 +88,7 @@ If this exits with exit status 0, then everything is working!
 
 ### Generated Code
 
-Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/quickfixgo).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
+Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/alpacahq).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
 
 ```sh
 $ make generate-dist
@@ -151,4 +151,4 @@ $ dep ensure
 Licensing
 ---------
 
-This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
+This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/alpacahq/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
