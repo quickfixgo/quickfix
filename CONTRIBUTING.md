@@ -2,6 +2,8 @@
 
 We welcome pull requests, bug fixes and issue reports.
 
+Please direct questions about using the library to the [Mailing List](https://groups.google.com/forum/#!forum/quickfixgo).
+
 Before proposing a large change, please discuss your change by raising an issue.
 
 ## Submitting Changes
