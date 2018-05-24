@@ -15,15 +15,18 @@ type customLog struct {
 }
 
 func (l customLog) OnIncoming(s []byte) {
-	l.logFunc("FIX incoming", "session", l.sessionPrefix, "msg", makeReadable(s))
+	msg := fmt.Sprintf("FIX incoming [%v |%v]", l.sessionPrefix, makeReadable(s))
+	l.logFunc(msg)
 }
 
 func (l customLog) OnOutgoing(s []byte) {
-	l.logFunc("FIX outgoing", "session", l.sessionPrefix, "msg", makeReadable(s))
+	msg := fmt.Sprintf("FIX outgoing [%v - |%v]", l.sessionPrefix, makeReadable(s))
+	l.logFunc(msg)
 }
 
 func (l customLog) OnEvent(s string) {
-	l.logFunc("FIX event", "session", l.sessionPrefix, "event", s)
+	msg := fmt.Sprintf("FIX event [%v - %v]", l.sessionPrefix, s)
+	l.logFunc(msg)
 }
 
 func (l customLog) OnEventf(format string, a ...interface{}) {
