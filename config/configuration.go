@@ -48,4 +48,7 @@ const (
 	TimeStampPrecision           string = "TimeStampPrecision"
 	MaxLatency                   string = "MaxLatency"
 	PersistMessages              string = "PersistMessages"
+	Username					 string = "Username"
+	Password					 string = "Password"
+	PartyID					 	 string = "PartyID"
 )

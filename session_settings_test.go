@@ -1,7 +1,7 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/aswardly/quickfix/config"
 	"testing"
 )
 
