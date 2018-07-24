@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/aswardly/quickfix/config"
 )
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.

@@ -3,7 +3,7 @@ package internal
 import (
 	"fmt"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/aswardly/quickfix/datadictionary"
 )
 
 func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok bool, err error) {

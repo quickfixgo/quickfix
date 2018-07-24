@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/aswardly/quickfix/internal"
 )
 
 type stateMachine struct {

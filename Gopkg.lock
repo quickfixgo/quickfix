@@ -20,6 +20,12 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/quickfixgo/quickfix"
+  packages = [".","config","datadictionary","enum","internal"]
+  revision = "90abc7fbcb82e4f15f75a593ea947667810c019e"
+  version = "v0.6.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/shopspring/decimal"
   packages = ["."]
@@ -46,6 +52,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "6efc9f467166be5af0c9b9f4b98d7860ba12b50ce641a2fba765049bd1ea4f27"
+  inputs-digest = "71122f7cbeecb0edf97979eef3f8e51802f11bc0c2fa6d37fbbaa2253c5e24f5"
   solver-name = "gps-cdcl"
   solver-version = 1
