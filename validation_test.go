@@ -37,6 +37,8 @@ func TestValidate(t *testing.T) {
 		tcTagIsDefinedForMessage(),
 		tcFieldNotFoundBody(),
 		tcFieldNotFoundHeader(),
+		tcInvalidTagCheckDisabled(),
+		tcInvalidTagCheckEnabled(),
 	}
 
 	msg := NewMessage()
@@ -375,6 +377,43 @@ func tcTagSpecifiedOutOfRequiredOrderTrailer() validateTest {
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonTagSpecifiedOutOfRequiredOrder,
 		ExpectedRefTagID:     &refTag,
+	}
+}
+
+func tcInvalidTagCheckDisabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dict, defaultValidatorSettings}
+	validator.settings.RejectInvalidMessage = false
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Invalid Tag Check - Disabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcInvalidTagCheckEnabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	validator := &fixValidator{dict, defaultValidatorSettings}
+	validator.settings.RejectInvalidMessage = true
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Invalid Tag Check - Enabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: false,
+		ExpectedRefTagID: &tag,
 	}
 }
 
