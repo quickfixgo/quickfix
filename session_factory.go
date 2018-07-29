@@ -76,6 +76,12 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.RejectInvalidMessage) {
+		if validatorSettings.RejectInvalidMessage, err = settings.BoolSetting(config.RejectInvalidMessage); err != nil {
+			return
+		}
+	}
+
 	if sessionID.IsFIXT() {
 		if s.DefaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
 			return
