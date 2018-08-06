@@ -202,6 +202,14 @@ If set to N, fields that are out of order (i.e. body fields in the header, or he
 
 Defaults to Y.
 
+RejectInvalidMessage
+
+If RejectInvalidMessage is set to N, zero errors will be thrown on reception of message that fails data dictionary validation. Valid Values:
+ Y
+ N
+
+Defaults to Y.
+
 CheckLatency
 
 If set to Y, messages must be received from the counterparty within a defined number of seconds. It is useful to turn this off if a system uses localtime for it's timestamps instead of GMT. Valid Values:
