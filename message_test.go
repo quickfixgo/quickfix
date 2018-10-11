@@ -166,3 +166,16 @@ func (s *MessageSuite) TestReverseRouteFIX40() {
 
 	s.False(builder.Header.Has(tagOnBehalfOfLocationID), "onbehalfof location id not supported in fix40")
 }
+
+func (s *MessageSuite) TestCopyIntoMessage() {
+	//onbehalfof/deliverto location id not supported in fix 4.0
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+
+	dest := NewMessage()
+	s.msg.CopyInto(dest)
+	seqNum, _ := dest.Header.GetInt(tagMsgSeqNum)
+	s.Equal(2, seqNum)
+
+	handInst, _ := dest.Body.GetInt(21)
+	s.Equal(3, handInst)
+}
