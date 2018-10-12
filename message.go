@@ -128,8 +128,12 @@ func (m *Message) CopyInto(to *Message) error {
 	to.rawMessage = m.rawMessage
 	to.ReceiveTime = m.ReceiveTime
 	to.bodyBytes = make([]byte, len(m.bodyBytes))
-
-	to.cook()
+	copy(to.bodyBytes, m.bodyBytes)
+	to.fields = make([]TagValue, len(m.fields))
+	for i := range to.fields {
+		to.fields[i].init(m.fields[i].tag, m.fields[i].value)
+		fmt.Println(i)
+	}
 	return nil
 }
 
