@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -168,14 +169,29 @@ func (s *MessageSuite) TestReverseRouteFIX40() {
 }
 
 func (s *MessageSuite) TestCopyIntoMessage() {
-	//onbehalfof/deliverto location id not supported in fix 4.0
-	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
 	dest := NewMessage()
 	s.msg.CopyInto(dest)
-	seqNum, _ := dest.Header.GetInt(tagMsgSeqNum)
-	s.Equal(2, seqNum)
+	checkFieldInt(s, dest.Header.FieldMap, int(tagMsgSeqNum), 2)
+	checkFieldInt(s, dest.Body.FieldMap, 21, 3)
+	checkFieldString(s, dest.Body.FieldMap, 11, "ID")
+	s.Equal(len(dest.bodyBytes), len(s.msg.bodyBytes))
 
-	handInst, _ := dest.Body.GetInt(21)
-	s.Equal(3, handInst)
+	s.True(reflect.DeepEqual(s.msg.bodyBytes, dest.bodyBytes))
+	s.True(s.msg.IsMsgTypeOf("D"))
+	s.Equal(s.msg.ReceiveTime, dest.ReceiveTime)
+
+	s.True(reflect.DeepEqual(s.msg.fields, dest.fields))
+}
+
+func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {
+	toCheck, _ := fields.GetInt(Tag(tag))
+	s.Equal(expected, toCheck)
+}
+
+func checkFieldString(s *MessageSuite, fields FieldMap, tag int, expected string) {
+	toCheck, err := fields.GetString(Tag(tag))
+	s.NoError(err)
+	s.Equal(expected, toCheck)
 }
