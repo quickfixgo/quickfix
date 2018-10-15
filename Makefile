@@ -1,6 +1,8 @@
 all: vet test
 
 generate:
+	$(if $(shell which stringer-augmented),,$(error "No stringer-augmented in PATH, install from gopaca))
+	cd enum && stringer-augmented -type `grep type enums.generated.go | awk '{print $$2}' | xargs | sed -e 's/ /,/g'` -output enums.generated-reverse.go enums.generated.go
 	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
 
 generate-dist:
