@@ -1,9 +1,12 @@
 all: vet test
 
 generate:
-	$(if $(shell which stringer-augmented),,$(error "No stringer-augmented in PATH, install from gopaca))
-	cd enum && stringer-augmented -type `grep type enums.generated.go | awk '{print $$2}' | xargs | sed -e 's/ /,/g'` -output enums.generated-reverse.go enums.generated.go
 	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
+	make generate_maps
+
+generate_maps:
+	$(if $(shell which stringer-augmented),,$(error "No stringer-augmented in PATH, install from gopaca))
+	cd enum && stringer-augmented -type `grep type enums.generated.go | awk '{print $$2}' | xargs | sed -e 's/ /,/g'` -sqlfile enums-generated-maps.sql -output enums.generated-reverse.go enums.generated.go
 
 generate-dist:
 	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
