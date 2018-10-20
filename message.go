@@ -114,6 +114,29 @@ func NewMessage() *Message {
 	return m
 }
 
+// CopyInto erases the dest messages and copies the curreny message content
+// into it.
+func (m *Message) CopyInto(to *Message) error {
+	to.Header.Clear()
+	to.Body.Clear()
+	to.Trailer.Clear()
+
+	to.Header.FieldMap = cloneFieldMap(m.Header.FieldMap)
+	to.Body.FieldMap = cloneFieldMap(m.Body.FieldMap)
+	to.Trailer.FieldMap = cloneFieldMap(m.Trailer.FieldMap)
+
+	to.rawMessage = m.rawMessage
+	to.ReceiveTime = m.ReceiveTime
+	to.bodyBytes = make([]byte, len(m.bodyBytes))
+	copy(to.bodyBytes, m.bodyBytes)
+	to.fields = make([]TagValue, len(m.fields))
+	for i := range to.fields {
+		to.fields[i].init(m.fields[i].tag, m.fields[i].value)
+		fmt.Println(i)
+	}
+	return nil
+}
+
 //ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil)
@@ -362,4 +385,15 @@ func (m *Message) cook() {
 	m.Header.SetInt(tagBodyLength, bodyLength)
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
 	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
+}
+
+func cloneFieldMap(f FieldMap) FieldMap {
+	res := FieldMap{}
+	res.tagLookup = make(map[Tag]field)
+	for tag, field := range f.tagLookup {
+		res.tagLookup[tag] = field
+	}
+	res.tags = make([]Tag, len(f.tags))
+	copy(res.tags, f.tags)
+	return res
 }
