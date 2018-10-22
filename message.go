@@ -132,7 +132,6 @@ func (m *Message) CopyInto(to *Message) error {
 	to.fields = make([]TagValue, len(m.fields))
 	for i := range to.fields {
 		to.fields[i].init(m.fields[i].tag, m.fields[i].value)
-		fmt.Println(i)
 	}
 	return nil
 }
