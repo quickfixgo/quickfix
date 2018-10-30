@@ -5,16 +5,22 @@ go:
   - 1.9
   - tip
 
+services:
+  - mongodb
+
 env:
-  - FIX_TEST=
-  - FIX_TEST=fix40
-  - FIX_TEST=fix41
-  - FIX_TEST=fix42
-  - FIX_TEST=fix43
-  - FIX_TEST=fix44
-  - FIX_TEST=fix50
-  - FIX_TEST=fix50sp1
-  - FIX_TEST=fix50sp2
+  global:
+    - MONGODB_TEST_CXN=localhost
+  matrix:
+    - FIX_TEST=
+    - FIX_TEST=fix40
+    - FIX_TEST=fix41
+    - FIX_TEST=fix42
+    - FIX_TEST=fix43
+    - FIX_TEST=fix44
+    - FIX_TEST=fix50
+    - FIX_TEST=fix50sp1
+    - FIX_TEST=fix50sp2
 
 matrix:
   allow_failures:
