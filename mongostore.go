@@ -56,8 +56,8 @@ func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, e
 	return newMongoStore(sessionID, mongoConnectionUrl, mongoDatabase, f.messagesCollection, f.sessionsCollection)
 }
 
-func newMongoStore(sessionID SessionID, mongoUrl string, mongoDatabase string, messagesCollection string, sessionsCollection string) (*mongoStore, error) {
-	store := &mongoStore{
+func newMongoStore(sessionID SessionID, mongoUrl string, mongoDatabase string, messagesCollection string, sessionsCollection string) (store *mongoStore, err error) {
+	store = &mongoStore{
 		sessionID:          sessionID,
 		cache:              &memoryStore{},
 		mongoUrl:           mongoUrl,
@@ -67,21 +67,16 @@ func newMongoStore(sessionID SessionID, mongoUrl string, mongoDatabase string, m
 	}
 	store.cache.Reset()
 
-	if conn, err := mgo.Dial(mongoUrl); err != nil {
-		return nil, err
-	} else {
-		store.db = conn
+	if store.db, err = mgo.Dial(mongoUrl); err != nil {
+		return
 	}
+	err = store.populateCache()
 
-	if err := store.populateCache(); err != nil {
-		return nil, err
-	}
-
-	return store, nil
+	return
 }
 
-func generateMessageFilter(s *SessionID) (messageFilter *MongoQuickFixEntryData) {
-	messageFilter = &MongoQuickFixEntryData{
+func generateMessageFilter(s *SessionID) (messageFilter *mongoQuickFixEntryData) {
+	messageFilter = &mongoQuickFixEntryData{
 		BeginString:      s.BeginString,
 		SessionQualifier: s.Qualifier,
 		SenderCompId:     s.SenderCompID,
@@ -94,7 +89,7 @@ func generateMessageFilter(s *SessionID) (messageFilter *MongoQuickFixEntryData)
 	return
 }
 
-type MongoQuickFixEntryData struct {
+type mongoQuickFixEntryData struct {
 	//Message specific data
 	Msgseq  int    `bson:"msgseq,omitempty"`
 	Message []byte `bson:"message,omitempty"`
@@ -149,7 +144,7 @@ func (store *mongoStore) populateCache() (err error) {
 
 	if cnt, err := query.Count(); err == nil && cnt > 0 {
 		// session record found, load it
-		sessionData := &MongoQuickFixEntryData{}
+		sessionData := &mongoQuickFixEntryData{}
 		err = query.One(&sessionData)
 		if err == nil {
 			store.cache.creationTime = sessionData.CreationTime
@@ -183,8 +178,7 @@ func (store *mongoStore) SetNextSenderMsgSeqNum(next int) error {
 	sessionUpdate.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()
 	sessionUpdate.OutgoingSeqNum = next
 	sessionUpdate.CreationTime = store.cache.CreationTime()
-	err := store.db.DB(store.mongoDatabase).C(store.sessionsCollection).Update(msgFilter, sessionUpdate)
-	if err != nil {
+	if err := store.db.DB(store.mongoDatabase).C(store.sessionsCollection).Update(msgFilter, sessionUpdate); err != nil {
 		return err
 	}
 	return store.cache.SetNextSenderMsgSeqNum(next)
@@ -197,8 +191,7 @@ func (store *mongoStore) SetNextTargetMsgSeqNum(next int) error {
 	sessionUpdate.IncomingSeqNum = next
 	sessionUpdate.OutgoingSeqNum = store.cache.NextSenderMsgSeqNum()
 	sessionUpdate.CreationTime = store.cache.CreationTime()
-	err := store.db.DB(store.mongoDatabase).C(store.sessionsCollection).Update(msgFilter, sessionUpdate)
-	if err != nil {
+	if err := store.db.DB(store.mongoDatabase).C(store.sessionsCollection).Update(msgFilter, sessionUpdate); err != nil {
 		return err
 	}
 	return store.cache.SetNextTargetMsgSeqNum(next)
