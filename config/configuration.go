@@ -41,6 +41,8 @@ const (
 	SQLStoreDriver               string = "SQLStoreDriver"
 	SQLStoreDataSourceName       string = "SQLStoreDataSourceName"
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
+	MongoStoreConnection         string = "MongoStoreConnection"
+	MongoStoreDatabase           string = "MongoStoreDatabase"
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
