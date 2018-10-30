@@ -290,6 +290,14 @@ FileStorePath
 
 Directory to store sequence number and message files.  Only used with FileStoreFactory.
 
+MongoStoreConnection
+
+The MongoDB connection URL to use (see https://godoc.org/github.com/globalsign/mgo#Dial for the URL Format).  Only used with MongoStoreFactory.
+
+MongoStoreDatabase
+
+The MongoDB-specific name of the database to use.  Only used with MongoStoreFactory.
+
 SQLStoreDriver
 
 The name of the database driver to use (see https://github.com/golang/go/wiki/SQLDrivers for the list of available drivers).  Only used with SqlStoreFactory.
