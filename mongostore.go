@@ -244,6 +244,7 @@ func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte,
 	for iter.Next(msgFilter) {
 		msgs = append(msgs, msgFilter.Message)
 	}
+	err = iter.Close()
 	return
 }
 
