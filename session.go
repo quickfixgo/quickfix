@@ -402,6 +402,11 @@ func (s *session) handleLogon(msg *Message) error {
 	} else {
 		s.log.OnEvent("Received logon request")
 		resetStore = s.ResetOnLogon
+		if resetStore {
+			if err := s.store.Reset(); err != nil {
+				return err
+			}
+		}
 
 		if s.RefreshOnLogon {
 			if err := s.store.Refresh(); err != nil {
@@ -413,16 +418,16 @@ func (s *session) handleLogon(msg *Message) error {
 	var resetSeqNumFlag FIXBoolean
 	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag {
-			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
+			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers, setting sender sequence to 2")
 			if !s.sentReset {
 				resetStore = true
+				if err := s.store.Reset(); err != nil {
+					return err
+				}
+				if err := s.store.SetNextSenderMsgSeqNum(2); err != nil {
+					return err
+				}
 			}
-		}
-	}
-
-	if resetStore {
-		if err := s.store.Reset(); err != nil {
-			return err
 		}
 	}
 
