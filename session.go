@@ -418,14 +418,21 @@ func (s *session) handleLogon(msg *Message) error {
 	var resetSeqNumFlag FIXBoolean
 	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag {
-			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers, setting sender sequence to 2")
+			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers..")
 			if !s.sentReset {
 				resetStore = true
 				if err := s.store.Reset(); err != nil {
 					return err
 				}
-				if err := s.store.SetNextSenderMsgSeqNum(2); err != nil {
-					return err
+
+				if s.InitiateLogon {
+					s.log.OnEvent("Logon requested as Initiator, must set next sequence numbers to 2..")
+					if err := s.store.SetNextSenderMsgSeqNum(2); err != nil {
+						return err
+					}
+					if err := s.store.SetNextTargetMsgSeqNum(2); err != nil {
+						return err
+					}
 				}
 			}
 		}
