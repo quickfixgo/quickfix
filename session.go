@@ -426,11 +426,8 @@ func (s *session) handleLogon(msg *Message) error {
 				}
 
 				if s.InitiateLogon {
-					s.log.OnEvent("Logon requested as Initiator, must set next sequence numbers to 2..")
+					s.log.OnEvent("Logon requested as Initiator, must set next sender sequence number to 2..")
 					if err := s.store.SetNextSenderMsgSeqNum(2); err != nil {
-						return err
-					}
-					if err := s.store.SetNextTargetMsgSeqNum(2); err != nil {
 						return err
 					}
 				}
