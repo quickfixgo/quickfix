@@ -21,6 +21,7 @@ const (
 	SocketCAFile                 string = "SocketCAFile"
 	SocketInsecureSkipVerify     string = "SocketInsecureSkipVerify"
 	SocketMinimumTLSVersion      string = "SocketMinimumTLSVersion"
+	SocketTimeout                string = "SocketTimeout"
 	DefaultApplVerID             string = "DefaultApplVerID"
 	StartTime                    string = "StartTime"
 	EndTime                      string = "EndTime"
