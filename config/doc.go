@@ -250,6 +250,16 @@ SocketConnectHost<n>
 
 Alternate socket hosts for connecting to a session for failover, where n is a positive integer. (i.e.) SocketConnectHost1, SocketConnectHost2... must be consecutive and have a matching SocketConnectPort[n]. Value must be a valid IPv4 or IPv6 address or a domain name
 
+SocketTimeout
+
+Duration of timeout for TLS handshake. Only used for initiators.
+
+Example Values:
+ SocketTimeout=30s # 30 seconds
+ SocketTimeout=60m # 60 minutes
+
+Defaults to 0(means nothing timeout).
+
 SocketAcceptHost
 
 Socket host address for listening on incoming connections, only used for acceptors. By default acceptors listen on all available interfaces.
