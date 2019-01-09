@@ -125,3 +125,53 @@ func TestFieldMap_BoolTypedSetAndGet(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "N", s)
 }
+
+func TestFieldMap_CopyInto(t *testing.T) {
+	var fMapA FieldMap
+	fMapA.initWithOrdering(headerFieldOrdering)
+	fMapA.SetString(9, "length")
+	fMapA.SetString(8, "begin")
+	fMapA.SetString(35, "msgtype")
+	fMapA.SetString(1, "a")
+	assert.Equal(t, []Tag{8, 9, 35, 1}, fMapA.sortedTags())
+
+	var fMapB FieldMap
+	fMapB.init()
+	fMapB.SetString(1, "A")
+	fMapB.SetString(3, "C")
+	fMapB.SetString(4, "D")
+	assert.Equal(t, fMapB.sortedTags(), []Tag{1, 3, 4})
+
+	fMapA.CopyInto(&fMapB)
+
+	assert.Equal(t, []Tag{8, 9, 35, 1}, fMapB.sortedTags())
+
+	// new fields
+	s, err := fMapB.GetString(35)
+	assert.Nil(t, err)
+	assert.Equal(t, "msgtype", s)
+
+	// existing fields overwritten
+	s, err = fMapB.GetString(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", s)
+
+	// old fields cleared
+	s, err = fMapB.GetString(3)
+	assert.NotNil(t, err)
+
+	// check that ordering is overwritten
+	fMapB.SetString(2, "B")
+	assert.Equal(t, []Tag{8, 9, 35, 1, 2}, fMapB.sortedTags())
+
+	// updating the existing map doesn't affect the new
+	fMapA.init()
+	fMapA.SetString(1, "AA")
+	s, err = fMapB.GetString(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", s)
+	fMapA.Clear()
+	s, err = fMapB.GetString(1)
+	assert.Nil(t, err)
+	assert.Equal(t, "a", s)
+}
