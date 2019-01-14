@@ -199,6 +199,19 @@ func (m *FieldMap) Clear() {
 	}
 }
 
+//CopyInto overwrites the given FieldMap with this one
+func (m *FieldMap) CopyInto(to *FieldMap) {
+	to.tagLookup = make(map[Tag]field)
+	for tag, f := range m.tagLookup {
+		clone := make(field, 1)
+		clone[0] = f[0]
+		to.tagLookup[tag] = clone
+	}
+	to.tags = make([]Tag, len(m.tags))
+	copy(to.tags, m.tags)
+	to.compare = m.compare
+}
+
 func (m *FieldMap) add(f field) {
 	t := fieldTag(f)
 	if _, ok := m.tagLookup[t]; !ok {
