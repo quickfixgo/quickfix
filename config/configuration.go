@@ -54,5 +54,4 @@ const (
 	RejectInvalidMessage         string = "RejectInvalidMessage"
 	Username					 string = "Username"
 	Password					 string = "Password"
-	PartyID					 	 string = "PartyID"
 )

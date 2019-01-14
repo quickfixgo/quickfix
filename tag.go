@@ -40,7 +40,6 @@ const (
 	tagHopRefID               Tag = 630
 	tagUsername				  Tag = 553
 	tagPassword				  Tag = 554
-	tagPartyID				  Tag = 453
 
 	tagHeartBtInt           Tag = 108
 	tagBusinessRejectReason Tag = 380

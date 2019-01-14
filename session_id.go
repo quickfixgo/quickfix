@@ -4,7 +4,7 @@ import "bytes"
 
 // SessionID is a unique identifer of a Session
 type SessionID struct {
-	BeginString, TargetCompID, TargetSubID, TargetLocationID, SenderCompID, SenderSubID, SenderLocationID, Qualifier, Username, Password, PartyID string
+	BeginString, TargetCompID, TargetSubID, TargetLocationID, SenderCompID, SenderSubID, SenderLocationID, Qualifier, Username, Password string
 }
 
 //IsFIXT returns true if the SessionID has a FIXT BeginString
