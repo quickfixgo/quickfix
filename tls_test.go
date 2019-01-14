@@ -90,8 +90,9 @@ func (s *TLSTestSuite) TestLoadTLSWithCA() {
 func (s *TLSTestSuite) TestInsecureSkipVerify() {
 	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
 
-	_, err := loadTLSConfig(s.settings.GlobalSettings())
-	s.NotNil(err)
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.Nil(tlsConfig)
 }
 
 func (s *TLSTestSuite) TestInsecureSkipVerifyWithUseSSL() {
