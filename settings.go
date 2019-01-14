@@ -70,6 +70,18 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 		if settings.HasSetting(config.SessionQualifier) {
 			sessionID.Qualifier, _ = settings.Setting(config.SessionQualifier)
 		}
+
+		if settings.HasSetting(config.Username) {
+			sessionID.Username, _ = settings.Setting(config.Username)
+		}
+
+		if settings.HasSetting(config.Password) {
+			sessionID.Password, _ = settings.Setting(config.Password)
+		}
+
+		if settings.HasSetting(config.PartyID) {
+			sessionID.PartyID, _ = settings.Setting(config.PartyID)
+		}
 	}
 
 	return sessionID

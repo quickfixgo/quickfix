@@ -52,4 +52,7 @@ const (
 	MaxLatency                   string = "MaxLatency"
 	PersistMessages              string = "PersistMessages"
 	RejectInvalidMessage         string = "RejectInvalidMessage"
+	Username					 string = "Username"
+	Password					 string = "Password"
+	PartyID					 	 string = "PartyID"
 )

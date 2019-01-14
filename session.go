@@ -143,6 +143,13 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 	logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
 	logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
 	logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+	if "" != s.sessionID.Username {
+		logon.Header.SetField(tagUsername, FIXString(s.sessionID.Username))
+		logon.Header.SetField(tagPassword, FIXString(s.sessionID.Password))
+	}
+	if "" != s.sessionID.PartyID {
+		logon.Header.SetField(tagPartyID, FIXString(s.sessionID.PartyID))
+	}
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
 	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
 
