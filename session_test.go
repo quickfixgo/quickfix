@@ -228,6 +228,25 @@ func (s *SessionSuite) TestCheckTargetTooLow() {
 	s.Nil(s.session.checkTargetTooLow(msg))
 }
 
+func (s *SessionSuite) TestShouldSendReset() {
+	var tests = []struct {
+		BeginString string
+		Expected    bool
+	}{
+		{BeginStringFIX40, false}, //ResetSeqNumFlag not available < fix41
+		{BeginStringFIX41, true},
+		{BeginStringFIX42, true},
+		{BeginStringFIX43, true},
+		{BeginStringFIX44, true},
+		{BeginStringFIXT11, true},
+	}
+
+	for _, test := range tests {
+		s.session.sessionID.BeginString = test.BeginString
+		s.Equal(s.shouldSendReset(), test.Expected)
+	}
+}
+
 func (s *SessionSuite) TestCheckSessionTimeNoStartTimeEndTime() {
 	var tests = []struct {
 		before, after sessionState
@@ -851,7 +870,7 @@ func (suite *SessionSendTestSuite) TestSendDisableMessagePersist() {
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
-	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))
+	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	suite.MessagePersisted(suite.MockApp.lastToAdmin)
@@ -868,7 +887,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	msg := suite.MockApp.lastToAdmin
@@ -889,7 +908,8 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
+	suite.MockStore.Reset()
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
 	suite.MockApp.AssertExpectations(suite.T())
 	msg := suite.MockApp.lastToAdmin
 

@@ -133,11 +133,19 @@ func (s *session) fillDefaultHeader(msg *Message, inReplyTo *Message) {
 	}
 }
 
-func (s *session) sendLogon(resetStore, setResetSeqNum bool) error {
-	return s.sendLogonInReplyTo(resetStore, setResetSeqNum, nil)
+func (s *session) shouldSendReset() bool {
+	if s.sessionID.BeginString < BeginStringFIX41 {
+		return false
+	}
+
+	return true
 }
 
-func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo *Message) error {
+func (s *session) sendLogon(setResetSeqNum bool) error {
+	return s.sendLogonInReplyTo(setResetSeqNum, nil)
+}
+
+func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) error {
 	logon := NewMessage()
 	logon.Header.SetField(tagMsgType, FIXString("A"))
 	logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
@@ -146,7 +154,7 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
 	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
 
-	if setResetSeqNum {
+	if s.shouldSendReset() && setResetSeqNum {
 		logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
 	}
 
@@ -154,7 +162,7 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.DefaultApplVerID))
 	}
 
-	if err := s.dropAndSendInReplyTo(logon, resetStore, inReplyTo); err != nil {
+	if err := s.dropAndSendInReplyTo(logon, inReplyTo); err != nil {
 		return err
 	}
 
@@ -248,19 +256,13 @@ func (s *session) dropAndReset() error {
 	return s.store.Reset()
 }
 
-//dropAndSend will optionally reset the store, validate and persist the message, then drops the send queue and sends the message.
-func (s *session) dropAndSend(msg *Message, resetStore bool) error {
-	return s.dropAndSendInReplyTo(msg, resetStore, nil)
+//dropAndSend will validate and persist the message, then drops the send queue and sends the message.
+func (s *session) dropAndSend(msg *Message) error {
+	return s.dropAndSendInReplyTo(msg, nil)
 }
-func (s *session) dropAndSendInReplyTo(msg *Message, resetStore bool, inReplyTo *Message) error {
+func (s *session) dropAndSendInReplyTo(msg *Message, inReplyTo *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
-
-	if resetStore {
-		if err := s.store.Reset(); err != nil {
-			return err
-		}
-	}
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -304,7 +306,6 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 				seqNum = s.store.NextSenderMsgSeqNum()
 				msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 			}
-
 		}
 	} else {
 		if err = s.application.ToApp(msg, s.sessionID); err != nil {
@@ -437,7 +438,7 @@ func (s *session) handleLogon(msg *Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.sendLogonInReplyTo(resetStore, resetSeqNumFlag.Bool(), msg); err != nil {
+		if err := s.sendLogonInReplyTo(resetSeqNumFlag.Bool(), msg); err != nil {
 			return err
 		}
 	}
