@@ -27,7 +27,7 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 			session.log.OnEvent(err.Text)
 			logout := session.buildLogout(err.Text)
 
-			if err := session.dropAndSendInReplyTo(logout, false, msg); err != nil {
+			if err := session.dropAndSendInReplyTo(logout, msg); err != nil {
 				session.logError(err)
 			}
 
