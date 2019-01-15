@@ -138,11 +138,12 @@ func (s *session) shouldSendReset() bool {
 		return false
 	}
 
-	return true
+	return (s.ResetOnLogon || s.ResetOnDisconnect || s.ResetOnLogout) &&
+		s.store.NextTargetMsgSeqNum() == 1 && s.store.NextSenderMsgSeqNum() == 1
 }
 
-func (s *session) sendLogon(setResetSeqNum bool) error {
-	return s.sendLogonInReplyTo(setResetSeqNum, nil)
+func (s *session) sendLogon() error {
+	return s.sendLogonInReplyTo(s.shouldSendReset(), nil)
 }
 
 func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) error {
@@ -154,7 +155,7 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
 	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
 
-	if s.shouldSendReset() && setResetSeqNum {
+	if setResetSeqNum {
 		logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
 	}
 
