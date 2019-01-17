@@ -53,6 +53,12 @@ func (i *Initiator) Start() (err error) {
 
 //Stop Initiator.
 func (i *Initiator) Stop() {
+	select {
+	case <-i.stopChan:
+		//closed already
+		return
+	default:
+	}
 	close(i.stopChan)
 	i.wg.Wait()
 }
