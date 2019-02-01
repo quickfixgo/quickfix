@@ -228,6 +228,61 @@ func (s *SessionSuite) TestCheckTargetTooLow() {
 	s.Nil(s.session.checkTargetTooLow(msg))
 }
 
+func (s *SessionSuite) TestShouldSendReset() {
+	var tests = []struct {
+		BeginString         string
+		ResetOnLogon        bool
+		ResetOnDisconnect   bool
+		ResetOnLogout       bool
+		NextSenderMsgSeqNum int
+		NextTargetMsgSeqNum int
+		Expected            bool
+	}{
+		{BeginStringFIX40, true, false, false, 1, 1, false}, //ResetSeqNumFlag not available < fix41
+
+		{BeginStringFIX41, true, false, false, 1, 1, true}, //session must be configured to reset on logon
+		{BeginStringFIX42, true, false, false, 1, 1, true},
+		{BeginStringFIX43, true, false, false, 1, 1, true},
+		{BeginStringFIX44, true, false, false, 1, 1, true},
+		{BeginStringFIXT11, true, false, false, 1, 1, true},
+
+		{BeginStringFIX41, false, true, false, 1, 1, true}, //or disconnect
+		{BeginStringFIX42, false, true, false, 1, 1, true},
+		{BeginStringFIX43, false, true, false, 1, 1, true},
+		{BeginStringFIX44, false, true, false, 1, 1, true},
+		{BeginStringFIXT11, false, true, false, 1, 1, true},
+
+		{BeginStringFIX41, false, false, true, 1, 1, true}, //or logout
+		{BeginStringFIX42, false, false, true, 1, 1, true},
+		{BeginStringFIX43, false, false, true, 1, 1, true},
+		{BeginStringFIX44, false, false, true, 1, 1, true},
+		{BeginStringFIXT11, false, false, true, 1, 1, true},
+
+		{BeginStringFIX41, true, true, false, 1, 1, true}, //or combo
+		{BeginStringFIX42, false, true, true, 1, 1, true},
+		{BeginStringFIX43, true, false, true, 1, 1, true},
+		{BeginStringFIX44, true, true, true, 1, 1, true},
+
+		{BeginStringFIX41, false, false, false, 1, 1, false}, //or will not be set
+
+		{BeginStringFIX41, true, false, false, 1, 10, false}, //session seq numbers should be reset at the time of check
+		{BeginStringFIX42, true, false, false, 2, 1, false},
+		{BeginStringFIX43, true, false, false, 14, 100, false},
+	}
+
+	for _, test := range tests {
+		s.session.sessionID.BeginString = test.BeginString
+		s.session.ResetOnLogon = test.ResetOnLogon
+		s.session.ResetOnDisconnect = test.ResetOnDisconnect
+		s.session.ResetOnLogout = test.ResetOnLogout
+
+		s.MockStore.SetNextSenderMsgSeqNum(test.NextSenderMsgSeqNum)
+		s.MockStore.SetNextTargetMsgSeqNum(test.NextTargetMsgSeqNum)
+
+		s.Equal(s.shouldSendReset(), test.Expected)
+	}
+}
+
 func (s *SessionSuite) TestCheckSessionTimeNoStartTimeEndTime() {
 	var tests = []struct {
 		before, after sessionState
@@ -851,7 +906,7 @@ func (suite *SessionSendTestSuite) TestSendDisableMessagePersist() {
 
 func (suite *SessionSendTestSuite) TestDropAndSendAdminMessage() {
 	suite.MockApp.On("ToAdmin")
-	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat(), false))
+	suite.Require().Nil(suite.dropAndSend(suite.Heartbeat()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	suite.MessagePersisted(suite.MockApp.lastToAdmin)
@@ -868,7 +923,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), false))
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
 	suite.MockApp.AssertExpectations(suite.T())
 
 	msg := suite.MockApp.lastToAdmin
@@ -889,7 +944,8 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	require.Nil(suite.T(), suite.dropAndSend(suite.Logon(), true))
+	suite.MockStore.Reset()
+	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
 	suite.MockApp.AssertExpectations(suite.T())
 	msg := suite.MockApp.lastToAdmin
 

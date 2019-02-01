@@ -2,9 +2,10 @@ package quickfix
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"time"
 
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -18,7 +19,7 @@ type mongoStoreFactory struct {
 type mongoStore struct {
 	sessionID          SessionID
 	cache              *memoryStore
-	mongoUrl           string
+	mongoURL           string
 	mongoDatabase      string
 	db                 *mgo.Session
 	messagesCollection string
@@ -45,7 +46,7 @@ func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, e
 	if !ok {
 		return nil, fmt.Errorf("unknown session: %v", sessionID)
 	}
-	mongoConnectionUrl, err := sessionSettings.Setting(config.MongoStoreConnection)
+	mongoConnectionURL, err := sessionSettings.Setting(config.MongoStoreConnection)
 	if err != nil {
 		return nil, err
 	}
@@ -53,21 +54,21 @@ func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, e
 	if err != nil {
 		return nil, err
 	}
-	return newMongoStore(sessionID, mongoConnectionUrl, mongoDatabase, f.messagesCollection, f.sessionsCollection)
+	return newMongoStore(sessionID, mongoConnectionURL, mongoDatabase, f.messagesCollection, f.sessionsCollection)
 }
 
-func newMongoStore(sessionID SessionID, mongoUrl string, mongoDatabase string, messagesCollection string, sessionsCollection string) (store *mongoStore, err error) {
+func newMongoStore(sessionID SessionID, mongoURL string, mongoDatabase string, messagesCollection string, sessionsCollection string) (store *mongoStore, err error) {
 	store = &mongoStore{
 		sessionID:          sessionID,
 		cache:              &memoryStore{},
-		mongoUrl:           mongoUrl,
+		mongoURL:           mongoURL,
 		mongoDatabase:      mongoDatabase,
 		messagesCollection: messagesCollection,
 		sessionsCollection: sessionsCollection,
 	}
 	store.cache.Reset()
 
-	if store.db, err = mgo.Dial(mongoUrl); err != nil {
+	if store.db, err = mgo.Dial(mongoURL); err != nil {
 		return
 	}
 	err = store.populateCache()
@@ -79,12 +80,12 @@ func generateMessageFilter(s *SessionID) (messageFilter *mongoQuickFixEntryData)
 	messageFilter = &mongoQuickFixEntryData{
 		BeginString:      s.BeginString,
 		SessionQualifier: s.Qualifier,
-		SenderCompId:     s.SenderCompID,
-		SenderSubId:      s.SenderSubID,
-		SenderLocId:      s.SenderLocationID,
-		TargetCompId:     s.TargetCompID,
-		TargetSubId:      s.TargetSubID,
-		TargetLocId:      s.TargetLocationID,
+		SenderCompID:     s.SenderCompID,
+		SenderSubID:      s.SenderSubID,
+		SenderLocID:      s.SenderLocationID,
+		TargetCompID:     s.TargetCompID,
+		TargetSubID:      s.TargetSubID,
+		TargetLocID:      s.TargetLocationID,
 	}
 	return
 }
@@ -100,12 +101,12 @@ type mongoQuickFixEntryData struct {
 	//Indexed data
 	BeginString      string `bson:"begin_string"`
 	SessionQualifier string `bson:"session_qualifier"`
-	SenderCompId     string `bson:"sender_comp_id"`
-	SenderSubId      string `bson:"sender_sub_id"`
-	SenderLocId      string `bson:"sender_loc_id"`
-	TargetCompId     string `bson:"target_comp_id"`
-	TargetSubId      string `bson:"target_sub_id"`
-	TargetLocId      string `bson:"target_loc_id"`
+	SenderCompID     string `bson:"sender_comp_id"`
+	SenderSubID      string `bson:"sender_sub_id"`
+	SenderLocID      string `bson:"sender_loc_id"`
+	TargetCompID     string `bson:"target_comp_id"`
+	TargetSubID      string `bson:"target_sub_id"`
+	TargetLocID      string `bson:"target_loc_id"`
 }
 
 // Reset deletes the store records and sets the seqnums back to 1
