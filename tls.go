@@ -10,6 +10,14 @@ import (
 )
 
 func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error) {
+	allowSkipClientCerts := false
+	if settings.HasSetting(config.SocketUseSSL) {
+		allowSkipClientCerts, err = settings.BoolSetting(config.SocketUseSSL)
+		if err != nil {
+			return
+		}
+	}
+
 	insecureSkipVerify := false
 	if settings.HasSetting(config.SocketInsecureSkipVerify) {
 		insecureSkipVerify, err = settings.BoolSetting(config.SocketInsecureSkipVerify)
@@ -19,9 +27,9 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	}
 
 	if !settings.HasSetting(config.SocketPrivateKeyFile) && !settings.HasSetting(config.SocketCertificateFile) {
-		if insecureSkipVerify {
+		if allowSkipClientCerts {
 			tlsConfig = defaultTLSConfig()
-			tlsConfig.InsecureSkipVerify = true
+			tlsConfig.InsecureSkipVerify = insecureSkipVerify
 		}
 		return
 	}

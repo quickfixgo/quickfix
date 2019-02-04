@@ -92,6 +92,15 @@ func (s *TLSTestSuite) TestInsecureSkipVerify() {
 
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
+	s.Nil(tlsConfig)
+}
+
+func (s *TLSTestSuite) TestInsecureSkipVerifyWithUseSSL() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
 	s.NotNil(tlsConfig)
 
 	s.True(tlsConfig.InsecureSkipVerify)
