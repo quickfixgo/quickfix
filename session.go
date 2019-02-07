@@ -415,8 +415,8 @@ func (s *session) handleLogon(msg *Message) error {
 	var resetSeqNumFlag FIXBoolean
 	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag {
-			s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
 			if !s.sentReset {
+				s.log.OnEvent("Logon contains ResetSeqNumFlag=Y, resetting sequence numbers to 1")
 				resetStore = true
 			}
 		}
