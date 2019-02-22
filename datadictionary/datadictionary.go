@@ -3,6 +3,7 @@ package datadictionary
 
 import (
 	"encoding/xml"
+	"io"
 	"os"
 )
 
@@ -326,6 +327,9 @@ func Parse(path string) (*DataDictionary, error) {
 
 	doc := new(XMLDoc)
 	decoder := xml.NewDecoder(xmlFile)
+	decoder.CharsetReader = func(encoding string, input io.Reader) (io.Reader, error) {
+		return input, nil
+	}
 	if err := decoder.Decode(doc); err != nil {
 		return nil, err
 	}
