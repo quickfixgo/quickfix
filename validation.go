@@ -209,10 +209,10 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 				return fieldStack, err
 			}
 		} else {
-			fieldStack = fieldStack[1:]
 			if childDefs[0].Required() {
 				return fieldStack, RequiredTagMissing(Tag(childDefs[0].Tag()))
 			}
+			fieldStack = fieldStack[1:]
 		}
 
 		childDefs = childDefs[1:]
