@@ -413,7 +413,7 @@ func tcInvalidTagCheckEnabled() validateTest {
 		Validator:         validator,
 		MessageBytes:      msgBytes,
 		DoNotExpectReject: false,
-		ExpectedRefTagID: &tag,
+		ExpectedRefTagID:  &tag,
 	}
 }
 
