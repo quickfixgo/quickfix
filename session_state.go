@@ -36,8 +36,12 @@ func (sm *stateMachine) Connect(session *session) {
 			}
 		}
 
+		var resetSeq bool
+		if session.SessionSettings.ResetOnLogon {
+			resetSeq = true
+		}
 		session.log.OnEvent("Sending logon request")
-		if err := session.sendLogon(false, false); err != nil {
+		if err := session.sendLogon(false, resetSeq); err != nil {
 			session.logError(err)
 			return
 		}
