@@ -48,7 +48,6 @@ func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error
 		}
 
 		dialer, err = proxy.SOCKS5("tcp", fmt.Sprintf("%s:%d", proxyHost, proxyPort), proxyAuth, dialer)
-		return
 	default:
 		err = fmt.Errorf("unsupported proxy type %s", proxyType)
 	}
