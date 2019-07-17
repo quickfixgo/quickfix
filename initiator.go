@@ -3,11 +3,9 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"net"
+	"golang.org/x/net/proxy"
 	"sync"
 	"time"
-
-	"github.com/quickfixgo/quickfix/config"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
@@ -35,11 +33,9 @@ func (i *Initiator) Start() (err error) {
 			return
 		}
 
-		dialer := &net.Dialer{}
-		if settings.HasSetting(config.SocketTimeout) {
-			if dialer.Timeout, err = settings.DurationSetting(config.SocketTimeout); err != nil {
-				return
-			}
+		var dialer proxy.Dialer
+		if dialer, err = loadDialerConfig(settings); err != nil {
+			return
 		}
 
 		i.wg.Add(1)
@@ -122,7 +118,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
-func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer *net.Dialer) {
+func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.Dialer) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -149,27 +145,17 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
 
-		var netConn net.Conn
-		if tlsConfig != nil {
-			tlsConn, err := tls.DialWithDialer(dialer, "tcp", address, tlsConfig)
-			if err != nil {
-				session.log.OnEventf("Failed to connect: %v", err)
-				goto reconnect
-			}
-
-			err = tlsConn.Handshake()
-			if err != nil {
-				session.log.OnEventf("Failed handshake:%v", err)
+		netConn, err := dialer.Dial("tcp", address)
+		if err != nil {
+			session.log.OnEventf("Failed to connect: %v", err)
+			goto reconnect
+		} else if tlsConfig != nil {
+			tlsConn := tls.Client(netConn, tlsConfig)
+			if err = tlsConn.Handshake(); err != nil {
+				session.log.OnEventf("Failed handshake: %v", err)
 				goto reconnect
 			}
 			netConn = tlsConn
-		} else {
-			var err error
-			netConn, err = dialer.Dial("tcp", address)
-			if err != nil {
-				session.log.OnEventf("Failed to connect: %v", err)
-				goto reconnect
-			}
 		}
 
 		msgIn = make(chan fixIn)
