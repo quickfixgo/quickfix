@@ -35,15 +35,16 @@ func (i *Initiator) Start() (err error) {
 			return
 		}
 
-		dialTimeout := time.Duration(0)
+		dialer := &net.Dialer{}
 		if settings.HasSetting(config.SocketTimeout) {
-			if dialTimeout, err = settings.DurationSetting(config.SocketTimeout); err != nil {
+			if dialer.Timeout, err = settings.DurationSetting(config.SocketTimeout); err != nil {
 				return
 			}
 		}
+
 		i.wg.Add(1)
 		go func(sessID SessionID) {
-			i.handleConnection(i.sessions[sessID], tlsConfig, dialTimeout)
+			i.handleConnection(i.sessions[sessID], tlsConfig, dialer)
 			i.wg.Done()
 		}(sessionID)
 	}
@@ -121,7 +122,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
-func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialTimeout time.Duration) {
+func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer *net.Dialer) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -150,7 +151,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 
 		var netConn net.Conn
 		if tlsConfig != nil {
-			tlsConn, err := tls.DialWithDialer(&net.Dialer{Timeout: dialTimeout}, "tcp", address, tlsConfig)
+			tlsConn, err := tls.DialWithDialer(dialer, "tcp", address, tlsConfig)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
@@ -164,7 +165,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			netConn = tlsConn
 		} else {
 			var err error
-			netConn, err = net.Dial("tcp", address)
+			netConn, err = dialer.Dial("tcp", address)
 			if err != nil {
 				session.log.OnEventf("Failed to connect: %v", err)
 				goto reconnect
