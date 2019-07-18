@@ -288,6 +288,27 @@ SocketUseSSL
 
 Use SSL for initiators even if client certificates are not present. If set to N or omitted, TLS will not be used if SocketPrivateKeyFile or SocketCertificateFile are not supplied.
 
+ProxyType
+
+Proxy type. Valid Values:
+ socks
+
+ProxyHost
+
+Proxy server IP address in the format of x.x.x.x or a domain name
+
+ProxyPort
+
+Proxy server port
+
+ProxyUser
+
+Proxy user
+
+ProxyPassword
+
+Proxy password
+
 PersistMessages
 
 If set to N, no messages will be persisted. This will force QuickFIX/Go to always send GapFills instead of resending messages. Use this if you know you never want to resend a message. Useful for market data streams.  Valid Values:
