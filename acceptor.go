@@ -89,6 +89,9 @@ func (a *Acceptor) Stop() {
 
 	a.listener.Close()
 	a.listenerShutdown.Wait()
+	if a.dynamicSessions {
+		close(a.dynamicSessionChan)
+	}
 	for _, session := range a.sessions {
 		session.stop()
 	}
@@ -103,6 +106,11 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		settings:     settings,
 		logFactory:   logFactory,
 		sessions:     make(map[SessionID]*session),
+	}
+	if a.settings.GlobalSettings().HasSetting(config.DynamicSessions) {
+		if a.dynamicSessions, err = settings.globalSettings.BoolSetting(config.DynamicSessions); err != nil {
+			return
+		}
 	}
 
 	if a.globalLog, err = logFactory.Create(); err != nil {
@@ -231,8 +239,8 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {
-		a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
 		if !a.dynamicSessions {
+			a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
 			return
 		}
 		dynamicSession, err := a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
@@ -241,7 +249,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 			return
 		}
 		a.dynamicSessionChan <- dynamicSession
-		return
+		session = dynamicSession
 	}
 
 	msgIn := make(chan fixIn)
@@ -275,9 +283,9 @@ LOOP:
 				}
 				break LOOP
 			}
-			id += 1
-			sessionId := id
-			sessions[sessionId] = session
+			id++
+			sessionID := id
+			sessions[sessionID] = session
 			go func() {
 				session.run()
 				err := UnregisterSession(session.sessionID)
@@ -285,7 +293,7 @@ LOOP:
 					a.globalLog.OnEventf("Unregister dynamic session %v failed: %v", session.sessionID, err)
 					return
 				}
-				complete <- sessionId
+				complete <- sessionID
 			}()
 		case id := <-complete:
 			delete(sessions, id)
