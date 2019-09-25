@@ -250,6 +250,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		}
 		a.dynamicSessionChan <- dynamicSession
 		session = dynamicSession
+		defer session.stop()
 	}
 
 	msgIn := make(chan fixIn)
