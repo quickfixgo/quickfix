@@ -58,4 +58,5 @@ const (
 	MaxLatency                   string = "MaxLatency"
 	PersistMessages              string = "PersistMessages"
 	RejectInvalidMessage         string = "RejectInvalidMessage"
+	DynamicSessions              string = "DynamicSessions"
 )
