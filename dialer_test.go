@@ -1,11 +1,12 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/config"
-	"github.com/stretchr/testify/suite"
 	"net"
 	"testing"
 	"time"
+
+	"github.com/quickfixgo/quickfix/config"
+	"github.com/stretchr/testify/suite"
 )
 
 type DialerTestSuite struct {

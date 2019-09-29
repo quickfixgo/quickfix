@@ -3,9 +3,10 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"golang.org/x/net/proxy"
 	"sync"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
