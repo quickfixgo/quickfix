@@ -15,15 +15,17 @@ import (
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
-	app              Application
-	settings         *Settings
-	logFactory       LogFactory
-	storeFactory     MessageStoreFactory
-	globalLog        Log
-	sessions         map[SessionID]*session
-	sessionGroup     sync.WaitGroup
-	listener         net.Listener
-	listenerShutdown sync.WaitGroup
+	app                Application
+	settings           *Settings
+	logFactory         LogFactory
+	storeFactory       MessageStoreFactory
+	globalLog          Log
+	sessions           map[SessionID]*session
+	sessionGroup       sync.WaitGroup
+	listener           net.Listener
+	listenerShutdown   sync.WaitGroup
+	dynamicSessions    bool
+	dynamicSessionChan chan *session
 	sessionFactory
 }
 
@@ -66,7 +68,14 @@ func (a *Acceptor) Start() error {
 			a.sessionGroup.Done()
 		}()
 	}
-
+	if a.dynamicSessions {
+		a.dynamicSessionChan = make(chan *session)
+		a.sessionGroup.Add(1)
+		go func() {
+			a.dynamicSessionsLoop()
+			a.sessionGroup.Done()
+		}()
+	}
 	a.listenerShutdown.Add(1)
 	go a.listenForConnections()
 	return nil
@@ -80,6 +89,9 @@ func (a *Acceptor) Stop() {
 
 	a.listener.Close()
 	a.listenerShutdown.Wait()
+	if a.dynamicSessions {
+		close(a.dynamicSessionChan)
+	}
 	for _, session := range a.sessions {
 		session.stop()
 	}
@@ -94,6 +106,11 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		settings:     settings,
 		logFactory:   logFactory,
 		sessions:     make(map[SessionID]*session),
+	}
+	if a.settings.GlobalSettings().HasSetting(config.DynamicSessions) {
+		if a.dynamicSessions, err = settings.globalSettings.BoolSetting(config.DynamicSessions); err != nil {
+			return
+		}
 	}
 
 	if a.globalLog, err = logFactory.Create(); err != nil {
@@ -222,8 +239,18 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {
-		a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
-		return
+		if !a.dynamicSessions {
+			a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
+			return
+		}
+		dynamicSession, err := a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
+		if err != nil {
+			a.globalLog.OnEventf("Dynamic session %v failed to create: %v", sessID, err)
+			return
+		}
+		a.dynamicSessionChan <- dynamicSession
+		session = dynamicSession
+		defer session.stop()
 	}
 
 	msgIn := make(chan fixIn)
@@ -240,4 +267,48 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}()
 
 	writeLoop(netConn, msgOut, a.globalLog)
+}
+
+func (a *Acceptor) dynamicSessionsLoop() {
+	var id int
+	var sessions = map[int]*session{}
+	var complete = make(chan int)
+	defer close(complete)
+LOOP:
+	for {
+		select {
+		case session, ok := <-a.dynamicSessionChan:
+			if !ok {
+				for _, oldSession := range sessions {
+					oldSession.stop()
+				}
+				break LOOP
+			}
+			id++
+			sessionID := id
+			sessions[sessionID] = session
+			go func() {
+				session.run()
+				err := UnregisterSession(session.sessionID)
+				if err != nil {
+					a.globalLog.OnEventf("Unregister dynamic session %v failed: %v", session.sessionID, err)
+					return
+				}
+				complete <- sessionID
+			}()
+		case id := <-complete:
+			delete(sessions, id)
+		}
+	}
+
+	if len(sessions) == 0 {
+		return
+	}
+
+	for id := range complete {
+		delete(sessions, id)
+		if len(sessions) == 0 {
+			return
+		}
+	}
 }
