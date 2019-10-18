@@ -101,7 +101,7 @@ func genEnums() {
 }
 
 func gen(t *template.Template, fileOut string, data interface{}) {
-	//defer waitGroup.Done()
+	defer waitGroup.Done()
 	writer := new(bytes.Buffer)
 
 	if err := t.Execute(writer, data); err != nil {
@@ -133,11 +133,11 @@ func main() {
 
 	internal.BuildGlobalFieldTypes(specs)
 
-	//waitGroup.Add(1)
+	waitGroup.Add(1)
 	genTags()
-	//waitGroup.Add(1)
+	waitGroup.Add(1)
 	genFields()
-	//waitGroup.Add(1)
+	waitGroup.Add(1)
 	genEnums()
 
 	for _, spec := range specs {
@@ -155,21 +155,21 @@ func main() {
 		//uses fixt11 header/trailer
 		case "fix50", "fix50sp1", "fix50sp2":
 		default:
-			//waitGroup.Add(1)
+			waitGroup.Add(1)
 			genHeader(pkg, spec)
 
-			//waitGroup.Add(1)
+			waitGroup.Add(1)
 			genTrailer(pkg, spec)
 		}
 
 		for _, m := range spec.Messages {
-			//waitGroup.Add(1)
+			waitGroup.Add(1)
 			genMessage(pkg, spec, m)
 		}
 	}
 
 	go func() {
-		//waitGroup.Wait()
+		waitGroup.Wait()
 		close(errors)
 	}()
 
