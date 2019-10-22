@@ -3,9 +3,12 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
-	"golang.org/x/net/proxy"
+	"net"
+	"net/url"
 	"sync"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 //Initiator initiates connections and processes messages for all sessions.
@@ -150,6 +153,11 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
 		} else if tlsConfig != nil {
+			myURL := url.URL{Host: address}
+			tlsConfig.ServerName = ""
+			if net.ParseIP(myURL.Hostname()) == nil {
+				tlsConfig.ServerName = myURL.Hostname()
+			}
 			tlsConn := tls.Client(netConn, tlsConfig)
 			if err = tlsConn.Handshake(); err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
