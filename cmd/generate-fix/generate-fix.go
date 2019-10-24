@@ -134,11 +134,11 @@ func main() {
 	internal.BuildGlobalFieldTypes(specs)
 
 	waitGroup.Add(1)
-	genTags()
+	go genTags()
 	waitGroup.Add(1)
-	genFields()
+	go genFields()
 	waitGroup.Add(1)
-	genEnums()
+	go genEnums()
 
 	for _, spec := range specs {
 		pkg := getPackageName(spec)
@@ -156,15 +156,15 @@ func main() {
 		case "fix50", "fix50sp1", "fix50sp2":
 		default:
 			waitGroup.Add(1)
-			genHeader(pkg, spec)
+			go genHeader(pkg, spec)
 
 			waitGroup.Add(1)
-			genTrailer(pkg, spec)
+			go genTrailer(pkg, spec)
 		}
 
 		for _, m := range spec.Messages {
 			waitGroup.Add(1)
-			genMessage(pkg, spec, m)
+			go genMessage(pkg, spec, m)
 		}
 	}
 
