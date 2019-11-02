@@ -2,12 +2,13 @@ package quickfix
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 	"log"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
 // MongoStoreTestSuite runs all tests in the MessageStoreTestSuite against the MongoStore implementation
