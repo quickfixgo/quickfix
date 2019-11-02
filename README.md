@@ -54,24 +54,16 @@ Following installation, `generate-fix` is installed to `$GOPATH/bin/generate-fix
 Developing QuickFIX/Go
 ----------------------
 
-If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed on your machine (version 1.6+ is *required*).
+If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed and configured on your machine (version 1.13+ is preferred, but the minimum required version is 1.6). 
 
-For local dev first make sure Go is properly installed, including setting up a [GOPATH](http://golang.org/doc/code.html#GOPATH).
-
-Next, using [Git](https://git-scm.com/), clone this repository into `$GOPATH/src/github.com/quickfixgo/quickfix`. 
+Next, using [Git](https://git-scm.com/), clone the repository via `git clone git@github.com:quickfixgo/quickfix.git`
 
 ### Installing Dependencies
 
-QuickFIX/Go uses [dep](https://github.com/golang/dep) to manage the vendored dependencies. Install dep with `go get`:
+As of Go version 1.13, QuickFIX/Go uses [modules](https://github.com/golang/go/wiki/Modules) to manage dependencies. You may require `GO111MODULE=on`. To install dependencies, run 
 
 ```sh
-$ go get -u github.com/golang/dep/cmd/dep
-```
-
-Run `dep ensure` to install the correct versioned dependencies into `vendor/`, which Go 1.6+ automatically recognizes and loads.
-
-```sh
-$ $GOPATH/bin/dep ensure
+go mod download
 ```
 
 **Note:** No vendored dependencies are included in the QuickFIX/Go source.
@@ -117,36 +109,21 @@ To run acceptance tests,
 
 If you are developing QuickFIX/Go, there are a few tasks you might need to perform related to dependencies.
 
-#### Adding a dependency
+#### Adding/updating a dependency
 
-If you are adding a dependency, you will need to update the dep manifest in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future.
+If you are adding or updating a dependency, you will need to update the `go.mod` and `go.sum` in the same Pull Request as the code that depends on it. You should do this in a separate commit from your code, as this makes PR review easier and Git history simpler to read in the future. 
 
-To add a dependency:
-
-1. Add the dependency using `dep`:
-```bash
-$ dep ensure -add github.com/foo/bar
+1. Add or update the dependency like usual:
+```sh
+go get -u github.com/foo/bar
 ```
-2. Review the changes in git and commit them.
-
-#### Updating a dependency
-
-To update a dependency to the latest version allowed by constraints in `Gopkg.toml`:
-
-1. Run:
-```bash
-$ dep ensure -update github.com/foo/bar
-```
-2. Review the changes in git and commit them.
-
-To change the allowed version/branch/revision of a dependency:
-
-1. Manually edit `Gopkg.toml`
-2. Run:
-```bash
-$ dep ensure
+2. Update the module-related files:
+```sh
+go mod tidy
 ```
 3. Review the changes in git and commit them.
+
+Note that to specify a specific revision, you can manually edit the `go.mod` file and run `go mod tidy`
 
 Licensing
 ---------

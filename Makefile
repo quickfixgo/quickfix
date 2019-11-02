@@ -1,6 +1,9 @@
 all: vet test
 
-generate:
+clean:
+	rm -rf gen
+
+generate: clean
 	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
 
 generate-dist:

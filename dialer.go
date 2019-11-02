@@ -2,9 +2,10 @@ package quickfix
 
 import (
 	"fmt"
+	"net"
+
 	"github.com/quickfixgo/quickfix/config"
 	"golang.org/x/net/proxy"
-	"net"
 )
 
 func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error) {
