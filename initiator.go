@@ -154,7 +154,11 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			// Unless InsecureSkipVerify is true, server name config is required for TLS
 			// to verify the received certificate
 			if !tlsConfig.InsecureSkipVerify && len(tlsConfig.ServerName) == 0 {
-				tlsConfig.ServerName = address
+				serverName := address
+				if c := strings.LastIndex(serverName, ":"); c > 0 {
+					serverName = serverName[:c]
+				}
+				tlsConfig.ServerName = serverName
 			}
 			tlsConn := tls.Client(netConn, tlsConfig)
 			if err = tlsConn.Handshake(); err != nil {
