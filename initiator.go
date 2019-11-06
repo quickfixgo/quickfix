@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
+	"strings"
 	"sync"
 	"time"
 
