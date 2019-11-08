@@ -346,6 +346,21 @@ func (f sessionFactory) buildInitiatorSettings(session *session, settings *Sessi
 		session.LogoutTimeout = time.Duration(timeout) * time.Second
 	}
 
+	session.LogonTimeout = 10 * time.Second
+	if settings.HasSetting(config.LogonTimeout) {
+
+		timeout, err := settings.IntSetting(config.LogonTimeout)
+		if err != nil {
+			return err
+		}
+
+		if timeout <= 0 {
+			return errors.New("LogonTimeout must be greater than zero")
+		}
+
+		session.LogonTimeout = time.Duration(timeout) * time.Second
+	}
+
 	return f.configureSocketConnectAddress(session, settings)
 }
 

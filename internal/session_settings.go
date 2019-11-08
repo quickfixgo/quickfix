@@ -23,5 +23,6 @@ type SessionSettings struct {
 	//specific to initiators
 	ReconnectInterval    time.Duration
 	LogoutTimeout        time.Duration
+	LogonTimeout         time.Duration
 	SocketConnectAddress []string
 }
