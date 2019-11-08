@@ -28,22 +28,27 @@ func (sm *stateMachine) Connect(session *session) {
 		return
 	}
 
-	if session.InitiateLogon {
-		if session.RefreshOnLogon {
-			if err := session.store.Refresh(); err != nil {
-				session.logError(err)
-				return
-			}
-		}
+	// No special logon logic needed for FIX Acceptors.
+	if !session.InitiateLogon {
+		sm.setState(session, logonState{})
+		return
+	}
 
-		session.log.OnEvent("Sending logon request")
-		if err := session.sendLogon(); err != nil {
+	if session.RefreshOnLogon {
+		if err := session.store.Refresh(); err != nil {
 			session.logError(err)
 			return
 		}
 	}
+	session.log.OnEvent("Sending logon request")
+	if err := session.sendLogon(); err != nil {
+		session.logError(err)
+		return
+	}
 
 	sm.setState(session, logonState{})
+	// Fire logon timeout event after the pre-configured delay period.
+	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- internal.LogonTimeout })
 }
 
 func (sm *stateMachine) Stop(session *session) {
