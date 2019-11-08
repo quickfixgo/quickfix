@@ -353,6 +353,7 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.True(session.InitiateLogon)
 	s.Equal(34*time.Second, session.HeartBtInt)
 	s.Equal(30*time.Second, session.ReconnectInterval)
+	s.Equal(2*time.Second, session.LogoutTimeout)
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
 }
 
@@ -397,6 +398,30 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidReconnectInterva
 	s.SessionSettings.Set(config.ReconnectInterval, "-20")
 	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err, "ReconnectInterval must be greater than zero")
+}
+
+func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidLogoutTimeout() {
+	s.sessionFactory.BuildInitiators = true
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
+	s.SessionSettings.Set(config.SocketConnectPort, "3000")
+
+	s.SessionSettings.Set(config.LogoutTimeout, "45")
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.Equal(45*time.Second, session.LogoutTimeout)
+
+	s.SessionSettings.Set(config.LogoutTimeout, "not a number")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "LogoutTimeout must be a number")
+
+	s.SessionSettings.Set(config.LogoutTimeout, "0")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "LogoutTimeout must be greater than zero")
+
+	s.SessionSettings.Set(config.LogoutTimeout, "-20")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "LogoutTimeout must be greater than zero")
 }
 
 func (s *SessionFactorySuite) TestConfigureSocketConnectAddress() {

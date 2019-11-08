@@ -465,8 +465,7 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 		return
 	}
 	s.log.OnEvent("Inititated logout request")
-	time.AfterFunc(time.Duration(2)*time.Second, func() { s.sessionEvent <- internal.LogoutTimeout })
-
+	time.AfterFunc(s.LogoutTimeout, func() { s.sessionEvent <- internal.LogoutTimeout })
 	return
 }
 
