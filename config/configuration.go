@@ -42,6 +42,7 @@ const (
 	ResetOnLogout                string = "ResetOnLogout"
 	ResetOnDisconnect            string = "ResetOnDisconnect"
 	ReconnectInterval            string = "ReconnectInterval"
+	LogoutTimeout                string = "LogoutTimeout"
 	HeartBtInt                   string = "HeartBtInt"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
