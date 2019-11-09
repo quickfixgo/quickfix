@@ -292,6 +292,10 @@ SocketCAFile
 
 Optional root CA to use for secure TLS connections. For acceptors, client certificates will be verified against this CA.  For initiators, clients will use the CA to verify the server certificate. If not configurated, initiators will verify the server certificate using the host's root CA set.
 
+SocketServerName
+
+The expected server name on a returned certificate, unless SocketInsecureSkipVerify is true. This is for the TLS Server Name Indication extension. Initiator only.
+
 SocketMinimumTLSVersion
 
 Specify the Minimum TLS version to use when creating a secure connection. The valid choices are SSL30, TLS10, TLS11, TLS12. Defaults to TLS12.

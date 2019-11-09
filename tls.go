@@ -18,6 +18,14 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		}
 	}
 
+	var serverName string
+	if settings.HasSetting(config.SocketServerName) {
+		serverName, err = settings.Setting(config.SocketServerName)
+		if err != nil {
+			return
+		}
+	}
+
 	insecureSkipVerify := false
 	if settings.HasSetting(config.SocketInsecureSkipVerify) {
 		insecureSkipVerify, err = settings.BoolSetting(config.SocketInsecureSkipVerify)
@@ -29,6 +37,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	if !settings.HasSetting(config.SocketPrivateKeyFile) && !settings.HasSetting(config.SocketCertificateFile) {
 		if allowSkipClientCerts {
 			tlsConfig = defaultTLSConfig()
+			tlsConfig.ServerName = serverName
 			tlsConfig.InsecureSkipVerify = insecureSkipVerify
 		}
 		return
@@ -46,6 +55,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 
 	tlsConfig = defaultTLSConfig()
 	tlsConfig.Certificates = make([]tls.Certificate, 1)
+	tlsConfig.ServerName = serverName
 	tlsConfig.InsecureSkipVerify = insecureSkipVerify
 
 	minVersion := "TLS12"

@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
+	"strings"
 	"sync"
 	"time"
 
@@ -151,6 +152,15 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
 		} else if tlsConfig != nil {
+			// Unless InsecureSkipVerify is true, server name config is required for TLS
+			// to verify the received certificate
+			if !tlsConfig.InsecureSkipVerify && len(tlsConfig.ServerName) == 0 {
+				serverName := address
+				if c := strings.LastIndex(serverName, ":"); c > 0 {
+					serverName = serverName[:c]
+				}
+				tlsConfig.ServerName = serverName
+			}
 			tlsConn := tls.Client(netConn, tlsConfig)
 			if err = tlsConn.Handshake(); err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
