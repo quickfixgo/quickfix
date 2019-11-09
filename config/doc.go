@@ -230,6 +230,18 @@ Time between reconnection attempts in seconds. Only used for initiators.    Valu
 
 Defaults to 30
 
+LogoutTimeout
+
+Session setting for logout timeout in seconds. Only used for initiators. Value must be positive integer.
+
+Defaults to 2
+
+LogonTimeout
+
+Session setting for logon timeout in seconds. Only used for initiators. Value must be positive integer.
+
+Defaults to 10
+
 HeartBtInt
 
 Heartbeat interval in seconds. Only used for initiators.	Value must be positive integer.
