@@ -15,18 +15,19 @@ import (
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
-	app                Application
-	settings           *Settings
-	logFactory         LogFactory
-	storeFactory       MessageStoreFactory
-	globalLog          Log
-	sessions           map[SessionID]*session
-	sessionGroup       sync.WaitGroup
-	listener           net.Listener
-	listenerShutdown   sync.WaitGroup
-	dynamicSessions    bool
-	dynamicQualifier   bool
-	dynamicSessionChan chan *session
+	app                   Application
+	settings              *Settings
+	logFactory            LogFactory
+	storeFactory          MessageStoreFactory
+	globalLog             Log
+	sessions              map[SessionID]*session
+	sessionGroup          sync.WaitGroup
+	listener              net.Listener
+	listenerShutdown      sync.WaitGroup
+	dynamicSessions       bool
+	dynamicQualifier      bool
+	dynamicQualifierCount int
+	dynamicSessionChan    chan *session
 	sessionFactory
 }
 
@@ -245,7 +246,8 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		TargetCompID: string(senderCompID), TargetSubID: string(senderSubID), TargetLocationID: string(senderLocationID),
 	}
 	if a.dynamicQualifier {
-		sessID.Qualifier = strconv.Itoa(1 + len(a.sessions))
+		a.dynamicQualifierCount++
+		sessID.Qualifier = strconv.Itoa(a.dynamicQualifierCount)
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {
