@@ -25,6 +25,7 @@ type Acceptor struct {
 	listener           net.Listener
 	listenerShutdown   sync.WaitGroup
 	dynamicSessions    bool
+	dynamicQualifier   bool
 	dynamicSessionChan chan *session
 	sessionFactory
 }
@@ -110,6 +111,12 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 	if a.settings.GlobalSettings().HasSetting(config.DynamicSessions) {
 		if a.dynamicSessions, err = settings.globalSettings.BoolSetting(config.DynamicSessions); err != nil {
 			return
+		}
+
+		if a.settings.GlobalSettings().HasSetting(config.DynamicQualifier) {
+			if a.dynamicQualifier, err = settings.globalSettings.BoolSetting(config.DynamicQualifier); err != nil {
+				return
+			}
 		}
 	}
 
@@ -236,6 +243,9 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	sessID := SessionID{BeginString: string(beginString),
 		SenderCompID: string(targetCompID), SenderSubID: string(targetSubID), SenderLocationID: string(targetLocationID),
 		TargetCompID: string(senderCompID), TargetSubID: string(senderSubID), TargetLocationID: string(senderLocationID),
+	}
+	if a.dynamicQualifier {
+		sessID.Qualifier = strconv.Itoa(1 + len(a.sessions))
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {

@@ -62,4 +62,5 @@ const (
 	PersistMessages              string = "PersistMessages"
 	RejectInvalidMessage         string = "RejectInvalidMessage"
 	DynamicSessions              string = "DynamicSessions"
+	DynamicQualifier             string = "DynamicQualifier"
 )
