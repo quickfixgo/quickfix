@@ -98,6 +98,11 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
+// GetListenerAddr returns the net.Addr from the listener of the Acceptor
+func (a *Acceptor) GetListenerAddr() net.Addr {
+	return a.listener.Addr()
+}
+
 //NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (a *Acceptor, err error) {
 	a = &Acceptor{
