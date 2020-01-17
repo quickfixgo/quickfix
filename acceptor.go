@@ -98,7 +98,7 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
-// GetListenerAddr returns the net.Addr from the listener of the Acceptor
+//GetListenerAddr returns the net.Addr from the listener of the Acceptor
 func (a *Acceptor) GetListenerAddr() net.Addr {
 	return a.listener.Addr()
 }
