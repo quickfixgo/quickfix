@@ -28,6 +28,7 @@ type Acceptor struct {
 	dynamicQualifier      bool
 	dynamicQualifierCount int
 	dynamicSessionChan    chan *session
+	sessionAddr           map[SessionID]net.Addr
 	sessionFactory
 }
 
@@ -100,6 +101,12 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
+//Get remote IP address for a given session.
+func (a *Acceptor) RemoteAddr(sessionID SessionID) (net.Addr, bool) {
+	addr, ok := a.sessionAddr[sessionID]
+	return addr, ok
+}
+
 //NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (a *Acceptor, err error) {
 	a = &Acceptor{
@@ -108,6 +115,7 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		settings:     settings,
 		logFactory:   logFactory,
 		sessions:     make(map[SessionID]*session),
+		sessionAddr:  make(map[SessionID]net.Addr),
 	}
 	if a.settings.GlobalSettings().HasSetting(config.DynamicSessions) {
 		if a.dynamicSessions, err = settings.globalSettings.BoolSetting(config.DynamicSessions); err != nil {
@@ -265,6 +273,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		defer session.stop()
 	}
 
+	a.sessionAddr[sessID] = netConn.RemoteAddr()
 	msgIn := make(chan fixIn)
 	msgOut := make(chan []byte)
 
@@ -309,7 +318,13 @@ LOOP:
 				complete <- sessionID
 			}()
 		case id := <-complete:
-			delete(sessions, id)
+			session, ok := sessions[id]
+			if ok {
+				delete(a.sessionAddr, session.sessionID)
+				delete(sessions, id)
+			} else {
+				a.globalLog.OnEventf("Missing dynamic session %v!", id)
+			}
 		}
 	}
 
