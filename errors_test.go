@@ -52,6 +52,33 @@ func TestNewBusinessMessageRejectError(t *testing.T) {
 	}
 }
 
+func TestNewBusinessMessageRejectErrorWithRefID(t *testing.T) {
+	var (
+		expectedErrorString             = "Custom error"
+		expectedRejectReason            = 5
+		expectedbusinessRejectRefID     = "1"
+		expectedRefTagID            Tag = 44
+		expectedIsBusinessReject        = true
+	)
+	msgRej := NewBusinessMessageRejectErrorWithRefID(expectedErrorString, expectedRejectReason, expectedbusinessRejectRefID, &expectedRefTagID)
+
+	if strings.Compare(msgRej.Error(), expectedErrorString) != 0 {
+		t.Errorf("expected: %s, got: %s\n", expectedErrorString, msgRej.Error())
+	}
+	if msgRej.RejectReason() != expectedRejectReason {
+		t.Errorf("expected: %d, got: %d\n", expectedRejectReason, msgRej.RejectReason())
+	}
+	if strings.Compare(msgRej.BusinessRejectRefID(), expectedbusinessRejectRefID) != 0 {
+		t.Errorf("expected: %s, got: %s\n", expectedbusinessRejectRefID, msgRej.BusinessRejectRefID())
+	}
+	if *msgRej.RefTagID() != expectedRefTagID {
+		t.Errorf("expected: %d, got: %d\n", expectedRefTagID, msgRej.RefTagID())
+	}
+	if msgRej.IsBusinessReject() != expectedIsBusinessReject {
+		t.Error("Expected IsBusinessReject to be true\n")
+	}
+}
+
 func TestIncorrectDataFormatForValue(t *testing.T) {
 	var (
 		expectedErrorString          = "Incorrect data format for value"
