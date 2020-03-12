@@ -28,6 +28,7 @@ const (
 	ProxyHost                    string = "ProxyHost"
 	ProxyPort                    string = "ProxyPort"
 	ProxyUser                    string = "ProxyUser"
+	UseTCPProxy                  string = "UseTCPProxy"
 	ProxyPassword                string = "ProxyPassword"
 	DefaultApplVerID             string = "DefaultApplVerID"
 	StartTime                    string = "StartTime"
