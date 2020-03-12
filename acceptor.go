@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/armon/go-proxyproto"
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -52,11 +53,24 @@ func (a *Acceptor) Start() error {
 		return err
 	}
 
+	var useTCPProxy bool
+	if a.settings.GlobalSettings().HasSetting(config.UseTCPProxy) {
+		if useTCPProxy, err = a.settings.GlobalSettings().BoolSetting(config.UseTCPProxy); err != nil {
+			return err
+		}
+	}
+
 	address := net.JoinHostPort(socketAcceptHost, strconv.Itoa(socketAcceptPort))
 	if tlsConfig != nil {
 		if a.listener, err = tls.Listen("tcp", address, tlsConfig); err != nil {
 			return err
 		}
+	} else if useTCPProxy {
+		listener, err := net.Listen("tcp", address)
+		if err != nil {
+			return err
+		}
+		a.listener = &proxyproto.Listener{Listener: listener}
 	} else {
 		if a.listener, err = net.Listen("tcp", address); err != nil {
 			return err
