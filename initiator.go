@@ -3,6 +3,8 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
+	"errors"
+	"fmt"
 	"strings"
 	"sync"
 	"time"
@@ -22,6 +24,13 @@ type Initiator struct {
 	wg              sync.WaitGroup
 	sessions        map[SessionID]*session
 	sessionFactory
+}
+
+func (i *Initiator) SetSeqNumForSessionID(sessionID SessionID, seqNum int) error {
+	if session, ok := i.sessions[sessionID]; ok {
+		return session.SetSeqNumInStore(seqNum)
+	}
+	return errors.New(fmt.Sprintf("Cannot set sequence number %d on session id"))
 }
 
 //Start Initiator.

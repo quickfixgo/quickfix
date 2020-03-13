@@ -47,6 +47,10 @@ type session struct {
 	timestampPrecision TimestampPrecision
 }
 
+func (s *session) SetSeqNumInStore(seqNum int) error {
+	return s.store.SetNextSenderMsgSeqNum(seqNum)
+}
+
 func (s *session) logError(err error) {
 	s.log.OnEvent(err.Error())
 }
