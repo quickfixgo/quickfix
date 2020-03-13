@@ -327,7 +327,9 @@ Proxy password
 
 UseTCPProxy
 
-Use TCP proxy for servers listening behind HAProxy of Amazon ELB load balancers. The server can then receive the address of the client instead of the load balancer's.
+Use TCP proxy for servers listening behind HAProxy of Amazon ELB load balancers. The server can then receive the address of the client instead of the load balancer's. Valid Values:
+ Y
+ N
 
 PersistMessages
 
