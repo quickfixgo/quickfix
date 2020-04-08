@@ -686,6 +686,7 @@ func (s *session) onDisconnect() {
 		s.messageOut = nil
 	}
 
+	<-s.messageIn
 	s.messageIn = nil
 }
 
