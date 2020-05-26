@@ -622,6 +622,9 @@ func (s *session) doReject(msg *Message, rej MessageRejectError) error {
 		if rej.IsBusinessReject() {
 			reply.Header.SetField(tagMsgType, FIXString("j"))
 			reply.Body.SetField(tagBusinessRejectReason, FIXInt(rej.RejectReason()))
+			if refID := rej.BusinessRejectRefID(); refID != "" {
+				reply.Body.SetField(tagBusinessRejectRefID, FIXString(refID))
+			}
 		} else {
 			reply.Header.SetField(tagMsgType, FIXString("3"))
 			switch {
