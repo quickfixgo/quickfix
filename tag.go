@@ -43,6 +43,7 @@ const (
 	tagBusinessRejectReason Tag = 380
 	tagSessionRejectReason  Tag = 373
 	tagRefMsgType           Tag = 372
+	tagBusinessRejectRefID  Tag = 379
 	tagRefTagID             Tag = 371
 	tagRefSeqNum            Tag = 45
 	tagEncryptMethod        Tag = 98

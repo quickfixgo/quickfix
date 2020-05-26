@@ -33,6 +33,7 @@ type MessageRejectError interface {
 
 	//RejectReason, tag 373 for session rejects, tag 380 for business rejects.
 	RejectReason() int
+	BusinessRejectRefID() string
 	RefTagID() *Tag
 	IsBusinessReject() bool
 }
@@ -50,20 +51,25 @@ func (RejectLogon) RefTagID() *Tag { return nil }
 //RejectReason implements MessageRejectError
 func (RejectLogon) RejectReason() int { return 0 }
 
+//BusinessRejectRefID implements MessageRejectError
+func (RejectLogon) BusinessRejectRefID() string { return "" }
+
 //IsBusinessReject implements MessageRejectError
 func (RejectLogon) IsBusinessReject() bool { return false }
 
 type messageRejectError struct {
-	rejectReason     int
-	text             string
-	refTagID         *Tag
-	isBusinessReject bool
+	rejectReason        int
+	text                string
+	businessRejectRefID string
+	refTagID            *Tag
+	isBusinessReject    bool
 }
 
-func (e messageRejectError) Error() string          { return e.text }
-func (e messageRejectError) RefTagID() *Tag         { return e.refTagID }
-func (e messageRejectError) RejectReason() int      { return e.rejectReason }
-func (e messageRejectError) IsBusinessReject() bool { return e.isBusinessReject }
+func (e messageRejectError) Error() string               { return e.text }
+func (e messageRejectError) RefTagID() *Tag              { return e.refTagID }
+func (e messageRejectError) RejectReason() int           { return e.rejectReason }
+func (e messageRejectError) BusinessRejectRefID() string { return e.businessRejectRefID }
+func (e messageRejectError) IsBusinessReject() bool      { return e.isBusinessReject }
 
 //NewMessageRejectError returns a MessageRejectError with the given error message, reject reason, and optional reftagid
 func NewMessageRejectError(err string, rejectReason int, refTagID *Tag) MessageRejectError {
@@ -74,6 +80,12 @@ func NewMessageRejectError(err string, rejectReason int, refTagID *Tag) MessageR
 //Reject is treated as a business level reject
 func NewBusinessMessageRejectError(err string, rejectReason int, refTagID *Tag) MessageRejectError {
 	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID, isBusinessReject: true}
+}
+
+//NewBusinessMessageRejectErrorWithRefID returns a MessageRejectError with the given error mesage, reject reason, refID, and optional reftagid.
+//Reject is treated as a business level reject
+func NewBusinessMessageRejectErrorWithRefID(err string, rejectReason int, businessRejectRefID string, refTagID *Tag) MessageRejectError {
+	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID, businessRejectRefID: businessRejectRefID, isBusinessReject: true}
 }
 
 //IncorrectDataFormatForValue returns an error indicating a field that cannot be parsed as the type required.
