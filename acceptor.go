@@ -40,15 +40,6 @@ type ConnectionValidator interface {
 	Validate(netConn net.Conn, session SessionID) error
 }
 
-// SetConnectionValidator sets an optional connection validator.
-// Use it when you need a custom authentication logic that includes lower level interactions,
-// like mTLS auth or IP whitelistening.
-// To remove a previously set validator call it with a nil value:
-// 	a.SetConnectionValidator(nil)
-func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
-	a.connectionValidator = validator
-}
-
 //Start accepting connections.
 func (a *Acceptor) Start() error {
 	socketAcceptHost := ""
@@ -364,4 +355,13 @@ LOOP:
 			return
 		}
 	}
+}
+
+// SetConnectionValidator sets an optional connection validator.
+// Use it when you need a custom authentication logic that includes lower level interactions,
+// like mTLS auth or IP whitelistening.
+// To remove a previously set validator call it with a nil value:
+// 	a.SetConnectionValidator(nil)
+func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
+	a.connectionValidator = validator
 }
