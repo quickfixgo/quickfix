@@ -325,6 +325,12 @@ ProxyPassword
 
 Proxy password
 
+UseTCPProxy
+
+Use TCP proxy for servers listening behind HAProxy of Amazon ELB load balancers. The server can then receive the address of the client instead of the load balancer's.	Valid Values:
+ Y
+ N
+
 PersistMessages
 
 If set to N, no messages will be persisted. This will force QuickFIX/Go to always send GapFills instead of resending messages. Use this if you know you never want to resend a message. Useful for market data streams.  Valid Values:
