@@ -30,7 +30,15 @@ type Acceptor struct {
 	dynamicQualifierCount int
 	dynamicSessionChan    chan *session
 	sessionAddr           map[SessionID]net.Addr
+	connectionValidator   ConnectionValidator
 	sessionFactory
+}
+
+// ConnectionValidator is an interface allowing to implement a custom authentication logic.
+type ConnectionValidator interface {
+	// Validate the connection for validity. This can be a part of authentication process.
+	// For example, you may tie up a SenderCompID to an IP range, or to a specific TLS certificate as a part of mTLS.
+	Validate(netConn net.Conn, session SessionID) error
 }
 
 //Start accepting connections.
@@ -267,6 +275,15 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		SenderCompID: string(targetCompID), SenderSubID: string(targetSubID), SenderLocationID: string(targetLocationID),
 		TargetCompID: string(senderCompID), TargetSubID: string(senderSubID), TargetLocationID: string(senderLocationID),
 	}
+
+	// We have a session ID and a network connection. This seems to be a good place for any custom authentication logic.
+	if a.connectionValidator != nil {
+		if err := a.connectionValidator.Validate(netConn, sessID); err != nil {
+			a.globalLog.OnEventf("Unable to validate a connection %v", err.Error())
+			return
+		}
+	}
+
 	if a.dynamicQualifier {
 		a.dynamicQualifierCount++
 		sessID.Qualifier = strconv.Itoa(a.dynamicQualifierCount)
@@ -352,4 +369,13 @@ LOOP:
 			return
 		}
 	}
+}
+
+// SetConnectionValidator sets an optional connection validator.
+// Use it when you need a custom authentication logic that includes lower level interactions,
+// like mTLS auth or IP whitelistening.
+// To remove a previously set validator call it with a nil value:
+// 	a.SetConnectionValidator(nil)
+func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
+	a.connectionValidator = validator
 }
