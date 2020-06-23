@@ -109,7 +109,7 @@ func (i *Initiator) waitForInSessionTime(session *session) bool {
 	return true
 }
 
-//watiForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
+//waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
 func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bool {
 	select {
 	case <-time.After(reconnectInterval):
