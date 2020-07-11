@@ -705,6 +705,15 @@ func (s *session) onAdmin(msg interface{}) {
 			return
 		}
 
+		if !s.IsSessionTime() {
+			s.handleDisconnectState(s)
+			if msg.err != nil {
+				msg.err <- errors.New("Connection outside of session time")
+				close(msg.err)
+			}
+			return
+		}
+
 		if msg.err != nil {
 			close(msg.err)
 		}
