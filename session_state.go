@@ -22,12 +22,6 @@ func (sm *stateMachine) Start(s *session) {
 }
 
 func (sm *stateMachine) Connect(session *session) {
-	if !sm.IsSessionTime() {
-		session.log.OnEvent("Connection outside of session time")
-		sm.handleDisconnectState(session)
-		return
-	}
-
 	// No special logon logic needed for FIX Acceptors.
 	if !session.InitiateLogon {
 		sm.setState(session, logonState{})
