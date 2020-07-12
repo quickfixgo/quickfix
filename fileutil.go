@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 func sessionIDFilenamePrefix(s SessionID) string {
@@ -44,9 +46,8 @@ func closeFile(f *os.File) error {
 
 // removeFile behaves like os.Remove, except that no error is returned if the file does not exist
 func removeFile(fname string) error {
-	err := os.Remove(fname)
-	if (err != nil) && !os.IsNotExist(err) {
-		return err
+	if err := os.Remove(fname); (err != nil) && !os.IsNotExist(err) {
+		return errors.Wrapf(err, "remove %v", fname)
 	}
 	return nil
 }
