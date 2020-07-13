@@ -116,7 +116,7 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings va
 }
 
 func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
-	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
+	if _, validMsgType := d.Messages[msgType]; !validMsgType {
 		return InvalidMessageType()
 	}
 	return nil

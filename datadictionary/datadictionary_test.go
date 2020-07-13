@@ -82,7 +82,7 @@ func TestFieldsByTag(t *testing.T) {
 func TestEnumFieldsByTag(t *testing.T) {
 
 	d, _ := dict()
-	f, _ := d.FieldTypeByTag[658]
+	f := d.FieldTypeByTag[658]
 
 	var tests = []struct {
 		Value       string
@@ -141,7 +141,7 @@ func TestDataDictionaryTrailer(t *testing.T) {
 func TestMessageRequiredTags(t *testing.T) {
 	d, _ := dict()
 
-	nos, _ := d.Messages["D"]
+	nos := d.Messages["D"]
 
 	var tests = []struct {
 		*MessageDef
@@ -169,7 +169,7 @@ func TestMessageRequiredTags(t *testing.T) {
 func TestMessageTags(t *testing.T) {
 	d, _ := dict()
 
-	nos, _ := d.Messages["D"]
+	nos := d.Messages["D"]
 
 	var tests = []struct {
 		*MessageDef

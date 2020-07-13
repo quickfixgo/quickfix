@@ -32,6 +32,6 @@ func BenchmarkFIXInt_Read(b *testing.B) {
 	var field FIXInt
 
 	for i := 0; i < b.N; i++ {
-		field.Read(intBytes)
+		_ = field.Read(intBytes)
 	}
 }

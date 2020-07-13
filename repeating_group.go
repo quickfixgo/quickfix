@@ -109,7 +109,7 @@ func (f *RepeatingGroup) Add() *Group {
 //Write returns tagValues for all Items in the repeating group ordered by
 //Group sequence and Group template order
 func (f RepeatingGroup) Write() []TagValue {
-	tvs := make([]TagValue, 1, 1)
+	tvs := make([]TagValue, 1)
 	tvs[0].init(f.tag, []byte(strconv.Itoa(len(f.groups))))
 
 	for _, group := range f.groups {
