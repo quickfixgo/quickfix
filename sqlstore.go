@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -58,7 +59,10 @@ func newSQLStore(sessionID SessionID, driver string, dataSourceName string, conn
 		sqlDataSourceName:  dataSourceName,
 		sqlConnMaxLifetime: connMaxLifetime,
 	}
-	store.cache.Reset()
+	if err = store.cache.Reset(); err != nil {
+		err = errors.Wrap(err, "cache reset")
+		return
+	}
 
 	if store.db, err = sql.Open(store.sqlDriver, store.sqlDataSourceName); err != nil {
 		return nil, err
@@ -203,13 +207,17 @@ func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent
 func (store *sqlStore) IncrNextSenderMsgSeqNum() error {
-	store.cache.IncrNextSenderMsgSeqNum()
+	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
+		return errors.Wrap(err, "cache incr next")
+	}
 	return store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum())
 }
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received
 func (store *sqlStore) IncrNextTargetMsgSeqNum() error {
-	store.cache.IncrNextTargetMsgSeqNum()
+	if err := store.cache.IncrNextTargetMsgSeqNum(); err != nil {
+		return errors.Wrap(err, "cache incr next")
+	}
 	return store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum())
 }
 
