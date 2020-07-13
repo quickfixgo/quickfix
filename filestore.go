@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -81,9 +82,12 @@ func newFileStore(sessionID SessionID, dirname string) (*fileStore, error) {
 
 // Reset deletes the store files and sets the seqnums back to 1
 func (store *fileStore) Reset() error {
-	store.cache.Reset()
+	if err := store.cache.Reset(); err != nil {
+		return errors.Wrap(err, "cache reset")
+	}
+
 	if err := store.Close(); err != nil {
-		return err
+		return errors.Wrap(err, "close")
 	}
 	if err := removeFile(store.bodyFname); err != nil {
 		return err
@@ -105,7 +109,10 @@ func (store *fileStore) Reset() error {
 
 // Refresh closes the store files and then reloads from them
 func (store *fileStore) Refresh() (err error) {
-	store.cache.Reset()
+	if err = store.cache.Reset(); err != nil {
+		err = errors.Wrap(err, "cache reset")
+		return
+	}
 
 	if err = store.Close(); err != nil {
 		return err
