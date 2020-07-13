@@ -11,7 +11,7 @@ import (
 
 func TestFileLog_NewFileLogFactory(t *testing.T) {
 
-	factory, err := NewFileLogFactory(NewSettings())
+	_, err := NewFileLogFactory(NewSettings())
 
 	if err == nil {
 		t.Error("Should expect error when settings have no file log path")
@@ -39,7 +39,7 @@ SessionQualifier=BS
 	stringReader := strings.NewReader(cfg)
 	settings, _ := ParseSettings(stringReader)
 
-	factory, err = NewFileLogFactory(settings)
+	factory, err := NewFileLogFactory(settings)
 
 	if err != nil {
 		t.Error("Did not expect error", err)

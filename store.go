@@ -1,6 +1,10 @@
 package quickfix
 
-import "time"
+import (
+	"time"
+
+	"github.com/pkg/errors"
+)
 
 //The MessageStore interface provides methods to record and retrieve messages for resend purposes
 type MessageStore interface {
@@ -107,7 +111,9 @@ type memoryStoreFactory struct{}
 
 func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
 	m := new(memoryStore)
-	m.Reset()
+	if err := m.Reset(); err != nil {
+		return m, errors.Wrap(err, "reset")
+	}
 	return m, nil
 }
 

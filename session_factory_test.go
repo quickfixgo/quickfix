@@ -129,7 +129,7 @@ func (s *SessionFactorySuite) TestResendRequestChunkSize() {
 	s.Equal(2500, session.ResendRequestChunkSize)
 
 	s.SessionSettings.Set(config.ResendRequestChunkSize, "notanint")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 }
 
@@ -518,7 +518,7 @@ func (s *SessionFactorySuite) TestConfigureSocketConnectAddressMulti() {
 func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
 	s.SessionSettings.Set(config.TimeStampPrecision, "blah")
 
-	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 
 	var tests = []struct {
@@ -533,7 +533,7 @@ func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
 
 	for _, test := range tests {
 		s.SessionSettings.Set(config.TimeStampPrecision, test.config)
-		session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 		s.Nil(err)
 
 		s.Equal(session.timestampPrecision, test.precision)
@@ -542,19 +542,19 @@ func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
 
 func (s *SessionFactorySuite) TestNewSessionMaxLatency() {
 	s.SessionSettings.Set(config.MaxLatency, "not a number")
-	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err, "MaxLatency must be a number")
 
 	s.SessionSettings.Set(config.MaxLatency, "-20")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err, "MaxLatency must be positive")
 
 	s.SessionSettings.Set(config.MaxLatency, "0")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err, "MaxLatency must be positive")
 
 	s.SessionSettings.Set(config.MaxLatency, "20")
-	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.Nil(err)
 	s.Equal(session.MaxLatency, 20*time.Second)
 }
