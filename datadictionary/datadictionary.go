@@ -197,9 +197,7 @@ func (f FieldDef) childTags() []int {
 
 	for _, f := range f.Fields {
 		tags = append(tags, f.Tag())
-		for _, t := range f.childTags() {
-			tags = append(tags, t)
-		}
+		tags = append(tags, f.childTags()...)
 	}
 
 	return tags
@@ -214,9 +212,7 @@ func (f FieldDef) requiredChildTags() []int {
 		}
 
 		tags = append(tags, f.Tag())
-		for _, t := range f.requiredChildTags() {
-			tags = append(tags, t)
-		}
+		tags = append(tags, f.requiredChildTags()...)
 	}
 
 	return tags
