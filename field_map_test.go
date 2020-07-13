@@ -157,7 +157,7 @@ func TestFieldMap_CopyInto(t *testing.T) {
 	assert.Equal(t, "a", s)
 
 	// old fields cleared
-	s, err = fMapB.GetString(3)
+	_, err = fMapB.GetString(3)
 	assert.NotNil(t, err)
 
 	// check that ordering is overwritten
