@@ -115,6 +115,7 @@ func setMinVersionExplicit(settings *SessionSettings, tlsConfig *tls.Config) {
 
 		switch minVersion {
 		case "SSL30":
+			//nolint:staticcheck // SA1019 min version ok
 			tlsConfig.MinVersion = tls.VersionSSL30
 		case "TLS10":
 			tlsConfig.MinVersion = tls.VersionTLS10
