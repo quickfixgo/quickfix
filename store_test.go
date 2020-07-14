@@ -30,61 +30,55 @@ func TestMemoryStoreTestSuite(t *testing.T) {
 	suite.Run(t, new(MemoryStoreTestSuite))
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum() {
-	t := suite.T()
-
+func (s *MessageStoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum() {
 	// Given a MessageStore with the following sender and target seqnums
-	suite.msgStore.SetNextSenderMsgSeqNum(867)
-	suite.msgStore.SetNextTargetMsgSeqNum(5309)
+	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(867))
+	s.Require().Nil(s.msgStore.SetNextTargetMsgSeqNum(5309))
 
 	// When the store is refreshed from its backing store
-	suite.msgStore.Refresh()
+	s.Require().Nil(s.msgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	assert.Equal(t, 867, suite.msgStore.NextSenderMsgSeqNum())
-	assert.Equal(t, 5309, suite.msgStore.NextTargetMsgSeqNum())
+	s.Equal(867, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(5309, s.msgStore.NextTargetMsgSeqNum())
 
 	// When the sender and target seqnums are incremented
-	require.Nil(t, suite.msgStore.IncrNextSenderMsgSeqNum())
-	require.Nil(t, suite.msgStore.IncrNextTargetMsgSeqNum())
+	s.Require().Nil(s.msgStore.IncrNextSenderMsgSeqNum())
+	s.Require().Nil(s.msgStore.IncrNextTargetMsgSeqNum())
 
 	// Then the sender and target seqnums should be
-	assert.Equal(t, 868, suite.msgStore.NextSenderMsgSeqNum())
-	assert.Equal(t, 5310, suite.msgStore.NextTargetMsgSeqNum())
+	s.Equal(868, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(5310, s.msgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
-	suite.msgStore.Refresh()
+	s.Require().Nil(s.msgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	assert.Equal(t, 868, suite.msgStore.NextSenderMsgSeqNum())
-	assert.Equal(t, 5310, suite.msgStore.NextTargetMsgSeqNum())
+	s.Equal(868, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(5310, s.msgStore.NextTargetMsgSeqNum())
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_Reset() {
-	t := suite.T()
-
+func (s *MessageStoreTestSuite) TestMessageStore_Reset() {
 	// Given a MessageStore with the following sender and target seqnums
-	suite.msgStore.SetNextSenderMsgSeqNum(1234)
-	suite.msgStore.SetNextTargetMsgSeqNum(5678)
+	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(1234))
+	s.Require().Nil(s.msgStore.SetNextTargetMsgSeqNum(5678))
 
 	// When the store is reset
-	require.Nil(t, suite.msgStore.Reset())
+	s.Require().Nil(s.msgStore.Reset())
 
 	// Then the sender and target seqnums should be
-	assert.Equal(t, 1, suite.msgStore.NextSenderMsgSeqNum())
-	assert.Equal(t, 1, suite.msgStore.NextTargetMsgSeqNum())
+	s.Equal(1, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(1, s.msgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
-	suite.msgStore.Refresh()
+	s.Require().Nil(s.msgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	assert.Equal(t, 1, suite.msgStore.NextSenderMsgSeqNum())
-	assert.Equal(t, 1, suite.msgStore.NextTargetMsgSeqNum())
+	s.Equal(1, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(1, s.msgStore.NextTargetMsgSeqNum())
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
-	t := suite.T()
-
+func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	// Given the following saved messages
 	expectedMsgsBySeqNum := map[int]string{
 		1: "In the frozen land of Nador",
@@ -92,31 +86,31 @@ func (suite *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 		3: "and there was much rejoicing",
 	}
 	for seqNum, msg := range expectedMsgsBySeqNum {
-		require.Nil(t, suite.msgStore.SaveMessage(seqNum, []byte(msg)))
+		s.Require().Nil(s.msgStore.SaveMessage(seqNum, []byte(msg)))
 	}
 
 	// When the messages are retrieved from the MessageStore
-	actualMsgs, err := suite.msgStore.GetMessages(1, 3)
-	require.Nil(t, err)
+	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	// Then the messages should be
-	require.Len(t, actualMsgs, 3)
-	assert.Equal(t, expectedMsgsBySeqNum[1], string(actualMsgs[0]))
-	assert.Equal(t, expectedMsgsBySeqNum[2], string(actualMsgs[1]))
-	assert.Equal(t, expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 
 	// When the store is refreshed from its backing store
-	suite.msgStore.Refresh()
+	s.Require().Nil(s.msgStore.Refresh())
 
 	// And the messages are retrieved from the MessageStore
-	actualMsgs, err = suite.msgStore.GetMessages(1, 3)
-	require.Nil(t, err)
+	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	// Then the messages should still be
-	require.Len(t, actualMsgs, 3)
-	assert.Equal(t, expectedMsgsBySeqNum[1], string(actualMsgs[0]))
-	assert.Equal(t, expectedMsgsBySeqNum[2], string(actualMsgs[1]))
-	assert.Equal(t, expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
 func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
@@ -163,12 +157,12 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 	}
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_CreationTime() {
-	assert.False(suite.T(), suite.msgStore.CreationTime().IsZero())
+func (s *MessageStoreTestSuite) TestMessageStore_CreationTime() {
+	s.False(s.msgStore.CreationTime().IsZero())
 
 	t0 := time.Now()
-	suite.msgStore.Reset()
+	s.Require().Nil(s.msgStore.Reset())
 	t1 := time.Now()
-	require.True(suite.T(), suite.msgStore.CreationTime().After(t0))
-	require.True(suite.T(), suite.msgStore.CreationTime().Before(t1))
+	s.Require().True(s.msgStore.CreationTime().After(t0))
+	s.Require().True(s.msgStore.CreationTime().Before(t1))
 }

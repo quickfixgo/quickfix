@@ -150,6 +150,7 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
+	//nolint:staticcheck
 	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionSSL30))
 
 	// TLS10

@@ -276,8 +276,8 @@ func (s *SessionSuite) TestShouldSendReset() {
 		s.session.ResetOnDisconnect = test.ResetOnDisconnect
 		s.session.ResetOnLogout = test.ResetOnLogout
 
-		s.MockStore.SetNextSenderMsgSeqNum(test.NextSenderMsgSeqNum)
-		s.MockStore.SetNextTargetMsgSeqNum(test.NextTargetMsgSeqNum)
+		s.Require().Nil(s.MockStore.SetNextSenderMsgSeqNum(test.NextSenderMsgSeqNum))
+		s.Require().Nil(s.MockStore.SetNextTargetMsgSeqNum(test.NextTargetMsgSeqNum))
 
 		s.Equal(s.shouldSendReset(), test.Expected)
 	}
@@ -944,7 +944,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.NoMessageSent()
 
 	suite.MockApp.On("ToAdmin")
-	suite.MockStore.Reset()
+	suite.Require().Nil(suite.MockStore.Reset())
 	require.Nil(suite.T(), suite.dropAndSend(suite.Logon()))
 	suite.MockApp.AssertExpectations(suite.T())
 	msg := suite.MockApp.lastToAdmin
