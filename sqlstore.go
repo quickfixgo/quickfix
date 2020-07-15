@@ -118,7 +118,7 @@ func (store *sqlStore) Refresh() error {
 	return store.populateCache()
 }
 
-func (store *sqlStore) populateCache() (err error) {
+func (store *sqlStore) populateCache() error {
 	s := store.sessionID
 	var creationTime time.Time
 	var incomingSeqNum, outgoingSeqNum int
@@ -131,13 +131,17 @@ func (store *sqlStore) populateCache() (err error) {
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
 
-	err = row.Scan(&creationTime, &incomingSeqNum, &outgoingSeqNum)
+	err := row.Scan(&creationTime, &incomingSeqNum, &outgoingSeqNum)
 
 	// session record found, load it
 	if err == nil {
 		store.cache.creationTime = creationTime
-		store.cache.SetNextTargetMsgSeqNum(incomingSeqNum)
-		store.cache.SetNextSenderMsgSeqNum(outgoingSeqNum)
+		if err = store.cache.SetNextTargetMsgSeqNum(incomingSeqNum); err != nil {
+			return errors.Wrap(err, "cache set next target")
+		}
+		if err = store.cache.SetNextSenderMsgSeqNum(outgoingSeqNum); err != nil {
+			return errors.Wrap(err, "cache set next sender")
+		}
 		return nil
 	}
 
