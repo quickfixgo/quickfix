@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path"
@@ -145,8 +146,13 @@ func (store *fileStore) Refresh() (err error) {
 		}
 	}
 
-	store.SetNextSenderMsgSeqNum(store.NextSenderMsgSeqNum())
-	store.SetNextTargetMsgSeqNum(store.NextTargetMsgSeqNum())
+	if err := store.SetNextSenderMsgSeqNum(store.NextSenderMsgSeqNum()); err != nil {
+		return errors.Wrap(err, "set next sender")
+	}
+
+	if err := store.SetNextTargetMsgSeqNum(store.NextTargetMsgSeqNum()); err != nil {
+		return errors.Wrap(err, "set next target")
+	}
 	return nil
 }
 
@@ -173,13 +179,17 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 
 	if senderSeqNumBytes, err := ioutil.ReadFile(store.senderSeqNumsFname); err == nil {
 		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)); err == nil {
-			store.cache.SetNextSenderMsgSeqNum(senderSeqNum)
+			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
+				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
+			}
 		}
 	}
 
 	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
 		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)); err == nil {
-			store.cache.SetNextTargetMsgSeqNum(targetSeqNum)
+			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
+				return creationTimePopulated, errors.Wrap(err, "cache set next target")
+			}
 		}
 	}
 
@@ -187,7 +197,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 }
 
 func (store *fileStore) setSession() error {
-	if _, err := store.sessionFile.Seek(0, os.SEEK_SET); err != nil {
+	if _, err := store.sessionFile.Seek(0, io.SeekStart); err != nil {
 		return fmt.Errorf("unable to rewind file: %s: %s", store.sessionFname, err.Error())
 	}
 
@@ -205,7 +215,7 @@ func (store *fileStore) setSession() error {
 }
 
 func (store *fileStore) setSeqNum(f *os.File, seqNum int) error {
-	if _, err := f.Seek(0, os.SEEK_SET); err != nil {
+	if _, err := f.Seek(0, io.SeekStart); err != nil {
 		return fmt.Errorf("unable to rewind file: %s: %s", f.Name(), err.Error())
 	}
 	if _, err := fmt.Fprintf(f, "%019d", seqNum); err != nil {
@@ -229,25 +239,33 @@ func (store *fileStore) NextTargetMsgSeqNum() int {
 
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent
 func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
-	store.cache.SetNextSenderMsgSeqNum(next)
+	if err := store.cache.SetNextSenderMsgSeqNum(next); err != nil {
+		return errors.Wrap(err, "cache")
+	}
 	return store.setSeqNum(store.senderSeqNumsFile, next)
 }
 
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received
 func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
-	store.cache.SetNextTargetMsgSeqNum(next)
+	if err := store.cache.SetNextTargetMsgSeqNum(next); err != nil {
+		return errors.Wrap(err, "cache")
+	}
 	return store.setSeqNum(store.targetSeqNumsFile, next)
 }
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent
 func (store *fileStore) IncrNextSenderMsgSeqNum() error {
-	store.cache.IncrNextSenderMsgSeqNum()
+	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
+		return errors.Wrap(err, "cache")
+	}
 	return store.setSeqNum(store.senderSeqNumsFile, store.cache.NextSenderMsgSeqNum())
 }
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received
 func (store *fileStore) IncrNextTargetMsgSeqNum() error {
-	store.cache.IncrNextTargetMsgSeqNum()
+	if err := store.cache.IncrNextTargetMsgSeqNum(); err != nil {
+		return errors.Wrap(err, "cache")
+	}
 	return store.setSeqNum(store.targetSeqNumsFile, store.cache.NextTargetMsgSeqNum())
 }
 
