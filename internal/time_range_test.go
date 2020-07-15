@@ -374,6 +374,7 @@ func TestTimeRangeIsInSameRangeWithDay(t *testing.T) {
 
 	time1 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
 	time2 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)
+	assert.True(t, NewUTCWeekRange(startTime, endTime, startDay, endDay).IsInSameRange(time1, time2))
 
 	time1 = time.Date(2004, time.July, 26, 10, 0, 0, 0, time.UTC)
 	time2 = time.Date(2004, time.July, 27, 3, 0, 0, 0, time.UTC)

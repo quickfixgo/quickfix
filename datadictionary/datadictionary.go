@@ -203,21 +203,6 @@ func (f FieldDef) childTags() []int {
 	return tags
 }
 
-func (f FieldDef) requiredChildTags() []int {
-	var tags []int
-
-	for _, f := range f.Fields {
-		if !f.Required() {
-			continue
-		}
-
-		tags = append(tags, f.Tag())
-		tags = append(tags, f.requiredChildTags()...)
-	}
-
-	return tags
-}
-
 //FieldType holds information relating to a field.  Includes Tag, type, and enums, if defined.
 type FieldType struct {
 	name  string
