@@ -60,6 +60,11 @@ TargetCompID=%s`, sqlDriver, sqlDsn, sessionID.BeginString, sessionID.SenderComp
 	require.Nil(suite.T(), err)
 }
 
+func (suite *SQLStoreTestSuite) TestSqlPlaceholderReplacement() {
+	got := sqlString("A ? B ? C ?", postgresPlaceholder)
+	suite.Equal("A $1 B $2 C $3", got)
+}
+
 func (suite *SQLStoreTestSuite) TearDownTest() {
 	suite.msgStore.Close()
 	os.RemoveAll(suite.sqlStoreRootPath)
