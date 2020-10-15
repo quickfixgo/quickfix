@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/long-bridge/quickfix/config"
 	"github.com/pkg/errors"
-	"github.com/quickfixgo/quickfix/config"
 )
 
 type sqlStoreFactory struct {

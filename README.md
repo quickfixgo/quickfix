@@ -1,51 +1,51 @@
 QuickFIX/Go
 ===========
 
-[![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Build Status](https://travis-ci.org/quickfixgo/quickfix.svg?branch=master)](https://travis-ci.org/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
+[![GoDoc](https://godoc.org/github.com/long-bridge/quickfix?status.png)](https://godoc.org/github.com/long-bridge/quickfix) [![Build Status](https://travis-ci.org/long-bridge/quickfix.svg?branch=master)](https://travis-ci.org/long-bridge/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/long-bridge/quickfix)](https://goreportcard.com/report/github.com/long-bridge/quickfix)
 
-- Website: http://www.quickfixgo.org
-- Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/quickfixgo)
+- Website: http://www.long-bridge.org
+- Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/long-bridge)
 
 Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in Go
 
 Getting Started and Documentation
 ---------------------------------
 
-* [User Manual](http://quickfixgo.org/docs)
-* [API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
+* [User Manual](http://long-bridge.org/docs)
+* [API Documentation](https://godoc.org/github.com/long-bridge/quickfix)
 
 ### Installation
 
 To install QuickFIX/Go, use `go get`:
 
 ```sh
-$ go get github.com/quickfixgo/quickfix
+$ go get github.com/long-bridge/quickfix
 ```
 
 ### Staying up to date
 
-To update QuickFIX/Go to the latest version, use `go get -u github.com/quickfixgo/quickfix`.
+To update QuickFIX/Go to the latest version, use `go get -u github.com/long-bridge/quickfix`.
 
 ### Example Apps
 
-See [examples](https://github.com/quickfixgo/examples) for some simple examples of using QuickFIX/Go.
+See [examples](https://github.com/long-bridge/examples) for some simple examples of using QuickFIX/Go.
 
 ### FIX Message Generation
 
 QuickFIX/Go includes separate packages for tags, fields, enums, messages, and message components generated from the FIX 4.0 - FIX5.0SP2 specs. See:
 
-* [github.com/quickfixgo/tag](https://github.com/quickfixgo/tag)
-* [github.com/quickfixgo/field](https://github.com/quickfixgo/field)
-* [github.com/quickfixgo/enum](https://github.com/quickfixgo/enum)
-* [github.com/quickfixgo/fix40](https://github.com/quickfixgo/fix40)
-* [github.com/quickfixgo/fix41](https://github.com/quickfixgo/fix41)
-* [github.com/quickfixgo/fix42](https://github.com/quickfixgo/fix42)
-* [github.com/quickfixgo/fix43](https://github.com/quickfixgo/fix43)
-* [github.com/quickfixgo/fix44](https://github.com/quickfixgo/fix44)
-* [github.com/quickfixgo/fix50](https://github.com/quickfixgo/fix50)
-* [github.com/quickfixgo/fix50sp1](https://github.com/quickfixgo/fix50sp1)
-* [github.com/quickfixgo/fix50sp2](https://github.com/quickfixgo/fix50sp2)
-* [github.com/quickfixgo/fixt11](https://github.com/quickfixgo/fixt11)
+* [github.com/long-bridge/tag](https://github.com/long-bridge/tag)
+* [github.com/long-bridge/field](https://github.com/long-bridge/field)
+* [github.com/long-bridge/enum](https://github.com/long-bridge/enum)
+* [github.com/long-bridge/fix40](https://github.com/long-bridge/fix40)
+* [github.com/long-bridge/fix41](https://github.com/long-bridge/fix41)
+* [github.com/long-bridge/fix42](https://github.com/long-bridge/fix42)
+* [github.com/long-bridge/fix43](https://github.com/long-bridge/fix43)
+* [github.com/long-bridge/fix44](https://github.com/long-bridge/fix44)
+* [github.com/long-bridge/fix50](https://github.com/long-bridge/fix50)
+* [github.com/long-bridge/fix50sp1](https://github.com/long-bridge/fix50sp1)
+* [github.com/long-bridge/fix50sp2](https://github.com/long-bridge/fix50sp2)
+* [github.com/long-bridge/fixt11](https://github.com/long-bridge/fixt11)
 
 For most FIX applications, these generated resources are sufficient. Custom FIX applications may generate source specific to the FIX spec of that application using the `generate-fix` tool included with QuickFIX/Go.
 
@@ -56,7 +56,7 @@ Developing QuickFIX/Go
 
 If you wish to work on QuickFIX/Go itself, you will first need [Go](http://www.golang.org) installed and configured on your machine (version 1.13+ is preferred, but the minimum required version is 1.6). 
 
-Next, using [Git](https://git-scm.com/), clone the repository via `git clone git@github.com:quickfixgo/quickfix.git`
+Next, using [Git](https://git-scm.com/), clone the repository via `git clone git@github.com:long-bridge/quickfix.git`
 
 ### Installing Dependencies
 
@@ -80,7 +80,7 @@ If this exits with exit status 0, then everything is working!
 
 ### Generated Code
 
-Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/quickfixgo).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
+Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/long-bridge).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
 
 ```sh
 $ make generate-dist
@@ -128,4 +128,4 @@ Note that to specify a specific revision, you can manually edit the `go.mod` fil
 Licensing
 ---------
 
-This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
+This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/long-bridge/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
