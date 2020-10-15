@@ -2,14 +2,14 @@
 
 We welcome pull requests, bug fixes and issue reports.
 
-Please direct questions about using the library to the [Mailing List](https://groups.google.com/forum/#!forum/quickfixgo).
+Please direct questions about using the library to the [Mailing List](https://groups.google.com/forum/#!forum/long-bridge).
 
 Before proposing a large change, please discuss your change by raising an issue.
 
 ## Submitting Changes
 
 * Push your changes to a topic branch in your fork of the repository
-* Submit a pull request to the repository in the QuickFIXGo Organization
+* Submit a pull request to the repository in the long-bridge Organization
 
 ## Notes
 

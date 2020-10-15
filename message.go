@@ -6,7 +6,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/long-bridge/quickfix/datadictionary"
 )
 
 //Header is first section of a FIX Message
