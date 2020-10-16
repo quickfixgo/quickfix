@@ -82,9 +82,9 @@ func (store *gromStore) Refresh() error {
 
 func (store *gromStore) populateCache() error {
 	var dest struct {
-		CreationTime   time.Time
-		IncomingSeqNum int
-		OutgoingSeqNum int
+		CreationTime   time.Time `gorm:"column:creation_time"`
+		IncomingSeqNum int       `gorm:"column:incoming_seqnum"`
+		OutgoingSeqNum int       `gorm:"column:outgoing_seqnum"`
 	}
 	s := store.sessionID
 	err := store.db.Table(`sessions`).Where(`beginstring=? AND session_qualifier=?
@@ -92,7 +92,6 @@ func (store *gromStore) populateCache() error {
 	  AND targetcompid=? AND targetsubid=? AND targetlocid=?`, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Find(&dest).Error
-
 	if err == nil {
 		store.cache.creationTime = dest.CreationTime
 		if err = store.cache.SetNextTargetMsgSeqNum(dest.IncomingSeqNum); err != nil {
