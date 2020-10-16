@@ -38,6 +38,9 @@ func (f gormStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 		err = errors.Wrap(err, "cache reset")
 		return
 	}
+	if err = store.populateCache(); err != nil {
+		return nil, err
+	}
 	return store, nil
 
 }
