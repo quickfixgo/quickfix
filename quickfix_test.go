@@ -3,7 +3,7 @@ package quickfix
 import (
 	"time"
 
-	"github.com/long-bridge/quickfix/internal"
+	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"

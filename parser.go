@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/long-bridge/quickfix/internal"
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 const (

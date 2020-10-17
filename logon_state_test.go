@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/long-bridge/quickfix/internal"
+	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
 

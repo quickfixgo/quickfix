@@ -166,7 +166,7 @@ import(
 	{{- end }}
 
 
-	"github.com/long-bridge/quickfix"
+	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
 	{{- end }}
@@ -201,7 +201,7 @@ import(
 	"{{ . }}"
 	{{- end }}
 
-	"github.com/long-bridge/quickfix"
+	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
 	{{- end }}
@@ -229,7 +229,7 @@ import(
 	"{{ . }}"
 	{{- end }}
 
-	"github.com/long-bridge/quickfix"
+	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
 	{{- end }}
@@ -296,7 +296,7 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 
 	TagTemplate = template.Must(template.New("Tag").Parse(`
 package tag
-import("github.com/long-bridge/quickfix")
+import("github.com/quickfixgo/quickfix")
 
 const (
 {{- range .}}
@@ -308,7 +308,7 @@ const (
 	FieldTemplate = template.Must(template.New("Field").Funcs(tmplFuncs).Parse(`
 package field
 import(
-	"github.com/long-bridge/quickfix"
+	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/enum"
 	"{{ importRootPath }}/tag"
 {{ if checkIfDecimalImportRequiredForFields . }} "github.com/shopspring/decimal" {{ end }}

@@ -1,6 +1,6 @@
 package quickfix
 
-import "github.com/long-bridge/quickfix/internal"
+import "github.com/quickfixgo/quickfix/internal"
 
 type notSessionTime struct{ latentState }
 

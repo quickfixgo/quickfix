@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/long-bridge/quickfix/internal"
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 type inSession struct{ loggedOn }

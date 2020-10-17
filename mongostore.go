@@ -7,7 +7,7 @@ import (
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 	"github.com/pkg/errors"
-	"github.com/long-bridge/quickfix/config"
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type mongoStoreFactory struct {
