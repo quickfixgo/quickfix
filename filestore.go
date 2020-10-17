@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/long-bridge/quickfix/config"
+	"github.com/quickfixgo/quickfix/config"
 	"github.com/pkg/errors"
 )
 

@@ -1,7 +1,7 @@
 QuickFIX/Go
 ===========
 
-[![GoDoc](https://godoc.org/github.com/long-bridge/quickfix?status.png)](https://godoc.org/github.com/long-bridge/quickfix) [![Build Status](https://travis-ci.org/long-bridge/quickfix.svg?branch=master)](https://travis-ci.org/long-bridge/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/long-bridge/quickfix)](https://goreportcard.com/report/github.com/long-bridge/quickfix)
+[![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Build Status](https://travis-ci.org/long-bridge/quickfix.svg?branch=master)](https://travis-ci.org/long-bridge/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
 
 - Website: http://www.long-bridge.org
 - Mailing list: [Google Groups](https://groups.google.com/forum/#!forum/long-bridge)
@@ -12,19 +12,19 @@ Getting Started and Documentation
 ---------------------------------
 
 * [User Manual](http://long-bridge.org/docs)
-* [API Documentation](https://godoc.org/github.com/long-bridge/quickfix)
+* [API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
 
 ### Installation
 
 To install QuickFIX/Go, use `go get`:
 
 ```sh
-$ go get github.com/long-bridge/quickfix
+$ go get github.com/quickfixgo/quickfix
 ```
 
 ### Staying up to date
 
-To update QuickFIX/Go to the latest version, use `go get -u github.com/long-bridge/quickfix`.
+To update QuickFIX/Go to the latest version, use `go get -u github.com/quickfixgo/quickfix`.
 
 ### Example Apps
 
@@ -128,4 +128,4 @@ Note that to specify a specific revision, you can manually edit the `go.mod` fil
 Licensing
 ---------
 
-This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/long-bridge/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
+This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt) for the terms specified by the QuickFIX Software License.
