@@ -137,7 +137,7 @@ func ParseMapSettings(configMap map[string]map[string]string) (*Settings, error)
 	}
 	settings := NewSettings()
 
-	sessionSettings := NewSessionSettings()
+	sessionSettings := settings.GlobalSettings()
 	if defaultMap, ok := configMap[`default`]; ok {
 		for k, v := range defaultMap {
 			sessionSettings.Set(k, v)
@@ -157,9 +157,7 @@ func ParseMapSettings(configMap map[string]map[string]string) (*Settings, error)
 	}
 	return settings, nil
 
-}
-
-//GlobalSettings are default setting inherited by all session settings.
+} //GlobalSettings are default setting inherited by all session settings.
 func (s *Settings) GlobalSettings() *SessionSettings {
 	s.lazyInit()
 	return s.globalSettings
