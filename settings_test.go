@@ -289,7 +289,39 @@ DataDictionary=somewhere/FIX42.xml
 		assert.Equal(t, tc.expected, actual)
 	}
 }
+func TestSettings_ParseSettingsMapConfig(t *testing.T) {
+	configMap := map[string]map[string]string{}
+	configMap[`default`] = map[string]string{
+		`SocketConnectHost`: "127.0.0.1",
+		`SocketConnectPort`: "5001",
+		`HeartBtInt`:        "5",
+		`SenderCompID`:      "TW",
+		`TargetCompID`:      "ISLD",
+		`ResetOnLogon`:      "Y",
+		`FileLogPath`:       "tmp",
+	}
+	configMap[`session`] = map[string]string{
+		`BeginString`: "FIX.4.2",
+	}
 
+	s, err := ParseMapSettings(configMap)
+	assert.Nil(t, err)
+	sessionSettings := s.SessionSettings()[SessionID{BeginString: "FIX.4.3", SenderCompID: "TW", TargetCompID: "ISLD"}]
+	assert.Nil(t, sessionSettings)
+
+	sessionSettings = s.SessionSettings()[SessionID{BeginString: "FIX.4.2", SenderCompID: "TW", TargetCompID: "ISLD"}]
+	socketConnectHostVal, err := sessionSettings.Setting("SocketConnectHost")
+	assert.Nil(t, err)
+	assert.Equal(t, `127.0.0.1`, socketConnectHostVal)
+	socketConnectPortVal, err := sessionSettings.Setting("SocketConnectPort")
+	assert.Nil(t, err)
+	assert.Equal(t, `5001`, socketConnectPortVal)
+
+	beginStringVal, err := sessionSettings.Setting("BeginString")
+	assert.Nil(t, err)
+	assert.Equal(t, `FIX.4.2`, beginStringVal)
+
+}
 func TestSettings_ParseSettings_WithEqualsSignInValue(t *testing.T) {
 	s, err := ParseSettings(strings.NewReader(`
 [DEFAULT]

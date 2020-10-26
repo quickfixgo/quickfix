@@ -130,6 +130,35 @@ func ParseSettings(reader io.Reader) (*Settings, error) {
 	return s, err
 }
 
+//ParseMapSettings creates and initializes a Settings instance with config map.
+func ParseMapSettings(configMap map[string]map[string]string) (*Settings, error) {
+	if configMap == nil {
+		return nil, errors.New(`configMap must not be nil`)
+	}
+	settings := NewSettings()
+
+	sessionSettings := NewSessionSettings()
+	if defaultMap, ok := configMap[`default`]; ok {
+		for k, v := range defaultMap {
+			sessionSettings.Set(k, v)
+		}
+	}
+
+	if sessionMap, ok := configMap[`session`]; ok {
+		for k, v := range sessionMap {
+			sessionSettings.Set(k, v)
+		}
+
+	}
+
+	_, err := settings.AddSession(sessionSettings)
+	if err != nil {
+		return nil, err
+	}
+	return settings, nil
+
+}
+
 //GlobalSettings are default setting inherited by all session settings.
 func (s *Settings) GlobalSettings() *SessionSettings {
 	s.lazyInit()
