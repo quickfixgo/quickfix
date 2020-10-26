@@ -317,9 +317,17 @@ func TestSettings_ParseSettingsMapConfig(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, `5001`, socketConnectPortVal)
 
+	fileLogPathVal, err := sessionSettings.Setting("FileLogPath")
+	assert.Nil(t, err)
+	assert.Equal(t, `tmp`, fileLogPathVal)
+
 	beginStringVal, err := sessionSettings.Setting("BeginString")
 	assert.Nil(t, err)
 	assert.Equal(t, `FIX.4.2`, beginStringVal)
+
+	globalLogPath, err := s.GlobalSettings().Setting(config.FileLogPath)
+	assert.Nil(t, err)
+	assert.Equal(t, `tmp`, globalLogPath)
 
 }
 func TestSettings_ParseSettings_WithEqualsSignInValue(t *testing.T) {
