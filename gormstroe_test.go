@@ -23,11 +23,33 @@ func Test_GromStoreCreate(t *testing.T) {
 			sessionID: {},
 		}
 		Convey(`none session`, func() {
-			
+
 		})
 		Convey(`have session`, func() {
 			f := NewGormStoreFactory(appSettings, db)
 			f.Create(sessionID)
+		})
+	})
+}
+
+func Test_GromStoreSaveMessage(t *testing.T) {
+	Convey(`GromStoreSaveMessage`, t, func() {
+		db, err := NewGormDB()
+		db.LogMode(true)
+		So(err, ShouldBeNil)
+		So(db, ShouldNotBeNil)
+		sessionID := SessionID{BeginString: "FIX.4.2", TargetCompID: "IB", SenderCompID: "LB"}
+		appSettings := NewSettings()
+		appSettings.sessionSettings = map[SessionID]*SessionSettings{
+			sessionID: {},
+		}
+		Convey(`duplicate key`, func() {
+			f := NewGormStoreFactory(appSettings, db)
+			store, err := f.Create(sessionID)
+			So(err, ShouldBeNil)
+			err = store.SaveMessage(1, []byte(`test msg`))
+			err = store.SaveMessage(1, []byte(`test msg`))
+			So(err, ShouldBeNil)
 		})
 	})
 }
