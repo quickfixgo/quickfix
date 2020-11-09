@@ -181,7 +181,7 @@ func (store *gromStore) CreationTime() time.Time {
 
 func (store *gromStore) SaveMessage(seqNum int, msg []byte) error {
 	s := store.sessionID
-	return store.db.Exec(`INSERT INTO messages (
+	err := store.db.Exec(`INSERT INTO messages (
 		msgseqnum, message,
 		beginstring, session_qualifier,
 		sendercompid, sendersubid, senderlocid,
@@ -190,6 +190,21 @@ func (store *gromStore) SaveMessage(seqNum int, msg []byte) error {
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error
+	if err != nil {
+		counter := 0
+		store.db.Table("messages").Where(`beginstring=? AND session_qualifier=?
+		AND sendercompid=? AND sendersubid=? AND senderlocid=?
+		AND targetcompid=? AND targetsubid=? AND targetlocid=?
+		AND msgseqnum=?`, s.BeginString, s.Qualifier,
+			s.SenderCompID, s.SenderSubID, s.SenderLocationID,
+			s.TargetCompID, s.TargetSubID, s.TargetLocationID,
+			seqNum).Limit(1).Count(&counter)
+		//If it is determined that the message is repeated, skip this insertion
+		if counter == 1 {
+			return nil
+		}
+	}
+	return err
 }
 
 func (store *gromStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {

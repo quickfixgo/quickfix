@@ -9,6 +9,7 @@ CREATE TABLE messages (
   session_qualifier VARCHAR(64) NOT NULL,
   msgseqnum INTEGER NOT NULL, 
   message TEXT NOT NULL,
+  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (beginstring, sendercompid, sendersubid, senderlocid, 
   				targetcompid, targetsubid, targetlocid, session_qualifier,
   				msgseqnum)
