@@ -8,6 +8,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.5
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.2.0
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	golang.org/x/net v0.0.0-20200707034311-ab3426394381
 )
