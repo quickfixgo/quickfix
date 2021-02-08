@@ -261,18 +261,18 @@ func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *sqlStore) IncrNextSenderMsgSeqNum() error {
-	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache incr next")
+	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "store next")
 	}
-	return store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum())
+	return nil
 }
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *sqlStore) IncrNextTargetMsgSeqNum() error {
-	if err := store.cache.IncrNextTargetMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache incr next")
+	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "store next")
 	}
-	return store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum())
+	return nil
 }
 
 // CreationTime returns the creation time of the store.

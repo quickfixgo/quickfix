@@ -278,34 +278,34 @@ func (store *fileStore) NextTargetMsgSeqNum() int {
 
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
 func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
-	if err := store.cache.SetNextSenderMsgSeqNum(next); err != nil {
-		return errors.Wrap(err, "cache")
+	if err := store.setSeqNum(store.senderSeqNumsFile, next); err != nil {
+		return errors.Wrap(err, "file")
 	}
-	return store.setSeqNum(store.senderSeqNumsFile, next)
+	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
 func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
-	if err := store.cache.SetNextTargetMsgSeqNum(next); err != nil {
-		return errors.Wrap(err, "cache")
+	if err := store.setSeqNum(store.targetSeqNumsFile, next); err != nil {
+		return errors.Wrap(err, "file")
 	}
-	return store.setSeqNum(store.targetSeqNumsFile, next)
+	return store.cache.SetNextTargetMsgSeqNum(next)
 }
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *fileStore) IncrNextSenderMsgSeqNum() error {
-	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache")
+	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "file")
 	}
-	return store.setSeqNum(store.senderSeqNumsFile, store.cache.NextSenderMsgSeqNum())
+	return nil
 }
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *fileStore) IncrNextTargetMsgSeqNum() error {
-	if err := store.cache.IncrNextTargetMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache")
+	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "file")
 	}
-	return store.setSeqNum(store.targetSeqNumsFile, store.cache.NextTargetMsgSeqNum())
+	return nil
 }
 
 // CreationTime returns the creation time of the store.
