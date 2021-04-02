@@ -24,7 +24,7 @@ func readLoop(parser *parser, msgIn chan fixIn) {
 	for {
 		msg, err := parser.ReadMessage()
 		if err != nil {
-			log.Printf(`readLoop.parser.ReadMessage error,error_info[%v]  \r\n`, err.Error())
+			log.Println(`parser read message failed,conection readLoop just quit, error_info->`, err.Error())
 			return
 		}
 		msgIn <- fixIn{msg, parser.lastRead}
