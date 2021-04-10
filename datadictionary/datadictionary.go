@@ -3,6 +3,7 @@ package datadictionary
 
 import (
 	"encoding/xml"
+	"io"
 	"os"
 )
 
@@ -305,15 +306,20 @@ func Parse(path string) (*DataDictionary, error) {
 	}
 	defer xmlFile.Close()
 
+	return ParseSrc(xmlFile)
+}
+
+//ParseSrc loads and and build a datadictionary instance from an xml source.
+func ParseSrc(xmlSrc io.Reader) (*DataDictionary, error) {
 	doc := new(XMLDoc)
-	decoder := xml.NewDecoder(xmlFile)
+	decoder := xml.NewDecoder(xmlSrc)
 	if err := decoder.Decode(doc); err != nil {
 		return nil, err
 	}
 
 	b := new(builder)
-	var dict *DataDictionary
-	if dict, err = b.build(doc); err != nil {
+	dict, err := b.build(doc)
+	if err != nil {
 		return nil, err
 	}
 
