@@ -342,7 +342,7 @@ func (s *session) dropQueued() {
 	s.toSend = s.toSend[:0]
 }
 
-func (s *session) SendBytes(msg []byte) {
+func (s *session) EnqueueBytesAndSend(msg []byte) {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
