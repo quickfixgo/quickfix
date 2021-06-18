@@ -1,0 +1,53 @@
+name: CI
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.41
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.16]
+        fix-version:
+          - FIX_TEST=
+          - FIX_TEST=fix40
+          - FIX_TEST=fix41
+          - FIX_TEST=fix42
+          - FIX_TEST=fix43
+          - FIX_TEST=fix44
+          - FIX_TEST=fix50
+          - FIX_TEST=fix50sp1
+          - FIX_TEST=fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Run Mongo
+        run: docker run -d -p 27017:27017 mongo
+      - name: Test
+        env:
+          GO111MODULE: "on"
+          MONGODB_TEST_CXN: "localhost"
+        run: make generate; if [ -z "$FIX_TEST" ]; then make build; make; else make build_accept; make $FIX_TEST; fi
