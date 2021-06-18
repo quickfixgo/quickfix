@@ -5,7 +5,3 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: github.com/mattn/go-sqlite3
-    versions:
-    - 1.14.6
