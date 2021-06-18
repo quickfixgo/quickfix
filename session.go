@@ -342,6 +342,14 @@ func (s *session) dropQueued() {
 	s.toSend = s.toSend[:0]
 }
 
+func (s *session) EnqueueBytesAndSend(msg []byte) {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+
+	s.toSend = append(s.toSend, msg)
+	s.sendQueued()
+}
+
 func (s *session) sendBytes(msg []byte) {
 	s.log.OnOutgoing(msg)
 	s.messageOut <- msg
