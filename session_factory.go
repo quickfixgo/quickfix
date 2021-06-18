@@ -282,6 +282,33 @@ func (f sessionFactory) newSession(
 		s.DisableMessagePersist = !persistMessages
 	}
 
+	s.SendBufferSize = 1000
+	if settings.HasSetting(config.SendBufferSize) {
+		var sendBufferSize int
+		if sendBufferSize, err = settings.IntSetting(config.SendBufferSize); err != nil {
+			return
+		}
+		s.SendBufferSize = sendBufferSize
+	}
+
+	s.SendQueueLength = 1
+	if settings.HasSetting(config.SendQueueLength) {
+		var sendQueueLength int
+		if sendQueueLength, err = settings.IntSetting(config.SendQueueLength); err != nil {
+			return
+		}
+		s.SendQueueLength = sendQueueLength
+	}
+
+	s.SendQueueLength = 1
+	if settings.HasSetting(config.ReceiveQueueLength) {
+		var receiveQueueLength int
+		if receiveQueueLength, err = settings.IntSetting(config.ReceiveQueueLength); err != nil {
+			return
+		}
+		s.ReceiveQueueLength = receiveQueueLength
+	}
+
 	if f.BuildInitiators {
 		if err = f.buildInitiatorSettings(s, settings); err != nil {
 			return

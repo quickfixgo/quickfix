@@ -10,12 +10,14 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/armon/go-proxyproto"
+	proxyproto "github.com/armon/go-proxyproto"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
 //Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
+	sync.RWMutex
 	app                   Application
 	settings              *Settings
 	logFactory            LogFactory
@@ -84,7 +86,6 @@ func (a *Acceptor) Start() error {
 			return err
 		}
 	}
-
 	for sessionID := range a.sessions {
 		session := a.sessions[sessionID]
 		a.sessionGroup.Add(1)
@@ -125,7 +126,9 @@ func (a *Acceptor) Stop() {
 
 //Get remote IP address for a given session.
 func (a *Acceptor) RemoteAddr(sessionID SessionID) (net.Addr, bool) {
+	a.RLock()
 	addr, ok := a.sessionAddr[sessionID]
+	a.RUnlock()
 	return addr, ok
 }
 
@@ -303,10 +306,11 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		session = dynamicSession
 		defer session.stop()
 	}
-
+	a.Lock()
 	a.sessionAddr[sessID] = netConn.RemoteAddr()
-	msgIn := make(chan fixIn)
-	msgOut := make(chan []byte)
+	a.Unlock()
+	msgIn := make(chan fixIn, session.ReceiveQueueLength)
+	msgOut := make(chan []byte, session.SendQueueLength)
 
 	if err := session.connect(msgIn, msgOut); err != nil {
 		a.globalLog.OnEventf("Unable to accept %v", err.Error())
@@ -351,7 +355,9 @@ LOOP:
 		case id := <-complete:
 			session, ok := sessions[id]
 			if ok {
+				a.Lock()
 				delete(a.sessionAddr, session.sessionID)
+				a.Unlock()
 				delete(sessions, id)
 			} else {
 				a.globalLog.OnEventf("Missing dynamic session %v!", id)

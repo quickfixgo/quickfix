@@ -331,8 +331,20 @@ func (s *session) persist(seqNum int, msgBytes []byte) error {
 }
 
 func (s *session) sendQueued() {
+	var queueBuffer = make([]byte, 0, s.SendBufferSize)
 	for _, msgBytes := range s.toSend {
-		s.sendBytes(msgBytes)
+		s.log.OnOutgoing(msgBytes)
+		if len(queueBuffer)+len(msgBytes) < s.SendBufferSize {
+			queueBuffer = append(queueBuffer, msgBytes...)
+		} else {
+			s.sendBytes(queueBuffer)
+			queueBuffer = make([]byte, 0, s.SendBufferSize)
+			queueBuffer = append(queueBuffer, msgBytes...)
+		}
+	}
+
+	if len(queueBuffer) > 0 {
+		s.sendBytes(queueBuffer)
 	}
 
 	s.dropQueued()
@@ -343,7 +355,6 @@ func (s *session) dropQueued() {
 }
 
 func (s *session) sendBytes(msg []byte) {
-	s.log.OnOutgoing(msg)
 	s.messageOut <- msg
 	s.stateTimer.Reset(s.HeartBtInt)
 }

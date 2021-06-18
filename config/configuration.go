@@ -64,4 +64,7 @@ const (
 	RejectInvalidMessage         string = "RejectInvalidMessage"
 	DynamicSessions              string = "DynamicSessions"
 	DynamicQualifier             string = "DynamicQualifier"
+	SendBufferSize               string = "SendBufferSize"
+	SendQueueLength              string = "SendQueueLength"
+	ReceiveQueueLength           string = "ReceiveQueueLength"
 )

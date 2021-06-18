@@ -7,3 +7,4 @@ _test/echo_server
 _test/tmp
 _vendor*
 gen
+.idea

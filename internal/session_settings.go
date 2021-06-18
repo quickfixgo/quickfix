@@ -16,6 +16,9 @@ type SessionSettings struct {
 	SkipCheckLatency             bool
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
+	SendBufferSize               int
+	SendQueueLength              int
+	ReceiveQueueLength           int
 
 	//required on logon for FIX.T.1 messages
 	DefaultApplVerID string

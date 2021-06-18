@@ -220,18 +220,18 @@ func (store *mongoStore) SetNextTargetMsgSeqNum(next int) error {
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent
 func (store *mongoStore) IncrNextSenderMsgSeqNum() error {
-	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache incr")
+	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "save sequence number")
 	}
-	return store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum())
+	return nil
 }
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received
 func (store *mongoStore) IncrNextTargetMsgSeqNum() error {
-	if err := store.cache.IncrNextTargetMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache incr")
+	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
+		return errors.Wrap(err, "save sequence number")
 	}
-	return store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum())
+	return nil
 }
 
 // CreationTime returns the creation time of the store
@@ -266,6 +266,11 @@ func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte,
 	}
 
 	iter := store.db.DB(store.mongoDatabase).C(store.messagesCollection).Find(seqFilter).Sort("msgseq").Iter()
+	if iter.Err() != nil {
+		err = iter.Err()
+		_ = iter.Close()
+		return
+	}
 	for iter.Next(msgFilter) {
 		msgs = append(msgs, msgFilter.Message)
 	}
