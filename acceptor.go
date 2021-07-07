@@ -28,7 +28,7 @@ type Acceptor struct {
 	dynamicQualifier      bool
 	dynamicQualifierCount int
 	dynamicSessionChan    chan *session
-	sessionAddr           map[SessionID]net.Addr
+	sessionAddr           sync.Map
 	sessionHostPort       map[SessionID]int
 	listeners             map[string]net.Listener
 	connectionValidator   ConnectionValidator
@@ -89,13 +89,12 @@ func (a *Acceptor) Start() (err error) {
 		}
 	}
 
-	for sessionID := range a.sessions {
-		session := a.sessions[sessionID]
+	for _, s := range a.sessions {
 		a.sessionGroup.Add(1)
-		go func() {
-			session.run()
+		go func(s *session) {
+			s.run()
 			a.sessionGroup.Done()
-		}()
+		}(s)
 	}
 	if a.dynamicSessions {
 		a.dynamicSessionChan = make(chan *session)
@@ -133,8 +132,12 @@ func (a *Acceptor) Stop() {
 
 //Get remote IP address for a given session.
 func (a *Acceptor) RemoteAddr(sessionID SessionID) (net.Addr, bool) {
-	addr, ok := a.sessionAddr[sessionID]
-	return addr, ok
+	addr, ok := a.sessionAddr.Load(sessionID)
+	if !ok || addr == nil {
+		return nil, false
+	}
+	val, ok := addr.(net.Addr)
+	return val, ok
 }
 
 //NewAcceptor creates and initializes a new Acceptor.
@@ -145,7 +148,6 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 		settings:        settings,
 		logFactory:      logFactory,
 		sessions:        make(map[SessionID]*session),
-		sessionAddr:     make(map[SessionID]net.Addr),
 		sessionHostPort: make(map[SessionID]int),
 		listeners:       make(map[string]net.Listener),
 	}
@@ -320,7 +322,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		defer session.stop()
 	}
 
-	a.sessionAddr[sessID] = netConn.RemoteAddr()
+	a.sessionAddr.Store(sessID, netConn.RemoteAddr())
 	msgIn := make(chan fixIn)
 	msgOut := make(chan []byte)
 
@@ -367,7 +369,7 @@ LOOP:
 		case id := <-complete:
 			session, ok := sessions[id]
 			if ok {
-				delete(a.sessionAddr, session.sessionID)
+				a.sessionAddr.Delete(session.sessionID)
 				delete(sessions, id)
 			} else {
 				a.globalLog.OnEventf("Missing dynamic session %v!", id)
