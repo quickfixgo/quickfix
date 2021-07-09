@@ -203,7 +203,7 @@ func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
 	}
 
 	if len(f.groups) != expectedGroupSize {
-		return tv, repeatingGroupFieldsOutOfOrder(f.tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.tag, f.delimiter(), expectedGroupSize, len(f.groups)))
+		return tv, repeatingGroupFieldsOutOfOrder(f.tag, fmt.Sprintf("group %v: template is wrong (%v found but not in group) or delimiter %v not found: expected %v groups, but found %v.", f.tag, tv[0], f.delimiter(), expectedGroupSize, len(f.groups)))
 	}
 
 	return tv, err
