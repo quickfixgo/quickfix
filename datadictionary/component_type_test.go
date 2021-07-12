@@ -68,12 +68,14 @@ func TestNewComponentType(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		ct := datadictionary.NewComponentType("cname", test.parts)
-		assert.NotNil(t, ct, test.testName)
-		assert.Equal(t, "cname", ct.Name(), test.testName)
-		assert.Equal(t, test.expectedFields, ct.Fields(), test.testName)
-		assert.Equal(t, test.parts, ct.Parts(), test.testName)
-		assert.Equal(t, test.expectedRequiredFields, ct.RequiredFields(), test.testName)
-		assert.Equal(t, test.expectedRequiredParts, ct.RequiredParts(), test.testName)
+		t.Run(test.testName, func(t *testing.T) {
+			ct := datadictionary.NewComponentType("cname", test.parts)
+			assert.NotNil(t, ct, test.testName)
+			assert.Equal(t, "cname", ct.Name(), test.testName)
+			assert.Equal(t, test.expectedFields, ct.Fields(), test.testName)
+			assert.Equal(t, test.parts, ct.Parts(), test.testName)
+			assert.Equal(t, test.expectedRequiredFields, ct.RequiredFields(), test.testName)
+			assert.Equal(t, test.expectedRequiredParts, ct.RequiredParts(), test.testName)
+		})
 	}
 }

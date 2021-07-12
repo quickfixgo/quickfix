@@ -258,7 +258,7 @@ func requiredFields(m *datadictionary.MessageDef) (required []*datadictionary.Fi
 				if !pType.IsGroup() {
 					required = append(required, pType)
 				}
-			case *datadictionary.Component:
+			case datadictionary.Component:
 				for _, f := range pType.RequiredFields() {
 					if !f.IsGroup() {
 						required = append(required, f)

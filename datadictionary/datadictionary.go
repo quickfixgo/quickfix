@@ -106,8 +106,8 @@ type Component struct {
 }
 
 //NewComponent returns an initialized Component instance
-func NewComponent(ct *ComponentType, required bool) *Component {
-	return &Component{
+func NewComponent(ct *ComponentType, required bool) Component {
+	return Component{
 		ComponentType: ct,
 		required:      required,
 	}
