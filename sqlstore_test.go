@@ -48,6 +48,8 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 SQLStoreDriver=%s
 SQLStoreDataSourceName=%s
 SQLStoreConnMaxLifetime=14400s
+SQLStoreConnMaxOpen=10
+SQLStoreConnMaxIdle=10
 
 [SESSION]
 BeginString=%s

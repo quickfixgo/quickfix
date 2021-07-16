@@ -41,6 +41,8 @@ const (
 	SQLStoreDriver               string = "SQLStoreDriver"
 	SQLStoreDataSourceName       string = "SQLStoreDataSourceName"
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
+	SQLStoreConnMaxIdle          string = "SQLStoreConnMaxIdle"
+	SQLStoreConnMaxOpen          string = "SQLStoreConnMaxOpen"
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"

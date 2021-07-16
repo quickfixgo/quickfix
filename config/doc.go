@@ -299,5 +299,12 @@ If your database server has a config option to close inactive connections after 
 Example Values:
  SQLConnMaxLifetime=14400s # 14400 seconds
  SQLConnMaxLifetime=2h45m  # 2 hours and 45 minutes
+
+SQLStoreConnMaxIdle
+Sets the maximum number of connections in the idle connection pool.
+
+SQLStoreConnMaxOpen
+SetMaxOpenConns sets the maximum number of open connections to the database.
+
 */
 package config
