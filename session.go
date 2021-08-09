@@ -30,7 +30,7 @@ type session struct {
 	sessionEvent chan internal.Event
 	messageEvent chan bool
 	application  Application
-	validator
+	Validator
 	stateMachine
 	stateTimer *internal.EventTimer
 	peerTimer  *internal.EventTimer
@@ -514,8 +514,8 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 		}
 	}
 
-	if s.validator != nil {
-		if reject := s.validator.Validate(msg); reject != nil {
+	if s.Validator != nil {
+		if reject := s.Validator.Validate(msg); reject != nil {
 			return reject
 		}
 	}
