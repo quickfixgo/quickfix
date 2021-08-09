@@ -110,7 +110,7 @@ func (f sessionFactory) newSession(
 				return
 			}
 
-			s.validator = &fixtValidator{s.transportDataDictionary, s.appDataDictionary, validatorSettings}
+			s.Validator = NewValidator(validatorSettings, s.appDataDictionary, s.transportDataDictionary)
 		}
 	} else if settings.HasSetting(config.DataDictionary) {
 		var dataDictionaryPath string
@@ -122,7 +122,7 @@ func (f sessionFactory) newSession(
 			return
 		}
 
-		s.validator = &fixValidator{s.appDataDictionary, validatorSettings}
+		s.Validator = NewValidator(validatorSettings, s.appDataDictionary, nil)
 	}
 
 	if settings.HasSetting(config.ResetOnLogon) {
