@@ -244,7 +244,15 @@ Defaults to 10
 
 HeartBtInt
 
-Heartbeat interval in seconds. Only used for initiators.	Value must be positive integer.
+Heartbeat interval in seconds. Only used for initiators (unless HeartBtIntOverride is Y).	Value must be positive integer.
+
+HeartBtIntOverride
+
+If set to Y, will use the HeartBtInt interval rather than what the initiator dictates. Only used for acceptors. Valid Values:
+ Y
+ N
+
+Defaults to N.
 
 SocketConnectPort
 

@@ -47,6 +47,7 @@ const (
 	LogoutTimeout                string = "LogoutTimeout"
 	LogonTimeout                 string = "LogonTimeout"
 	HeartBtInt                   string = "HeartBtInt"
+	HeartBtIntOverride           string = "HeartBtIntOverride"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
 	SQLStoreDriver               string = "SQLStoreDriver"
