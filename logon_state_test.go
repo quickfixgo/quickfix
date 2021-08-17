@@ -76,16 +76,47 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("OnLogon")
 	s.MockApp.On("ToAdmin")
+	s.Zero(s.session.HeartBtInt)
 	s.fixMsgIn(s.session, logon)
 
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.HeartBtInt)
+	s.Equal(32*time.Second, s.session.HeartBtInt)  //should be written from logon message
+	s.False(s.session.HeartBtIntOverride)
 
 	s.LastToAdminMessageSent()
 	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
+
+	s.NextTargetMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonHeartBtIntOverride() {
+	s.IncrNextSenderMsgSeqNum()
+	s.MessageFactory.seqNum = 1
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.session.HeartBtIntOverride = true
+	s.session.HeartBtInt = time.Second
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(inSession{})
+	s.Equal(time.Second, s.session.HeartBtInt) //should not have changed
+	s.True(s.session.HeartBtIntOverride)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagHeartBtInt, 1, s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(3)
