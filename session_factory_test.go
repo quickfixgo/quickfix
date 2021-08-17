@@ -51,6 +51,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Equal(Millis, session.timestampPrecision)
 	s.Equal(120*time.Second, session.MaxLatency)
 	s.False(session.DisableMessagePersist)
+	s.False(session.HeartBtIntOverride)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -358,9 +359,47 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
 }
 
+func (s *SessionFactorySuite) TestNewSessionBuildAcceptors() {
+	s.sessionFactory.BuildInitiators = false
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.False(session.InitiateLogon)
+	s.Zero(session.HeartBtInt)
+	s.False(session.HeartBtIntOverride)
+
+	s.SessionSettings.Set(config.HeartBtIntOverride, "Y")
+	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.False(session.InitiateLogon)
+	s.Equal(34*time.Second, session.HeartBtInt)
+	s.True(session.HeartBtIntOverride)
+}
+
 func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidHeartBtInt() {
 	s.sessionFactory.BuildInitiators = true
 
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "HeartBtInt should be required for acceptors with override defined")
+
+	s.SessionSettings.Set(config.HeartBtInt, "not a number")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "HeartBtInt must be a number")
+
+	s.SessionSettings.Set(config.HeartBtInt, "0")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "HeartBtInt must be greater than zero")
+
+	s.SessionSettings.Set(config.HeartBtInt, "-20")
+	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err, "HeartBtInt must be greater than zero")
+}
+
+func (s *SessionFactorySuite) TestNewSessionBuildAcceptorsValidHeartBtInt() {
+	s.sessionFactory.BuildInitiators = false
+
+	s.SessionSettings.Set(config.HeartBtIntOverride, "Y")
 	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err, "HeartBtInt should be required for initiators")
 
