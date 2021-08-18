@@ -286,6 +286,8 @@ func (f sessionFactory) newSession(
 		if err = f.buildInitiatorSettings(s, settings); err != nil {
 			return
 		}
+	} else if err = f.buildAcceptorSettings(s, settings); err != nil {
+		return
 	}
 
 	if s.log, err = logFactory.CreateSessionLog(s.sessionID); err != nil {
@@ -303,18 +305,19 @@ func (f sessionFactory) newSession(
 	return
 }
 
+func (f sessionFactory) buildAcceptorSettings(session *session, settings *SessionSettings) error {
+	if err := f.buildHeartBtIntSettings(session, settings, false); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (f sessionFactory) buildInitiatorSettings(session *session, settings *SessionSettings) error {
 	session.InitiateLogon = true
 
-	heartBtInt, err := settings.IntSetting(config.HeartBtInt)
-	if err != nil {
+	if err := f.buildHeartBtIntSettings(session, settings, true); err != nil {
 		return err
 	}
-
-	if heartBtInt <= 0 {
-		return errors.New("Heartbeat must be greater than zero")
-	}
-	session.HeartBtInt = time.Duration(heartBtInt) * time.Second
 
 	session.ReconnectInterval = 30 * time.Second
 	if settings.HasSetting(config.ReconnectInterval) {
@@ -393,4 +396,24 @@ func (f sessionFactory) configureSocketConnectAddress(session *session, settings
 		session.SocketConnectAddress = append(session.SocketConnectAddress, net.JoinHostPort(socketConnectHost, socketConnectPort))
 		i++
 	}
+}
+
+func (f sessionFactory) buildHeartBtIntSettings(session *session, settings *SessionSettings, mustProvide bool) (err error) {
+	if settings.HasSetting(config.HeartBtIntOverride) {
+		if session.HeartBtIntOverride, err = settings.BoolSetting(config.HeartBtIntOverride); err != nil {
+			return
+		}
+	}
+	
+	if session.HeartBtIntOverride || mustProvide {
+		var heartBtInt int
+		if heartBtInt, err = settings.IntSetting(config.HeartBtInt); err != nil {
+			return
+		} else if heartBtInt <= 0 {
+			err = errors.New("Heartbeat must be greater than zero")
+			return
+		}
+		session.HeartBtInt = time.Duration(heartBtInt) * time.Second
+	}
+	return
 }

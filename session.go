@@ -441,9 +441,11 @@ func (s *session) handleLogon(msg *Message) error {
 	}
 
 	if !s.InitiateLogon {
-		var heartBtInt FIXInt
-		if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
-			s.HeartBtInt = time.Duration(heartBtInt) * time.Second
+		if !s.HeartBtIntOverride {
+			var heartBtInt FIXInt
+			if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
+				s.HeartBtInt = time.Duration(heartBtInt) * time.Second
+			}
 		}
 
 		s.log.OnEvent("Responding to logon request")
