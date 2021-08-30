@@ -2,6 +2,8 @@ package quickfix
 
 import (
 	"bytes"
+	"strconv"
+	"strings"
 
 	"github.com/quickfixgo/quickfix/internal"
 )
@@ -11,9 +13,30 @@ type logonState struct{ connectedNotLoggedOn }
 func (s logonState) String() string { return "Logon State" }
 
 func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionState) {
+	//fmt.Println("In Logon State Fix Msg")
 	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
 		return handleStateError(session, err)
+	}
+
+	if bytes.Equal(msgType, msgTypeLogout) {
+		var textField FIXString
+		msg.Body.GetField(tagText, &textField)
+
+		//fmt.Println("TextField: ", textField)
+
+		if len(textField) > 0 {
+			textSlice := strings.Split(string(textField), "expecting")
+			//fmt.Println("Text slice: ", textSlice)
+			seqNumSlice := strings.Split(textSlice[1], "but")
+			seqNumString := strings.Trim(seqNumSlice[0], " ")
+			//fmt.Printf("New Seq Num needs to be:%s\n", seqNumString)
+			seqNum, _ := strconv.Atoi(seqNumString)
+			//fmt.Printf("Converted SeqNum: %d type %T\n", seqNum, seqNum)
+			session.store.SetNextSenderMsgSeqNum(seqNum)
+		}
+
+		return latentState{}
 	}
 
 	if !bytes.Equal(msgType, msgTypeLogon) {
