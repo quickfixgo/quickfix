@@ -516,10 +516,14 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 		return reject
 	}
 
-	if reject := s.checkSendingTime(msg); reject != nil {
-		return reject
+	switch s.stateMachine.State.(type) {
+	case resendState:
+		//Don't check staleness of a replay
+	default:
+		if reject := s.checkSendingTime(msg); reject != nil {
+			return reject
+		}
 	}
-
 	if checkTooLow {
 		if reject := s.checkTargetTooLow(msg); reject != nil {
 			return reject
