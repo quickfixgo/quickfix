@@ -60,7 +60,7 @@ func (s *TLSTestSuite) TestLoadTLSNoCA() {
 	s.Len(tlsConfig.Certificates, 1)
 	s.Nil(tlsConfig.RootCAs)
 	s.Nil(tlsConfig.ClientCAs)
-	s.Equal(tls.NoClientCert, tlsConfig.ClientAuth)
+	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
 }
 
 func (s *TLSTestSuite) TestLoadTLSWithBadCA() {
@@ -105,6 +105,16 @@ func (s *TLSTestSuite) TestLoadTLSWithoutSSLWithOnlyCA() {
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.Nil(err)
 	s.Nil(tlsConfig)
+}
+
+func (s *TLSTestSuite) TestLoadTLSAllowSkipClientCerts() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.Equal(tls.NoClientCert, tlsConfig.ClientAuth)
 }
 
 func (s *TLSTestSuite) TestServerNameUseSSL() {
