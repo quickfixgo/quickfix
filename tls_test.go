@@ -87,6 +87,26 @@ func (s *TLSTestSuite) TestLoadTLSWithCA() {
 	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
 }
 
+func (s *TLSTestSuite) TestLoadTLSWithOnlyCA() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().Set(config.SocketCAFile, s.CAFile)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.NotNil(tlsConfig.RootCAs)
+	s.NotNil(tlsConfig.ClientCAs)
+}
+
+func (s *TLSTestSuite) TestLoadTLSWithoutSSLWithOnlyCA() {
+	s.settings.GlobalSettings().Set(config.SocketCAFile, s.CAFile)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.Nil(tlsConfig)
+}
+
 func (s *TLSTestSuite) TestServerNameUseSSL() {
 	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
 	s.settings.GlobalSettings().Set(config.SocketServerName, "DummyServerNameUseSSL")

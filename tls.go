@@ -45,7 +45,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	tlsConfig.InsecureSkipVerify = insecureSkipVerify
 	setMinVersionExplicit(settings, tlsConfig)
 
-	if settings.HasSetting(config.SocketPrivateKeyFile) && settings.HasSetting(config.SocketCertificateFile) {
+	if settings.HasSetting(config.SocketPrivateKeyFile) || settings.HasSetting(config.SocketCertificateFile) {
 
 		var privateKeyFile string
 		var certificateFile string
