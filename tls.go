@@ -67,6 +67,10 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		}
 	}
 
+	if !allowSkipClientCerts {
+		tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
+	}
+
 	if !settings.HasSetting(config.SocketCAFile) {
 		return
 	}
@@ -89,10 +93,6 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 
 	tlsConfig.RootCAs = certPool
 	tlsConfig.ClientCAs = certPool
-
-	if !allowSkipClientCerts {
-		tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
-	}
 
 	return
 }
