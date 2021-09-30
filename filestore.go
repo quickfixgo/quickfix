@@ -22,6 +22,7 @@ import (
 	"os"
 	"path"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/pkg/errors"
@@ -213,7 +214,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if senderSeqNumBytes, err := ioutil.ReadFile(store.senderSeqNumsFname); err == nil {
-		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)); err == nil {
+		if senderSeqNum, err := strconv.Atoi(strings.Trim(string(senderSeqNumBytes), "\r\n")); err == nil {
 			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
 			}
@@ -221,7 +222,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
-		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)); err == nil {
+		if targetSeqNum, err := strconv.Atoi(strings.Trim(string(targetSeqNumBytes),"\r\n")); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next target")
 			}
