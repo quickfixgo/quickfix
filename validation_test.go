@@ -491,21 +491,30 @@ func TestValidateVisitField(t *testing.T) {
 	fieldDef0 := &datadictionary.FieldDef{FieldType: fieldType0}
 
 	fieldType1 := datadictionary.NewFieldType("myfield", 2, "STRING")
-	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1, Fields: []*datadictionary.FieldDef{}}
+	fieldDef1 := &datadictionary.FieldDef{FieldType: fieldType1}
 
 	fieldType2 := datadictionary.NewFieldType("myfield", 3, "STRING")
 	fieldDef2 := &datadictionary.FieldDef{FieldType: fieldType2, Fields: []*datadictionary.FieldDef{}}
 
+	fieldType3 := datadictionary.NewFieldType("myfield", 4, "STRING")
+	fieldDef3 := &datadictionary.FieldDef{FieldType: fieldType3, Fields: []*datadictionary.FieldDef{}}
+
 	groupFieldType := datadictionary.NewFieldType("mygroupfield", 1, "INT")
 	groupFieldDef := &datadictionary.FieldDef{FieldType: groupFieldType, Fields: []*datadictionary.FieldDef{fieldDef1, fieldDef2}}
+
+	groupFieldType1 := datadictionary.NewFieldType("mygroupfield", 5, "INT")
+	groupFieldDef1 := &datadictionary.FieldDef{FieldType: groupFieldType1, Fields: []*datadictionary.FieldDef{fieldDef3, groupFieldDef}}
 
 	var field TagValue
 	field.init(Tag(11), []byte("value"))
 
 	var repField1 TagValue
 	var repField2 TagValue
+	var repField3 TagValue
+
 	repField1.init(Tag(2), []byte("a"))
 	repField2.init(Tag(3), []byte("a"))
+	repField3.init(Tag(4), []byte("a"))
 
 	var groupID TagValue
 	groupID.init(Tag(1), []byte("1"))
@@ -515,6 +524,9 @@ func TestValidateVisitField(t *testing.T) {
 
 	var groupID3 TagValue
 	groupID3.init(Tag(1), []byte("3"))
+
+	var groupID4 TagValue
+	groupID4.init(Tag(5), []byte("3"))
 
 	var tests = []struct {
 		fieldDef             *datadictionary.FieldDef
@@ -559,6 +571,16 @@ func TestValidateVisitField(t *testing.T) {
 			fieldDef:             groupFieldDef,
 			fields:               []TagValue{groupID, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
+		},
+		//first tag og group missing
+		{expectedRemFields: 1,
+			fieldDef: groupFieldDef1,
+			fields:   []TagValue{groupID4, repField3, groupID, repField1, repField2, repField3, groupID, repField1, repField2, groupID, repField1, repField2, field},
+		},
+		//tag of repeting tag missing
+		{expectedRemFields: 1,
+			fieldDef: groupFieldDef1,
+			fields:   []TagValue{groupID4, repField3, repField3, groupID, repField1, repField2, repField3, field},
 		},
 	}
 

@@ -206,13 +206,20 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 
 	var childDefs []*datadictionary.FieldDef
 	groupCount := 0
+	findDelimiter := true
 
 	for len(fieldStack) > 0 {
 
-		//start of repeating group
-		if int(fieldStack[0].tag) == fieldDef.Fields[0].Tag() {
-			childDefs = fieldDef.Fields
-			groupCount++
+		if findDelimiter {
+			for i, f := range fieldDef.Fields {
+				//start of repeating group
+				if int(fieldStack[0].tag) == f.Tag() {
+					childDefs = fieldDef.Fields[i:]
+					groupCount++
+					findDelimiter = false
+					break
+				} 
+			}
 		}
 
 		//group complete
@@ -232,6 +239,7 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 		}
 
 		childDefs = childDefs[1:]
+		findDelimiter = len(childDefs) == 0
 	}
 
 	if groupCount != int(numInGroup) {
