@@ -49,6 +49,7 @@ const (
 	HeartBtInt                   string = "HeartBtInt"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
+	FileStoreSync                string = "FileStoreSync"
 	SQLStoreDriver               string = "SQLStoreDriver"
 	SQLStoreDataSourceName       string = "SQLStoreDataSourceName"
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
