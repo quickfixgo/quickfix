@@ -16,6 +16,8 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 		return handleStateError(session, err)
 	}
 
+	session.application.FromAdmin(msg, session.sessionID)
+
 	if !bytes.Equal(msgType, msgTypeLogon) {
 		session.log.OnEventf("Invalid Session State: Received Msg %s while waiting for Logon", msg)
 		return latentState{}
