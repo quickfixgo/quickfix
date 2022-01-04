@@ -144,8 +144,8 @@ func (f RepeatingGroup) groupTagOrder() tagOrder {
 	}
 
 	return func(i, j Tag) bool {
-		orderi := math.MaxInt64
-		orderj := math.MaxInt64
+		orderi := math.MaxInt32
+		orderj := math.MaxInt32
 
 		if iIndex, ok := tagMap[i]; ok {
 			orderi = iIndex
