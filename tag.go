@@ -3,6 +3,7 @@ package quickfix
 //Tag is a typed int representing a FIX tag
 type Tag int
 
+//定义了Tag类型的常量，Tag的基本类型是int
 const (
 	tagBeginString            Tag = 8
 	tagBodyLength             Tag = 9

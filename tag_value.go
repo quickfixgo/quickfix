@@ -6,15 +6,19 @@ import (
 	"strconv"
 )
 
+//Tag=Value模式
 //TagValue is a low-level FIX field abstraction
 type TagValue struct {
 	tag   Tag
 	value []byte
+	//bytes表示了整个tag=value字节序列
 	bytes []byte
 }
 
+//初始化Tag=Value
 func (tv *TagValue) init(tag Tag, value []byte) {
 	tv.bytes = strconv.AppendInt(nil, int64(tag), 10)
+	//append中的...表示将slice拆开为单个的元素，再添加
 	tv.bytes = append(tv.bytes, []byte("=")...)
 	tv.bytes = append(tv.bytes, value...)
 	tv.bytes = append(tv.bytes, []byte("")...)
@@ -23,9 +27,12 @@ func (tv *TagValue) init(tag Tag, value []byte) {
 	tv.value = value
 }
 
+//解析Tag=Value序列
 func (tv *TagValue) parse(rawFieldBytes []byte) error {
+	//按照"="进行切分
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
+	//
 	switch sepIndex {
 	case -1:
 		return fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
