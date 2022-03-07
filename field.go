@@ -42,6 +42,7 @@ type FieldGroupReader interface {
 	Read([]TagValue) ([]TagValue, error)
 }
 
+//Group类型？？
 //FieldGroup is the interface implemented by all typed Groups in a Message
 type FieldGroup interface {
 	Tag() Tag

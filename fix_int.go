@@ -14,6 +14,7 @@ const (
 	ascii9 = 57
 )
 
+//解析字节序列，如果遇到的是"-"号，作为负数
 //atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func atoi(d []byte) (int, error) {
 	if d[0] == asciiMinus {
@@ -24,6 +25,7 @@ func atoi(d []byte) (int, error) {
 	return parseUInt(d)
 }
 
+//检查范围，然后n*10计算整数
 //parseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func parseUInt(d []byte) (n int, err error) {
 	if len(d) == 0 {

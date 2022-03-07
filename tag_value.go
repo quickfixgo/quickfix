@@ -32,7 +32,7 @@ func (tv *TagValue) parse(rawFieldBytes []byte) error {
 	//按照"="进行切分
 	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
-	//
+	//没有"="以及"="是首个字符，都是错误
 	switch sepIndex {
 	case -1:
 		return fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
@@ -40,13 +40,17 @@ func (tv *TagValue) parse(rawFieldBytes []byte) error {
 		return fmt.Errorf("tagValue.Parse: No tag in '%s'", rawFieldBytes)
 	}
 
+	//获取tag至
 	parsedTag, err := atoi(rawFieldBytes[:sepIndex])
 	if err != nil {
 		return fmt.Errorf("tagValue.Parse: %s", err.Error())
 	}
 
+	//从int转为Tag类型
 	tv.tag = Tag(parsedTag)
+	//bytes切片的长度
 	n := len(rawFieldBytes)
+	//value去除了最后的SOH
 	tv.value = rawFieldBytes[(sepIndex + 1):(n - 1):(n - 1)]
 	tv.bytes = rawFieldBytes[:n:n]
 

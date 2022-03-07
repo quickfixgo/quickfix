@@ -57,6 +57,8 @@ func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
 
+//TCP连接，准备发出的消息，通道类型是切片[]byte
+//接收到的消息，包含了时间信息
 type connect struct {
 	messageOut chan<- []byte
 	messageIn  <-chan fixIn

@@ -35,6 +35,7 @@ func (t tagSort) Len() int           { return len(t.tags) }
 func (t tagSort) Swap(i, j int)      { t.tags[i], t.tags[j] = t.tags[j], t.tags[i] }
 func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
+//多个fields
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
 	tagLookup map[Tag]field
@@ -98,6 +99,7 @@ func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 	return f[0].value, nil
 }
 
+//获取fields的Value
 //GetBool is a GetField wrapper for bool fields
 func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 	var val FIXBoolean

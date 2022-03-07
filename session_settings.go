@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//会话设置，通过map类型存放
 //SessionSettings maps session settings to values with typed accessors.
 type SessionSettings struct {
 	settings map[string]string
@@ -30,6 +31,7 @@ func (e IncorrectFormatForSetting) Error() string {
 	return fmt.Sprintf("%q is invalid for %s", e.Value, e.Setting)
 }
 
+//通过make创建map
 //Init initializes or resets SessionSettings
 func (s *SessionSettings) Init() {
 	s.settings = make(map[string]string)
@@ -50,9 +52,12 @@ func (s *SessionSettings) Set(setting string, val string) {
 		s.Init()
 	}
 
+	//保存配置字段名称和值
 	s.settings[setting] = val
 }
 
+//判断是否已经设置
+//通过"ok"法则
 //HasSetting returns true if a setting is set, false if not
 func (s *SessionSettings) HasSetting(setting string) bool {
 	_, ok := s.settings[setting]

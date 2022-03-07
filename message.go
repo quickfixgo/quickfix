@@ -73,6 +73,8 @@ func (t *Trailer) Init() {
 	t.initWithOrdering(trailerFieldOrdering)
 }
 
+//消息类型：消息头、消息尾部
+//消息体，包含了多个字段，Body结构体，FieldMap是匿名类型
 //Message is a FIX Message abstraction.
 type Message struct {
 	Header  Header
@@ -114,6 +116,7 @@ func NewMessage() *Message {
 	return m
 }
 
+//将消息拷贝至to
 // CopyInto erases the dest messages and copies the curreny message content
 // into it.
 func (m *Message) CopyInto(to *Message) {
@@ -149,6 +152,7 @@ func ParseMessageWithDataDictionary(
 
 	rawBytes := rawMessage.Bytes()
 
+	//遍历原始数据，根据分隔符，获取字段数目
 	//allocate fields in one chunk
 	fieldCount := 0
 	for _, b := range rawBytes {
@@ -177,6 +181,7 @@ func ParseMessageWithDataDictionary(
 	msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
 	fieldIndex++
 
+	//body长度
 	parsedFieldBytes := &msg.fields[fieldIndex]
 	if rawBytes, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawBytes); err != nil {
 		return
@@ -326,6 +331,7 @@ func (m *Message) reverseRoute() *Message {
 }
 
 func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remBuffer []byte, err error) {
+	//返回剩余的[]byte
 	remBuffer, err = extractField(field, buffer)
 	switch {
 	case err != nil:
@@ -346,6 +352,7 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 		return
 	}
 
+	//跳过了分隔符
 	err = parsedFieldBytes.parse(buffer[:endIndex+1])
 	return buffer[(endIndex + 1):], err
 }
