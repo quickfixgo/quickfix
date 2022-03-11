@@ -199,6 +199,11 @@ func (m *FieldMap) Clear() {
 	}
 }
 
+// DeleteTag removes a tag's value from field map, if present
+func (m *FieldMap) DeleteTag(tag Tag) {
+	delete(m.tagLookup, tag)
+}
+
 func (m *FieldMap) add(f field) {
 	t := fieldTag(f)
 	if _, ok := m.tagLookup[t]; !ok {

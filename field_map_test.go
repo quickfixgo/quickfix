@@ -21,6 +21,18 @@ func TestFieldMap_Clear(t *testing.T) {
 	}
 }
 
+func TestFieldMap_DeleteTag(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetField(1, FIXString("hello"))
+	fMap.SetField(2, FIXString("world"))
+
+	fMap.DeleteTag(1)
+	assert.False(t, fMap.Has(1))
+	assert.True(t, fMap.Has(2))
+}
+
 func TestFieldMap_SetAndGet(t *testing.T) {
 	var fMap FieldMap
 	fMap.init()
