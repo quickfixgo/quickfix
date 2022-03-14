@@ -10,6 +10,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
+//配置结构体，包含了全局配置，各SessionID对应了其他配置
 //The Settings type represents a collection of global and session settings.
 type Settings struct {
 	globalSettings  *SessionSettings
@@ -80,24 +81,28 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 func ParseSettings(reader io.Reader) (*Settings, error) {
 	s := NewSettings()
 
+	//针对每行配置，设置了正则表达式
 	scanner := bufio.NewScanner(reader)
 	blankRegEx := regexp.MustCompile(`^\s*$`)
 	commentRegEx := regexp.MustCompile(`^#.*`)
 	defaultRegEx := regexp.MustCompile(`^\[(?i)DEFAULT\]\s*$`)
 	sessionRegEx := regexp.MustCompile(`^\[(?i)SESSION\]\s*$`)
+	//配置项
 	settingRegEx := regexp.MustCompile(`^([^=]*)=(.*)$`)
 
 	var settings *SessionSettings
 
 	lineNumber := 0
 	for scanner.Scan() {
+		//遍历每一行
 		lineNumber++
 		line := scanner.Text()
 
 		switch {
+		//如果是注释行、空行跳过
 		case commentRegEx.MatchString(line) || blankRegEx.MatchString(line):
 			continue
-
+		//默认配置
 		case defaultRegEx.MatchString(line):
 			settings = s.GlobalSettings()
 

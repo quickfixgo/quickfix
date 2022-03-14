@@ -48,8 +48,9 @@ func (p *parser) readMore() (int, error) {
 		copy(newBuffer, p.buffer)
 		p.buffer = newBuffer
 	}
-
+	//从socket中读取数据存放到buffer中
 	n, e := p.reader.Read(p.buffer[len(p.buffer):cap(p.buffer)])
+	//记录读取的当前时间
 	p.lastRead = time.Now()
 	p.buffer = p.buffer[:len(p.buffer)+n]
 	return n, e
@@ -61,6 +62,7 @@ func (p *parser) findIndex(delim []byte) (int, error) {
 
 func (p *parser) findIndexAfterOffset(offset int, delim []byte) (int, error) {
 	for {
+		//偏移大于buffer中的长度，还需要读取数据
 		if offset > len(p.buffer) {
 			if n, err := p.readMore(); n == 0 && err != nil {
 				return -1, err
@@ -69,10 +71,12 @@ func (p *parser) findIndexAfterOffset(offset int, delim []byte) (int, error) {
 			continue
 		}
 
+		//查询delim所在的偏移
 		if index := bytes.Index(p.buffer[offset:], delim); index != -1 {
 			return index + offset, nil
 		}
 
+		//没有找到继续读取
 		n, err := p.readMore()
 
 		if n == 0 && err != nil {
@@ -81,10 +85,12 @@ func (p *parser) findIndexAfterOffset(offset int, delim []byte) (int, error) {
 	}
 }
 
+//查找FIX消息起始头部
 func (p *parser) findStart() (int, error) {
 	return p.findIndex([]byte("8="))
 }
 
+//FIX消息的末尾，通过"10=校验码"
 func (p *parser) findEndAfterOffset(offset int) (int, error) {
 	index, err := p.findIndexAfterOffset(offset, []byte("\00110="))
 	if err != nil {
@@ -145,6 +151,7 @@ func (p *parser) ReadMessage() (msgBytes *bytes.Buffer, err error) {
 		return
 	}
 
+	//将读取的完整fix消息拷贝是bytes.Buffer中
 	msgBytes = bufferPool.Get()
 	msgBytes.Reset()
 	msgBytes.Write(p.buffer[:index])

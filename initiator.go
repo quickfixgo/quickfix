@@ -10,6 +10,7 @@ import (
 	"golang.org/x/net/proxy"
 )
 
+//发起连接，处理session的消息
 //Initiator initiates connections and processes messages for all sessions.
 type Initiator struct {
 	app             Application
@@ -40,6 +41,7 @@ func (i *Initiator) Start() (err error) {
 			return
 		}
 
+		//根据配置的sessionID，启动groutine
 		i.wg.Add(1)
 		go func(sessID SessionID) {
 			i.handleConnection(i.sessions[sessID], tlsConfig, dialer)
@@ -120,6 +122,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
+//每个session处理连接
 func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.Dialer) {
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -144,10 +147,12 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		var msgIn chan fixIn
 		var msgOut chan []byte
 
+		//开始连接对端地址
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
 
 		netConn, err := dialer.Dial("tcp", address)
+		//连接失败进行重连
 		if err != nil {
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
@@ -161,6 +166,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 				}
 				tlsConfig.ServerName = serverName
 			}
+			//TLS连接
 			tlsConn := tls.Client(netConn, tlsConfig)
 			if err = tlsConn.Handshake(); err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
@@ -169,15 +175,18 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			netConn = tlsConn
 		}
 
+		//创建消息接收管道、消息发送管道
 		msgIn = make(chan fixIn)
 		msgOut = make(chan []byte)
 		if err := session.connect(msgIn, msgOut); err != nil {
 			session.log.OnEventf("Failed to initiate: %v", err)
 			goto reconnect
 		}
-
+		//通过bufio的NewReader读取socket中的内容，并通过newParser解析
+		//其中接收到的数据通过管道传输
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
 		disconnected = make(chan interface{})
+		//goroutine 写入socket
 		go func() {
 			writeLoop(netConn, msgOut, session.log)
 			if err := netConn.Close(); err != nil {
@@ -186,6 +195,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			close(disconnected)
 		}()
 
+		//如果中断或者stopChan退出
 		select {
 		case <-disconnected:
 		case <-i.stopChan:
