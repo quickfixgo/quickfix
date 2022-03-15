@@ -51,6 +51,7 @@ type FIXInt int
 //Int converts the FIXInt value to int
 func (f FIXInt) Int() int { return int(f) }
 
+//实现了Read和Write方法
 func (f *FIXInt) Read(bytes []byte) error {
 	i, err := atoi(bytes)
 	if err != nil {

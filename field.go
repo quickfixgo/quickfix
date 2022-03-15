@@ -1,5 +1,6 @@
 package quickfix
 
+//对于消息中的字段定义了接口
 //FieldValueWriter is an interface for writing field values
 type FieldValueWriter interface {
 	//Writes out the contents of the FieldValue to a []byte

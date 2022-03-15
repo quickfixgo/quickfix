@@ -35,13 +35,14 @@ func Send(m Messagable) (err error) {
 	}
 
 	sessionID := SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(senderCompID)}
-
+	//发送到对应的session
 	return SendToTarget(msg, sessionID)
 }
 
 //SendToTarget sends a message based on the sessionID. Convenient for use in FromApp since it provides a session ID for incoming messages
 func SendToTarget(m Messagable, sessionID SessionID) error {
 	msg := m.ToMessage()
+	//查询对应的sessionID
 	session, ok := lookupSession(sessionID)
 	if !ok {
 		return errUnknownSession

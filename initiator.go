@@ -60,6 +60,7 @@ func (i *Initiator) Stop() {
 		return
 	default:
 	}
+	//程序退出，关闭stopChan
 	close(i.stopChan)
 	i.wg.Wait()
 }

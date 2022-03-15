@@ -10,6 +10,7 @@ func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
 			return
 		}
 
+		//socket写入，此时只关注返回错误
 		if _, err := connection.Write(msg); err != nil {
 			log.OnEvent(err.Error())
 		}

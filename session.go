@@ -216,9 +216,11 @@ func (s *session) queueForSend(msg *Message) error {
 	if err != nil {
 		return err
 	}
-
+	//切片的内容是[]byte切片？？
 	s.toSend = append(s.toSend, msgBytes)
 
+	//直接往管道中写入true?
+	//为什么用select？
 	select {
 	case s.messageEvent <- true:
 	default:
@@ -353,8 +355,10 @@ func (s *session) EnqueueBytesAndSend(msg []byte) {
 }
 
 func (s *session) sendBytes(msg []byte) {
+	//还是放入到messageOut管道中，统一发送
 	s.log.OnOutgoing(msg)
 	s.messageOut <- msg
+	//重新心跳timer
 	s.stateTimer.Reset(s.HeartBtInt)
 }
 
@@ -766,7 +770,7 @@ func (s *session) run() {
 
 		case msg := <-s.admin:
 			s.onAdmin(msg)
-
+		//收到send消息事件
 		case <-s.messageEvent:
 			s.SendAppMessages(s)
 
