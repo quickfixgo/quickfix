@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+//包含了所有的字段TagValue中有tag和value
+//切片类型，存储多个TagValue??
+//field应该只用了一个。
 //field stores a slice of TagValues
 type field []TagValue
 
@@ -13,19 +16,23 @@ func fieldTag(f field) Tag {
 	return f[0].tag
 }
 
+//设置索引为0的元素
 func initField(f field, tag Tag, value []byte) {
 	f[0].init(tag, value)
 }
 
+//遍历了切片，对于其中的tv.bytes写入到buffer中
 func writeField(f field, buffer *bytes.Buffer) {
 	for _, tv := range f {
 		buffer.Write(tv.bytes)
 	}
 }
 
+//判断两个tag的顺序
 // tagOrder true if tag i should occur before tag j
 type tagOrder func(i, j Tag) bool
 
+//tag类型排序，以为FIX部分字段有顺序设置
 type tagSort struct {
 	tags    []Tag
 	compare tagOrder
