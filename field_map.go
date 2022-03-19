@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"sort"
+	"sync"
 	"time"
 )
 
@@ -37,6 +38,7 @@ func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 
 //FieldMap is a collection of fix fields that make up a fix message.
 type FieldMap struct {
+	sync.RWMutex
 	tagLookup map[Tag]field
 	tagSort
 }
@@ -55,6 +57,8 @@ func (m *FieldMap) initWithOrdering(ordering tagOrder) {
 
 //Tags returns all of the Field Tags in this FieldMap
 func (m FieldMap) Tags() []Tag {
+	defer m.Unlock()
+	m.RWMutex.Lock()
 	tags := make([]Tag, 0, len(m.tagLookup))
 	for t := range m.tagLookup {
 		tags = append(tags, t)
@@ -65,17 +69,23 @@ func (m FieldMap) Tags() []Tag {
 
 //Get parses out a field in this FieldMap. Returned reject may indicate the field is not present, or the field value is invalid.
 func (m FieldMap) Get(parser Field) MessageRejectError {
+	defer m.RUnlock()
+	m.RWMutex.RLock()
 	return m.GetField(parser.Tag(), parser)
 }
 
 //Has returns true if the Tag is present in this FieldMap
 func (m FieldMap) Has(tag Tag) bool {
+	defer m.RUnlock()
+	m.RWMutex.RLock()
 	_, ok := m.tagLookup[tag]
 	return ok
 }
 
 //GetField parses of a field with Tag tag. Returned reject may indicate the field is not present, or the field value is invalid.
 func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError {
+	defer m.RUnlock()
+	m.RWMutex.RLock()
 	f, ok := m.tagLookup[tag]
 	if !ok {
 		return ConditionallyRequiredFieldMissing(tag)
@@ -90,6 +100,8 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 
 //GetBytes is a zero-copy GetField wrapper for []bytes fields
 func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
+	defer m.RUnlock()
+	m.RWMutex.RLock()
 	f, ok := m.tagLookup[tag]
 	if !ok {
 		return nil, ConditionallyRequiredFieldMissing(tag)
@@ -100,6 +112,8 @@ func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 
 //GetBool is a GetField wrapper for bool fields
 func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
+	defer m.RUnlock()
+	m.RWMutex.RLock()
 	var val FIXBoolean
 	if err := m.GetField(tag, &val); err != nil {
 		return false, err
@@ -213,6 +227,8 @@ func (m *FieldMap) CopyInto(to *FieldMap) {
 }
 
 func (m *FieldMap) add(f field) {
+	defer m.Unlock()
+	m.RWMutex.Lock()
 	t := fieldTag(f)
 	if _, ok := m.tagLookup[t]; !ok {
 		m.tags = append(m.tags, t)
@@ -222,6 +238,8 @@ func (m *FieldMap) add(f field) {
 }
 
 func (m *FieldMap) getOrCreate(tag Tag) field {
+	defer m.Unlock()
+	m.RWMutex.Lock()
 	if f, ok := m.tagLookup[tag]; ok {
 		f = f[:1]
 		return f
@@ -256,6 +274,8 @@ func (m *FieldMap) sortedTags() []Tag {
 }
 
 func (m FieldMap) write(buffer *bytes.Buffer) {
+	defer m.Unlock()
+	m.RWMutex.Lock()
 	for _, tag := range m.sortedTags() {
 		if f, ok := m.tagLookup[tag]; ok {
 			writeField(f, buffer)
