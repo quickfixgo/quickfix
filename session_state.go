@@ -218,7 +218,7 @@ type sessionState interface {
 	//Stop triggers a clean stop
 	Stop(*session) (nextState sessionState)
 
-	//debugging convenience
+	//Stringer debugging convenience
 	fmt.Stringer
 }
 
