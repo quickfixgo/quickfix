@@ -78,6 +78,7 @@ func (m FieldMap) Get(parser Field) MessageRejectError {
 func (m FieldMap) Has(tag Tag) bool {
 	m.rwLock.RLock()
 	defer m.rwLock.RUnlock()
+
 	_, ok := m.tagLookup[tag]
 	return ok
 }
