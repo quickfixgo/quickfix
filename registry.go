@@ -60,6 +60,7 @@ func ResetSession(sessionID SessionID) error {
 	session.State.ShutdownNow(session)
 	if err := session.dropAndReset(); err != nil {
 		session.logError(err)
+		return err
 	}
 
 	return nil
