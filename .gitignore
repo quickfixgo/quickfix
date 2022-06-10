@@ -2,6 +2,7 @@
 *.swp
 *.swo
 .idea
+.vscode
 vendor
 _test/test
 _test/echo_server
