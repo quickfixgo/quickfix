@@ -43,7 +43,6 @@ type session struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 
-	messagePool
 	timestampPrecision TimestampPrecision
 }
 
@@ -676,14 +675,6 @@ func (s *session) doReject(msg *Message, rej MessageRejectError) error {
 type fixIn struct {
 	bytes       *bytes.Buffer
 	receiveTime time.Time
-}
-
-func (s *session) returnToPool(msg *Message) {
-	s.messagePool.Put(msg)
-	if msg.rawMessage != nil {
-		bufferPool.Put(msg.rawMessage)
-		msg.rawMessage = nil
-	}
 }
 
 func (s *session) onDisconnect() {
