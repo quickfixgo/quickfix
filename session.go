@@ -30,7 +30,7 @@ type session struct {
 	sessionEvent chan internal.Event
 	messageEvent chan bool
 	application  Application
-	validator
+	Validator
 	stateMachine
 	stateTimer *internal.EventTimer
 	peerTimer  *internal.EventTimer
@@ -43,7 +43,6 @@ type session struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 
-	messagePool
 	timestampPrecision TimestampPrecision
 }
 
@@ -441,9 +440,11 @@ func (s *session) handleLogon(msg *Message) error {
 	}
 
 	if !s.InitiateLogon {
-		var heartBtInt FIXInt
-		if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
-			s.HeartBtInt = time.Duration(heartBtInt) * time.Second
+		if !s.HeartBtIntOverride {
+			var heartBtInt FIXInt
+			if err := msg.Body.GetField(tagHeartBtInt, &heartBtInt); err == nil {
+				s.HeartBtInt = time.Duration(heartBtInt) * time.Second
+			}
 		}
 
 		s.log.OnEvent("Responding to logon request")
@@ -514,8 +515,8 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 		}
 	}
 
-	if s.validator != nil {
-		if reject := s.validator.Validate(msg); reject != nil {
+	if s.Validator != nil {
+		if reject := s.Validator.Validate(msg); reject != nil {
 			return reject
 		}
 	}
@@ -674,14 +675,6 @@ func (s *session) doReject(msg *Message, rej MessageRejectError) error {
 type fixIn struct {
 	bytes       *bytes.Buffer
 	receiveTime time.Time
-}
-
-func (s *session) returnToPool(msg *Message) {
-	s.messagePool.Put(msg)
-	if msg.rawMessage != nil {
-		bufferPool.Put(msg.rawMessage)
-		msg.rawMessage = nil
-	}
 }
 
 func (s *session) onDisconnect() {

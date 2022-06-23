@@ -9,6 +9,7 @@ type SessionSettings struct {
 	ResetOnLogout                bool
 	ResetOnDisconnect            bool
 	HeartBtInt                   time.Duration
+	HeartBtIntOverride           bool
 	SessionTime                  *TimeRange
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
