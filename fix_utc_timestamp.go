@@ -6,19 +6,20 @@ import (
 )
 
 //TimestampPrecision defines the precision used by FIXUTCTimestamp
-type TimestampPrecision int
+type TimestampPrecision bool
 
 //All TimestampPrecisions supported by FIX
 const (
-	Millis TimestampPrecision = iota
-	Seconds
-	Micros
-	Nanos
+	Seconds TimestampPrecision = true
+	Millis  TimestampPrecision = false
+	Micros  TimestampPrecision = false
+	Nanos   TimestampPrecision = false
 )
 
 //FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
 type FIXUTCTimestamp struct {
 	time.Time
+	NoMillis  TimestampPrecision
 	Precision TimestampPrecision
 }
 
