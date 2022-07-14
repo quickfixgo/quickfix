@@ -1,3 +1,5 @@
+GOP=$(GOPATH)
+
 all: vet test
 
 clean:
@@ -17,8 +19,8 @@ vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
 lint:
-	go get github.com/golang/lint/golint
-	golint .
+	go get -u golang.org/x/lint/golint
+	/go/bin/golint .
 
 test: 
 	MONGODB_TEST_CXN=localhost go test -v -cover . ./datadictionary ./internal
