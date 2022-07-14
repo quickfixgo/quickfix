@@ -1,5 +1,3 @@
-GOP=$(GOPATH)
-
 all: vet test
 
 clean:
