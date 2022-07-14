@@ -2,13 +2,14 @@ package quickfix
 
 //FieldValueWriter is an interface for writing field values
 type FieldValueWriter interface {
-	//Writes out the contents of the FieldValue to a []byte
+	//Write writes out the contents of the FieldValue to a []byte
 	Write() []byte
 }
 
 //FieldValueReader is an interface for reading field values
 type FieldValueReader interface {
-	//Reads the contents of the []byte into FieldValue.  Returns an error if there are issues in the data processing
+	//Read reads the contents of the []byte into FieldValue.
+	//Returns an error if there are issues in the data processing
 	Read([]byte) error
 }
 

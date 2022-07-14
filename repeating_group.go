@@ -11,7 +11,7 @@ type GroupItem interface {
 	//Tag returns the tag identifying this GroupItem
 	Tag() Tag
 
-	//Parameter to Read is tagValues.  For most fields, only the first tagValue will be required.
+	//Read Parameter to Read is tagValues.  For most fields, only the first tagValue will be required.
 	//The length of the slice extends from the tagValue mapped to the field to be read through the
 	//following fields. This can be useful for GroupItems made up of repeating groups.
 	//

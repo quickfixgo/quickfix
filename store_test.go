@@ -113,22 +113,22 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
+func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
 	// When messages are retrieved from an empty store
-	messages, err := suite.msgStore.GetMessages(1, 2)
-	require.Nil(suite.T(), err)
+	messages, err := s.msgStore.GetMessages(1, 2)
+	require.Nil(s.T(), err)
 
 	// Then no messages should be returned
-	require.Empty(suite.T(), messages, "Did not expect messages from empty store")
+	require.Empty(s.T(), messages, "Did not expect messages from empty store")
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
-	t := suite.T()
+func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
+	t := s.T()
 
 	// Given the following saved messages
-	require.Nil(t, suite.msgStore.SaveMessage(1, []byte("hello")))
-	require.Nil(t, suite.msgStore.SaveMessage(2, []byte("cruel")))
-	require.Nil(t, suite.msgStore.SaveMessage(3, []byte("world")))
+	require.Nil(t, s.msgStore.SaveMessage(1, []byte("hello")))
+	require.Nil(t, s.msgStore.SaveMessage(2, []byte("cruel")))
+	require.Nil(t, s.msgStore.SaveMessage(3, []byte("world")))
 
 	// When the following requests are made to the store
 	var testCases = []struct {
@@ -148,7 +148,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 
 	// Then the returned messages should be
 	for _, tc := range testCases {
-		actualMsgs, err := suite.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
+		actualMsgs, err := s.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
 		require.Nil(t, err)
 		require.Len(t, actualMsgs, len(tc.expectedBytes))
 		for i, expectedMsg := range tc.expectedBytes {
