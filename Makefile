@@ -21,7 +21,7 @@ lint:
 	golint .
 
 test: 
-	go test -v -cover . ./datadictionary ./internal
+	MONGODB_TEST_CXN=localhost go test -v -cover . ./datadictionary ./internal
 
 _build_all: 
 	go build -v `go list ./...`
