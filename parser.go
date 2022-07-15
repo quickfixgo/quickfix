@@ -11,7 +11,6 @@ const (
 	defaultBufSize = 4096
 )
 
-
 type parser struct {
 	//buffer is a slice of bigBuffer
 	bigBuffer, buffer []byte
