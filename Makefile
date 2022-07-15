@@ -10,15 +10,14 @@ generate: clean
 generate-dist:
 	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
 
+test-style:
+	GO111MODULE=on golangci-lint run
+
 fmt:
 	go fmt `go list ./... | grep -v quickfix/gen`
 
 vet:
 	go vet `go list ./... | grep -v quickfix/gen`
-
-lint:
-	go get -u golang.org/x/lint/golint
-	/go/bin/golint .
 
 test: 
 	MONGODB_TEST_CXN=localhost go test -v -cover . ./datadictionary ./internal
