@@ -3,8 +3,9 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 type resendStateTestSuite struct {

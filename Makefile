@@ -1,3 +1,26 @@
+GOBIN         = $(shell go env GOBIN)
+ifeq ($(GOBIN),)
+GOBIN         = $(shell go env GOPATH)/bin
+endif
+GOX           = $(GOBIN)/gox
+GOIMPORTS     = $(GOBIN)/goimports
+ARCH          = $(shell uname -p)
+
+# ------------------------------------------------------------------------------
+#  dependencies
+
+# If go install is run from inside the project directory it will add the
+# dependencies to the go.mod file. To avoid that we change to a directory
+# without a go.mod file when downloading the following dependencies
+
+$(GOX):
+	(cd /; GO111MODULE=on go install github.com/mitchellh/gox@latest)
+
+$(GOIMPORTS):
+	(cd /; GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest)
+
+# ------------------------------------------------------------------------------
+
 all: vet test
 
 clean:
@@ -12,6 +35,10 @@ generate-dist:
 
 test-style:
 	GO111MODULE=on golangci-lint run
+
+.PHONY: format
+format: $(GOIMPORTS)
+	GO111MODULE=on go list -f '{{.Dir}}' ./... | xargs $(GOIMPORTS) -w -local github.com/quickfixgo/quickfix
 
 fmt:
 	go fmt `go list ./... | grep -v quickfix/gen`

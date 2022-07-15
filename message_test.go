@@ -5,8 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 func BenchmarkParseMessage(b *testing.B) {

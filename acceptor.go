@@ -11,6 +11,7 @@ import (
 	"sync"
 
 	proxyproto "github.com/armon/go-proxyproto"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 

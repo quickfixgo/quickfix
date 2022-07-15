@@ -114,7 +114,7 @@ func NewMessage() *Message {
 	return m
 }
 
-// CopyInto erases the dest messages and copies the curreny message content
+// CopyInto erases the dest messages and copies the currency message content
 // into it.
 func (m *Message) CopyInto(to *Message) {
 	m.Header.CopyInto(&to.Header.FieldMap)

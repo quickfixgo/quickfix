@@ -2,7 +2,7 @@ package quickfix
 
 import "bytes"
 
-// SessionID is a unique identifer of a Session
+// SessionID is a unique identifier of a Session
 type SessionID struct {
 	BeginString, TargetCompID, TargetSubID, TargetLocationID, SenderCompID, SenderSubID, SenderLocationID, Qualifier string
 }
