@@ -4,9 +4,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/suite"
+
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/internal"
-	"github.com/stretchr/testify/suite"
 )
 
 type SessionFactorySuite struct {

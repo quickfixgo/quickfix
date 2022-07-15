@@ -1,3 +1,26 @@
+GOBIN         = $(shell go env GOBIN)
+ifeq ($(GOBIN),)
+GOBIN         = $(shell go env GOPATH)/bin
+endif
+GOX           = $(GOBIN)/gox
+GOIMPORTS     = $(GOBIN)/goimports
+ARCH          = $(shell uname -p)
+
+# ------------------------------------------------------------------------------
+#  dependencies
+
+# If go install is run from inside the project directory it will add the
+# dependencies to the go.mod file. To avoid that we change to a directory
+# without a go.mod file when downloading the following dependencies
+
+$(GOX):
+	(cd /; GO111MODULE=on go install github.com/mitchellh/gox@latest)
+
+$(GOIMPORTS):
+	(cd /; GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest)
+
+# ------------------------------------------------------------------------------
+
 all: vet test
 
 clean:
@@ -10,18 +33,21 @@ generate: clean
 generate-dist:
 	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
 
+test-style:
+	GO111MODULE=on golangci-lint run
+
+.PHONY: format
+format: $(GOIMPORTS)
+	GO111MODULE=on go list -f '{{.Dir}}' ./... | xargs $(GOIMPORTS) -w -local github.com/quickfixgo/quickfix
+
 fmt:
 	go fmt `go list ./... | grep -v quickfix/gen`
 
 vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
-lint:
-	go get github.com/golang/lint/golint
-	golint .
-
 test: 
-	go test -v -cover . ./datadictionary ./internal
+	MONGODB_TEST_CXN=localhost go test -v -cover . ./datadictionary ./internal
 
 _build_all: 
 	go build -v `go list ./...`

@@ -100,7 +100,7 @@ func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, er
 	return
 }
 
-//BoolSetting returns the requested setting parsed as a boolean.  Returns an errror if the setting is not set or cannot be parsed as a bool.
+//BoolSetting returns the requested setting parsed as a boolean.  Returns an error if the setting is not set or cannot be parsed as a bool.
 func (s SessionSettings) BoolSetting(setting string) (bool, error) {
 	stringVal, err := s.Setting(setting)
 

@@ -5,8 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 type LogonStateTestSuite struct {
@@ -82,7 +83,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.HeartBtInt)  //should be written from logon message
+	s.Equal(32*time.Second, s.session.HeartBtInt) //should be written from logon message
 	s.False(s.session.HeartBtIntOverride)
 
 	s.LastToAdminMessageSent()

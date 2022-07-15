@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -35,7 +36,7 @@ func sqlString(raw string, placeholder placeholderFunc) string {
 	idx := 0
 	return rePlaceholder.ReplaceAllStringFunc(raw, func(s string) string {
 		new := placeholder(idx)
-		idx += 1
+		idx++
 		return new
 	})
 }

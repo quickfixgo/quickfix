@@ -11,6 +11,7 @@ import (
 	"sync"
 
 	proxyproto "github.com/armon/go-proxyproto"
+
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -130,7 +131,7 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
-//Get remote IP address for a given session.
+// RemoteAddr gets remote IP address for a given session.
 func (a *Acceptor) RemoteAddr(sessionID SessionID) (net.Addr, bool) {
 	addr, ok := a.sessionAddr.Load(sessionID)
 	if !ok || addr == nil {

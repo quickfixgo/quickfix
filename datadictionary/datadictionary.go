@@ -5,6 +5,8 @@ import (
 	"encoding/xml"
 	"io"
 	"os"
+
+	"github.com/pkg/errors"
 )
 
 //DataDictionary models FIX messages, components, and fields.
@@ -297,24 +299,25 @@ func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 	return &msg
 }
 
-//Parse loads and and build a datadictionary instance from an xml file.
+//Parse loads and build a datadictionary instance from an xml file.
 func Parse(path string) (*DataDictionary, error) {
 	var xmlFile *os.File
-	xmlFile, err := os.Open(path)
+	var err error
+	xmlFile, err = os.Open(path)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrapf(err, "problem opening file: %v", path)
 	}
 	defer xmlFile.Close()
 
 	return ParseSrc(xmlFile)
 }
 
-//ParseSrc loads and and build a datadictionary instance from an xml source.
+//ParseSrc loads and build a datadictionary instance from an xml source.
 func ParseSrc(xmlSrc io.Reader) (*DataDictionary, error) {
 	doc := new(XMLDoc)
 	decoder := xml.NewDecoder(xmlSrc)
 	if err := decoder.Decode(doc); err != nil {
-		return nil, err
+		return nil, errors.Wrapf(err, "problem parsing XML file")
 	}
 
 	b := new(builder)

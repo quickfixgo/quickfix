@@ -5,8 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 type validateTest struct {
