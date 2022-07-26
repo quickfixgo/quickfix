@@ -739,11 +739,26 @@ func (s *session) onAdmin(msg interface{}) {
 func (s *session) run() {
 	s.Start(s)
 
-	s.stateTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.NeedHeartbeat })
-	s.peerTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.PeerTimeout })
+	done := make(chan struct{})
+
+	s.stateTimer = internal.NewEventTimer(func() {
+		select {
+		case <-done:
+		case s.sessionEvent <- internal.NeedHeartbeat:
+		}
+	})
+
+	s.peerTimer = internal.NewEventTimer(func() {
+		select {
+		case <-done:
+		case s.sessionEvent <- internal.PeerTimeout:
+		}
+	})
+
 	ticker := time.NewTicker(time.Second)
 
 	defer func() {
+		close(done)
 		s.stateTimer.Stop()
 		s.peerTimer.Stop()
 		ticker.Stop()
