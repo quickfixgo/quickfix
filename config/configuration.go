@@ -64,4 +64,5 @@ const (
 	RejectInvalidMessage         string = "RejectInvalidMessage"
 	DynamicSessions              string = "DynamicSessions"
 	DynamicQualifier             string = "DynamicQualifier"
+	SendRatePerSecond            string = "SendRatePerSecond"
 )

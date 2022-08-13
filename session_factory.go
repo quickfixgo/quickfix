@@ -295,6 +295,13 @@ func (f sessionFactory) newSession(
 	if s.store, err = storeFactory.Create(s.sessionID); err != nil {
 		return
 	}
+	var sendRatePerSecond int
+	if settings.HasSetting(config.SendRatePerSecond) {
+		if sendRatePerSecond, err = settings.IntSetting(config.SendRatePerSecond); err != nil {
+			return
+		}
+	}
+	s.SendRateLimiter = internal.NewRateLimiter(int64(sendRatePerSecond))
 
 	s.sessionEvent = make(chan internal.Event)
 	s.messageEvent = make(chan bool, 1)
