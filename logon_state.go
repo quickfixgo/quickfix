@@ -25,8 +25,8 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 
 		//fmt.Println("TextField: ", textField)
 
-		if len(textField) > 0 {
-			textSlice := strings.Split(string(textField), "expecting")
+		// Handle sequence number reordering
+		if textSlice := strings.Split(string(textField), "expecting"); len(textSlice) > 1 {
 			//fmt.Println("Text slice: ", textSlice)
 			seqNumSlice := strings.Split(textSlice[1], "but")
 			seqNumString := strings.Trim(seqNumSlice[0], " ")
