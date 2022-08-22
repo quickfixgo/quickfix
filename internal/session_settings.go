@@ -10,6 +10,7 @@ type SessionSettings struct {
 	ResetOnDisconnect            bool
 	HeartBtInt                   time.Duration
 	HeartBtIntOverride           bool
+	MaxMessagesPerSecond         int
 	SessionTime                  *TimeRange
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
@@ -18,7 +19,7 @@ type SessionSettings struct {
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
 
-	//required on logon for FIX.T.1 messages
+	//required on logon for FIXT.1.1 messages
 	DefaultApplVerID string
 
 	//specific to initiators

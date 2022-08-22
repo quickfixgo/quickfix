@@ -16,7 +16,7 @@ func TestWriteLoop(t *testing.T) {
 		msgOut <- []byte("test msg 3")
 		close(msgOut)
 	}()
-	writeLoop(writer, msgOut, nullLog{})
+	writeLoop(writer, msgOut, nullLog{}, 0)
 
 	expected := "test msg 1 test msg 2 test msg 3"
 
