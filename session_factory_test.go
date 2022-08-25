@@ -356,7 +356,6 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.Equal(10*time.Second, session.LogonTimeout)
 	s.Equal(2*time.Second, session.LogoutTimeout)
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
-	s.False(session.SendRateLimiter.RateLimitIsOpen())
 }
 
 func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsValidHeartBtInt() {
@@ -592,5 +591,4 @@ func (s *SessionFactorySuite) TestSendRatePerSecond() {
 	s.Equal(10*time.Second, session.LogonTimeout)
 	s.Equal(2*time.Second, session.LogoutTimeout)
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
-	s.True(session.SendRateLimiter.RateLimitIsOpen())
 }

@@ -300,8 +300,8 @@ func (f sessionFactory) newSession(
 		if sendRatePerSecond, err = settings.IntSetting(config.SendRatePerSecond); err != nil {
 			return
 		}
+		s.LimitBucket = internal.New(time.Second, uint64(sendRatePerSecond))
 	}
-	s.SendRateLimiter = internal.NewRateLimiter(int64(sendRatePerSecond))
 
 	s.sessionEvent = make(chan internal.Event)
 	s.messageEvent = make(chan bool, 1)

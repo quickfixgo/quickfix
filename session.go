@@ -332,7 +332,9 @@ func (s *session) persist(seqNum int, msgBytes []byte) error {
 
 func (s *session) sendQueued() {
 	for _, msgBytes := range s.toSend {
-		s.SendRateLimiter.WaitRateLimit()
+		if s.LimitBucket != nil {
+			s.LimitBucket.Wait()
+		}
 		s.sendBytes(msgBytes)
 	}
 
