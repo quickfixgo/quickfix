@@ -27,5 +27,6 @@ type SessionSettings struct {
 	SocketConnectAddress []string
 
 	//rate limt
-	SendRateLimiter *RateLimiter
+	//SendRateLimiter *RateLimiter
+	LimitBucket *LimitBucket
 }
