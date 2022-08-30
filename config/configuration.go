@@ -2,7 +2,7 @@ package config
 
 //NOTE: Additions to this file should be made to both config/doc.go and http://www.quickfixgo.org/docs/
 
-//Const configuration settings
+// Const configuration settings
 const (
 	BeginString                  string = "BeginString"
 	SenderCompID                 string = "SenderCompID"
@@ -35,6 +35,7 @@ const (
 	EndTime                      string = "EndTime"
 	StartDay                     string = "StartDay"
 	EndDay                       string = "EndDay"
+	Weekdays                     string = "Weekdays"
 	TimeZone                     string = "TimeZone"
 	DataDictionary               string = "DataDictionary"
 	TransportDataDictionary      string = "TransportDataDictionary"
