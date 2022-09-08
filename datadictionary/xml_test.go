@@ -89,12 +89,11 @@ func xmlDoc() (*XMLDoc, error) {
 
 func TestBoilerPlate(t *testing.T) {
 	doc, err := xmlDoc()
-
 	if err != nil {
 		t.Fatalf("Unexpected error %v", err)
 	}
 
-	var tests = []struct {
+	tests := []struct {
 		Value         interface{}
 		ExpectedValue interface{}
 	}{
@@ -113,7 +112,6 @@ func TestBoilerPlate(t *testing.T) {
 
 func TestComponentMembers(t *testing.T) {
 	doc, err := xmlDoc()
-
 	if err != nil {
 		t.Fatalf("Unexpected error %v", err)
 	}
@@ -122,7 +120,7 @@ func TestComponentMembers(t *testing.T) {
 		t.Fatal("Header is nil")
 	}
 
-	var tests = []struct {
+	tests := []struct {
 		Value        *XMLComponentMember
 		XMLNameLocal string
 		Name         string
@@ -160,7 +158,7 @@ func TestMessages(t *testing.T) {
 		t.Fatalf("Unexpected error %v", err)
 	}
 
-	var tests = []struct {
+	tests := []struct {
 		Value   *XMLComponent
 		Name    string
 		MsgCat  string

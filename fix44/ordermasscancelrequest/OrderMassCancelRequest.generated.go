@@ -12,7 +12,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//OrderMassCancelRequest is the fix44 OrderMassCancelRequest type, MsgType = q
+// OrderMassCancelRequest is the fix44 OrderMassCancelRequest type, MsgType = q
 type OrderMassCancelRequest struct {
 	fix44.Header
 	*quickfix.Body
@@ -20,7 +20,7 @@ type OrderMassCancelRequest struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a OrderMassCancelRequest from a quickfix.Message instance
+// FromMessage creates a OrderMassCancelRequest from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) OrderMassCancelRequest {
 	return OrderMassCancelRequest{
 		Header:  fix44.Header{&m.Header},
@@ -30,12 +30,12 @@ func FromMessage(m *quickfix.Message) OrderMassCancelRequest {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m OrderMassCancelRequest) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a OrderMassCancelRequest initialized with the required fields for OrderMassCancelRequest
+// New returns a OrderMassCancelRequest initialized with the required fields for OrderMassCancelRequest
 func New(clordid field.ClOrdIDField, masscancelrequesttype field.MassCancelRequestTypeField, transacttime field.TransactTimeField) (m OrderMassCancelRequest) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix44.NewHeader(&m.Message.Header)
@@ -50,10 +50,10 @@ func New(clordid field.ClOrdIDField, masscancelrequesttype field.MassCancelReque
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg OrderMassCancelRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -61,497 +61,497 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.4", "q", r
 }
 
-//SetClOrdID sets ClOrdID, Tag 11
+// SetClOrdID sets ClOrdID, Tag 11
 func (m OrderMassCancelRequest) SetClOrdID(v string) {
 	m.Set(field.NewClOrdID(v))
 }
 
-//SetSecurityIDSource sets SecurityIDSource, Tag 22
+// SetSecurityIDSource sets SecurityIDSource, Tag 22
 func (m OrderMassCancelRequest) SetSecurityIDSource(v enum.SecurityIDSource) {
 	m.Set(field.NewSecurityIDSource(v))
 }
 
-//SetSecurityID sets SecurityID, Tag 48
+// SetSecurityID sets SecurityID, Tag 48
 func (m OrderMassCancelRequest) SetSecurityID(v string) {
 	m.Set(field.NewSecurityID(v))
 }
 
-//SetSide sets Side, Tag 54
+// SetSide sets Side, Tag 54
 func (m OrderMassCancelRequest) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
-//SetSymbol sets Symbol, Tag 55
+// SetSymbol sets Symbol, Tag 55
 func (m OrderMassCancelRequest) SetSymbol(v string) {
 	m.Set(field.NewSymbol(v))
 }
 
-//SetText sets Text, Tag 58
+// SetText sets Text, Tag 58
 func (m OrderMassCancelRequest) SetText(v string) {
 	m.Set(field.NewText(v))
 }
 
-//SetTransactTime sets TransactTime, Tag 60
+// SetTransactTime sets TransactTime, Tag 60
 func (m OrderMassCancelRequest) SetTransactTime(v time.Time) {
 	m.Set(field.NewTransactTime(v))
 }
 
-//SetSymbolSfx sets SymbolSfx, Tag 65
+// SetSymbolSfx sets SymbolSfx, Tag 65
 func (m OrderMassCancelRequest) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
-//SetIssuer sets Issuer, Tag 106
+// SetIssuer sets Issuer, Tag 106
 func (m OrderMassCancelRequest) SetIssuer(v string) {
 	m.Set(field.NewIssuer(v))
 }
 
-//SetSecurityDesc sets SecurityDesc, Tag 107
+// SetSecurityDesc sets SecurityDesc, Tag 107
 func (m OrderMassCancelRequest) SetSecurityDesc(v string) {
 	m.Set(field.NewSecurityDesc(v))
 }
 
-//SetSecurityType sets SecurityType, Tag 167
+// SetSecurityType sets SecurityType, Tag 167
 func (m OrderMassCancelRequest) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
-//SetMaturityMonthYear sets MaturityMonthYear, Tag 200
+// SetMaturityMonthYear sets MaturityMonthYear, Tag 200
 func (m OrderMassCancelRequest) SetMaturityMonthYear(v string) {
 	m.Set(field.NewMaturityMonthYear(v))
 }
 
-//SetStrikePrice sets StrikePrice, Tag 202
+// SetStrikePrice sets StrikePrice, Tag 202
 func (m OrderMassCancelRequest) SetStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewStrikePrice(value, scale))
 }
 
-//SetOptAttribute sets OptAttribute, Tag 206
+// SetOptAttribute sets OptAttribute, Tag 206
 func (m OrderMassCancelRequest) SetOptAttribute(v string) {
 	m.Set(field.NewOptAttribute(v))
 }
 
-//SetSecurityExchange sets SecurityExchange, Tag 207
+// SetSecurityExchange sets SecurityExchange, Tag 207
 func (m OrderMassCancelRequest) SetSecurityExchange(v string) {
 	m.Set(field.NewSecurityExchange(v))
 }
 
-//SetCouponRate sets CouponRate, Tag 223
+// SetCouponRate sets CouponRate, Tag 223
 func (m OrderMassCancelRequest) SetCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewCouponRate(value, scale))
 }
 
-//SetCouponPaymentDate sets CouponPaymentDate, Tag 224
+// SetCouponPaymentDate sets CouponPaymentDate, Tag 224
 func (m OrderMassCancelRequest) SetCouponPaymentDate(v string) {
 	m.Set(field.NewCouponPaymentDate(v))
 }
 
-//SetIssueDate sets IssueDate, Tag 225
+// SetIssueDate sets IssueDate, Tag 225
 func (m OrderMassCancelRequest) SetIssueDate(v string) {
 	m.Set(field.NewIssueDate(v))
 }
 
-//SetRepurchaseTerm sets RepurchaseTerm, Tag 226
+// SetRepurchaseTerm sets RepurchaseTerm, Tag 226
 func (m OrderMassCancelRequest) SetRepurchaseTerm(v int) {
 	m.Set(field.NewRepurchaseTerm(v))
 }
 
-//SetRepurchaseRate sets RepurchaseRate, Tag 227
+// SetRepurchaseRate sets RepurchaseRate, Tag 227
 func (m OrderMassCancelRequest) SetRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
-//SetFactor sets Factor, Tag 228
+// SetFactor sets Factor, Tag 228
 func (m OrderMassCancelRequest) SetFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewFactor(value, scale))
 }
 
-//SetContractMultiplier sets ContractMultiplier, Tag 231
+// SetContractMultiplier sets ContractMultiplier, Tag 231
 func (m OrderMassCancelRequest) SetContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewContractMultiplier(value, scale))
 }
 
-//SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
+// SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
 func (m OrderMassCancelRequest) SetRepoCollateralSecurityType(v int) {
 	m.Set(field.NewRepoCollateralSecurityType(v))
 }
 
-//SetRedemptionDate sets RedemptionDate, Tag 240
+// SetRedemptionDate sets RedemptionDate, Tag 240
 func (m OrderMassCancelRequest) SetRedemptionDate(v string) {
 	m.Set(field.NewRedemptionDate(v))
 }
 
-//SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
+// SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
 func (m OrderMassCancelRequest) SetUnderlyingCouponPaymentDate(v string) {
 	m.Set(field.NewUnderlyingCouponPaymentDate(v))
 }
 
-//SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
+// SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
 func (m OrderMassCancelRequest) SetUnderlyingIssueDate(v string) {
 	m.Set(field.NewUnderlyingIssueDate(v))
 }
 
-//SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
+// SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m OrderMassCancelRequest) SetUnderlyingRepoCollateralSecurityType(v int) {
 	m.Set(field.NewUnderlyingRepoCollateralSecurityType(v))
 }
 
-//SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
+// SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
 func (m OrderMassCancelRequest) SetUnderlyingRepurchaseTerm(v int) {
 	m.Set(field.NewUnderlyingRepurchaseTerm(v))
 }
 
-//SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
+// SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
 func (m OrderMassCancelRequest) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
-//SetUnderlyingFactor sets UnderlyingFactor, Tag 246
+// SetUnderlyingFactor sets UnderlyingFactor, Tag 246
 func (m OrderMassCancelRequest) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
-//SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
+// SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
 func (m OrderMassCancelRequest) SetUnderlyingRedemptionDate(v string) {
 	m.Set(field.NewUnderlyingRedemptionDate(v))
 }
 
-//SetCreditRating sets CreditRating, Tag 255
+// SetCreditRating sets CreditRating, Tag 255
 func (m OrderMassCancelRequest) SetCreditRating(v string) {
 	m.Set(field.NewCreditRating(v))
 }
 
-//SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
+// SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
 func (m OrderMassCancelRequest) SetUnderlyingCreditRating(v string) {
 	m.Set(field.NewUnderlyingCreditRating(v))
 }
 
-//SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
+// SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
 func (m OrderMassCancelRequest) SetUnderlyingSecurityIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityIDSource(v))
 }
 
-//SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
+// SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
 func (m OrderMassCancelRequest) SetUnderlyingIssuer(v string) {
 	m.Set(field.NewUnderlyingIssuer(v))
 }
 
-//SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
+// SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
 func (m OrderMassCancelRequest) SetUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewUnderlyingSecurityDesc(v))
 }
 
-//SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
+// SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
 func (m OrderMassCancelRequest) SetUnderlyingSecurityExchange(v string) {
 	m.Set(field.NewUnderlyingSecurityExchange(v))
 }
 
-//SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
+// SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
 func (m OrderMassCancelRequest) SetUnderlyingSecurityID(v string) {
 	m.Set(field.NewUnderlyingSecurityID(v))
 }
 
-//SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
+// SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
 func (m OrderMassCancelRequest) SetUnderlyingSecurityType(v string) {
 	m.Set(field.NewUnderlyingSecurityType(v))
 }
 
-//SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
+// SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
 func (m OrderMassCancelRequest) SetUnderlyingSymbol(v string) {
 	m.Set(field.NewUnderlyingSymbol(v))
 }
 
-//SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
+// SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
 func (m OrderMassCancelRequest) SetUnderlyingSymbolSfx(v string) {
 	m.Set(field.NewUnderlyingSymbolSfx(v))
 }
 
-//SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
+// SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
 func (m OrderMassCancelRequest) SetUnderlyingMaturityMonthYear(v string) {
 	m.Set(field.NewUnderlyingMaturityMonthYear(v))
 }
 
-//SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
+// SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
 func (m OrderMassCancelRequest) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
-//SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
+// SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
 func (m OrderMassCancelRequest) SetUnderlyingOptAttribute(v string) {
 	m.Set(field.NewUnderlyingOptAttribute(v))
 }
 
-//SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
+// SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
 func (m OrderMassCancelRequest) SetUnderlyingCurrency(v string) {
 	m.Set(field.NewUnderlyingCurrency(v))
 }
 
-//SetTradingSessionID sets TradingSessionID, Tag 336
+// SetTradingSessionID sets TradingSessionID, Tag 336
 func (m OrderMassCancelRequest) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
-//SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
+// SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
 func (m OrderMassCancelRequest) SetEncodedIssuerLen(v int) {
 	m.Set(field.NewEncodedIssuerLen(v))
 }
 
-//SetEncodedIssuer sets EncodedIssuer, Tag 349
+// SetEncodedIssuer sets EncodedIssuer, Tag 349
 func (m OrderMassCancelRequest) SetEncodedIssuer(v string) {
 	m.Set(field.NewEncodedIssuer(v))
 }
 
-//SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
+// SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
 func (m OrderMassCancelRequest) SetEncodedSecurityDescLen(v int) {
 	m.Set(field.NewEncodedSecurityDescLen(v))
 }
 
-//SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
+// SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
 func (m OrderMassCancelRequest) SetEncodedSecurityDesc(v string) {
 	m.Set(field.NewEncodedSecurityDesc(v))
 }
 
-//SetEncodedTextLen sets EncodedTextLen, Tag 354
+// SetEncodedTextLen sets EncodedTextLen, Tag 354
 func (m OrderMassCancelRequest) SetEncodedTextLen(v int) {
 	m.Set(field.NewEncodedTextLen(v))
 }
 
-//SetEncodedText sets EncodedText, Tag 355
+// SetEncodedText sets EncodedText, Tag 355
 func (m OrderMassCancelRequest) SetEncodedText(v string) {
 	m.Set(field.NewEncodedText(v))
 }
 
-//SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
+// SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
 func (m OrderMassCancelRequest) SetEncodedUnderlyingIssuerLen(v int) {
 	m.Set(field.NewEncodedUnderlyingIssuerLen(v))
 }
 
-//SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
+// SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
 func (m OrderMassCancelRequest) SetEncodedUnderlyingIssuer(v string) {
 	m.Set(field.NewEncodedUnderlyingIssuer(v))
 }
 
-//SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
+// SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m OrderMassCancelRequest) SetEncodedUnderlyingSecurityDescLen(v int) {
 	m.Set(field.NewEncodedUnderlyingSecurityDescLen(v))
 }
 
-//SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
+// SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
 func (m OrderMassCancelRequest) SetEncodedUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewEncodedUnderlyingSecurityDesc(v))
 }
 
-//SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
+// SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
 func (m OrderMassCancelRequest) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
-//SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
+// SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
 func (m OrderMassCancelRequest) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
-//SetNoSecurityAltID sets NoSecurityAltID, Tag 454
+// SetNoSecurityAltID sets NoSecurityAltID, Tag 454
 func (m OrderMassCancelRequest) SetNoSecurityAltID(f NoSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
+// SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
 func (m OrderMassCancelRequest) SetNoUnderlyingSecurityAltID(f NoUnderlyingSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetProduct sets Product, Tag 460
+// SetProduct sets Product, Tag 460
 func (m OrderMassCancelRequest) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
-//SetCFICode sets CFICode, Tag 461
+// SetCFICode sets CFICode, Tag 461
 func (m OrderMassCancelRequest) SetCFICode(v string) {
 	m.Set(field.NewCFICode(v))
 }
 
-//SetUnderlyingProduct sets UnderlyingProduct, Tag 462
+// SetUnderlyingProduct sets UnderlyingProduct, Tag 462
 func (m OrderMassCancelRequest) SetUnderlyingProduct(v int) {
 	m.Set(field.NewUnderlyingProduct(v))
 }
 
-//SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
+// SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
 func (m OrderMassCancelRequest) SetUnderlyingCFICode(v string) {
 	m.Set(field.NewUnderlyingCFICode(v))
 }
 
-//SetCountryOfIssue sets CountryOfIssue, Tag 470
+// SetCountryOfIssue sets CountryOfIssue, Tag 470
 func (m OrderMassCancelRequest) SetCountryOfIssue(v string) {
 	m.Set(field.NewCountryOfIssue(v))
 }
 
-//SetStateOrProvinceOfIssue sets StateOrProvinceOfIssue, Tag 471
+// SetStateOrProvinceOfIssue sets StateOrProvinceOfIssue, Tag 471
 func (m OrderMassCancelRequest) SetStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewStateOrProvinceOfIssue(v))
 }
 
-//SetLocaleOfIssue sets LocaleOfIssue, Tag 472
+// SetLocaleOfIssue sets LocaleOfIssue, Tag 472
 func (m OrderMassCancelRequest) SetLocaleOfIssue(v string) {
 	m.Set(field.NewLocaleOfIssue(v))
 }
 
-//SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
+// SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
 func (m OrderMassCancelRequest) SetSecondaryClOrdID(v string) {
 	m.Set(field.NewSecondaryClOrdID(v))
 }
 
-//SetMassCancelRequestType sets MassCancelRequestType, Tag 530
+// SetMassCancelRequestType sets MassCancelRequestType, Tag 530
 func (m OrderMassCancelRequest) SetMassCancelRequestType(v enum.MassCancelRequestType) {
 	m.Set(field.NewMassCancelRequestType(v))
 }
 
-//SetMaturityDate sets MaturityDate, Tag 541
+// SetMaturityDate sets MaturityDate, Tag 541
 func (m OrderMassCancelRequest) SetMaturityDate(v string) {
 	m.Set(field.NewMaturityDate(v))
 }
 
-//SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
+// SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
 func (m OrderMassCancelRequest) SetUnderlyingMaturityDate(v string) {
 	m.Set(field.NewUnderlyingMaturityDate(v))
 }
 
-//SetInstrRegistry sets InstrRegistry, Tag 543
+// SetInstrRegistry sets InstrRegistry, Tag 543
 func (m OrderMassCancelRequest) SetInstrRegistry(v enum.InstrRegistry) {
 	m.Set(field.NewInstrRegistry(v))
 }
 
-//SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
+// SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
 func (m OrderMassCancelRequest) SetUnderlyingCountryOfIssue(v string) {
 	m.Set(field.NewUnderlyingCountryOfIssue(v))
 }
 
-//SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
+// SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m OrderMassCancelRequest) SetUnderlyingStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewUnderlyingStateOrProvinceOfIssue(v))
 }
 
-//SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
+// SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
 func (m OrderMassCancelRequest) SetUnderlyingLocaleOfIssue(v string) {
 	m.Set(field.NewUnderlyingLocaleOfIssue(v))
 }
 
-//SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
+// SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
 func (m OrderMassCancelRequest) SetUnderlyingInstrRegistry(v string) {
 	m.Set(field.NewUnderlyingInstrRegistry(v))
 }
 
-//SetTradingSessionSubID sets TradingSessionSubID, Tag 625
+// SetTradingSessionSubID sets TradingSessionSubID, Tag 625
 func (m OrderMassCancelRequest) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
-//SetContractSettlMonth sets ContractSettlMonth, Tag 667
+// SetContractSettlMonth sets ContractSettlMonth, Tag 667
 func (m OrderMassCancelRequest) SetContractSettlMonth(v string) {
 	m.Set(field.NewContractSettlMonth(v))
 }
 
-//SetPool sets Pool, Tag 691
+// SetPool sets Pool, Tag 691
 func (m OrderMassCancelRequest) SetPool(v string) {
 	m.Set(field.NewPool(v))
 }
 
-//SetSecuritySubType sets SecuritySubType, Tag 762
+// SetSecuritySubType sets SecuritySubType, Tag 762
 func (m OrderMassCancelRequest) SetSecuritySubType(v string) {
 	m.Set(field.NewSecuritySubType(v))
 }
 
-//SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
+// SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
 func (m OrderMassCancelRequest) SetUnderlyingSecuritySubType(v string) {
 	m.Set(field.NewUnderlyingSecuritySubType(v))
 }
 
-//SetUnderlyingPx sets UnderlyingPx, Tag 810
+// SetUnderlyingPx sets UnderlyingPx, Tag 810
 func (m OrderMassCancelRequest) SetUnderlyingPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
-//SetNoEvents sets NoEvents, Tag 864
+// SetNoEvents sets NoEvents, Tag 864
 func (m OrderMassCancelRequest) SetNoEvents(f NoEventsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetDatedDate sets DatedDate, Tag 873
+// SetDatedDate sets DatedDate, Tag 873
 func (m OrderMassCancelRequest) SetDatedDate(v string) {
 	m.Set(field.NewDatedDate(v))
 }
 
-//SetInterestAccrualDate sets InterestAccrualDate, Tag 874
+// SetInterestAccrualDate sets InterestAccrualDate, Tag 874
 func (m OrderMassCancelRequest) SetInterestAccrualDate(v string) {
 	m.Set(field.NewInterestAccrualDate(v))
 }
 
-//SetCPProgram sets CPProgram, Tag 875
+// SetCPProgram sets CPProgram, Tag 875
 func (m OrderMassCancelRequest) SetCPProgram(v enum.CPProgram) {
 	m.Set(field.NewCPProgram(v))
 }
 
-//SetCPRegType sets CPRegType, Tag 876
+// SetCPRegType sets CPRegType, Tag 876
 func (m OrderMassCancelRequest) SetCPRegType(v string) {
 	m.Set(field.NewCPRegType(v))
 }
 
-//SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
+// SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
 func (m OrderMassCancelRequest) SetUnderlyingCPProgram(v string) {
 	m.Set(field.NewUnderlyingCPProgram(v))
 }
 
-//SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
+// SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
 func (m OrderMassCancelRequest) SetUnderlyingCPRegType(v string) {
 	m.Set(field.NewUnderlyingCPRegType(v))
 }
 
-//SetUnderlyingQty sets UnderlyingQty, Tag 879
+// SetUnderlyingQty sets UnderlyingQty, Tag 879
 func (m OrderMassCancelRequest) SetUnderlyingQty(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
-//SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
+// SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
 func (m OrderMassCancelRequest) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
-//SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
+// SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
 func (m OrderMassCancelRequest) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
-//SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
+// SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
 func (m OrderMassCancelRequest) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
-//SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
+// SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
 func (m OrderMassCancelRequest) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
-//SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
+// SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
 func (m OrderMassCancelRequest) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
-//SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
+// SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
 func (m OrderMassCancelRequest) SetNoUnderlyingStips(f NoUnderlyingStipsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
+// SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
 func (m OrderMassCancelRequest) SetUnderlyingStrikeCurrency(v string) {
 	m.Set(field.NewUnderlyingStrikeCurrency(v))
 }
 
-//SetStrikeCurrency sets StrikeCurrency, Tag 947
+// SetStrikeCurrency sets StrikeCurrency, Tag 947
 func (m OrderMassCancelRequest) SetStrikeCurrency(v string) {
 	m.Set(field.NewStrikeCurrency(v))
 }
 
-//GetClOrdID gets ClOrdID, Tag 11
+// GetClOrdID gets ClOrdID, Tag 11
 func (m OrderMassCancelRequest) GetClOrdID() (v string, err quickfix.MessageRejectError) {
 	var f field.ClOrdIDField
 	if err = m.Get(&f); err == nil {
@@ -560,7 +560,7 @@ func (m OrderMassCancelRequest) GetClOrdID() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetSecurityIDSource gets SecurityIDSource, Tag 22
+// GetSecurityIDSource gets SecurityIDSource, Tag 22
 func (m OrderMassCancelRequest) GetSecurityIDSource() (v enum.SecurityIDSource, err quickfix.MessageRejectError) {
 	var f field.SecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -569,7 +569,7 @@ func (m OrderMassCancelRequest) GetSecurityIDSource() (v enum.SecurityIDSource, 
 	return
 }
 
-//GetSecurityID gets SecurityID, Tag 48
+// GetSecurityID gets SecurityID, Tag 48
 func (m OrderMassCancelRequest) GetSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -578,7 +578,7 @@ func (m OrderMassCancelRequest) GetSecurityID() (v string, err quickfix.MessageR
 	return
 }
 
-//GetSide gets Side, Tag 54
+// GetSide gets Side, Tag 54
 func (m OrderMassCancelRequest) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
 	var f field.SideField
 	if err = m.Get(&f); err == nil {
@@ -587,7 +587,7 @@ func (m OrderMassCancelRequest) GetSide() (v enum.Side, err quickfix.MessageReje
 	return
 }
 
-//GetSymbol gets Symbol, Tag 55
+// GetSymbol gets Symbol, Tag 55
 func (m OrderMassCancelRequest) GetSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.SymbolField
 	if err = m.Get(&f); err == nil {
@@ -596,7 +596,7 @@ func (m OrderMassCancelRequest) GetSymbol() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetText gets Text, Tag 58
+// GetText gets Text, Tag 58
 func (m OrderMassCancelRequest) GetText() (v string, err quickfix.MessageRejectError) {
 	var f field.TextField
 	if err = m.Get(&f); err == nil {
@@ -605,7 +605,7 @@ func (m OrderMassCancelRequest) GetText() (v string, err quickfix.MessageRejectE
 	return
 }
 
-//GetTransactTime gets TransactTime, Tag 60
+// GetTransactTime gets TransactTime, Tag 60
 func (m OrderMassCancelRequest) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
 	var f field.TransactTimeField
 	if err = m.Get(&f); err == nil {
@@ -614,7 +614,7 @@ func (m OrderMassCancelRequest) GetTransactTime() (v time.Time, err quickfix.Mes
 	return
 }
 
-//GetSymbolSfx gets SymbolSfx, Tag 65
+// GetSymbolSfx gets SymbolSfx, Tag 65
 func (m OrderMassCancelRequest) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
 	var f field.SymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -623,7 +623,7 @@ func (m OrderMassCancelRequest) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.M
 	return
 }
 
-//GetIssuer gets Issuer, Tag 106
+// GetIssuer gets Issuer, Tag 106
 func (m OrderMassCancelRequest) GetIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.IssuerField
 	if err = m.Get(&f); err == nil {
@@ -632,7 +632,7 @@ func (m OrderMassCancelRequest) GetIssuer() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetSecurityDesc gets SecurityDesc, Tag 107
+// GetSecurityDesc gets SecurityDesc, Tag 107
 func (m OrderMassCancelRequest) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -641,7 +641,7 @@ func (m OrderMassCancelRequest) GetSecurityDesc() (v string, err quickfix.Messag
 	return
 }
 
-//GetSecurityType gets SecurityType, Tag 167
+// GetSecurityType gets SecurityType, Tag 167
 func (m OrderMassCancelRequest) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
 	var f field.SecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -650,7 +650,7 @@ func (m OrderMassCancelRequest) GetSecurityType() (v enum.SecurityType, err quic
 	return
 }
 
-//GetMaturityMonthYear gets MaturityMonthYear, Tag 200
+// GetMaturityMonthYear gets MaturityMonthYear, Tag 200
 func (m OrderMassCancelRequest) GetMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.MaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -659,7 +659,7 @@ func (m OrderMassCancelRequest) GetMaturityMonthYear() (v string, err quickfix.M
 	return
 }
 
-//GetStrikePrice gets StrikePrice, Tag 202
+// GetStrikePrice gets StrikePrice, Tag 202
 func (m OrderMassCancelRequest) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -668,7 +668,7 @@ func (m OrderMassCancelRequest) GetStrikePrice() (v decimal.Decimal, err quickfi
 	return
 }
 
-//GetOptAttribute gets OptAttribute, Tag 206
+// GetOptAttribute gets OptAttribute, Tag 206
 func (m OrderMassCancelRequest) GetOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.OptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -677,7 +677,7 @@ func (m OrderMassCancelRequest) GetOptAttribute() (v string, err quickfix.Messag
 	return
 }
 
-//GetSecurityExchange gets SecurityExchange, Tag 207
+// GetSecurityExchange gets SecurityExchange, Tag 207
 func (m OrderMassCancelRequest) GetSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -686,7 +686,7 @@ func (m OrderMassCancelRequest) GetSecurityExchange() (v string, err quickfix.Me
 	return
 }
 
-//GetCouponRate gets CouponRate, Tag 223
+// GetCouponRate gets CouponRate, Tag 223
 func (m OrderMassCancelRequest) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
@@ -695,7 +695,7 @@ func (m OrderMassCancelRequest) GetCouponRate() (v decimal.Decimal, err quickfix
 	return
 }
 
-//GetCouponPaymentDate gets CouponPaymentDate, Tag 224
+// GetCouponPaymentDate gets CouponPaymentDate, Tag 224
 func (m OrderMassCancelRequest) GetCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.CouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -704,7 +704,7 @@ func (m OrderMassCancelRequest) GetCouponPaymentDate() (v string, err quickfix.M
 	return
 }
 
-//GetIssueDate gets IssueDate, Tag 225
+// GetIssueDate gets IssueDate, Tag 225
 func (m OrderMassCancelRequest) GetIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.IssueDateField
 	if err = m.Get(&f); err == nil {
@@ -713,7 +713,7 @@ func (m OrderMassCancelRequest) GetIssueDate() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetRepurchaseTerm gets RepurchaseTerm, Tag 226
+// GetRepurchaseTerm gets RepurchaseTerm, Tag 226
 func (m OrderMassCancelRequest) GetRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.RepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -722,7 +722,7 @@ func (m OrderMassCancelRequest) GetRepurchaseTerm() (v int, err quickfix.Message
 	return
 }
 
-//GetRepurchaseRate gets RepurchaseRate, Tag 227
+// GetRepurchaseRate gets RepurchaseRate, Tag 227
 func (m OrderMassCancelRequest) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -731,7 +731,7 @@ func (m OrderMassCancelRequest) GetRepurchaseRate() (v decimal.Decimal, err quic
 	return
 }
 
-//GetFactor gets Factor, Tag 228
+// GetFactor gets Factor, Tag 228
 func (m OrderMassCancelRequest) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
@@ -740,7 +740,7 @@ func (m OrderMassCancelRequest) GetFactor() (v decimal.Decimal, err quickfix.Mes
 	return
 }
 
-//GetContractMultiplier gets ContractMultiplier, Tag 231
+// GetContractMultiplier gets ContractMultiplier, Tag 231
 func (m OrderMassCancelRequest) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -749,7 +749,7 @@ func (m OrderMassCancelRequest) GetContractMultiplier() (v decimal.Decimal, err 
 	return
 }
 
-//GetRepoCollateralSecurityType gets RepoCollateralSecurityType, Tag 239
+// GetRepoCollateralSecurityType gets RepoCollateralSecurityType, Tag 239
 func (m OrderMassCancelRequest) GetRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.RepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -758,7 +758,7 @@ func (m OrderMassCancelRequest) GetRepoCollateralSecurityType() (v int, err quic
 	return
 }
 
-//GetRedemptionDate gets RedemptionDate, Tag 240
+// GetRedemptionDate gets RedemptionDate, Tag 240
 func (m OrderMassCancelRequest) GetRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.RedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -767,7 +767,7 @@ func (m OrderMassCancelRequest) GetRedemptionDate() (v string, err quickfix.Mess
 	return
 }
 
-//GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
+// GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
 func (m OrderMassCancelRequest) GetUnderlyingCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -776,7 +776,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCouponPaymentDate() (v string, err 
 	return
 }
 
-//GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
+// GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
 func (m OrderMassCancelRequest) GetUnderlyingIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssueDateField
 	if err = m.Get(&f); err == nil {
@@ -785,7 +785,7 @@ func (m OrderMassCancelRequest) GetUnderlyingIssueDate() (v string, err quickfix
 	return
 }
 
-//GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
+// GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m OrderMassCancelRequest) GetUnderlyingRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -794,7 +794,7 @@ func (m OrderMassCancelRequest) GetUnderlyingRepoCollateralSecurityType() (v int
 	return
 }
 
-//GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
+// GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
 func (m OrderMassCancelRequest) GetUnderlyingRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -803,7 +803,7 @@ func (m OrderMassCancelRequest) GetUnderlyingRepurchaseTerm() (v int, err quickf
 	return
 }
 
-//GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
+// GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
 func (m OrderMassCancelRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -812,7 +812,7 @@ func (m OrderMassCancelRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal
 	return
 }
 
-//GetUnderlyingFactor gets UnderlyingFactor, Tag 246
+// GetUnderlyingFactor gets UnderlyingFactor, Tag 246
 func (m OrderMassCancelRequest) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFactorField
 	if err = m.Get(&f); err == nil {
@@ -821,7 +821,7 @@ func (m OrderMassCancelRequest) GetUnderlyingFactor() (v decimal.Decimal, err qu
 	return
 }
 
-//GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
+// GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
 func (m OrderMassCancelRequest) GetUnderlyingRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -830,7 +830,7 @@ func (m OrderMassCancelRequest) GetUnderlyingRedemptionDate() (v string, err qui
 	return
 }
 
-//GetCreditRating gets CreditRating, Tag 255
+// GetCreditRating gets CreditRating, Tag 255
 func (m OrderMassCancelRequest) GetCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.CreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -839,7 +839,7 @@ func (m OrderMassCancelRequest) GetCreditRating() (v string, err quickfix.Messag
 	return
 }
 
-//GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
+// GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
 func (m OrderMassCancelRequest) GetUnderlyingCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -848,7 +848,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCreditRating() (v string, err quick
 	return
 }
 
-//GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
+// GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
 func (m OrderMassCancelRequest) GetUnderlyingSecurityIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -857,7 +857,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecurityIDSource() (v string, err q
 	return
 }
 
-//GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
+// GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
 func (m OrderMassCancelRequest) GetUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -866,7 +866,7 @@ func (m OrderMassCancelRequest) GetUnderlyingIssuer() (v string, err quickfix.Me
 	return
 }
 
-//GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
+// GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
 func (m OrderMassCancelRequest) GetUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -875,7 +875,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecurityDesc() (v string, err quick
 	return
 }
 
-//GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
+// GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
 func (m OrderMassCancelRequest) GetUnderlyingSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -884,7 +884,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecurityExchange() (v string, err q
 	return
 }
 
-//GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
+// GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
 func (m OrderMassCancelRequest) GetUnderlyingSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -893,7 +893,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecurityID() (v string, err quickfi
 	return
 }
 
-//GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
+// GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
 func (m OrderMassCancelRequest) GetUnderlyingSecurityType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -902,7 +902,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecurityType() (v string, err quick
 	return
 }
 
-//GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
+// GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
 func (m OrderMassCancelRequest) GetUnderlyingSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolField
 	if err = m.Get(&f); err == nil {
@@ -911,7 +911,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSymbol() (v string, err quickfix.Me
 	return
 }
 
-//GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
+// GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
 func (m OrderMassCancelRequest) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -920,7 +920,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSymbolSfx() (v string, err quickfix
 	return
 }
 
-//GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
+// GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
 func (m OrderMassCancelRequest) GetUnderlyingMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -929,7 +929,7 @@ func (m OrderMassCancelRequest) GetUnderlyingMaturityMonthYear() (v string, err 
 	return
 }
 
-//GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
+// GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
 func (m OrderMassCancelRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -938,7 +938,7 @@ func (m OrderMassCancelRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, e
 	return
 }
 
-//GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
+// GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
 func (m OrderMassCancelRequest) GetUnderlyingOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingOptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -947,7 +947,7 @@ func (m OrderMassCancelRequest) GetUnderlyingOptAttribute() (v string, err quick
 	return
 }
 
-//GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
+// GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
 func (m OrderMassCancelRequest) GetUnderlyingCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -956,7 +956,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCurrency() (v string, err quickfix.
 	return
 }
 
-//GetTradingSessionID gets TradingSessionID, Tag 336
+// GetTradingSessionID gets TradingSessionID, Tag 336
 func (m OrderMassCancelRequest) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
 	var f field.TradingSessionIDField
 	if err = m.Get(&f); err == nil {
@@ -965,7 +965,7 @@ func (m OrderMassCancelRequest) GetTradingSessionID() (v enum.TradingSessionID, 
 	return
 }
 
-//GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
+// GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
 func (m OrderMassCancelRequest) GetEncodedIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -974,7 +974,7 @@ func (m OrderMassCancelRequest) GetEncodedIssuerLen() (v int, err quickfix.Messa
 	return
 }
 
-//GetEncodedIssuer gets EncodedIssuer, Tag 349
+// GetEncodedIssuer gets EncodedIssuer, Tag 349
 func (m OrderMassCancelRequest) GetEncodedIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerField
 	if err = m.Get(&f); err == nil {
@@ -983,7 +983,7 @@ func (m OrderMassCancelRequest) GetEncodedIssuer() (v string, err quickfix.Messa
 	return
 }
 
-//GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
+// GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
 func (m OrderMassCancelRequest) GetEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -992,7 +992,7 @@ func (m OrderMassCancelRequest) GetEncodedSecurityDescLen() (v int, err quickfix
 	return
 }
 
-//GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
+// GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
 func (m OrderMassCancelRequest) GetEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -1001,7 +1001,7 @@ func (m OrderMassCancelRequest) GetEncodedSecurityDesc() (v string, err quickfix
 	return
 }
 
-//GetEncodedTextLen gets EncodedTextLen, Tag 354
+// GetEncodedTextLen gets EncodedTextLen, Tag 354
 func (m OrderMassCancelRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedTextLenField
 	if err = m.Get(&f); err == nil {
@@ -1010,7 +1010,7 @@ func (m OrderMassCancelRequest) GetEncodedTextLen() (v int, err quickfix.Message
 	return
 }
 
-//GetEncodedText gets EncodedText, Tag 355
+// GetEncodedText gets EncodedText, Tag 355
 func (m OrderMassCancelRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedTextField
 	if err = m.Get(&f); err == nil {
@@ -1019,7 +1019,7 @@ func (m OrderMassCancelRequest) GetEncodedText() (v string, err quickfix.Message
 	return
 }
 
-//GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
+// GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
 func (m OrderMassCancelRequest) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -1028,7 +1028,7 @@ func (m OrderMassCancelRequest) GetEncodedUnderlyingIssuerLen() (v int, err quic
 	return
 }
 
-//GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
+// GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
 func (m OrderMassCancelRequest) GetEncodedUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -1037,7 +1037,7 @@ func (m OrderMassCancelRequest) GetEncodedUnderlyingIssuer() (v string, err quic
 	return
 }
 
-//GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
+// GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m OrderMassCancelRequest) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -1046,7 +1046,7 @@ func (m OrderMassCancelRequest) GetEncodedUnderlyingSecurityDescLen() (v int, er
 	return
 }
 
-//GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
+// GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
 func (m OrderMassCancelRequest) GetEncodedUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -1055,7 +1055,7 @@ func (m OrderMassCancelRequest) GetEncodedUnderlyingSecurityDesc() (v string, er
 	return
 }
 
-//GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
+// GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
 func (m OrderMassCancelRequest) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponRateField
 	if err = m.Get(&f); err == nil {
@@ -1064,7 +1064,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCouponRate() (v decimal.Decimal, er
 	return
 }
 
-//GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
+// GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
 func (m OrderMassCancelRequest) GetUnderlyingContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -1073,21 +1073,21 @@ func (m OrderMassCancelRequest) GetUnderlyingContractMultiplier() (v decimal.Dec
 	return
 }
 
-//GetNoSecurityAltID gets NoSecurityAltID, Tag 454
+// GetNoSecurityAltID gets NoSecurityAltID, Tag 454
 func (m OrderMassCancelRequest) GetNoSecurityAltID() (NoSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
+// GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
 func (m OrderMassCancelRequest) GetNoUnderlyingSecurityAltID() (NoUnderlyingSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetProduct gets Product, Tag 460
+// GetProduct gets Product, Tag 460
 func (m OrderMassCancelRequest) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
 	var f field.ProductField
 	if err = m.Get(&f); err == nil {
@@ -1096,7 +1096,7 @@ func (m OrderMassCancelRequest) GetProduct() (v enum.Product, err quickfix.Messa
 	return
 }
 
-//GetCFICode gets CFICode, Tag 461
+// GetCFICode gets CFICode, Tag 461
 func (m OrderMassCancelRequest) GetCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.CFICodeField
 	if err = m.Get(&f); err == nil {
@@ -1105,7 +1105,7 @@ func (m OrderMassCancelRequest) GetCFICode() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetUnderlyingProduct gets UnderlyingProduct, Tag 462
+// GetUnderlyingProduct gets UnderlyingProduct, Tag 462
 func (m OrderMassCancelRequest) GetUnderlyingProduct() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingProductField
 	if err = m.Get(&f); err == nil {
@@ -1114,7 +1114,7 @@ func (m OrderMassCancelRequest) GetUnderlyingProduct() (v int, err quickfix.Mess
 	return
 }
 
-//GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
+// GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
 func (m OrderMassCancelRequest) GetUnderlyingCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCFICodeField
 	if err = m.Get(&f); err == nil {
@@ -1123,7 +1123,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCFICode() (v string, err quickfix.M
 	return
 }
 
-//GetCountryOfIssue gets CountryOfIssue, Tag 470
+// GetCountryOfIssue gets CountryOfIssue, Tag 470
 func (m OrderMassCancelRequest) GetCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.CountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1132,7 +1132,7 @@ func (m OrderMassCancelRequest) GetCountryOfIssue() (v string, err quickfix.Mess
 	return
 }
 
-//GetStateOrProvinceOfIssue gets StateOrProvinceOfIssue, Tag 471
+// GetStateOrProvinceOfIssue gets StateOrProvinceOfIssue, Tag 471
 func (m OrderMassCancelRequest) GetStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.StateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1141,7 +1141,7 @@ func (m OrderMassCancelRequest) GetStateOrProvinceOfIssue() (v string, err quick
 	return
 }
 
-//GetLocaleOfIssue gets LocaleOfIssue, Tag 472
+// GetLocaleOfIssue gets LocaleOfIssue, Tag 472
 func (m OrderMassCancelRequest) GetLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.LocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1150,7 +1150,7 @@ func (m OrderMassCancelRequest) GetLocaleOfIssue() (v string, err quickfix.Messa
 	return
 }
 
-//GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
+// GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
 func (m OrderMassCancelRequest) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecondaryClOrdIDField
 	if err = m.Get(&f); err == nil {
@@ -1159,7 +1159,7 @@ func (m OrderMassCancelRequest) GetSecondaryClOrdID() (v string, err quickfix.Me
 	return
 }
 
-//GetMassCancelRequestType gets MassCancelRequestType, Tag 530
+// GetMassCancelRequestType gets MassCancelRequestType, Tag 530
 func (m OrderMassCancelRequest) GetMassCancelRequestType() (v enum.MassCancelRequestType, err quickfix.MessageRejectError) {
 	var f field.MassCancelRequestTypeField
 	if err = m.Get(&f); err == nil {
@@ -1168,7 +1168,7 @@ func (m OrderMassCancelRequest) GetMassCancelRequestType() (v enum.MassCancelReq
 	return
 }
 
-//GetMaturityDate gets MaturityDate, Tag 541
+// GetMaturityDate gets MaturityDate, Tag 541
 func (m OrderMassCancelRequest) GetMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.MaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -1177,7 +1177,7 @@ func (m OrderMassCancelRequest) GetMaturityDate() (v string, err quickfix.Messag
 	return
 }
 
-//GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
+// GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
 func (m OrderMassCancelRequest) GetUnderlyingMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -1186,7 +1186,7 @@ func (m OrderMassCancelRequest) GetUnderlyingMaturityDate() (v string, err quick
 	return
 }
 
-//GetInstrRegistry gets InstrRegistry, Tag 543
+// GetInstrRegistry gets InstrRegistry, Tag 543
 func (m OrderMassCancelRequest) GetInstrRegistry() (v enum.InstrRegistry, err quickfix.MessageRejectError) {
 	var f field.InstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -1195,7 +1195,7 @@ func (m OrderMassCancelRequest) GetInstrRegistry() (v enum.InstrRegistry, err qu
 	return
 }
 
-//GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
+// GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
 func (m OrderMassCancelRequest) GetUnderlyingCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1204,7 +1204,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCountryOfIssue() (v string, err qui
 	return
 }
 
-//GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
+// GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m OrderMassCancelRequest) GetUnderlyingStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1213,7 +1213,7 @@ func (m OrderMassCancelRequest) GetUnderlyingStateOrProvinceOfIssue() (v string,
 	return
 }
 
-//GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
+// GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
 func (m OrderMassCancelRequest) GetUnderlyingLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingLocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1222,7 +1222,7 @@ func (m OrderMassCancelRequest) GetUnderlyingLocaleOfIssue() (v string, err quic
 	return
 }
 
-//GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
+// GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
 func (m OrderMassCancelRequest) GetUnderlyingInstrRegistry() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingInstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -1231,7 +1231,7 @@ func (m OrderMassCancelRequest) GetUnderlyingInstrRegistry() (v string, err quic
 	return
 }
 
-//GetTradingSessionSubID gets TradingSessionSubID, Tag 625
+// GetTradingSessionSubID gets TradingSessionSubID, Tag 625
 func (m OrderMassCancelRequest) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
 	var f field.TradingSessionSubIDField
 	if err = m.Get(&f); err == nil {
@@ -1240,7 +1240,7 @@ func (m OrderMassCancelRequest) GetTradingSessionSubID() (v enum.TradingSessionS
 	return
 }
 
-//GetContractSettlMonth gets ContractSettlMonth, Tag 667
+// GetContractSettlMonth gets ContractSettlMonth, Tag 667
 func (m OrderMassCancelRequest) GetContractSettlMonth() (v string, err quickfix.MessageRejectError) {
 	var f field.ContractSettlMonthField
 	if err = m.Get(&f); err == nil {
@@ -1249,7 +1249,7 @@ func (m OrderMassCancelRequest) GetContractSettlMonth() (v string, err quickfix.
 	return
 }
 
-//GetPool gets Pool, Tag 691
+// GetPool gets Pool, Tag 691
 func (m OrderMassCancelRequest) GetPool() (v string, err quickfix.MessageRejectError) {
 	var f field.PoolField
 	if err = m.Get(&f); err == nil {
@@ -1258,7 +1258,7 @@ func (m OrderMassCancelRequest) GetPool() (v string, err quickfix.MessageRejectE
 	return
 }
 
-//GetSecuritySubType gets SecuritySubType, Tag 762
+// GetSecuritySubType gets SecuritySubType, Tag 762
 func (m OrderMassCancelRequest) GetSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.SecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -1267,7 +1267,7 @@ func (m OrderMassCancelRequest) GetSecuritySubType() (v string, err quickfix.Mes
 	return
 }
 
-//GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
+// GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
 func (m OrderMassCancelRequest) GetUnderlyingSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -1276,7 +1276,7 @@ func (m OrderMassCancelRequest) GetUnderlyingSecuritySubType() (v string, err qu
 	return
 }
 
-//GetUnderlyingPx gets UnderlyingPx, Tag 810
+// GetUnderlyingPx gets UnderlyingPx, Tag 810
 func (m OrderMassCancelRequest) GetUnderlyingPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingPxField
 	if err = m.Get(&f); err == nil {
@@ -1285,14 +1285,14 @@ func (m OrderMassCancelRequest) GetUnderlyingPx() (v decimal.Decimal, err quickf
 	return
 }
 
-//GetNoEvents gets NoEvents, Tag 864
+// GetNoEvents gets NoEvents, Tag 864
 func (m OrderMassCancelRequest) GetNoEvents() (NoEventsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoEventsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetDatedDate gets DatedDate, Tag 873
+// GetDatedDate gets DatedDate, Tag 873
 func (m OrderMassCancelRequest) GetDatedDate() (v string, err quickfix.MessageRejectError) {
 	var f field.DatedDateField
 	if err = m.Get(&f); err == nil {
@@ -1301,7 +1301,7 @@ func (m OrderMassCancelRequest) GetDatedDate() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetInterestAccrualDate gets InterestAccrualDate, Tag 874
+// GetInterestAccrualDate gets InterestAccrualDate, Tag 874
 func (m OrderMassCancelRequest) GetInterestAccrualDate() (v string, err quickfix.MessageRejectError) {
 	var f field.InterestAccrualDateField
 	if err = m.Get(&f); err == nil {
@@ -1310,7 +1310,7 @@ func (m OrderMassCancelRequest) GetInterestAccrualDate() (v string, err quickfix
 	return
 }
 
-//GetCPProgram gets CPProgram, Tag 875
+// GetCPProgram gets CPProgram, Tag 875
 func (m OrderMassCancelRequest) GetCPProgram() (v enum.CPProgram, err quickfix.MessageRejectError) {
 	var f field.CPProgramField
 	if err = m.Get(&f); err == nil {
@@ -1319,7 +1319,7 @@ func (m OrderMassCancelRequest) GetCPProgram() (v enum.CPProgram, err quickfix.M
 	return
 }
 
-//GetCPRegType gets CPRegType, Tag 876
+// GetCPRegType gets CPRegType, Tag 876
 func (m OrderMassCancelRequest) GetCPRegType() (v string, err quickfix.MessageRejectError) {
 	var f field.CPRegTypeField
 	if err = m.Get(&f); err == nil {
@@ -1328,7 +1328,7 @@ func (m OrderMassCancelRequest) GetCPRegType() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
+// GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
 func (m OrderMassCancelRequest) GetUnderlyingCPProgram() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPProgramField
 	if err = m.Get(&f); err == nil {
@@ -1337,7 +1337,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCPProgram() (v string, err quickfix
 	return
 }
 
-//GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
+// GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
 func (m OrderMassCancelRequest) GetUnderlyingCPRegType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPRegTypeField
 	if err = m.Get(&f); err == nil {
@@ -1346,7 +1346,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCPRegType() (v string, err quickfix
 	return
 }
 
-//GetUnderlyingQty gets UnderlyingQty, Tag 879
+// GetUnderlyingQty gets UnderlyingQty, Tag 879
 func (m OrderMassCancelRequest) GetUnderlyingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingQtyField
 	if err = m.Get(&f); err == nil {
@@ -1355,7 +1355,7 @@ func (m OrderMassCancelRequest) GetUnderlyingQty() (v decimal.Decimal, err quick
 	return
 }
 
-//GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
+// GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
 func (m OrderMassCancelRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingDirtyPriceField
 	if err = m.Get(&f); err == nil {
@@ -1364,7 +1364,7 @@ func (m OrderMassCancelRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, er
 	return
 }
 
-//GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
+// GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
 func (m OrderMassCancelRequest) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndPriceField
 	if err = m.Get(&f); err == nil {
@@ -1373,7 +1373,7 @@ func (m OrderMassCancelRequest) GetUnderlyingEndPrice() (v decimal.Decimal, err 
 	return
 }
 
-//GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
+// GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
 func (m OrderMassCancelRequest) GetUnderlyingStartValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStartValueField
 	if err = m.Get(&f); err == nil {
@@ -1382,7 +1382,7 @@ func (m OrderMassCancelRequest) GetUnderlyingStartValue() (v decimal.Decimal, er
 	return
 }
 
-//GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
+// GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
 func (m OrderMassCancelRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrentValueField
 	if err = m.Get(&f); err == nil {
@@ -1391,7 +1391,7 @@ func (m OrderMassCancelRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, 
 	return
 }
 
-//GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
+// GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
 func (m OrderMassCancelRequest) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndValueField
 	if err = m.Get(&f); err == nil {
@@ -1400,14 +1400,14 @@ func (m OrderMassCancelRequest) GetUnderlyingEndValue() (v decimal.Decimal, err 
 	return
 }
 
-//GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
+// GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
 func (m OrderMassCancelRequest) GetNoUnderlyingStips() (NoUnderlyingStipsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingStipsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
+// GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
 func (m OrderMassCancelRequest) GetUnderlyingStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -1416,7 +1416,7 @@ func (m OrderMassCancelRequest) GetUnderlyingStrikeCurrency() (v string, err qui
 	return
 }
 
-//GetStrikeCurrency gets StrikeCurrency, Tag 947
+// GetStrikeCurrency gets StrikeCurrency, Tag 947
 func (m OrderMassCancelRequest) GetStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.StrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -1425,512 +1425,512 @@ func (m OrderMassCancelRequest) GetStrikeCurrency() (v string, err quickfix.Mess
 	return
 }
 
-//HasClOrdID returns true if ClOrdID is present, Tag 11
+// HasClOrdID returns true if ClOrdID is present, Tag 11
 func (m OrderMassCancelRequest) HasClOrdID() bool {
 	return m.Has(tag.ClOrdID)
 }
 
-//HasSecurityIDSource returns true if SecurityIDSource is present, Tag 22
+// HasSecurityIDSource returns true if SecurityIDSource is present, Tag 22
 func (m OrderMassCancelRequest) HasSecurityIDSource() bool {
 	return m.Has(tag.SecurityIDSource)
 }
 
-//HasSecurityID returns true if SecurityID is present, Tag 48
+// HasSecurityID returns true if SecurityID is present, Tag 48
 func (m OrderMassCancelRequest) HasSecurityID() bool {
 	return m.Has(tag.SecurityID)
 }
 
-//HasSide returns true if Side is present, Tag 54
+// HasSide returns true if Side is present, Tag 54
 func (m OrderMassCancelRequest) HasSide() bool {
 	return m.Has(tag.Side)
 }
 
-//HasSymbol returns true if Symbol is present, Tag 55
+// HasSymbol returns true if Symbol is present, Tag 55
 func (m OrderMassCancelRequest) HasSymbol() bool {
 	return m.Has(tag.Symbol)
 }
 
-//HasText returns true if Text is present, Tag 58
+// HasText returns true if Text is present, Tag 58
 func (m OrderMassCancelRequest) HasText() bool {
 	return m.Has(tag.Text)
 }
 
-//HasTransactTime returns true if TransactTime is present, Tag 60
+// HasTransactTime returns true if TransactTime is present, Tag 60
 func (m OrderMassCancelRequest) HasTransactTime() bool {
 	return m.Has(tag.TransactTime)
 }
 
-//HasSymbolSfx returns true if SymbolSfx is present, Tag 65
+// HasSymbolSfx returns true if SymbolSfx is present, Tag 65
 func (m OrderMassCancelRequest) HasSymbolSfx() bool {
 	return m.Has(tag.SymbolSfx)
 }
 
-//HasIssuer returns true if Issuer is present, Tag 106
+// HasIssuer returns true if Issuer is present, Tag 106
 func (m OrderMassCancelRequest) HasIssuer() bool {
 	return m.Has(tag.Issuer)
 }
 
-//HasSecurityDesc returns true if SecurityDesc is present, Tag 107
+// HasSecurityDesc returns true if SecurityDesc is present, Tag 107
 func (m OrderMassCancelRequest) HasSecurityDesc() bool {
 	return m.Has(tag.SecurityDesc)
 }
 
-//HasSecurityType returns true if SecurityType is present, Tag 167
+// HasSecurityType returns true if SecurityType is present, Tag 167
 func (m OrderMassCancelRequest) HasSecurityType() bool {
 	return m.Has(tag.SecurityType)
 }
 
-//HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
+// HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
 func (m OrderMassCancelRequest) HasMaturityMonthYear() bool {
 	return m.Has(tag.MaturityMonthYear)
 }
 
-//HasStrikePrice returns true if StrikePrice is present, Tag 202
+// HasStrikePrice returns true if StrikePrice is present, Tag 202
 func (m OrderMassCancelRequest) HasStrikePrice() bool {
 	return m.Has(tag.StrikePrice)
 }
 
-//HasOptAttribute returns true if OptAttribute is present, Tag 206
+// HasOptAttribute returns true if OptAttribute is present, Tag 206
 func (m OrderMassCancelRequest) HasOptAttribute() bool {
 	return m.Has(tag.OptAttribute)
 }
 
-//HasSecurityExchange returns true if SecurityExchange is present, Tag 207
+// HasSecurityExchange returns true if SecurityExchange is present, Tag 207
 func (m OrderMassCancelRequest) HasSecurityExchange() bool {
 	return m.Has(tag.SecurityExchange)
 }
 
-//HasCouponRate returns true if CouponRate is present, Tag 223
+// HasCouponRate returns true if CouponRate is present, Tag 223
 func (m OrderMassCancelRequest) HasCouponRate() bool {
 	return m.Has(tag.CouponRate)
 }
 
-//HasCouponPaymentDate returns true if CouponPaymentDate is present, Tag 224
+// HasCouponPaymentDate returns true if CouponPaymentDate is present, Tag 224
 func (m OrderMassCancelRequest) HasCouponPaymentDate() bool {
 	return m.Has(tag.CouponPaymentDate)
 }
 
-//HasIssueDate returns true if IssueDate is present, Tag 225
+// HasIssueDate returns true if IssueDate is present, Tag 225
 func (m OrderMassCancelRequest) HasIssueDate() bool {
 	return m.Has(tag.IssueDate)
 }
 
-//HasRepurchaseTerm returns true if RepurchaseTerm is present, Tag 226
+// HasRepurchaseTerm returns true if RepurchaseTerm is present, Tag 226
 func (m OrderMassCancelRequest) HasRepurchaseTerm() bool {
 	return m.Has(tag.RepurchaseTerm)
 }
 
-//HasRepurchaseRate returns true if RepurchaseRate is present, Tag 227
+// HasRepurchaseRate returns true if RepurchaseRate is present, Tag 227
 func (m OrderMassCancelRequest) HasRepurchaseRate() bool {
 	return m.Has(tag.RepurchaseRate)
 }
 
-//HasFactor returns true if Factor is present, Tag 228
+// HasFactor returns true if Factor is present, Tag 228
 func (m OrderMassCancelRequest) HasFactor() bool {
 	return m.Has(tag.Factor)
 }
 
-//HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
+// HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
 func (m OrderMassCancelRequest) HasContractMultiplier() bool {
 	return m.Has(tag.ContractMultiplier)
 }
 
-//HasRepoCollateralSecurityType returns true if RepoCollateralSecurityType is present, Tag 239
+// HasRepoCollateralSecurityType returns true if RepoCollateralSecurityType is present, Tag 239
 func (m OrderMassCancelRequest) HasRepoCollateralSecurityType() bool {
 	return m.Has(tag.RepoCollateralSecurityType)
 }
 
-//HasRedemptionDate returns true if RedemptionDate is present, Tag 240
+// HasRedemptionDate returns true if RedemptionDate is present, Tag 240
 func (m OrderMassCancelRequest) HasRedemptionDate() bool {
 	return m.Has(tag.RedemptionDate)
 }
 
-//HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
+// HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
 func (m OrderMassCancelRequest) HasUnderlyingCouponPaymentDate() bool {
 	return m.Has(tag.UnderlyingCouponPaymentDate)
 }
 
-//HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
+// HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
 func (m OrderMassCancelRequest) HasUnderlyingIssueDate() bool {
 	return m.Has(tag.UnderlyingIssueDate)
 }
 
-//HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
+// HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
 func (m OrderMassCancelRequest) HasUnderlyingRepoCollateralSecurityType() bool {
 	return m.Has(tag.UnderlyingRepoCollateralSecurityType)
 }
 
-//HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
+// HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
 func (m OrderMassCancelRequest) HasUnderlyingRepurchaseTerm() bool {
 	return m.Has(tag.UnderlyingRepurchaseTerm)
 }
 
-//HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
+// HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
 func (m OrderMassCancelRequest) HasUnderlyingRepurchaseRate() bool {
 	return m.Has(tag.UnderlyingRepurchaseRate)
 }
 
-//HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
+// HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
 func (m OrderMassCancelRequest) HasUnderlyingFactor() bool {
 	return m.Has(tag.UnderlyingFactor)
 }
 
-//HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
+// HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
 func (m OrderMassCancelRequest) HasUnderlyingRedemptionDate() bool {
 	return m.Has(tag.UnderlyingRedemptionDate)
 }
 
-//HasCreditRating returns true if CreditRating is present, Tag 255
+// HasCreditRating returns true if CreditRating is present, Tag 255
 func (m OrderMassCancelRequest) HasCreditRating() bool {
 	return m.Has(tag.CreditRating)
 }
 
-//HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
+// HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
 func (m OrderMassCancelRequest) HasUnderlyingCreditRating() bool {
 	return m.Has(tag.UnderlyingCreditRating)
 }
 
-//HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
+// HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
 func (m OrderMassCancelRequest) HasUnderlyingSecurityIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityIDSource)
 }
 
-//HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
+// HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
 func (m OrderMassCancelRequest) HasUnderlyingIssuer() bool {
 	return m.Has(tag.UnderlyingIssuer)
 }
 
-//HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
+// HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
 func (m OrderMassCancelRequest) HasUnderlyingSecurityDesc() bool {
 	return m.Has(tag.UnderlyingSecurityDesc)
 }
 
-//HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
+// HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
 func (m OrderMassCancelRequest) HasUnderlyingSecurityExchange() bool {
 	return m.Has(tag.UnderlyingSecurityExchange)
 }
 
-//HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
+// HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
 func (m OrderMassCancelRequest) HasUnderlyingSecurityID() bool {
 	return m.Has(tag.UnderlyingSecurityID)
 }
 
-//HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
+// HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
 func (m OrderMassCancelRequest) HasUnderlyingSecurityType() bool {
 	return m.Has(tag.UnderlyingSecurityType)
 }
 
-//HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
+// HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
 func (m OrderMassCancelRequest) HasUnderlyingSymbol() bool {
 	return m.Has(tag.UnderlyingSymbol)
 }
 
-//HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
+// HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
 func (m OrderMassCancelRequest) HasUnderlyingSymbolSfx() bool {
 	return m.Has(tag.UnderlyingSymbolSfx)
 }
 
-//HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
+// HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
 func (m OrderMassCancelRequest) HasUnderlyingMaturityMonthYear() bool {
 	return m.Has(tag.UnderlyingMaturityMonthYear)
 }
 
-//HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
+// HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
 func (m OrderMassCancelRequest) HasUnderlyingStrikePrice() bool {
 	return m.Has(tag.UnderlyingStrikePrice)
 }
 
-//HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
+// HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
 func (m OrderMassCancelRequest) HasUnderlyingOptAttribute() bool {
 	return m.Has(tag.UnderlyingOptAttribute)
 }
 
-//HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
+// HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
 func (m OrderMassCancelRequest) HasUnderlyingCurrency() bool {
 	return m.Has(tag.UnderlyingCurrency)
 }
 
-//HasTradingSessionID returns true if TradingSessionID is present, Tag 336
+// HasTradingSessionID returns true if TradingSessionID is present, Tag 336
 func (m OrderMassCancelRequest) HasTradingSessionID() bool {
 	return m.Has(tag.TradingSessionID)
 }
 
-//HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
+// HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
 func (m OrderMassCancelRequest) HasEncodedIssuerLen() bool {
 	return m.Has(tag.EncodedIssuerLen)
 }
 
-//HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
+// HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
 func (m OrderMassCancelRequest) HasEncodedIssuer() bool {
 	return m.Has(tag.EncodedIssuer)
 }
 
-//HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
+// HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
 func (m OrderMassCancelRequest) HasEncodedSecurityDescLen() bool {
 	return m.Has(tag.EncodedSecurityDescLen)
 }
 
-//HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
+// HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
 func (m OrderMassCancelRequest) HasEncodedSecurityDesc() bool {
 	return m.Has(tag.EncodedSecurityDesc)
 }
 
-//HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
+// HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
 func (m OrderMassCancelRequest) HasEncodedTextLen() bool {
 	return m.Has(tag.EncodedTextLen)
 }
 
-//HasEncodedText returns true if EncodedText is present, Tag 355
+// HasEncodedText returns true if EncodedText is present, Tag 355
 func (m OrderMassCancelRequest) HasEncodedText() bool {
 	return m.Has(tag.EncodedText)
 }
 
-//HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
+// HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
 func (m OrderMassCancelRequest) HasEncodedUnderlyingIssuerLen() bool {
 	return m.Has(tag.EncodedUnderlyingIssuerLen)
 }
 
-//HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
+// HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
 func (m OrderMassCancelRequest) HasEncodedUnderlyingIssuer() bool {
 	return m.Has(tag.EncodedUnderlyingIssuer)
 }
 
-//HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
+// HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
 func (m OrderMassCancelRequest) HasEncodedUnderlyingSecurityDescLen() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDescLen)
 }
 
-//HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
+// HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
 func (m OrderMassCancelRequest) HasEncodedUnderlyingSecurityDesc() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDesc)
 }
 
-//HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
+// HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
 func (m OrderMassCancelRequest) HasUnderlyingCouponRate() bool {
 	return m.Has(tag.UnderlyingCouponRate)
 }
 
-//HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
+// HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
 func (m OrderMassCancelRequest) HasUnderlyingContractMultiplier() bool {
 	return m.Has(tag.UnderlyingContractMultiplier)
 }
 
-//HasNoSecurityAltID returns true if NoSecurityAltID is present, Tag 454
+// HasNoSecurityAltID returns true if NoSecurityAltID is present, Tag 454
 func (m OrderMassCancelRequest) HasNoSecurityAltID() bool {
 	return m.Has(tag.NoSecurityAltID)
 }
 
-//HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
+// HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
 func (m OrderMassCancelRequest) HasNoUnderlyingSecurityAltID() bool {
 	return m.Has(tag.NoUnderlyingSecurityAltID)
 }
 
-//HasProduct returns true if Product is present, Tag 460
+// HasProduct returns true if Product is present, Tag 460
 func (m OrderMassCancelRequest) HasProduct() bool {
 	return m.Has(tag.Product)
 }
 
-//HasCFICode returns true if CFICode is present, Tag 461
+// HasCFICode returns true if CFICode is present, Tag 461
 func (m OrderMassCancelRequest) HasCFICode() bool {
 	return m.Has(tag.CFICode)
 }
 
-//HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
+// HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
 func (m OrderMassCancelRequest) HasUnderlyingProduct() bool {
 	return m.Has(tag.UnderlyingProduct)
 }
 
-//HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
+// HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
 func (m OrderMassCancelRequest) HasUnderlyingCFICode() bool {
 	return m.Has(tag.UnderlyingCFICode)
 }
 
-//HasCountryOfIssue returns true if CountryOfIssue is present, Tag 470
+// HasCountryOfIssue returns true if CountryOfIssue is present, Tag 470
 func (m OrderMassCancelRequest) HasCountryOfIssue() bool {
 	return m.Has(tag.CountryOfIssue)
 }
 
-//HasStateOrProvinceOfIssue returns true if StateOrProvinceOfIssue is present, Tag 471
+// HasStateOrProvinceOfIssue returns true if StateOrProvinceOfIssue is present, Tag 471
 func (m OrderMassCancelRequest) HasStateOrProvinceOfIssue() bool {
 	return m.Has(tag.StateOrProvinceOfIssue)
 }
 
-//HasLocaleOfIssue returns true if LocaleOfIssue is present, Tag 472
+// HasLocaleOfIssue returns true if LocaleOfIssue is present, Tag 472
 func (m OrderMassCancelRequest) HasLocaleOfIssue() bool {
 	return m.Has(tag.LocaleOfIssue)
 }
 
-//HasSecondaryClOrdID returns true if SecondaryClOrdID is present, Tag 526
+// HasSecondaryClOrdID returns true if SecondaryClOrdID is present, Tag 526
 func (m OrderMassCancelRequest) HasSecondaryClOrdID() bool {
 	return m.Has(tag.SecondaryClOrdID)
 }
 
-//HasMassCancelRequestType returns true if MassCancelRequestType is present, Tag 530
+// HasMassCancelRequestType returns true if MassCancelRequestType is present, Tag 530
 func (m OrderMassCancelRequest) HasMassCancelRequestType() bool {
 	return m.Has(tag.MassCancelRequestType)
 }
 
-//HasMaturityDate returns true if MaturityDate is present, Tag 541
+// HasMaturityDate returns true if MaturityDate is present, Tag 541
 func (m OrderMassCancelRequest) HasMaturityDate() bool {
 	return m.Has(tag.MaturityDate)
 }
 
-//HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
+// HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
 func (m OrderMassCancelRequest) HasUnderlyingMaturityDate() bool {
 	return m.Has(tag.UnderlyingMaturityDate)
 }
 
-//HasInstrRegistry returns true if InstrRegistry is present, Tag 543
+// HasInstrRegistry returns true if InstrRegistry is present, Tag 543
 func (m OrderMassCancelRequest) HasInstrRegistry() bool {
 	return m.Has(tag.InstrRegistry)
 }
 
-//HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
+// HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
 func (m OrderMassCancelRequest) HasUnderlyingCountryOfIssue() bool {
 	return m.Has(tag.UnderlyingCountryOfIssue)
 }
 
-//HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
+// HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
 func (m OrderMassCancelRequest) HasUnderlyingStateOrProvinceOfIssue() bool {
 	return m.Has(tag.UnderlyingStateOrProvinceOfIssue)
 }
 
-//HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
+// HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
 func (m OrderMassCancelRequest) HasUnderlyingLocaleOfIssue() bool {
 	return m.Has(tag.UnderlyingLocaleOfIssue)
 }
 
-//HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
+// HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
 func (m OrderMassCancelRequest) HasUnderlyingInstrRegistry() bool {
 	return m.Has(tag.UnderlyingInstrRegistry)
 }
 
-//HasTradingSessionSubID returns true if TradingSessionSubID is present, Tag 625
+// HasTradingSessionSubID returns true if TradingSessionSubID is present, Tag 625
 func (m OrderMassCancelRequest) HasTradingSessionSubID() bool {
 	return m.Has(tag.TradingSessionSubID)
 }
 
-//HasContractSettlMonth returns true if ContractSettlMonth is present, Tag 667
+// HasContractSettlMonth returns true if ContractSettlMonth is present, Tag 667
 func (m OrderMassCancelRequest) HasContractSettlMonth() bool {
 	return m.Has(tag.ContractSettlMonth)
 }
 
-//HasPool returns true if Pool is present, Tag 691
+// HasPool returns true if Pool is present, Tag 691
 func (m OrderMassCancelRequest) HasPool() bool {
 	return m.Has(tag.Pool)
 }
 
-//HasSecuritySubType returns true if SecuritySubType is present, Tag 762
+// HasSecuritySubType returns true if SecuritySubType is present, Tag 762
 func (m OrderMassCancelRequest) HasSecuritySubType() bool {
 	return m.Has(tag.SecuritySubType)
 }
 
-//HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
+// HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
 func (m OrderMassCancelRequest) HasUnderlyingSecuritySubType() bool {
 	return m.Has(tag.UnderlyingSecuritySubType)
 }
 
-//HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
+// HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
 func (m OrderMassCancelRequest) HasUnderlyingPx() bool {
 	return m.Has(tag.UnderlyingPx)
 }
 
-//HasNoEvents returns true if NoEvents is present, Tag 864
+// HasNoEvents returns true if NoEvents is present, Tag 864
 func (m OrderMassCancelRequest) HasNoEvents() bool {
 	return m.Has(tag.NoEvents)
 }
 
-//HasDatedDate returns true if DatedDate is present, Tag 873
+// HasDatedDate returns true if DatedDate is present, Tag 873
 func (m OrderMassCancelRequest) HasDatedDate() bool {
 	return m.Has(tag.DatedDate)
 }
 
-//HasInterestAccrualDate returns true if InterestAccrualDate is present, Tag 874
+// HasInterestAccrualDate returns true if InterestAccrualDate is present, Tag 874
 func (m OrderMassCancelRequest) HasInterestAccrualDate() bool {
 	return m.Has(tag.InterestAccrualDate)
 }
 
-//HasCPProgram returns true if CPProgram is present, Tag 875
+// HasCPProgram returns true if CPProgram is present, Tag 875
 func (m OrderMassCancelRequest) HasCPProgram() bool {
 	return m.Has(tag.CPProgram)
 }
 
-//HasCPRegType returns true if CPRegType is present, Tag 876
+// HasCPRegType returns true if CPRegType is present, Tag 876
 func (m OrderMassCancelRequest) HasCPRegType() bool {
 	return m.Has(tag.CPRegType)
 }
 
-//HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
+// HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
 func (m OrderMassCancelRequest) HasUnderlyingCPProgram() bool {
 	return m.Has(tag.UnderlyingCPProgram)
 }
 
-//HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
+// HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
 func (m OrderMassCancelRequest) HasUnderlyingCPRegType() bool {
 	return m.Has(tag.UnderlyingCPRegType)
 }
 
-//HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
+// HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
 func (m OrderMassCancelRequest) HasUnderlyingQty() bool {
 	return m.Has(tag.UnderlyingQty)
 }
 
-//HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
+// HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
 func (m OrderMassCancelRequest) HasUnderlyingDirtyPrice() bool {
 	return m.Has(tag.UnderlyingDirtyPrice)
 }
 
-//HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
+// HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
 func (m OrderMassCancelRequest) HasUnderlyingEndPrice() bool {
 	return m.Has(tag.UnderlyingEndPrice)
 }
 
-//HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
+// HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
 func (m OrderMassCancelRequest) HasUnderlyingStartValue() bool {
 	return m.Has(tag.UnderlyingStartValue)
 }
 
-//HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
+// HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
 func (m OrderMassCancelRequest) HasUnderlyingCurrentValue() bool {
 	return m.Has(tag.UnderlyingCurrentValue)
 }
 
-//HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
+// HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
 func (m OrderMassCancelRequest) HasUnderlyingEndValue() bool {
 	return m.Has(tag.UnderlyingEndValue)
 }
 
-//HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
+// HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
 func (m OrderMassCancelRequest) HasNoUnderlyingStips() bool {
 	return m.Has(tag.NoUnderlyingStips)
 }
 
-//HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
+// HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
 func (m OrderMassCancelRequest) HasUnderlyingStrikeCurrency() bool {
 	return m.Has(tag.UnderlyingStrikeCurrency)
 }
 
-//HasStrikeCurrency returns true if StrikeCurrency is present, Tag 947
+// HasStrikeCurrency returns true if StrikeCurrency is present, Tag 947
 func (m OrderMassCancelRequest) HasStrikeCurrency() bool {
 	return m.Has(tag.StrikeCurrency)
 }
 
-//NoSecurityAltID is a repeating group element, Tag 454
+// NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetSecurityAltID sets SecurityAltID, Tag 455
+// SetSecurityAltID sets SecurityAltID, Tag 455
 func (m NoSecurityAltID) SetSecurityAltID(v string) {
 	m.Set(field.NewSecurityAltID(v))
 }
 
-//SetSecurityAltIDSource sets SecurityAltIDSource, Tag 456
+// SetSecurityAltIDSource sets SecurityAltIDSource, Tag 456
 func (m NoSecurityAltID) SetSecurityAltIDSource(v string) {
 	m.Set(field.NewSecurityAltIDSource(v))
 }
 
-//GetSecurityAltID gets SecurityAltID, Tag 455
+// GetSecurityAltID gets SecurityAltID, Tag 455
 func (m NoSecurityAltID) GetSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -1939,7 +1939,7 @@ func (m NoSecurityAltID) GetSecurityAltID() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetSecurityAltIDSource gets SecurityAltIDSource, Tag 456
+// GetSecurityAltIDSource gets SecurityAltIDSource, Tag 456
 func (m NoSecurityAltID) GetSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -1948,55 +1948,56 @@ func (m NoSecurityAltID) GetSecurityAltIDSource() (v string, err quickfix.Messag
 	return
 }
 
-//HasSecurityAltID returns true if SecurityAltID is present, Tag 455
+// HasSecurityAltID returns true if SecurityAltID is present, Tag 455
 func (m NoSecurityAltID) HasSecurityAltID() bool {
 	return m.Has(tag.SecurityAltID)
 }
 
-//HasSecurityAltIDSource returns true if SecurityAltIDSource is present, Tag 456
+// HasSecurityAltIDSource returns true if SecurityAltIDSource is present, Tag 456
 func (m NoSecurityAltID) HasSecurityAltIDSource() bool {
 	return m.Has(tag.SecurityAltIDSource)
 }
 
-//NoSecurityAltIDRepeatingGroup is a repeating group, Tag 454
+// NoSecurityAltIDRepeatingGroup is a repeating group, Tag 454
 type NoSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoSecurityAltIDRepeatingGroup returns an initialized, NoSecurityAltIDRepeatingGroup
+// NewNoSecurityAltIDRepeatingGroup returns an initialized, NoSecurityAltIDRepeatingGroup
 func NewNoSecurityAltIDRepeatingGroup() NoSecurityAltIDRepeatingGroup {
 	return NoSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.SecurityAltID), quickfix.GroupElement(tag.SecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.SecurityAltID), quickfix.GroupElement(tag.SecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoSecurityAltID to this group
+// Add create and append a new NoSecurityAltID to this group
 func (m NoSecurityAltIDRepeatingGroup) Add() NoSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoSecurityAltID{g}
 }
 
-//Get returns the ith NoSecurityAltID in the NoSecurityAltIDRepeatinGroup
+// Get returns the ith NoSecurityAltID in the NoSecurityAltIDRepeatinGroup
 func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 	return NoSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyingSecurityAltID is a repeating group element, Tag 457
+// NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
+// SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {
 	m.Set(field.NewUnderlyingSecurityAltID(v))
 }
 
-//SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
+// SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityAltIDSource(v))
 }
 
-//GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
+// GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -2005,7 +2006,7 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err q
 	return
 }
 
-//GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
+// GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -2014,65 +2015,66 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string,
 	return
 }
 
-//HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
+// HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltID() bool {
 	return m.Has(tag.UnderlyingSecurityAltID)
 }
 
-//HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
+// HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityAltIDSource)
 }
 
-//NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
+// NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
 type NoUnderlyingSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
+// NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
 func NewNoUnderlyingSecurityAltIDRepeatingGroup() NoUnderlyingSecurityAltIDRepeatingGroup {
 	return NoUnderlyingSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingSecurityAltID to this group
+// Add create and append a new NoUnderlyingSecurityAltID to this group
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Add() NoUnderlyingSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingSecurityAltID{g}
 }
 
-//Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
+// Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurityAltID {
 	return NoUnderlyingSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoEvents is a repeating group element, Tag 864
+// NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
 	*quickfix.Group
 }
 
-//SetEventType sets EventType, Tag 865
+// SetEventType sets EventType, Tag 865
 func (m NoEvents) SetEventType(v enum.EventType) {
 	m.Set(field.NewEventType(v))
 }
 
-//SetEventDate sets EventDate, Tag 866
+// SetEventDate sets EventDate, Tag 866
 func (m NoEvents) SetEventDate(v string) {
 	m.Set(field.NewEventDate(v))
 }
 
-//SetEventPx sets EventPx, Tag 867
+// SetEventPx sets EventPx, Tag 867
 func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewEventPx(value, scale))
 }
 
-//SetEventText sets EventText, Tag 868
+// SetEventText sets EventText, Tag 868
 func (m NoEvents) SetEventText(v string) {
 	m.Set(field.NewEventText(v))
 }
 
-//GetEventType gets EventType, Tag 865
+// GetEventType gets EventType, Tag 865
 func (m NoEvents) GetEventType() (v enum.EventType, err quickfix.MessageRejectError) {
 	var f field.EventTypeField
 	if err = m.Get(&f); err == nil {
@@ -2081,7 +2083,7 @@ func (m NoEvents) GetEventType() (v enum.EventType, err quickfix.MessageRejectEr
 	return
 }
 
-//GetEventDate gets EventDate, Tag 866
+// GetEventDate gets EventDate, Tag 866
 func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
 	var f field.EventDateField
 	if err = m.Get(&f); err == nil {
@@ -2090,7 +2092,7 @@ func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetEventPx gets EventPx, Tag 867
+// GetEventPx gets EventPx, Tag 867
 func (m NoEvents) GetEventPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EventPxField
 	if err = m.Get(&f); err == nil {
@@ -2099,7 +2101,7 @@ func (m NoEvents) GetEventPx() (v decimal.Decimal, err quickfix.MessageRejectErr
 	return
 }
 
-//GetEventText gets EventText, Tag 868
+// GetEventText gets EventText, Tag 868
 func (m NoEvents) GetEventText() (v string, err quickfix.MessageRejectError) {
 	var f field.EventTextField
 	if err = m.Get(&f); err == nil {
@@ -2108,65 +2110,66 @@ func (m NoEvents) GetEventText() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//HasEventType returns true if EventType is present, Tag 865
+// HasEventType returns true if EventType is present, Tag 865
 func (m NoEvents) HasEventType() bool {
 	return m.Has(tag.EventType)
 }
 
-//HasEventDate returns true if EventDate is present, Tag 866
+// HasEventDate returns true if EventDate is present, Tag 866
 func (m NoEvents) HasEventDate() bool {
 	return m.Has(tag.EventDate)
 }
 
-//HasEventPx returns true if EventPx is present, Tag 867
+// HasEventPx returns true if EventPx is present, Tag 867
 func (m NoEvents) HasEventPx() bool {
 	return m.Has(tag.EventPx)
 }
 
-//HasEventText returns true if EventText is present, Tag 868
+// HasEventText returns true if EventText is present, Tag 868
 func (m NoEvents) HasEventText() bool {
 	return m.Has(tag.EventText)
 }
 
-//NoEventsRepeatingGroup is a repeating group, Tag 864
+// NoEventsRepeatingGroup is a repeating group, Tag 864
 type NoEventsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoEventsRepeatingGroup returns an initialized, NoEventsRepeatingGroup
+// NewNoEventsRepeatingGroup returns an initialized, NoEventsRepeatingGroup
 func NewNoEventsRepeatingGroup() NoEventsRepeatingGroup {
 	return NoEventsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoEvents,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.EventType), quickfix.GroupElement(tag.EventDate), quickfix.GroupElement(tag.EventPx), quickfix.GroupElement(tag.EventText)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.EventType), quickfix.GroupElement(tag.EventDate), quickfix.GroupElement(tag.EventPx), quickfix.GroupElement(tag.EventText)}),
+	}
 }
 
-//Add create and append a new NoEvents to this group
+// Add create and append a new NoEvents to this group
 func (m NoEventsRepeatingGroup) Add() NoEvents {
 	g := m.RepeatingGroup.Add()
 	return NoEvents{g}
 }
 
-//Get returns the ith NoEvents in the NoEventsRepeatinGroup
+// Get returns the ith NoEvents in the NoEventsRepeatinGroup
 func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 	return NoEvents{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyingStips is a repeating group element, Tag 887
+// NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingStipType sets UnderlyingStipType, Tag 888
+// SetUnderlyingStipType sets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) SetUnderlyingStipType(v string) {
 	m.Set(field.NewUnderlyingStipType(v))
 }
 
-//SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
+// SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) SetUnderlyingStipValue(v string) {
 	m.Set(field.NewUnderlyingStipValue(v))
 }
 
-//GetUnderlyingStipType gets UnderlyingStipType, Tag 888
+// GetUnderlyingStipType gets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipTypeField
 	if err = m.Get(&f); err == nil {
@@ -2175,7 +2178,7 @@ func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
+// GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipValueField
 	if err = m.Get(&f); err == nil {
@@ -2184,35 +2187,36 @@ func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.Mess
 	return
 }
 
-//HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
+// HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
 func (m NoUnderlyingStips) HasUnderlyingStipType() bool {
 	return m.Has(tag.UnderlyingStipType)
 }
 
-//HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
+// HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
 func (m NoUnderlyingStips) HasUnderlyingStipValue() bool {
 	return m.Has(tag.UnderlyingStipValue)
 }
 
-//NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
+// NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
 type NoUnderlyingStipsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
+// NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
 func NewNoUnderlyingStipsRepeatingGroup() NoUnderlyingStipsRepeatingGroup {
 	return NoUnderlyingStipsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingStips,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingStips to this group
+// Add create and append a new NoUnderlyingStips to this group
 func (m NoUnderlyingStipsRepeatingGroup) Add() NoUnderlyingStips {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingStips{g}
 }
 
-//Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
+// Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
 func (m NoUnderlyingStipsRepeatingGroup) Get(i int) NoUnderlyingStips {
 	return NoUnderlyingStips{m.RepeatingGroup.Get(i)}
 }

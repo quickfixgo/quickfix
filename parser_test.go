@@ -65,7 +65,7 @@ func (s *ParserSuite) TestBadLength() {
 }
 
 func (s *ParserSuite) TestFindStart() {
-	var testCases = []struct {
+	testCases := []struct {
 		stream        string
 		expectError   bool
 		expectedStart int
@@ -91,7 +91,7 @@ func (s *ParserSuite) TestFindStart() {
 }
 
 func (s *ParserSuite) TestReadEOF() {
-	var testCases = []struct {
+	testCases := []struct {
 		stream string
 	}{
 		{""},
@@ -114,7 +114,7 @@ func (s *ParserSuite) TestReadMessage() {
 	stream := "hello8=FIX.4.09=5blah10=1038=FIX.4.09=4foo10=103"
 	s.reader = strings.NewReader(stream)
 
-	var testCases = []struct {
+	testCases := []struct {
 		expectedBytes     string
 		expectedBufferLen int
 		expectedBufferCap int
@@ -136,7 +136,7 @@ func (s *ParserSuite) TestReadMessage() {
 func (s *ParserSuite) TestReadMessageGrowBuffer() {
 	stream := "hello8=FIX.4.09=5blah10=1038=FIX.4.09=4foo10=103"
 
-	var testCases = []struct {
+	testCases := []struct {
 		initialBufCap        int
 		expectedBytes        string
 		expectedBufferLen    int

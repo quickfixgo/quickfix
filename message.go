@@ -9,12 +9,12 @@ import (
 	"github.com/alpacahq/quickfix/datadictionary"
 )
 
-//Header is first section of a FIX Message
+// Header is first section of a FIX Message
 type Header struct{ FieldMap }
 
-//in the message header, the first 3 tags in the message header must be 8,9,35
+// in the message header, the first 3 tags in the message header must be 8,9,35
 func headerFieldOrdering(i, j Tag) bool {
-	var ordering = func(t Tag) uint32 {
+	ordering := func(t Tag) uint32 {
 		switch t {
 		case tagBeginString:
 			return 1
@@ -40,20 +40,20 @@ func headerFieldOrdering(i, j Tag) bool {
 	return i < j
 }
 
-//Init initializes the Header instance
+// Init initializes the Header instance
 func (h *Header) Init() {
 	h.initWithOrdering(headerFieldOrdering)
 }
 
-//Body is the primary application section of a FIX message
+// Body is the primary application section of a FIX message
 type Body struct{ FieldMap }
 
-//Init initializes the FIX message
+// Init initializes the FIX message
 func (b *Body) Init() {
 	b.init()
 }
 
-//Trailer is the last section of a FIX message
+// Trailer is the last section of a FIX message
 type Trailer struct{ FieldMap }
 
 // In the trailer, CheckSum (tag 10) must be last
@@ -68,43 +68,43 @@ func trailerFieldOrdering(i, j Tag) bool {
 	return i < j
 }
 
-//Init initializes the FIX message
+// Init initializes the FIX message
 func (t *Trailer) Init() {
 	t.initWithOrdering(trailerFieldOrdering)
 }
 
-//Message is a FIX Message abstraction.
+// Message is a FIX Message abstraction.
 type Message struct {
 	Header  Header
 	Trailer Trailer
 	Body    Body
 
-	//ReceiveTime is the time that this message was read from the socket connection
+	// ReceiveTime is the time that this message was read from the socket connection
 	ReceiveTime time.Time
 
 	rawMessage *bytes.Buffer
 
-	//slice of Bytes corresponding to the message body
+	// slice of Bytes corresponding to the message body
 	bodyBytes []byte
 
-	//field bytes as they appear in the raw message
+	// field bytes as they appear in the raw message
 	fields []TagValue
 
-	//flag is true if this message should not be returned to pool after use
+	// flag is true if this message should not be returned to pool after use
 	keepMessage bool
 }
 
-//ToMessage returns the message itself
+// ToMessage returns the message itself
 func (m *Message) ToMessage() *Message { return m }
 
-//parseError is returned when bytes cannot be parsed as a FIX message.
+// parseError is returned when bytes cannot be parsed as a FIX message.
 type parseError struct {
 	OrigError string
 }
 
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
-//NewMessage returns a newly initialized Message instance
+// NewMessage returns a newly initialized Message instance
 func NewMessage() *Message {
 	m := new(Message)
 	m.Header.Init()
@@ -114,12 +114,12 @@ func NewMessage() *Message {
 	return m
 }
 
-//ParseMessage constructs a Message from a byte slice wrapping a FIX message.
+// ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil)
 }
 
-//ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
+// ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
 func ParseMessageWithDataDictionary(
 	msg *Message,
 	rawMessage *bytes.Buffer,
@@ -133,7 +133,7 @@ func ParseMessageWithDataDictionary(
 
 	rawBytes := rawMessage.Bytes()
 
-	//allocate fields in one chunk
+	// allocate fields in one chunk
 	fieldCount := 0
 	for _, b := range rawBytes {
 		if b == '\001' {
@@ -153,7 +153,7 @@ func ParseMessageWithDataDictionary(
 
 	fieldIndex := 0
 
-	//message must start with begin string, body length, msg type
+	// message must start with begin string, body length, msg type
 	if rawBytes, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawBytes); err != nil {
 		return
 	}
@@ -207,7 +207,7 @@ func ParseMessageWithDataDictionary(
 		fieldIndex++
 	}
 
-	//body length would only be larger than trailer if fields out of order
+	// body length would only be larger than trailer if fields out of order
 	if len(msg.bodyBytes) > len(trailerBytes) {
 		msg.bodyBytes = msg.bodyBytes[:len(msg.bodyBytes)-len(trailerBytes)]
 	}
@@ -215,7 +215,7 @@ func ParseMessageWithDataDictionary(
 	length := 0
 	for _, field := range msg.fields {
 		switch field.tag {
-		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
+		case tagBeginString, tagBodyLength, tagCheckSum: // tags do not contribute to length
 		default:
 			length += field.length()
 		}
@@ -229,7 +229,6 @@ func ParseMessageWithDataDictionary(
 	}
 
 	return
-
 }
 
 func isHeaderField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
@@ -271,7 +270,7 @@ func (m *Message) IsMsgTypeOf(msgType string) bool {
 	return false
 }
 
-//reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
+// reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m *Message) reverseRoute() *Message {
 	reverseMsg := NewMessage()
 
@@ -297,7 +296,7 @@ func (m *Message) reverseRoute() *Message {
 	copy(tagDeliverToCompID, tagOnBehalfOfCompID)
 	copy(tagDeliverToSubID, tagOnBehalfOfSubID)
 
-	//tags added in 4.1
+	// tags added in 4.1
 	var beginString FIXString
 	if m.Header.GetField(tagBeginString, &beginString) == nil {
 		if string(beginString) != BeginStringFIX40 {
@@ -346,7 +345,7 @@ func formatCheckSum(value int) string {
 	return fmt.Sprintf("%03d", value)
 }
 
-//Build constructs a []byte from a Message instance
+// Build constructs a []byte from a Message instance
 func (m *Message) build() []byte {
 	m.cook()
 

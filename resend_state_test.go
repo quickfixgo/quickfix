@@ -60,7 +60,7 @@ func (s *resendStateTestSuite) TestTimeoutUnchangedNeedHeartbeat() {
 func (s *resendStateTestSuite) TestFixMsgIn() {
 	s.session.State = inSession{}
 
-	//in session expects seq number 1, send too high
+	// in session expects seq number 1, send too high
 	s.MessageFactory.SetNextSeqNum(2)
 	s.MockApp.On("ToAdmin")
 
@@ -97,7 +97,7 @@ func (s *resendStateTestSuite) TestFixMsgIn() {
 func (s *resendStateTestSuite) TestFixMsgInSequenceReset() {
 	s.session.State = inSession{}
 
-	//in session expects seq number 1, send too high
+	// in session expects seq number 1, send too high
 	s.MessageFactory.SetNextSeqNum(3)
 	s.MockApp.On("ToAdmin")
 
@@ -129,7 +129,7 @@ func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
 	s.session.State = inSession{}
 	s.ResendRequestChunkSize = 2
 
-	//in session expects seq number 1, send too high
+	// in session expects seq number 1, send too high
 	s.MessageFactory.SetNextSeqNum(4)
 	s.MockApp.On("ToAdmin")
 

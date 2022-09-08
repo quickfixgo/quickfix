@@ -17,7 +17,7 @@ var (
 	printerMode = printer.UseSpaces | printer.TabIndent
 )
 
-//ParseError indicates generated go source is invalid
+// ParseError indicates generated go source is invalid
 type ParseError struct {
 	path string
 	err  error
@@ -27,16 +27,16 @@ func (e ParseError) Error() string {
 	return fmt.Sprintf("Error parsing %v: %v", e.path, e.err)
 }
 
-//ErrorHandler is a convenience struct for interpretting generation Errors
+// ErrorHandler is a convenience struct for interpretting generation Errors
 type ErrorHandler struct {
 	ReturnCode int
 }
 
-//Handle interprets the generation error. Proceeds with setting returnCode, or panics depending on error type
+// Handle interprets the generation error. Proceeds with setting returnCode, or panics depending on error type
 func (h *ErrorHandler) Handle(err error) {
 	switch err := err.(type) {
 	case nil:
-	//do nothing
+	// do nothing
 	case ParseError:
 		fmt.Println(err)
 		h.ReturnCode = 1
@@ -63,9 +63,9 @@ func write(filePath string, fset *token.FileSet, f *ast.File) error {
 	return err
 }
 
-//WriteFile parses the generated code in fileOut and writes the code out to filePath.
-//Function performs some import clean up and gofmts the code before writing
-//Returns ParseError if the generated source is invalid but is written to filePath
+// WriteFile parses the generated code in fileOut and writes the code out to filePath.
+// Function performs some import clean up and gofmts the code before writing
+// Returns ParseError if the generated source is invalid but is written to filePath
 func WriteFile(filePath, fileOut string) error {
 	fset := token.NewFileSet()
 	f, pErr := parser.ParseFile(fset, "", fileOut, parser.ParseComments)
@@ -73,7 +73,7 @@ func WriteFile(filePath, fileOut string) error {
 		return pErr
 	}
 
-	//write out the file regardless of parseFile errors
+	// write out the file regardless of parseFile errors
 	if err := write(filePath, fset, f); err != nil {
 		return err
 	}

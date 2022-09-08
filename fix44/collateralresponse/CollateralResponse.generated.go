@@ -12,7 +12,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//CollateralResponse is the fix44 CollateralResponse type, MsgType = AZ
+// CollateralResponse is the fix44 CollateralResponse type, MsgType = AZ
 type CollateralResponse struct {
 	fix44.Header
 	*quickfix.Body
@@ -20,7 +20,7 @@ type CollateralResponse struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a CollateralResponse from a quickfix.Message instance
+// FromMessage creates a CollateralResponse from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) CollateralResponse {
 	return CollateralResponse{
 		Header:  fix44.Header{&m.Header},
@@ -30,12 +30,12 @@ func FromMessage(m *quickfix.Message) CollateralResponse {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m CollateralResponse) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a CollateralResponse initialized with the required fields for CollateralResponse
+// New returns a CollateralResponse initialized with the required fields for CollateralResponse
 func New(collrespid field.CollRespIDField, collasgnid field.CollAsgnIDField, collasgnreason field.CollAsgnReasonField, collasgnresptype field.CollAsgnRespTypeField, transacttime field.TransactTimeField) (m CollateralResponse) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix44.NewHeader(&m.Message.Header)
@@ -52,10 +52,10 @@ func New(collrespid field.CollRespIDField, collasgnid field.CollAsgnIDField, col
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg CollateralResponse, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -63,497 +63,497 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.4", "AZ", r
 }
 
-//SetAccount sets Account, Tag 1
+// SetAccount sets Account, Tag 1
 func (m CollateralResponse) SetAccount(v string) {
 	m.Set(field.NewAccount(v))
 }
 
-//SetClOrdID sets ClOrdID, Tag 11
+// SetClOrdID sets ClOrdID, Tag 11
 func (m CollateralResponse) SetClOrdID(v string) {
 	m.Set(field.NewClOrdID(v))
 }
 
-//SetCurrency sets Currency, Tag 15
+// SetCurrency sets Currency, Tag 15
 func (m CollateralResponse) SetCurrency(v string) {
 	m.Set(field.NewCurrency(v))
 }
 
-//SetSecurityIDSource sets SecurityIDSource, Tag 22
+// SetSecurityIDSource sets SecurityIDSource, Tag 22
 func (m CollateralResponse) SetSecurityIDSource(v enum.SecurityIDSource) {
 	m.Set(field.NewSecurityIDSource(v))
 }
 
-//SetOrderID sets OrderID, Tag 37
+// SetOrderID sets OrderID, Tag 37
 func (m CollateralResponse) SetOrderID(v string) {
 	m.Set(field.NewOrderID(v))
 }
 
-//SetPrice sets Price, Tag 44
+// SetPrice sets Price, Tag 44
 func (m CollateralResponse) SetPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewPrice(value, scale))
 }
 
-//SetSecurityID sets SecurityID, Tag 48
+// SetSecurityID sets SecurityID, Tag 48
 func (m CollateralResponse) SetSecurityID(v string) {
 	m.Set(field.NewSecurityID(v))
 }
 
-//SetQuantity sets Quantity, Tag 53
+// SetQuantity sets Quantity, Tag 53
 func (m CollateralResponse) SetQuantity(value decimal.Decimal, scale int32) {
 	m.Set(field.NewQuantity(value, scale))
 }
 
-//SetSide sets Side, Tag 54
+// SetSide sets Side, Tag 54
 func (m CollateralResponse) SetSide(v enum.Side) {
 	m.Set(field.NewSide(v))
 }
 
-//SetSymbol sets Symbol, Tag 55
+// SetSymbol sets Symbol, Tag 55
 func (m CollateralResponse) SetSymbol(v string) {
 	m.Set(field.NewSymbol(v))
 }
 
-//SetText sets Text, Tag 58
+// SetText sets Text, Tag 58
 func (m CollateralResponse) SetText(v string) {
 	m.Set(field.NewText(v))
 }
 
-//SetTransactTime sets TransactTime, Tag 60
+// SetTransactTime sets TransactTime, Tag 60
 func (m CollateralResponse) SetTransactTime(v time.Time) {
 	m.Set(field.NewTransactTime(v))
 }
 
-//SetSettlDate sets SettlDate, Tag 64
+// SetSettlDate sets SettlDate, Tag 64
 func (m CollateralResponse) SetSettlDate(v string) {
 	m.Set(field.NewSettlDate(v))
 }
 
-//SetSymbolSfx sets SymbolSfx, Tag 65
+// SetSymbolSfx sets SymbolSfx, Tag 65
 func (m CollateralResponse) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
-//SetIssuer sets Issuer, Tag 106
+// SetIssuer sets Issuer, Tag 106
 func (m CollateralResponse) SetIssuer(v string) {
 	m.Set(field.NewIssuer(v))
 }
 
-//SetSecurityDesc sets SecurityDesc, Tag 107
+// SetSecurityDesc sets SecurityDesc, Tag 107
 func (m CollateralResponse) SetSecurityDesc(v string) {
 	m.Set(field.NewSecurityDesc(v))
 }
 
-//SetNoExecs sets NoExecs, Tag 124
+// SetNoExecs sets NoExecs, Tag 124
 func (m CollateralResponse) SetNoExecs(f NoExecsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetNoMiscFees sets NoMiscFees, Tag 136
+// SetNoMiscFees sets NoMiscFees, Tag 136
 func (m CollateralResponse) SetNoMiscFees(f NoMiscFeesRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
+// SetAccruedInterestAmt sets AccruedInterestAmt, Tag 159
 func (m CollateralResponse) SetAccruedInterestAmt(value decimal.Decimal, scale int32) {
 	m.Set(field.NewAccruedInterestAmt(value, scale))
 }
 
-//SetSecurityType sets SecurityType, Tag 167
+// SetSecurityType sets SecurityType, Tag 167
 func (m CollateralResponse) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
-//SetSecondaryOrderID sets SecondaryOrderID, Tag 198
+// SetSecondaryOrderID sets SecondaryOrderID, Tag 198
 func (m CollateralResponse) SetSecondaryOrderID(v string) {
 	m.Set(field.NewSecondaryOrderID(v))
 }
 
-//SetMaturityMonthYear sets MaturityMonthYear, Tag 200
+// SetMaturityMonthYear sets MaturityMonthYear, Tag 200
 func (m CollateralResponse) SetMaturityMonthYear(v string) {
 	m.Set(field.NewMaturityMonthYear(v))
 }
 
-//SetStrikePrice sets StrikePrice, Tag 202
+// SetStrikePrice sets StrikePrice, Tag 202
 func (m CollateralResponse) SetStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewStrikePrice(value, scale))
 }
 
-//SetOptAttribute sets OptAttribute, Tag 206
+// SetOptAttribute sets OptAttribute, Tag 206
 func (m CollateralResponse) SetOptAttribute(v string) {
 	m.Set(field.NewOptAttribute(v))
 }
 
-//SetSecurityExchange sets SecurityExchange, Tag 207
+// SetSecurityExchange sets SecurityExchange, Tag 207
 func (m CollateralResponse) SetSecurityExchange(v string) {
 	m.Set(field.NewSecurityExchange(v))
 }
 
-//SetSpread sets Spread, Tag 218
+// SetSpread sets Spread, Tag 218
 func (m CollateralResponse) SetSpread(value decimal.Decimal, scale int32) {
 	m.Set(field.NewSpread(value, scale))
 }
 
-//SetBenchmarkCurveCurrency sets BenchmarkCurveCurrency, Tag 220
+// SetBenchmarkCurveCurrency sets BenchmarkCurveCurrency, Tag 220
 func (m CollateralResponse) SetBenchmarkCurveCurrency(v string) {
 	m.Set(field.NewBenchmarkCurveCurrency(v))
 }
 
-//SetBenchmarkCurveName sets BenchmarkCurveName, Tag 221
+// SetBenchmarkCurveName sets BenchmarkCurveName, Tag 221
 func (m CollateralResponse) SetBenchmarkCurveName(v enum.BenchmarkCurveName) {
 	m.Set(field.NewBenchmarkCurveName(v))
 }
 
-//SetBenchmarkCurvePoint sets BenchmarkCurvePoint, Tag 222
+// SetBenchmarkCurvePoint sets BenchmarkCurvePoint, Tag 222
 func (m CollateralResponse) SetBenchmarkCurvePoint(v string) {
 	m.Set(field.NewBenchmarkCurvePoint(v))
 }
 
-//SetCouponRate sets CouponRate, Tag 223
+// SetCouponRate sets CouponRate, Tag 223
 func (m CollateralResponse) SetCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewCouponRate(value, scale))
 }
 
-//SetCouponPaymentDate sets CouponPaymentDate, Tag 224
+// SetCouponPaymentDate sets CouponPaymentDate, Tag 224
 func (m CollateralResponse) SetCouponPaymentDate(v string) {
 	m.Set(field.NewCouponPaymentDate(v))
 }
 
-//SetIssueDate sets IssueDate, Tag 225
+// SetIssueDate sets IssueDate, Tag 225
 func (m CollateralResponse) SetIssueDate(v string) {
 	m.Set(field.NewIssueDate(v))
 }
 
-//SetRepurchaseTerm sets RepurchaseTerm, Tag 226
+// SetRepurchaseTerm sets RepurchaseTerm, Tag 226
 func (m CollateralResponse) SetRepurchaseTerm(v int) {
 	m.Set(field.NewRepurchaseTerm(v))
 }
 
-//SetRepurchaseRate sets RepurchaseRate, Tag 227
+// SetRepurchaseRate sets RepurchaseRate, Tag 227
 func (m CollateralResponse) SetRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewRepurchaseRate(value, scale))
 }
 
-//SetFactor sets Factor, Tag 228
+// SetFactor sets Factor, Tag 228
 func (m CollateralResponse) SetFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewFactor(value, scale))
 }
 
-//SetContractMultiplier sets ContractMultiplier, Tag 231
+// SetContractMultiplier sets ContractMultiplier, Tag 231
 func (m CollateralResponse) SetContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewContractMultiplier(value, scale))
 }
 
-//SetNoStipulations sets NoStipulations, Tag 232
+// SetNoStipulations sets NoStipulations, Tag 232
 func (m CollateralResponse) SetNoStipulations(f NoStipulationsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
+// SetRepoCollateralSecurityType sets RepoCollateralSecurityType, Tag 239
 func (m CollateralResponse) SetRepoCollateralSecurityType(v int) {
 	m.Set(field.NewRepoCollateralSecurityType(v))
 }
 
-//SetRedemptionDate sets RedemptionDate, Tag 240
+// SetRedemptionDate sets RedemptionDate, Tag 240
 func (m CollateralResponse) SetRedemptionDate(v string) {
 	m.Set(field.NewRedemptionDate(v))
 }
 
-//SetCreditRating sets CreditRating, Tag 255
+// SetCreditRating sets CreditRating, Tag 255
 func (m CollateralResponse) SetCreditRating(v string) {
 	m.Set(field.NewCreditRating(v))
 }
 
-//SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
+// SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
 func (m CollateralResponse) SetEncodedIssuerLen(v int) {
 	m.Set(field.NewEncodedIssuerLen(v))
 }
 
-//SetEncodedIssuer sets EncodedIssuer, Tag 349
+// SetEncodedIssuer sets EncodedIssuer, Tag 349
 func (m CollateralResponse) SetEncodedIssuer(v string) {
 	m.Set(field.NewEncodedIssuer(v))
 }
 
-//SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
+// SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
 func (m CollateralResponse) SetEncodedSecurityDescLen(v int) {
 	m.Set(field.NewEncodedSecurityDescLen(v))
 }
 
-//SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
+// SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
 func (m CollateralResponse) SetEncodedSecurityDesc(v string) {
 	m.Set(field.NewEncodedSecurityDesc(v))
 }
 
-//SetEncodedTextLen sets EncodedTextLen, Tag 354
+// SetEncodedTextLen sets EncodedTextLen, Tag 354
 func (m CollateralResponse) SetEncodedTextLen(v int) {
 	m.Set(field.NewEncodedTextLen(v))
 }
 
-//SetEncodedText sets EncodedText, Tag 355
+// SetEncodedText sets EncodedText, Tag 355
 func (m CollateralResponse) SetEncodedText(v string) {
 	m.Set(field.NewEncodedText(v))
 }
 
-//SetPriceType sets PriceType, Tag 423
+// SetPriceType sets PriceType, Tag 423
 func (m CollateralResponse) SetPriceType(v enum.PriceType) {
 	m.Set(field.NewPriceType(v))
 }
 
-//SetNoPartyIDs sets NoPartyIDs, Tag 453
+// SetNoPartyIDs sets NoPartyIDs, Tag 453
 func (m CollateralResponse) SetNoPartyIDs(f NoPartyIDsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetNoSecurityAltID sets NoSecurityAltID, Tag 454
+// SetNoSecurityAltID sets NoSecurityAltID, Tag 454
 func (m CollateralResponse) SetNoSecurityAltID(f NoSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetProduct sets Product, Tag 460
+// SetProduct sets Product, Tag 460
 func (m CollateralResponse) SetProduct(v enum.Product) {
 	m.Set(field.NewProduct(v))
 }
 
-//SetCFICode sets CFICode, Tag 461
+// SetCFICode sets CFICode, Tag 461
 func (m CollateralResponse) SetCFICode(v string) {
 	m.Set(field.NewCFICode(v))
 }
 
-//SetCountryOfIssue sets CountryOfIssue, Tag 470
+// SetCountryOfIssue sets CountryOfIssue, Tag 470
 func (m CollateralResponse) SetCountryOfIssue(v string) {
 	m.Set(field.NewCountryOfIssue(v))
 }
 
-//SetStateOrProvinceOfIssue sets StateOrProvinceOfIssue, Tag 471
+// SetStateOrProvinceOfIssue sets StateOrProvinceOfIssue, Tag 471
 func (m CollateralResponse) SetStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewStateOrProvinceOfIssue(v))
 }
 
-//SetLocaleOfIssue sets LocaleOfIssue, Tag 472
+// SetLocaleOfIssue sets LocaleOfIssue, Tag 472
 func (m CollateralResponse) SetLocaleOfIssue(v string) {
 	m.Set(field.NewLocaleOfIssue(v))
 }
 
-//SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
+// SetSecondaryClOrdID sets SecondaryClOrdID, Tag 526
 func (m CollateralResponse) SetSecondaryClOrdID(v string) {
 	m.Set(field.NewSecondaryClOrdID(v))
 }
 
-//SetMaturityDate sets MaturityDate, Tag 541
+// SetMaturityDate sets MaturityDate, Tag 541
 func (m CollateralResponse) SetMaturityDate(v string) {
 	m.Set(field.NewMaturityDate(v))
 }
 
-//SetInstrRegistry sets InstrRegistry, Tag 543
+// SetInstrRegistry sets InstrRegistry, Tag 543
 func (m CollateralResponse) SetInstrRegistry(v enum.InstrRegistry) {
 	m.Set(field.NewInstrRegistry(v))
 }
 
-//SetNoLegs sets NoLegs, Tag 555
+// SetNoLegs sets NoLegs, Tag 555
 func (m CollateralResponse) SetNoLegs(f NoLegsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetAccountType sets AccountType, Tag 581
+// SetAccountType sets AccountType, Tag 581
 func (m CollateralResponse) SetAccountType(v enum.AccountType) {
 	m.Set(field.NewAccountType(v))
 }
 
-//SetBenchmarkPrice sets BenchmarkPrice, Tag 662
+// SetBenchmarkPrice sets BenchmarkPrice, Tag 662
 func (m CollateralResponse) SetBenchmarkPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewBenchmarkPrice(value, scale))
 }
 
-//SetBenchmarkPriceType sets BenchmarkPriceType, Tag 663
+// SetBenchmarkPriceType sets BenchmarkPriceType, Tag 663
 func (m CollateralResponse) SetBenchmarkPriceType(v int) {
 	m.Set(field.NewBenchmarkPriceType(v))
 }
 
-//SetContractSettlMonth sets ContractSettlMonth, Tag 667
+// SetContractSettlMonth sets ContractSettlMonth, Tag 667
 func (m CollateralResponse) SetContractSettlMonth(v string) {
 	m.Set(field.NewContractSettlMonth(v))
 }
 
-//SetPool sets Pool, Tag 691
+// SetPool sets Pool, Tag 691
 func (m CollateralResponse) SetPool(v string) {
 	m.Set(field.NewPool(v))
 }
 
-//SetBenchmarkSecurityID sets BenchmarkSecurityID, Tag 699
+// SetBenchmarkSecurityID sets BenchmarkSecurityID, Tag 699
 func (m CollateralResponse) SetBenchmarkSecurityID(v string) {
 	m.Set(field.NewBenchmarkSecurityID(v))
 }
 
-//SetNoUnderlyings sets NoUnderlyings, Tag 711
+// SetNoUnderlyings sets NoUnderlyings, Tag 711
 func (m CollateralResponse) SetNoUnderlyings(f NoUnderlyingsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetBenchmarkSecurityIDSource sets BenchmarkSecurityIDSource, Tag 761
+// SetBenchmarkSecurityIDSource sets BenchmarkSecurityIDSource, Tag 761
 func (m CollateralResponse) SetBenchmarkSecurityIDSource(v string) {
 	m.Set(field.NewBenchmarkSecurityIDSource(v))
 }
 
-//SetSecuritySubType sets SecuritySubType, Tag 762
+// SetSecuritySubType sets SecuritySubType, Tag 762
 func (m CollateralResponse) SetSecuritySubType(v string) {
 	m.Set(field.NewSecuritySubType(v))
 }
 
-//SetNoTrdRegTimestamps sets NoTrdRegTimestamps, Tag 768
+// SetNoTrdRegTimestamps sets NoTrdRegTimestamps, Tag 768
 func (m CollateralResponse) SetNoTrdRegTimestamps(f NoTrdRegTimestampsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetTerminationType sets TerminationType, Tag 788
+// SetTerminationType sets TerminationType, Tag 788
 func (m CollateralResponse) SetTerminationType(v enum.TerminationType) {
 	m.Set(field.NewTerminationType(v))
 }
 
-//SetQtyType sets QtyType, Tag 854
+// SetQtyType sets QtyType, Tag 854
 func (m CollateralResponse) SetQtyType(v enum.QtyType) {
 	m.Set(field.NewQtyType(v))
 }
 
-//SetNoEvents sets NoEvents, Tag 864
+// SetNoEvents sets NoEvents, Tag 864
 func (m CollateralResponse) SetNoEvents(f NoEventsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetDatedDate sets DatedDate, Tag 873
+// SetDatedDate sets DatedDate, Tag 873
 func (m CollateralResponse) SetDatedDate(v string) {
 	m.Set(field.NewDatedDate(v))
 }
 
-//SetInterestAccrualDate sets InterestAccrualDate, Tag 874
+// SetInterestAccrualDate sets InterestAccrualDate, Tag 874
 func (m CollateralResponse) SetInterestAccrualDate(v string) {
 	m.Set(field.NewInterestAccrualDate(v))
 }
 
-//SetCPProgram sets CPProgram, Tag 875
+// SetCPProgram sets CPProgram, Tag 875
 func (m CollateralResponse) SetCPProgram(v enum.CPProgram) {
 	m.Set(field.NewCPProgram(v))
 }
 
-//SetCPRegType sets CPRegType, Tag 876
+// SetCPRegType sets CPRegType, Tag 876
 func (m CollateralResponse) SetCPRegType(v string) {
 	m.Set(field.NewCPRegType(v))
 }
 
-//SetCollReqID sets CollReqID, Tag 894
+// SetCollReqID sets CollReqID, Tag 894
 func (m CollateralResponse) SetCollReqID(v string) {
 	m.Set(field.NewCollReqID(v))
 }
 
-//SetCollAsgnReason sets CollAsgnReason, Tag 895
+// SetCollAsgnReason sets CollAsgnReason, Tag 895
 func (m CollateralResponse) SetCollAsgnReason(v enum.CollAsgnReason) {
 	m.Set(field.NewCollAsgnReason(v))
 }
 
-//SetNoTrades sets NoTrades, Tag 897
+// SetNoTrades sets NoTrades, Tag 897
 func (m CollateralResponse) SetNoTrades(f NoTradesRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetMarginRatio sets MarginRatio, Tag 898
+// SetMarginRatio sets MarginRatio, Tag 898
 func (m CollateralResponse) SetMarginRatio(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMarginRatio(value, scale))
 }
 
-//SetMarginExcess sets MarginExcess, Tag 899
+// SetMarginExcess sets MarginExcess, Tag 899
 func (m CollateralResponse) SetMarginExcess(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMarginExcess(value, scale))
 }
 
-//SetTotalNetValue sets TotalNetValue, Tag 900
+// SetTotalNetValue sets TotalNetValue, Tag 900
 func (m CollateralResponse) SetTotalNetValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewTotalNetValue(value, scale))
 }
 
-//SetCashOutstanding sets CashOutstanding, Tag 901
+// SetCashOutstanding sets CashOutstanding, Tag 901
 func (m CollateralResponse) SetCashOutstanding(value decimal.Decimal, scale int32) {
 	m.Set(field.NewCashOutstanding(value, scale))
 }
 
-//SetCollAsgnID sets CollAsgnID, Tag 902
+// SetCollAsgnID sets CollAsgnID, Tag 902
 func (m CollateralResponse) SetCollAsgnID(v string) {
 	m.Set(field.NewCollAsgnID(v))
 }
 
-//SetCollAsgnTransType sets CollAsgnTransType, Tag 903
+// SetCollAsgnTransType sets CollAsgnTransType, Tag 903
 func (m CollateralResponse) SetCollAsgnTransType(v enum.CollAsgnTransType) {
 	m.Set(field.NewCollAsgnTransType(v))
 }
 
-//SetCollRespID sets CollRespID, Tag 904
+// SetCollRespID sets CollRespID, Tag 904
 func (m CollateralResponse) SetCollRespID(v string) {
 	m.Set(field.NewCollRespID(v))
 }
 
-//SetCollAsgnRespType sets CollAsgnRespType, Tag 905
+// SetCollAsgnRespType sets CollAsgnRespType, Tag 905
 func (m CollateralResponse) SetCollAsgnRespType(v enum.CollAsgnRespType) {
 	m.Set(field.NewCollAsgnRespType(v))
 }
 
-//SetCollAsgnRejectReason sets CollAsgnRejectReason, Tag 906
+// SetCollAsgnRejectReason sets CollAsgnRejectReason, Tag 906
 func (m CollateralResponse) SetCollAsgnRejectReason(v enum.CollAsgnRejectReason) {
 	m.Set(field.NewCollAsgnRejectReason(v))
 }
 
-//SetAgreementDesc sets AgreementDesc, Tag 913
+// SetAgreementDesc sets AgreementDesc, Tag 913
 func (m CollateralResponse) SetAgreementDesc(v string) {
 	m.Set(field.NewAgreementDesc(v))
 }
 
-//SetAgreementID sets AgreementID, Tag 914
+// SetAgreementID sets AgreementID, Tag 914
 func (m CollateralResponse) SetAgreementID(v string) {
 	m.Set(field.NewAgreementID(v))
 }
 
-//SetAgreementDate sets AgreementDate, Tag 915
+// SetAgreementDate sets AgreementDate, Tag 915
 func (m CollateralResponse) SetAgreementDate(v string) {
 	m.Set(field.NewAgreementDate(v))
 }
 
-//SetStartDate sets StartDate, Tag 916
+// SetStartDate sets StartDate, Tag 916
 func (m CollateralResponse) SetStartDate(v string) {
 	m.Set(field.NewStartDate(v))
 }
 
-//SetEndDate sets EndDate, Tag 917
+// SetEndDate sets EndDate, Tag 917
 func (m CollateralResponse) SetEndDate(v string) {
 	m.Set(field.NewEndDate(v))
 }
 
-//SetAgreementCurrency sets AgreementCurrency, Tag 918
+// SetAgreementCurrency sets AgreementCurrency, Tag 918
 func (m CollateralResponse) SetAgreementCurrency(v string) {
 	m.Set(field.NewAgreementCurrency(v))
 }
 
-//SetDeliveryType sets DeliveryType, Tag 919
+// SetDeliveryType sets DeliveryType, Tag 919
 func (m CollateralResponse) SetDeliveryType(v enum.DeliveryType) {
 	m.Set(field.NewDeliveryType(v))
 }
 
-//SetEndAccruedInterestAmt sets EndAccruedInterestAmt, Tag 920
+// SetEndAccruedInterestAmt sets EndAccruedInterestAmt, Tag 920
 func (m CollateralResponse) SetEndAccruedInterestAmt(value decimal.Decimal, scale int32) {
 	m.Set(field.NewEndAccruedInterestAmt(value, scale))
 }
 
-//SetStartCash sets StartCash, Tag 921
+// SetStartCash sets StartCash, Tag 921
 func (m CollateralResponse) SetStartCash(value decimal.Decimal, scale int32) {
 	m.Set(field.NewStartCash(value, scale))
 }
 
-//SetEndCash sets EndCash, Tag 922
+// SetEndCash sets EndCash, Tag 922
 func (m CollateralResponse) SetEndCash(value decimal.Decimal, scale int32) {
 	m.Set(field.NewEndCash(value, scale))
 }
 
-//SetStrikeCurrency sets StrikeCurrency, Tag 947
+// SetStrikeCurrency sets StrikeCurrency, Tag 947
 func (m CollateralResponse) SetStrikeCurrency(v string) {
 	m.Set(field.NewStrikeCurrency(v))
 }
 
-//GetAccount gets Account, Tag 1
+// GetAccount gets Account, Tag 1
 func (m CollateralResponse) GetAccount() (v string, err quickfix.MessageRejectError) {
 	var f field.AccountField
 	if err = m.Get(&f); err == nil {
@@ -562,7 +562,7 @@ func (m CollateralResponse) GetAccount() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetClOrdID gets ClOrdID, Tag 11
+// GetClOrdID gets ClOrdID, Tag 11
 func (m CollateralResponse) GetClOrdID() (v string, err quickfix.MessageRejectError) {
 	var f field.ClOrdIDField
 	if err = m.Get(&f); err == nil {
@@ -571,7 +571,7 @@ func (m CollateralResponse) GetClOrdID() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetCurrency gets Currency, Tag 15
+// GetCurrency gets Currency, Tag 15
 func (m CollateralResponse) GetCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.CurrencyField
 	if err = m.Get(&f); err == nil {
@@ -580,7 +580,7 @@ func (m CollateralResponse) GetCurrency() (v string, err quickfix.MessageRejectE
 	return
 }
 
-//GetSecurityIDSource gets SecurityIDSource, Tag 22
+// GetSecurityIDSource gets SecurityIDSource, Tag 22
 func (m CollateralResponse) GetSecurityIDSource() (v enum.SecurityIDSource, err quickfix.MessageRejectError) {
 	var f field.SecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -589,7 +589,7 @@ func (m CollateralResponse) GetSecurityIDSource() (v enum.SecurityIDSource, err 
 	return
 }
 
-//GetOrderID gets OrderID, Tag 37
+// GetOrderID gets OrderID, Tag 37
 func (m CollateralResponse) GetOrderID() (v string, err quickfix.MessageRejectError) {
 	var f field.OrderIDField
 	if err = m.Get(&f); err == nil {
@@ -598,7 +598,7 @@ func (m CollateralResponse) GetOrderID() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetPrice gets Price, Tag 44
+// GetPrice gets Price, Tag 44
 func (m CollateralResponse) GetPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.PriceField
 	if err = m.Get(&f); err == nil {
@@ -607,7 +607,7 @@ func (m CollateralResponse) GetPrice() (v decimal.Decimal, err quickfix.MessageR
 	return
 }
 
-//GetSecurityID gets SecurityID, Tag 48
+// GetSecurityID gets SecurityID, Tag 48
 func (m CollateralResponse) GetSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -616,7 +616,7 @@ func (m CollateralResponse) GetSecurityID() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetQuantity gets Quantity, Tag 53
+// GetQuantity gets Quantity, Tag 53
 func (m CollateralResponse) GetQuantity() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.QuantityField
 	if err = m.Get(&f); err == nil {
@@ -625,7 +625,7 @@ func (m CollateralResponse) GetQuantity() (v decimal.Decimal, err quickfix.Messa
 	return
 }
 
-//GetSide gets Side, Tag 54
+// GetSide gets Side, Tag 54
 func (m CollateralResponse) GetSide() (v enum.Side, err quickfix.MessageRejectError) {
 	var f field.SideField
 	if err = m.Get(&f); err == nil {
@@ -634,7 +634,7 @@ func (m CollateralResponse) GetSide() (v enum.Side, err quickfix.MessageRejectEr
 	return
 }
 
-//GetSymbol gets Symbol, Tag 55
+// GetSymbol gets Symbol, Tag 55
 func (m CollateralResponse) GetSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.SymbolField
 	if err = m.Get(&f); err == nil {
@@ -643,7 +643,7 @@ func (m CollateralResponse) GetSymbol() (v string, err quickfix.MessageRejectErr
 	return
 }
 
-//GetText gets Text, Tag 58
+// GetText gets Text, Tag 58
 func (m CollateralResponse) GetText() (v string, err quickfix.MessageRejectError) {
 	var f field.TextField
 	if err = m.Get(&f); err == nil {
@@ -652,7 +652,7 @@ func (m CollateralResponse) GetText() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetTransactTime gets TransactTime, Tag 60
+// GetTransactTime gets TransactTime, Tag 60
 func (m CollateralResponse) GetTransactTime() (v time.Time, err quickfix.MessageRejectError) {
 	var f field.TransactTimeField
 	if err = m.Get(&f); err == nil {
@@ -661,7 +661,7 @@ func (m CollateralResponse) GetTransactTime() (v time.Time, err quickfix.Message
 	return
 }
 
-//GetSettlDate gets SettlDate, Tag 64
+// GetSettlDate gets SettlDate, Tag 64
 func (m CollateralResponse) GetSettlDate() (v string, err quickfix.MessageRejectError) {
 	var f field.SettlDateField
 	if err = m.Get(&f); err == nil {
@@ -670,7 +670,7 @@ func (m CollateralResponse) GetSettlDate() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetSymbolSfx gets SymbolSfx, Tag 65
+// GetSymbolSfx gets SymbolSfx, Tag 65
 func (m CollateralResponse) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
 	var f field.SymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -679,7 +679,7 @@ func (m CollateralResponse) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.Messa
 	return
 }
 
-//GetIssuer gets Issuer, Tag 106
+// GetIssuer gets Issuer, Tag 106
 func (m CollateralResponse) GetIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.IssuerField
 	if err = m.Get(&f); err == nil {
@@ -688,7 +688,7 @@ func (m CollateralResponse) GetIssuer() (v string, err quickfix.MessageRejectErr
 	return
 }
 
-//GetSecurityDesc gets SecurityDesc, Tag 107
+// GetSecurityDesc gets SecurityDesc, Tag 107
 func (m CollateralResponse) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -697,21 +697,21 @@ func (m CollateralResponse) GetSecurityDesc() (v string, err quickfix.MessageRej
 	return
 }
 
-//GetNoExecs gets NoExecs, Tag 124
+// GetNoExecs gets NoExecs, Tag 124
 func (m CollateralResponse) GetNoExecs() (NoExecsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoExecsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetNoMiscFees gets NoMiscFees, Tag 136
+// GetNoMiscFees gets NoMiscFees, Tag 136
 func (m CollateralResponse) GetNoMiscFees() (NoMiscFeesRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoMiscFeesRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetAccruedInterestAmt gets AccruedInterestAmt, Tag 159
+// GetAccruedInterestAmt gets AccruedInterestAmt, Tag 159
 func (m CollateralResponse) GetAccruedInterestAmt() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.AccruedInterestAmtField
 	if err = m.Get(&f); err == nil {
@@ -720,7 +720,7 @@ func (m CollateralResponse) GetAccruedInterestAmt() (v decimal.Decimal, err quic
 	return
 }
 
-//GetSecurityType gets SecurityType, Tag 167
+// GetSecurityType gets SecurityType, Tag 167
 func (m CollateralResponse) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
 	var f field.SecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -729,7 +729,7 @@ func (m CollateralResponse) GetSecurityType() (v enum.SecurityType, err quickfix
 	return
 }
 
-//GetSecondaryOrderID gets SecondaryOrderID, Tag 198
+// GetSecondaryOrderID gets SecondaryOrderID, Tag 198
 func (m CollateralResponse) GetSecondaryOrderID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecondaryOrderIDField
 	if err = m.Get(&f); err == nil {
@@ -738,7 +738,7 @@ func (m CollateralResponse) GetSecondaryOrderID() (v string, err quickfix.Messag
 	return
 }
 
-//GetMaturityMonthYear gets MaturityMonthYear, Tag 200
+// GetMaturityMonthYear gets MaturityMonthYear, Tag 200
 func (m CollateralResponse) GetMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.MaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -747,7 +747,7 @@ func (m CollateralResponse) GetMaturityMonthYear() (v string, err quickfix.Messa
 	return
 }
 
-//GetStrikePrice gets StrikePrice, Tag 202
+// GetStrikePrice gets StrikePrice, Tag 202
 func (m CollateralResponse) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -756,7 +756,7 @@ func (m CollateralResponse) GetStrikePrice() (v decimal.Decimal, err quickfix.Me
 	return
 }
 
-//GetOptAttribute gets OptAttribute, Tag 206
+// GetOptAttribute gets OptAttribute, Tag 206
 func (m CollateralResponse) GetOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.OptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -765,7 +765,7 @@ func (m CollateralResponse) GetOptAttribute() (v string, err quickfix.MessageRej
 	return
 }
 
-//GetSecurityExchange gets SecurityExchange, Tag 207
+// GetSecurityExchange gets SecurityExchange, Tag 207
 func (m CollateralResponse) GetSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -774,7 +774,7 @@ func (m CollateralResponse) GetSecurityExchange() (v string, err quickfix.Messag
 	return
 }
 
-//GetSpread gets Spread, Tag 218
+// GetSpread gets Spread, Tag 218
 func (m CollateralResponse) GetSpread() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.SpreadField
 	if err = m.Get(&f); err == nil {
@@ -783,7 +783,7 @@ func (m CollateralResponse) GetSpread() (v decimal.Decimal, err quickfix.Message
 	return
 }
 
-//GetBenchmarkCurveCurrency gets BenchmarkCurveCurrency, Tag 220
+// GetBenchmarkCurveCurrency gets BenchmarkCurveCurrency, Tag 220
 func (m CollateralResponse) GetBenchmarkCurveCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.BenchmarkCurveCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -792,7 +792,7 @@ func (m CollateralResponse) GetBenchmarkCurveCurrency() (v string, err quickfix.
 	return
 }
 
-//GetBenchmarkCurveName gets BenchmarkCurveName, Tag 221
+// GetBenchmarkCurveName gets BenchmarkCurveName, Tag 221
 func (m CollateralResponse) GetBenchmarkCurveName() (v enum.BenchmarkCurveName, err quickfix.MessageRejectError) {
 	var f field.BenchmarkCurveNameField
 	if err = m.Get(&f); err == nil {
@@ -801,7 +801,7 @@ func (m CollateralResponse) GetBenchmarkCurveName() (v enum.BenchmarkCurveName, 
 	return
 }
 
-//GetBenchmarkCurvePoint gets BenchmarkCurvePoint, Tag 222
+// GetBenchmarkCurvePoint gets BenchmarkCurvePoint, Tag 222
 func (m CollateralResponse) GetBenchmarkCurvePoint() (v string, err quickfix.MessageRejectError) {
 	var f field.BenchmarkCurvePointField
 	if err = m.Get(&f); err == nil {
@@ -810,7 +810,7 @@ func (m CollateralResponse) GetBenchmarkCurvePoint() (v string, err quickfix.Mes
 	return
 }
 
-//GetCouponRate gets CouponRate, Tag 223
+// GetCouponRate gets CouponRate, Tag 223
 func (m CollateralResponse) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
@@ -819,7 +819,7 @@ func (m CollateralResponse) GetCouponRate() (v decimal.Decimal, err quickfix.Mes
 	return
 }
 
-//GetCouponPaymentDate gets CouponPaymentDate, Tag 224
+// GetCouponPaymentDate gets CouponPaymentDate, Tag 224
 func (m CollateralResponse) GetCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.CouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -828,7 +828,7 @@ func (m CollateralResponse) GetCouponPaymentDate() (v string, err quickfix.Messa
 	return
 }
 
-//GetIssueDate gets IssueDate, Tag 225
+// GetIssueDate gets IssueDate, Tag 225
 func (m CollateralResponse) GetIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.IssueDateField
 	if err = m.Get(&f); err == nil {
@@ -837,7 +837,7 @@ func (m CollateralResponse) GetIssueDate() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetRepurchaseTerm gets RepurchaseTerm, Tag 226
+// GetRepurchaseTerm gets RepurchaseTerm, Tag 226
 func (m CollateralResponse) GetRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.RepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -846,7 +846,7 @@ func (m CollateralResponse) GetRepurchaseTerm() (v int, err quickfix.MessageReje
 	return
 }
 
-//GetRepurchaseRate gets RepurchaseRate, Tag 227
+// GetRepurchaseRate gets RepurchaseRate, Tag 227
 func (m CollateralResponse) GetRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.RepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -855,7 +855,7 @@ func (m CollateralResponse) GetRepurchaseRate() (v decimal.Decimal, err quickfix
 	return
 }
 
-//GetFactor gets Factor, Tag 228
+// GetFactor gets Factor, Tag 228
 func (m CollateralResponse) GetFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.FactorField
 	if err = m.Get(&f); err == nil {
@@ -864,7 +864,7 @@ func (m CollateralResponse) GetFactor() (v decimal.Decimal, err quickfix.Message
 	return
 }
 
-//GetContractMultiplier gets ContractMultiplier, Tag 231
+// GetContractMultiplier gets ContractMultiplier, Tag 231
 func (m CollateralResponse) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -873,14 +873,14 @@ func (m CollateralResponse) GetContractMultiplier() (v decimal.Decimal, err quic
 	return
 }
 
-//GetNoStipulations gets NoStipulations, Tag 232
+// GetNoStipulations gets NoStipulations, Tag 232
 func (m CollateralResponse) GetNoStipulations() (NoStipulationsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoStipulationsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetRepoCollateralSecurityType gets RepoCollateralSecurityType, Tag 239
+// GetRepoCollateralSecurityType gets RepoCollateralSecurityType, Tag 239
 func (m CollateralResponse) GetRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.RepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -889,7 +889,7 @@ func (m CollateralResponse) GetRepoCollateralSecurityType() (v int, err quickfix
 	return
 }
 
-//GetRedemptionDate gets RedemptionDate, Tag 240
+// GetRedemptionDate gets RedemptionDate, Tag 240
 func (m CollateralResponse) GetRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.RedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -898,7 +898,7 @@ func (m CollateralResponse) GetRedemptionDate() (v string, err quickfix.MessageR
 	return
 }
 
-//GetCreditRating gets CreditRating, Tag 255
+// GetCreditRating gets CreditRating, Tag 255
 func (m CollateralResponse) GetCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.CreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -907,7 +907,7 @@ func (m CollateralResponse) GetCreditRating() (v string, err quickfix.MessageRej
 	return
 }
 
-//GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
+// GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
 func (m CollateralResponse) GetEncodedIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -916,7 +916,7 @@ func (m CollateralResponse) GetEncodedIssuerLen() (v int, err quickfix.MessageRe
 	return
 }
 
-//GetEncodedIssuer gets EncodedIssuer, Tag 349
+// GetEncodedIssuer gets EncodedIssuer, Tag 349
 func (m CollateralResponse) GetEncodedIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerField
 	if err = m.Get(&f); err == nil {
@@ -925,7 +925,7 @@ func (m CollateralResponse) GetEncodedIssuer() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
+// GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
 func (m CollateralResponse) GetEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -934,7 +934,7 @@ func (m CollateralResponse) GetEncodedSecurityDescLen() (v int, err quickfix.Mes
 	return
 }
 
-//GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
+// GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
 func (m CollateralResponse) GetEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -943,7 +943,7 @@ func (m CollateralResponse) GetEncodedSecurityDesc() (v string, err quickfix.Mes
 	return
 }
 
-//GetEncodedTextLen gets EncodedTextLen, Tag 354
+// GetEncodedTextLen gets EncodedTextLen, Tag 354
 func (m CollateralResponse) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedTextLenField
 	if err = m.Get(&f); err == nil {
@@ -952,7 +952,7 @@ func (m CollateralResponse) GetEncodedTextLen() (v int, err quickfix.MessageReje
 	return
 }
 
-//GetEncodedText gets EncodedText, Tag 355
+// GetEncodedText gets EncodedText, Tag 355
 func (m CollateralResponse) GetEncodedText() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedTextField
 	if err = m.Get(&f); err == nil {
@@ -961,7 +961,7 @@ func (m CollateralResponse) GetEncodedText() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetPriceType gets PriceType, Tag 423
+// GetPriceType gets PriceType, Tag 423
 func (m CollateralResponse) GetPriceType() (v enum.PriceType, err quickfix.MessageRejectError) {
 	var f field.PriceTypeField
 	if err = m.Get(&f); err == nil {
@@ -970,21 +970,21 @@ func (m CollateralResponse) GetPriceType() (v enum.PriceType, err quickfix.Messa
 	return
 }
 
-//GetNoPartyIDs gets NoPartyIDs, Tag 453
+// GetNoPartyIDs gets NoPartyIDs, Tag 453
 func (m CollateralResponse) GetNoPartyIDs() (NoPartyIDsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoPartyIDsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetNoSecurityAltID gets NoSecurityAltID, Tag 454
+// GetNoSecurityAltID gets NoSecurityAltID, Tag 454
 func (m CollateralResponse) GetNoSecurityAltID() (NoSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetProduct gets Product, Tag 460
+// GetProduct gets Product, Tag 460
 func (m CollateralResponse) GetProduct() (v enum.Product, err quickfix.MessageRejectError) {
 	var f field.ProductField
 	if err = m.Get(&f); err == nil {
@@ -993,7 +993,7 @@ func (m CollateralResponse) GetProduct() (v enum.Product, err quickfix.MessageRe
 	return
 }
 
-//GetCFICode gets CFICode, Tag 461
+// GetCFICode gets CFICode, Tag 461
 func (m CollateralResponse) GetCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.CFICodeField
 	if err = m.Get(&f); err == nil {
@@ -1002,7 +1002,7 @@ func (m CollateralResponse) GetCFICode() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetCountryOfIssue gets CountryOfIssue, Tag 470
+// GetCountryOfIssue gets CountryOfIssue, Tag 470
 func (m CollateralResponse) GetCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.CountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1011,7 +1011,7 @@ func (m CollateralResponse) GetCountryOfIssue() (v string, err quickfix.MessageR
 	return
 }
 
-//GetStateOrProvinceOfIssue gets StateOrProvinceOfIssue, Tag 471
+// GetStateOrProvinceOfIssue gets StateOrProvinceOfIssue, Tag 471
 func (m CollateralResponse) GetStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.StateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1020,7 +1020,7 @@ func (m CollateralResponse) GetStateOrProvinceOfIssue() (v string, err quickfix.
 	return
 }
 
-//GetLocaleOfIssue gets LocaleOfIssue, Tag 472
+// GetLocaleOfIssue gets LocaleOfIssue, Tag 472
 func (m CollateralResponse) GetLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.LocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -1029,7 +1029,7 @@ func (m CollateralResponse) GetLocaleOfIssue() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
+// GetSecondaryClOrdID gets SecondaryClOrdID, Tag 526
 func (m CollateralResponse) GetSecondaryClOrdID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecondaryClOrdIDField
 	if err = m.Get(&f); err == nil {
@@ -1038,7 +1038,7 @@ func (m CollateralResponse) GetSecondaryClOrdID() (v string, err quickfix.Messag
 	return
 }
 
-//GetMaturityDate gets MaturityDate, Tag 541
+// GetMaturityDate gets MaturityDate, Tag 541
 func (m CollateralResponse) GetMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.MaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -1047,7 +1047,7 @@ func (m CollateralResponse) GetMaturityDate() (v string, err quickfix.MessageRej
 	return
 }
 
-//GetInstrRegistry gets InstrRegistry, Tag 543
+// GetInstrRegistry gets InstrRegistry, Tag 543
 func (m CollateralResponse) GetInstrRegistry() (v enum.InstrRegistry, err quickfix.MessageRejectError) {
 	var f field.InstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -1056,14 +1056,14 @@ func (m CollateralResponse) GetInstrRegistry() (v enum.InstrRegistry, err quickf
 	return
 }
 
-//GetNoLegs gets NoLegs, Tag 555
+// GetNoLegs gets NoLegs, Tag 555
 func (m CollateralResponse) GetNoLegs() (NoLegsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoLegsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetAccountType gets AccountType, Tag 581
+// GetAccountType gets AccountType, Tag 581
 func (m CollateralResponse) GetAccountType() (v enum.AccountType, err quickfix.MessageRejectError) {
 	var f field.AccountTypeField
 	if err = m.Get(&f); err == nil {
@@ -1072,7 +1072,7 @@ func (m CollateralResponse) GetAccountType() (v enum.AccountType, err quickfix.M
 	return
 }
 
-//GetBenchmarkPrice gets BenchmarkPrice, Tag 662
+// GetBenchmarkPrice gets BenchmarkPrice, Tag 662
 func (m CollateralResponse) GetBenchmarkPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.BenchmarkPriceField
 	if err = m.Get(&f); err == nil {
@@ -1081,7 +1081,7 @@ func (m CollateralResponse) GetBenchmarkPrice() (v decimal.Decimal, err quickfix
 	return
 }
 
-//GetBenchmarkPriceType gets BenchmarkPriceType, Tag 663
+// GetBenchmarkPriceType gets BenchmarkPriceType, Tag 663
 func (m CollateralResponse) GetBenchmarkPriceType() (v int, err quickfix.MessageRejectError) {
 	var f field.BenchmarkPriceTypeField
 	if err = m.Get(&f); err == nil {
@@ -1090,7 +1090,7 @@ func (m CollateralResponse) GetBenchmarkPriceType() (v int, err quickfix.Message
 	return
 }
 
-//GetContractSettlMonth gets ContractSettlMonth, Tag 667
+// GetContractSettlMonth gets ContractSettlMonth, Tag 667
 func (m CollateralResponse) GetContractSettlMonth() (v string, err quickfix.MessageRejectError) {
 	var f field.ContractSettlMonthField
 	if err = m.Get(&f); err == nil {
@@ -1099,7 +1099,7 @@ func (m CollateralResponse) GetContractSettlMonth() (v string, err quickfix.Mess
 	return
 }
 
-//GetPool gets Pool, Tag 691
+// GetPool gets Pool, Tag 691
 func (m CollateralResponse) GetPool() (v string, err quickfix.MessageRejectError) {
 	var f field.PoolField
 	if err = m.Get(&f); err == nil {
@@ -1108,7 +1108,7 @@ func (m CollateralResponse) GetPool() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetBenchmarkSecurityID gets BenchmarkSecurityID, Tag 699
+// GetBenchmarkSecurityID gets BenchmarkSecurityID, Tag 699
 func (m CollateralResponse) GetBenchmarkSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.BenchmarkSecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -1117,14 +1117,14 @@ func (m CollateralResponse) GetBenchmarkSecurityID() (v string, err quickfix.Mes
 	return
 }
 
-//GetNoUnderlyings gets NoUnderlyings, Tag 711
+// GetNoUnderlyings gets NoUnderlyings, Tag 711
 func (m CollateralResponse) GetNoUnderlyings() (NoUnderlyingsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetBenchmarkSecurityIDSource gets BenchmarkSecurityIDSource, Tag 761
+// GetBenchmarkSecurityIDSource gets BenchmarkSecurityIDSource, Tag 761
 func (m CollateralResponse) GetBenchmarkSecurityIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.BenchmarkSecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -1133,7 +1133,7 @@ func (m CollateralResponse) GetBenchmarkSecurityIDSource() (v string, err quickf
 	return
 }
 
-//GetSecuritySubType gets SecuritySubType, Tag 762
+// GetSecuritySubType gets SecuritySubType, Tag 762
 func (m CollateralResponse) GetSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.SecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -1142,14 +1142,14 @@ func (m CollateralResponse) GetSecuritySubType() (v string, err quickfix.Message
 	return
 }
 
-//GetNoTrdRegTimestamps gets NoTrdRegTimestamps, Tag 768
+// GetNoTrdRegTimestamps gets NoTrdRegTimestamps, Tag 768
 func (m CollateralResponse) GetNoTrdRegTimestamps() (NoTrdRegTimestampsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoTrdRegTimestampsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetTerminationType gets TerminationType, Tag 788
+// GetTerminationType gets TerminationType, Tag 788
 func (m CollateralResponse) GetTerminationType() (v enum.TerminationType, err quickfix.MessageRejectError) {
 	var f field.TerminationTypeField
 	if err = m.Get(&f); err == nil {
@@ -1158,7 +1158,7 @@ func (m CollateralResponse) GetTerminationType() (v enum.TerminationType, err qu
 	return
 }
 
-//GetQtyType gets QtyType, Tag 854
+// GetQtyType gets QtyType, Tag 854
 func (m CollateralResponse) GetQtyType() (v enum.QtyType, err quickfix.MessageRejectError) {
 	var f field.QtyTypeField
 	if err = m.Get(&f); err == nil {
@@ -1167,14 +1167,14 @@ func (m CollateralResponse) GetQtyType() (v enum.QtyType, err quickfix.MessageRe
 	return
 }
 
-//GetNoEvents gets NoEvents, Tag 864
+// GetNoEvents gets NoEvents, Tag 864
 func (m CollateralResponse) GetNoEvents() (NoEventsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoEventsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetDatedDate gets DatedDate, Tag 873
+// GetDatedDate gets DatedDate, Tag 873
 func (m CollateralResponse) GetDatedDate() (v string, err quickfix.MessageRejectError) {
 	var f field.DatedDateField
 	if err = m.Get(&f); err == nil {
@@ -1183,7 +1183,7 @@ func (m CollateralResponse) GetDatedDate() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetInterestAccrualDate gets InterestAccrualDate, Tag 874
+// GetInterestAccrualDate gets InterestAccrualDate, Tag 874
 func (m CollateralResponse) GetInterestAccrualDate() (v string, err quickfix.MessageRejectError) {
 	var f field.InterestAccrualDateField
 	if err = m.Get(&f); err == nil {
@@ -1192,7 +1192,7 @@ func (m CollateralResponse) GetInterestAccrualDate() (v string, err quickfix.Mes
 	return
 }
 
-//GetCPProgram gets CPProgram, Tag 875
+// GetCPProgram gets CPProgram, Tag 875
 func (m CollateralResponse) GetCPProgram() (v enum.CPProgram, err quickfix.MessageRejectError) {
 	var f field.CPProgramField
 	if err = m.Get(&f); err == nil {
@@ -1201,7 +1201,7 @@ func (m CollateralResponse) GetCPProgram() (v enum.CPProgram, err quickfix.Messa
 	return
 }
 
-//GetCPRegType gets CPRegType, Tag 876
+// GetCPRegType gets CPRegType, Tag 876
 func (m CollateralResponse) GetCPRegType() (v string, err quickfix.MessageRejectError) {
 	var f field.CPRegTypeField
 	if err = m.Get(&f); err == nil {
@@ -1210,7 +1210,7 @@ func (m CollateralResponse) GetCPRegType() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetCollReqID gets CollReqID, Tag 894
+// GetCollReqID gets CollReqID, Tag 894
 func (m CollateralResponse) GetCollReqID() (v string, err quickfix.MessageRejectError) {
 	var f field.CollReqIDField
 	if err = m.Get(&f); err == nil {
@@ -1219,7 +1219,7 @@ func (m CollateralResponse) GetCollReqID() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetCollAsgnReason gets CollAsgnReason, Tag 895
+// GetCollAsgnReason gets CollAsgnReason, Tag 895
 func (m CollateralResponse) GetCollAsgnReason() (v enum.CollAsgnReason, err quickfix.MessageRejectError) {
 	var f field.CollAsgnReasonField
 	if err = m.Get(&f); err == nil {
@@ -1228,14 +1228,14 @@ func (m CollateralResponse) GetCollAsgnReason() (v enum.CollAsgnReason, err quic
 	return
 }
 
-//GetNoTrades gets NoTrades, Tag 897
+// GetNoTrades gets NoTrades, Tag 897
 func (m CollateralResponse) GetNoTrades() (NoTradesRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoTradesRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetMarginRatio gets MarginRatio, Tag 898
+// GetMarginRatio gets MarginRatio, Tag 898
 func (m CollateralResponse) GetMarginRatio() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MarginRatioField
 	if err = m.Get(&f); err == nil {
@@ -1244,7 +1244,7 @@ func (m CollateralResponse) GetMarginRatio() (v decimal.Decimal, err quickfix.Me
 	return
 }
 
-//GetMarginExcess gets MarginExcess, Tag 899
+// GetMarginExcess gets MarginExcess, Tag 899
 func (m CollateralResponse) GetMarginExcess() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MarginExcessField
 	if err = m.Get(&f); err == nil {
@@ -1253,7 +1253,7 @@ func (m CollateralResponse) GetMarginExcess() (v decimal.Decimal, err quickfix.M
 	return
 }
 
-//GetTotalNetValue gets TotalNetValue, Tag 900
+// GetTotalNetValue gets TotalNetValue, Tag 900
 func (m CollateralResponse) GetTotalNetValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TotalNetValueField
 	if err = m.Get(&f); err == nil {
@@ -1262,7 +1262,7 @@ func (m CollateralResponse) GetTotalNetValue() (v decimal.Decimal, err quickfix.
 	return
 }
 
-//GetCashOutstanding gets CashOutstanding, Tag 901
+// GetCashOutstanding gets CashOutstanding, Tag 901
 func (m CollateralResponse) GetCashOutstanding() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CashOutstandingField
 	if err = m.Get(&f); err == nil {
@@ -1271,7 +1271,7 @@ func (m CollateralResponse) GetCashOutstanding() (v decimal.Decimal, err quickfi
 	return
 }
 
-//GetCollAsgnID gets CollAsgnID, Tag 902
+// GetCollAsgnID gets CollAsgnID, Tag 902
 func (m CollateralResponse) GetCollAsgnID() (v string, err quickfix.MessageRejectError) {
 	var f field.CollAsgnIDField
 	if err = m.Get(&f); err == nil {
@@ -1280,7 +1280,7 @@ func (m CollateralResponse) GetCollAsgnID() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetCollAsgnTransType gets CollAsgnTransType, Tag 903
+// GetCollAsgnTransType gets CollAsgnTransType, Tag 903
 func (m CollateralResponse) GetCollAsgnTransType() (v enum.CollAsgnTransType, err quickfix.MessageRejectError) {
 	var f field.CollAsgnTransTypeField
 	if err = m.Get(&f); err == nil {
@@ -1289,7 +1289,7 @@ func (m CollateralResponse) GetCollAsgnTransType() (v enum.CollAsgnTransType, er
 	return
 }
 
-//GetCollRespID gets CollRespID, Tag 904
+// GetCollRespID gets CollRespID, Tag 904
 func (m CollateralResponse) GetCollRespID() (v string, err quickfix.MessageRejectError) {
 	var f field.CollRespIDField
 	if err = m.Get(&f); err == nil {
@@ -1298,7 +1298,7 @@ func (m CollateralResponse) GetCollRespID() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetCollAsgnRespType gets CollAsgnRespType, Tag 905
+// GetCollAsgnRespType gets CollAsgnRespType, Tag 905
 func (m CollateralResponse) GetCollAsgnRespType() (v enum.CollAsgnRespType, err quickfix.MessageRejectError) {
 	var f field.CollAsgnRespTypeField
 	if err = m.Get(&f); err == nil {
@@ -1307,7 +1307,7 @@ func (m CollateralResponse) GetCollAsgnRespType() (v enum.CollAsgnRespType, err 
 	return
 }
 
-//GetCollAsgnRejectReason gets CollAsgnRejectReason, Tag 906
+// GetCollAsgnRejectReason gets CollAsgnRejectReason, Tag 906
 func (m CollateralResponse) GetCollAsgnRejectReason() (v enum.CollAsgnRejectReason, err quickfix.MessageRejectError) {
 	var f field.CollAsgnRejectReasonField
 	if err = m.Get(&f); err == nil {
@@ -1316,7 +1316,7 @@ func (m CollateralResponse) GetCollAsgnRejectReason() (v enum.CollAsgnRejectReas
 	return
 }
 
-//GetAgreementDesc gets AgreementDesc, Tag 913
+// GetAgreementDesc gets AgreementDesc, Tag 913
 func (m CollateralResponse) GetAgreementDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.AgreementDescField
 	if err = m.Get(&f); err == nil {
@@ -1325,7 +1325,7 @@ func (m CollateralResponse) GetAgreementDesc() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetAgreementID gets AgreementID, Tag 914
+// GetAgreementID gets AgreementID, Tag 914
 func (m CollateralResponse) GetAgreementID() (v string, err quickfix.MessageRejectError) {
 	var f field.AgreementIDField
 	if err = m.Get(&f); err == nil {
@@ -1334,7 +1334,7 @@ func (m CollateralResponse) GetAgreementID() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetAgreementDate gets AgreementDate, Tag 915
+// GetAgreementDate gets AgreementDate, Tag 915
 func (m CollateralResponse) GetAgreementDate() (v string, err quickfix.MessageRejectError) {
 	var f field.AgreementDateField
 	if err = m.Get(&f); err == nil {
@@ -1343,7 +1343,7 @@ func (m CollateralResponse) GetAgreementDate() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetStartDate gets StartDate, Tag 916
+// GetStartDate gets StartDate, Tag 916
 func (m CollateralResponse) GetStartDate() (v string, err quickfix.MessageRejectError) {
 	var f field.StartDateField
 	if err = m.Get(&f); err == nil {
@@ -1352,7 +1352,7 @@ func (m CollateralResponse) GetStartDate() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetEndDate gets EndDate, Tag 917
+// GetEndDate gets EndDate, Tag 917
 func (m CollateralResponse) GetEndDate() (v string, err quickfix.MessageRejectError) {
 	var f field.EndDateField
 	if err = m.Get(&f); err == nil {
@@ -1361,7 +1361,7 @@ func (m CollateralResponse) GetEndDate() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetAgreementCurrency gets AgreementCurrency, Tag 918
+// GetAgreementCurrency gets AgreementCurrency, Tag 918
 func (m CollateralResponse) GetAgreementCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.AgreementCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -1370,7 +1370,7 @@ func (m CollateralResponse) GetAgreementCurrency() (v string, err quickfix.Messa
 	return
 }
 
-//GetDeliveryType gets DeliveryType, Tag 919
+// GetDeliveryType gets DeliveryType, Tag 919
 func (m CollateralResponse) GetDeliveryType() (v enum.DeliveryType, err quickfix.MessageRejectError) {
 	var f field.DeliveryTypeField
 	if err = m.Get(&f); err == nil {
@@ -1379,7 +1379,7 @@ func (m CollateralResponse) GetDeliveryType() (v enum.DeliveryType, err quickfix
 	return
 }
 
-//GetEndAccruedInterestAmt gets EndAccruedInterestAmt, Tag 920
+// GetEndAccruedInterestAmt gets EndAccruedInterestAmt, Tag 920
 func (m CollateralResponse) GetEndAccruedInterestAmt() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EndAccruedInterestAmtField
 	if err = m.Get(&f); err == nil {
@@ -1388,7 +1388,7 @@ func (m CollateralResponse) GetEndAccruedInterestAmt() (v decimal.Decimal, err q
 	return
 }
 
-//GetStartCash gets StartCash, Tag 921
+// GetStartCash gets StartCash, Tag 921
 func (m CollateralResponse) GetStartCash() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StartCashField
 	if err = m.Get(&f); err == nil {
@@ -1397,7 +1397,7 @@ func (m CollateralResponse) GetStartCash() (v decimal.Decimal, err quickfix.Mess
 	return
 }
 
-//GetEndCash gets EndCash, Tag 922
+// GetEndCash gets EndCash, Tag 922
 func (m CollateralResponse) GetEndCash() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EndCashField
 	if err = m.Get(&f); err == nil {
@@ -1406,7 +1406,7 @@ func (m CollateralResponse) GetEndCash() (v decimal.Decimal, err quickfix.Messag
 	return
 }
 
-//GetStrikeCurrency gets StrikeCurrency, Tag 947
+// GetStrikeCurrency gets StrikeCurrency, Tag 947
 func (m CollateralResponse) GetStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.StrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -1415,507 +1415,507 @@ func (m CollateralResponse) GetStrikeCurrency() (v string, err quickfix.MessageR
 	return
 }
 
-//HasAccount returns true if Account is present, Tag 1
+// HasAccount returns true if Account is present, Tag 1
 func (m CollateralResponse) HasAccount() bool {
 	return m.Has(tag.Account)
 }
 
-//HasClOrdID returns true if ClOrdID is present, Tag 11
+// HasClOrdID returns true if ClOrdID is present, Tag 11
 func (m CollateralResponse) HasClOrdID() bool {
 	return m.Has(tag.ClOrdID)
 }
 
-//HasCurrency returns true if Currency is present, Tag 15
+// HasCurrency returns true if Currency is present, Tag 15
 func (m CollateralResponse) HasCurrency() bool {
 	return m.Has(tag.Currency)
 }
 
-//HasSecurityIDSource returns true if SecurityIDSource is present, Tag 22
+// HasSecurityIDSource returns true if SecurityIDSource is present, Tag 22
 func (m CollateralResponse) HasSecurityIDSource() bool {
 	return m.Has(tag.SecurityIDSource)
 }
 
-//HasOrderID returns true if OrderID is present, Tag 37
+// HasOrderID returns true if OrderID is present, Tag 37
 func (m CollateralResponse) HasOrderID() bool {
 	return m.Has(tag.OrderID)
 }
 
-//HasPrice returns true if Price is present, Tag 44
+// HasPrice returns true if Price is present, Tag 44
 func (m CollateralResponse) HasPrice() bool {
 	return m.Has(tag.Price)
 }
 
-//HasSecurityID returns true if SecurityID is present, Tag 48
+// HasSecurityID returns true if SecurityID is present, Tag 48
 func (m CollateralResponse) HasSecurityID() bool {
 	return m.Has(tag.SecurityID)
 }
 
-//HasQuantity returns true if Quantity is present, Tag 53
+// HasQuantity returns true if Quantity is present, Tag 53
 func (m CollateralResponse) HasQuantity() bool {
 	return m.Has(tag.Quantity)
 }
 
-//HasSide returns true if Side is present, Tag 54
+// HasSide returns true if Side is present, Tag 54
 func (m CollateralResponse) HasSide() bool {
 	return m.Has(tag.Side)
 }
 
-//HasSymbol returns true if Symbol is present, Tag 55
+// HasSymbol returns true if Symbol is present, Tag 55
 func (m CollateralResponse) HasSymbol() bool {
 	return m.Has(tag.Symbol)
 }
 
-//HasText returns true if Text is present, Tag 58
+// HasText returns true if Text is present, Tag 58
 func (m CollateralResponse) HasText() bool {
 	return m.Has(tag.Text)
 }
 
-//HasTransactTime returns true if TransactTime is present, Tag 60
+// HasTransactTime returns true if TransactTime is present, Tag 60
 func (m CollateralResponse) HasTransactTime() bool {
 	return m.Has(tag.TransactTime)
 }
 
-//HasSettlDate returns true if SettlDate is present, Tag 64
+// HasSettlDate returns true if SettlDate is present, Tag 64
 func (m CollateralResponse) HasSettlDate() bool {
 	return m.Has(tag.SettlDate)
 }
 
-//HasSymbolSfx returns true if SymbolSfx is present, Tag 65
+// HasSymbolSfx returns true if SymbolSfx is present, Tag 65
 func (m CollateralResponse) HasSymbolSfx() bool {
 	return m.Has(tag.SymbolSfx)
 }
 
-//HasIssuer returns true if Issuer is present, Tag 106
+// HasIssuer returns true if Issuer is present, Tag 106
 func (m CollateralResponse) HasIssuer() bool {
 	return m.Has(tag.Issuer)
 }
 
-//HasSecurityDesc returns true if SecurityDesc is present, Tag 107
+// HasSecurityDesc returns true if SecurityDesc is present, Tag 107
 func (m CollateralResponse) HasSecurityDesc() bool {
 	return m.Has(tag.SecurityDesc)
 }
 
-//HasNoExecs returns true if NoExecs is present, Tag 124
+// HasNoExecs returns true if NoExecs is present, Tag 124
 func (m CollateralResponse) HasNoExecs() bool {
 	return m.Has(tag.NoExecs)
 }
 
-//HasNoMiscFees returns true if NoMiscFees is present, Tag 136
+// HasNoMiscFees returns true if NoMiscFees is present, Tag 136
 func (m CollateralResponse) HasNoMiscFees() bool {
 	return m.Has(tag.NoMiscFees)
 }
 
-//HasAccruedInterestAmt returns true if AccruedInterestAmt is present, Tag 159
+// HasAccruedInterestAmt returns true if AccruedInterestAmt is present, Tag 159
 func (m CollateralResponse) HasAccruedInterestAmt() bool {
 	return m.Has(tag.AccruedInterestAmt)
 }
 
-//HasSecurityType returns true if SecurityType is present, Tag 167
+// HasSecurityType returns true if SecurityType is present, Tag 167
 func (m CollateralResponse) HasSecurityType() bool {
 	return m.Has(tag.SecurityType)
 }
 
-//HasSecondaryOrderID returns true if SecondaryOrderID is present, Tag 198
+// HasSecondaryOrderID returns true if SecondaryOrderID is present, Tag 198
 func (m CollateralResponse) HasSecondaryOrderID() bool {
 	return m.Has(tag.SecondaryOrderID)
 }
 
-//HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
+// HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
 func (m CollateralResponse) HasMaturityMonthYear() bool {
 	return m.Has(tag.MaturityMonthYear)
 }
 
-//HasStrikePrice returns true if StrikePrice is present, Tag 202
+// HasStrikePrice returns true if StrikePrice is present, Tag 202
 func (m CollateralResponse) HasStrikePrice() bool {
 	return m.Has(tag.StrikePrice)
 }
 
-//HasOptAttribute returns true if OptAttribute is present, Tag 206
+// HasOptAttribute returns true if OptAttribute is present, Tag 206
 func (m CollateralResponse) HasOptAttribute() bool {
 	return m.Has(tag.OptAttribute)
 }
 
-//HasSecurityExchange returns true if SecurityExchange is present, Tag 207
+// HasSecurityExchange returns true if SecurityExchange is present, Tag 207
 func (m CollateralResponse) HasSecurityExchange() bool {
 	return m.Has(tag.SecurityExchange)
 }
 
-//HasSpread returns true if Spread is present, Tag 218
+// HasSpread returns true if Spread is present, Tag 218
 func (m CollateralResponse) HasSpread() bool {
 	return m.Has(tag.Spread)
 }
 
-//HasBenchmarkCurveCurrency returns true if BenchmarkCurveCurrency is present, Tag 220
+// HasBenchmarkCurveCurrency returns true if BenchmarkCurveCurrency is present, Tag 220
 func (m CollateralResponse) HasBenchmarkCurveCurrency() bool {
 	return m.Has(tag.BenchmarkCurveCurrency)
 }
 
-//HasBenchmarkCurveName returns true if BenchmarkCurveName is present, Tag 221
+// HasBenchmarkCurveName returns true if BenchmarkCurveName is present, Tag 221
 func (m CollateralResponse) HasBenchmarkCurveName() bool {
 	return m.Has(tag.BenchmarkCurveName)
 }
 
-//HasBenchmarkCurvePoint returns true if BenchmarkCurvePoint is present, Tag 222
+// HasBenchmarkCurvePoint returns true if BenchmarkCurvePoint is present, Tag 222
 func (m CollateralResponse) HasBenchmarkCurvePoint() bool {
 	return m.Has(tag.BenchmarkCurvePoint)
 }
 
-//HasCouponRate returns true if CouponRate is present, Tag 223
+// HasCouponRate returns true if CouponRate is present, Tag 223
 func (m CollateralResponse) HasCouponRate() bool {
 	return m.Has(tag.CouponRate)
 }
 
-//HasCouponPaymentDate returns true if CouponPaymentDate is present, Tag 224
+// HasCouponPaymentDate returns true if CouponPaymentDate is present, Tag 224
 func (m CollateralResponse) HasCouponPaymentDate() bool {
 	return m.Has(tag.CouponPaymentDate)
 }
 
-//HasIssueDate returns true if IssueDate is present, Tag 225
+// HasIssueDate returns true if IssueDate is present, Tag 225
 func (m CollateralResponse) HasIssueDate() bool {
 	return m.Has(tag.IssueDate)
 }
 
-//HasRepurchaseTerm returns true if RepurchaseTerm is present, Tag 226
+// HasRepurchaseTerm returns true if RepurchaseTerm is present, Tag 226
 func (m CollateralResponse) HasRepurchaseTerm() bool {
 	return m.Has(tag.RepurchaseTerm)
 }
 
-//HasRepurchaseRate returns true if RepurchaseRate is present, Tag 227
+// HasRepurchaseRate returns true if RepurchaseRate is present, Tag 227
 func (m CollateralResponse) HasRepurchaseRate() bool {
 	return m.Has(tag.RepurchaseRate)
 }
 
-//HasFactor returns true if Factor is present, Tag 228
+// HasFactor returns true if Factor is present, Tag 228
 func (m CollateralResponse) HasFactor() bool {
 	return m.Has(tag.Factor)
 }
 
-//HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
+// HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
 func (m CollateralResponse) HasContractMultiplier() bool {
 	return m.Has(tag.ContractMultiplier)
 }
 
-//HasNoStipulations returns true if NoStipulations is present, Tag 232
+// HasNoStipulations returns true if NoStipulations is present, Tag 232
 func (m CollateralResponse) HasNoStipulations() bool {
 	return m.Has(tag.NoStipulations)
 }
 
-//HasRepoCollateralSecurityType returns true if RepoCollateralSecurityType is present, Tag 239
+// HasRepoCollateralSecurityType returns true if RepoCollateralSecurityType is present, Tag 239
 func (m CollateralResponse) HasRepoCollateralSecurityType() bool {
 	return m.Has(tag.RepoCollateralSecurityType)
 }
 
-//HasRedemptionDate returns true if RedemptionDate is present, Tag 240
+// HasRedemptionDate returns true if RedemptionDate is present, Tag 240
 func (m CollateralResponse) HasRedemptionDate() bool {
 	return m.Has(tag.RedemptionDate)
 }
 
-//HasCreditRating returns true if CreditRating is present, Tag 255
+// HasCreditRating returns true if CreditRating is present, Tag 255
 func (m CollateralResponse) HasCreditRating() bool {
 	return m.Has(tag.CreditRating)
 }
 
-//HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
+// HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
 func (m CollateralResponse) HasEncodedIssuerLen() bool {
 	return m.Has(tag.EncodedIssuerLen)
 }
 
-//HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
+// HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
 func (m CollateralResponse) HasEncodedIssuer() bool {
 	return m.Has(tag.EncodedIssuer)
 }
 
-//HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
+// HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
 func (m CollateralResponse) HasEncodedSecurityDescLen() bool {
 	return m.Has(tag.EncodedSecurityDescLen)
 }
 
-//HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
+// HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
 func (m CollateralResponse) HasEncodedSecurityDesc() bool {
 	return m.Has(tag.EncodedSecurityDesc)
 }
 
-//HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
+// HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
 func (m CollateralResponse) HasEncodedTextLen() bool {
 	return m.Has(tag.EncodedTextLen)
 }
 
-//HasEncodedText returns true if EncodedText is present, Tag 355
+// HasEncodedText returns true if EncodedText is present, Tag 355
 func (m CollateralResponse) HasEncodedText() bool {
 	return m.Has(tag.EncodedText)
 }
 
-//HasPriceType returns true if PriceType is present, Tag 423
+// HasPriceType returns true if PriceType is present, Tag 423
 func (m CollateralResponse) HasPriceType() bool {
 	return m.Has(tag.PriceType)
 }
 
-//HasNoPartyIDs returns true if NoPartyIDs is present, Tag 453
+// HasNoPartyIDs returns true if NoPartyIDs is present, Tag 453
 func (m CollateralResponse) HasNoPartyIDs() bool {
 	return m.Has(tag.NoPartyIDs)
 }
 
-//HasNoSecurityAltID returns true if NoSecurityAltID is present, Tag 454
+// HasNoSecurityAltID returns true if NoSecurityAltID is present, Tag 454
 func (m CollateralResponse) HasNoSecurityAltID() bool {
 	return m.Has(tag.NoSecurityAltID)
 }
 
-//HasProduct returns true if Product is present, Tag 460
+// HasProduct returns true if Product is present, Tag 460
 func (m CollateralResponse) HasProduct() bool {
 	return m.Has(tag.Product)
 }
 
-//HasCFICode returns true if CFICode is present, Tag 461
+// HasCFICode returns true if CFICode is present, Tag 461
 func (m CollateralResponse) HasCFICode() bool {
 	return m.Has(tag.CFICode)
 }
 
-//HasCountryOfIssue returns true if CountryOfIssue is present, Tag 470
+// HasCountryOfIssue returns true if CountryOfIssue is present, Tag 470
 func (m CollateralResponse) HasCountryOfIssue() bool {
 	return m.Has(tag.CountryOfIssue)
 }
 
-//HasStateOrProvinceOfIssue returns true if StateOrProvinceOfIssue is present, Tag 471
+// HasStateOrProvinceOfIssue returns true if StateOrProvinceOfIssue is present, Tag 471
 func (m CollateralResponse) HasStateOrProvinceOfIssue() bool {
 	return m.Has(tag.StateOrProvinceOfIssue)
 }
 
-//HasLocaleOfIssue returns true if LocaleOfIssue is present, Tag 472
+// HasLocaleOfIssue returns true if LocaleOfIssue is present, Tag 472
 func (m CollateralResponse) HasLocaleOfIssue() bool {
 	return m.Has(tag.LocaleOfIssue)
 }
 
-//HasSecondaryClOrdID returns true if SecondaryClOrdID is present, Tag 526
+// HasSecondaryClOrdID returns true if SecondaryClOrdID is present, Tag 526
 func (m CollateralResponse) HasSecondaryClOrdID() bool {
 	return m.Has(tag.SecondaryClOrdID)
 }
 
-//HasMaturityDate returns true if MaturityDate is present, Tag 541
+// HasMaturityDate returns true if MaturityDate is present, Tag 541
 func (m CollateralResponse) HasMaturityDate() bool {
 	return m.Has(tag.MaturityDate)
 }
 
-//HasInstrRegistry returns true if InstrRegistry is present, Tag 543
+// HasInstrRegistry returns true if InstrRegistry is present, Tag 543
 func (m CollateralResponse) HasInstrRegistry() bool {
 	return m.Has(tag.InstrRegistry)
 }
 
-//HasNoLegs returns true if NoLegs is present, Tag 555
+// HasNoLegs returns true if NoLegs is present, Tag 555
 func (m CollateralResponse) HasNoLegs() bool {
 	return m.Has(tag.NoLegs)
 }
 
-//HasAccountType returns true if AccountType is present, Tag 581
+// HasAccountType returns true if AccountType is present, Tag 581
 func (m CollateralResponse) HasAccountType() bool {
 	return m.Has(tag.AccountType)
 }
 
-//HasBenchmarkPrice returns true if BenchmarkPrice is present, Tag 662
+// HasBenchmarkPrice returns true if BenchmarkPrice is present, Tag 662
 func (m CollateralResponse) HasBenchmarkPrice() bool {
 	return m.Has(tag.BenchmarkPrice)
 }
 
-//HasBenchmarkPriceType returns true if BenchmarkPriceType is present, Tag 663
+// HasBenchmarkPriceType returns true if BenchmarkPriceType is present, Tag 663
 func (m CollateralResponse) HasBenchmarkPriceType() bool {
 	return m.Has(tag.BenchmarkPriceType)
 }
 
-//HasContractSettlMonth returns true if ContractSettlMonth is present, Tag 667
+// HasContractSettlMonth returns true if ContractSettlMonth is present, Tag 667
 func (m CollateralResponse) HasContractSettlMonth() bool {
 	return m.Has(tag.ContractSettlMonth)
 }
 
-//HasPool returns true if Pool is present, Tag 691
+// HasPool returns true if Pool is present, Tag 691
 func (m CollateralResponse) HasPool() bool {
 	return m.Has(tag.Pool)
 }
 
-//HasBenchmarkSecurityID returns true if BenchmarkSecurityID is present, Tag 699
+// HasBenchmarkSecurityID returns true if BenchmarkSecurityID is present, Tag 699
 func (m CollateralResponse) HasBenchmarkSecurityID() bool {
 	return m.Has(tag.BenchmarkSecurityID)
 }
 
-//HasNoUnderlyings returns true if NoUnderlyings is present, Tag 711
+// HasNoUnderlyings returns true if NoUnderlyings is present, Tag 711
 func (m CollateralResponse) HasNoUnderlyings() bool {
 	return m.Has(tag.NoUnderlyings)
 }
 
-//HasBenchmarkSecurityIDSource returns true if BenchmarkSecurityIDSource is present, Tag 761
+// HasBenchmarkSecurityIDSource returns true if BenchmarkSecurityIDSource is present, Tag 761
 func (m CollateralResponse) HasBenchmarkSecurityIDSource() bool {
 	return m.Has(tag.BenchmarkSecurityIDSource)
 }
 
-//HasSecuritySubType returns true if SecuritySubType is present, Tag 762
+// HasSecuritySubType returns true if SecuritySubType is present, Tag 762
 func (m CollateralResponse) HasSecuritySubType() bool {
 	return m.Has(tag.SecuritySubType)
 }
 
-//HasNoTrdRegTimestamps returns true if NoTrdRegTimestamps is present, Tag 768
+// HasNoTrdRegTimestamps returns true if NoTrdRegTimestamps is present, Tag 768
 func (m CollateralResponse) HasNoTrdRegTimestamps() bool {
 	return m.Has(tag.NoTrdRegTimestamps)
 }
 
-//HasTerminationType returns true if TerminationType is present, Tag 788
+// HasTerminationType returns true if TerminationType is present, Tag 788
 func (m CollateralResponse) HasTerminationType() bool {
 	return m.Has(tag.TerminationType)
 }
 
-//HasQtyType returns true if QtyType is present, Tag 854
+// HasQtyType returns true if QtyType is present, Tag 854
 func (m CollateralResponse) HasQtyType() bool {
 	return m.Has(tag.QtyType)
 }
 
-//HasNoEvents returns true if NoEvents is present, Tag 864
+// HasNoEvents returns true if NoEvents is present, Tag 864
 func (m CollateralResponse) HasNoEvents() bool {
 	return m.Has(tag.NoEvents)
 }
 
-//HasDatedDate returns true if DatedDate is present, Tag 873
+// HasDatedDate returns true if DatedDate is present, Tag 873
 func (m CollateralResponse) HasDatedDate() bool {
 	return m.Has(tag.DatedDate)
 }
 
-//HasInterestAccrualDate returns true if InterestAccrualDate is present, Tag 874
+// HasInterestAccrualDate returns true if InterestAccrualDate is present, Tag 874
 func (m CollateralResponse) HasInterestAccrualDate() bool {
 	return m.Has(tag.InterestAccrualDate)
 }
 
-//HasCPProgram returns true if CPProgram is present, Tag 875
+// HasCPProgram returns true if CPProgram is present, Tag 875
 func (m CollateralResponse) HasCPProgram() bool {
 	return m.Has(tag.CPProgram)
 }
 
-//HasCPRegType returns true if CPRegType is present, Tag 876
+// HasCPRegType returns true if CPRegType is present, Tag 876
 func (m CollateralResponse) HasCPRegType() bool {
 	return m.Has(tag.CPRegType)
 }
 
-//HasCollReqID returns true if CollReqID is present, Tag 894
+// HasCollReqID returns true if CollReqID is present, Tag 894
 func (m CollateralResponse) HasCollReqID() bool {
 	return m.Has(tag.CollReqID)
 }
 
-//HasCollAsgnReason returns true if CollAsgnReason is present, Tag 895
+// HasCollAsgnReason returns true if CollAsgnReason is present, Tag 895
 func (m CollateralResponse) HasCollAsgnReason() bool {
 	return m.Has(tag.CollAsgnReason)
 }
 
-//HasNoTrades returns true if NoTrades is present, Tag 897
+// HasNoTrades returns true if NoTrades is present, Tag 897
 func (m CollateralResponse) HasNoTrades() bool {
 	return m.Has(tag.NoTrades)
 }
 
-//HasMarginRatio returns true if MarginRatio is present, Tag 898
+// HasMarginRatio returns true if MarginRatio is present, Tag 898
 func (m CollateralResponse) HasMarginRatio() bool {
 	return m.Has(tag.MarginRatio)
 }
 
-//HasMarginExcess returns true if MarginExcess is present, Tag 899
+// HasMarginExcess returns true if MarginExcess is present, Tag 899
 func (m CollateralResponse) HasMarginExcess() bool {
 	return m.Has(tag.MarginExcess)
 }
 
-//HasTotalNetValue returns true if TotalNetValue is present, Tag 900
+// HasTotalNetValue returns true if TotalNetValue is present, Tag 900
 func (m CollateralResponse) HasTotalNetValue() bool {
 	return m.Has(tag.TotalNetValue)
 }
 
-//HasCashOutstanding returns true if CashOutstanding is present, Tag 901
+// HasCashOutstanding returns true if CashOutstanding is present, Tag 901
 func (m CollateralResponse) HasCashOutstanding() bool {
 	return m.Has(tag.CashOutstanding)
 }
 
-//HasCollAsgnID returns true if CollAsgnID is present, Tag 902
+// HasCollAsgnID returns true if CollAsgnID is present, Tag 902
 func (m CollateralResponse) HasCollAsgnID() bool {
 	return m.Has(tag.CollAsgnID)
 }
 
-//HasCollAsgnTransType returns true if CollAsgnTransType is present, Tag 903
+// HasCollAsgnTransType returns true if CollAsgnTransType is present, Tag 903
 func (m CollateralResponse) HasCollAsgnTransType() bool {
 	return m.Has(tag.CollAsgnTransType)
 }
 
-//HasCollRespID returns true if CollRespID is present, Tag 904
+// HasCollRespID returns true if CollRespID is present, Tag 904
 func (m CollateralResponse) HasCollRespID() bool {
 	return m.Has(tag.CollRespID)
 }
 
-//HasCollAsgnRespType returns true if CollAsgnRespType is present, Tag 905
+// HasCollAsgnRespType returns true if CollAsgnRespType is present, Tag 905
 func (m CollateralResponse) HasCollAsgnRespType() bool {
 	return m.Has(tag.CollAsgnRespType)
 }
 
-//HasCollAsgnRejectReason returns true if CollAsgnRejectReason is present, Tag 906
+// HasCollAsgnRejectReason returns true if CollAsgnRejectReason is present, Tag 906
 func (m CollateralResponse) HasCollAsgnRejectReason() bool {
 	return m.Has(tag.CollAsgnRejectReason)
 }
 
-//HasAgreementDesc returns true if AgreementDesc is present, Tag 913
+// HasAgreementDesc returns true if AgreementDesc is present, Tag 913
 func (m CollateralResponse) HasAgreementDesc() bool {
 	return m.Has(tag.AgreementDesc)
 }
 
-//HasAgreementID returns true if AgreementID is present, Tag 914
+// HasAgreementID returns true if AgreementID is present, Tag 914
 func (m CollateralResponse) HasAgreementID() bool {
 	return m.Has(tag.AgreementID)
 }
 
-//HasAgreementDate returns true if AgreementDate is present, Tag 915
+// HasAgreementDate returns true if AgreementDate is present, Tag 915
 func (m CollateralResponse) HasAgreementDate() bool {
 	return m.Has(tag.AgreementDate)
 }
 
-//HasStartDate returns true if StartDate is present, Tag 916
+// HasStartDate returns true if StartDate is present, Tag 916
 func (m CollateralResponse) HasStartDate() bool {
 	return m.Has(tag.StartDate)
 }
 
-//HasEndDate returns true if EndDate is present, Tag 917
+// HasEndDate returns true if EndDate is present, Tag 917
 func (m CollateralResponse) HasEndDate() bool {
 	return m.Has(tag.EndDate)
 }
 
-//HasAgreementCurrency returns true if AgreementCurrency is present, Tag 918
+// HasAgreementCurrency returns true if AgreementCurrency is present, Tag 918
 func (m CollateralResponse) HasAgreementCurrency() bool {
 	return m.Has(tag.AgreementCurrency)
 }
 
-//HasDeliveryType returns true if DeliveryType is present, Tag 919
+// HasDeliveryType returns true if DeliveryType is present, Tag 919
 func (m CollateralResponse) HasDeliveryType() bool {
 	return m.Has(tag.DeliveryType)
 }
 
-//HasEndAccruedInterestAmt returns true if EndAccruedInterestAmt is present, Tag 920
+// HasEndAccruedInterestAmt returns true if EndAccruedInterestAmt is present, Tag 920
 func (m CollateralResponse) HasEndAccruedInterestAmt() bool {
 	return m.Has(tag.EndAccruedInterestAmt)
 }
 
-//HasStartCash returns true if StartCash is present, Tag 921
+// HasStartCash returns true if StartCash is present, Tag 921
 func (m CollateralResponse) HasStartCash() bool {
 	return m.Has(tag.StartCash)
 }
 
-//HasEndCash returns true if EndCash is present, Tag 922
+// HasEndCash returns true if EndCash is present, Tag 922
 func (m CollateralResponse) HasEndCash() bool {
 	return m.Has(tag.EndCash)
 }
 
-//HasStrikeCurrency returns true if StrikeCurrency is present, Tag 947
+// HasStrikeCurrency returns true if StrikeCurrency is present, Tag 947
 func (m CollateralResponse) HasStrikeCurrency() bool {
 	return m.Has(tag.StrikeCurrency)
 }
 
-//NoExecs is a repeating group element, Tag 124
+// NoExecs is a repeating group element, Tag 124
 type NoExecs struct {
 	*quickfix.Group
 }
 
-//SetExecID sets ExecID, Tag 17
+// SetExecID sets ExecID, Tag 17
 func (m NoExecs) SetExecID(v string) {
 	m.Set(field.NewExecID(v))
 }
 
-//GetExecID gets ExecID, Tag 17
+// GetExecID gets ExecID, Tag 17
 func (m NoExecs) GetExecID() (v string, err quickfix.MessageRejectError) {
 	var f field.ExecIDField
 	if err = m.Get(&f); err == nil {
@@ -1924,60 +1924,61 @@ func (m NoExecs) GetExecID() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//HasExecID returns true if ExecID is present, Tag 17
+// HasExecID returns true if ExecID is present, Tag 17
 func (m NoExecs) HasExecID() bool {
 	return m.Has(tag.ExecID)
 }
 
-//NoExecsRepeatingGroup is a repeating group, Tag 124
+// NoExecsRepeatingGroup is a repeating group, Tag 124
 type NoExecsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoExecsRepeatingGroup returns an initialized, NoExecsRepeatingGroup
+// NewNoExecsRepeatingGroup returns an initialized, NoExecsRepeatingGroup
 func NewNoExecsRepeatingGroup() NoExecsRepeatingGroup {
 	return NoExecsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoExecs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.ExecID)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.ExecID)}),
+	}
 }
 
-//Add create and append a new NoExecs to this group
+// Add create and append a new NoExecs to this group
 func (m NoExecsRepeatingGroup) Add() NoExecs {
 	g := m.RepeatingGroup.Add()
 	return NoExecs{g}
 }
 
-//Get returns the ith NoExecs in the NoExecsRepeatinGroup
+// Get returns the ith NoExecs in the NoExecsRepeatinGroup
 func (m NoExecsRepeatingGroup) Get(i int) NoExecs {
 	return NoExecs{m.RepeatingGroup.Get(i)}
 }
 
-//NoMiscFees is a repeating group element, Tag 136
+// NoMiscFees is a repeating group element, Tag 136
 type NoMiscFees struct {
 	*quickfix.Group
 }
 
-//SetMiscFeeAmt sets MiscFeeAmt, Tag 137
+// SetMiscFeeAmt sets MiscFeeAmt, Tag 137
 func (m NoMiscFees) SetMiscFeeAmt(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMiscFeeAmt(value, scale))
 }
 
-//SetMiscFeeCurr sets MiscFeeCurr, Tag 138
+// SetMiscFeeCurr sets MiscFeeCurr, Tag 138
 func (m NoMiscFees) SetMiscFeeCurr(v string) {
 	m.Set(field.NewMiscFeeCurr(v))
 }
 
-//SetMiscFeeType sets MiscFeeType, Tag 139
+// SetMiscFeeType sets MiscFeeType, Tag 139
 func (m NoMiscFees) SetMiscFeeType(v enum.MiscFeeType) {
 	m.Set(field.NewMiscFeeType(v))
 }
 
-//SetMiscFeeBasis sets MiscFeeBasis, Tag 891
+// SetMiscFeeBasis sets MiscFeeBasis, Tag 891
 func (m NoMiscFees) SetMiscFeeBasis(v enum.MiscFeeBasis) {
 	m.Set(field.NewMiscFeeBasis(v))
 }
 
-//GetMiscFeeAmt gets MiscFeeAmt, Tag 137
+// GetMiscFeeAmt gets MiscFeeAmt, Tag 137
 func (m NoMiscFees) GetMiscFeeAmt() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MiscFeeAmtField
 	if err = m.Get(&f); err == nil {
@@ -1986,7 +1987,7 @@ func (m NoMiscFees) GetMiscFeeAmt() (v decimal.Decimal, err quickfix.MessageReje
 	return
 }
 
-//GetMiscFeeCurr gets MiscFeeCurr, Tag 138
+// GetMiscFeeCurr gets MiscFeeCurr, Tag 138
 func (m NoMiscFees) GetMiscFeeCurr() (v string, err quickfix.MessageRejectError) {
 	var f field.MiscFeeCurrField
 	if err = m.Get(&f); err == nil {
@@ -1995,7 +1996,7 @@ func (m NoMiscFees) GetMiscFeeCurr() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetMiscFeeType gets MiscFeeType, Tag 139
+// GetMiscFeeType gets MiscFeeType, Tag 139
 func (m NoMiscFees) GetMiscFeeType() (v enum.MiscFeeType, err quickfix.MessageRejectError) {
 	var f field.MiscFeeTypeField
 	if err = m.Get(&f); err == nil {
@@ -2004,7 +2005,7 @@ func (m NoMiscFees) GetMiscFeeType() (v enum.MiscFeeType, err quickfix.MessageRe
 	return
 }
 
-//GetMiscFeeBasis gets MiscFeeBasis, Tag 891
+// GetMiscFeeBasis gets MiscFeeBasis, Tag 891
 func (m NoMiscFees) GetMiscFeeBasis() (v enum.MiscFeeBasis, err quickfix.MessageRejectError) {
 	var f field.MiscFeeBasisField
 	if err = m.Get(&f); err == nil {
@@ -2013,65 +2014,66 @@ func (m NoMiscFees) GetMiscFeeBasis() (v enum.MiscFeeBasis, err quickfix.Message
 	return
 }
 
-//HasMiscFeeAmt returns true if MiscFeeAmt is present, Tag 137
+// HasMiscFeeAmt returns true if MiscFeeAmt is present, Tag 137
 func (m NoMiscFees) HasMiscFeeAmt() bool {
 	return m.Has(tag.MiscFeeAmt)
 }
 
-//HasMiscFeeCurr returns true if MiscFeeCurr is present, Tag 138
+// HasMiscFeeCurr returns true if MiscFeeCurr is present, Tag 138
 func (m NoMiscFees) HasMiscFeeCurr() bool {
 	return m.Has(tag.MiscFeeCurr)
 }
 
-//HasMiscFeeType returns true if MiscFeeType is present, Tag 139
+// HasMiscFeeType returns true if MiscFeeType is present, Tag 139
 func (m NoMiscFees) HasMiscFeeType() bool {
 	return m.Has(tag.MiscFeeType)
 }
 
-//HasMiscFeeBasis returns true if MiscFeeBasis is present, Tag 891
+// HasMiscFeeBasis returns true if MiscFeeBasis is present, Tag 891
 func (m NoMiscFees) HasMiscFeeBasis() bool {
 	return m.Has(tag.MiscFeeBasis)
 }
 
-//NoMiscFeesRepeatingGroup is a repeating group, Tag 136
+// NoMiscFeesRepeatingGroup is a repeating group, Tag 136
 type NoMiscFeesRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoMiscFeesRepeatingGroup returns an initialized, NoMiscFeesRepeatingGroup
+// NewNoMiscFeesRepeatingGroup returns an initialized, NoMiscFeesRepeatingGroup
 func NewNoMiscFeesRepeatingGroup() NoMiscFeesRepeatingGroup {
 	return NoMiscFeesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoMiscFees,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.MiscFeeAmt), quickfix.GroupElement(tag.MiscFeeCurr), quickfix.GroupElement(tag.MiscFeeType), quickfix.GroupElement(tag.MiscFeeBasis)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.MiscFeeAmt), quickfix.GroupElement(tag.MiscFeeCurr), quickfix.GroupElement(tag.MiscFeeType), quickfix.GroupElement(tag.MiscFeeBasis)}),
+	}
 }
 
-//Add create and append a new NoMiscFees to this group
+// Add create and append a new NoMiscFees to this group
 func (m NoMiscFeesRepeatingGroup) Add() NoMiscFees {
 	g := m.RepeatingGroup.Add()
 	return NoMiscFees{g}
 }
 
-//Get returns the ith NoMiscFees in the NoMiscFeesRepeatinGroup
+// Get returns the ith NoMiscFees in the NoMiscFeesRepeatinGroup
 func (m NoMiscFeesRepeatingGroup) Get(i int) NoMiscFees {
 	return NoMiscFees{m.RepeatingGroup.Get(i)}
 }
 
-//NoStipulations is a repeating group element, Tag 232
+// NoStipulations is a repeating group element, Tag 232
 type NoStipulations struct {
 	*quickfix.Group
 }
 
-//SetStipulationType sets StipulationType, Tag 233
+// SetStipulationType sets StipulationType, Tag 233
 func (m NoStipulations) SetStipulationType(v enum.StipulationType) {
 	m.Set(field.NewStipulationType(v))
 }
 
-//SetStipulationValue sets StipulationValue, Tag 234
+// SetStipulationValue sets StipulationValue, Tag 234
 func (m NoStipulations) SetStipulationValue(v string) {
 	m.Set(field.NewStipulationValue(v))
 }
 
-//GetStipulationType gets StipulationType, Tag 233
+// GetStipulationType gets StipulationType, Tag 233
 func (m NoStipulations) GetStipulationType() (v enum.StipulationType, err quickfix.MessageRejectError) {
 	var f field.StipulationTypeField
 	if err = m.Get(&f); err == nil {
@@ -2080,7 +2082,7 @@ func (m NoStipulations) GetStipulationType() (v enum.StipulationType, err quickf
 	return
 }
 
-//GetStipulationValue gets StipulationValue, Tag 234
+// GetStipulationValue gets StipulationValue, Tag 234
 func (m NoStipulations) GetStipulationValue() (v string, err quickfix.MessageRejectError) {
 	var f field.StipulationValueField
 	if err = m.Get(&f); err == nil {
@@ -2089,65 +2091,66 @@ func (m NoStipulations) GetStipulationValue() (v string, err quickfix.MessageRej
 	return
 }
 
-//HasStipulationType returns true if StipulationType is present, Tag 233
+// HasStipulationType returns true if StipulationType is present, Tag 233
 func (m NoStipulations) HasStipulationType() bool {
 	return m.Has(tag.StipulationType)
 }
 
-//HasStipulationValue returns true if StipulationValue is present, Tag 234
+// HasStipulationValue returns true if StipulationValue is present, Tag 234
 func (m NoStipulations) HasStipulationValue() bool {
 	return m.Has(tag.StipulationValue)
 }
 
-//NoStipulationsRepeatingGroup is a repeating group, Tag 232
+// NoStipulationsRepeatingGroup is a repeating group, Tag 232
 type NoStipulationsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoStipulationsRepeatingGroup returns an initialized, NoStipulationsRepeatingGroup
+// NewNoStipulationsRepeatingGroup returns an initialized, NoStipulationsRepeatingGroup
 func NewNoStipulationsRepeatingGroup() NoStipulationsRepeatingGroup {
 	return NoStipulationsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoStipulations,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.StipulationType), quickfix.GroupElement(tag.StipulationValue)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.StipulationType), quickfix.GroupElement(tag.StipulationValue)}),
+	}
 }
 
-//Add create and append a new NoStipulations to this group
+// Add create and append a new NoStipulations to this group
 func (m NoStipulationsRepeatingGroup) Add() NoStipulations {
 	g := m.RepeatingGroup.Add()
 	return NoStipulations{g}
 }
 
-//Get returns the ith NoStipulations in the NoStipulationsRepeatinGroup
+// Get returns the ith NoStipulations in the NoStipulationsRepeatinGroup
 func (m NoStipulationsRepeatingGroup) Get(i int) NoStipulations {
 	return NoStipulations{m.RepeatingGroup.Get(i)}
 }
 
-//NoPartyIDs is a repeating group element, Tag 453
+// NoPartyIDs is a repeating group element, Tag 453
 type NoPartyIDs struct {
 	*quickfix.Group
 }
 
-//SetPartyID sets PartyID, Tag 448
+// SetPartyID sets PartyID, Tag 448
 func (m NoPartyIDs) SetPartyID(v string) {
 	m.Set(field.NewPartyID(v))
 }
 
-//SetPartyIDSource sets PartyIDSource, Tag 447
+// SetPartyIDSource sets PartyIDSource, Tag 447
 func (m NoPartyIDs) SetPartyIDSource(v enum.PartyIDSource) {
 	m.Set(field.NewPartyIDSource(v))
 }
 
-//SetPartyRole sets PartyRole, Tag 452
+// SetPartyRole sets PartyRole, Tag 452
 func (m NoPartyIDs) SetPartyRole(v enum.PartyRole) {
 	m.Set(field.NewPartyRole(v))
 }
 
-//SetNoPartySubIDs sets NoPartySubIDs, Tag 802
+// SetNoPartySubIDs sets NoPartySubIDs, Tag 802
 func (m NoPartyIDs) SetNoPartySubIDs(f NoPartySubIDsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//GetPartyID gets PartyID, Tag 448
+// GetPartyID gets PartyID, Tag 448
 func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
 	var f field.PartyIDField
 	if err = m.Get(&f); err == nil {
@@ -2156,7 +2159,7 @@ func (m NoPartyIDs) GetPartyID() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetPartyIDSource gets PartyIDSource, Tag 447
+// GetPartyIDSource gets PartyIDSource, Tag 447
 func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.MessageRejectError) {
 	var f field.PartyIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -2165,7 +2168,7 @@ func (m NoPartyIDs) GetPartyIDSource() (v enum.PartyIDSource, err quickfix.Messa
 	return
 }
 
-//GetPartyRole gets PartyRole, Tag 452
+// GetPartyRole gets PartyRole, Tag 452
 func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageRejectError) {
 	var f field.PartyRoleField
 	if err = m.Get(&f); err == nil {
@@ -2174,49 +2177,49 @@ func (m NoPartyIDs) GetPartyRole() (v enum.PartyRole, err quickfix.MessageReject
 	return
 }
 
-//GetNoPartySubIDs gets NoPartySubIDs, Tag 802
+// GetNoPartySubIDs gets NoPartySubIDs, Tag 802
 func (m NoPartyIDs) GetNoPartySubIDs() (NoPartySubIDsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoPartySubIDsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//HasPartyID returns true if PartyID is present, Tag 448
+// HasPartyID returns true if PartyID is present, Tag 448
 func (m NoPartyIDs) HasPartyID() bool {
 	return m.Has(tag.PartyID)
 }
 
-//HasPartyIDSource returns true if PartyIDSource is present, Tag 447
+// HasPartyIDSource returns true if PartyIDSource is present, Tag 447
 func (m NoPartyIDs) HasPartyIDSource() bool {
 	return m.Has(tag.PartyIDSource)
 }
 
-//HasPartyRole returns true if PartyRole is present, Tag 452
+// HasPartyRole returns true if PartyRole is present, Tag 452
 func (m NoPartyIDs) HasPartyRole() bool {
 	return m.Has(tag.PartyRole)
 }
 
-//HasNoPartySubIDs returns true if NoPartySubIDs is present, Tag 802
+// HasNoPartySubIDs returns true if NoPartySubIDs is present, Tag 802
 func (m NoPartyIDs) HasNoPartySubIDs() bool {
 	return m.Has(tag.NoPartySubIDs)
 }
 
-//NoPartySubIDs is a repeating group element, Tag 802
+// NoPartySubIDs is a repeating group element, Tag 802
 type NoPartySubIDs struct {
 	*quickfix.Group
 }
 
-//SetPartySubID sets PartySubID, Tag 523
+// SetPartySubID sets PartySubID, Tag 523
 func (m NoPartySubIDs) SetPartySubID(v string) {
 	m.Set(field.NewPartySubID(v))
 }
 
-//SetPartySubIDType sets PartySubIDType, Tag 803
+// SetPartySubIDType sets PartySubIDType, Tag 803
 func (m NoPartySubIDs) SetPartySubIDType(v enum.PartySubIDType) {
 	m.Set(field.NewPartySubIDType(v))
 }
 
-//GetPartySubID gets PartySubID, Tag 523
+// GetPartySubID gets PartySubID, Tag 523
 func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectError) {
 	var f field.PartySubIDField
 	if err = m.Get(&f); err == nil {
@@ -2225,7 +2228,7 @@ func (m NoPartySubIDs) GetPartySubID() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetPartySubIDType gets PartySubIDType, Tag 803
+// GetPartySubIDType gets PartySubIDType, Tag 803
 func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.MessageRejectError) {
 	var f field.PartySubIDTypeField
 	if err = m.Get(&f); err == nil {
@@ -2234,78 +2237,80 @@ func (m NoPartySubIDs) GetPartySubIDType() (v enum.PartySubIDType, err quickfix.
 	return
 }
 
-//HasPartySubID returns true if PartySubID is present, Tag 523
+// HasPartySubID returns true if PartySubID is present, Tag 523
 func (m NoPartySubIDs) HasPartySubID() bool {
 	return m.Has(tag.PartySubID)
 }
 
-//HasPartySubIDType returns true if PartySubIDType is present, Tag 803
+// HasPartySubIDType returns true if PartySubIDType is present, Tag 803
 func (m NoPartySubIDs) HasPartySubIDType() bool {
 	return m.Has(tag.PartySubIDType)
 }
 
-//NoPartySubIDsRepeatingGroup is a repeating group, Tag 802
+// NoPartySubIDsRepeatingGroup is a repeating group, Tag 802
 type NoPartySubIDsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoPartySubIDsRepeatingGroup returns an initialized, NoPartySubIDsRepeatingGroup
+// NewNoPartySubIDsRepeatingGroup returns an initialized, NoPartySubIDsRepeatingGroup
 func NewNoPartySubIDsRepeatingGroup() NoPartySubIDsRepeatingGroup {
 	return NoPartySubIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartySubIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartySubID), quickfix.GroupElement(tag.PartySubIDType)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartySubID), quickfix.GroupElement(tag.PartySubIDType)}),
+	}
 }
 
-//Add create and append a new NoPartySubIDs to this group
+// Add create and append a new NoPartySubIDs to this group
 func (m NoPartySubIDsRepeatingGroup) Add() NoPartySubIDs {
 	g := m.RepeatingGroup.Add()
 	return NoPartySubIDs{g}
 }
 
-//Get returns the ith NoPartySubIDs in the NoPartySubIDsRepeatinGroup
+// Get returns the ith NoPartySubIDs in the NoPartySubIDsRepeatinGroup
 func (m NoPartySubIDsRepeatingGroup) Get(i int) NoPartySubIDs {
 	return NoPartySubIDs{m.RepeatingGroup.Get(i)}
 }
 
-//NoPartyIDsRepeatingGroup is a repeating group, Tag 453
+// NoPartyIDsRepeatingGroup is a repeating group, Tag 453
 type NoPartyIDsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoPartyIDsRepeatingGroup returns an initialized, NoPartyIDsRepeatingGroup
+// NewNoPartyIDsRepeatingGroup returns an initialized, NoPartyIDsRepeatingGroup
 func NewNoPartyIDsRepeatingGroup() NoPartyIDsRepeatingGroup {
 	return NoPartyIDsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoPartyIDs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.PartyID), quickfix.GroupElement(tag.PartyIDSource), quickfix.GroupElement(tag.PartyRole), NewNoPartySubIDsRepeatingGroup()}),
+	}
 }
 
-//Add create and append a new NoPartyIDs to this group
+// Add create and append a new NoPartyIDs to this group
 func (m NoPartyIDsRepeatingGroup) Add() NoPartyIDs {
 	g := m.RepeatingGroup.Add()
 	return NoPartyIDs{g}
 }
 
-//Get returns the ith NoPartyIDs in the NoPartyIDsRepeatinGroup
+// Get returns the ith NoPartyIDs in the NoPartyIDsRepeatinGroup
 func (m NoPartyIDsRepeatingGroup) Get(i int) NoPartyIDs {
 	return NoPartyIDs{m.RepeatingGroup.Get(i)}
 }
 
-//NoSecurityAltID is a repeating group element, Tag 454
+// NoSecurityAltID is a repeating group element, Tag 454
 type NoSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetSecurityAltID sets SecurityAltID, Tag 455
+// SetSecurityAltID sets SecurityAltID, Tag 455
 func (m NoSecurityAltID) SetSecurityAltID(v string) {
 	m.Set(field.NewSecurityAltID(v))
 }
 
-//SetSecurityAltIDSource sets SecurityAltIDSource, Tag 456
+// SetSecurityAltIDSource sets SecurityAltIDSource, Tag 456
 func (m NoSecurityAltID) SetSecurityAltIDSource(v string) {
 	m.Set(field.NewSecurityAltIDSource(v))
 }
 
-//GetSecurityAltID gets SecurityAltID, Tag 455
+// GetSecurityAltID gets SecurityAltID, Tag 455
 func (m NoSecurityAltID) GetSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -2314,7 +2319,7 @@ func (m NoSecurityAltID) GetSecurityAltID() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetSecurityAltIDSource gets SecurityAltIDSource, Tag 456
+// GetSecurityAltIDSource gets SecurityAltIDSource, Tag 456
 func (m NoSecurityAltID) GetSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -2323,255 +2328,256 @@ func (m NoSecurityAltID) GetSecurityAltIDSource() (v string, err quickfix.Messag
 	return
 }
 
-//HasSecurityAltID returns true if SecurityAltID is present, Tag 455
+// HasSecurityAltID returns true if SecurityAltID is present, Tag 455
 func (m NoSecurityAltID) HasSecurityAltID() bool {
 	return m.Has(tag.SecurityAltID)
 }
 
-//HasSecurityAltIDSource returns true if SecurityAltIDSource is present, Tag 456
+// HasSecurityAltIDSource returns true if SecurityAltIDSource is present, Tag 456
 func (m NoSecurityAltID) HasSecurityAltIDSource() bool {
 	return m.Has(tag.SecurityAltIDSource)
 }
 
-//NoSecurityAltIDRepeatingGroup is a repeating group, Tag 454
+// NoSecurityAltIDRepeatingGroup is a repeating group, Tag 454
 type NoSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoSecurityAltIDRepeatingGroup returns an initialized, NoSecurityAltIDRepeatingGroup
+// NewNoSecurityAltIDRepeatingGroup returns an initialized, NoSecurityAltIDRepeatingGroup
 func NewNoSecurityAltIDRepeatingGroup() NoSecurityAltIDRepeatingGroup {
 	return NoSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.SecurityAltID), quickfix.GroupElement(tag.SecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.SecurityAltID), quickfix.GroupElement(tag.SecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoSecurityAltID to this group
+// Add create and append a new NoSecurityAltID to this group
 func (m NoSecurityAltIDRepeatingGroup) Add() NoSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoSecurityAltID{g}
 }
 
-//Get returns the ith NoSecurityAltID in the NoSecurityAltIDRepeatinGroup
+// Get returns the ith NoSecurityAltID in the NoSecurityAltIDRepeatinGroup
 func (m NoSecurityAltIDRepeatingGroup) Get(i int) NoSecurityAltID {
 	return NoSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoLegs is a repeating group element, Tag 555
+// NoLegs is a repeating group element, Tag 555
 type NoLegs struct {
 	*quickfix.Group
 }
 
-//SetLegSymbol sets LegSymbol, Tag 600
+// SetLegSymbol sets LegSymbol, Tag 600
 func (m NoLegs) SetLegSymbol(v string) {
 	m.Set(field.NewLegSymbol(v))
 }
 
-//SetLegSymbolSfx sets LegSymbolSfx, Tag 601
+// SetLegSymbolSfx sets LegSymbolSfx, Tag 601
 func (m NoLegs) SetLegSymbolSfx(v string) {
 	m.Set(field.NewLegSymbolSfx(v))
 }
 
-//SetLegSecurityID sets LegSecurityID, Tag 602
+// SetLegSecurityID sets LegSecurityID, Tag 602
 func (m NoLegs) SetLegSecurityID(v string) {
 	m.Set(field.NewLegSecurityID(v))
 }
 
-//SetLegSecurityIDSource sets LegSecurityIDSource, Tag 603
+// SetLegSecurityIDSource sets LegSecurityIDSource, Tag 603
 func (m NoLegs) SetLegSecurityIDSource(v string) {
 	m.Set(field.NewLegSecurityIDSource(v))
 }
 
-//SetNoLegSecurityAltID sets NoLegSecurityAltID, Tag 604
+// SetNoLegSecurityAltID sets NoLegSecurityAltID, Tag 604
 func (m NoLegs) SetNoLegSecurityAltID(f NoLegSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetLegProduct sets LegProduct, Tag 607
+// SetLegProduct sets LegProduct, Tag 607
 func (m NoLegs) SetLegProduct(v int) {
 	m.Set(field.NewLegProduct(v))
 }
 
-//SetLegCFICode sets LegCFICode, Tag 608
+// SetLegCFICode sets LegCFICode, Tag 608
 func (m NoLegs) SetLegCFICode(v string) {
 	m.Set(field.NewLegCFICode(v))
 }
 
-//SetLegSecurityType sets LegSecurityType, Tag 609
+// SetLegSecurityType sets LegSecurityType, Tag 609
 func (m NoLegs) SetLegSecurityType(v string) {
 	m.Set(field.NewLegSecurityType(v))
 }
 
-//SetLegSecuritySubType sets LegSecuritySubType, Tag 764
+// SetLegSecuritySubType sets LegSecuritySubType, Tag 764
 func (m NoLegs) SetLegSecuritySubType(v string) {
 	m.Set(field.NewLegSecuritySubType(v))
 }
 
-//SetLegMaturityMonthYear sets LegMaturityMonthYear, Tag 610
+// SetLegMaturityMonthYear sets LegMaturityMonthYear, Tag 610
 func (m NoLegs) SetLegMaturityMonthYear(v string) {
 	m.Set(field.NewLegMaturityMonthYear(v))
 }
 
-//SetLegMaturityDate sets LegMaturityDate, Tag 611
+// SetLegMaturityDate sets LegMaturityDate, Tag 611
 func (m NoLegs) SetLegMaturityDate(v string) {
 	m.Set(field.NewLegMaturityDate(v))
 }
 
-//SetLegCouponPaymentDate sets LegCouponPaymentDate, Tag 248
+// SetLegCouponPaymentDate sets LegCouponPaymentDate, Tag 248
 func (m NoLegs) SetLegCouponPaymentDate(v string) {
 	m.Set(field.NewLegCouponPaymentDate(v))
 }
 
-//SetLegIssueDate sets LegIssueDate, Tag 249
+// SetLegIssueDate sets LegIssueDate, Tag 249
 func (m NoLegs) SetLegIssueDate(v string) {
 	m.Set(field.NewLegIssueDate(v))
 }
 
-//SetLegRepoCollateralSecurityType sets LegRepoCollateralSecurityType, Tag 250
+// SetLegRepoCollateralSecurityType sets LegRepoCollateralSecurityType, Tag 250
 func (m NoLegs) SetLegRepoCollateralSecurityType(v int) {
 	m.Set(field.NewLegRepoCollateralSecurityType(v))
 }
 
-//SetLegRepurchaseTerm sets LegRepurchaseTerm, Tag 251
+// SetLegRepurchaseTerm sets LegRepurchaseTerm, Tag 251
 func (m NoLegs) SetLegRepurchaseTerm(v int) {
 	m.Set(field.NewLegRepurchaseTerm(v))
 }
 
-//SetLegRepurchaseRate sets LegRepurchaseRate, Tag 252
+// SetLegRepurchaseRate sets LegRepurchaseRate, Tag 252
 func (m NoLegs) SetLegRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegRepurchaseRate(value, scale))
 }
 
-//SetLegFactor sets LegFactor, Tag 253
+// SetLegFactor sets LegFactor, Tag 253
 func (m NoLegs) SetLegFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegFactor(value, scale))
 }
 
-//SetLegCreditRating sets LegCreditRating, Tag 257
+// SetLegCreditRating sets LegCreditRating, Tag 257
 func (m NoLegs) SetLegCreditRating(v string) {
 	m.Set(field.NewLegCreditRating(v))
 }
 
-//SetLegInstrRegistry sets LegInstrRegistry, Tag 599
+// SetLegInstrRegistry sets LegInstrRegistry, Tag 599
 func (m NoLegs) SetLegInstrRegistry(v string) {
 	m.Set(field.NewLegInstrRegistry(v))
 }
 
-//SetLegCountryOfIssue sets LegCountryOfIssue, Tag 596
+// SetLegCountryOfIssue sets LegCountryOfIssue, Tag 596
 func (m NoLegs) SetLegCountryOfIssue(v string) {
 	m.Set(field.NewLegCountryOfIssue(v))
 }
 
-//SetLegStateOrProvinceOfIssue sets LegStateOrProvinceOfIssue, Tag 597
+// SetLegStateOrProvinceOfIssue sets LegStateOrProvinceOfIssue, Tag 597
 func (m NoLegs) SetLegStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewLegStateOrProvinceOfIssue(v))
 }
 
-//SetLegLocaleOfIssue sets LegLocaleOfIssue, Tag 598
+// SetLegLocaleOfIssue sets LegLocaleOfIssue, Tag 598
 func (m NoLegs) SetLegLocaleOfIssue(v string) {
 	m.Set(field.NewLegLocaleOfIssue(v))
 }
 
-//SetLegRedemptionDate sets LegRedemptionDate, Tag 254
+// SetLegRedemptionDate sets LegRedemptionDate, Tag 254
 func (m NoLegs) SetLegRedemptionDate(v string) {
 	m.Set(field.NewLegRedemptionDate(v))
 }
 
-//SetLegStrikePrice sets LegStrikePrice, Tag 612
+// SetLegStrikePrice sets LegStrikePrice, Tag 612
 func (m NoLegs) SetLegStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegStrikePrice(value, scale))
 }
 
-//SetLegStrikeCurrency sets LegStrikeCurrency, Tag 942
+// SetLegStrikeCurrency sets LegStrikeCurrency, Tag 942
 func (m NoLegs) SetLegStrikeCurrency(v string) {
 	m.Set(field.NewLegStrikeCurrency(v))
 }
 
-//SetLegOptAttribute sets LegOptAttribute, Tag 613
+// SetLegOptAttribute sets LegOptAttribute, Tag 613
 func (m NoLegs) SetLegOptAttribute(v string) {
 	m.Set(field.NewLegOptAttribute(v))
 }
 
-//SetLegContractMultiplier sets LegContractMultiplier, Tag 614
+// SetLegContractMultiplier sets LegContractMultiplier, Tag 614
 func (m NoLegs) SetLegContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegContractMultiplier(value, scale))
 }
 
-//SetLegCouponRate sets LegCouponRate, Tag 615
+// SetLegCouponRate sets LegCouponRate, Tag 615
 func (m NoLegs) SetLegCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegCouponRate(value, scale))
 }
 
-//SetLegSecurityExchange sets LegSecurityExchange, Tag 616
+// SetLegSecurityExchange sets LegSecurityExchange, Tag 616
 func (m NoLegs) SetLegSecurityExchange(v string) {
 	m.Set(field.NewLegSecurityExchange(v))
 }
 
-//SetLegIssuer sets LegIssuer, Tag 617
+// SetLegIssuer sets LegIssuer, Tag 617
 func (m NoLegs) SetLegIssuer(v string) {
 	m.Set(field.NewLegIssuer(v))
 }
 
-//SetEncodedLegIssuerLen sets EncodedLegIssuerLen, Tag 618
+// SetEncodedLegIssuerLen sets EncodedLegIssuerLen, Tag 618
 func (m NoLegs) SetEncodedLegIssuerLen(v int) {
 	m.Set(field.NewEncodedLegIssuerLen(v))
 }
 
-//SetEncodedLegIssuer sets EncodedLegIssuer, Tag 619
+// SetEncodedLegIssuer sets EncodedLegIssuer, Tag 619
 func (m NoLegs) SetEncodedLegIssuer(v string) {
 	m.Set(field.NewEncodedLegIssuer(v))
 }
 
-//SetLegSecurityDesc sets LegSecurityDesc, Tag 620
+// SetLegSecurityDesc sets LegSecurityDesc, Tag 620
 func (m NoLegs) SetLegSecurityDesc(v string) {
 	m.Set(field.NewLegSecurityDesc(v))
 }
 
-//SetEncodedLegSecurityDescLen sets EncodedLegSecurityDescLen, Tag 621
+// SetEncodedLegSecurityDescLen sets EncodedLegSecurityDescLen, Tag 621
 func (m NoLegs) SetEncodedLegSecurityDescLen(v int) {
 	m.Set(field.NewEncodedLegSecurityDescLen(v))
 }
 
-//SetEncodedLegSecurityDesc sets EncodedLegSecurityDesc, Tag 622
+// SetEncodedLegSecurityDesc sets EncodedLegSecurityDesc, Tag 622
 func (m NoLegs) SetEncodedLegSecurityDesc(v string) {
 	m.Set(field.NewEncodedLegSecurityDesc(v))
 }
 
-//SetLegRatioQty sets LegRatioQty, Tag 623
+// SetLegRatioQty sets LegRatioQty, Tag 623
 func (m NoLegs) SetLegRatioQty(value decimal.Decimal, scale int32) {
 	m.Set(field.NewLegRatioQty(value, scale))
 }
 
-//SetLegSide sets LegSide, Tag 624
+// SetLegSide sets LegSide, Tag 624
 func (m NoLegs) SetLegSide(v string) {
 	m.Set(field.NewLegSide(v))
 }
 
-//SetLegCurrency sets LegCurrency, Tag 556
+// SetLegCurrency sets LegCurrency, Tag 556
 func (m NoLegs) SetLegCurrency(v string) {
 	m.Set(field.NewLegCurrency(v))
 }
 
-//SetLegPool sets LegPool, Tag 740
+// SetLegPool sets LegPool, Tag 740
 func (m NoLegs) SetLegPool(v string) {
 	m.Set(field.NewLegPool(v))
 }
 
-//SetLegDatedDate sets LegDatedDate, Tag 739
+// SetLegDatedDate sets LegDatedDate, Tag 739
 func (m NoLegs) SetLegDatedDate(v string) {
 	m.Set(field.NewLegDatedDate(v))
 }
 
-//SetLegContractSettlMonth sets LegContractSettlMonth, Tag 955
+// SetLegContractSettlMonth sets LegContractSettlMonth, Tag 955
 func (m NoLegs) SetLegContractSettlMonth(v string) {
 	m.Set(field.NewLegContractSettlMonth(v))
 }
 
-//SetLegInterestAccrualDate sets LegInterestAccrualDate, Tag 956
+// SetLegInterestAccrualDate sets LegInterestAccrualDate, Tag 956
 func (m NoLegs) SetLegInterestAccrualDate(v string) {
 	m.Set(field.NewLegInterestAccrualDate(v))
 }
 
-//GetLegSymbol gets LegSymbol, Tag 600
+// GetLegSymbol gets LegSymbol, Tag 600
 func (m NoLegs) GetLegSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSymbolField
 	if err = m.Get(&f); err == nil {
@@ -2580,7 +2586,7 @@ func (m NoLegs) GetLegSymbol() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegSymbolSfx gets LegSymbolSfx, Tag 601
+// GetLegSymbolSfx gets LegSymbolSfx, Tag 601
 func (m NoLegs) GetLegSymbolSfx() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -2589,7 +2595,7 @@ func (m NoLegs) GetLegSymbolSfx() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegSecurityID gets LegSecurityID, Tag 602
+// GetLegSecurityID gets LegSecurityID, Tag 602
 func (m NoLegs) GetLegSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -2598,7 +2604,7 @@ func (m NoLegs) GetLegSecurityID() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegSecurityIDSource gets LegSecurityIDSource, Tag 603
+// GetLegSecurityIDSource gets LegSecurityIDSource, Tag 603
 func (m NoLegs) GetLegSecurityIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -2607,14 +2613,14 @@ func (m NoLegs) GetLegSecurityIDSource() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetNoLegSecurityAltID gets NoLegSecurityAltID, Tag 604
+// GetNoLegSecurityAltID gets NoLegSecurityAltID, Tag 604
 func (m NoLegs) GetNoLegSecurityAltID() (NoLegSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoLegSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetLegProduct gets LegProduct, Tag 607
+// GetLegProduct gets LegProduct, Tag 607
 func (m NoLegs) GetLegProduct() (v int, err quickfix.MessageRejectError) {
 	var f field.LegProductField
 	if err = m.Get(&f); err == nil {
@@ -2623,7 +2629,7 @@ func (m NoLegs) GetLegProduct() (v int, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegCFICode gets LegCFICode, Tag 608
+// GetLegCFICode gets LegCFICode, Tag 608
 func (m NoLegs) GetLegCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.LegCFICodeField
 	if err = m.Get(&f); err == nil {
@@ -2632,7 +2638,7 @@ func (m NoLegs) GetLegCFICode() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegSecurityType gets LegSecurityType, Tag 609
+// GetLegSecurityType gets LegSecurityType, Tag 609
 func (m NoLegs) GetLegSecurityType() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -2641,7 +2647,7 @@ func (m NoLegs) GetLegSecurityType() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetLegSecuritySubType gets LegSecuritySubType, Tag 764
+// GetLegSecuritySubType gets LegSecuritySubType, Tag 764
 func (m NoLegs) GetLegSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -2650,7 +2656,7 @@ func (m NoLegs) GetLegSecuritySubType() (v string, err quickfix.MessageRejectErr
 	return
 }
 
-//GetLegMaturityMonthYear gets LegMaturityMonthYear, Tag 610
+// GetLegMaturityMonthYear gets LegMaturityMonthYear, Tag 610
 func (m NoLegs) GetLegMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.LegMaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -2659,7 +2665,7 @@ func (m NoLegs) GetLegMaturityMonthYear() (v string, err quickfix.MessageRejectE
 	return
 }
 
-//GetLegMaturityDate gets LegMaturityDate, Tag 611
+// GetLegMaturityDate gets LegMaturityDate, Tag 611
 func (m NoLegs) GetLegMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegMaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -2668,7 +2674,7 @@ func (m NoLegs) GetLegMaturityDate() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetLegCouponPaymentDate gets LegCouponPaymentDate, Tag 248
+// GetLegCouponPaymentDate gets LegCouponPaymentDate, Tag 248
 func (m NoLegs) GetLegCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegCouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -2677,7 +2683,7 @@ func (m NoLegs) GetLegCouponPaymentDate() (v string, err quickfix.MessageRejectE
 	return
 }
 
-//GetLegIssueDate gets LegIssueDate, Tag 249
+// GetLegIssueDate gets LegIssueDate, Tag 249
 func (m NoLegs) GetLegIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegIssueDateField
 	if err = m.Get(&f); err == nil {
@@ -2686,7 +2692,7 @@ func (m NoLegs) GetLegIssueDate() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegRepoCollateralSecurityType gets LegRepoCollateralSecurityType, Tag 250
+// GetLegRepoCollateralSecurityType gets LegRepoCollateralSecurityType, Tag 250
 func (m NoLegs) GetLegRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.LegRepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -2695,7 +2701,7 @@ func (m NoLegs) GetLegRepoCollateralSecurityType() (v int, err quickfix.MessageR
 	return
 }
 
-//GetLegRepurchaseTerm gets LegRepurchaseTerm, Tag 251
+// GetLegRepurchaseTerm gets LegRepurchaseTerm, Tag 251
 func (m NoLegs) GetLegRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.LegRepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -2704,7 +2710,7 @@ func (m NoLegs) GetLegRepurchaseTerm() (v int, err quickfix.MessageRejectError) 
 	return
 }
 
-//GetLegRepurchaseRate gets LegRepurchaseRate, Tag 252
+// GetLegRepurchaseRate gets LegRepurchaseRate, Tag 252
 func (m NoLegs) GetLegRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegRepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -2713,7 +2719,7 @@ func (m NoLegs) GetLegRepurchaseRate() (v decimal.Decimal, err quickfix.MessageR
 	return
 }
 
-//GetLegFactor gets LegFactor, Tag 253
+// GetLegFactor gets LegFactor, Tag 253
 func (m NoLegs) GetLegFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegFactorField
 	if err = m.Get(&f); err == nil {
@@ -2722,7 +2728,7 @@ func (m NoLegs) GetLegFactor() (v decimal.Decimal, err quickfix.MessageRejectErr
 	return
 }
 
-//GetLegCreditRating gets LegCreditRating, Tag 257
+// GetLegCreditRating gets LegCreditRating, Tag 257
 func (m NoLegs) GetLegCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.LegCreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -2731,7 +2737,7 @@ func (m NoLegs) GetLegCreditRating() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetLegInstrRegistry gets LegInstrRegistry, Tag 599
+// GetLegInstrRegistry gets LegInstrRegistry, Tag 599
 func (m NoLegs) GetLegInstrRegistry() (v string, err quickfix.MessageRejectError) {
 	var f field.LegInstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -2740,7 +2746,7 @@ func (m NoLegs) GetLegInstrRegistry() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetLegCountryOfIssue gets LegCountryOfIssue, Tag 596
+// GetLegCountryOfIssue gets LegCountryOfIssue, Tag 596
 func (m NoLegs) GetLegCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.LegCountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -2749,7 +2755,7 @@ func (m NoLegs) GetLegCountryOfIssue() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetLegStateOrProvinceOfIssue gets LegStateOrProvinceOfIssue, Tag 597
+// GetLegStateOrProvinceOfIssue gets LegStateOrProvinceOfIssue, Tag 597
 func (m NoLegs) GetLegStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.LegStateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -2758,7 +2764,7 @@ func (m NoLegs) GetLegStateOrProvinceOfIssue() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetLegLocaleOfIssue gets LegLocaleOfIssue, Tag 598
+// GetLegLocaleOfIssue gets LegLocaleOfIssue, Tag 598
 func (m NoLegs) GetLegLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.LegLocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -2767,7 +2773,7 @@ func (m NoLegs) GetLegLocaleOfIssue() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetLegRedemptionDate gets LegRedemptionDate, Tag 254
+// GetLegRedemptionDate gets LegRedemptionDate, Tag 254
 func (m NoLegs) GetLegRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegRedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -2776,7 +2782,7 @@ func (m NoLegs) GetLegRedemptionDate() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetLegStrikePrice gets LegStrikePrice, Tag 612
+// GetLegStrikePrice gets LegStrikePrice, Tag 612
 func (m NoLegs) GetLegStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegStrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -2785,7 +2791,7 @@ func (m NoLegs) GetLegStrikePrice() (v decimal.Decimal, err quickfix.MessageReje
 	return
 }
 
-//GetLegStrikeCurrency gets LegStrikeCurrency, Tag 942
+// GetLegStrikeCurrency gets LegStrikeCurrency, Tag 942
 func (m NoLegs) GetLegStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.LegStrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -2794,7 +2800,7 @@ func (m NoLegs) GetLegStrikeCurrency() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetLegOptAttribute gets LegOptAttribute, Tag 613
+// GetLegOptAttribute gets LegOptAttribute, Tag 613
 func (m NoLegs) GetLegOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.LegOptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -2803,7 +2809,7 @@ func (m NoLegs) GetLegOptAttribute() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetLegContractMultiplier gets LegContractMultiplier, Tag 614
+// GetLegContractMultiplier gets LegContractMultiplier, Tag 614
 func (m NoLegs) GetLegContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -2812,7 +2818,7 @@ func (m NoLegs) GetLegContractMultiplier() (v decimal.Decimal, err quickfix.Mess
 	return
 }
 
-//GetLegCouponRate gets LegCouponRate, Tag 615
+// GetLegCouponRate gets LegCouponRate, Tag 615
 func (m NoLegs) GetLegCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegCouponRateField
 	if err = m.Get(&f); err == nil {
@@ -2821,7 +2827,7 @@ func (m NoLegs) GetLegCouponRate() (v decimal.Decimal, err quickfix.MessageRejec
 	return
 }
 
-//GetLegSecurityExchange gets LegSecurityExchange, Tag 616
+// GetLegSecurityExchange gets LegSecurityExchange, Tag 616
 func (m NoLegs) GetLegSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -2830,7 +2836,7 @@ func (m NoLegs) GetLegSecurityExchange() (v string, err quickfix.MessageRejectEr
 	return
 }
 
-//GetLegIssuer gets LegIssuer, Tag 617
+// GetLegIssuer gets LegIssuer, Tag 617
 func (m NoLegs) GetLegIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.LegIssuerField
 	if err = m.Get(&f); err == nil {
@@ -2839,7 +2845,7 @@ func (m NoLegs) GetLegIssuer() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetEncodedLegIssuerLen gets EncodedLegIssuerLen, Tag 618
+// GetEncodedLegIssuerLen gets EncodedLegIssuerLen, Tag 618
 func (m NoLegs) GetEncodedLegIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedLegIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -2848,7 +2854,7 @@ func (m NoLegs) GetEncodedLegIssuerLen() (v int, err quickfix.MessageRejectError
 	return
 }
 
-//GetEncodedLegIssuer gets EncodedLegIssuer, Tag 619
+// GetEncodedLegIssuer gets EncodedLegIssuer, Tag 619
 func (m NoLegs) GetEncodedLegIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedLegIssuerField
 	if err = m.Get(&f); err == nil {
@@ -2857,7 +2863,7 @@ func (m NoLegs) GetEncodedLegIssuer() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetLegSecurityDesc gets LegSecurityDesc, Tag 620
+// GetLegSecurityDesc gets LegSecurityDesc, Tag 620
 func (m NoLegs) GetLegSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -2866,7 +2872,7 @@ func (m NoLegs) GetLegSecurityDesc() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetEncodedLegSecurityDescLen gets EncodedLegSecurityDescLen, Tag 621
+// GetEncodedLegSecurityDescLen gets EncodedLegSecurityDescLen, Tag 621
 func (m NoLegs) GetEncodedLegSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedLegSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -2875,7 +2881,7 @@ func (m NoLegs) GetEncodedLegSecurityDescLen() (v int, err quickfix.MessageRejec
 	return
 }
 
-//GetEncodedLegSecurityDesc gets EncodedLegSecurityDesc, Tag 622
+// GetEncodedLegSecurityDesc gets EncodedLegSecurityDesc, Tag 622
 func (m NoLegs) GetEncodedLegSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedLegSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -2884,7 +2890,7 @@ func (m NoLegs) GetEncodedLegSecurityDesc() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetLegRatioQty gets LegRatioQty, Tag 623
+// GetLegRatioQty gets LegRatioQty, Tag 623
 func (m NoLegs) GetLegRatioQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.LegRatioQtyField
 	if err = m.Get(&f); err == nil {
@@ -2893,7 +2899,7 @@ func (m NoLegs) GetLegRatioQty() (v decimal.Decimal, err quickfix.MessageRejectE
 	return
 }
 
-//GetLegSide gets LegSide, Tag 624
+// GetLegSide gets LegSide, Tag 624
 func (m NoLegs) GetLegSide() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSideField
 	if err = m.Get(&f); err == nil {
@@ -2902,7 +2908,7 @@ func (m NoLegs) GetLegSide() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegCurrency gets LegCurrency, Tag 556
+// GetLegCurrency gets LegCurrency, Tag 556
 func (m NoLegs) GetLegCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.LegCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -2911,7 +2917,7 @@ func (m NoLegs) GetLegCurrency() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegPool gets LegPool, Tag 740
+// GetLegPool gets LegPool, Tag 740
 func (m NoLegs) GetLegPool() (v string, err quickfix.MessageRejectError) {
 	var f field.LegPoolField
 	if err = m.Get(&f); err == nil {
@@ -2920,7 +2926,7 @@ func (m NoLegs) GetLegPool() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegDatedDate gets LegDatedDate, Tag 739
+// GetLegDatedDate gets LegDatedDate, Tag 739
 func (m NoLegs) GetLegDatedDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegDatedDateField
 	if err = m.Get(&f); err == nil {
@@ -2929,7 +2935,7 @@ func (m NoLegs) GetLegDatedDate() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetLegContractSettlMonth gets LegContractSettlMonth, Tag 955
+// GetLegContractSettlMonth gets LegContractSettlMonth, Tag 955
 func (m NoLegs) GetLegContractSettlMonth() (v string, err quickfix.MessageRejectError) {
 	var f field.LegContractSettlMonthField
 	if err = m.Get(&f); err == nil {
@@ -2938,7 +2944,7 @@ func (m NoLegs) GetLegContractSettlMonth() (v string, err quickfix.MessageReject
 	return
 }
 
-//GetLegInterestAccrualDate gets LegInterestAccrualDate, Tag 956
+// GetLegInterestAccrualDate gets LegInterestAccrualDate, Tag 956
 func (m NoLegs) GetLegInterestAccrualDate() (v string, err quickfix.MessageRejectError) {
 	var f field.LegInterestAccrualDateField
 	if err = m.Get(&f); err == nil {
@@ -2947,232 +2953,232 @@ func (m NoLegs) GetLegInterestAccrualDate() (v string, err quickfix.MessageRejec
 	return
 }
 
-//HasLegSymbol returns true if LegSymbol is present, Tag 600
+// HasLegSymbol returns true if LegSymbol is present, Tag 600
 func (m NoLegs) HasLegSymbol() bool {
 	return m.Has(tag.LegSymbol)
 }
 
-//HasLegSymbolSfx returns true if LegSymbolSfx is present, Tag 601
+// HasLegSymbolSfx returns true if LegSymbolSfx is present, Tag 601
 func (m NoLegs) HasLegSymbolSfx() bool {
 	return m.Has(tag.LegSymbolSfx)
 }
 
-//HasLegSecurityID returns true if LegSecurityID is present, Tag 602
+// HasLegSecurityID returns true if LegSecurityID is present, Tag 602
 func (m NoLegs) HasLegSecurityID() bool {
 	return m.Has(tag.LegSecurityID)
 }
 
-//HasLegSecurityIDSource returns true if LegSecurityIDSource is present, Tag 603
+// HasLegSecurityIDSource returns true if LegSecurityIDSource is present, Tag 603
 func (m NoLegs) HasLegSecurityIDSource() bool {
 	return m.Has(tag.LegSecurityIDSource)
 }
 
-//HasNoLegSecurityAltID returns true if NoLegSecurityAltID is present, Tag 604
+// HasNoLegSecurityAltID returns true if NoLegSecurityAltID is present, Tag 604
 func (m NoLegs) HasNoLegSecurityAltID() bool {
 	return m.Has(tag.NoLegSecurityAltID)
 }
 
-//HasLegProduct returns true if LegProduct is present, Tag 607
+// HasLegProduct returns true if LegProduct is present, Tag 607
 func (m NoLegs) HasLegProduct() bool {
 	return m.Has(tag.LegProduct)
 }
 
-//HasLegCFICode returns true if LegCFICode is present, Tag 608
+// HasLegCFICode returns true if LegCFICode is present, Tag 608
 func (m NoLegs) HasLegCFICode() bool {
 	return m.Has(tag.LegCFICode)
 }
 
-//HasLegSecurityType returns true if LegSecurityType is present, Tag 609
+// HasLegSecurityType returns true if LegSecurityType is present, Tag 609
 func (m NoLegs) HasLegSecurityType() bool {
 	return m.Has(tag.LegSecurityType)
 }
 
-//HasLegSecuritySubType returns true if LegSecuritySubType is present, Tag 764
+// HasLegSecuritySubType returns true if LegSecuritySubType is present, Tag 764
 func (m NoLegs) HasLegSecuritySubType() bool {
 	return m.Has(tag.LegSecuritySubType)
 }
 
-//HasLegMaturityMonthYear returns true if LegMaturityMonthYear is present, Tag 610
+// HasLegMaturityMonthYear returns true if LegMaturityMonthYear is present, Tag 610
 func (m NoLegs) HasLegMaturityMonthYear() bool {
 	return m.Has(tag.LegMaturityMonthYear)
 }
 
-//HasLegMaturityDate returns true if LegMaturityDate is present, Tag 611
+// HasLegMaturityDate returns true if LegMaturityDate is present, Tag 611
 func (m NoLegs) HasLegMaturityDate() bool {
 	return m.Has(tag.LegMaturityDate)
 }
 
-//HasLegCouponPaymentDate returns true if LegCouponPaymentDate is present, Tag 248
+// HasLegCouponPaymentDate returns true if LegCouponPaymentDate is present, Tag 248
 func (m NoLegs) HasLegCouponPaymentDate() bool {
 	return m.Has(tag.LegCouponPaymentDate)
 }
 
-//HasLegIssueDate returns true if LegIssueDate is present, Tag 249
+// HasLegIssueDate returns true if LegIssueDate is present, Tag 249
 func (m NoLegs) HasLegIssueDate() bool {
 	return m.Has(tag.LegIssueDate)
 }
 
-//HasLegRepoCollateralSecurityType returns true if LegRepoCollateralSecurityType is present, Tag 250
+// HasLegRepoCollateralSecurityType returns true if LegRepoCollateralSecurityType is present, Tag 250
 func (m NoLegs) HasLegRepoCollateralSecurityType() bool {
 	return m.Has(tag.LegRepoCollateralSecurityType)
 }
 
-//HasLegRepurchaseTerm returns true if LegRepurchaseTerm is present, Tag 251
+// HasLegRepurchaseTerm returns true if LegRepurchaseTerm is present, Tag 251
 func (m NoLegs) HasLegRepurchaseTerm() bool {
 	return m.Has(tag.LegRepurchaseTerm)
 }
 
-//HasLegRepurchaseRate returns true if LegRepurchaseRate is present, Tag 252
+// HasLegRepurchaseRate returns true if LegRepurchaseRate is present, Tag 252
 func (m NoLegs) HasLegRepurchaseRate() bool {
 	return m.Has(tag.LegRepurchaseRate)
 }
 
-//HasLegFactor returns true if LegFactor is present, Tag 253
+// HasLegFactor returns true if LegFactor is present, Tag 253
 func (m NoLegs) HasLegFactor() bool {
 	return m.Has(tag.LegFactor)
 }
 
-//HasLegCreditRating returns true if LegCreditRating is present, Tag 257
+// HasLegCreditRating returns true if LegCreditRating is present, Tag 257
 func (m NoLegs) HasLegCreditRating() bool {
 	return m.Has(tag.LegCreditRating)
 }
 
-//HasLegInstrRegistry returns true if LegInstrRegistry is present, Tag 599
+// HasLegInstrRegistry returns true if LegInstrRegistry is present, Tag 599
 func (m NoLegs) HasLegInstrRegistry() bool {
 	return m.Has(tag.LegInstrRegistry)
 }
 
-//HasLegCountryOfIssue returns true if LegCountryOfIssue is present, Tag 596
+// HasLegCountryOfIssue returns true if LegCountryOfIssue is present, Tag 596
 func (m NoLegs) HasLegCountryOfIssue() bool {
 	return m.Has(tag.LegCountryOfIssue)
 }
 
-//HasLegStateOrProvinceOfIssue returns true if LegStateOrProvinceOfIssue is present, Tag 597
+// HasLegStateOrProvinceOfIssue returns true if LegStateOrProvinceOfIssue is present, Tag 597
 func (m NoLegs) HasLegStateOrProvinceOfIssue() bool {
 	return m.Has(tag.LegStateOrProvinceOfIssue)
 }
 
-//HasLegLocaleOfIssue returns true if LegLocaleOfIssue is present, Tag 598
+// HasLegLocaleOfIssue returns true if LegLocaleOfIssue is present, Tag 598
 func (m NoLegs) HasLegLocaleOfIssue() bool {
 	return m.Has(tag.LegLocaleOfIssue)
 }
 
-//HasLegRedemptionDate returns true if LegRedemptionDate is present, Tag 254
+// HasLegRedemptionDate returns true if LegRedemptionDate is present, Tag 254
 func (m NoLegs) HasLegRedemptionDate() bool {
 	return m.Has(tag.LegRedemptionDate)
 }
 
-//HasLegStrikePrice returns true if LegStrikePrice is present, Tag 612
+// HasLegStrikePrice returns true if LegStrikePrice is present, Tag 612
 func (m NoLegs) HasLegStrikePrice() bool {
 	return m.Has(tag.LegStrikePrice)
 }
 
-//HasLegStrikeCurrency returns true if LegStrikeCurrency is present, Tag 942
+// HasLegStrikeCurrency returns true if LegStrikeCurrency is present, Tag 942
 func (m NoLegs) HasLegStrikeCurrency() bool {
 	return m.Has(tag.LegStrikeCurrency)
 }
 
-//HasLegOptAttribute returns true if LegOptAttribute is present, Tag 613
+// HasLegOptAttribute returns true if LegOptAttribute is present, Tag 613
 func (m NoLegs) HasLegOptAttribute() bool {
 	return m.Has(tag.LegOptAttribute)
 }
 
-//HasLegContractMultiplier returns true if LegContractMultiplier is present, Tag 614
+// HasLegContractMultiplier returns true if LegContractMultiplier is present, Tag 614
 func (m NoLegs) HasLegContractMultiplier() bool {
 	return m.Has(tag.LegContractMultiplier)
 }
 
-//HasLegCouponRate returns true if LegCouponRate is present, Tag 615
+// HasLegCouponRate returns true if LegCouponRate is present, Tag 615
 func (m NoLegs) HasLegCouponRate() bool {
 	return m.Has(tag.LegCouponRate)
 }
 
-//HasLegSecurityExchange returns true if LegSecurityExchange is present, Tag 616
+// HasLegSecurityExchange returns true if LegSecurityExchange is present, Tag 616
 func (m NoLegs) HasLegSecurityExchange() bool {
 	return m.Has(tag.LegSecurityExchange)
 }
 
-//HasLegIssuer returns true if LegIssuer is present, Tag 617
+// HasLegIssuer returns true if LegIssuer is present, Tag 617
 func (m NoLegs) HasLegIssuer() bool {
 	return m.Has(tag.LegIssuer)
 }
 
-//HasEncodedLegIssuerLen returns true if EncodedLegIssuerLen is present, Tag 618
+// HasEncodedLegIssuerLen returns true if EncodedLegIssuerLen is present, Tag 618
 func (m NoLegs) HasEncodedLegIssuerLen() bool {
 	return m.Has(tag.EncodedLegIssuerLen)
 }
 
-//HasEncodedLegIssuer returns true if EncodedLegIssuer is present, Tag 619
+// HasEncodedLegIssuer returns true if EncodedLegIssuer is present, Tag 619
 func (m NoLegs) HasEncodedLegIssuer() bool {
 	return m.Has(tag.EncodedLegIssuer)
 }
 
-//HasLegSecurityDesc returns true if LegSecurityDesc is present, Tag 620
+// HasLegSecurityDesc returns true if LegSecurityDesc is present, Tag 620
 func (m NoLegs) HasLegSecurityDesc() bool {
 	return m.Has(tag.LegSecurityDesc)
 }
 
-//HasEncodedLegSecurityDescLen returns true if EncodedLegSecurityDescLen is present, Tag 621
+// HasEncodedLegSecurityDescLen returns true if EncodedLegSecurityDescLen is present, Tag 621
 func (m NoLegs) HasEncodedLegSecurityDescLen() bool {
 	return m.Has(tag.EncodedLegSecurityDescLen)
 }
 
-//HasEncodedLegSecurityDesc returns true if EncodedLegSecurityDesc is present, Tag 622
+// HasEncodedLegSecurityDesc returns true if EncodedLegSecurityDesc is present, Tag 622
 func (m NoLegs) HasEncodedLegSecurityDesc() bool {
 	return m.Has(tag.EncodedLegSecurityDesc)
 }
 
-//HasLegRatioQty returns true if LegRatioQty is present, Tag 623
+// HasLegRatioQty returns true if LegRatioQty is present, Tag 623
 func (m NoLegs) HasLegRatioQty() bool {
 	return m.Has(tag.LegRatioQty)
 }
 
-//HasLegSide returns true if LegSide is present, Tag 624
+// HasLegSide returns true if LegSide is present, Tag 624
 func (m NoLegs) HasLegSide() bool {
 	return m.Has(tag.LegSide)
 }
 
-//HasLegCurrency returns true if LegCurrency is present, Tag 556
+// HasLegCurrency returns true if LegCurrency is present, Tag 556
 func (m NoLegs) HasLegCurrency() bool {
 	return m.Has(tag.LegCurrency)
 }
 
-//HasLegPool returns true if LegPool is present, Tag 740
+// HasLegPool returns true if LegPool is present, Tag 740
 func (m NoLegs) HasLegPool() bool {
 	return m.Has(tag.LegPool)
 }
 
-//HasLegDatedDate returns true if LegDatedDate is present, Tag 739
+// HasLegDatedDate returns true if LegDatedDate is present, Tag 739
 func (m NoLegs) HasLegDatedDate() bool {
 	return m.Has(tag.LegDatedDate)
 }
 
-//HasLegContractSettlMonth returns true if LegContractSettlMonth is present, Tag 955
+// HasLegContractSettlMonth returns true if LegContractSettlMonth is present, Tag 955
 func (m NoLegs) HasLegContractSettlMonth() bool {
 	return m.Has(tag.LegContractSettlMonth)
 }
 
-//HasLegInterestAccrualDate returns true if LegInterestAccrualDate is present, Tag 956
+// HasLegInterestAccrualDate returns true if LegInterestAccrualDate is present, Tag 956
 func (m NoLegs) HasLegInterestAccrualDate() bool {
 	return m.Has(tag.LegInterestAccrualDate)
 }
 
-//NoLegSecurityAltID is a repeating group element, Tag 604
+// NoLegSecurityAltID is a repeating group element, Tag 604
 type NoLegSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetLegSecurityAltID sets LegSecurityAltID, Tag 605
+// SetLegSecurityAltID sets LegSecurityAltID, Tag 605
 func (m NoLegSecurityAltID) SetLegSecurityAltID(v string) {
 	m.Set(field.NewLegSecurityAltID(v))
 }
 
-//SetLegSecurityAltIDSource sets LegSecurityAltIDSource, Tag 606
+// SetLegSecurityAltIDSource sets LegSecurityAltIDSource, Tag 606
 func (m NoLegSecurityAltID) SetLegSecurityAltIDSource(v string) {
 	m.Set(field.NewLegSecurityAltIDSource(v))
 }
 
-//GetLegSecurityAltID gets LegSecurityAltID, Tag 605
+// GetLegSecurityAltID gets LegSecurityAltID, Tag 605
 func (m NoLegSecurityAltID) GetLegSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -3181,7 +3187,7 @@ func (m NoLegSecurityAltID) GetLegSecurityAltID() (v string, err quickfix.Messag
 	return
 }
 
-//GetLegSecurityAltIDSource gets LegSecurityAltIDSource, Tag 606
+// GetLegSecurityAltIDSource gets LegSecurityAltIDSource, Tag 606
 func (m NoLegSecurityAltID) GetLegSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.LegSecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -3190,303 +3196,305 @@ func (m NoLegSecurityAltID) GetLegSecurityAltIDSource() (v string, err quickfix.
 	return
 }
 
-//HasLegSecurityAltID returns true if LegSecurityAltID is present, Tag 605
+// HasLegSecurityAltID returns true if LegSecurityAltID is present, Tag 605
 func (m NoLegSecurityAltID) HasLegSecurityAltID() bool {
 	return m.Has(tag.LegSecurityAltID)
 }
 
-//HasLegSecurityAltIDSource returns true if LegSecurityAltIDSource is present, Tag 606
+// HasLegSecurityAltIDSource returns true if LegSecurityAltIDSource is present, Tag 606
 func (m NoLegSecurityAltID) HasLegSecurityAltIDSource() bool {
 	return m.Has(tag.LegSecurityAltIDSource)
 }
 
-//NoLegSecurityAltIDRepeatingGroup is a repeating group, Tag 604
+// NoLegSecurityAltIDRepeatingGroup is a repeating group, Tag 604
 type NoLegSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoLegSecurityAltIDRepeatingGroup returns an initialized, NoLegSecurityAltIDRepeatingGroup
+// NewNoLegSecurityAltIDRepeatingGroup returns an initialized, NoLegSecurityAltIDRepeatingGroup
 func NewNoLegSecurityAltIDRepeatingGroup() NoLegSecurityAltIDRepeatingGroup {
 	return NoLegSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoLegSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.LegSecurityAltID), quickfix.GroupElement(tag.LegSecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.LegSecurityAltID), quickfix.GroupElement(tag.LegSecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoLegSecurityAltID to this group
+// Add create and append a new NoLegSecurityAltID to this group
 func (m NoLegSecurityAltIDRepeatingGroup) Add() NoLegSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoLegSecurityAltID{g}
 }
 
-//Get returns the ith NoLegSecurityAltID in the NoLegSecurityAltIDRepeatinGroup
+// Get returns the ith NoLegSecurityAltID in the NoLegSecurityAltIDRepeatinGroup
 func (m NoLegSecurityAltIDRepeatingGroup) Get(i int) NoLegSecurityAltID {
 	return NoLegSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoLegsRepeatingGroup is a repeating group, Tag 555
+// NoLegsRepeatingGroup is a repeating group, Tag 555
 type NoLegsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoLegsRepeatingGroup returns an initialized, NoLegsRepeatingGroup
+// NewNoLegsRepeatingGroup returns an initialized, NoLegsRepeatingGroup
 func NewNoLegsRepeatingGroup() NoLegsRepeatingGroup {
 	return NoLegsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoLegs,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.LegSymbol), quickfix.GroupElement(tag.LegSymbolSfx), quickfix.GroupElement(tag.LegSecurityID), quickfix.GroupElement(tag.LegSecurityIDSource), NewNoLegSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.LegProduct), quickfix.GroupElement(tag.LegCFICode), quickfix.GroupElement(tag.LegSecurityType), quickfix.GroupElement(tag.LegSecuritySubType), quickfix.GroupElement(tag.LegMaturityMonthYear), quickfix.GroupElement(tag.LegMaturityDate), quickfix.GroupElement(tag.LegCouponPaymentDate), quickfix.GroupElement(tag.LegIssueDate), quickfix.GroupElement(tag.LegRepoCollateralSecurityType), quickfix.GroupElement(tag.LegRepurchaseTerm), quickfix.GroupElement(tag.LegRepurchaseRate), quickfix.GroupElement(tag.LegFactor), quickfix.GroupElement(tag.LegCreditRating), quickfix.GroupElement(tag.LegInstrRegistry), quickfix.GroupElement(tag.LegCountryOfIssue), quickfix.GroupElement(tag.LegStateOrProvinceOfIssue), quickfix.GroupElement(tag.LegLocaleOfIssue), quickfix.GroupElement(tag.LegRedemptionDate), quickfix.GroupElement(tag.LegStrikePrice), quickfix.GroupElement(tag.LegStrikeCurrency), quickfix.GroupElement(tag.LegOptAttribute), quickfix.GroupElement(tag.LegContractMultiplier), quickfix.GroupElement(tag.LegCouponRate), quickfix.GroupElement(tag.LegSecurityExchange), quickfix.GroupElement(tag.LegIssuer), quickfix.GroupElement(tag.EncodedLegIssuerLen), quickfix.GroupElement(tag.EncodedLegIssuer), quickfix.GroupElement(tag.LegSecurityDesc), quickfix.GroupElement(tag.EncodedLegSecurityDescLen), quickfix.GroupElement(tag.EncodedLegSecurityDesc), quickfix.GroupElement(tag.LegRatioQty), quickfix.GroupElement(tag.LegSide), quickfix.GroupElement(tag.LegCurrency), quickfix.GroupElement(tag.LegPool), quickfix.GroupElement(tag.LegDatedDate), quickfix.GroupElement(tag.LegContractSettlMonth), quickfix.GroupElement(tag.LegInterestAccrualDate)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.LegSymbol), quickfix.GroupElement(tag.LegSymbolSfx), quickfix.GroupElement(tag.LegSecurityID), quickfix.GroupElement(tag.LegSecurityIDSource), NewNoLegSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.LegProduct), quickfix.GroupElement(tag.LegCFICode), quickfix.GroupElement(tag.LegSecurityType), quickfix.GroupElement(tag.LegSecuritySubType), quickfix.GroupElement(tag.LegMaturityMonthYear), quickfix.GroupElement(tag.LegMaturityDate), quickfix.GroupElement(tag.LegCouponPaymentDate), quickfix.GroupElement(tag.LegIssueDate), quickfix.GroupElement(tag.LegRepoCollateralSecurityType), quickfix.GroupElement(tag.LegRepurchaseTerm), quickfix.GroupElement(tag.LegRepurchaseRate), quickfix.GroupElement(tag.LegFactor), quickfix.GroupElement(tag.LegCreditRating), quickfix.GroupElement(tag.LegInstrRegistry), quickfix.GroupElement(tag.LegCountryOfIssue), quickfix.GroupElement(tag.LegStateOrProvinceOfIssue), quickfix.GroupElement(tag.LegLocaleOfIssue), quickfix.GroupElement(tag.LegRedemptionDate), quickfix.GroupElement(tag.LegStrikePrice), quickfix.GroupElement(tag.LegStrikeCurrency), quickfix.GroupElement(tag.LegOptAttribute), quickfix.GroupElement(tag.LegContractMultiplier), quickfix.GroupElement(tag.LegCouponRate), quickfix.GroupElement(tag.LegSecurityExchange), quickfix.GroupElement(tag.LegIssuer), quickfix.GroupElement(tag.EncodedLegIssuerLen), quickfix.GroupElement(tag.EncodedLegIssuer), quickfix.GroupElement(tag.LegSecurityDesc), quickfix.GroupElement(tag.EncodedLegSecurityDescLen), quickfix.GroupElement(tag.EncodedLegSecurityDesc), quickfix.GroupElement(tag.LegRatioQty), quickfix.GroupElement(tag.LegSide), quickfix.GroupElement(tag.LegCurrency), quickfix.GroupElement(tag.LegPool), quickfix.GroupElement(tag.LegDatedDate), quickfix.GroupElement(tag.LegContractSettlMonth), quickfix.GroupElement(tag.LegInterestAccrualDate)}),
+	}
 }
 
-//Add create and append a new NoLegs to this group
+// Add create and append a new NoLegs to this group
 func (m NoLegsRepeatingGroup) Add() NoLegs {
 	g := m.RepeatingGroup.Add()
 	return NoLegs{g}
 }
 
-//Get returns the ith NoLegs in the NoLegsRepeatinGroup
+// Get returns the ith NoLegs in the NoLegsRepeatinGroup
 func (m NoLegsRepeatingGroup) Get(i int) NoLegs {
 	return NoLegs{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyings is a repeating group element, Tag 711
+// NoUnderlyings is a repeating group element, Tag 711
 type NoUnderlyings struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
+// SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
 func (m NoUnderlyings) SetUnderlyingSymbol(v string) {
 	m.Set(field.NewUnderlyingSymbol(v))
 }
 
-//SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
+// SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
 func (m NoUnderlyings) SetUnderlyingSymbolSfx(v string) {
 	m.Set(field.NewUnderlyingSymbolSfx(v))
 }
 
-//SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
+// SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
 func (m NoUnderlyings) SetUnderlyingSecurityID(v string) {
 	m.Set(field.NewUnderlyingSecurityID(v))
 }
 
-//SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
+// SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
 func (m NoUnderlyings) SetUnderlyingSecurityIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityIDSource(v))
 }
 
-//SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
+// SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
 func (m NoUnderlyings) SetNoUnderlyingSecurityAltID(f NoUnderlyingSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetUnderlyingProduct sets UnderlyingProduct, Tag 462
+// SetUnderlyingProduct sets UnderlyingProduct, Tag 462
 func (m NoUnderlyings) SetUnderlyingProduct(v int) {
 	m.Set(field.NewUnderlyingProduct(v))
 }
 
-//SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
+// SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
 func (m NoUnderlyings) SetUnderlyingCFICode(v string) {
 	m.Set(field.NewUnderlyingCFICode(v))
 }
 
-//SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
+// SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
 func (m NoUnderlyings) SetUnderlyingSecurityType(v string) {
 	m.Set(field.NewUnderlyingSecurityType(v))
 }
 
-//SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
+// SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
 func (m NoUnderlyings) SetUnderlyingSecuritySubType(v string) {
 	m.Set(field.NewUnderlyingSecuritySubType(v))
 }
 
-//SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
+// SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
 func (m NoUnderlyings) SetUnderlyingMaturityMonthYear(v string) {
 	m.Set(field.NewUnderlyingMaturityMonthYear(v))
 }
 
-//SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
+// SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
 func (m NoUnderlyings) SetUnderlyingMaturityDate(v string) {
 	m.Set(field.NewUnderlyingMaturityDate(v))
 }
 
-//SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
+// SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
 func (m NoUnderlyings) SetUnderlyingCouponPaymentDate(v string) {
 	m.Set(field.NewUnderlyingCouponPaymentDate(v))
 }
 
-//SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
+// SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
 func (m NoUnderlyings) SetUnderlyingIssueDate(v string) {
 	m.Set(field.NewUnderlyingIssueDate(v))
 }
 
-//SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
+// SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m NoUnderlyings) SetUnderlyingRepoCollateralSecurityType(v int) {
 	m.Set(field.NewUnderlyingRepoCollateralSecurityType(v))
 }
 
-//SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
+// SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
 func (m NoUnderlyings) SetUnderlyingRepurchaseTerm(v int) {
 	m.Set(field.NewUnderlyingRepurchaseTerm(v))
 }
 
-//SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
+// SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
 func (m NoUnderlyings) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
-//SetUnderlyingFactor sets UnderlyingFactor, Tag 246
+// SetUnderlyingFactor sets UnderlyingFactor, Tag 246
 func (m NoUnderlyings) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
-//SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
+// SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
 func (m NoUnderlyings) SetUnderlyingCreditRating(v string) {
 	m.Set(field.NewUnderlyingCreditRating(v))
 }
 
-//SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
+// SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
 func (m NoUnderlyings) SetUnderlyingInstrRegistry(v string) {
 	m.Set(field.NewUnderlyingInstrRegistry(v))
 }
 
-//SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
+// SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
 func (m NoUnderlyings) SetUnderlyingCountryOfIssue(v string) {
 	m.Set(field.NewUnderlyingCountryOfIssue(v))
 }
 
-//SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
+// SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m NoUnderlyings) SetUnderlyingStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewUnderlyingStateOrProvinceOfIssue(v))
 }
 
-//SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
+// SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
 func (m NoUnderlyings) SetUnderlyingLocaleOfIssue(v string) {
 	m.Set(field.NewUnderlyingLocaleOfIssue(v))
 }
 
-//SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
+// SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
 func (m NoUnderlyings) SetUnderlyingRedemptionDate(v string) {
 	m.Set(field.NewUnderlyingRedemptionDate(v))
 }
 
-//SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
+// SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
 func (m NoUnderlyings) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
-//SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
+// SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
 func (m NoUnderlyings) SetUnderlyingStrikeCurrency(v string) {
 	m.Set(field.NewUnderlyingStrikeCurrency(v))
 }
 
-//SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
+// SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
 func (m NoUnderlyings) SetUnderlyingOptAttribute(v string) {
 	m.Set(field.NewUnderlyingOptAttribute(v))
 }
 
-//SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
+// SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
 func (m NoUnderlyings) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
-//SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
+// SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
 func (m NoUnderlyings) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
-//SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
+// SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
 func (m NoUnderlyings) SetUnderlyingSecurityExchange(v string) {
 	m.Set(field.NewUnderlyingSecurityExchange(v))
 }
 
-//SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
+// SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
 func (m NoUnderlyings) SetUnderlyingIssuer(v string) {
 	m.Set(field.NewUnderlyingIssuer(v))
 }
 
-//SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
+// SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
 func (m NoUnderlyings) SetEncodedUnderlyingIssuerLen(v int) {
 	m.Set(field.NewEncodedUnderlyingIssuerLen(v))
 }
 
-//SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
+// SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
 func (m NoUnderlyings) SetEncodedUnderlyingIssuer(v string) {
 	m.Set(field.NewEncodedUnderlyingIssuer(v))
 }
 
-//SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
+// SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
 func (m NoUnderlyings) SetUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewUnderlyingSecurityDesc(v))
 }
 
-//SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
+// SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m NoUnderlyings) SetEncodedUnderlyingSecurityDescLen(v int) {
 	m.Set(field.NewEncodedUnderlyingSecurityDescLen(v))
 }
 
-//SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
+// SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
 func (m NoUnderlyings) SetEncodedUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewEncodedUnderlyingSecurityDesc(v))
 }
 
-//SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
+// SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
 func (m NoUnderlyings) SetUnderlyingCPProgram(v string) {
 	m.Set(field.NewUnderlyingCPProgram(v))
 }
 
-//SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
+// SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
 func (m NoUnderlyings) SetUnderlyingCPRegType(v string) {
 	m.Set(field.NewUnderlyingCPRegType(v))
 }
 
-//SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
+// SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
 func (m NoUnderlyings) SetUnderlyingCurrency(v string) {
 	m.Set(field.NewUnderlyingCurrency(v))
 }
 
-//SetUnderlyingQty sets UnderlyingQty, Tag 879
+// SetUnderlyingQty sets UnderlyingQty, Tag 879
 func (m NoUnderlyings) SetUnderlyingQty(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
-//SetUnderlyingPx sets UnderlyingPx, Tag 810
+// SetUnderlyingPx sets UnderlyingPx, Tag 810
 func (m NoUnderlyings) SetUnderlyingPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
-//SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
+// SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
 func (m NoUnderlyings) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
-//SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
+// SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
 func (m NoUnderlyings) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
-//SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
+// SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
 func (m NoUnderlyings) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
-//SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
+// SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
 func (m NoUnderlyings) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
-//SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
+// SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
 func (m NoUnderlyings) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
-//SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
+// SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
 func (m NoUnderlyings) SetNoUnderlyingStips(f NoUnderlyingStipsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetCollAction sets CollAction, Tag 944
+// SetCollAction sets CollAction, Tag 944
 func (m NoUnderlyings) SetCollAction(v enum.CollAction) {
 	m.Set(field.NewCollAction(v))
 }
 
-//GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
+// GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
 func (m NoUnderlyings) GetUnderlyingSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolField
 	if err = m.Get(&f); err == nil {
@@ -3495,7 +3503,7 @@ func (m NoUnderlyings) GetUnderlyingSymbol() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
+// GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
 func (m NoUnderlyings) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -3504,7 +3512,7 @@ func (m NoUnderlyings) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageR
 	return
 }
 
-//GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
+// GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
 func (m NoUnderlyings) GetUnderlyingSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -3513,7 +3521,7 @@ func (m NoUnderlyings) GetUnderlyingSecurityID() (v string, err quickfix.Message
 	return
 }
 
-//GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
+// GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
 func (m NoUnderlyings) GetUnderlyingSecurityIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -3522,14 +3530,14 @@ func (m NoUnderlyings) GetUnderlyingSecurityIDSource() (v string, err quickfix.M
 	return
 }
 
-//GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
+// GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
 func (m NoUnderlyings) GetNoUnderlyingSecurityAltID() (NoUnderlyingSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetUnderlyingProduct gets UnderlyingProduct, Tag 462
+// GetUnderlyingProduct gets UnderlyingProduct, Tag 462
 func (m NoUnderlyings) GetUnderlyingProduct() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingProductField
 	if err = m.Get(&f); err == nil {
@@ -3538,7 +3546,7 @@ func (m NoUnderlyings) GetUnderlyingProduct() (v int, err quickfix.MessageReject
 	return
 }
 
-//GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
+// GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
 func (m NoUnderlyings) GetUnderlyingCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCFICodeField
 	if err = m.Get(&f); err == nil {
@@ -3547,7 +3555,7 @@ func (m NoUnderlyings) GetUnderlyingCFICode() (v string, err quickfix.MessageRej
 	return
 }
 
-//GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
+// GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
 func (m NoUnderlyings) GetUnderlyingSecurityType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -3556,7 +3564,7 @@ func (m NoUnderlyings) GetUnderlyingSecurityType() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
+// GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
 func (m NoUnderlyings) GetUnderlyingSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -3565,7 +3573,7 @@ func (m NoUnderlyings) GetUnderlyingSecuritySubType() (v string, err quickfix.Me
 	return
 }
 
-//GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
+// GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
 func (m NoUnderlyings) GetUnderlyingMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -3574,7 +3582,7 @@ func (m NoUnderlyings) GetUnderlyingMaturityMonthYear() (v string, err quickfix.
 	return
 }
 
-//GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
+// GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
 func (m NoUnderlyings) GetUnderlyingMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -3583,7 +3591,7 @@ func (m NoUnderlyings) GetUnderlyingMaturityDate() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
+// GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
 func (m NoUnderlyings) GetUnderlyingCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -3592,7 +3600,7 @@ func (m NoUnderlyings) GetUnderlyingCouponPaymentDate() (v string, err quickfix.
 	return
 }
 
-//GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
+// GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
 func (m NoUnderlyings) GetUnderlyingIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssueDateField
 	if err = m.Get(&f); err == nil {
@@ -3601,7 +3609,7 @@ func (m NoUnderlyings) GetUnderlyingIssueDate() (v string, err quickfix.MessageR
 	return
 }
 
-//GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
+// GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m NoUnderlyings) GetUnderlyingRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -3610,7 +3618,7 @@ func (m NoUnderlyings) GetUnderlyingRepoCollateralSecurityType() (v int, err qui
 	return
 }
 
-//GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
+// GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
 func (m NoUnderlyings) GetUnderlyingRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -3619,7 +3627,7 @@ func (m NoUnderlyings) GetUnderlyingRepurchaseTerm() (v int, err quickfix.Messag
 	return
 }
 
-//GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
+// GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
 func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -3628,7 +3636,7 @@ func (m NoUnderlyings) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err qui
 	return
 }
 
-//GetUnderlyingFactor gets UnderlyingFactor, Tag 246
+// GetUnderlyingFactor gets UnderlyingFactor, Tag 246
 func (m NoUnderlyings) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFactorField
 	if err = m.Get(&f); err == nil {
@@ -3637,7 +3645,7 @@ func (m NoUnderlyings) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.Me
 	return
 }
 
-//GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
+// GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
 func (m NoUnderlyings) GetUnderlyingCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -3646,7 +3654,7 @@ func (m NoUnderlyings) GetUnderlyingCreditRating() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
+// GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
 func (m NoUnderlyings) GetUnderlyingInstrRegistry() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingInstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -3655,7 +3663,7 @@ func (m NoUnderlyings) GetUnderlyingInstrRegistry() (v string, err quickfix.Mess
 	return
 }
 
-//GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
+// GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
 func (m NoUnderlyings) GetUnderlyingCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -3664,7 +3672,7 @@ func (m NoUnderlyings) GetUnderlyingCountryOfIssue() (v string, err quickfix.Mes
 	return
 }
 
-//GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
+// GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m NoUnderlyings) GetUnderlyingStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -3673,7 +3681,7 @@ func (m NoUnderlyings) GetUnderlyingStateOrProvinceOfIssue() (v string, err quic
 	return
 }
 
-//GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
+// GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
 func (m NoUnderlyings) GetUnderlyingLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingLocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -3682,7 +3690,7 @@ func (m NoUnderlyings) GetUnderlyingLocaleOfIssue() (v string, err quickfix.Mess
 	return
 }
 
-//GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
+// GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
 func (m NoUnderlyings) GetUnderlyingRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -3691,7 +3699,7 @@ func (m NoUnderlyings) GetUnderlyingRedemptionDate() (v string, err quickfix.Mes
 	return
 }
 
-//GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
+// GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
 func (m NoUnderlyings) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -3700,7 +3708,7 @@ func (m NoUnderlyings) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickf
 	return
 }
 
-//GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
+// GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
 func (m NoUnderlyings) GetUnderlyingStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -3709,7 +3717,7 @@ func (m NoUnderlyings) GetUnderlyingStrikeCurrency() (v string, err quickfix.Mes
 	return
 }
 
-//GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
+// GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
 func (m NoUnderlyings) GetUnderlyingOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingOptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -3718,7 +3726,7 @@ func (m NoUnderlyings) GetUnderlyingOptAttribute() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
+// GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
 func (m NoUnderlyings) GetUnderlyingContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -3727,7 +3735,7 @@ func (m NoUnderlyings) GetUnderlyingContractMultiplier() (v decimal.Decimal, err
 	return
 }
 
-//GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
+// GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
 func (m NoUnderlyings) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponRateField
 	if err = m.Get(&f); err == nil {
@@ -3736,7 +3744,7 @@ func (m NoUnderlyings) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfi
 	return
 }
 
-//GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
+// GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
 func (m NoUnderlyings) GetUnderlyingSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -3745,7 +3753,7 @@ func (m NoUnderlyings) GetUnderlyingSecurityExchange() (v string, err quickfix.M
 	return
 }
 
-//GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
+// GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
 func (m NoUnderlyings) GetUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -3754,7 +3762,7 @@ func (m NoUnderlyings) GetUnderlyingIssuer() (v string, err quickfix.MessageReje
 	return
 }
 
-//GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
+// GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
 func (m NoUnderlyings) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -3763,7 +3771,7 @@ func (m NoUnderlyings) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.Mess
 	return
 }
 
-//GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
+// GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
 func (m NoUnderlyings) GetEncodedUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -3772,7 +3780,7 @@ func (m NoUnderlyings) GetEncodedUnderlyingIssuer() (v string, err quickfix.Mess
 	return
 }
 
-//GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
+// GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
 func (m NoUnderlyings) GetUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -3781,7 +3789,7 @@ func (m NoUnderlyings) GetUnderlyingSecurityDesc() (v string, err quickfix.Messa
 	return
 }
 
-//GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
+// GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m NoUnderlyings) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -3790,7 +3798,7 @@ func (m NoUnderlyings) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfi
 	return
 }
 
-//GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
+// GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
 func (m NoUnderlyings) GetEncodedUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -3799,7 +3807,7 @@ func (m NoUnderlyings) GetEncodedUnderlyingSecurityDesc() (v string, err quickfi
 	return
 }
 
-//GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
+// GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
 func (m NoUnderlyings) GetUnderlyingCPProgram() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPProgramField
 	if err = m.Get(&f); err == nil {
@@ -3808,7 +3816,7 @@ func (m NoUnderlyings) GetUnderlyingCPProgram() (v string, err quickfix.MessageR
 	return
 }
 
-//GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
+// GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
 func (m NoUnderlyings) GetUnderlyingCPRegType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPRegTypeField
 	if err = m.Get(&f); err == nil {
@@ -3817,7 +3825,7 @@ func (m NoUnderlyings) GetUnderlyingCPRegType() (v string, err quickfix.MessageR
 	return
 }
 
-//GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
+// GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
 func (m NoUnderlyings) GetUnderlyingCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -3826,7 +3834,7 @@ func (m NoUnderlyings) GetUnderlyingCurrency() (v string, err quickfix.MessageRe
 	return
 }
 
-//GetUnderlyingQty gets UnderlyingQty, Tag 879
+// GetUnderlyingQty gets UnderlyingQty, Tag 879
 func (m NoUnderlyings) GetUnderlyingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingQtyField
 	if err = m.Get(&f); err == nil {
@@ -3835,7 +3843,7 @@ func (m NoUnderlyings) GetUnderlyingQty() (v decimal.Decimal, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingPx gets UnderlyingPx, Tag 810
+// GetUnderlyingPx gets UnderlyingPx, Tag 810
 func (m NoUnderlyings) GetUnderlyingPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingPxField
 	if err = m.Get(&f); err == nil {
@@ -3844,7 +3852,7 @@ func (m NoUnderlyings) GetUnderlyingPx() (v decimal.Decimal, err quickfix.Messag
 	return
 }
 
-//GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
+// GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
 func (m NoUnderlyings) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingDirtyPriceField
 	if err = m.Get(&f); err == nil {
@@ -3853,7 +3861,7 @@ func (m NoUnderlyings) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfi
 	return
 }
 
-//GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
+// GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
 func (m NoUnderlyings) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndPriceField
 	if err = m.Get(&f); err == nil {
@@ -3862,7 +3870,7 @@ func (m NoUnderlyings) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.
 	return
 }
 
-//GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
+// GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
 func (m NoUnderlyings) GetUnderlyingStartValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStartValueField
 	if err = m.Get(&f); err == nil {
@@ -3871,7 +3879,7 @@ func (m NoUnderlyings) GetUnderlyingStartValue() (v decimal.Decimal, err quickfi
 	return
 }
 
-//GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
+// GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
 func (m NoUnderlyings) GetUnderlyingCurrentValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrentValueField
 	if err = m.Get(&f); err == nil {
@@ -3880,7 +3888,7 @@ func (m NoUnderlyings) GetUnderlyingCurrentValue() (v decimal.Decimal, err quick
 	return
 }
 
-//GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
+// GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
 func (m NoUnderlyings) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndValueField
 	if err = m.Get(&f); err == nil {
@@ -3889,14 +3897,14 @@ func (m NoUnderlyings) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.
 	return
 }
 
-//GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
+// GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
 func (m NoUnderlyings) GetNoUnderlyingStips() (NoUnderlyingStipsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingStipsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetCollAction gets CollAction, Tag 944
+// GetCollAction gets CollAction, Tag 944
 func (m NoUnderlyings) GetCollAction() (v enum.CollAction, err quickfix.MessageRejectError) {
 	var f field.CollActionField
 	if err = m.Get(&f); err == nil {
@@ -3905,257 +3913,257 @@ func (m NoUnderlyings) GetCollAction() (v enum.CollAction, err quickfix.MessageR
 	return
 }
 
-//HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
+// HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
 func (m NoUnderlyings) HasUnderlyingSymbol() bool {
 	return m.Has(tag.UnderlyingSymbol)
 }
 
-//HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
+// HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
 func (m NoUnderlyings) HasUnderlyingSymbolSfx() bool {
 	return m.Has(tag.UnderlyingSymbolSfx)
 }
 
-//HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
+// HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
 func (m NoUnderlyings) HasUnderlyingSecurityID() bool {
 	return m.Has(tag.UnderlyingSecurityID)
 }
 
-//HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
+// HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
 func (m NoUnderlyings) HasUnderlyingSecurityIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityIDSource)
 }
 
-//HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
+// HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
 func (m NoUnderlyings) HasNoUnderlyingSecurityAltID() bool {
 	return m.Has(tag.NoUnderlyingSecurityAltID)
 }
 
-//HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
+// HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
 func (m NoUnderlyings) HasUnderlyingProduct() bool {
 	return m.Has(tag.UnderlyingProduct)
 }
 
-//HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
+// HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
 func (m NoUnderlyings) HasUnderlyingCFICode() bool {
 	return m.Has(tag.UnderlyingCFICode)
 }
 
-//HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
+// HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
 func (m NoUnderlyings) HasUnderlyingSecurityType() bool {
 	return m.Has(tag.UnderlyingSecurityType)
 }
 
-//HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
+// HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
 func (m NoUnderlyings) HasUnderlyingSecuritySubType() bool {
 	return m.Has(tag.UnderlyingSecuritySubType)
 }
 
-//HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
+// HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
 func (m NoUnderlyings) HasUnderlyingMaturityMonthYear() bool {
 	return m.Has(tag.UnderlyingMaturityMonthYear)
 }
 
-//HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
+// HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
 func (m NoUnderlyings) HasUnderlyingMaturityDate() bool {
 	return m.Has(tag.UnderlyingMaturityDate)
 }
 
-//HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
+// HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
 func (m NoUnderlyings) HasUnderlyingCouponPaymentDate() bool {
 	return m.Has(tag.UnderlyingCouponPaymentDate)
 }
 
-//HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
+// HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
 func (m NoUnderlyings) HasUnderlyingIssueDate() bool {
 	return m.Has(tag.UnderlyingIssueDate)
 }
 
-//HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
+// HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
 func (m NoUnderlyings) HasUnderlyingRepoCollateralSecurityType() bool {
 	return m.Has(tag.UnderlyingRepoCollateralSecurityType)
 }
 
-//HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
+// HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
 func (m NoUnderlyings) HasUnderlyingRepurchaseTerm() bool {
 	return m.Has(tag.UnderlyingRepurchaseTerm)
 }
 
-//HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
+// HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
 func (m NoUnderlyings) HasUnderlyingRepurchaseRate() bool {
 	return m.Has(tag.UnderlyingRepurchaseRate)
 }
 
-//HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
+// HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
 func (m NoUnderlyings) HasUnderlyingFactor() bool {
 	return m.Has(tag.UnderlyingFactor)
 }
 
-//HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
+// HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
 func (m NoUnderlyings) HasUnderlyingCreditRating() bool {
 	return m.Has(tag.UnderlyingCreditRating)
 }
 
-//HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
+// HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
 func (m NoUnderlyings) HasUnderlyingInstrRegistry() bool {
 	return m.Has(tag.UnderlyingInstrRegistry)
 }
 
-//HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
+// HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
 func (m NoUnderlyings) HasUnderlyingCountryOfIssue() bool {
 	return m.Has(tag.UnderlyingCountryOfIssue)
 }
 
-//HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
+// HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
 func (m NoUnderlyings) HasUnderlyingStateOrProvinceOfIssue() bool {
 	return m.Has(tag.UnderlyingStateOrProvinceOfIssue)
 }
 
-//HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
+// HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
 func (m NoUnderlyings) HasUnderlyingLocaleOfIssue() bool {
 	return m.Has(tag.UnderlyingLocaleOfIssue)
 }
 
-//HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
+// HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
 func (m NoUnderlyings) HasUnderlyingRedemptionDate() bool {
 	return m.Has(tag.UnderlyingRedemptionDate)
 }
 
-//HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
+// HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
 func (m NoUnderlyings) HasUnderlyingStrikePrice() bool {
 	return m.Has(tag.UnderlyingStrikePrice)
 }
 
-//HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
+// HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
 func (m NoUnderlyings) HasUnderlyingStrikeCurrency() bool {
 	return m.Has(tag.UnderlyingStrikeCurrency)
 }
 
-//HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
+// HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
 func (m NoUnderlyings) HasUnderlyingOptAttribute() bool {
 	return m.Has(tag.UnderlyingOptAttribute)
 }
 
-//HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
+// HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
 func (m NoUnderlyings) HasUnderlyingContractMultiplier() bool {
 	return m.Has(tag.UnderlyingContractMultiplier)
 }
 
-//HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
+// HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
 func (m NoUnderlyings) HasUnderlyingCouponRate() bool {
 	return m.Has(tag.UnderlyingCouponRate)
 }
 
-//HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
+// HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
 func (m NoUnderlyings) HasUnderlyingSecurityExchange() bool {
 	return m.Has(tag.UnderlyingSecurityExchange)
 }
 
-//HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
+// HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
 func (m NoUnderlyings) HasUnderlyingIssuer() bool {
 	return m.Has(tag.UnderlyingIssuer)
 }
 
-//HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
+// HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
 func (m NoUnderlyings) HasEncodedUnderlyingIssuerLen() bool {
 	return m.Has(tag.EncodedUnderlyingIssuerLen)
 }
 
-//HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
+// HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
 func (m NoUnderlyings) HasEncodedUnderlyingIssuer() bool {
 	return m.Has(tag.EncodedUnderlyingIssuer)
 }
 
-//HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
+// HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
 func (m NoUnderlyings) HasUnderlyingSecurityDesc() bool {
 	return m.Has(tag.UnderlyingSecurityDesc)
 }
 
-//HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
+// HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
 func (m NoUnderlyings) HasEncodedUnderlyingSecurityDescLen() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDescLen)
 }
 
-//HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
+// HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
 func (m NoUnderlyings) HasEncodedUnderlyingSecurityDesc() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDesc)
 }
 
-//HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
+// HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
 func (m NoUnderlyings) HasUnderlyingCPProgram() bool {
 	return m.Has(tag.UnderlyingCPProgram)
 }
 
-//HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
+// HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
 func (m NoUnderlyings) HasUnderlyingCPRegType() bool {
 	return m.Has(tag.UnderlyingCPRegType)
 }
 
-//HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
+// HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
 func (m NoUnderlyings) HasUnderlyingCurrency() bool {
 	return m.Has(tag.UnderlyingCurrency)
 }
 
-//HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
+// HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
 func (m NoUnderlyings) HasUnderlyingQty() bool {
 	return m.Has(tag.UnderlyingQty)
 }
 
-//HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
+// HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
 func (m NoUnderlyings) HasUnderlyingPx() bool {
 	return m.Has(tag.UnderlyingPx)
 }
 
-//HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
+// HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
 func (m NoUnderlyings) HasUnderlyingDirtyPrice() bool {
 	return m.Has(tag.UnderlyingDirtyPrice)
 }
 
-//HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
+// HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
 func (m NoUnderlyings) HasUnderlyingEndPrice() bool {
 	return m.Has(tag.UnderlyingEndPrice)
 }
 
-//HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
+// HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
 func (m NoUnderlyings) HasUnderlyingStartValue() bool {
 	return m.Has(tag.UnderlyingStartValue)
 }
 
-//HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
+// HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
 func (m NoUnderlyings) HasUnderlyingCurrentValue() bool {
 	return m.Has(tag.UnderlyingCurrentValue)
 }
 
-//HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
+// HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
 func (m NoUnderlyings) HasUnderlyingEndValue() bool {
 	return m.Has(tag.UnderlyingEndValue)
 }
 
-//HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
+// HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
 func (m NoUnderlyings) HasNoUnderlyingStips() bool {
 	return m.Has(tag.NoUnderlyingStips)
 }
 
-//HasCollAction returns true if CollAction is present, Tag 944
+// HasCollAction returns true if CollAction is present, Tag 944
 func (m NoUnderlyings) HasCollAction() bool {
 	return m.Has(tag.CollAction)
 }
 
-//NoUnderlyingSecurityAltID is a repeating group element, Tag 457
+// NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
+// SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {
 	m.Set(field.NewUnderlyingSecurityAltID(v))
 }
 
-//SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
+// SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityAltIDSource(v))
 }
 
-//GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
+// GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -4164,7 +4172,7 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err q
 	return
 }
 
-//GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
+// GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -4173,55 +4181,56 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string,
 	return
 }
 
-//HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
+// HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltID() bool {
 	return m.Has(tag.UnderlyingSecurityAltID)
 }
 
-//HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
+// HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityAltIDSource)
 }
 
-//NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
+// NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
 type NoUnderlyingSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
+// NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
 func NewNoUnderlyingSecurityAltIDRepeatingGroup() NoUnderlyingSecurityAltIDRepeatingGroup {
 	return NoUnderlyingSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingSecurityAltID to this group
+// Add create and append a new NoUnderlyingSecurityAltID to this group
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Add() NoUnderlyingSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingSecurityAltID{g}
 }
 
-//Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
+// Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurityAltID {
 	return NoUnderlyingSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyingStips is a repeating group element, Tag 887
+// NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingStipType sets UnderlyingStipType, Tag 888
+// SetUnderlyingStipType sets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) SetUnderlyingStipType(v string) {
 	m.Set(field.NewUnderlyingStipType(v))
 }
 
-//SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
+// SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) SetUnderlyingStipValue(v string) {
 	m.Set(field.NewUnderlyingStipValue(v))
 }
 
-//GetUnderlyingStipType gets UnderlyingStipType, Tag 888
+// GetUnderlyingStipType gets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipTypeField
 	if err = m.Get(&f); err == nil {
@@ -4230,7 +4239,7 @@ func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
+// GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipValueField
 	if err = m.Get(&f); err == nil {
@@ -4239,83 +4248,85 @@ func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.Mess
 	return
 }
 
-//HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
+// HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
 func (m NoUnderlyingStips) HasUnderlyingStipType() bool {
 	return m.Has(tag.UnderlyingStipType)
 }
 
-//HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
+// HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
 func (m NoUnderlyingStips) HasUnderlyingStipValue() bool {
 	return m.Has(tag.UnderlyingStipValue)
 }
 
-//NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
+// NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
 type NoUnderlyingStipsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
+// NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
 func NewNoUnderlyingStipsRepeatingGroup() NoUnderlyingStipsRepeatingGroup {
 	return NoUnderlyingStipsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingStips,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingStips to this group
+// Add create and append a new NoUnderlyingStips to this group
 func (m NoUnderlyingStipsRepeatingGroup) Add() NoUnderlyingStips {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingStips{g}
 }
 
-//Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
+// Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
 func (m NoUnderlyingStipsRepeatingGroup) Get(i int) NoUnderlyingStips {
 	return NoUnderlyingStips{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyingsRepeatingGroup is a repeating group, Tag 711
+// NoUnderlyingsRepeatingGroup is a repeating group, Tag 711
 type NoUnderlyingsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingsRepeatingGroup returns an initialized, NoUnderlyingsRepeatingGroup
+// NewNoUnderlyingsRepeatingGroup returns an initialized, NoUnderlyingsRepeatingGroup
 func NewNoUnderlyingsRepeatingGroup() NoUnderlyingsRepeatingGroup {
 	return NoUnderlyingsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyings,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSymbol), quickfix.GroupElement(tag.UnderlyingSymbolSfx), quickfix.GroupElement(tag.UnderlyingSecurityID), quickfix.GroupElement(tag.UnderlyingSecurityIDSource), NewNoUnderlyingSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.UnderlyingProduct), quickfix.GroupElement(tag.UnderlyingCFICode), quickfix.GroupElement(tag.UnderlyingSecurityType), quickfix.GroupElement(tag.UnderlyingSecuritySubType), quickfix.GroupElement(tag.UnderlyingMaturityMonthYear), quickfix.GroupElement(tag.UnderlyingMaturityDate), quickfix.GroupElement(tag.UnderlyingCouponPaymentDate), quickfix.GroupElement(tag.UnderlyingIssueDate), quickfix.GroupElement(tag.UnderlyingRepoCollateralSecurityType), quickfix.GroupElement(tag.UnderlyingRepurchaseTerm), quickfix.GroupElement(tag.UnderlyingRepurchaseRate), quickfix.GroupElement(tag.UnderlyingFactor), quickfix.GroupElement(tag.UnderlyingCreditRating), quickfix.GroupElement(tag.UnderlyingInstrRegistry), quickfix.GroupElement(tag.UnderlyingCountryOfIssue), quickfix.GroupElement(tag.UnderlyingStateOrProvinceOfIssue), quickfix.GroupElement(tag.UnderlyingLocaleOfIssue), quickfix.GroupElement(tag.UnderlyingRedemptionDate), quickfix.GroupElement(tag.UnderlyingStrikePrice), quickfix.GroupElement(tag.UnderlyingStrikeCurrency), quickfix.GroupElement(tag.UnderlyingOptAttribute), quickfix.GroupElement(tag.UnderlyingContractMultiplier), quickfix.GroupElement(tag.UnderlyingCouponRate), quickfix.GroupElement(tag.UnderlyingSecurityExchange), quickfix.GroupElement(tag.UnderlyingIssuer), quickfix.GroupElement(tag.EncodedUnderlyingIssuerLen), quickfix.GroupElement(tag.EncodedUnderlyingIssuer), quickfix.GroupElement(tag.UnderlyingSecurityDesc), quickfix.GroupElement(tag.EncodedUnderlyingSecurityDescLen), quickfix.GroupElement(tag.EncodedUnderlyingSecurityDesc), quickfix.GroupElement(tag.UnderlyingCPProgram), quickfix.GroupElement(tag.UnderlyingCPRegType), quickfix.GroupElement(tag.UnderlyingCurrency), quickfix.GroupElement(tag.UnderlyingQty), quickfix.GroupElement(tag.UnderlyingPx), quickfix.GroupElement(tag.UnderlyingDirtyPrice), quickfix.GroupElement(tag.UnderlyingEndPrice), quickfix.GroupElement(tag.UnderlyingStartValue), quickfix.GroupElement(tag.UnderlyingCurrentValue), quickfix.GroupElement(tag.UnderlyingEndValue), NewNoUnderlyingStipsRepeatingGroup(), quickfix.GroupElement(tag.CollAction)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSymbol), quickfix.GroupElement(tag.UnderlyingSymbolSfx), quickfix.GroupElement(tag.UnderlyingSecurityID), quickfix.GroupElement(tag.UnderlyingSecurityIDSource), NewNoUnderlyingSecurityAltIDRepeatingGroup(), quickfix.GroupElement(tag.UnderlyingProduct), quickfix.GroupElement(tag.UnderlyingCFICode), quickfix.GroupElement(tag.UnderlyingSecurityType), quickfix.GroupElement(tag.UnderlyingSecuritySubType), quickfix.GroupElement(tag.UnderlyingMaturityMonthYear), quickfix.GroupElement(tag.UnderlyingMaturityDate), quickfix.GroupElement(tag.UnderlyingCouponPaymentDate), quickfix.GroupElement(tag.UnderlyingIssueDate), quickfix.GroupElement(tag.UnderlyingRepoCollateralSecurityType), quickfix.GroupElement(tag.UnderlyingRepurchaseTerm), quickfix.GroupElement(tag.UnderlyingRepurchaseRate), quickfix.GroupElement(tag.UnderlyingFactor), quickfix.GroupElement(tag.UnderlyingCreditRating), quickfix.GroupElement(tag.UnderlyingInstrRegistry), quickfix.GroupElement(tag.UnderlyingCountryOfIssue), quickfix.GroupElement(tag.UnderlyingStateOrProvinceOfIssue), quickfix.GroupElement(tag.UnderlyingLocaleOfIssue), quickfix.GroupElement(tag.UnderlyingRedemptionDate), quickfix.GroupElement(tag.UnderlyingStrikePrice), quickfix.GroupElement(tag.UnderlyingStrikeCurrency), quickfix.GroupElement(tag.UnderlyingOptAttribute), quickfix.GroupElement(tag.UnderlyingContractMultiplier), quickfix.GroupElement(tag.UnderlyingCouponRate), quickfix.GroupElement(tag.UnderlyingSecurityExchange), quickfix.GroupElement(tag.UnderlyingIssuer), quickfix.GroupElement(tag.EncodedUnderlyingIssuerLen), quickfix.GroupElement(tag.EncodedUnderlyingIssuer), quickfix.GroupElement(tag.UnderlyingSecurityDesc), quickfix.GroupElement(tag.EncodedUnderlyingSecurityDescLen), quickfix.GroupElement(tag.EncodedUnderlyingSecurityDesc), quickfix.GroupElement(tag.UnderlyingCPProgram), quickfix.GroupElement(tag.UnderlyingCPRegType), quickfix.GroupElement(tag.UnderlyingCurrency), quickfix.GroupElement(tag.UnderlyingQty), quickfix.GroupElement(tag.UnderlyingPx), quickfix.GroupElement(tag.UnderlyingDirtyPrice), quickfix.GroupElement(tag.UnderlyingEndPrice), quickfix.GroupElement(tag.UnderlyingStartValue), quickfix.GroupElement(tag.UnderlyingCurrentValue), quickfix.GroupElement(tag.UnderlyingEndValue), NewNoUnderlyingStipsRepeatingGroup(), quickfix.GroupElement(tag.CollAction)}),
+	}
 }
 
-//Add create and append a new NoUnderlyings to this group
+// Add create and append a new NoUnderlyings to this group
 func (m NoUnderlyingsRepeatingGroup) Add() NoUnderlyings {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyings{g}
 }
 
-//Get returns the ith NoUnderlyings in the NoUnderlyingsRepeatinGroup
+// Get returns the ith NoUnderlyings in the NoUnderlyingsRepeatinGroup
 func (m NoUnderlyingsRepeatingGroup) Get(i int) NoUnderlyings {
 	return NoUnderlyings{m.RepeatingGroup.Get(i)}
 }
 
-//NoTrdRegTimestamps is a repeating group element, Tag 768
+// NoTrdRegTimestamps is a repeating group element, Tag 768
 type NoTrdRegTimestamps struct {
 	*quickfix.Group
 }
 
-//SetTrdRegTimestamp sets TrdRegTimestamp, Tag 769
+// SetTrdRegTimestamp sets TrdRegTimestamp, Tag 769
 func (m NoTrdRegTimestamps) SetTrdRegTimestamp(v time.Time) {
 	m.Set(field.NewTrdRegTimestamp(v))
 }
 
-//SetTrdRegTimestampType sets TrdRegTimestampType, Tag 770
+// SetTrdRegTimestampType sets TrdRegTimestampType, Tag 770
 func (m NoTrdRegTimestamps) SetTrdRegTimestampType(v enum.TrdRegTimestampType) {
 	m.Set(field.NewTrdRegTimestampType(v))
 }
 
-//SetTrdRegTimestampOrigin sets TrdRegTimestampOrigin, Tag 771
+// SetTrdRegTimestampOrigin sets TrdRegTimestampOrigin, Tag 771
 func (m NoTrdRegTimestamps) SetTrdRegTimestampOrigin(v string) {
 	m.Set(field.NewTrdRegTimestampOrigin(v))
 }
 
-//GetTrdRegTimestamp gets TrdRegTimestamp, Tag 769
+// GetTrdRegTimestamp gets TrdRegTimestamp, Tag 769
 func (m NoTrdRegTimestamps) GetTrdRegTimestamp() (v time.Time, err quickfix.MessageRejectError) {
 	var f field.TrdRegTimestampField
 	if err = m.Get(&f); err == nil {
@@ -4324,7 +4335,7 @@ func (m NoTrdRegTimestamps) GetTrdRegTimestamp() (v time.Time, err quickfix.Mess
 	return
 }
 
-//GetTrdRegTimestampType gets TrdRegTimestampType, Tag 770
+// GetTrdRegTimestampType gets TrdRegTimestampType, Tag 770
 func (m NoTrdRegTimestamps) GetTrdRegTimestampType() (v enum.TrdRegTimestampType, err quickfix.MessageRejectError) {
 	var f field.TrdRegTimestampTypeField
 	if err = m.Get(&f); err == nil {
@@ -4333,7 +4344,7 @@ func (m NoTrdRegTimestamps) GetTrdRegTimestampType() (v enum.TrdRegTimestampType
 	return
 }
 
-//GetTrdRegTimestampOrigin gets TrdRegTimestampOrigin, Tag 771
+// GetTrdRegTimestampOrigin gets TrdRegTimestampOrigin, Tag 771
 func (m NoTrdRegTimestamps) GetTrdRegTimestampOrigin() (v string, err quickfix.MessageRejectError) {
 	var f field.TrdRegTimestampOriginField
 	if err = m.Get(&f); err == nil {
@@ -4342,70 +4353,71 @@ func (m NoTrdRegTimestamps) GetTrdRegTimestampOrigin() (v string, err quickfix.M
 	return
 }
 
-//HasTrdRegTimestamp returns true if TrdRegTimestamp is present, Tag 769
+// HasTrdRegTimestamp returns true if TrdRegTimestamp is present, Tag 769
 func (m NoTrdRegTimestamps) HasTrdRegTimestamp() bool {
 	return m.Has(tag.TrdRegTimestamp)
 }
 
-//HasTrdRegTimestampType returns true if TrdRegTimestampType is present, Tag 770
+// HasTrdRegTimestampType returns true if TrdRegTimestampType is present, Tag 770
 func (m NoTrdRegTimestamps) HasTrdRegTimestampType() bool {
 	return m.Has(tag.TrdRegTimestampType)
 }
 
-//HasTrdRegTimestampOrigin returns true if TrdRegTimestampOrigin is present, Tag 771
+// HasTrdRegTimestampOrigin returns true if TrdRegTimestampOrigin is present, Tag 771
 func (m NoTrdRegTimestamps) HasTrdRegTimestampOrigin() bool {
 	return m.Has(tag.TrdRegTimestampOrigin)
 }
 
-//NoTrdRegTimestampsRepeatingGroup is a repeating group, Tag 768
+// NoTrdRegTimestampsRepeatingGroup is a repeating group, Tag 768
 type NoTrdRegTimestampsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoTrdRegTimestampsRepeatingGroup returns an initialized, NoTrdRegTimestampsRepeatingGroup
+// NewNoTrdRegTimestampsRepeatingGroup returns an initialized, NoTrdRegTimestampsRepeatingGroup
 func NewNoTrdRegTimestampsRepeatingGroup() NoTrdRegTimestampsRepeatingGroup {
 	return NoTrdRegTimestampsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoTrdRegTimestamps,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.TrdRegTimestamp), quickfix.GroupElement(tag.TrdRegTimestampType), quickfix.GroupElement(tag.TrdRegTimestampOrigin)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.TrdRegTimestamp), quickfix.GroupElement(tag.TrdRegTimestampType), quickfix.GroupElement(tag.TrdRegTimestampOrigin)}),
+	}
 }
 
-//Add create and append a new NoTrdRegTimestamps to this group
+// Add create and append a new NoTrdRegTimestamps to this group
 func (m NoTrdRegTimestampsRepeatingGroup) Add() NoTrdRegTimestamps {
 	g := m.RepeatingGroup.Add()
 	return NoTrdRegTimestamps{g}
 }
 
-//Get returns the ith NoTrdRegTimestamps in the NoTrdRegTimestampsRepeatinGroup
+// Get returns the ith NoTrdRegTimestamps in the NoTrdRegTimestampsRepeatinGroup
 func (m NoTrdRegTimestampsRepeatingGroup) Get(i int) NoTrdRegTimestamps {
 	return NoTrdRegTimestamps{m.RepeatingGroup.Get(i)}
 }
 
-//NoEvents is a repeating group element, Tag 864
+// NoEvents is a repeating group element, Tag 864
 type NoEvents struct {
 	*quickfix.Group
 }
 
-//SetEventType sets EventType, Tag 865
+// SetEventType sets EventType, Tag 865
 func (m NoEvents) SetEventType(v enum.EventType) {
 	m.Set(field.NewEventType(v))
 }
 
-//SetEventDate sets EventDate, Tag 866
+// SetEventDate sets EventDate, Tag 866
 func (m NoEvents) SetEventDate(v string) {
 	m.Set(field.NewEventDate(v))
 }
 
-//SetEventPx sets EventPx, Tag 867
+// SetEventPx sets EventPx, Tag 867
 func (m NoEvents) SetEventPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewEventPx(value, scale))
 }
 
-//SetEventText sets EventText, Tag 868
+// SetEventText sets EventText, Tag 868
 func (m NoEvents) SetEventText(v string) {
 	m.Set(field.NewEventText(v))
 }
 
-//GetEventType gets EventType, Tag 865
+// GetEventType gets EventType, Tag 865
 func (m NoEvents) GetEventType() (v enum.EventType, err quickfix.MessageRejectError) {
 	var f field.EventTypeField
 	if err = m.Get(&f); err == nil {
@@ -4414,7 +4426,7 @@ func (m NoEvents) GetEventType() (v enum.EventType, err quickfix.MessageRejectEr
 	return
 }
 
-//GetEventDate gets EventDate, Tag 866
+// GetEventDate gets EventDate, Tag 866
 func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
 	var f field.EventDateField
 	if err = m.Get(&f); err == nil {
@@ -4423,7 +4435,7 @@ func (m NoEvents) GetEventDate() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetEventPx gets EventPx, Tag 867
+// GetEventPx gets EventPx, Tag 867
 func (m NoEvents) GetEventPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.EventPxField
 	if err = m.Get(&f); err == nil {
@@ -4432,7 +4444,7 @@ func (m NoEvents) GetEventPx() (v decimal.Decimal, err quickfix.MessageRejectErr
 	return
 }
 
-//GetEventText gets EventText, Tag 868
+// GetEventText gets EventText, Tag 868
 func (m NoEvents) GetEventText() (v string, err quickfix.MessageRejectError) {
 	var f field.EventTextField
 	if err = m.Get(&f); err == nil {
@@ -4441,65 +4453,66 @@ func (m NoEvents) GetEventText() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//HasEventType returns true if EventType is present, Tag 865
+// HasEventType returns true if EventType is present, Tag 865
 func (m NoEvents) HasEventType() bool {
 	return m.Has(tag.EventType)
 }
 
-//HasEventDate returns true if EventDate is present, Tag 866
+// HasEventDate returns true if EventDate is present, Tag 866
 func (m NoEvents) HasEventDate() bool {
 	return m.Has(tag.EventDate)
 }
 
-//HasEventPx returns true if EventPx is present, Tag 867
+// HasEventPx returns true if EventPx is present, Tag 867
 func (m NoEvents) HasEventPx() bool {
 	return m.Has(tag.EventPx)
 }
 
-//HasEventText returns true if EventText is present, Tag 868
+// HasEventText returns true if EventText is present, Tag 868
 func (m NoEvents) HasEventText() bool {
 	return m.Has(tag.EventText)
 }
 
-//NoEventsRepeatingGroup is a repeating group, Tag 864
+// NoEventsRepeatingGroup is a repeating group, Tag 864
 type NoEventsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoEventsRepeatingGroup returns an initialized, NoEventsRepeatingGroup
+// NewNoEventsRepeatingGroup returns an initialized, NoEventsRepeatingGroup
 func NewNoEventsRepeatingGroup() NoEventsRepeatingGroup {
 	return NoEventsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoEvents,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.EventType), quickfix.GroupElement(tag.EventDate), quickfix.GroupElement(tag.EventPx), quickfix.GroupElement(tag.EventText)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.EventType), quickfix.GroupElement(tag.EventDate), quickfix.GroupElement(tag.EventPx), quickfix.GroupElement(tag.EventText)}),
+	}
 }
 
-//Add create and append a new NoEvents to this group
+// Add create and append a new NoEvents to this group
 func (m NoEventsRepeatingGroup) Add() NoEvents {
 	g := m.RepeatingGroup.Add()
 	return NoEvents{g}
 }
 
-//Get returns the ith NoEvents in the NoEventsRepeatinGroup
+// Get returns the ith NoEvents in the NoEventsRepeatinGroup
 func (m NoEventsRepeatingGroup) Get(i int) NoEvents {
 	return NoEvents{m.RepeatingGroup.Get(i)}
 }
 
-//NoTrades is a repeating group element, Tag 897
+// NoTrades is a repeating group element, Tag 897
 type NoTrades struct {
 	*quickfix.Group
 }
 
-//SetTradeReportID sets TradeReportID, Tag 571
+// SetTradeReportID sets TradeReportID, Tag 571
 func (m NoTrades) SetTradeReportID(v string) {
 	m.Set(field.NewTradeReportID(v))
 }
 
-//SetSecondaryTradeReportID sets SecondaryTradeReportID, Tag 818
+// SetSecondaryTradeReportID sets SecondaryTradeReportID, Tag 818
 func (m NoTrades) SetSecondaryTradeReportID(v string) {
 	m.Set(field.NewSecondaryTradeReportID(v))
 }
 
-//GetTradeReportID gets TradeReportID, Tag 571
+// GetTradeReportID gets TradeReportID, Tag 571
 func (m NoTrades) GetTradeReportID() (v string, err quickfix.MessageRejectError) {
 	var f field.TradeReportIDField
 	if err = m.Get(&f); err == nil {
@@ -4508,7 +4521,7 @@ func (m NoTrades) GetTradeReportID() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetSecondaryTradeReportID gets SecondaryTradeReportID, Tag 818
+// GetSecondaryTradeReportID gets SecondaryTradeReportID, Tag 818
 func (m NoTrades) GetSecondaryTradeReportID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecondaryTradeReportIDField
 	if err = m.Get(&f); err == nil {
@@ -4517,35 +4530,36 @@ func (m NoTrades) GetSecondaryTradeReportID() (v string, err quickfix.MessageRej
 	return
 }
 
-//HasTradeReportID returns true if TradeReportID is present, Tag 571
+// HasTradeReportID returns true if TradeReportID is present, Tag 571
 func (m NoTrades) HasTradeReportID() bool {
 	return m.Has(tag.TradeReportID)
 }
 
-//HasSecondaryTradeReportID returns true if SecondaryTradeReportID is present, Tag 818
+// HasSecondaryTradeReportID returns true if SecondaryTradeReportID is present, Tag 818
 func (m NoTrades) HasSecondaryTradeReportID() bool {
 	return m.Has(tag.SecondaryTradeReportID)
 }
 
-//NoTradesRepeatingGroup is a repeating group, Tag 897
+// NoTradesRepeatingGroup is a repeating group, Tag 897
 type NoTradesRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoTradesRepeatingGroup returns an initialized, NoTradesRepeatingGroup
+// NewNoTradesRepeatingGroup returns an initialized, NoTradesRepeatingGroup
 func NewNoTradesRepeatingGroup() NoTradesRepeatingGroup {
 	return NoTradesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoTrades,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.TradeReportID), quickfix.GroupElement(tag.SecondaryTradeReportID)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.TradeReportID), quickfix.GroupElement(tag.SecondaryTradeReportID)}),
+	}
 }
 
-//Add create and append a new NoTrades to this group
+// Add create and append a new NoTrades to this group
 func (m NoTradesRepeatingGroup) Add() NoTrades {
 	g := m.RepeatingGroup.Add()
 	return NoTrades{g}
 }
 
-//Get returns the ith NoTrades in the NoTradesRepeatinGroup
+// Get returns the ith NoTrades in the NoTradesRepeatinGroup
 func (m NoTradesRepeatingGroup) Get(i int) NoTrades {
 	return NoTrades{m.RepeatingGroup.Get(i)}
 }

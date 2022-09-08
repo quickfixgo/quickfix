@@ -9,7 +9,7 @@ import (
 )
 
 func TestBooleanWrite(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		val      FIXBoolean
 		expected []byte
 	}{
@@ -24,7 +24,7 @@ func TestBooleanWrite(t *testing.T) {
 }
 
 func TestFIXBooleanRead(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		bytes       []byte
 		expected    bool
 		expectError bool

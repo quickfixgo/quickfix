@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-//TimestampPrecision defines the precision used by FIXUTCTimestamp
+// TimestampPrecision defines the precision used by FIXUTCTimestamp
 type TimestampPrecision int
 
-//All TimestampPrecisions supported by FIX
+// All TimestampPrecisions supported by FIX
 const (
 	Millis TimestampPrecision = iota
 	Seconds
@@ -16,7 +16,7 @@ const (
 	Nanos
 )
 
-//FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
+// FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
 type FIXUTCTimestamp struct {
 	time.Time
 	Precision TimestampPrecision
@@ -31,12 +31,12 @@ const (
 
 func (f *FIXUTCTimestamp) Read(bytes []byte) (err error) {
 	switch len(bytes) {
-	//seconds
+	// seconds
 	case 17:
 		f.Time, err = time.Parse(utcTimestampSecondsFormat, string(bytes))
 		f.Precision = Seconds
 
-	//millis
+	// millis
 	case 21:
 		f.Time, err = time.Parse(utcTimestampMillisFormat, string(bytes))
 		f.Precision = Millis

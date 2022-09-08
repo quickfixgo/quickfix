@@ -5,10 +5,10 @@ import (
 	"strconv"
 )
 
-//FIXFloat is a FIX Float Value, implements FieldValue
+// FIXFloat is a FIX Float Value, implements FieldValue
 type FIXFloat float64
 
-//Float64 converts the FIXFloat value to float64
+// Float64 converts the FIXFloat value to float64
 func (f FIXFloat) Float64() float64 { return float64(f) }
 
 func (f *FIXFloat) Read(bytes []byte) error {
@@ -17,7 +17,7 @@ func (f *FIXFloat) Read(bytes []byte) error {
 		return err
 	}
 
-	//strconv allows values like "+100.00", which is not allowed for FIX float types
+	// strconv allows values like "+100.00", which is not allowed for FIX float types
 	for _, b := range bytes {
 		if b != '.' && b != '-' && !isDecimal(b) {
 			return fmt.Errorf("invalid value %v", string(bytes))

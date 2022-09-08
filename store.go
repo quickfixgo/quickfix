@@ -2,7 +2,7 @@ package quickfix
 
 import "time"
 
-//The MessageStore interface provides methods to record and retrieve messages for resend purposes
+// The MessageStore interface provides methods to record and retrieve messages for resend purposes
 type MessageStore interface {
 	NextSenderMsgSeqNum() int
 	NextTargetMsgSeqNum() int
@@ -24,7 +24,7 @@ type MessageStore interface {
 	Close() error
 }
 
-//The MessageStoreFactory interface is used by session to create a session specific message store
+// The MessageStoreFactory interface is used by session to create a session specific message store
 type MessageStoreFactory interface {
 	Create(sessionID SessionID) (MessageStore, error)
 }
@@ -57,6 +57,7 @@ func (store *memoryStore) SetNextSenderMsgSeqNum(nextSeqNum int) error {
 	store.senderMsgSeqNum = nextSeqNum - 1
 	return nil
 }
+
 func (store *memoryStore) SetNextTargetMsgSeqNum(nextSeqNum int) error {
 	store.targetMsgSeqNum = nextSeqNum - 1
 	return nil
@@ -75,12 +76,12 @@ func (store *memoryStore) Reset() error {
 }
 
 func (store *memoryStore) Refresh() error {
-	//nop, nothing to refresh
+	// nop, nothing to refresh
 	return nil
 }
 
 func (store *memoryStore) Close() error {
-	//nop, nothing to close
+	// nop, nothing to close
 	return nil
 }
 
@@ -111,5 +112,5 @@ func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
 	return m, nil
 }
 
-//NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores
+// NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores
 func NewMemoryStoreFactory() MessageStoreFactory { return memoryStoreFactory{} }

@@ -163,8 +163,9 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 	stashedRawMsg := stashedMsg.build()
 	s.Equal(string(rawMsg), string(stashedRawMsg))
 }
+
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighResendRequestChunkSize() {
-	var tests = []struct {
+	tests := []struct {
 		chunkSize        int
 		expectedEndSeqNo int
 	}{
@@ -317,7 +318,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
 	s.NextSenderMsgSeqNum(4)
 
-	//NOTE: a cheat here, need to reset mock
+	// NOTE: a cheat here, need to reset mock
 	s.MockApp = MockApp{}
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToApp").Return(ErrDoNotSend)

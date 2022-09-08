@@ -66,7 +66,7 @@ func TestSessionSettings_BoolSettings(t *testing.T) {
 		t.Error("Expected error for unparsable value")
 	}
 
-	var boolTests = []struct {
+	boolTests := []struct {
 		input    string
 		expected bool
 	}{
@@ -93,7 +93,7 @@ func TestSessionSettings_BoolSettings(t *testing.T) {
 func TestSessionSettings_Clone(t *testing.T) {
 	s := NewSessionSettings()
 
-	var cloneTests = []struct {
+	cloneTests := []struct {
 		input    string
 		expected string
 	}{
@@ -113,7 +113,6 @@ func TestSessionSettings_Clone(t *testing.T) {
 
 	for _, ct := range cloneTests {
 		actual, err := cloned.Setting(ct.input)
-
 		if err != nil {
 			t.Error("Unexpected Error", err)
 		}
@@ -134,7 +133,7 @@ func TestSessionSettings_Overlay(t *testing.T) {
 	overlay.Set(config.SocketAcceptPort, "102")
 	overlay.Set(config.SenderCompID, "blah")
 
-	var overlayTests = []struct {
+	overlayTests := []struct {
 		input    string
 		expected string
 	}{

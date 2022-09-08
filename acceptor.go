@@ -13,7 +13,7 @@ import (
 	"github.com/alpacahq/quickfix/config"
 )
 
-//Acceptor accepts connections from FIX clients and manages the associated sessions.
+// Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
 	app              Application
 	settings         *Settings
@@ -27,7 +27,7 @@ type Acceptor struct {
 	sessionFactory
 }
 
-//Start accepting connections.
+// Start accepting connections.
 func (a *Acceptor) Start() error {
 	socketAcceptHost := ""
 	if a.settings.GlobalSettings().HasSetting(config.SocketAcceptHost) {
@@ -72,7 +72,7 @@ func (a *Acceptor) Start() error {
 	return nil
 }
 
-//Stop logs out existing sessions, close their connections, and stop accepting new connections.
+// Stop logs out existing sessions, close their connections, and stop accepting new connections.
 func (a *Acceptor) Stop() {
 	defer func() {
 		_ = recover() // suppress sending on closed channel error
@@ -86,7 +86,7 @@ func (a *Acceptor) Stop() {
 	a.sessionGroup.Wait()
 }
 
-//NewAcceptor creates and initializes a new Acceptor.
+// NewAcceptor creates and initializes a new Acceptor.
 func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Settings, logFactory LogFactory) (a *Acceptor, err error) {
 	a = &Acceptor{
 		app:          app,
@@ -216,7 +216,8 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		}
 	}
 
-	sessID := SessionID{BeginString: string(beginString),
+	sessID := SessionID{
+		BeginString:  string(beginString),
 		SenderCompID: string(targetCompID), SenderSubID: string(targetSubID), SenderLocationID: string(targetLocationID),
 		TargetCompID: string(senderCompID), TargetSubID: string(senderSubID), TargetLocationID: string(senderLocationID),
 	}

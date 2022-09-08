@@ -41,16 +41,15 @@ var applVerIDLookup = map[string]string{
 }
 
 type sessionFactory struct {
-	//True if building sessions that initiate logon
+	// True if building sessions that initiate logon
 	BuildInitiators bool
 }
 
-//Creates Session, associates with internal session registry
+// Creates Session, associates with internal session registry
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,
 ) (session *session, err error) {
-
 	if session, err = f.newSession(sessionID, storeFactory, settings, logFactory, application); err != nil {
 		return
 	}
@@ -66,10 +65,11 @@ func (f sessionFactory) createSession(
 
 func (f sessionFactory) newSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory,
-	application Application) (s *session, err error) {
+	application Application,
+) (s *session, err error) {
 	s = &session{sessionID: sessionID}
 
-	var validatorSettings = defaultValidatorSettings
+	validatorSettings := defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
 		if validatorSettings.CheckFieldsOutOfOrder, err = settings.BoolSetting(config.ValidateFieldsOutOfOrder); err != nil {
 			return
@@ -85,7 +85,7 @@ func (f sessionFactory) newSession(
 			s.DefaultApplVerID = applVerID
 		}
 
-		//If the transport or app data dictionary setting is set, the other also needs to be set.
+		// If the transport or app data dictionary setting is set, the other also needs to be set.
 		if settings.HasSetting(config.TransportDataDictionary) || settings.HasSetting(config.AppDataDictionary) {
 			var transportDataDictionaryPath, appDataDictionaryPath string
 			if transportDataDictionaryPath, err = settings.Setting(config.TransportDataDictionary); err != nil {

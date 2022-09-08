@@ -2,7 +2,7 @@ package internal
 
 import "time"
 
-//SessionSettings stores all of the configuration for a given session
+// SessionSettings stores all of the configuration for a given session
 type SessionSettings struct {
 	ResetOnLogon                 bool
 	RefreshOnLogon               bool
@@ -17,10 +17,10 @@ type SessionSettings struct {
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
 
-	//required on logon for FIX.T.1 messages
+	// required on logon for FIX.T.1 messages
 	DefaultApplVerID string
 
-	//specific to initiators
+	// specific to initiators
 	ReconnectInterval    time.Duration
 	SocketConnectAddress []string
 }

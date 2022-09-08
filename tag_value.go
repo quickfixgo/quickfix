@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-//TagValue is a low-level FIX field abstraction
+// TagValue is a low-level FIX field abstraction
 type TagValue struct {
 	tag   Tag
 	value []byte

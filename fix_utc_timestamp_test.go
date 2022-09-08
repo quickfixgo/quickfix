@@ -11,7 +11,7 @@ import (
 func TestFIXUTCTimestampWrite(t *testing.T) {
 	ts := time.Date(2016, time.February, 8, 22, 7, 16, 954123123, time.UTC)
 
-	var tests = []struct {
+	tests := []struct {
 		precision quickfix.TimestampPrecision
 		val       []byte
 	}{
@@ -35,7 +35,7 @@ func TestFIXUTCTimestampWrite(t *testing.T) {
 }
 
 func TestFIXUTCTimestampRead(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		timeStr           string
 		expectedTime      time.Time
 		expectedPrecision quickfix.TimestampPrecision

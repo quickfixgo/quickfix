@@ -10,7 +10,6 @@ import (
 )
 
 func TestFileLog_NewFileLogFactory(t *testing.T) {
-
 	factory, err := NewFileLogFactory(NewSettings())
 
 	if err == nil {

@@ -9,7 +9,7 @@ import (
 )
 
 func TestFIXDecimalWrite(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		decimal  FIXDecimal
 		expected string
 	}{
@@ -25,7 +25,7 @@ func TestFIXDecimalWrite(t *testing.T) {
 }
 
 func TestFIXDecimalRead(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		bytes       string
 		expected    decimal.Decimal
 		expectError bool

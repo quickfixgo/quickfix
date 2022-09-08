@@ -10,7 +10,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//DerivativeSecurityListRequest is the fix44 DerivativeSecurityListRequest type, MsgType = z
+// DerivativeSecurityListRequest is the fix44 DerivativeSecurityListRequest type, MsgType = z
 type DerivativeSecurityListRequest struct {
 	fix44.Header
 	*quickfix.Body
@@ -18,7 +18,7 @@ type DerivativeSecurityListRequest struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a DerivativeSecurityListRequest from a quickfix.Message instance
+// FromMessage creates a DerivativeSecurityListRequest from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) DerivativeSecurityListRequest {
 	return DerivativeSecurityListRequest{
 		Header:  fix44.Header{&m.Header},
@@ -28,12 +28,12 @@ func FromMessage(m *quickfix.Message) DerivativeSecurityListRequest {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m DerivativeSecurityListRequest) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a DerivativeSecurityListRequest initialized with the required fields for DerivativeSecurityListRequest
+// New returns a DerivativeSecurityListRequest initialized with the required fields for DerivativeSecurityListRequest
 func New(securityreqid field.SecurityReqIDField, securitylistrequesttype field.SecurityListRequestTypeField) (m DerivativeSecurityListRequest) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix44.NewHeader(&m.Message.Header)
@@ -47,10 +47,10 @@ func New(securityreqid field.SecurityReqIDField, securitylistrequesttype field.S
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg DerivativeSecurityListRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -58,287 +58,287 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.4", "z", r
 }
 
-//SetCurrency sets Currency, Tag 15
+// SetCurrency sets Currency, Tag 15
 func (m DerivativeSecurityListRequest) SetCurrency(v string) {
 	m.Set(field.NewCurrency(v))
 }
 
-//SetText sets Text, Tag 58
+// SetText sets Text, Tag 58
 func (m DerivativeSecurityListRequest) SetText(v string) {
 	m.Set(field.NewText(v))
 }
 
-//SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
+// SetUnderlyingCouponPaymentDate sets UnderlyingCouponPaymentDate, Tag 241
 func (m DerivativeSecurityListRequest) SetUnderlyingCouponPaymentDate(v string) {
 	m.Set(field.NewUnderlyingCouponPaymentDate(v))
 }
 
-//SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
+// SetUnderlyingIssueDate sets UnderlyingIssueDate, Tag 242
 func (m DerivativeSecurityListRequest) SetUnderlyingIssueDate(v string) {
 	m.Set(field.NewUnderlyingIssueDate(v))
 }
 
-//SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
+// SetUnderlyingRepoCollateralSecurityType sets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m DerivativeSecurityListRequest) SetUnderlyingRepoCollateralSecurityType(v int) {
 	m.Set(field.NewUnderlyingRepoCollateralSecurityType(v))
 }
 
-//SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
+// SetUnderlyingRepurchaseTerm sets UnderlyingRepurchaseTerm, Tag 244
 func (m DerivativeSecurityListRequest) SetUnderlyingRepurchaseTerm(v int) {
 	m.Set(field.NewUnderlyingRepurchaseTerm(v))
 }
 
-//SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
+// SetUnderlyingRepurchaseRate sets UnderlyingRepurchaseRate, Tag 245
 func (m DerivativeSecurityListRequest) SetUnderlyingRepurchaseRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingRepurchaseRate(value, scale))
 }
 
-//SetUnderlyingFactor sets UnderlyingFactor, Tag 246
+// SetUnderlyingFactor sets UnderlyingFactor, Tag 246
 func (m DerivativeSecurityListRequest) SetUnderlyingFactor(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingFactor(value, scale))
 }
 
-//SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
+// SetUnderlyingRedemptionDate sets UnderlyingRedemptionDate, Tag 247
 func (m DerivativeSecurityListRequest) SetUnderlyingRedemptionDate(v string) {
 	m.Set(field.NewUnderlyingRedemptionDate(v))
 }
 
-//SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
+// SetUnderlyingCreditRating sets UnderlyingCreditRating, Tag 256
 func (m DerivativeSecurityListRequest) SetUnderlyingCreditRating(v string) {
 	m.Set(field.NewUnderlyingCreditRating(v))
 }
 
-//SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
+// SetSubscriptionRequestType sets SubscriptionRequestType, Tag 263
 func (m DerivativeSecurityListRequest) SetSubscriptionRequestType(v enum.SubscriptionRequestType) {
 	m.Set(field.NewSubscriptionRequestType(v))
 }
 
-//SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
+// SetUnderlyingSecurityIDSource sets UnderlyingSecurityIDSource, Tag 305
 func (m DerivativeSecurityListRequest) SetUnderlyingSecurityIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityIDSource(v))
 }
 
-//SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
+// SetUnderlyingIssuer sets UnderlyingIssuer, Tag 306
 func (m DerivativeSecurityListRequest) SetUnderlyingIssuer(v string) {
 	m.Set(field.NewUnderlyingIssuer(v))
 }
 
-//SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
+// SetUnderlyingSecurityDesc sets UnderlyingSecurityDesc, Tag 307
 func (m DerivativeSecurityListRequest) SetUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewUnderlyingSecurityDesc(v))
 }
 
-//SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
+// SetUnderlyingSecurityExchange sets UnderlyingSecurityExchange, Tag 308
 func (m DerivativeSecurityListRequest) SetUnderlyingSecurityExchange(v string) {
 	m.Set(field.NewUnderlyingSecurityExchange(v))
 }
 
-//SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
+// SetUnderlyingSecurityID sets UnderlyingSecurityID, Tag 309
 func (m DerivativeSecurityListRequest) SetUnderlyingSecurityID(v string) {
 	m.Set(field.NewUnderlyingSecurityID(v))
 }
 
-//SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
+// SetUnderlyingSecurityType sets UnderlyingSecurityType, Tag 310
 func (m DerivativeSecurityListRequest) SetUnderlyingSecurityType(v string) {
 	m.Set(field.NewUnderlyingSecurityType(v))
 }
 
-//SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
+// SetUnderlyingSymbol sets UnderlyingSymbol, Tag 311
 func (m DerivativeSecurityListRequest) SetUnderlyingSymbol(v string) {
 	m.Set(field.NewUnderlyingSymbol(v))
 }
 
-//SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
+// SetUnderlyingSymbolSfx sets UnderlyingSymbolSfx, Tag 312
 func (m DerivativeSecurityListRequest) SetUnderlyingSymbolSfx(v string) {
 	m.Set(field.NewUnderlyingSymbolSfx(v))
 }
 
-//SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
+// SetUnderlyingMaturityMonthYear sets UnderlyingMaturityMonthYear, Tag 313
 func (m DerivativeSecurityListRequest) SetUnderlyingMaturityMonthYear(v string) {
 	m.Set(field.NewUnderlyingMaturityMonthYear(v))
 }
 
-//SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
+// SetUnderlyingStrikePrice sets UnderlyingStrikePrice, Tag 316
 func (m DerivativeSecurityListRequest) SetUnderlyingStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStrikePrice(value, scale))
 }
 
-//SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
+// SetUnderlyingOptAttribute sets UnderlyingOptAttribute, Tag 317
 func (m DerivativeSecurityListRequest) SetUnderlyingOptAttribute(v string) {
 	m.Set(field.NewUnderlyingOptAttribute(v))
 }
 
-//SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
+// SetUnderlyingCurrency sets UnderlyingCurrency, Tag 318
 func (m DerivativeSecurityListRequest) SetUnderlyingCurrency(v string) {
 	m.Set(field.NewUnderlyingCurrency(v))
 }
 
-//SetSecurityReqID sets SecurityReqID, Tag 320
+// SetSecurityReqID sets SecurityReqID, Tag 320
 func (m DerivativeSecurityListRequest) SetSecurityReqID(v string) {
 	m.Set(field.NewSecurityReqID(v))
 }
 
-//SetTradingSessionID sets TradingSessionID, Tag 336
+// SetTradingSessionID sets TradingSessionID, Tag 336
 func (m DerivativeSecurityListRequest) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
-//SetEncodedTextLen sets EncodedTextLen, Tag 354
+// SetEncodedTextLen sets EncodedTextLen, Tag 354
 func (m DerivativeSecurityListRequest) SetEncodedTextLen(v int) {
 	m.Set(field.NewEncodedTextLen(v))
 }
 
-//SetEncodedText sets EncodedText, Tag 355
+// SetEncodedText sets EncodedText, Tag 355
 func (m DerivativeSecurityListRequest) SetEncodedText(v string) {
 	m.Set(field.NewEncodedText(v))
 }
 
-//SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
+// SetEncodedUnderlyingIssuerLen sets EncodedUnderlyingIssuerLen, Tag 362
 func (m DerivativeSecurityListRequest) SetEncodedUnderlyingIssuerLen(v int) {
 	m.Set(field.NewEncodedUnderlyingIssuerLen(v))
 }
 
-//SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
+// SetEncodedUnderlyingIssuer sets EncodedUnderlyingIssuer, Tag 363
 func (m DerivativeSecurityListRequest) SetEncodedUnderlyingIssuer(v string) {
 	m.Set(field.NewEncodedUnderlyingIssuer(v))
 }
 
-//SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
+// SetEncodedUnderlyingSecurityDescLen sets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m DerivativeSecurityListRequest) SetEncodedUnderlyingSecurityDescLen(v int) {
 	m.Set(field.NewEncodedUnderlyingSecurityDescLen(v))
 }
 
-//SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
+// SetEncodedUnderlyingSecurityDesc sets EncodedUnderlyingSecurityDesc, Tag 365
 func (m DerivativeSecurityListRequest) SetEncodedUnderlyingSecurityDesc(v string) {
 	m.Set(field.NewEncodedUnderlyingSecurityDesc(v))
 }
 
-//SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
+// SetUnderlyingCouponRate sets UnderlyingCouponRate, Tag 435
 func (m DerivativeSecurityListRequest) SetUnderlyingCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCouponRate(value, scale))
 }
 
-//SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
+// SetUnderlyingContractMultiplier sets UnderlyingContractMultiplier, Tag 436
 func (m DerivativeSecurityListRequest) SetUnderlyingContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingContractMultiplier(value, scale))
 }
 
-//SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
+// SetNoUnderlyingSecurityAltID sets NoUnderlyingSecurityAltID, Tag 457
 func (m DerivativeSecurityListRequest) SetNoUnderlyingSecurityAltID(f NoUnderlyingSecurityAltIDRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetUnderlyingProduct sets UnderlyingProduct, Tag 462
+// SetUnderlyingProduct sets UnderlyingProduct, Tag 462
 func (m DerivativeSecurityListRequest) SetUnderlyingProduct(v int) {
 	m.Set(field.NewUnderlyingProduct(v))
 }
 
-//SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
+// SetUnderlyingCFICode sets UnderlyingCFICode, Tag 463
 func (m DerivativeSecurityListRequest) SetUnderlyingCFICode(v string) {
 	m.Set(field.NewUnderlyingCFICode(v))
 }
 
-//SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
+// SetUnderlyingMaturityDate sets UnderlyingMaturityDate, Tag 542
 func (m DerivativeSecurityListRequest) SetUnderlyingMaturityDate(v string) {
 	m.Set(field.NewUnderlyingMaturityDate(v))
 }
 
-//SetSecurityListRequestType sets SecurityListRequestType, Tag 559
+// SetSecurityListRequestType sets SecurityListRequestType, Tag 559
 func (m DerivativeSecurityListRequest) SetSecurityListRequestType(v enum.SecurityListRequestType) {
 	m.Set(field.NewSecurityListRequestType(v))
 }
 
-//SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
+// SetUnderlyingCountryOfIssue sets UnderlyingCountryOfIssue, Tag 592
 func (m DerivativeSecurityListRequest) SetUnderlyingCountryOfIssue(v string) {
 	m.Set(field.NewUnderlyingCountryOfIssue(v))
 }
 
-//SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
+// SetUnderlyingStateOrProvinceOfIssue sets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m DerivativeSecurityListRequest) SetUnderlyingStateOrProvinceOfIssue(v string) {
 	m.Set(field.NewUnderlyingStateOrProvinceOfIssue(v))
 }
 
-//SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
+// SetUnderlyingLocaleOfIssue sets UnderlyingLocaleOfIssue, Tag 594
 func (m DerivativeSecurityListRequest) SetUnderlyingLocaleOfIssue(v string) {
 	m.Set(field.NewUnderlyingLocaleOfIssue(v))
 }
 
-//SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
+// SetUnderlyingInstrRegistry sets UnderlyingInstrRegistry, Tag 595
 func (m DerivativeSecurityListRequest) SetUnderlyingInstrRegistry(v string) {
 	m.Set(field.NewUnderlyingInstrRegistry(v))
 }
 
-//SetTradingSessionSubID sets TradingSessionSubID, Tag 625
+// SetTradingSessionSubID sets TradingSessionSubID, Tag 625
 func (m DerivativeSecurityListRequest) SetTradingSessionSubID(v enum.TradingSessionSubID) {
 	m.Set(field.NewTradingSessionSubID(v))
 }
 
-//SetSecuritySubType sets SecuritySubType, Tag 762
+// SetSecuritySubType sets SecuritySubType, Tag 762
 func (m DerivativeSecurityListRequest) SetSecuritySubType(v string) {
 	m.Set(field.NewSecuritySubType(v))
 }
 
-//SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
+// SetUnderlyingSecuritySubType sets UnderlyingSecuritySubType, Tag 763
 func (m DerivativeSecurityListRequest) SetUnderlyingSecuritySubType(v string) {
 	m.Set(field.NewUnderlyingSecuritySubType(v))
 }
 
-//SetUnderlyingPx sets UnderlyingPx, Tag 810
+// SetUnderlyingPx sets UnderlyingPx, Tag 810
 func (m DerivativeSecurityListRequest) SetUnderlyingPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingPx(value, scale))
 }
 
-//SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
+// SetUnderlyingCPProgram sets UnderlyingCPProgram, Tag 877
 func (m DerivativeSecurityListRequest) SetUnderlyingCPProgram(v string) {
 	m.Set(field.NewUnderlyingCPProgram(v))
 }
 
-//SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
+// SetUnderlyingCPRegType sets UnderlyingCPRegType, Tag 878
 func (m DerivativeSecurityListRequest) SetUnderlyingCPRegType(v string) {
 	m.Set(field.NewUnderlyingCPRegType(v))
 }
 
-//SetUnderlyingQty sets UnderlyingQty, Tag 879
+// SetUnderlyingQty sets UnderlyingQty, Tag 879
 func (m DerivativeSecurityListRequest) SetUnderlyingQty(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingQty(value, scale))
 }
 
-//SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
+// SetUnderlyingDirtyPrice sets UnderlyingDirtyPrice, Tag 882
 func (m DerivativeSecurityListRequest) SetUnderlyingDirtyPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingDirtyPrice(value, scale))
 }
 
-//SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
+// SetUnderlyingEndPrice sets UnderlyingEndPrice, Tag 883
 func (m DerivativeSecurityListRequest) SetUnderlyingEndPrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndPrice(value, scale))
 }
 
-//SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
+// SetUnderlyingStartValue sets UnderlyingStartValue, Tag 884
 func (m DerivativeSecurityListRequest) SetUnderlyingStartValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingStartValue(value, scale))
 }
 
-//SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
+// SetUnderlyingCurrentValue sets UnderlyingCurrentValue, Tag 885
 func (m DerivativeSecurityListRequest) SetUnderlyingCurrentValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingCurrentValue(value, scale))
 }
 
-//SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
+// SetUnderlyingEndValue sets UnderlyingEndValue, Tag 886
 func (m DerivativeSecurityListRequest) SetUnderlyingEndValue(value decimal.Decimal, scale int32) {
 	m.Set(field.NewUnderlyingEndValue(value, scale))
 }
 
-//SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
+// SetNoUnderlyingStips sets NoUnderlyingStips, Tag 887
 func (m DerivativeSecurityListRequest) SetNoUnderlyingStips(f NoUnderlyingStipsRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
+// SetUnderlyingStrikeCurrency sets UnderlyingStrikeCurrency, Tag 941
 func (m DerivativeSecurityListRequest) SetUnderlyingStrikeCurrency(v string) {
 	m.Set(field.NewUnderlyingStrikeCurrency(v))
 }
 
-//GetCurrency gets Currency, Tag 15
+// GetCurrency gets Currency, Tag 15
 func (m DerivativeSecurityListRequest) GetCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.CurrencyField
 	if err = m.Get(&f); err == nil {
@@ -347,7 +347,7 @@ func (m DerivativeSecurityListRequest) GetCurrency() (v string, err quickfix.Mes
 	return
 }
 
-//GetText gets Text, Tag 58
+// GetText gets Text, Tag 58
 func (m DerivativeSecurityListRequest) GetText() (v string, err quickfix.MessageRejectError) {
 	var f field.TextField
 	if err = m.Get(&f); err == nil {
@@ -356,7 +356,7 @@ func (m DerivativeSecurityListRequest) GetText() (v string, err quickfix.Message
 	return
 }
 
-//GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
+// GetUnderlyingCouponPaymentDate gets UnderlyingCouponPaymentDate, Tag 241
 func (m DerivativeSecurityListRequest) GetUnderlyingCouponPaymentDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponPaymentDateField
 	if err = m.Get(&f); err == nil {
@@ -365,7 +365,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCouponPaymentDate() (v strin
 	return
 }
 
-//GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
+// GetUnderlyingIssueDate gets UnderlyingIssueDate, Tag 242
 func (m DerivativeSecurityListRequest) GetUnderlyingIssueDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssueDateField
 	if err = m.Get(&f); err == nil {
@@ -374,7 +374,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingIssueDate() (v string, err q
 	return
 }
 
-//GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
+// GetUnderlyingRepoCollateralSecurityType gets UnderlyingRepoCollateralSecurityType, Tag 243
 func (m DerivativeSecurityListRequest) GetUnderlyingRepoCollateralSecurityType() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepoCollateralSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -383,7 +383,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingRepoCollateralSecurityType()
 	return
 }
 
-//GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
+// GetUnderlyingRepurchaseTerm gets UnderlyingRepurchaseTerm, Tag 244
 func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseTerm() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseTermField
 	if err = m.Get(&f); err == nil {
@@ -392,7 +392,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseTerm() (v int, err
 	return
 }
 
-//GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
+// GetUnderlyingRepurchaseRate gets UnderlyingRepurchaseRate, Tag 245
 func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRepurchaseRateField
 	if err = m.Get(&f); err == nil {
@@ -401,7 +401,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingRepurchaseRate() (v decimal.
 	return
 }
 
-//GetUnderlyingFactor gets UnderlyingFactor, Tag 246
+// GetUnderlyingFactor gets UnderlyingFactor, Tag 246
 func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingFactorField
 	if err = m.Get(&f); err == nil {
@@ -410,7 +410,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingFactor() (v decimal.Decimal,
 	return
 }
 
-//GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
+// GetUnderlyingRedemptionDate gets UnderlyingRedemptionDate, Tag 247
 func (m DerivativeSecurityListRequest) GetUnderlyingRedemptionDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingRedemptionDateField
 	if err = m.Get(&f); err == nil {
@@ -419,7 +419,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingRedemptionDate() (v string, 
 	return
 }
 
-//GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
+// GetUnderlyingCreditRating gets UnderlyingCreditRating, Tag 256
 func (m DerivativeSecurityListRequest) GetUnderlyingCreditRating() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCreditRatingField
 	if err = m.Get(&f); err == nil {
@@ -428,7 +428,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCreditRating() (v string, er
 	return
 }
 
-//GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
+// GetSubscriptionRequestType gets SubscriptionRequestType, Tag 263
 func (m DerivativeSecurityListRequest) GetSubscriptionRequestType() (v enum.SubscriptionRequestType, err quickfix.MessageRejectError) {
 	var f field.SubscriptionRequestTypeField
 	if err = m.Get(&f); err == nil {
@@ -437,7 +437,7 @@ func (m DerivativeSecurityListRequest) GetSubscriptionRequestType() (v enum.Subs
 	return
 }
 
-//GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
+// GetUnderlyingSecurityIDSource gets UnderlyingSecurityIDSource, Tag 305
 func (m DerivativeSecurityListRequest) GetUnderlyingSecurityIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -446,7 +446,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecurityIDSource() (v string
 	return
 }
 
-//GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
+// GetUnderlyingIssuer gets UnderlyingIssuer, Tag 306
 func (m DerivativeSecurityListRequest) GetUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -455,7 +455,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingIssuer() (v string, err quic
 	return
 }
 
-//GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
+// GetUnderlyingSecurityDesc gets UnderlyingSecurityDesc, Tag 307
 func (m DerivativeSecurityListRequest) GetUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -464,7 +464,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecurityDesc() (v string, er
 	return
 }
 
-//GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
+// GetUnderlyingSecurityExchange gets UnderlyingSecurityExchange, Tag 308
 func (m DerivativeSecurityListRequest) GetUnderlyingSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -473,7 +473,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecurityExchange() (v string
 	return
 }
 
-//GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
+// GetUnderlyingSecurityID gets UnderlyingSecurityID, Tag 309
 func (m DerivativeSecurityListRequest) GetUnderlyingSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -482,7 +482,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecurityID() (v string, err 
 	return
 }
 
-//GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
+// GetUnderlyingSecurityType gets UnderlyingSecurityType, Tag 310
 func (m DerivativeSecurityListRequest) GetUnderlyingSecurityType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -491,7 +491,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecurityType() (v string, er
 	return
 }
 
-//GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
+// GetUnderlyingSymbol gets UnderlyingSymbol, Tag 311
 func (m DerivativeSecurityListRequest) GetUnderlyingSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolField
 	if err = m.Get(&f); err == nil {
@@ -500,7 +500,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSymbol() (v string, err quic
 	return
 }
 
-//GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
+// GetUnderlyingSymbolSfx gets UnderlyingSymbolSfx, Tag 312
 func (m DerivativeSecurityListRequest) GetUnderlyingSymbolSfx() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -509,7 +509,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSymbolSfx() (v string, err q
 	return
 }
 
-//GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
+// GetUnderlyingMaturityMonthYear gets UnderlyingMaturityMonthYear, Tag 313
 func (m DerivativeSecurityListRequest) GetUnderlyingMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -518,7 +518,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingMaturityMonthYear() (v strin
 	return
 }
 
-//GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
+// GetUnderlyingStrikePrice gets UnderlyingStrikePrice, Tag 316
 func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -527,7 +527,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingStrikePrice() (v decimal.Dec
 	return
 }
 
-//GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
+// GetUnderlyingOptAttribute gets UnderlyingOptAttribute, Tag 317
 func (m DerivativeSecurityListRequest) GetUnderlyingOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingOptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -536,7 +536,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingOptAttribute() (v string, er
 	return
 }
 
-//GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
+// GetUnderlyingCurrency gets UnderlyingCurrency, Tag 318
 func (m DerivativeSecurityListRequest) GetUnderlyingCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -545,7 +545,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCurrency() (v string, err qu
 	return
 }
 
-//GetSecurityReqID gets SecurityReqID, Tag 320
+// GetSecurityReqID gets SecurityReqID, Tag 320
 func (m DerivativeSecurityListRequest) GetSecurityReqID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityReqIDField
 	if err = m.Get(&f); err == nil {
@@ -554,7 +554,7 @@ func (m DerivativeSecurityListRequest) GetSecurityReqID() (v string, err quickfi
 	return
 }
 
-//GetTradingSessionID gets TradingSessionID, Tag 336
+// GetTradingSessionID gets TradingSessionID, Tag 336
 func (m DerivativeSecurityListRequest) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
 	var f field.TradingSessionIDField
 	if err = m.Get(&f); err == nil {
@@ -563,7 +563,7 @@ func (m DerivativeSecurityListRequest) GetTradingSessionID() (v enum.TradingSess
 	return
 }
 
-//GetEncodedTextLen gets EncodedTextLen, Tag 354
+// GetEncodedTextLen gets EncodedTextLen, Tag 354
 func (m DerivativeSecurityListRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedTextLenField
 	if err = m.Get(&f); err == nil {
@@ -572,7 +572,7 @@ func (m DerivativeSecurityListRequest) GetEncodedTextLen() (v int, err quickfix.
 	return
 }
 
-//GetEncodedText gets EncodedText, Tag 355
+// GetEncodedText gets EncodedText, Tag 355
 func (m DerivativeSecurityListRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedTextField
 	if err = m.Get(&f); err == nil {
@@ -581,7 +581,7 @@ func (m DerivativeSecurityListRequest) GetEncodedText() (v string, err quickfix.
 	return
 }
 
-//GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
+// GetEncodedUnderlyingIssuerLen gets EncodedUnderlyingIssuerLen, Tag 362
 func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -590,7 +590,7 @@ func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuerLen() (v int, e
 	return
 }
 
-//GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
+// GetEncodedUnderlyingIssuer gets EncodedUnderlyingIssuer, Tag 363
 func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingIssuerField
 	if err = m.Get(&f); err == nil {
@@ -599,7 +599,7 @@ func (m DerivativeSecurityListRequest) GetEncodedUnderlyingIssuer() (v string, e
 	return
 }
 
-//GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
+// GetEncodedUnderlyingSecurityDescLen gets EncodedUnderlyingSecurityDescLen, Tag 364
 func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -608,7 +608,7 @@ func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDescLen() (v 
 	return
 }
 
-//GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
+// GetEncodedUnderlyingSecurityDesc gets EncodedUnderlyingSecurityDesc, Tag 365
 func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedUnderlyingSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -617,7 +617,7 @@ func (m DerivativeSecurityListRequest) GetEncodedUnderlyingSecurityDesc() (v str
 	return
 }
 
-//GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
+// GetUnderlyingCouponRate gets UnderlyingCouponRate, Tag 435
 func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCouponRateField
 	if err = m.Get(&f); err == nil {
@@ -626,7 +626,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCouponRate() (v decimal.Deci
 	return
 }
 
-//GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
+// GetUnderlyingContractMultiplier gets UnderlyingContractMultiplier, Tag 436
 func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -635,14 +635,14 @@ func (m DerivativeSecurityListRequest) GetUnderlyingContractMultiplier() (v deci
 	return
 }
 
-//GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
+// GetNoUnderlyingSecurityAltID gets NoUnderlyingSecurityAltID, Tag 457
 func (m DerivativeSecurityListRequest) GetNoUnderlyingSecurityAltID() (NoUnderlyingSecurityAltIDRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingSecurityAltIDRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetUnderlyingProduct gets UnderlyingProduct, Tag 462
+// GetUnderlyingProduct gets UnderlyingProduct, Tag 462
 func (m DerivativeSecurityListRequest) GetUnderlyingProduct() (v int, err quickfix.MessageRejectError) {
 	var f field.UnderlyingProductField
 	if err = m.Get(&f); err == nil {
@@ -651,7 +651,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingProduct() (v int, err quickf
 	return
 }
 
-//GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
+// GetUnderlyingCFICode gets UnderlyingCFICode, Tag 463
 func (m DerivativeSecurityListRequest) GetUnderlyingCFICode() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCFICodeField
 	if err = m.Get(&f); err == nil {
@@ -660,7 +660,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCFICode() (v string, err qui
 	return
 }
 
-//GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
+// GetUnderlyingMaturityDate gets UnderlyingMaturityDate, Tag 542
 func (m DerivativeSecurityListRequest) GetUnderlyingMaturityDate() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingMaturityDateField
 	if err = m.Get(&f); err == nil {
@@ -669,7 +669,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingMaturityDate() (v string, er
 	return
 }
 
-//GetSecurityListRequestType gets SecurityListRequestType, Tag 559
+// GetSecurityListRequestType gets SecurityListRequestType, Tag 559
 func (m DerivativeSecurityListRequest) GetSecurityListRequestType() (v enum.SecurityListRequestType, err quickfix.MessageRejectError) {
 	var f field.SecurityListRequestTypeField
 	if err = m.Get(&f); err == nil {
@@ -678,7 +678,7 @@ func (m DerivativeSecurityListRequest) GetSecurityListRequestType() (v enum.Secu
 	return
 }
 
-//GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
+// GetUnderlyingCountryOfIssue gets UnderlyingCountryOfIssue, Tag 592
 func (m DerivativeSecurityListRequest) GetUnderlyingCountryOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCountryOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -687,7 +687,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCountryOfIssue() (v string, 
 	return
 }
 
-//GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
+// GetUnderlyingStateOrProvinceOfIssue gets UnderlyingStateOrProvinceOfIssue, Tag 593
 func (m DerivativeSecurityListRequest) GetUnderlyingStateOrProvinceOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStateOrProvinceOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -696,7 +696,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingStateOrProvinceOfIssue() (v 
 	return
 }
 
-//GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
+// GetUnderlyingLocaleOfIssue gets UnderlyingLocaleOfIssue, Tag 594
 func (m DerivativeSecurityListRequest) GetUnderlyingLocaleOfIssue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingLocaleOfIssueField
 	if err = m.Get(&f); err == nil {
@@ -705,7 +705,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingLocaleOfIssue() (v string, e
 	return
 }
 
-//GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
+// GetUnderlyingInstrRegistry gets UnderlyingInstrRegistry, Tag 595
 func (m DerivativeSecurityListRequest) GetUnderlyingInstrRegistry() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingInstrRegistryField
 	if err = m.Get(&f); err == nil {
@@ -714,7 +714,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingInstrRegistry() (v string, e
 	return
 }
 
-//GetTradingSessionSubID gets TradingSessionSubID, Tag 625
+// GetTradingSessionSubID gets TradingSessionSubID, Tag 625
 func (m DerivativeSecurityListRequest) GetTradingSessionSubID() (v enum.TradingSessionSubID, err quickfix.MessageRejectError) {
 	var f field.TradingSessionSubIDField
 	if err = m.Get(&f); err == nil {
@@ -723,7 +723,7 @@ func (m DerivativeSecurityListRequest) GetTradingSessionSubID() (v enum.TradingS
 	return
 }
 
-//GetSecuritySubType gets SecuritySubType, Tag 762
+// GetSecuritySubType gets SecuritySubType, Tag 762
 func (m DerivativeSecurityListRequest) GetSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.SecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -732,7 +732,7 @@ func (m DerivativeSecurityListRequest) GetSecuritySubType() (v string, err quick
 	return
 }
 
-//GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
+// GetUnderlyingSecuritySubType gets UnderlyingSecuritySubType, Tag 763
 func (m DerivativeSecurityListRequest) GetUnderlyingSecuritySubType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecuritySubTypeField
 	if err = m.Get(&f); err == nil {
@@ -741,7 +741,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingSecuritySubType() (v string,
 	return
 }
 
-//GetUnderlyingPx gets UnderlyingPx, Tag 810
+// GetUnderlyingPx gets UnderlyingPx, Tag 810
 func (m DerivativeSecurityListRequest) GetUnderlyingPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingPxField
 	if err = m.Get(&f); err == nil {
@@ -750,7 +750,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingPx() (v decimal.Decimal, err
 	return
 }
 
-//GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
+// GetUnderlyingCPProgram gets UnderlyingCPProgram, Tag 877
 func (m DerivativeSecurityListRequest) GetUnderlyingCPProgram() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPProgramField
 	if err = m.Get(&f); err == nil {
@@ -759,7 +759,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCPProgram() (v string, err q
 	return
 }
 
-//GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
+// GetUnderlyingCPRegType gets UnderlyingCPRegType, Tag 878
 func (m DerivativeSecurityListRequest) GetUnderlyingCPRegType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCPRegTypeField
 	if err = m.Get(&f); err == nil {
@@ -768,7 +768,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCPRegType() (v string, err q
 	return
 }
 
-//GetUnderlyingQty gets UnderlyingQty, Tag 879
+// GetUnderlyingQty gets UnderlyingQty, Tag 879
 func (m DerivativeSecurityListRequest) GetUnderlyingQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingQtyField
 	if err = m.Get(&f); err == nil {
@@ -777,7 +777,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingQty() (v decimal.Decimal, er
 	return
 }
 
-//GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
+// GetUnderlyingDirtyPrice gets UnderlyingDirtyPrice, Tag 882
 func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingDirtyPriceField
 	if err = m.Get(&f); err == nil {
@@ -786,7 +786,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingDirtyPrice() (v decimal.Deci
 	return
 }
 
-//GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
+// GetUnderlyingEndPrice gets UnderlyingEndPrice, Tag 883
 func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndPriceField
 	if err = m.Get(&f); err == nil {
@@ -795,7 +795,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingEndPrice() (v decimal.Decima
 	return
 }
 
-//GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
+// GetUnderlyingStartValue gets UnderlyingStartValue, Tag 884
 func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStartValueField
 	if err = m.Get(&f); err == nil {
@@ -804,7 +804,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingStartValue() (v decimal.Deci
 	return
 }
 
-//GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
+// GetUnderlyingCurrentValue gets UnderlyingCurrentValue, Tag 885
 func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingCurrentValueField
 	if err = m.Get(&f); err == nil {
@@ -813,7 +813,7 @@ func (m DerivativeSecurityListRequest) GetUnderlyingCurrentValue() (v decimal.De
 	return
 }
 
-//GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
+// GetUnderlyingEndValue gets UnderlyingEndValue, Tag 886
 func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.UnderlyingEndValueField
 	if err = m.Get(&f); err == nil {
@@ -822,14 +822,14 @@ func (m DerivativeSecurityListRequest) GetUnderlyingEndValue() (v decimal.Decima
 	return
 }
 
-//GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
+// GetNoUnderlyingStips gets NoUnderlyingStips, Tag 887
 func (m DerivativeSecurityListRequest) GetNoUnderlyingStips() (NoUnderlyingStipsRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoUnderlyingStipsRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
+// GetUnderlyingStrikeCurrency gets UnderlyingStrikeCurrency, Tag 941
 func (m DerivativeSecurityListRequest) GetUnderlyingStrikeCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStrikeCurrencyField
 	if err = m.Get(&f); err == nil {
@@ -838,302 +838,302 @@ func (m DerivativeSecurityListRequest) GetUnderlyingStrikeCurrency() (v string, 
 	return
 }
 
-//HasCurrency returns true if Currency is present, Tag 15
+// HasCurrency returns true if Currency is present, Tag 15
 func (m DerivativeSecurityListRequest) HasCurrency() bool {
 	return m.Has(tag.Currency)
 }
 
-//HasText returns true if Text is present, Tag 58
+// HasText returns true if Text is present, Tag 58
 func (m DerivativeSecurityListRequest) HasText() bool {
 	return m.Has(tag.Text)
 }
 
-//HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
+// HasUnderlyingCouponPaymentDate returns true if UnderlyingCouponPaymentDate is present, Tag 241
 func (m DerivativeSecurityListRequest) HasUnderlyingCouponPaymentDate() bool {
 	return m.Has(tag.UnderlyingCouponPaymentDate)
 }
 
-//HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
+// HasUnderlyingIssueDate returns true if UnderlyingIssueDate is present, Tag 242
 func (m DerivativeSecurityListRequest) HasUnderlyingIssueDate() bool {
 	return m.Has(tag.UnderlyingIssueDate)
 }
 
-//HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
+// HasUnderlyingRepoCollateralSecurityType returns true if UnderlyingRepoCollateralSecurityType is present, Tag 243
 func (m DerivativeSecurityListRequest) HasUnderlyingRepoCollateralSecurityType() bool {
 	return m.Has(tag.UnderlyingRepoCollateralSecurityType)
 }
 
-//HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
+// HasUnderlyingRepurchaseTerm returns true if UnderlyingRepurchaseTerm is present, Tag 244
 func (m DerivativeSecurityListRequest) HasUnderlyingRepurchaseTerm() bool {
 	return m.Has(tag.UnderlyingRepurchaseTerm)
 }
 
-//HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
+// HasUnderlyingRepurchaseRate returns true if UnderlyingRepurchaseRate is present, Tag 245
 func (m DerivativeSecurityListRequest) HasUnderlyingRepurchaseRate() bool {
 	return m.Has(tag.UnderlyingRepurchaseRate)
 }
 
-//HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
+// HasUnderlyingFactor returns true if UnderlyingFactor is present, Tag 246
 func (m DerivativeSecurityListRequest) HasUnderlyingFactor() bool {
 	return m.Has(tag.UnderlyingFactor)
 }
 
-//HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
+// HasUnderlyingRedemptionDate returns true if UnderlyingRedemptionDate is present, Tag 247
 func (m DerivativeSecurityListRequest) HasUnderlyingRedemptionDate() bool {
 	return m.Has(tag.UnderlyingRedemptionDate)
 }
 
-//HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
+// HasUnderlyingCreditRating returns true if UnderlyingCreditRating is present, Tag 256
 func (m DerivativeSecurityListRequest) HasUnderlyingCreditRating() bool {
 	return m.Has(tag.UnderlyingCreditRating)
 }
 
-//HasSubscriptionRequestType returns true if SubscriptionRequestType is present, Tag 263
+// HasSubscriptionRequestType returns true if SubscriptionRequestType is present, Tag 263
 func (m DerivativeSecurityListRequest) HasSubscriptionRequestType() bool {
 	return m.Has(tag.SubscriptionRequestType)
 }
 
-//HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
+// HasUnderlyingSecurityIDSource returns true if UnderlyingSecurityIDSource is present, Tag 305
 func (m DerivativeSecurityListRequest) HasUnderlyingSecurityIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityIDSource)
 }
 
-//HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
+// HasUnderlyingIssuer returns true if UnderlyingIssuer is present, Tag 306
 func (m DerivativeSecurityListRequest) HasUnderlyingIssuer() bool {
 	return m.Has(tag.UnderlyingIssuer)
 }
 
-//HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
+// HasUnderlyingSecurityDesc returns true if UnderlyingSecurityDesc is present, Tag 307
 func (m DerivativeSecurityListRequest) HasUnderlyingSecurityDesc() bool {
 	return m.Has(tag.UnderlyingSecurityDesc)
 }
 
-//HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
+// HasUnderlyingSecurityExchange returns true if UnderlyingSecurityExchange is present, Tag 308
 func (m DerivativeSecurityListRequest) HasUnderlyingSecurityExchange() bool {
 	return m.Has(tag.UnderlyingSecurityExchange)
 }
 
-//HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
+// HasUnderlyingSecurityID returns true if UnderlyingSecurityID is present, Tag 309
 func (m DerivativeSecurityListRequest) HasUnderlyingSecurityID() bool {
 	return m.Has(tag.UnderlyingSecurityID)
 }
 
-//HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
+// HasUnderlyingSecurityType returns true if UnderlyingSecurityType is present, Tag 310
 func (m DerivativeSecurityListRequest) HasUnderlyingSecurityType() bool {
 	return m.Has(tag.UnderlyingSecurityType)
 }
 
-//HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
+// HasUnderlyingSymbol returns true if UnderlyingSymbol is present, Tag 311
 func (m DerivativeSecurityListRequest) HasUnderlyingSymbol() bool {
 	return m.Has(tag.UnderlyingSymbol)
 }
 
-//HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
+// HasUnderlyingSymbolSfx returns true if UnderlyingSymbolSfx is present, Tag 312
 func (m DerivativeSecurityListRequest) HasUnderlyingSymbolSfx() bool {
 	return m.Has(tag.UnderlyingSymbolSfx)
 }
 
-//HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
+// HasUnderlyingMaturityMonthYear returns true if UnderlyingMaturityMonthYear is present, Tag 313
 func (m DerivativeSecurityListRequest) HasUnderlyingMaturityMonthYear() bool {
 	return m.Has(tag.UnderlyingMaturityMonthYear)
 }
 
-//HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
+// HasUnderlyingStrikePrice returns true if UnderlyingStrikePrice is present, Tag 316
 func (m DerivativeSecurityListRequest) HasUnderlyingStrikePrice() bool {
 	return m.Has(tag.UnderlyingStrikePrice)
 }
 
-//HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
+// HasUnderlyingOptAttribute returns true if UnderlyingOptAttribute is present, Tag 317
 func (m DerivativeSecurityListRequest) HasUnderlyingOptAttribute() bool {
 	return m.Has(tag.UnderlyingOptAttribute)
 }
 
-//HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
+// HasUnderlyingCurrency returns true if UnderlyingCurrency is present, Tag 318
 func (m DerivativeSecurityListRequest) HasUnderlyingCurrency() bool {
 	return m.Has(tag.UnderlyingCurrency)
 }
 
-//HasSecurityReqID returns true if SecurityReqID is present, Tag 320
+// HasSecurityReqID returns true if SecurityReqID is present, Tag 320
 func (m DerivativeSecurityListRequest) HasSecurityReqID() bool {
 	return m.Has(tag.SecurityReqID)
 }
 
-//HasTradingSessionID returns true if TradingSessionID is present, Tag 336
+// HasTradingSessionID returns true if TradingSessionID is present, Tag 336
 func (m DerivativeSecurityListRequest) HasTradingSessionID() bool {
 	return m.Has(tag.TradingSessionID)
 }
 
-//HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
+// HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
 func (m DerivativeSecurityListRequest) HasEncodedTextLen() bool {
 	return m.Has(tag.EncodedTextLen)
 }
 
-//HasEncodedText returns true if EncodedText is present, Tag 355
+// HasEncodedText returns true if EncodedText is present, Tag 355
 func (m DerivativeSecurityListRequest) HasEncodedText() bool {
 	return m.Has(tag.EncodedText)
 }
 
-//HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
+// HasEncodedUnderlyingIssuerLen returns true if EncodedUnderlyingIssuerLen is present, Tag 362
 func (m DerivativeSecurityListRequest) HasEncodedUnderlyingIssuerLen() bool {
 	return m.Has(tag.EncodedUnderlyingIssuerLen)
 }
 
-//HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
+// HasEncodedUnderlyingIssuer returns true if EncodedUnderlyingIssuer is present, Tag 363
 func (m DerivativeSecurityListRequest) HasEncodedUnderlyingIssuer() bool {
 	return m.Has(tag.EncodedUnderlyingIssuer)
 }
 
-//HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
+// HasEncodedUnderlyingSecurityDescLen returns true if EncodedUnderlyingSecurityDescLen is present, Tag 364
 func (m DerivativeSecurityListRequest) HasEncodedUnderlyingSecurityDescLen() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDescLen)
 }
 
-//HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
+// HasEncodedUnderlyingSecurityDesc returns true if EncodedUnderlyingSecurityDesc is present, Tag 365
 func (m DerivativeSecurityListRequest) HasEncodedUnderlyingSecurityDesc() bool {
 	return m.Has(tag.EncodedUnderlyingSecurityDesc)
 }
 
-//HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
+// HasUnderlyingCouponRate returns true if UnderlyingCouponRate is present, Tag 435
 func (m DerivativeSecurityListRequest) HasUnderlyingCouponRate() bool {
 	return m.Has(tag.UnderlyingCouponRate)
 }
 
-//HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
+// HasUnderlyingContractMultiplier returns true if UnderlyingContractMultiplier is present, Tag 436
 func (m DerivativeSecurityListRequest) HasUnderlyingContractMultiplier() bool {
 	return m.Has(tag.UnderlyingContractMultiplier)
 }
 
-//HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
+// HasNoUnderlyingSecurityAltID returns true if NoUnderlyingSecurityAltID is present, Tag 457
 func (m DerivativeSecurityListRequest) HasNoUnderlyingSecurityAltID() bool {
 	return m.Has(tag.NoUnderlyingSecurityAltID)
 }
 
-//HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
+// HasUnderlyingProduct returns true if UnderlyingProduct is present, Tag 462
 func (m DerivativeSecurityListRequest) HasUnderlyingProduct() bool {
 	return m.Has(tag.UnderlyingProduct)
 }
 
-//HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
+// HasUnderlyingCFICode returns true if UnderlyingCFICode is present, Tag 463
 func (m DerivativeSecurityListRequest) HasUnderlyingCFICode() bool {
 	return m.Has(tag.UnderlyingCFICode)
 }
 
-//HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
+// HasUnderlyingMaturityDate returns true if UnderlyingMaturityDate is present, Tag 542
 func (m DerivativeSecurityListRequest) HasUnderlyingMaturityDate() bool {
 	return m.Has(tag.UnderlyingMaturityDate)
 }
 
-//HasSecurityListRequestType returns true if SecurityListRequestType is present, Tag 559
+// HasSecurityListRequestType returns true if SecurityListRequestType is present, Tag 559
 func (m DerivativeSecurityListRequest) HasSecurityListRequestType() bool {
 	return m.Has(tag.SecurityListRequestType)
 }
 
-//HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
+// HasUnderlyingCountryOfIssue returns true if UnderlyingCountryOfIssue is present, Tag 592
 func (m DerivativeSecurityListRequest) HasUnderlyingCountryOfIssue() bool {
 	return m.Has(tag.UnderlyingCountryOfIssue)
 }
 
-//HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
+// HasUnderlyingStateOrProvinceOfIssue returns true if UnderlyingStateOrProvinceOfIssue is present, Tag 593
 func (m DerivativeSecurityListRequest) HasUnderlyingStateOrProvinceOfIssue() bool {
 	return m.Has(tag.UnderlyingStateOrProvinceOfIssue)
 }
 
-//HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
+// HasUnderlyingLocaleOfIssue returns true if UnderlyingLocaleOfIssue is present, Tag 594
 func (m DerivativeSecurityListRequest) HasUnderlyingLocaleOfIssue() bool {
 	return m.Has(tag.UnderlyingLocaleOfIssue)
 }
 
-//HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
+// HasUnderlyingInstrRegistry returns true if UnderlyingInstrRegistry is present, Tag 595
 func (m DerivativeSecurityListRequest) HasUnderlyingInstrRegistry() bool {
 	return m.Has(tag.UnderlyingInstrRegistry)
 }
 
-//HasTradingSessionSubID returns true if TradingSessionSubID is present, Tag 625
+// HasTradingSessionSubID returns true if TradingSessionSubID is present, Tag 625
 func (m DerivativeSecurityListRequest) HasTradingSessionSubID() bool {
 	return m.Has(tag.TradingSessionSubID)
 }
 
-//HasSecuritySubType returns true if SecuritySubType is present, Tag 762
+// HasSecuritySubType returns true if SecuritySubType is present, Tag 762
 func (m DerivativeSecurityListRequest) HasSecuritySubType() bool {
 	return m.Has(tag.SecuritySubType)
 }
 
-//HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
+// HasUnderlyingSecuritySubType returns true if UnderlyingSecuritySubType is present, Tag 763
 func (m DerivativeSecurityListRequest) HasUnderlyingSecuritySubType() bool {
 	return m.Has(tag.UnderlyingSecuritySubType)
 }
 
-//HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
+// HasUnderlyingPx returns true if UnderlyingPx is present, Tag 810
 func (m DerivativeSecurityListRequest) HasUnderlyingPx() bool {
 	return m.Has(tag.UnderlyingPx)
 }
 
-//HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
+// HasUnderlyingCPProgram returns true if UnderlyingCPProgram is present, Tag 877
 func (m DerivativeSecurityListRequest) HasUnderlyingCPProgram() bool {
 	return m.Has(tag.UnderlyingCPProgram)
 }
 
-//HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
+// HasUnderlyingCPRegType returns true if UnderlyingCPRegType is present, Tag 878
 func (m DerivativeSecurityListRequest) HasUnderlyingCPRegType() bool {
 	return m.Has(tag.UnderlyingCPRegType)
 }
 
-//HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
+// HasUnderlyingQty returns true if UnderlyingQty is present, Tag 879
 func (m DerivativeSecurityListRequest) HasUnderlyingQty() bool {
 	return m.Has(tag.UnderlyingQty)
 }
 
-//HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
+// HasUnderlyingDirtyPrice returns true if UnderlyingDirtyPrice is present, Tag 882
 func (m DerivativeSecurityListRequest) HasUnderlyingDirtyPrice() bool {
 	return m.Has(tag.UnderlyingDirtyPrice)
 }
 
-//HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
+// HasUnderlyingEndPrice returns true if UnderlyingEndPrice is present, Tag 883
 func (m DerivativeSecurityListRequest) HasUnderlyingEndPrice() bool {
 	return m.Has(tag.UnderlyingEndPrice)
 }
 
-//HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
+// HasUnderlyingStartValue returns true if UnderlyingStartValue is present, Tag 884
 func (m DerivativeSecurityListRequest) HasUnderlyingStartValue() bool {
 	return m.Has(tag.UnderlyingStartValue)
 }
 
-//HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
+// HasUnderlyingCurrentValue returns true if UnderlyingCurrentValue is present, Tag 885
 func (m DerivativeSecurityListRequest) HasUnderlyingCurrentValue() bool {
 	return m.Has(tag.UnderlyingCurrentValue)
 }
 
-//HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
+// HasUnderlyingEndValue returns true if UnderlyingEndValue is present, Tag 886
 func (m DerivativeSecurityListRequest) HasUnderlyingEndValue() bool {
 	return m.Has(tag.UnderlyingEndValue)
 }
 
-//HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
+// HasNoUnderlyingStips returns true if NoUnderlyingStips is present, Tag 887
 func (m DerivativeSecurityListRequest) HasNoUnderlyingStips() bool {
 	return m.Has(tag.NoUnderlyingStips)
 }
 
-//HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
+// HasUnderlyingStrikeCurrency returns true if UnderlyingStrikeCurrency is present, Tag 941
 func (m DerivativeSecurityListRequest) HasUnderlyingStrikeCurrency() bool {
 	return m.Has(tag.UnderlyingStrikeCurrency)
 }
 
-//NoUnderlyingSecurityAltID is a repeating group element, Tag 457
+// NoUnderlyingSecurityAltID is a repeating group element, Tag 457
 type NoUnderlyingSecurityAltID struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
+// SetUnderlyingSecurityAltID sets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltID(v string) {
 	m.Set(field.NewUnderlyingSecurityAltID(v))
 }
 
-//SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
+// SetUnderlyingSecurityAltIDSource sets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) SetUnderlyingSecurityAltIDSource(v string) {
 	m.Set(field.NewUnderlyingSecurityAltIDSource(v))
 }
 
-//GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
+// GetUnderlyingSecurityAltID gets UnderlyingSecurityAltID, Tag 458
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDField
 	if err = m.Get(&f); err == nil {
@@ -1142,7 +1142,7 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltID() (v string, err q
 	return
 }
 
-//GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
+// GetUnderlyingSecurityAltIDSource gets UnderlyingSecurityAltIDSource, Tag 459
 func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingSecurityAltIDSourceField
 	if err = m.Get(&f); err == nil {
@@ -1151,55 +1151,56 @@ func (m NoUnderlyingSecurityAltID) GetUnderlyingSecurityAltIDSource() (v string,
 	return
 }
 
-//HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
+// HasUnderlyingSecurityAltID returns true if UnderlyingSecurityAltID is present, Tag 458
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltID() bool {
 	return m.Has(tag.UnderlyingSecurityAltID)
 }
 
-//HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
+// HasUnderlyingSecurityAltIDSource returns true if UnderlyingSecurityAltIDSource is present, Tag 459
 func (m NoUnderlyingSecurityAltID) HasUnderlyingSecurityAltIDSource() bool {
 	return m.Has(tag.UnderlyingSecurityAltIDSource)
 }
 
-//NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
+// NoUnderlyingSecurityAltIDRepeatingGroup is a repeating group, Tag 457
 type NoUnderlyingSecurityAltIDRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
+// NewNoUnderlyingSecurityAltIDRepeatingGroup returns an initialized, NoUnderlyingSecurityAltIDRepeatingGroup
 func NewNoUnderlyingSecurityAltIDRepeatingGroup() NoUnderlyingSecurityAltIDRepeatingGroup {
 	return NoUnderlyingSecurityAltIDRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingSecurityAltID,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingSecurityAltID), quickfix.GroupElement(tag.UnderlyingSecurityAltIDSource)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingSecurityAltID to this group
+// Add create and append a new NoUnderlyingSecurityAltID to this group
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Add() NoUnderlyingSecurityAltID {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingSecurityAltID{g}
 }
 
-//Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
+// Get returns the ith NoUnderlyingSecurityAltID in the NoUnderlyingSecurityAltIDRepeatinGroup
 func (m NoUnderlyingSecurityAltIDRepeatingGroup) Get(i int) NoUnderlyingSecurityAltID {
 	return NoUnderlyingSecurityAltID{m.RepeatingGroup.Get(i)}
 }
 
-//NoUnderlyingStips is a repeating group element, Tag 887
+// NoUnderlyingStips is a repeating group element, Tag 887
 type NoUnderlyingStips struct {
 	*quickfix.Group
 }
 
-//SetUnderlyingStipType sets UnderlyingStipType, Tag 888
+// SetUnderlyingStipType sets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) SetUnderlyingStipType(v string) {
 	m.Set(field.NewUnderlyingStipType(v))
 }
 
-//SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
+// SetUnderlyingStipValue sets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) SetUnderlyingStipValue(v string) {
 	m.Set(field.NewUnderlyingStipValue(v))
 }
 
-//GetUnderlyingStipType gets UnderlyingStipType, Tag 888
+// GetUnderlyingStipType gets UnderlyingStipType, Tag 888
 func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipTypeField
 	if err = m.Get(&f); err == nil {
@@ -1208,7 +1209,7 @@ func (m NoUnderlyingStips) GetUnderlyingStipType() (v string, err quickfix.Messa
 	return
 }
 
-//GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
+// GetUnderlyingStipValue gets UnderlyingStipValue, Tag 889
 func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.MessageRejectError) {
 	var f field.UnderlyingStipValueField
 	if err = m.Get(&f); err == nil {
@@ -1217,35 +1218,36 @@ func (m NoUnderlyingStips) GetUnderlyingStipValue() (v string, err quickfix.Mess
 	return
 }
 
-//HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
+// HasUnderlyingStipType returns true if UnderlyingStipType is present, Tag 888
 func (m NoUnderlyingStips) HasUnderlyingStipType() bool {
 	return m.Has(tag.UnderlyingStipType)
 }
 
-//HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
+// HasUnderlyingStipValue returns true if UnderlyingStipValue is present, Tag 889
 func (m NoUnderlyingStips) HasUnderlyingStipValue() bool {
 	return m.Has(tag.UnderlyingStipValue)
 }
 
-//NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
+// NoUnderlyingStipsRepeatingGroup is a repeating group, Tag 887
 type NoUnderlyingStipsRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
+// NewNoUnderlyingStipsRepeatingGroup returns an initialized, NoUnderlyingStipsRepeatingGroup
 func NewNoUnderlyingStipsRepeatingGroup() NoUnderlyingStipsRepeatingGroup {
 	return NoUnderlyingStipsRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoUnderlyingStips,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.UnderlyingStipType), quickfix.GroupElement(tag.UnderlyingStipValue)}),
+	}
 }
 
-//Add create and append a new NoUnderlyingStips to this group
+// Add create and append a new NoUnderlyingStips to this group
 func (m NoUnderlyingStipsRepeatingGroup) Add() NoUnderlyingStips {
 	g := m.RepeatingGroup.Add()
 	return NoUnderlyingStips{g}
 }
 
-//Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
+// Get returns the ith NoUnderlyingStips in the NoUnderlyingStipsRepeatinGroup
 func (m NoUnderlyingStipsRepeatingGroup) Get(i int) NoUnderlyingStips {
 	return NoUnderlyingStips{m.RepeatingGroup.Get(i)}
 }

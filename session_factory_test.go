@@ -54,7 +54,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", true}, {"N", false}}
@@ -71,7 +71,7 @@ func (s *SessionFactorySuite) TestResetOnLogon() {
 }
 
 func (s *SessionFactorySuite) TestRefreshOnLogon() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", true}, {"N", false}}
@@ -88,7 +88,7 @@ func (s *SessionFactorySuite) TestRefreshOnLogon() {
 }
 
 func (s *SessionFactorySuite) TestResetOnLogout() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", true}, {"N", false}}
@@ -105,7 +105,7 @@ func (s *SessionFactorySuite) TestResetOnLogout() {
 }
 
 func (s *SessionFactorySuite) TestResetOnDisconnect() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", true}, {"N", false}}
@@ -134,7 +134,7 @@ func (s *SessionFactorySuite) TestResendRequestChunkSize() {
 }
 
 func (s *SessionFactorySuite) TestEnableLastMsgSeqNumProcessed() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", true}, {"N", false}}
@@ -151,7 +151,7 @@ func (s *SessionFactorySuite) TestEnableLastMsgSeqNumProcessed() {
 }
 
 func (s *SessionFactorySuite) TestCheckLatency() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", false}, {"N", true}}
@@ -196,7 +196,7 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZone() {
 }
 
 func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDay() {
-	var tests = []struct {
+	tests := []struct {
 		startDay, endDay string
 	}{
 		{"Sunday", "Thursday"},
@@ -315,7 +315,7 @@ func (s *SessionFactorySuite) TestStartOrEndDayParseError() {
 func (s *SessionFactorySuite) TestDefaultApplVerID() {
 	s.SessionID = SessionID{BeginString: BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
 
-	var tests = []struct{ expected, config string }{
+	tests := []struct{ expected, config string }{
 		{"2", "2"},
 		{"2", "FIX.4.0"},
 		{"3", "3"},
@@ -413,7 +413,7 @@ func (s *SessionFactorySuite) TestConfigureSocketConnectAddress() {
 	err = s.configureSocketConnectAddress(sess, s.SessionSettings)
 	s.NotNil(err, "SocketConnectHost and SocketConnectPort should be required")
 
-	var tests = []struct{ host, port, expected string }{
+	tests := []struct{ host, port, expected string }{
 		{"127.0.0.1", "3000", "127.0.0.1:3000"},
 		{"example.com", "5000", "example.com:5000"},
 		{"2001:db8:a0b:12f0::1", "3001", "[2001:db8:a0b:12f0::1]:3001"},
@@ -444,7 +444,7 @@ func (s *SessionFactorySuite) TestConfigureSocketConnectAddressMulti() {
 	err := s.configureSocketConnectAddress(session, s.SessionSettings)
 	s.Require().Nil(err)
 	s.Require().Len(session.SocketConnectAddress, 3)
-	var tests = []string{
+	tests := []string{
 		"127.0.0.1:3000",
 		"127.0.0.2:4000",
 		"127.0.0.3:5000",
@@ -471,7 +471,7 @@ func (s *SessionFactorySuite) TestNewSessionTimestampPrecision() {
 	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 
-	var tests = []struct {
+	tests := []struct {
 		config    string
 		precision TimestampPrecision
 	}{
@@ -510,7 +510,7 @@ func (s *SessionFactorySuite) TestNewSessionMaxLatency() {
 }
 
 func (s *SessionFactorySuite) TestPersistMessages() {
-	var tests = []struct {
+	tests := []struct {
 		setting  string
 		expected bool
 	}{{"Y", false}, {"N", true}}

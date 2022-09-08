@@ -35,8 +35,8 @@ type fileLogFactory struct {
 	sessionLogPaths map[SessionID]string
 }
 
-//NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
-//The location of global and session log files is configured via FileLogPath.
+// NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
+// The location of global and session log files is configured via FileLogPath.
 func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	logFactory := fileLogFactory{}
 

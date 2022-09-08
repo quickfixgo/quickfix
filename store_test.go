@@ -137,7 +137,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 	require.Nil(t, suite.msgStore.SaveMessage(3, []byte("world")))
 
 	// When the following requests are made to the store
-	var testCases = []struct {
+	testCases := []struct {
 		beginSeqNo, endSeqNo int
 		expectedBytes        [][]byte
 	}{

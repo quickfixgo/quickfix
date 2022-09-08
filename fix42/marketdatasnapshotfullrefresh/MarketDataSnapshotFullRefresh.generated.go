@@ -1,8 +1,9 @@
 package marketdatasnapshotfullrefresh
 
 import (
-	"github.com/shopspring/decimal"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/alpacahq/quickfix"
 	"github.com/alpacahq/quickfix/enum"
@@ -11,7 +12,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//MarketDataSnapshotFullRefresh is the fix42 MarketDataSnapshotFullRefresh type, MsgType = W
+// MarketDataSnapshotFullRefresh is the fix42 MarketDataSnapshotFullRefresh type, MsgType = W
 type MarketDataSnapshotFullRefresh struct {
 	fix42.Header
 	*quickfix.Body
@@ -19,7 +20,7 @@ type MarketDataSnapshotFullRefresh struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a MarketDataSnapshotFullRefresh from a quickfix.Message instance
+// FromMessage creates a MarketDataSnapshotFullRefresh from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) MarketDataSnapshotFullRefresh {
 	return MarketDataSnapshotFullRefresh{
 		Header:  fix42.Header{&m.Header},
@@ -29,12 +30,12 @@ func FromMessage(m *quickfix.Message) MarketDataSnapshotFullRefresh {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m MarketDataSnapshotFullRefresh) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a MarketDataSnapshotFullRefresh initialized with the required fields for MarketDataSnapshotFullRefresh
+// New returns a MarketDataSnapshotFullRefresh initialized with the required fields for MarketDataSnapshotFullRefresh
 func New(symbol field.SymbolField) (m MarketDataSnapshotFullRefresh) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix42.NewHeader(&m.Message.Header)
@@ -47,10 +48,10 @@ func New(symbol field.SymbolField) (m MarketDataSnapshotFullRefresh) {
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg MarketDataSnapshotFullRefresh, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -58,127 +59,127 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.2", "W", r
 }
 
-//SetIDSource sets IDSource, Tag 22
+// SetIDSource sets IDSource, Tag 22
 func (m MarketDataSnapshotFullRefresh) SetIDSource(v enum.IDSource) {
 	m.Set(field.NewIDSource(v))
 }
 
-//SetSecurityID sets SecurityID, Tag 48
+// SetSecurityID sets SecurityID, Tag 48
 func (m MarketDataSnapshotFullRefresh) SetSecurityID(v string) {
 	m.Set(field.NewSecurityID(v))
 }
 
-//SetSymbol sets Symbol, Tag 55
+// SetSymbol sets Symbol, Tag 55
 func (m MarketDataSnapshotFullRefresh) SetSymbol(v string) {
 	m.Set(field.NewSymbol(v))
 }
 
-//SetSymbolSfx sets SymbolSfx, Tag 65
+// SetSymbolSfx sets SymbolSfx, Tag 65
 func (m MarketDataSnapshotFullRefresh) SetSymbolSfx(v enum.SymbolSfx) {
 	m.Set(field.NewSymbolSfx(v))
 }
 
-//SetIssuer sets Issuer, Tag 106
+// SetIssuer sets Issuer, Tag 106
 func (m MarketDataSnapshotFullRefresh) SetIssuer(v string) {
 	m.Set(field.NewIssuer(v))
 }
 
-//SetSecurityDesc sets SecurityDesc, Tag 107
+// SetSecurityDesc sets SecurityDesc, Tag 107
 func (m MarketDataSnapshotFullRefresh) SetSecurityDesc(v string) {
 	m.Set(field.NewSecurityDesc(v))
 }
 
-//SetSecurityType sets SecurityType, Tag 167
+// SetSecurityType sets SecurityType, Tag 167
 func (m MarketDataSnapshotFullRefresh) SetSecurityType(v enum.SecurityType) {
 	m.Set(field.NewSecurityType(v))
 }
 
-//SetMaturityMonthYear sets MaturityMonthYear, Tag 200
+// SetMaturityMonthYear sets MaturityMonthYear, Tag 200
 func (m MarketDataSnapshotFullRefresh) SetMaturityMonthYear(v string) {
 	m.Set(field.NewMaturityMonthYear(v))
 }
 
-//SetPutOrCall sets PutOrCall, Tag 201
+// SetPutOrCall sets PutOrCall, Tag 201
 func (m MarketDataSnapshotFullRefresh) SetPutOrCall(v enum.PutOrCall) {
 	m.Set(field.NewPutOrCall(v))
 }
 
-//SetStrikePrice sets StrikePrice, Tag 202
+// SetStrikePrice sets StrikePrice, Tag 202
 func (m MarketDataSnapshotFullRefresh) SetStrikePrice(value decimal.Decimal, scale int32) {
 	m.Set(field.NewStrikePrice(value, scale))
 }
 
-//SetMaturityDay sets MaturityDay, Tag 205
+// SetMaturityDay sets MaturityDay, Tag 205
 func (m MarketDataSnapshotFullRefresh) SetMaturityDay(v int) {
 	m.Set(field.NewMaturityDay(v))
 }
 
-//SetOptAttribute sets OptAttribute, Tag 206
+// SetOptAttribute sets OptAttribute, Tag 206
 func (m MarketDataSnapshotFullRefresh) SetOptAttribute(v string) {
 	m.Set(field.NewOptAttribute(v))
 }
 
-//SetSecurityExchange sets SecurityExchange, Tag 207
+// SetSecurityExchange sets SecurityExchange, Tag 207
 func (m MarketDataSnapshotFullRefresh) SetSecurityExchange(v string) {
 	m.Set(field.NewSecurityExchange(v))
 }
 
-//SetCouponRate sets CouponRate, Tag 223
+// SetCouponRate sets CouponRate, Tag 223
 func (m MarketDataSnapshotFullRefresh) SetCouponRate(value decimal.Decimal, scale int32) {
 	m.Set(field.NewCouponRate(value, scale))
 }
 
-//SetContractMultiplier sets ContractMultiplier, Tag 231
+// SetContractMultiplier sets ContractMultiplier, Tag 231
 func (m MarketDataSnapshotFullRefresh) SetContractMultiplier(value decimal.Decimal, scale int32) {
 	m.Set(field.NewContractMultiplier(value, scale))
 }
 
-//SetMDReqID sets MDReqID, Tag 262
+// SetMDReqID sets MDReqID, Tag 262
 func (m MarketDataSnapshotFullRefresh) SetMDReqID(v string) {
 	m.Set(field.NewMDReqID(v))
 }
 
-//SetNoMDEntries sets NoMDEntries, Tag 268
+// SetNoMDEntries sets NoMDEntries, Tag 268
 func (m MarketDataSnapshotFullRefresh) SetNoMDEntries(f NoMDEntriesRepeatingGroup) {
 	m.SetGroup(f)
 }
 
-//SetFinancialStatus sets FinancialStatus, Tag 291
+// SetFinancialStatus sets FinancialStatus, Tag 291
 func (m MarketDataSnapshotFullRefresh) SetFinancialStatus(v enum.FinancialStatus) {
 	m.Set(field.NewFinancialStatus(v))
 }
 
-//SetCorporateAction sets CorporateAction, Tag 292
+// SetCorporateAction sets CorporateAction, Tag 292
 func (m MarketDataSnapshotFullRefresh) SetCorporateAction(v enum.CorporateAction) {
 	m.Set(field.NewCorporateAction(v))
 }
 
-//SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
+// SetEncodedIssuerLen sets EncodedIssuerLen, Tag 348
 func (m MarketDataSnapshotFullRefresh) SetEncodedIssuerLen(v int) {
 	m.Set(field.NewEncodedIssuerLen(v))
 }
 
-//SetEncodedIssuer sets EncodedIssuer, Tag 349
+// SetEncodedIssuer sets EncodedIssuer, Tag 349
 func (m MarketDataSnapshotFullRefresh) SetEncodedIssuer(v string) {
 	m.Set(field.NewEncodedIssuer(v))
 }
 
-//SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
+// SetEncodedSecurityDescLen sets EncodedSecurityDescLen, Tag 350
 func (m MarketDataSnapshotFullRefresh) SetEncodedSecurityDescLen(v int) {
 	m.Set(field.NewEncodedSecurityDescLen(v))
 }
 
-//SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
+// SetEncodedSecurityDesc sets EncodedSecurityDesc, Tag 351
 func (m MarketDataSnapshotFullRefresh) SetEncodedSecurityDesc(v string) {
 	m.Set(field.NewEncodedSecurityDesc(v))
 }
 
-//SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
+// SetTotalVolumeTraded sets TotalVolumeTraded, Tag 387
 func (m MarketDataSnapshotFullRefresh) SetTotalVolumeTraded(value decimal.Decimal, scale int32) {
 	m.Set(field.NewTotalVolumeTraded(value, scale))
 }
 
-//GetIDSource gets IDSource, Tag 22
+// GetIDSource gets IDSource, Tag 22
 func (m MarketDataSnapshotFullRefresh) GetIDSource() (v enum.IDSource, err quickfix.MessageRejectError) {
 	var f field.IDSourceField
 	if err = m.Get(&f); err == nil {
@@ -187,7 +188,7 @@ func (m MarketDataSnapshotFullRefresh) GetIDSource() (v enum.IDSource, err quick
 	return
 }
 
-//GetSecurityID gets SecurityID, Tag 48
+// GetSecurityID gets SecurityID, Tag 48
 func (m MarketDataSnapshotFullRefresh) GetSecurityID() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityIDField
 	if err = m.Get(&f); err == nil {
@@ -196,7 +197,7 @@ func (m MarketDataSnapshotFullRefresh) GetSecurityID() (v string, err quickfix.M
 	return
 }
 
-//GetSymbol gets Symbol, Tag 55
+// GetSymbol gets Symbol, Tag 55
 func (m MarketDataSnapshotFullRefresh) GetSymbol() (v string, err quickfix.MessageRejectError) {
 	var f field.SymbolField
 	if err = m.Get(&f); err == nil {
@@ -205,7 +206,7 @@ func (m MarketDataSnapshotFullRefresh) GetSymbol() (v string, err quickfix.Messa
 	return
 }
 
-//GetSymbolSfx gets SymbolSfx, Tag 65
+// GetSymbolSfx gets SymbolSfx, Tag 65
 func (m MarketDataSnapshotFullRefresh) GetSymbolSfx() (v enum.SymbolSfx, err quickfix.MessageRejectError) {
 	var f field.SymbolSfxField
 	if err = m.Get(&f); err == nil {
@@ -214,7 +215,7 @@ func (m MarketDataSnapshotFullRefresh) GetSymbolSfx() (v enum.SymbolSfx, err qui
 	return
 }
 
-//GetIssuer gets Issuer, Tag 106
+// GetIssuer gets Issuer, Tag 106
 func (m MarketDataSnapshotFullRefresh) GetIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.IssuerField
 	if err = m.Get(&f); err == nil {
@@ -223,7 +224,7 @@ func (m MarketDataSnapshotFullRefresh) GetIssuer() (v string, err quickfix.Messa
 	return
 }
 
-//GetSecurityDesc gets SecurityDesc, Tag 107
+// GetSecurityDesc gets SecurityDesc, Tag 107
 func (m MarketDataSnapshotFullRefresh) GetSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -232,7 +233,7 @@ func (m MarketDataSnapshotFullRefresh) GetSecurityDesc() (v string, err quickfix
 	return
 }
 
-//GetSecurityType gets SecurityType, Tag 167
+// GetSecurityType gets SecurityType, Tag 167
 func (m MarketDataSnapshotFullRefresh) GetSecurityType() (v enum.SecurityType, err quickfix.MessageRejectError) {
 	var f field.SecurityTypeField
 	if err = m.Get(&f); err == nil {
@@ -241,7 +242,7 @@ func (m MarketDataSnapshotFullRefresh) GetSecurityType() (v enum.SecurityType, e
 	return
 }
 
-//GetMaturityMonthYear gets MaturityMonthYear, Tag 200
+// GetMaturityMonthYear gets MaturityMonthYear, Tag 200
 func (m MarketDataSnapshotFullRefresh) GetMaturityMonthYear() (v string, err quickfix.MessageRejectError) {
 	var f field.MaturityMonthYearField
 	if err = m.Get(&f); err == nil {
@@ -250,7 +251,7 @@ func (m MarketDataSnapshotFullRefresh) GetMaturityMonthYear() (v string, err qui
 	return
 }
 
-//GetPutOrCall gets PutOrCall, Tag 201
+// GetPutOrCall gets PutOrCall, Tag 201
 func (m MarketDataSnapshotFullRefresh) GetPutOrCall() (v enum.PutOrCall, err quickfix.MessageRejectError) {
 	var f field.PutOrCallField
 	if err = m.Get(&f); err == nil {
@@ -259,7 +260,7 @@ func (m MarketDataSnapshotFullRefresh) GetPutOrCall() (v enum.PutOrCall, err qui
 	return
 }
 
-//GetStrikePrice gets StrikePrice, Tag 202
+// GetStrikePrice gets StrikePrice, Tag 202
 func (m MarketDataSnapshotFullRefresh) GetStrikePrice() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.StrikePriceField
 	if err = m.Get(&f); err == nil {
@@ -268,7 +269,7 @@ func (m MarketDataSnapshotFullRefresh) GetStrikePrice() (v decimal.Decimal, err 
 	return
 }
 
-//GetMaturityDay gets MaturityDay, Tag 205
+// GetMaturityDay gets MaturityDay, Tag 205
 func (m MarketDataSnapshotFullRefresh) GetMaturityDay() (v int, err quickfix.MessageRejectError) {
 	var f field.MaturityDayField
 	if err = m.Get(&f); err == nil {
@@ -277,7 +278,7 @@ func (m MarketDataSnapshotFullRefresh) GetMaturityDay() (v int, err quickfix.Mes
 	return
 }
 
-//GetOptAttribute gets OptAttribute, Tag 206
+// GetOptAttribute gets OptAttribute, Tag 206
 func (m MarketDataSnapshotFullRefresh) GetOptAttribute() (v string, err quickfix.MessageRejectError) {
 	var f field.OptAttributeField
 	if err = m.Get(&f); err == nil {
@@ -286,7 +287,7 @@ func (m MarketDataSnapshotFullRefresh) GetOptAttribute() (v string, err quickfix
 	return
 }
 
-//GetSecurityExchange gets SecurityExchange, Tag 207
+// GetSecurityExchange gets SecurityExchange, Tag 207
 func (m MarketDataSnapshotFullRefresh) GetSecurityExchange() (v string, err quickfix.MessageRejectError) {
 	var f field.SecurityExchangeField
 	if err = m.Get(&f); err == nil {
@@ -295,7 +296,7 @@ func (m MarketDataSnapshotFullRefresh) GetSecurityExchange() (v string, err quic
 	return
 }
 
-//GetCouponRate gets CouponRate, Tag 223
+// GetCouponRate gets CouponRate, Tag 223
 func (m MarketDataSnapshotFullRefresh) GetCouponRate() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.CouponRateField
 	if err = m.Get(&f); err == nil {
@@ -304,7 +305,7 @@ func (m MarketDataSnapshotFullRefresh) GetCouponRate() (v decimal.Decimal, err q
 	return
 }
 
-//GetContractMultiplier gets ContractMultiplier, Tag 231
+// GetContractMultiplier gets ContractMultiplier, Tag 231
 func (m MarketDataSnapshotFullRefresh) GetContractMultiplier() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.ContractMultiplierField
 	if err = m.Get(&f); err == nil {
@@ -313,7 +314,7 @@ func (m MarketDataSnapshotFullRefresh) GetContractMultiplier() (v decimal.Decima
 	return
 }
 
-//GetMDReqID gets MDReqID, Tag 262
+// GetMDReqID gets MDReqID, Tag 262
 func (m MarketDataSnapshotFullRefresh) GetMDReqID() (v string, err quickfix.MessageRejectError) {
 	var f field.MDReqIDField
 	if err = m.Get(&f); err == nil {
@@ -322,14 +323,14 @@ func (m MarketDataSnapshotFullRefresh) GetMDReqID() (v string, err quickfix.Mess
 	return
 }
 
-//GetNoMDEntries gets NoMDEntries, Tag 268
+// GetNoMDEntries gets NoMDEntries, Tag 268
 func (m MarketDataSnapshotFullRefresh) GetNoMDEntries() (NoMDEntriesRepeatingGroup, quickfix.MessageRejectError) {
 	f := NewNoMDEntriesRepeatingGroup()
 	err := m.GetGroup(f)
 	return f, err
 }
 
-//GetFinancialStatus gets FinancialStatus, Tag 291
+// GetFinancialStatus gets FinancialStatus, Tag 291
 func (m MarketDataSnapshotFullRefresh) GetFinancialStatus() (v enum.FinancialStatus, err quickfix.MessageRejectError) {
 	var f field.FinancialStatusField
 	if err = m.Get(&f); err == nil {
@@ -338,7 +339,7 @@ func (m MarketDataSnapshotFullRefresh) GetFinancialStatus() (v enum.FinancialSta
 	return
 }
 
-//GetCorporateAction gets CorporateAction, Tag 292
+// GetCorporateAction gets CorporateAction, Tag 292
 func (m MarketDataSnapshotFullRefresh) GetCorporateAction() (v enum.CorporateAction, err quickfix.MessageRejectError) {
 	var f field.CorporateActionField
 	if err = m.Get(&f); err == nil {
@@ -347,7 +348,7 @@ func (m MarketDataSnapshotFullRefresh) GetCorporateAction() (v enum.CorporateAct
 	return
 }
 
-//GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
+// GetEncodedIssuerLen gets EncodedIssuerLen, Tag 348
 func (m MarketDataSnapshotFullRefresh) GetEncodedIssuerLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerLenField
 	if err = m.Get(&f); err == nil {
@@ -356,7 +357,7 @@ func (m MarketDataSnapshotFullRefresh) GetEncodedIssuerLen() (v int, err quickfi
 	return
 }
 
-//GetEncodedIssuer gets EncodedIssuer, Tag 349
+// GetEncodedIssuer gets EncodedIssuer, Tag 349
 func (m MarketDataSnapshotFullRefresh) GetEncodedIssuer() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedIssuerField
 	if err = m.Get(&f); err == nil {
@@ -365,7 +366,7 @@ func (m MarketDataSnapshotFullRefresh) GetEncodedIssuer() (v string, err quickfi
 	return
 }
 
-//GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
+// GetEncodedSecurityDescLen gets EncodedSecurityDescLen, Tag 350
 func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDescLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescLenField
 	if err = m.Get(&f); err == nil {
@@ -374,7 +375,7 @@ func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDescLen() (v int, err q
 	return
 }
 
-//GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
+// GetEncodedSecurityDesc gets EncodedSecurityDesc, Tag 351
 func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDesc() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedSecurityDescField
 	if err = m.Get(&f); err == nil {
@@ -383,7 +384,7 @@ func (m MarketDataSnapshotFullRefresh) GetEncodedSecurityDesc() (v string, err q
 	return
 }
 
-//GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
+// GetTotalVolumeTraded gets TotalVolumeTraded, Tag 387
 func (m MarketDataSnapshotFullRefresh) GetTotalVolumeTraded() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.TotalVolumeTradedField
 	if err = m.Get(&f); err == nil {
@@ -392,282 +393,282 @@ func (m MarketDataSnapshotFullRefresh) GetTotalVolumeTraded() (v decimal.Decimal
 	return
 }
 
-//HasIDSource returns true if IDSource is present, Tag 22
+// HasIDSource returns true if IDSource is present, Tag 22
 func (m MarketDataSnapshotFullRefresh) HasIDSource() bool {
 	return m.Has(tag.IDSource)
 }
 
-//HasSecurityID returns true if SecurityID is present, Tag 48
+// HasSecurityID returns true if SecurityID is present, Tag 48
 func (m MarketDataSnapshotFullRefresh) HasSecurityID() bool {
 	return m.Has(tag.SecurityID)
 }
 
-//HasSymbol returns true if Symbol is present, Tag 55
+// HasSymbol returns true if Symbol is present, Tag 55
 func (m MarketDataSnapshotFullRefresh) HasSymbol() bool {
 	return m.Has(tag.Symbol)
 }
 
-//HasSymbolSfx returns true if SymbolSfx is present, Tag 65
+// HasSymbolSfx returns true if SymbolSfx is present, Tag 65
 func (m MarketDataSnapshotFullRefresh) HasSymbolSfx() bool {
 	return m.Has(tag.SymbolSfx)
 }
 
-//HasIssuer returns true if Issuer is present, Tag 106
+// HasIssuer returns true if Issuer is present, Tag 106
 func (m MarketDataSnapshotFullRefresh) HasIssuer() bool {
 	return m.Has(tag.Issuer)
 }
 
-//HasSecurityDesc returns true if SecurityDesc is present, Tag 107
+// HasSecurityDesc returns true if SecurityDesc is present, Tag 107
 func (m MarketDataSnapshotFullRefresh) HasSecurityDesc() bool {
 	return m.Has(tag.SecurityDesc)
 }
 
-//HasSecurityType returns true if SecurityType is present, Tag 167
+// HasSecurityType returns true if SecurityType is present, Tag 167
 func (m MarketDataSnapshotFullRefresh) HasSecurityType() bool {
 	return m.Has(tag.SecurityType)
 }
 
-//HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
+// HasMaturityMonthYear returns true if MaturityMonthYear is present, Tag 200
 func (m MarketDataSnapshotFullRefresh) HasMaturityMonthYear() bool {
 	return m.Has(tag.MaturityMonthYear)
 }
 
-//HasPutOrCall returns true if PutOrCall is present, Tag 201
+// HasPutOrCall returns true if PutOrCall is present, Tag 201
 func (m MarketDataSnapshotFullRefresh) HasPutOrCall() bool {
 	return m.Has(tag.PutOrCall)
 }
 
-//HasStrikePrice returns true if StrikePrice is present, Tag 202
+// HasStrikePrice returns true if StrikePrice is present, Tag 202
 func (m MarketDataSnapshotFullRefresh) HasStrikePrice() bool {
 	return m.Has(tag.StrikePrice)
 }
 
-//HasMaturityDay returns true if MaturityDay is present, Tag 205
+// HasMaturityDay returns true if MaturityDay is present, Tag 205
 func (m MarketDataSnapshotFullRefresh) HasMaturityDay() bool {
 	return m.Has(tag.MaturityDay)
 }
 
-//HasOptAttribute returns true if OptAttribute is present, Tag 206
+// HasOptAttribute returns true if OptAttribute is present, Tag 206
 func (m MarketDataSnapshotFullRefresh) HasOptAttribute() bool {
 	return m.Has(tag.OptAttribute)
 }
 
-//HasSecurityExchange returns true if SecurityExchange is present, Tag 207
+// HasSecurityExchange returns true if SecurityExchange is present, Tag 207
 func (m MarketDataSnapshotFullRefresh) HasSecurityExchange() bool {
 	return m.Has(tag.SecurityExchange)
 }
 
-//HasCouponRate returns true if CouponRate is present, Tag 223
+// HasCouponRate returns true if CouponRate is present, Tag 223
 func (m MarketDataSnapshotFullRefresh) HasCouponRate() bool {
 	return m.Has(tag.CouponRate)
 }
 
-//HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
+// HasContractMultiplier returns true if ContractMultiplier is present, Tag 231
 func (m MarketDataSnapshotFullRefresh) HasContractMultiplier() bool {
 	return m.Has(tag.ContractMultiplier)
 }
 
-//HasMDReqID returns true if MDReqID is present, Tag 262
+// HasMDReqID returns true if MDReqID is present, Tag 262
 func (m MarketDataSnapshotFullRefresh) HasMDReqID() bool {
 	return m.Has(tag.MDReqID)
 }
 
-//HasNoMDEntries returns true if NoMDEntries is present, Tag 268
+// HasNoMDEntries returns true if NoMDEntries is present, Tag 268
 func (m MarketDataSnapshotFullRefresh) HasNoMDEntries() bool {
 	return m.Has(tag.NoMDEntries)
 }
 
-//HasFinancialStatus returns true if FinancialStatus is present, Tag 291
+// HasFinancialStatus returns true if FinancialStatus is present, Tag 291
 func (m MarketDataSnapshotFullRefresh) HasFinancialStatus() bool {
 	return m.Has(tag.FinancialStatus)
 }
 
-//HasCorporateAction returns true if CorporateAction is present, Tag 292
+// HasCorporateAction returns true if CorporateAction is present, Tag 292
 func (m MarketDataSnapshotFullRefresh) HasCorporateAction() bool {
 	return m.Has(tag.CorporateAction)
 }
 
-//HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
+// HasEncodedIssuerLen returns true if EncodedIssuerLen is present, Tag 348
 func (m MarketDataSnapshotFullRefresh) HasEncodedIssuerLen() bool {
 	return m.Has(tag.EncodedIssuerLen)
 }
 
-//HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
+// HasEncodedIssuer returns true if EncodedIssuer is present, Tag 349
 func (m MarketDataSnapshotFullRefresh) HasEncodedIssuer() bool {
 	return m.Has(tag.EncodedIssuer)
 }
 
-//HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
+// HasEncodedSecurityDescLen returns true if EncodedSecurityDescLen is present, Tag 350
 func (m MarketDataSnapshotFullRefresh) HasEncodedSecurityDescLen() bool {
 	return m.Has(tag.EncodedSecurityDescLen)
 }
 
-//HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
+// HasEncodedSecurityDesc returns true if EncodedSecurityDesc is present, Tag 351
 func (m MarketDataSnapshotFullRefresh) HasEncodedSecurityDesc() bool {
 	return m.Has(tag.EncodedSecurityDesc)
 }
 
-//HasTotalVolumeTraded returns true if TotalVolumeTraded is present, Tag 387
+// HasTotalVolumeTraded returns true if TotalVolumeTraded is present, Tag 387
 func (m MarketDataSnapshotFullRefresh) HasTotalVolumeTraded() bool {
 	return m.Has(tag.TotalVolumeTraded)
 }
 
-//NoMDEntries is a repeating group element, Tag 268
+// NoMDEntries is a repeating group element, Tag 268
 type NoMDEntries struct {
 	*quickfix.Group
 }
 
-//SetMDEntryType sets MDEntryType, Tag 269
+// SetMDEntryType sets MDEntryType, Tag 269
 func (m NoMDEntries) SetMDEntryType(v enum.MDEntryType) {
 	m.Set(field.NewMDEntryType(v))
 }
 
-//SetMDEntryPx sets MDEntryPx, Tag 270
+// SetMDEntryPx sets MDEntryPx, Tag 270
 func (m NoMDEntries) SetMDEntryPx(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMDEntryPx(value, scale))
 }
 
-//SetCurrency sets Currency, Tag 15
+// SetCurrency sets Currency, Tag 15
 func (m NoMDEntries) SetCurrency(v string) {
 	m.Set(field.NewCurrency(v))
 }
 
-//SetMDEntrySize sets MDEntrySize, Tag 271
+// SetMDEntrySize sets MDEntrySize, Tag 271
 func (m NoMDEntries) SetMDEntrySize(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMDEntrySize(value, scale))
 }
 
-//SetMDEntryDate sets MDEntryDate, Tag 272
+// SetMDEntryDate sets MDEntryDate, Tag 272
 func (m NoMDEntries) SetMDEntryDate(v string) {
 	m.Set(field.NewMDEntryDate(v))
 }
 
-//SetMDEntryTime sets MDEntryTime, Tag 273
+// SetMDEntryTime sets MDEntryTime, Tag 273
 func (m NoMDEntries) SetMDEntryTime(v string) {
 	m.Set(field.NewMDEntryTime(v))
 }
 
-//SetTickDirection sets TickDirection, Tag 274
+// SetTickDirection sets TickDirection, Tag 274
 func (m NoMDEntries) SetTickDirection(v enum.TickDirection) {
 	m.Set(field.NewTickDirection(v))
 }
 
-//SetMDMkt sets MDMkt, Tag 275
+// SetMDMkt sets MDMkt, Tag 275
 func (m NoMDEntries) SetMDMkt(v string) {
 	m.Set(field.NewMDMkt(v))
 }
 
-//SetTradingSessionID sets TradingSessionID, Tag 336
+// SetTradingSessionID sets TradingSessionID, Tag 336
 func (m NoMDEntries) SetTradingSessionID(v enum.TradingSessionID) {
 	m.Set(field.NewTradingSessionID(v))
 }
 
-//SetQuoteCondition sets QuoteCondition, Tag 276
+// SetQuoteCondition sets QuoteCondition, Tag 276
 func (m NoMDEntries) SetQuoteCondition(v enum.QuoteCondition) {
 	m.Set(field.NewQuoteCondition(v))
 }
 
-//SetTradeCondition sets TradeCondition, Tag 277
+// SetTradeCondition sets TradeCondition, Tag 277
 func (m NoMDEntries) SetTradeCondition(v enum.TradeCondition) {
 	m.Set(field.NewTradeCondition(v))
 }
 
-//SetMDEntryOriginator sets MDEntryOriginator, Tag 282
+// SetMDEntryOriginator sets MDEntryOriginator, Tag 282
 func (m NoMDEntries) SetMDEntryOriginator(v string) {
 	m.Set(field.NewMDEntryOriginator(v))
 }
 
-//SetLocationID sets LocationID, Tag 283
+// SetLocationID sets LocationID, Tag 283
 func (m NoMDEntries) SetLocationID(v string) {
 	m.Set(field.NewLocationID(v))
 }
 
-//SetDeskID sets DeskID, Tag 284
+// SetDeskID sets DeskID, Tag 284
 func (m NoMDEntries) SetDeskID(v string) {
 	m.Set(field.NewDeskID(v))
 }
 
-//SetOpenCloseSettleFlag sets OpenCloseSettleFlag, Tag 286
+// SetOpenCloseSettleFlag sets OpenCloseSettleFlag, Tag 286
 func (m NoMDEntries) SetOpenCloseSettleFlag(v enum.OpenCloseSettleFlag) {
 	m.Set(field.NewOpenCloseSettleFlag(v))
 }
 
-//SetTimeInForce sets TimeInForce, Tag 59
+// SetTimeInForce sets TimeInForce, Tag 59
 func (m NoMDEntries) SetTimeInForce(v enum.TimeInForce) {
 	m.Set(field.NewTimeInForce(v))
 }
 
-//SetExpireDate sets ExpireDate, Tag 432
+// SetExpireDate sets ExpireDate, Tag 432
 func (m NoMDEntries) SetExpireDate(v string) {
 	m.Set(field.NewExpireDate(v))
 }
 
-//SetExpireTime sets ExpireTime, Tag 126
+// SetExpireTime sets ExpireTime, Tag 126
 func (m NoMDEntries) SetExpireTime(v time.Time) {
 	m.Set(field.NewExpireTime(v))
 }
 
-//SetMinQty sets MinQty, Tag 110
+// SetMinQty sets MinQty, Tag 110
 func (m NoMDEntries) SetMinQty(value decimal.Decimal, scale int32) {
 	m.Set(field.NewMinQty(value, scale))
 }
 
-//SetExecInst sets ExecInst, Tag 18
+// SetExecInst sets ExecInst, Tag 18
 func (m NoMDEntries) SetExecInst(v enum.ExecInst) {
 	m.Set(field.NewExecInst(v))
 }
 
-//SetSellerDays sets SellerDays, Tag 287
+// SetSellerDays sets SellerDays, Tag 287
 func (m NoMDEntries) SetSellerDays(v int) {
 	m.Set(field.NewSellerDays(v))
 }
 
-//SetOrderID sets OrderID, Tag 37
+// SetOrderID sets OrderID, Tag 37
 func (m NoMDEntries) SetOrderID(v string) {
 	m.Set(field.NewOrderID(v))
 }
 
-//SetQuoteEntryID sets QuoteEntryID, Tag 299
+// SetQuoteEntryID sets QuoteEntryID, Tag 299
 func (m NoMDEntries) SetQuoteEntryID(v string) {
 	m.Set(field.NewQuoteEntryID(v))
 }
 
-//SetMDEntryBuyer sets MDEntryBuyer, Tag 288
+// SetMDEntryBuyer sets MDEntryBuyer, Tag 288
 func (m NoMDEntries) SetMDEntryBuyer(v string) {
 	m.Set(field.NewMDEntryBuyer(v))
 }
 
-//SetMDEntrySeller sets MDEntrySeller, Tag 289
+// SetMDEntrySeller sets MDEntrySeller, Tag 289
 func (m NoMDEntries) SetMDEntrySeller(v string) {
 	m.Set(field.NewMDEntrySeller(v))
 }
 
-//SetNumberOfOrders sets NumberOfOrders, Tag 346
+// SetNumberOfOrders sets NumberOfOrders, Tag 346
 func (m NoMDEntries) SetNumberOfOrders(v int) {
 	m.Set(field.NewNumberOfOrders(v))
 }
 
-//SetMDEntryPositionNo sets MDEntryPositionNo, Tag 290
+// SetMDEntryPositionNo sets MDEntryPositionNo, Tag 290
 func (m NoMDEntries) SetMDEntryPositionNo(v int) {
 	m.Set(field.NewMDEntryPositionNo(v))
 }
 
-//SetText sets Text, Tag 58
+// SetText sets Text, Tag 58
 func (m NoMDEntries) SetText(v string) {
 	m.Set(field.NewText(v))
 }
 
-//SetEncodedTextLen sets EncodedTextLen, Tag 354
+// SetEncodedTextLen sets EncodedTextLen, Tag 354
 func (m NoMDEntries) SetEncodedTextLen(v int) {
 	m.Set(field.NewEncodedTextLen(v))
 }
 
-//SetEncodedText sets EncodedText, Tag 355
+// SetEncodedText sets EncodedText, Tag 355
 func (m NoMDEntries) SetEncodedText(v string) {
 	m.Set(field.NewEncodedText(v))
 }
 
-//GetMDEntryType gets MDEntryType, Tag 269
+// GetMDEntryType gets MDEntryType, Tag 269
 func (m NoMDEntries) GetMDEntryType() (v enum.MDEntryType, err quickfix.MessageRejectError) {
 	var f field.MDEntryTypeField
 	if err = m.Get(&f); err == nil {
@@ -676,7 +677,7 @@ func (m NoMDEntries) GetMDEntryType() (v enum.MDEntryType, err quickfix.MessageR
 	return
 }
 
-//GetMDEntryPx gets MDEntryPx, Tag 270
+// GetMDEntryPx gets MDEntryPx, Tag 270
 func (m NoMDEntries) GetMDEntryPx() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MDEntryPxField
 	if err = m.Get(&f); err == nil {
@@ -685,7 +686,7 @@ func (m NoMDEntries) GetMDEntryPx() (v decimal.Decimal, err quickfix.MessageReje
 	return
 }
 
-//GetCurrency gets Currency, Tag 15
+// GetCurrency gets Currency, Tag 15
 func (m NoMDEntries) GetCurrency() (v string, err quickfix.MessageRejectError) {
 	var f field.CurrencyField
 	if err = m.Get(&f); err == nil {
@@ -694,7 +695,7 @@ func (m NoMDEntries) GetCurrency() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetMDEntrySize gets MDEntrySize, Tag 271
+// GetMDEntrySize gets MDEntrySize, Tag 271
 func (m NoMDEntries) GetMDEntrySize() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MDEntrySizeField
 	if err = m.Get(&f); err == nil {
@@ -703,7 +704,7 @@ func (m NoMDEntries) GetMDEntrySize() (v decimal.Decimal, err quickfix.MessageRe
 	return
 }
 
-//GetMDEntryDate gets MDEntryDate, Tag 272
+// GetMDEntryDate gets MDEntryDate, Tag 272
 func (m NoMDEntries) GetMDEntryDate() (v string, err quickfix.MessageRejectError) {
 	var f field.MDEntryDateField
 	if err = m.Get(&f); err == nil {
@@ -712,7 +713,7 @@ func (m NoMDEntries) GetMDEntryDate() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetMDEntryTime gets MDEntryTime, Tag 273
+// GetMDEntryTime gets MDEntryTime, Tag 273
 func (m NoMDEntries) GetMDEntryTime() (v string, err quickfix.MessageRejectError) {
 	var f field.MDEntryTimeField
 	if err = m.Get(&f); err == nil {
@@ -721,7 +722,7 @@ func (m NoMDEntries) GetMDEntryTime() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//GetTickDirection gets TickDirection, Tag 274
+// GetTickDirection gets TickDirection, Tag 274
 func (m NoMDEntries) GetTickDirection() (v enum.TickDirection, err quickfix.MessageRejectError) {
 	var f field.TickDirectionField
 	if err = m.Get(&f); err == nil {
@@ -730,7 +731,7 @@ func (m NoMDEntries) GetTickDirection() (v enum.TickDirection, err quickfix.Mess
 	return
 }
 
-//GetMDMkt gets MDMkt, Tag 275
+// GetMDMkt gets MDMkt, Tag 275
 func (m NoMDEntries) GetMDMkt() (v string, err quickfix.MessageRejectError) {
 	var f field.MDMktField
 	if err = m.Get(&f); err == nil {
@@ -739,7 +740,7 @@ func (m NoMDEntries) GetMDMkt() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetTradingSessionID gets TradingSessionID, Tag 336
+// GetTradingSessionID gets TradingSessionID, Tag 336
 func (m NoMDEntries) GetTradingSessionID() (v enum.TradingSessionID, err quickfix.MessageRejectError) {
 	var f field.TradingSessionIDField
 	if err = m.Get(&f); err == nil {
@@ -748,7 +749,7 @@ func (m NoMDEntries) GetTradingSessionID() (v enum.TradingSessionID, err quickfi
 	return
 }
 
-//GetQuoteCondition gets QuoteCondition, Tag 276
+// GetQuoteCondition gets QuoteCondition, Tag 276
 func (m NoMDEntries) GetQuoteCondition() (v enum.QuoteCondition, err quickfix.MessageRejectError) {
 	var f field.QuoteConditionField
 	if err = m.Get(&f); err == nil {
@@ -757,7 +758,7 @@ func (m NoMDEntries) GetQuoteCondition() (v enum.QuoteCondition, err quickfix.Me
 	return
 }
 
-//GetTradeCondition gets TradeCondition, Tag 277
+// GetTradeCondition gets TradeCondition, Tag 277
 func (m NoMDEntries) GetTradeCondition() (v enum.TradeCondition, err quickfix.MessageRejectError) {
 	var f field.TradeConditionField
 	if err = m.Get(&f); err == nil {
@@ -766,7 +767,7 @@ func (m NoMDEntries) GetTradeCondition() (v enum.TradeCondition, err quickfix.Me
 	return
 }
 
-//GetMDEntryOriginator gets MDEntryOriginator, Tag 282
+// GetMDEntryOriginator gets MDEntryOriginator, Tag 282
 func (m NoMDEntries) GetMDEntryOriginator() (v string, err quickfix.MessageRejectError) {
 	var f field.MDEntryOriginatorField
 	if err = m.Get(&f); err == nil {
@@ -775,7 +776,7 @@ func (m NoMDEntries) GetMDEntryOriginator() (v string, err quickfix.MessageRejec
 	return
 }
 
-//GetLocationID gets LocationID, Tag 283
+// GetLocationID gets LocationID, Tag 283
 func (m NoMDEntries) GetLocationID() (v string, err quickfix.MessageRejectError) {
 	var f field.LocationIDField
 	if err = m.Get(&f); err == nil {
@@ -784,7 +785,7 @@ func (m NoMDEntries) GetLocationID() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetDeskID gets DeskID, Tag 284
+// GetDeskID gets DeskID, Tag 284
 func (m NoMDEntries) GetDeskID() (v string, err quickfix.MessageRejectError) {
 	var f field.DeskIDField
 	if err = m.Get(&f); err == nil {
@@ -793,7 +794,7 @@ func (m NoMDEntries) GetDeskID() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetOpenCloseSettleFlag gets OpenCloseSettleFlag, Tag 286
+// GetOpenCloseSettleFlag gets OpenCloseSettleFlag, Tag 286
 func (m NoMDEntries) GetOpenCloseSettleFlag() (v enum.OpenCloseSettleFlag, err quickfix.MessageRejectError) {
 	var f field.OpenCloseSettleFlagField
 	if err = m.Get(&f); err == nil {
@@ -802,7 +803,7 @@ func (m NoMDEntries) GetOpenCloseSettleFlag() (v enum.OpenCloseSettleFlag, err q
 	return
 }
 
-//GetTimeInForce gets TimeInForce, Tag 59
+// GetTimeInForce gets TimeInForce, Tag 59
 func (m NoMDEntries) GetTimeInForce() (v enum.TimeInForce, err quickfix.MessageRejectError) {
 	var f field.TimeInForceField
 	if err = m.Get(&f); err == nil {
@@ -811,7 +812,7 @@ func (m NoMDEntries) GetTimeInForce() (v enum.TimeInForce, err quickfix.MessageR
 	return
 }
 
-//GetExpireDate gets ExpireDate, Tag 432
+// GetExpireDate gets ExpireDate, Tag 432
 func (m NoMDEntries) GetExpireDate() (v string, err quickfix.MessageRejectError) {
 	var f field.ExpireDateField
 	if err = m.Get(&f); err == nil {
@@ -820,7 +821,7 @@ func (m NoMDEntries) GetExpireDate() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetExpireTime gets ExpireTime, Tag 126
+// GetExpireTime gets ExpireTime, Tag 126
 func (m NoMDEntries) GetExpireTime() (v time.Time, err quickfix.MessageRejectError) {
 	var f field.ExpireTimeField
 	if err = m.Get(&f); err == nil {
@@ -829,7 +830,7 @@ func (m NoMDEntries) GetExpireTime() (v time.Time, err quickfix.MessageRejectErr
 	return
 }
 
-//GetMinQty gets MinQty, Tag 110
+// GetMinQty gets MinQty, Tag 110
 func (m NoMDEntries) GetMinQty() (v decimal.Decimal, err quickfix.MessageRejectError) {
 	var f field.MinQtyField
 	if err = m.Get(&f); err == nil {
@@ -838,7 +839,7 @@ func (m NoMDEntries) GetMinQty() (v decimal.Decimal, err quickfix.MessageRejectE
 	return
 }
 
-//GetExecInst gets ExecInst, Tag 18
+// GetExecInst gets ExecInst, Tag 18
 func (m NoMDEntries) GetExecInst() (v enum.ExecInst, err quickfix.MessageRejectError) {
 	var f field.ExecInstField
 	if err = m.Get(&f); err == nil {
@@ -847,7 +848,7 @@ func (m NoMDEntries) GetExecInst() (v enum.ExecInst, err quickfix.MessageRejectE
 	return
 }
 
-//GetSellerDays gets SellerDays, Tag 287
+// GetSellerDays gets SellerDays, Tag 287
 func (m NoMDEntries) GetSellerDays() (v int, err quickfix.MessageRejectError) {
 	var f field.SellerDaysField
 	if err = m.Get(&f); err == nil {
@@ -856,7 +857,7 @@ func (m NoMDEntries) GetSellerDays() (v int, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetOrderID gets OrderID, Tag 37
+// GetOrderID gets OrderID, Tag 37
 func (m NoMDEntries) GetOrderID() (v string, err quickfix.MessageRejectError) {
 	var f field.OrderIDField
 	if err = m.Get(&f); err == nil {
@@ -865,7 +866,7 @@ func (m NoMDEntries) GetOrderID() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetQuoteEntryID gets QuoteEntryID, Tag 299
+// GetQuoteEntryID gets QuoteEntryID, Tag 299
 func (m NoMDEntries) GetQuoteEntryID() (v string, err quickfix.MessageRejectError) {
 	var f field.QuoteEntryIDField
 	if err = m.Get(&f); err == nil {
@@ -874,7 +875,7 @@ func (m NoMDEntries) GetQuoteEntryID() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetMDEntryBuyer gets MDEntryBuyer, Tag 288
+// GetMDEntryBuyer gets MDEntryBuyer, Tag 288
 func (m NoMDEntries) GetMDEntryBuyer() (v string, err quickfix.MessageRejectError) {
 	var f field.MDEntryBuyerField
 	if err = m.Get(&f); err == nil {
@@ -883,7 +884,7 @@ func (m NoMDEntries) GetMDEntryBuyer() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetMDEntrySeller gets MDEntrySeller, Tag 289
+// GetMDEntrySeller gets MDEntrySeller, Tag 289
 func (m NoMDEntries) GetMDEntrySeller() (v string, err quickfix.MessageRejectError) {
 	var f field.MDEntrySellerField
 	if err = m.Get(&f); err == nil {
@@ -892,7 +893,7 @@ func (m NoMDEntries) GetMDEntrySeller() (v string, err quickfix.MessageRejectErr
 	return
 }
 
-//GetNumberOfOrders gets NumberOfOrders, Tag 346
+// GetNumberOfOrders gets NumberOfOrders, Tag 346
 func (m NoMDEntries) GetNumberOfOrders() (v int, err quickfix.MessageRejectError) {
 	var f field.NumberOfOrdersField
 	if err = m.Get(&f); err == nil {
@@ -901,7 +902,7 @@ func (m NoMDEntries) GetNumberOfOrders() (v int, err quickfix.MessageRejectError
 	return
 }
 
-//GetMDEntryPositionNo gets MDEntryPositionNo, Tag 290
+// GetMDEntryPositionNo gets MDEntryPositionNo, Tag 290
 func (m NoMDEntries) GetMDEntryPositionNo() (v int, err quickfix.MessageRejectError) {
 	var f field.MDEntryPositionNoField
 	if err = m.Get(&f); err == nil {
@@ -910,7 +911,7 @@ func (m NoMDEntries) GetMDEntryPositionNo() (v int, err quickfix.MessageRejectEr
 	return
 }
 
-//GetText gets Text, Tag 58
+// GetText gets Text, Tag 58
 func (m NoMDEntries) GetText() (v string, err quickfix.MessageRejectError) {
 	var f field.TextField
 	if err = m.Get(&f); err == nil {
@@ -919,7 +920,7 @@ func (m NoMDEntries) GetText() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetEncodedTextLen gets EncodedTextLen, Tag 354
+// GetEncodedTextLen gets EncodedTextLen, Tag 354
 func (m NoMDEntries) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedTextLenField
 	if err = m.Get(&f); err == nil {
@@ -928,7 +929,7 @@ func (m NoMDEntries) GetEncodedTextLen() (v int, err quickfix.MessageRejectError
 	return
 }
 
-//GetEncodedText gets EncodedText, Tag 355
+// GetEncodedText gets EncodedText, Tag 355
 func (m NoMDEntries) GetEncodedText() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedTextField
 	if err = m.Get(&f); err == nil {
@@ -937,175 +938,176 @@ func (m NoMDEntries) GetEncodedText() (v string, err quickfix.MessageRejectError
 	return
 }
 
-//HasMDEntryType returns true if MDEntryType is present, Tag 269
+// HasMDEntryType returns true if MDEntryType is present, Tag 269
 func (m NoMDEntries) HasMDEntryType() bool {
 	return m.Has(tag.MDEntryType)
 }
 
-//HasMDEntryPx returns true if MDEntryPx is present, Tag 270
+// HasMDEntryPx returns true if MDEntryPx is present, Tag 270
 func (m NoMDEntries) HasMDEntryPx() bool {
 	return m.Has(tag.MDEntryPx)
 }
 
-//HasCurrency returns true if Currency is present, Tag 15
+// HasCurrency returns true if Currency is present, Tag 15
 func (m NoMDEntries) HasCurrency() bool {
 	return m.Has(tag.Currency)
 }
 
-//HasMDEntrySize returns true if MDEntrySize is present, Tag 271
+// HasMDEntrySize returns true if MDEntrySize is present, Tag 271
 func (m NoMDEntries) HasMDEntrySize() bool {
 	return m.Has(tag.MDEntrySize)
 }
 
-//HasMDEntryDate returns true if MDEntryDate is present, Tag 272
+// HasMDEntryDate returns true if MDEntryDate is present, Tag 272
 func (m NoMDEntries) HasMDEntryDate() bool {
 	return m.Has(tag.MDEntryDate)
 }
 
-//HasMDEntryTime returns true if MDEntryTime is present, Tag 273
+// HasMDEntryTime returns true if MDEntryTime is present, Tag 273
 func (m NoMDEntries) HasMDEntryTime() bool {
 	return m.Has(tag.MDEntryTime)
 }
 
-//HasTickDirection returns true if TickDirection is present, Tag 274
+// HasTickDirection returns true if TickDirection is present, Tag 274
 func (m NoMDEntries) HasTickDirection() bool {
 	return m.Has(tag.TickDirection)
 }
 
-//HasMDMkt returns true if MDMkt is present, Tag 275
+// HasMDMkt returns true if MDMkt is present, Tag 275
 func (m NoMDEntries) HasMDMkt() bool {
 	return m.Has(tag.MDMkt)
 }
 
-//HasTradingSessionID returns true if TradingSessionID is present, Tag 336
+// HasTradingSessionID returns true if TradingSessionID is present, Tag 336
 func (m NoMDEntries) HasTradingSessionID() bool {
 	return m.Has(tag.TradingSessionID)
 }
 
-//HasQuoteCondition returns true if QuoteCondition is present, Tag 276
+// HasQuoteCondition returns true if QuoteCondition is present, Tag 276
 func (m NoMDEntries) HasQuoteCondition() bool {
 	return m.Has(tag.QuoteCondition)
 }
 
-//HasTradeCondition returns true if TradeCondition is present, Tag 277
+// HasTradeCondition returns true if TradeCondition is present, Tag 277
 func (m NoMDEntries) HasTradeCondition() bool {
 	return m.Has(tag.TradeCondition)
 }
 
-//HasMDEntryOriginator returns true if MDEntryOriginator is present, Tag 282
+// HasMDEntryOriginator returns true if MDEntryOriginator is present, Tag 282
 func (m NoMDEntries) HasMDEntryOriginator() bool {
 	return m.Has(tag.MDEntryOriginator)
 }
 
-//HasLocationID returns true if LocationID is present, Tag 283
+// HasLocationID returns true if LocationID is present, Tag 283
 func (m NoMDEntries) HasLocationID() bool {
 	return m.Has(tag.LocationID)
 }
 
-//HasDeskID returns true if DeskID is present, Tag 284
+// HasDeskID returns true if DeskID is present, Tag 284
 func (m NoMDEntries) HasDeskID() bool {
 	return m.Has(tag.DeskID)
 }
 
-//HasOpenCloseSettleFlag returns true if OpenCloseSettleFlag is present, Tag 286
+// HasOpenCloseSettleFlag returns true if OpenCloseSettleFlag is present, Tag 286
 func (m NoMDEntries) HasOpenCloseSettleFlag() bool {
 	return m.Has(tag.OpenCloseSettleFlag)
 }
 
-//HasTimeInForce returns true if TimeInForce is present, Tag 59
+// HasTimeInForce returns true if TimeInForce is present, Tag 59
 func (m NoMDEntries) HasTimeInForce() bool {
 	return m.Has(tag.TimeInForce)
 }
 
-//HasExpireDate returns true if ExpireDate is present, Tag 432
+// HasExpireDate returns true if ExpireDate is present, Tag 432
 func (m NoMDEntries) HasExpireDate() bool {
 	return m.Has(tag.ExpireDate)
 }
 
-//HasExpireTime returns true if ExpireTime is present, Tag 126
+// HasExpireTime returns true if ExpireTime is present, Tag 126
 func (m NoMDEntries) HasExpireTime() bool {
 	return m.Has(tag.ExpireTime)
 }
 
-//HasMinQty returns true if MinQty is present, Tag 110
+// HasMinQty returns true if MinQty is present, Tag 110
 func (m NoMDEntries) HasMinQty() bool {
 	return m.Has(tag.MinQty)
 }
 
-//HasExecInst returns true if ExecInst is present, Tag 18
+// HasExecInst returns true if ExecInst is present, Tag 18
 func (m NoMDEntries) HasExecInst() bool {
 	return m.Has(tag.ExecInst)
 }
 
-//HasSellerDays returns true if SellerDays is present, Tag 287
+// HasSellerDays returns true if SellerDays is present, Tag 287
 func (m NoMDEntries) HasSellerDays() bool {
 	return m.Has(tag.SellerDays)
 }
 
-//HasOrderID returns true if OrderID is present, Tag 37
+// HasOrderID returns true if OrderID is present, Tag 37
 func (m NoMDEntries) HasOrderID() bool {
 	return m.Has(tag.OrderID)
 }
 
-//HasQuoteEntryID returns true if QuoteEntryID is present, Tag 299
+// HasQuoteEntryID returns true if QuoteEntryID is present, Tag 299
 func (m NoMDEntries) HasQuoteEntryID() bool {
 	return m.Has(tag.QuoteEntryID)
 }
 
-//HasMDEntryBuyer returns true if MDEntryBuyer is present, Tag 288
+// HasMDEntryBuyer returns true if MDEntryBuyer is present, Tag 288
 func (m NoMDEntries) HasMDEntryBuyer() bool {
 	return m.Has(tag.MDEntryBuyer)
 }
 
-//HasMDEntrySeller returns true if MDEntrySeller is present, Tag 289
+// HasMDEntrySeller returns true if MDEntrySeller is present, Tag 289
 func (m NoMDEntries) HasMDEntrySeller() bool {
 	return m.Has(tag.MDEntrySeller)
 }
 
-//HasNumberOfOrders returns true if NumberOfOrders is present, Tag 346
+// HasNumberOfOrders returns true if NumberOfOrders is present, Tag 346
 func (m NoMDEntries) HasNumberOfOrders() bool {
 	return m.Has(tag.NumberOfOrders)
 }
 
-//HasMDEntryPositionNo returns true if MDEntryPositionNo is present, Tag 290
+// HasMDEntryPositionNo returns true if MDEntryPositionNo is present, Tag 290
 func (m NoMDEntries) HasMDEntryPositionNo() bool {
 	return m.Has(tag.MDEntryPositionNo)
 }
 
-//HasText returns true if Text is present, Tag 58
+// HasText returns true if Text is present, Tag 58
 func (m NoMDEntries) HasText() bool {
 	return m.Has(tag.Text)
 }
 
-//HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
+// HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
 func (m NoMDEntries) HasEncodedTextLen() bool {
 	return m.Has(tag.EncodedTextLen)
 }
 
-//HasEncodedText returns true if EncodedText is present, Tag 355
+// HasEncodedText returns true if EncodedText is present, Tag 355
 func (m NoMDEntries) HasEncodedText() bool {
 	return m.Has(tag.EncodedText)
 }
 
-//NoMDEntriesRepeatingGroup is a repeating group, Tag 268
+// NoMDEntriesRepeatingGroup is a repeating group, Tag 268
 type NoMDEntriesRepeatingGroup struct {
 	*quickfix.RepeatingGroup
 }
 
-//NewNoMDEntriesRepeatingGroup returns an initialized, NoMDEntriesRepeatingGroup
+// NewNoMDEntriesRepeatingGroup returns an initialized, NoMDEntriesRepeatingGroup
 func NewNoMDEntriesRepeatingGroup() NoMDEntriesRepeatingGroup {
 	return NoMDEntriesRepeatingGroup{
 		quickfix.NewRepeatingGroup(tag.NoMDEntries,
-			quickfix.GroupTemplate{quickfix.GroupElement(tag.MDEntryType), quickfix.GroupElement(tag.MDEntryPx), quickfix.GroupElement(tag.Currency), quickfix.GroupElement(tag.MDEntrySize), quickfix.GroupElement(tag.MDEntryDate), quickfix.GroupElement(tag.MDEntryTime), quickfix.GroupElement(tag.TickDirection), quickfix.GroupElement(tag.MDMkt), quickfix.GroupElement(tag.TradingSessionID), quickfix.GroupElement(tag.QuoteCondition), quickfix.GroupElement(tag.TradeCondition), quickfix.GroupElement(tag.MDEntryOriginator), quickfix.GroupElement(tag.LocationID), quickfix.GroupElement(tag.DeskID), quickfix.GroupElement(tag.OpenCloseSettleFlag), quickfix.GroupElement(tag.TimeInForce), quickfix.GroupElement(tag.ExpireDate), quickfix.GroupElement(tag.ExpireTime), quickfix.GroupElement(tag.MinQty), quickfix.GroupElement(tag.ExecInst), quickfix.GroupElement(tag.SellerDays), quickfix.GroupElement(tag.OrderID), quickfix.GroupElement(tag.QuoteEntryID), quickfix.GroupElement(tag.MDEntryBuyer), quickfix.GroupElement(tag.MDEntrySeller), quickfix.GroupElement(tag.NumberOfOrders), quickfix.GroupElement(tag.MDEntryPositionNo), quickfix.GroupElement(tag.Text), quickfix.GroupElement(tag.EncodedTextLen), quickfix.GroupElement(tag.EncodedText)})}
+			quickfix.GroupTemplate{quickfix.GroupElement(tag.MDEntryType), quickfix.GroupElement(tag.MDEntryPx), quickfix.GroupElement(tag.Currency), quickfix.GroupElement(tag.MDEntrySize), quickfix.GroupElement(tag.MDEntryDate), quickfix.GroupElement(tag.MDEntryTime), quickfix.GroupElement(tag.TickDirection), quickfix.GroupElement(tag.MDMkt), quickfix.GroupElement(tag.TradingSessionID), quickfix.GroupElement(tag.QuoteCondition), quickfix.GroupElement(tag.TradeCondition), quickfix.GroupElement(tag.MDEntryOriginator), quickfix.GroupElement(tag.LocationID), quickfix.GroupElement(tag.DeskID), quickfix.GroupElement(tag.OpenCloseSettleFlag), quickfix.GroupElement(tag.TimeInForce), quickfix.GroupElement(tag.ExpireDate), quickfix.GroupElement(tag.ExpireTime), quickfix.GroupElement(tag.MinQty), quickfix.GroupElement(tag.ExecInst), quickfix.GroupElement(tag.SellerDays), quickfix.GroupElement(tag.OrderID), quickfix.GroupElement(tag.QuoteEntryID), quickfix.GroupElement(tag.MDEntryBuyer), quickfix.GroupElement(tag.MDEntrySeller), quickfix.GroupElement(tag.NumberOfOrders), quickfix.GroupElement(tag.MDEntryPositionNo), quickfix.GroupElement(tag.Text), quickfix.GroupElement(tag.EncodedTextLen), quickfix.GroupElement(tag.EncodedText)}),
+	}
 }
 
-//Add create and append a new NoMDEntries to this group
+// Add create and append a new NoMDEntries to this group
 func (m NoMDEntriesRepeatingGroup) Add() NoMDEntries {
 	g := m.RepeatingGroup.Add()
 	return NoMDEntries{g}
 }
 
-//Get returns the ith NoMDEntries in the NoMDEntriesRepeatinGroup
+// Get returns the ith NoMDEntries in the NoMDEntriesRepeatinGroup
 func (m NoMDEntriesRepeatingGroup) Get(i int) NoMDEntries {
 	return NoMDEntries{m.RepeatingGroup.Get(i)}
 }

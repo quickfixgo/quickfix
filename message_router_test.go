@@ -108,7 +108,7 @@ func (suite *MessageRouterTestSuite) TestNoRoute() {
 }
 
 func (suite *MessageRouterTestSuite) TestNoRouteWhitelistedMessageTypes() {
-	var tests = []string{"0", "A", "1", "2", "3", "4", "5", "j"}
+	tests := []string{"0", "A", "1", "2", "3", "4", "5", "j"}
 
 	for _, test := range tests {
 		suite.SetupTest()

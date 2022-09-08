@@ -40,7 +40,7 @@ func TestFieldMap_SetAndGet(t *testing.T) {
 	fMap.SetField(1, FIXString("hello"))
 	fMap.SetField(2, FIXString("world"))
 
-	var testCases = []struct {
+	testCases := []struct {
 		tag         Tag
 		expectErr   bool
 		expectValue string
@@ -76,7 +76,6 @@ func TestFieldMap_Length(t *testing.T) {
 }
 
 func TestFieldMap_Total(t *testing.T) {
-
 	var fMap FieldMap
 	fMap.init()
 	fMap.SetField(1, FIXString("hello"))

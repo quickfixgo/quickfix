@@ -131,11 +131,9 @@ func TestTimeRangeIsInRange(t *testing.T) {
 	end = NewTimeOfDay(0, 0, 0)
 	now = time.Date(2016, time.August, 10, 18, 0, 0, 0, time.UTC)
 	assert.True(t, NewUTCTimeRange(start, end).IsInRange(now))
-
 }
 
 func TestTimeRangeIsInRangeWithDay(t *testing.T) {
-
 	startTime := NewTimeOfDay(3, 0, 0)
 	endTime := NewTimeOfDay(18, 0, 0)
 	startDay := time.Monday
@@ -221,7 +219,6 @@ func TestTimeRangeIsInRangeWithDay(t *testing.T) {
 }
 
 func TestTimeRangeIsInSameRange(t *testing.T) {
-
 	// start time is less than end time
 	start := NewTimeOfDay(3, 0, 0)
 	end := NewTimeOfDay(18, 0, 0)
@@ -358,7 +355,6 @@ func TestTimeRangeIsInSameRange(t *testing.T) {
 }
 
 func TestTimeRangeIsInSameRangeWithDay(t *testing.T) {
-
 	startTime := NewTimeOfDay(3, 0, 0)
 	endTime := NewTimeOfDay(18, 0, 0)
 	startDay := time.Monday

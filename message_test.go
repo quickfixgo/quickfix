@@ -81,7 +81,7 @@ func (s *MessageSuite) TestParseMessageWithDataDictionary() {
 }
 
 func (s *MessageSuite) TestParseOutOfOrder() {
-	//allow fields out of order, save for validation
+	// allow fields out of order, save for validation
 	rawMsg := bytes.NewBufferString("8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250")
 	s.Nil(ParseMessage(s.msg, rawMsg))
 }
@@ -123,7 +123,7 @@ func (s *MessageSuite) TestReverseRoute() {
 
 	builder := s.msg.reverseRoute()
 
-	var testCases = []struct {
+	testCases := []struct {
 		tag           Tag
 		expectedValue string
 	}{
@@ -157,7 +157,7 @@ func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
 }
 
 func (s *MessageSuite) TestReverseRouteFIX40() {
-	//onbehalfof/deliverto location id not supported in fix 4.0
+	// onbehalfof/deliverto location id not supported in fix 4.0
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
 	builder := s.msg.reverseRoute()

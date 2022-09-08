@@ -7,7 +7,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//ListStatusRequest is the fix44 ListStatusRequest type, MsgType = M
+// ListStatusRequest is the fix44 ListStatusRequest type, MsgType = M
 type ListStatusRequest struct {
 	fix44.Header
 	*quickfix.Body
@@ -15,7 +15,7 @@ type ListStatusRequest struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a ListStatusRequest from a quickfix.Message instance
+// FromMessage creates a ListStatusRequest from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) ListStatusRequest {
 	return ListStatusRequest{
 		Header:  fix44.Header{&m.Header},
@@ -25,12 +25,12 @@ func FromMessage(m *quickfix.Message) ListStatusRequest {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m ListStatusRequest) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a ListStatusRequest initialized with the required fields for ListStatusRequest
+// New returns a ListStatusRequest initialized with the required fields for ListStatusRequest
 func New(listid field.ListIDField) (m ListStatusRequest) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix44.NewHeader(&m.Message.Header)
@@ -43,10 +43,10 @@ func New(listid field.ListIDField) (m ListStatusRequest) {
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg ListStatusRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -54,27 +54,27 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.4", "M", r
 }
 
-//SetText sets Text, Tag 58
+// SetText sets Text, Tag 58
 func (m ListStatusRequest) SetText(v string) {
 	m.Set(field.NewText(v))
 }
 
-//SetListID sets ListID, Tag 66
+// SetListID sets ListID, Tag 66
 func (m ListStatusRequest) SetListID(v string) {
 	m.Set(field.NewListID(v))
 }
 
-//SetEncodedTextLen sets EncodedTextLen, Tag 354
+// SetEncodedTextLen sets EncodedTextLen, Tag 354
 func (m ListStatusRequest) SetEncodedTextLen(v int) {
 	m.Set(field.NewEncodedTextLen(v))
 }
 
-//SetEncodedText sets EncodedText, Tag 355
+// SetEncodedText sets EncodedText, Tag 355
 func (m ListStatusRequest) SetEncodedText(v string) {
 	m.Set(field.NewEncodedText(v))
 }
 
-//GetText gets Text, Tag 58
+// GetText gets Text, Tag 58
 func (m ListStatusRequest) GetText() (v string, err quickfix.MessageRejectError) {
 	var f field.TextField
 	if err = m.Get(&f); err == nil {
@@ -83,7 +83,7 @@ func (m ListStatusRequest) GetText() (v string, err quickfix.MessageRejectError)
 	return
 }
 
-//GetListID gets ListID, Tag 66
+// GetListID gets ListID, Tag 66
 func (m ListStatusRequest) GetListID() (v string, err quickfix.MessageRejectError) {
 	var f field.ListIDField
 	if err = m.Get(&f); err == nil {
@@ -92,7 +92,7 @@ func (m ListStatusRequest) GetListID() (v string, err quickfix.MessageRejectErro
 	return
 }
 
-//GetEncodedTextLen gets EncodedTextLen, Tag 354
+// GetEncodedTextLen gets EncodedTextLen, Tag 354
 func (m ListStatusRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejectError) {
 	var f field.EncodedTextLenField
 	if err = m.Get(&f); err == nil {
@@ -101,7 +101,7 @@ func (m ListStatusRequest) GetEncodedTextLen() (v int, err quickfix.MessageRejec
 	return
 }
 
-//GetEncodedText gets EncodedText, Tag 355
+// GetEncodedText gets EncodedText, Tag 355
 func (m ListStatusRequest) GetEncodedText() (v string, err quickfix.MessageRejectError) {
 	var f field.EncodedTextField
 	if err = m.Get(&f); err == nil {
@@ -110,22 +110,22 @@ func (m ListStatusRequest) GetEncodedText() (v string, err quickfix.MessageRejec
 	return
 }
 
-//HasText returns true if Text is present, Tag 58
+// HasText returns true if Text is present, Tag 58
 func (m ListStatusRequest) HasText() bool {
 	return m.Has(tag.Text)
 }
 
-//HasListID returns true if ListID is present, Tag 66
+// HasListID returns true if ListID is present, Tag 66
 func (m ListStatusRequest) HasListID() bool {
 	return m.Has(tag.ListID)
 }
 
-//HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
+// HasEncodedTextLen returns true if EncodedTextLen is present, Tag 354
 func (m ListStatusRequest) HasEncodedTextLen() bool {
 	return m.Has(tag.EncodedTextLen)
 }
 
-//HasEncodedText returns true if EncodedText is present, Tag 355
+// HasEncodedText returns true if EncodedText is present, Tag 355
 func (m ListStatusRequest) HasEncodedText() bool {
 	return m.Has(tag.EncodedText)
 }

@@ -2,11 +2,11 @@ package quickfix
 
 import "github.com/shopspring/decimal"
 
-//FIXDecimal is a FIX Float Value that implements an arbitrary precision fixed-point decimal.  Implements FieldValue
+// FIXDecimal is a FIX Float Value that implements an arbitrary precision fixed-point decimal.  Implements FieldValue
 type FIXDecimal struct {
 	decimal.Decimal
 
-	//Scale is the number of digits after the decimal point when Writing the field value as a FIX value
+	// Scale is the number of digits after the decimal point when Writing the field value as a FIX value
 	Scale int32
 }
 

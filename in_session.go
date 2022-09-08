@@ -145,7 +145,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 				return handleStateError(session, err)
 			}
 		case newSeqNo < expectedSeqNum:
-			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
+			// FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
 			if err := session.doReject(msg, valueIsIncorrectNoTag()); err != nil {
 				return handleStateError(session, err)
 			}
@@ -261,7 +261,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		var nextState resendState
 		switch currentState := session.State.(type) {
 		case resendState:
-			//assumes target too high reject already sent
+			// assumes target too high reject already sent
 			nextState = currentState
 		default:
 			var err error
@@ -275,7 +275,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		}
 
 		nextState.messageStash[TypedError.ReceivedTarget] = msg
-		//do not reclaim stashed message
+		// do not reclaim stashed message
 		msg.keepMessage = true
 
 		return nextState

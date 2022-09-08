@@ -2,15 +2,17 @@ package quickfix
 
 import "bytes"
 
-var msgTypeHeartbeat = []byte("0")
-var msgTypeLogon = []byte("A")
-var msgTypeTestRequest = []byte("1")
-var msgTypeResendRequest = []byte("2")
-var msgTypeReject = []byte("3")
-var msgTypeSequenceReset = []byte("4")
-var msgTypeLogout = []byte("5")
+var (
+	msgTypeHeartbeat     = []byte("0")
+	msgTypeLogon         = []byte("A")
+	msgTypeTestRequest   = []byte("1")
+	msgTypeResendRequest = []byte("2")
+	msgTypeReject        = []byte("3")
+	msgTypeSequenceReset = []byte("4")
+	msgTypeLogout        = []byte("5")
+)
 
-//isAdminMessageType returns true if the message type is a session level message.
+// isAdminMessageType returns true if the message type is a session level message.
 func isAdminMessageType(m []byte) bool {
 	switch {
 	case bytes.Equal(msgTypeHeartbeat, m),

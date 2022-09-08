@@ -152,7 +152,7 @@ func main() {
 		}
 
 		switch pkg {
-		//uses fixt11 header/trailer
+		// uses fixt11 header/trailer
 		case "fix50", "fix50sp1", "fix50sp2":
 		default:
 			waitGroup.Add(1)

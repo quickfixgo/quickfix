@@ -7,7 +7,7 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//ResendRequest is the fix44 ResendRequest type, MsgType = 2
+// ResendRequest is the fix44 ResendRequest type, MsgType = 2
 type ResendRequest struct {
 	fix44.Header
 	*quickfix.Body
@@ -15,7 +15,7 @@ type ResendRequest struct {
 	Message *quickfix.Message
 }
 
-//FromMessage creates a ResendRequest from a quickfix.Message instance
+// FromMessage creates a ResendRequest from a quickfix.Message instance
 func FromMessage(m *quickfix.Message) ResendRequest {
 	return ResendRequest{
 		Header:  fix44.Header{&m.Header},
@@ -25,12 +25,12 @@ func FromMessage(m *quickfix.Message) ResendRequest {
 	}
 }
 
-//ToMessage returns a quickfix.Message instance
+// ToMessage returns a quickfix.Message instance
 func (m ResendRequest) ToMessage() *quickfix.Message {
 	return m.Message
 }
 
-//New returns a ResendRequest initialized with the required fields for ResendRequest
+// New returns a ResendRequest initialized with the required fields for ResendRequest
 func New(beginseqno field.BeginSeqNoField, endseqno field.EndSeqNoField) (m ResendRequest) {
 	m.Message = quickfix.NewMessage()
 	m.Header = fix44.NewHeader(&m.Message.Header)
@@ -44,10 +44,10 @@ func New(beginseqno field.BeginSeqNoField, endseqno field.EndSeqNoField) (m Rese
 	return
 }
 
-//A RouteOut is the callback type that should be implemented for routing Message
+// A RouteOut is the callback type that should be implemented for routing Message
 type RouteOut func(msg ResendRequest, sessionID quickfix.SessionID) quickfix.MessageRejectError
 
-//Route returns the beginstring, message type, and MessageRoute for this Message type
+// Route returns the beginstring, message type, and MessageRoute for this Message type
 func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	r := func(msg *quickfix.Message, sessionID quickfix.SessionID) quickfix.MessageRejectError {
 		return router(FromMessage(msg), sessionID)
@@ -55,17 +55,17 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 	return "FIX.4.4", "2", r
 }
 
-//SetBeginSeqNo sets BeginSeqNo, Tag 7
+// SetBeginSeqNo sets BeginSeqNo, Tag 7
 func (m ResendRequest) SetBeginSeqNo(v int) {
 	m.Set(field.NewBeginSeqNo(v))
 }
 
-//SetEndSeqNo sets EndSeqNo, Tag 16
+// SetEndSeqNo sets EndSeqNo, Tag 16
 func (m ResendRequest) SetEndSeqNo(v int) {
 	m.Set(field.NewEndSeqNo(v))
 }
 
-//GetBeginSeqNo gets BeginSeqNo, Tag 7
+// GetBeginSeqNo gets BeginSeqNo, Tag 7
 func (m ResendRequest) GetBeginSeqNo() (v int, err quickfix.MessageRejectError) {
 	var f field.BeginSeqNoField
 	if err = m.Get(&f); err == nil {
@@ -74,7 +74,7 @@ func (m ResendRequest) GetBeginSeqNo() (v int, err quickfix.MessageRejectError) 
 	return
 }
 
-//GetEndSeqNo gets EndSeqNo, Tag 16
+// GetEndSeqNo gets EndSeqNo, Tag 16
 func (m ResendRequest) GetEndSeqNo() (v int, err quickfix.MessageRejectError) {
 	var f field.EndSeqNoField
 	if err = m.Get(&f); err == nil {
@@ -83,12 +83,12 @@ func (m ResendRequest) GetEndSeqNo() (v int, err quickfix.MessageRejectError) {
 	return
 }
 
-//HasBeginSeqNo returns true if BeginSeqNo is present, Tag 7
+// HasBeginSeqNo returns true if BeginSeqNo is present, Tag 7
 func (m ResendRequest) HasBeginSeqNo() bool {
 	return m.Has(tag.BeginSeqNo)
 }
 
-//HasEndSeqNo returns true if EndSeqNo is present, Tag 16
+// HasEndSeqNo returns true if EndSeqNo is present, Tag 16
 func (m ResendRequest) HasEndSeqNo() bool {
 	return m.Has(tag.EndSeqNo)
 }

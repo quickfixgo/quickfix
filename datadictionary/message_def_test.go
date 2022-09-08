@@ -8,7 +8,6 @@ import (
 )
 
 func TestNewMessageDef(t *testing.T) {
-
 	ft1 := datadictionary.NewFieldType("type1", 11, "STRING")
 	ft2 := datadictionary.NewFieldType("type2", 12, "STRING")
 	ft3 := datadictionary.NewFieldType("type3", 13, "INT")
@@ -26,7 +25,7 @@ func TestNewMessageDef(t *testing.T) {
 
 	optionalComp1 := datadictionary.NewComponent(ct1, false)
 
-	var tests = []struct {
+	tests := []struct {
 		parts                 []datadictionary.MessagePart
 		expectedTags          datadictionary.TagSet
 		expectedRequiredTags  datadictionary.TagSet

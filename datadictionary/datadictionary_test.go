@@ -44,7 +44,7 @@ func TestComponents(t *testing.T) {
 func TestFieldsByTag(t *testing.T) {
 	d, _ := dict()
 
-	var tests = []struct {
+	tests := []struct {
 		Tag         int
 		Name        string
 		Type        string
@@ -80,11 +80,10 @@ func TestFieldsByTag(t *testing.T) {
 }
 
 func TestEnumFieldsByTag(t *testing.T) {
-
 	d, _ := dict()
 	f, _ := d.FieldTypeByTag[658]
 
-	var tests = []struct {
+	tests := []struct {
 		Value       string
 		Description string
 	}{
@@ -143,7 +142,7 @@ func TestMessageRequiredTags(t *testing.T) {
 
 	nos, _ := d.Messages["D"]
 
-	var tests = []struct {
+	tests := []struct {
 		*MessageDef
 		Tag      int
 		Required bool
@@ -171,7 +170,7 @@ func TestMessageTags(t *testing.T) {
 
 	nos, _ := d.Messages["D"]
 
-	var tests = []struct {
+	tests := []struct {
 		*MessageDef
 		Tag int
 	}{

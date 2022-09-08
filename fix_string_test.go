@@ -6,7 +6,7 @@ import (
 )
 
 func TestFIXStringWrite(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		field FIXString
 		val   []byte
 	}{
@@ -23,7 +23,7 @@ func TestFIXStringWrite(t *testing.T) {
 }
 
 func TestFIXStringRead(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		bytes       []byte
 		value       string
 		expectError bool

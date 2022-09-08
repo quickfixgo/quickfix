@@ -201,7 +201,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonUnExpectedResetSeqNu
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonRefreshOnLogon() {
-	var tests = []bool{true, false}
+	tests := []bool{true, false}
 
 	for _, doRefresh := range tests {
 		s.SetupTest()
@@ -223,7 +223,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonRefreshOnLogon() {
 }
 
 func (s *LogonStateTestSuite) TestStop() {
-	var tests = []bool{true, false}
+	tests := []bool{true, false}
 
 	for _, doInitiateLogon := range tests {
 		s.SetupTest()
@@ -277,7 +277,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.State(resendState{})
 	s.NextTargetMsgSeqNum(1)
 
-	//session should send logon, and then queues resend request for send
+	// session should send logon, and then queues resend request for send
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
 	msgBytesSent, ok := s.Receiver.LastMessage()
 	s.Require().True(ok)

@@ -6,27 +6,27 @@ import (
 	"github.com/alpacahq/quickfix/tag"
 )
 
-//Trailer is the fix44 Trailer type
+// Trailer is the fix44 Trailer type
 type Trailer struct {
 	*quickfix.Trailer
 }
 
-//SetCheckSum sets CheckSum, Tag 10
+// SetCheckSum sets CheckSum, Tag 10
 func (t Trailer) SetCheckSum(v string) {
 	t.Set(field.NewCheckSum(v))
 }
 
-//SetSignature sets Signature, Tag 89
+// SetSignature sets Signature, Tag 89
 func (t Trailer) SetSignature(v string) {
 	t.Set(field.NewSignature(v))
 }
 
-//SetSignatureLength sets SignatureLength, Tag 93
+// SetSignatureLength sets SignatureLength, Tag 93
 func (t Trailer) SetSignatureLength(v int) {
 	t.Set(field.NewSignatureLength(v))
 }
 
-//GetCheckSum gets CheckSum, Tag 10
+// GetCheckSum gets CheckSum, Tag 10
 func (t Trailer) GetCheckSum() (v string, err quickfix.MessageRejectError) {
 	var f field.CheckSumField
 	if err = t.Get(&f); err == nil {
@@ -35,7 +35,7 @@ func (t Trailer) GetCheckSum() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetSignature gets Signature, Tag 89
+// GetSignature gets Signature, Tag 89
 func (t Trailer) GetSignature() (v string, err quickfix.MessageRejectError) {
 	var f field.SignatureField
 	if err = t.Get(&f); err == nil {
@@ -44,7 +44,7 @@ func (t Trailer) GetSignature() (v string, err quickfix.MessageRejectError) {
 	return
 }
 
-//GetSignatureLength gets SignatureLength, Tag 93
+// GetSignatureLength gets SignatureLength, Tag 93
 func (t Trailer) GetSignatureLength() (v int, err quickfix.MessageRejectError) {
 	var f field.SignatureLengthField
 	if err = t.Get(&f); err == nil {
@@ -53,17 +53,17 @@ func (t Trailer) GetSignatureLength() (v int, err quickfix.MessageRejectError) {
 	return
 }
 
-//HasCheckSum returns true if CheckSum is present, Tag 10
+// HasCheckSum returns true if CheckSum is present, Tag 10
 func (t Trailer) HasCheckSum() bool {
 	return t.Has(tag.CheckSum)
 }
 
-//HasSignature returns true if Signature is present, Tag 89
+// HasSignature returns true if Signature is present, Tag 89
 func (t Trailer) HasSignature() bool {
 	return t.Has(tag.Signature)
 }
 
-//HasSignatureLength returns true if SignatureLength is present, Tag 93
+// HasSignatureLength returns true if SignatureLength is present, Tag 93
 func (t Trailer) HasSignatureLength() bool {
 	return t.Has(tag.SignatureLength)
 }

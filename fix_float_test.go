@@ -9,7 +9,7 @@ import (
 )
 
 func TestFloatWrite(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		field FIXFloat
 		val   []byte
 	}{
@@ -24,7 +24,7 @@ func TestFloatWrite(t *testing.T) {
 }
 
 func TestFloatRead(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		bytes       []byte
 		value       float64
 		expectError bool

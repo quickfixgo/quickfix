@@ -25,7 +25,7 @@ func (s *BuildSuite) SetupTest() {
 }
 
 func (s *BuildSuite) TestValidTypes() {
-	var tests = []string{
+	tests := []string{
 		"FIX",
 		"FIXT",
 	}
@@ -41,7 +41,7 @@ func (s *BuildSuite) TestValidTypes() {
 }
 
 func (s *BuildSuite) TestInvalidTypes() {
-	var tests = []string{
+	tests := []string{
 		"",
 		"invalid",
 	}
@@ -55,7 +55,7 @@ func (s *BuildSuite) TestInvalidTypes() {
 }
 
 func (s *BuildSuite) TestValidMajor() {
-	var tests = []int{
+	tests := []int{
 		4,
 		5,
 	}
@@ -71,7 +71,7 @@ func (s *BuildSuite) TestValidMajor() {
 }
 
 func (s *BuildSuite) TestInvalidMajor() {
-	var tests = []string{
+	tests := []string{
 		"",
 		"notanumber",
 	}
@@ -85,7 +85,7 @@ func (s *BuildSuite) TestInvalidMajor() {
 }
 
 func (s *BuildSuite) TestValidMinor() {
-	var tests = []int{
+	tests := []int{
 		4,
 		5,
 	}
@@ -101,7 +101,7 @@ func (s *BuildSuite) TestValidMinor() {
 }
 
 func (s *BuildSuite) TestInvalidMinor() {
-	var tests = []string{
+	tests := []string{
 		"",
 		"notanumber",
 	}
@@ -115,7 +115,7 @@ func (s *BuildSuite) TestInvalidMinor() {
 }
 
 func TestBuildFieldDef(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		element string
 	}{
 		{"field"},

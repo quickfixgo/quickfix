@@ -47,7 +47,7 @@ func (s *SettingsAddSessionSuite) TestBeginStringValidation() {
 	_, err = s.settings.AddSession(ss)
 	s.NotNil(err)
 
-	var cases = []string{
+	cases := []string{
 		BeginStringFIX40,
 		BeginStringFIX41,
 		BeginStringFIX42,
@@ -82,7 +82,7 @@ func (s *SettingsAddSessionSuite) TestGlobalOverlay() {
 	sessionID1 := SessionID{BeginString: "FIX.4.1", SenderCompID: "CB", TargetCompID: "SS"}
 	sessionID2 := SessionID{BeginString: "FIX.4.0", SenderCompID: "CB", TargetCompID: "SS"}
 
-	var addCases = []struct {
+	addCases := []struct {
 		settings          *SessionSettings
 		expectedSessionID SessionID
 	}{
@@ -96,7 +96,7 @@ func (s *SettingsAddSessionSuite) TestGlobalOverlay() {
 		s.Equal(sid, tc.expectedSessionID)
 	}
 
-	var cases = []struct {
+	cases := []struct {
 		sessionID SessionID
 		input     string
 		expected  string
@@ -207,7 +207,7 @@ DataDictionary=somewhere/FIX42.xml
 	assert.Nil(t, err)
 	assert.NotNil(t, s)
 
-	var globalTCs = []struct {
+	globalTCs := []struct {
 		setting  string
 		expected string
 	}{
@@ -232,9 +232,10 @@ DataDictionary=somewhere/FIX42.xml
 	sessionID3 := SessionID{
 		BeginString:  "FIX.4.2",
 		SenderCompID: "TW", SenderSubID: "TWSub", SenderLocationID: "TWLoc",
-		TargetCompID: "INCA", TargetSubID: "INCASub", TargetLocationID: "INCALoc"}
+		TargetCompID: "INCA", TargetSubID: "INCASub", TargetLocationID: "INCALoc",
+	}
 
-	var sessionTCs = []struct {
+	sessionTCs := []struct {
 		sessionID SessionID
 		setting   string
 		expected  string
@@ -312,7 +313,7 @@ TargetCompID=TARGET`))
 }
 
 func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
-	var testCases = []struct {
+	testCases := []struct {
 		globalBeginString   string
 		globalTargetCompID  string
 		globalSenderCompID  string
@@ -322,14 +323,20 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 		sessionQualifier    string
 		expectedSessionID   SessionID
 	}{
-		{globalBeginString: "FIX.4.0", globalTargetCompID: "CB", globalSenderCompID: "SS",
-			expectedSessionID: SessionID{BeginString: "FIX.4.0", TargetCompID: "CB", SenderCompID: "SS"}},
+		{
+			globalBeginString: "FIX.4.0", globalTargetCompID: "CB", globalSenderCompID: "SS",
+			expectedSessionID: SessionID{BeginString: "FIX.4.0", TargetCompID: "CB", SenderCompID: "SS"},
+		},
 
-		{sessionBeginString: "FIX.4.1", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
-			expectedSessionID: SessionID{BeginString: "FIX.4.1", TargetCompID: "GE", SenderCompID: "LE"}},
+		{
+			sessionBeginString: "FIX.4.1", sessionTargetCompID: "GE", sessionSenderCompID: "LE",
+			expectedSessionID: SessionID{BeginString: "FIX.4.1", TargetCompID: "GE", SenderCompID: "LE"},
+		},
 
-		{globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE", sessionQualifier: "J",
-			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE", Qualifier: "J"}},
+		{
+			globalBeginString: "FIX.4.2", globalTargetCompID: "CB", sessionTargetCompID: "GE", sessionSenderCompID: "LE", sessionQualifier: "J",
+			expectedSessionID: SessionID{BeginString: "FIX.4.2", TargetCompID: "GE", SenderCompID: "LE", Qualifier: "J"},
+		},
 	}
 
 	for _, tc := range testCases {

@@ -25,7 +25,7 @@ func TestNewComponentType(t *testing.T) {
 		datadictionary.NewComponentType("comp1", []datadictionary.MessagePart{requiredField1}),
 		false)
 
-	var tests = []struct {
+	tests := []struct {
 		testName               string
 		parts                  []datadictionary.MessagePart
 		expectedFields         []*datadictionary.FieldDef

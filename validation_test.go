@@ -19,7 +19,7 @@ type validateTest struct {
 }
 
 func TestValidate(t *testing.T) {
-	var tests = []validateTest{
+	tests := []validateTest{
 		tcInvalidTagNumberHeader(),
 		tcInvalidTagNumberBody(),
 		tcInvalidTagNumberTrailer(),
@@ -63,13 +63,13 @@ func TestValidate(t *testing.T) {
 
 		switch {
 		case reject.RefTagID() == nil && test.ExpectedRefTagID == nil:
-		//ok, expected and actual ref tag not set
+		// ok, expected and actual ref tag not set
 		case reject.RefTagID() != nil && test.ExpectedRefTagID == nil:
 			t.Errorf("%v: Unexpected RefTag '%v'", test.TestName, *reject.RefTagID())
 		case reject.RefTagID() == nil && test.ExpectedRefTagID != nil:
 			t.Errorf("%v: Expected RefTag '%v'", test.TestName, *test.ExpectedRefTagID)
 		case *reject.RefTagID() == *test.ExpectedRefTagID:
-			//ok, tags equal
+			// ok, tags equal
 		default:
 			t.Errorf("%v: Expected RefTag '%v' got '%v'", test.TestName, *test.ExpectedRefTagID, *reject.RefTagID())
 		}
@@ -138,6 +138,7 @@ func tcInvalidTagNumberHeader() validateTest {
 		ExpectedRefTagID:     &tag,
 	}
 }
+
 func tcInvalidTagNumberBody() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX40.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
@@ -190,7 +191,7 @@ func tcTagNotDefinedForMessage() validateTest {
 }
 
 func tcTagIsDefinedForMessage() validateTest {
-	//compare to tcTagIsNotDefinedForMessage
+	// compare to tcTagIsNotDefinedForMessage
 	dict, _ := datadictionary.Parse("spec/FIX43.xml")
 	validator := &fixValidator{dict, defaultValidatorSettings}
 	validMsg := createFIX43NewOrderSingle()
@@ -224,8 +225,8 @@ func tcFieldNotFoundBody() validateTest {
 		SetField(Tag(38), FIXString("A"))
 
 	tag := Tag(40)
-	//ord type is required
-	//invalidMsg1.Body.SetField(Tag(40), "A"))
+	// ord type is required
+	// invalidMsg1.Body.SetField(Tag(40), "A"))
 
 	msgBytes := invalidMsg1.build()
 
@@ -256,8 +257,8 @@ func tcFieldNotFoundHeader() validateTest {
 		SetField(tagSenderCompID, FIXString("0")).
 		SetField(tagTargetCompID, FIXString("0")).
 		SetField(tagMsgSeqNum, FIXString("0"))
-	//sending time is required
-	//invalidMsg2.Header.FieldMap.SetField(tag.SendingTime, "0"))
+	// sending time is required
+	// invalidMsg2.Header.FieldMap.SetField(tag.SendingTime, "0"))
 
 	tag := tagSendingTime
 	msgBytes := invalidMsg2.build()
@@ -345,7 +346,7 @@ func tcTagSpecifiedOutOfRequiredOrderHeader() validateTest {
 
 	builder := createFIX40NewOrderSingle()
 	tag := tagOnBehalfOfCompID
-	//should be in header
+	// should be in header
 	builder.Body.SetField(tag, FIXString("CWB"))
 	msgBytes := builder.build()
 
@@ -364,7 +365,7 @@ func tcTagSpecifiedOutOfRequiredOrderTrailer() validateTest {
 
 	builder := createFIX40NewOrderSingle()
 	tag := tagSignature
-	//should be in trailer
+	// should be in trailer
 	builder.Body.SetField(tag, FIXString("SIG"))
 	msgBytes := builder.build()
 
@@ -385,7 +386,7 @@ func tcTagSpecifiedOutOfRequiredOrderDisabledHeader() validateTest {
 
 	builder := createFIX40NewOrderSingle()
 	tag := tagOnBehalfOfCompID
-	//should be in header
+	// should be in header
 	builder.Body.SetField(tag, FIXString("CWB"))
 	msgBytes := builder.build()
 
@@ -404,7 +405,7 @@ func tcTagSpecifiedOutOfRequiredOrderDisabledTrailer() validateTest {
 
 	builder := createFIX40NewOrderSingle()
 	tag := tagSignature
-	//should be in trailer
+	// should be in trailer
 	builder.Body.SetField(tag, FIXString("SIG"))
 	msgBytes := builder.build()
 
@@ -422,9 +423,9 @@ func tcTagAppearsMoreThanOnce() validateTest {
 	tag := Tag(40)
 
 	return validateTest{
-		TestName:  "Tag appears more than once",
-		Validator: validator,
-		MessageBytes: []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
+		TestName:             "Tag appears more than once",
+		Validator:            validator,
+		MessageBytes:         []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
 		ExpectedRejectReason: rejectReasonTagAppearsMoreThanOnce,
 		ExpectedRefTagID:     &tag,
 	}
@@ -435,9 +436,9 @@ func tcFloatValidation() validateTest {
 	validator := &fixValidator{dict, defaultValidatorSettings}
 	tag := Tag(38)
 	return validateTest{
-		TestName:  "FloatValidation",
-		Validator: validator,
-		MessageBytes: []byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"),
+		TestName:             "FloatValidation",
+		Validator:            validator,
+		MessageBytes:         []byte("8=FIX.4.29=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"),
 		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
 		ExpectedRefTagID:     &tag,
 	}
@@ -473,46 +474,59 @@ func TestValidateVisitField(t *testing.T) {
 	var groupID3 TagValue
 	groupID3.init(Tag(1), []byte("3"))
 
-	var tests = []struct {
+	tests := []struct {
 		fieldDef             *datadictionary.FieldDef
 		fields               []TagValue
 		expectedRemFields    int
 		expectReject         bool
 		expectedRejectReason int
 	}{
-		//non-repeating
-		{expectedRemFields: 0,
-			fieldDef: fieldDef0,
-			fields:   []TagValue{field}},
-		//single field group
-		{expectedRemFields: 0,
-			fieldDef: groupFieldDef,
-			fields:   []TagValue{groupID, repField1}},
-		//multiple field group
-		{expectedRemFields: 0,
-			fieldDef: groupFieldDef,
-			fields:   []TagValue{groupID, repField1, repField2}},
-		//test with trailing tag not in group
-		{expectedRemFields: 1,
-			fieldDef: groupFieldDef,
-			fields:   []TagValue{groupID, repField1, repField2, field}},
-		//repeats
-		{expectedRemFields: 1,
-			fieldDef: groupFieldDef,
-			fields:   []TagValue{groupID2, repField1, repField2, repField1, repField2, field}},
-		//REJECT: group size declared > actual group size
-		{expectReject: true,
+		// non-repeating
+		{
+			expectedRemFields: 0,
+			fieldDef:          fieldDef0,
+			fields:            []TagValue{field},
+		},
+		// single field group
+		{
+			expectedRemFields: 0,
+			fieldDef:          groupFieldDef,
+			fields:            []TagValue{groupID, repField1},
+		},
+		// multiple field group
+		{
+			expectedRemFields: 0,
+			fieldDef:          groupFieldDef,
+			fields:            []TagValue{groupID, repField1, repField2},
+		},
+		// test with trailing tag not in group
+		{
+			expectedRemFields: 1,
+			fieldDef:          groupFieldDef,
+			fields:            []TagValue{groupID, repField1, repField2, field},
+		},
+		// repeats
+		{
+			expectedRemFields: 1,
+			fieldDef:          groupFieldDef,
+			fields:            []TagValue{groupID2, repField1, repField2, repField1, repField2, field},
+		},
+		// REJECT: group size declared > actual group size
+		{
+			expectReject:         true,
 			fieldDef:             groupFieldDef,
 			fields:               []TagValue{groupID3, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
-		{expectReject: true,
+		{
+			expectReject:         true,
 			fieldDef:             groupFieldDef,
 			fields:               []TagValue{groupID3, repField1, repField1, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,
 		},
-		//REJECT: group size declared < actual group size
-		{expectReject: true,
+		// REJECT: group size declared < actual group size
+		{
+			expectReject:         true,
 			fieldDef:             groupFieldDef,
 			fields:               []TagValue{groupID, repField1, repField2, repField1, repField2, field},
 			expectedRejectReason: rejectReasonIncorrectNumInGroupCountForRepeatingGroup,

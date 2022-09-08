@@ -65,12 +65,12 @@ func (s *SessionSuite) TestFillDefaultHeader() {
 }
 
 func (s *SessionSuite) TestInsertSendingTime() {
-	var tests = []struct {
+	tests := []struct {
 		BeginString       string
 		Precision         TimestampPrecision
 		ExpectedPrecision TimestampPrecision
 	}{
-		{BeginStringFIX40, Millis, Seconds}, //config is ignored for fix < 4.2
+		{BeginStringFIX40, Millis, Seconds}, // config is ignored for fix < 4.2
 		{BeginStringFIX41, Millis, Seconds},
 
 		{BeginStringFIX42, Millis, Millis},
@@ -99,27 +99,35 @@ func (s *SessionSuite) TestCheckCorrectCompID() {
 	s.session.sessionID.TargetCompID = "TAR"
 	s.session.sessionID.SenderCompID = "SND"
 
-	var testCases = []struct {
+	testCases := []struct {
 		senderCompID *FIXString
 		targetCompID *FIXString
 		returnsError bool
 		rejectReason int
 	}{
 		{returnsError: true, rejectReason: rejectReasonRequiredTagMissing},
-		{senderCompID: newFIXString("TAR"),
+		{
+			senderCompID: newFIXString("TAR"),
 			returnsError: true,
-			rejectReason: rejectReasonRequiredTagMissing},
-		{senderCompID: newFIXString("TAR"),
+			rejectReason: rejectReasonRequiredTagMissing,
+		},
+		{
+			senderCompID: newFIXString("TAR"),
 			targetCompID: newFIXString("JCD"),
 			returnsError: true,
-			rejectReason: rejectReasonCompIDProblem},
-		{senderCompID: newFIXString("JCD"),
+			rejectReason: rejectReasonCompIDProblem,
+		},
+		{
+			senderCompID: newFIXString("JCD"),
 			targetCompID: newFIXString("SND"),
 			returnsError: true,
-			rejectReason: rejectReasonCompIDProblem},
-		{senderCompID: newFIXString("TAR"),
+			rejectReason: rejectReasonCompIDProblem,
+		},
+		{
+			senderCompID: newFIXString("TAR"),
 			targetCompID: newFIXString("SND"),
-			returnsError: false},
+			returnsError: false,
+		},
 	}
 
 	for _, tc := range testCases {
@@ -170,7 +178,7 @@ func (s *SessionSuite) TestCheckTargetTooHigh() {
 	s.Require().NotNil(err, "sequence number too high should return an error")
 	s.IsType(targetTooHigh{}, err)
 
-	//spot on
+	// spot on
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	s.Nil(s.session.checkTargetTooHigh(msg))
 }
@@ -217,19 +225,19 @@ func (s *SessionSuite) TestCheckTargetTooLow() {
 	s.Require().NotNil(err, "sequence number is required")
 	s.Equal(rejectReasonRequiredTagMissing, err.RejectReason())
 
-	//too low
+	// too low
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(43))
 	err = s.session.checkTargetTooLow(msg)
 	s.NotNil(err, "sequence number too low should return error")
 	s.IsType(targetTooLow{}, err)
 
-	//spot on
+	// spot on
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	s.Nil(s.session.checkTargetTooLow(msg))
 }
 
 func (s *SessionSuite) TestCheckSessionTimeNoStartTimeEndTime() {
-	var tests = []struct {
+	tests := []struct {
 		before, after sessionState
 	}{
 		{before: latentState{}},
@@ -257,7 +265,7 @@ func (s *SessionSuite) TestCheckSessionTimeNoStartTimeEndTime() {
 }
 
 func (s *SessionSuite) TestCheckSessionTimeInRange() {
-	var tests = []struct {
+	tests := []struct {
 		before, after sessionState
 		expectReset   bool
 	}{
@@ -308,7 +316,7 @@ func (s *SessionSuite) TestCheckSessionTimeInRange() {
 }
 
 func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
-	var tests = []struct {
+	tests := []struct {
 		before           sessionState
 		initiateLogon    bool
 		expectOnLogout   bool
@@ -361,7 +369,7 @@ func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
 }
 
 func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
-	var tests = []struct {
+	tests := []struct {
 		before           sessionState
 		initiateLogon    bool
 		expectOnLogout   bool
@@ -412,7 +420,7 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 }
 
 func (s *SessionSuite) TestIncomingNotInSessionTime() {
-	var tests = []struct {
+	tests := []struct {
 		before           sessionState
 		initiateLogon    bool
 		expectOnLogout   bool
@@ -457,7 +465,7 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 }
 
 func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
-	var tests = []struct {
+	tests := []struct {
 		before           sessionState
 		initiateLogon    bool
 		expectOnLogout   bool
@@ -503,7 +511,7 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 }
 
 func (s *SessionSuite) TestTimeoutNotInSessionTime() {
-	var tests = []struct {
+	tests := []struct {
 		before           sessionState
 		initiateLogon    bool
 		expectOnLogout   bool
@@ -518,7 +526,7 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
 	}
 
-	var events = []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
+	events := []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
 
 	for _, test := range tests {
 		for _, event := range events {
@@ -621,7 +629,7 @@ func (s *SessionSuite) TestOnAdminConnectInitiateLogonFIXT11() {
 }
 
 func (s *SessionSuite) TestOnAdminConnectRefreshOnLogon() {
-	var tests = []bool{true, false}
+	tests := []bool{true, false}
 
 	for _, doRefresh := range tests {
 		s.SetupTest()
@@ -658,7 +666,7 @@ func (s *SessionSuite) TestOnAdminConnectAccept() {
 }
 
 func (s *SessionSuite) TestOnAdminConnectNotInSession() {
-	var tests = []bool{true, false}
+	tests := []bool{true, false}
 
 	for _, doInitiateLogon := range tests {
 		s.SetupTest()
@@ -812,7 +820,7 @@ func (suite *SessionSendTestSuite) TestSendNotLoggedOn() {
 	suite.MockApp.AssertExpectations(suite.T())
 	suite.NoMessageSent()
 
-	var tests = []sessionState{logoutState{}, latentState{}, logonState{}}
+	tests := []sessionState{logoutState{}, latentState{}, logonState{}}
 
 	for _, test := range tests {
 		suite.MockApp.On("ToApp").Return(nil)
@@ -875,7 +883,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.MessageType(string(msgTypeLogon), msg)
 	suite.FieldEquals(tagMsgSeqNum, 3, msg.Header)
 
-	//only one message sent
+	// only one message sent
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
 }
@@ -896,7 +904,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.MessageType(string(msgTypeLogon), msg)
 	suite.FieldEquals(tagMsgSeqNum, 1, msg.Header)
 
-	//only one message sent
+	// only one message sent
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
 }

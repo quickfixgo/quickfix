@@ -22,13 +22,16 @@ type EchoApplication struct {
 func (e EchoApplication) OnCreate(sessionID quickfix.SessionID) {
 	e.log.Printf("OnCreate %v\n", sessionID.String())
 }
+
 func (e *EchoApplication) OnLogon(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogon %v\n", sessionID.String())
 	e.OrderIds = make(map[string]bool)
 }
+
 func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
+
 func (e EchoApplication) ToAdmin(msgBuilder *quickfix.Message, sessionID quickfix.SessionID) {
 }
 
@@ -91,7 +94,7 @@ func copyMessage(msg *quickfix.Message) *quickfix.Message {
 func main() {
 	app := &EchoApplication{}
 	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
-	//app.log = log.New(os.Stdout, "", log.LstdFlags)
+	// app.log = log.New(os.Stdout, "", log.LstdFlags)
 
 	router.AddRoute(quickfix.BeginStringFIX40, "D", app.processMsg)
 	router.AddRoute(quickfix.BeginStringFIX41, "D", app.processMsg)
@@ -122,7 +125,6 @@ func main() {
 	}
 
 	fileLogFactory, err := quickfix.NewFileLogFactory(appSettings)
-
 	if err != nil {
 		fmt.Println("Error creating file log factory:", err)
 		return

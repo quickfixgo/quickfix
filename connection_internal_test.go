@@ -32,7 +32,7 @@ func TestReadLoop(t *testing.T) {
 	parser := newParser(strings.NewReader(stream))
 	go readLoop(parser, msgIn)
 
-	var tests = []struct {
+	tests := []struct {
 		expectedMsg   string
 		channelClosed bool
 	}{

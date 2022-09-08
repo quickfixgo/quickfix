@@ -17,8 +17,8 @@ func (s resendState) Timeout(session *session, event internal.Event) (nextState 
 	case inSession:
 		nextState = s
 	case pendingTimeout:
-		//wrap pendingTimeout in resend. prevents us falling back to inSession if recovering
-		//from pendingTimeout
+		// wrap pendingTimeout in resend. prevents us falling back to inSession if recovering
+		// from pendingTimeout
 		nextState = pendingTimeout{s}
 	}
 
@@ -54,7 +54,7 @@ func (s resendState) FixMsgIn(session *session, msg *Message) (nextState session
 
 		delete(s.messageStash, targetSeqNum)
 
-		//return stashed message to pool
+		// return stashed message to pool
 		session.returnToPool(msg)
 
 		nextState = inSession{}.FixMsgIn(session, msg)

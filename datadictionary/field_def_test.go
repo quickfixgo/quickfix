@@ -10,7 +10,7 @@ import (
 func TestNewFieldDef(t *testing.T) {
 	ft := datadictionary.NewFieldType("aname", 11, "INT")
 
-	var tests = []struct {
+	tests := []struct {
 		required bool
 	}{
 		{false},
