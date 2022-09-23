@@ -230,11 +230,11 @@ func (m *FieldMap) CopyInto(to *FieldMap) {
 
 	to.tagLookup = make(map[Tag]field)
 	for tag, f := range m.tagLookup {
-		clone := make(field, 1)
-		clone[0] = f[0]
+		clone := make(field, len(f), cap(f))
+		copy(clone, f)
 		to.tagLookup[tag] = clone
 	}
-	to.tags = make([]Tag, len(m.tags))
+	to.tags = make([]Tag, len(m.tags), cap(m.tags))
 	copy(to.tags, m.tags)
 	to.compare = m.compare
 }
