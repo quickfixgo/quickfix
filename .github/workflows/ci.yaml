@@ -69,4 +69,4 @@ jobs:
         env:
           GO111MODULE: "on"
           MONGODB_TEST_CXN: "localhost"
-        run: make generate; if [ -z "$FIX_TEST" ]; then make build; make; else make build_accept; make $FIX_TEST; fi
+        run: if [ -z "$FIX_TEST" ]; then make all; else make generate; make build_accept; make $FIX_TEST; fi
