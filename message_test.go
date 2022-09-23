@@ -205,6 +205,44 @@ func (s *MessageSuite) TestCopyIntoMessage() {
 	s.Equal(dest.String(), renderedString)
 }
 
+func (s *MessageSuite) TestCopyIntoMessageRepeatingGroup() {
+	origin := NewMessage()
+	origin.Header.SetString(tagBeginString, "FIXT.1.1")
+	origin.Header.SetString(tagMsgType, "V")
+	origin.Header.SetString(tagMsgSeqNum, "1")
+	origin.Header.SetString(tagSenderCompID, "SENDER")
+	origin.Header.SetString(tagTargetCompID, "TARGET")
+	origin.Header.SetString(tagSendingTime, "20060102-15:04:05")
+
+	rg := NewRepeatingGroup(453,
+		GroupTemplate{
+			GroupElement(448),
+			GroupElement(447),
+			GroupElement(452),
+			GroupElement(2376),
+		},
+	)
+
+	item := rg.Add()
+	item.SetString(448, "pwet")
+	item.SetInt(2376, 1)
+	item.SetString(447, "plop")
+	item = rg.Add()
+	item.SetString(448, "pwet2")
+	item.SetInt(2376, 2)
+	item.SetString(447, "plop2")
+
+	origin.Body.SetInt(263, 1)
+	origin.Body.SetGroup(rg)
+	origin.cook()
+
+	dest := NewMessage()
+	origin.CopyInto(dest)
+
+	s.True(reflect.DeepEqual(origin.Body.tagLookup, dest.Body.tagLookup))
+	s.True(reflect.DeepEqual(origin.Body.tagSort.tags, dest.Body.tagSort.tags))
+}
+
 func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {
 	toCheck, _ := fields.GetInt(Tag(tag))
 	s.Equal(expected, toCheck)
