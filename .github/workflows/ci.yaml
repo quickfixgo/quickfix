@@ -64,7 +64,7 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v2
       - name: Run Mongo
-        run: docker run -d -p 27017:27017 mongo
+        run: docker run -d -p 27017:27017 mongo:5
       - name: Test
         env:
           GO111MODULE: "on"
