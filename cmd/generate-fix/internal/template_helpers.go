@@ -77,8 +77,8 @@ func checkFieldTimeRequired(f *datadictionary.FieldDef) (required bool, err erro
 	return
 }
 
-func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
-	var timeRequired, decimalRequired bool
+func collectStandardImports(m *datadictionary.MessageDef) (imports []string, err error) {
+	var timeRequired bool
 	for _, f := range m.Fields {
 		if !timeRequired {
 			if timeRequired, err = checkFieldTimeRequired(f); err != nil {
@@ -86,19 +86,30 @@ func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err er
 			}
 		}
 
-		if !decimalRequired {
-			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
-				return
-			}
-		}
-
-		if decimalRequired && timeRequired {
+		if timeRequired {
 			break
 		}
 	}
 
 	if timeRequired {
 		imports = append(imports, "time")
+	}
+
+	return
+}
+
+func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
+	var decimalRequired bool
+	for _, f := range m.Fields {
+		if !decimalRequired {
+			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
+				return
+			}
+		}
+
+		if decimalRequired {
+			break
+		}
 	}
 
 	if decimalRequired {
@@ -180,7 +191,7 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 		fallthrough
 	case "MONTHYEAR":
 		fallthrough
-	case "LOCALMKTDATE":
+	case "LOCALMKTTIME", "LOCALMKTDATE":
 		fallthrough
 	case "TIME":
 		fallthrough
@@ -204,6 +215,8 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 		fallthrough
 	case "TZTIMESTAMP":
 		fallthrough
+	case "XID", "XIDREF":
+		fallthrough
 	case "STRING":
 		quickfixType = "FIXString"
 
@@ -217,6 +230,8 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 	case "NUMINGROUP":
 		fallthrough
 	case "SEQNUM":
+		fallthrough
+	case "TAGNUM":
 		fallthrough
 	case "INT":
 		quickfixType = "FIXInt"
