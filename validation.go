@@ -4,19 +4,19 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-//Validator validates a FIX message
+// Validator validates a FIX message
 type Validator interface {
 	Validate(*Message) MessageRejectError
 }
 
-//ValidatorSettings describe validation behavior
+// ValidatorSettings describe validation behavior
 type ValidatorSettings struct {
 	CheckFieldsOutOfOrder bool
 	RejectInvalidMessage  bool
 }
 
-//Default configuration for message validation.
-//See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
+// Default configuration for message validation.
+// See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
 var defaultValidatorSettings = ValidatorSettings{
 	CheckFieldsOutOfOrder: true,
 	RejectInvalidMessage:  true,
@@ -33,7 +33,7 @@ type fixtValidator struct {
 	settings                ValidatorSettings
 }
 
-//NewValidator creates a FIX message validator from the given data dictionaries
+// NewValidator creates a FIX message validator from the given data dictionaries
 func NewValidator(settings ValidatorSettings, appDataDictionary, transportDataDictionary *datadictionary.DataDictionary) Validator {
 	if transportDataDictionary != nil {
 		return &fixtValidator{
@@ -48,7 +48,7 @@ func NewValidator(settings ValidatorSettings, appDataDictionary, transportDataDi
 	}
 }
 
-//Validate tests the message against the provided data dictionary.
+// Validate tests the message against the provided data dictionary.
 func (v *fixValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)
@@ -61,8 +61,8 @@ func (v *fixValidator) Validate(msg *Message) MessageRejectError {
 	return validateFIX(v.dataDictionary, v.settings, msgType, msg)
 }
 
-//Validate tests the message against the provided transport and app data dictionaries.
-//If the message is an admin message, it will be validated against the transport data dictionary.
+// Validate tests the message against the provided transport and app data dictionaries.
+// If the message is an admin message, it will be validated against the transport data dictionary.
 func (v *fixtValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)

@@ -14,7 +14,7 @@ var (
 	GlobalFieldTypes       []*datadictionary.FieldType
 )
 
-//sort fieldtypes by name
+// sort fieldtypes by name
 type byFieldName []*datadictionary.FieldType
 
 func (n byFieldName) Len() int           { return len(n) }

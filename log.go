@@ -1,6 +1,6 @@
 package quickfix
 
-//Log is a generic interface for logging FIX messages and events.
+// Log is a generic interface for logging FIX messages and events.
 type Log interface {
 	//OnIncoming log incoming fix message
 	OnIncoming([]byte)
@@ -15,7 +15,7 @@ type Log interface {
 	OnEventf(string, ...interface{})
 }
 
-//The LogFactory interface creates global and session specific Log instances
+// The LogFactory interface creates global and session specific Log instances
 type LogFactory interface {
 	//Create global log
 	Create() (Log, error)

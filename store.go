@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-//The MessageStore interface provides methods to record and retrieve messages for resend purposes
+// The MessageStore interface provides methods to record and retrieve messages for resend purposes
 type MessageStore interface {
 	NextSenderMsgSeqNum() int
 	NextTargetMsgSeqNum() int
@@ -28,7 +28,7 @@ type MessageStore interface {
 	Close() error
 }
 
-//The MessageStoreFactory interface is used by session to create a session specific message store
+// The MessageStoreFactory interface is used by session to create a session specific message store
 type MessageStoreFactory interface {
 	Create(sessionID SessionID) (MessageStore, error)
 }
@@ -117,5 +117,5 @@ func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
 	return m, nil
 }
 
-//NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores
+// NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores
 func NewMemoryStoreFactory() MessageStoreFactory { return memoryStoreFactory{} }
