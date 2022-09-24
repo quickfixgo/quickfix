@@ -3,7 +3,6 @@ package quickfix
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"strconv"
@@ -170,7 +169,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if timeBytes, err := ioutil.ReadFile(store.sessionFname); err == nil {
+	if timeBytes, err := os.ReadFile(store.sessionFname); err == nil {
 		var ctime time.Time
 		if err := ctime.UnmarshalText(timeBytes); err == nil {
 			store.cache.creationTime = ctime
@@ -178,7 +177,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if senderSeqNumBytes, err := ioutil.ReadFile(store.senderSeqNumsFname); err == nil {
+	if senderSeqNumBytes, err := os.ReadFile(store.senderSeqNumsFname); err == nil {
 		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)); err == nil {
 			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
@@ -186,7 +185,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
+	if targetSeqNumBytes, err := os.ReadFile(store.targetSeqNumsFname); err == nil {
 		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next target")

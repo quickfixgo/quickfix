@@ -3,7 +3,6 @@ package quickfix
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -35,7 +34,7 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	ddlFnames, err := filepath.Glob(fmt.Sprintf("_sql/%s/*.sql", sqlDriver))
 	require.Nil(suite.T(), err)
 	for _, fname := range ddlFnames {
-		sqlBytes, err := ioutil.ReadFile(fname)
+		sqlBytes, err := os.ReadFile(fname)
 		require.Nil(suite.T(), err)
 		_, err = db.Exec(string(sqlBytes))
 		require.Nil(suite.T(), err)
