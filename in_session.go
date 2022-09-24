@@ -275,8 +275,6 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		}
 
 		nextState.messageStash[TypedError.ReceivedTarget] = msg
-		//do not reclaim stashed message
-		msg.keepMessage = true
 
 		return nextState
 
