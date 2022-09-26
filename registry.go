@@ -28,13 +28,24 @@ func Send(m Messagable) (err error) {
 		return err
 	}
 
+	var targetSubID FIXString
+	msg.Header.GetField(tagTargetSubID, &targetSubID)
+
 	var senderCompID FIXString
 	if err := msg.Header.GetField(tagSenderCompID, &senderCompID); err != nil {
-
 		return nil
 	}
 
-	sessionID := SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(senderCompID)}
+	var senderSubID FIXString
+	msg.Header.GetField(tagSenderSubID, &senderSubID)
+
+	sessionID := SessionID{
+		BeginString:  string(beginString),
+		TargetCompID: string(targetCompID),
+		TargetSubID:  string(targetSubID),
+		SenderCompID: string(senderCompID),
+		SenderSubID:  string(senderSubID),
+	}
 
 	return SendToTarget(msg, sessionID)
 }
