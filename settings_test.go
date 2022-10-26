@@ -1,6 +1,7 @@
 package quickfix
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 
@@ -409,5 +410,93 @@ func TestSettings_SessionIDFromSessionSettings(t *testing.T) {
 		if tc.expectedSessionID != actualSessionID {
 			t.Errorf("Expected %v, got %v", tc.expectedSessionID, actualSessionID)
 		}
+	}
+}
+
+func TestParseMapSettingsV2(t *testing.T) {
+	type args struct {
+		globalConfig   map[string]string
+		sessionConfigs []map[string]string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *Settings
+		wantErr bool
+	}{
+		{
+			name: "correct globalConfig, correct sessionConfigs",
+			args: args{
+				globalConfig: map[string]string{
+					"HeartBtInt": "30",
+				},
+				sessionConfigs: []map[string]string{
+					{
+						"SenderCompID": "TestSender",
+						"TargetCompID": "TestTarget",
+						"BeginString":  BeginStringFIX44,
+					},
+				},
+			},
+			want: &Settings{
+				globalSettings: &SessionSettings{
+					settings: map[string]string{
+						"HeartBtInt": "30",
+					},
+				},
+				sessionSettings: map[SessionID]*SessionSettings{
+					{
+						SenderCompID: "TestSender",
+						TargetCompID: "TestTarget",
+						BeginString:  BeginStringFIX44,
+					}: {
+						settings: map[string]string{
+							"SenderCompID": "TestSender",
+							"TargetCompID": "TestTarget",
+							"BeginString":  BeginStringFIX44,
+						},
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "correct globalConfig, nil sessionConfigs",
+			args: args{
+				globalConfig: map[string]string{
+					"HeartBtInt": "30",
+				},
+				sessionConfigs: nil,
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
+			name: "nil globalConfig, correct sessionConfigs",
+			args: args{
+				globalConfig: nil,
+				sessionConfigs: []map[string]string{
+					{
+						"SenderCompID": "TestSender",
+						"TargetCompID": "TestTarget",
+						"BeginString":  BeginStringFIX44,
+					},
+				},
+			},
+			want:    nil,
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ParseMapSettingsV2(tt.args.globalConfig, tt.args.sessionConfigs)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ParseMapSettingsV2() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ParseMapSettingsV2() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
