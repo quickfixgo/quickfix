@@ -157,7 +157,37 @@ func ParseMapSettings(configMap map[string]map[string]string) (*Settings, error)
 	}
 	return settings, nil
 
-} //GlobalSettings are default setting inherited by all session settings.
+}
+
+//ParseMapSettingsV2 creates and initializes a Settings instance with globalConfig and sessionConfigs.
+func ParseMapSettingsV2(globalConfig map[string]string, sessionConfigs []map[string]string) (*Settings, error) {
+	if globalConfig == nil || sessionConfigs == nil {
+		return nil, errors.New(`globalConfig and sessionConfigs must not be nil`)
+	}
+	s := NewSettings()
+
+	// parse global settings
+	for k, v := range globalConfig {
+		s.GlobalSettings().Set(k, v)
+	}
+
+	// parse session settings
+	for _, sessionConfig := range sessionConfigs {
+		sessionSetting := NewSessionSettings()
+		for k, v := range sessionConfig {
+			sessionSetting.Set(k, v)
+		}
+
+		_, err := s.AddSession(sessionSetting)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return s, nil
+}
+
+//GlobalSettings are default setting inherited by all session settings.
 func (s *Settings) GlobalSettings() *SessionSettings {
 	s.lazyInit()
 	return s.globalSettings
