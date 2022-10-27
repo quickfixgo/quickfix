@@ -538,6 +538,22 @@ func TestParseMapSettingsV2(t *testing.T) {
 			want:    nil,
 			wantErr: true,
 		},
+		{
+			name: "correct globalConfig, invalid sessionConfigs",
+			args: args{
+				globalConfig: map[string]string{
+					"HeartBtInt": "30",
+				},
+				sessionConfigs: []map[string]string{
+					{
+						"SenderCompID": "TestSender",
+						"TargetCompID": "TestTarget",
+					},
+				},
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -177,7 +177,11 @@ func ParseMapSettingsV2(globalConfig map[string]string, sessionConfigs []map[str
 		for k, v := range sessionConfig {
 			sessionSetting.Set(k, v)
 		}
-		s.AddSession(sessionSetting)
+
+		_, err := s.AddSession(sessionSetting)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return s, nil
