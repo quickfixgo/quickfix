@@ -425,7 +425,7 @@ func TestParseMapSettingsV2(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "correct globalConfig, correct sessionConfigs",
+			name: "correct globalConfig, correct one sessionConfig",
 			args: args{
 				globalConfig: map[string]string{
 					"HeartBtInt": "30",
@@ -454,6 +454,58 @@ func TestParseMapSettingsV2(t *testing.T) {
 							"SenderCompID": "TestSender",
 							"TargetCompID": "TestTarget",
 							"BeginString":  BeginStringFIX44,
+						},
+					},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "correct globalConfig, correct multiple sessionConfigs",
+			args: args{
+				globalConfig: map[string]string{
+					"HeartBtInt": "30",
+				},
+				sessionConfigs: []map[string]string{
+					{
+						"SenderCompID": "TestSender1",
+						"TargetCompID": "TestTarget1",
+						"BeginString":  BeginStringFIX44,
+					},
+					{
+						"SenderCompID": "TestSender2",
+						"TargetCompID": "TestTarget2",
+						"BeginString":  BeginStringFIX42,
+					},
+				},
+			},
+			want: &Settings{
+				globalSettings: &SessionSettings{
+					settings: map[string]string{
+						"HeartBtInt": "30",
+					},
+				},
+				sessionSettings: map[SessionID]*SessionSettings{
+					{
+						SenderCompID: "TestSender1",
+						TargetCompID: "TestTarget1",
+						BeginString:  BeginStringFIX44,
+					}: {
+						settings: map[string]string{
+							"SenderCompID": "TestSender1",
+							"TargetCompID": "TestTarget1",
+							"BeginString":  BeginStringFIX44,
+						},
+					},
+					{
+						SenderCompID: "TestSender2",
+						TargetCompID: "TestTarget2",
+						BeginString:  BeginStringFIX42,
+					}: {
+						settings: map[string]string{
+							"SenderCompID": "TestSender2",
+							"TargetCompID": "TestTarget2",
+							"BeginString":  BeginStringFIX42,
 						},
 					},
 				},
