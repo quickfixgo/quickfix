@@ -738,9 +738,22 @@ func (s *session) onAdmin(msg interface{}) {
 
 func (s *session) run() {
 	s.Start(s)
+	var stopChan = make(chan struct{})
+	s.stateTimer = internal.NewEventTimer(func() {
+		select {
+		//deadlock in write to chan s.sessionEvent after s.Stopped()==true and end of loop session.go:766 because no reader of chan s.sessionEvent
+		case s.sessionEvent <- internal.NeedHeartbeat:
+		case <-stopChan:
+		}
+	})
+	s.peerTimer = internal.NewEventTimer(func() {
+		select {
+		//deadlock in write to chan s.sessionEvent after s.Stopped()==true and end of loop session.go:766 because no reader of chan s.sessionEvent
+		case s.sessionEvent <- internal.PeerTimeout:
+		case <-stopChan:
+		}
 
-	s.stateTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.NeedHeartbeat })
-	s.peerTimer = internal.NewEventTimer(func() { s.sessionEvent <- internal.PeerTimeout })
+	})
 	ticker := time.NewTicker(time.Second)
 
 	defer func() {
