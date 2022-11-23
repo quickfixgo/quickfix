@@ -274,6 +274,53 @@ func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 	return err
 }
 
+func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	s := store.sessionID
+
+	tx, err := store.db.Begin()
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	_, err = tx.Exec(sqlString(`INSERT INTO messages (
+			msgseqnum, message,
+			beginstring, session_qualifier,
+			sendercompid, sendersubid, senderlocid,
+			targetcompid, targetsubid, targetlocid)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
+		seqNum, string(msg),
+		s.BeginString, s.Qualifier,
+		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
+	if err != nil {
+		return err
+	}
+
+	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
+		return errors.Wrap(err, "cache incr next")
+	}
+
+	next := store.cache.NextSenderMsgSeqNum()
+	_, err = store.db.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
+		WHERE beginstring=? AND session_qualifier=?
+		AND sendercompid=? AND sendersubid=? AND senderlocid=?
+		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+		next, s.BeginString, s.Qualifier,
+		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
+	if err != nil {
+		return err
+	}
+
+	err = store.cache.SetNextSenderMsgSeqNum(next)
+	if err != nil {
+		return err
+	}
+
+	return tx.Commit()
+}
+
 func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
 	s := store.sessionID
 	var msgs [][]byte

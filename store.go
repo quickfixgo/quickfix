@@ -20,6 +20,7 @@ type MessageStore interface {
 	CreationTime() time.Time
 
 	SaveMessage(seqNum int, msg []byte) error
+	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error
 	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
 
 	Refresh() error
@@ -95,6 +96,14 @@ func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
 
 	store.messageMap[seqNum] = msg
 	return nil
+}
+
+func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	err := store.SaveMessage(seqNum, msg)
+	if err != nil {
+		return err
+	}
+	return store.IncrNextSenderMsgSeqNum()
 }
 
 func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {

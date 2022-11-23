@@ -321,12 +321,10 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {
 	if !s.DisableMessagePersist {
-		if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
-			return err
-		}
+		return s.store.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, msgBytes)
+	} else {
+		return s.store.IncrNextSenderMsgSeqNum()
 	}
-
-	return s.store.IncrNextSenderMsgSeqNum()
 }
 
 func (s *session) sendQueued() {
