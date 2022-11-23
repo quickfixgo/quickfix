@@ -302,7 +302,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 	}
 
 	next := store.cache.NextSenderMsgSeqNum()
-	_, err = store.db.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
+	_, err = tx.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
 		WHERE beginstring=? AND session_qualifier=?
 		AND sendercompid=? AND sendersubid=? AND senderlocid=?
 		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
