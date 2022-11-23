@@ -297,11 +297,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 		return err
 	}
 
-	if err := store.cache.IncrNextSenderMsgSeqNum(); err != nil {
-		return errors.Wrap(err, "cache incr next")
-	}
-
-	next := store.cache.NextSenderMsgSeqNum()
+	next := store.cache.NextSenderMsgSeqNum() + 1
 	_, err = tx.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
 		WHERE beginstring=? AND session_qualifier=?
 		AND sendercompid=? AND sendersubid=? AND senderlocid=?
@@ -313,12 +309,17 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 		return err
 	}
 
+	err = tx.Commit()
+	if err != nil {
+		return err
+	}
+
 	err = store.cache.SetNextSenderMsgSeqNum(next)
 	if err != nil {
 		return err
 	}
 
-	return tx.Commit()
+	return nil
 }
 
 func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
