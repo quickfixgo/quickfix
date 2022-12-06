@@ -53,6 +53,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Equal(120*time.Second, session.MaxLatency)
 	s.False(session.DisableMessagePersist)
 	s.False(session.HeartBtIntOverride)
+	s.Equal(0, session.MaxMessagesPerSecond)
 }
 
 func (s *SessionFactorySuite) TestResetOnLogon() {
@@ -166,6 +167,35 @@ func (s *SessionFactorySuite) TestCheckLatency() {
 		s.NotNil(session)
 
 		s.Equal(test.expected, session.SkipCheckLatency)
+	}
+}
+
+func (s *SessionFactorySuite) TestMaxMessagesPerSecond() {
+	var tests = []struct {
+		setting  string
+		expected int
+	}{{"0", 0}, {"1", 1}, {"1000", 1000}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.MaxMessagesPerSecond, test.setting)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.MaxMessagesPerSecond)
+	}
+}
+
+func (s *SessionFactorySuite) TestInvalidMaxMessagesPerSecond() {
+	var tests = []string{"", "-1", "a"}
+
+	for _, testcase := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.MaxMessagesPerSecond, testcase)
+
+		_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.NotNil(err)
 	}
 }
 

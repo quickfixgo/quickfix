@@ -254,6 +254,12 @@ If set to Y, will use the HeartBtInt interval rather than what the initiator dic
 
 Defaults to N.
 
+MaxMessagesPerSecond
+
+Maximum number of messages to send per second. This is a per session rate limit to support throttling outgoing messages to accommodate counterparties with messaging rate restrictions. A value of 0 means no limiting is applied. Value must be 0 or a positive integer.
+
+Defaults to 0
+
 SocketConnectPort
 
 Socket port for connecting to a session. Only used for initiators. Must be positive integer
