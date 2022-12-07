@@ -45,7 +45,10 @@ TargetCompID=%s`, mongoDbCxn, mongoDatabase, sessionID.BeginString, sessionID.Se
 }
 
 func (suite *MongoStoreTestSuite) TearDownTest() {
-	suite.msgStore.Close()
+	if suite.msgStore != nil {
+		err := suite.msgStore.Close()
+		require.Nil(suite.T(), err)
+	}
 }
 
 func TestMongoStoreTestSuite(t *testing.T) {

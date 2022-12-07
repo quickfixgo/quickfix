@@ -4,10 +4,10 @@ services:
   app:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ..:/workspace:cached
-
+      - /var/run/docker.sock:/var/run/docker.sock
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
@@ -25,7 +25,8 @@ services:
     restart: unless-stopped
     volumes:
       - mongodb-data:/data/db
-
+    ports:
+       - 27017:27017
     # Uncomment to change startup options
     # environment:
     #  MONGO_INITDB_ROOT_USERNAME: root

@@ -47,15 +47,15 @@ jobs:
       matrix:
         go: [1.18]
         fix-version:
-          - FIX_TEST=
-          - FIX_TEST=fix40
-          - FIX_TEST=fix41
-          - FIX_TEST=fix42
-          - FIX_TEST=fix43
-          - FIX_TEST=fix44
-          - FIX_TEST=fix50
-          - FIX_TEST=fix50sp1
-          - FIX_TEST=fix50sp2
+          -
+          - fix40
+          - fix41
+          - fix42
+          - fix43
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
     steps:
       - name: Setup
         uses: actions/setup-go@v2
@@ -63,10 +63,15 @@ jobs:
           go-version: ${{ matrix.go }}
       - name: Check out source
         uses: actions/checkout@v2
-      - name: Run Mongo
-        run: docker run -d -p 27017:27017 mongo
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
       - name: Test
         env:
-          GO111MODULE: "on"
-          MONGODB_TEST_CXN: "localhost"
-        run: make generate; if [ -z "$FIX_TEST" ]; then make build; make; else make build_accept; make $FIX_TEST; fi
+          GO111MODULE: on
+          MONGODB_TEST_CXN: mongodb://localhost:27017
+          FIX_TEST: ${{ matrix.fix-version }}
+        run: if [ -z $FIX_TEST ]; then make build-src && make test-ci; else make generate-ci && make build && make $FIX_TEST; fi
