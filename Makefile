@@ -27,8 +27,7 @@ clean:
 	rm -rf gen
 
 generate: clean
-	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
-	go get -u all 
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/*.xml
 
 generate-dist:
 	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
@@ -47,15 +46,21 @@ vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
 test: 
-	MONGODB_TEST_CXN=localhost go test -v -cover . ./datadictionary ./internal
+	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover . ./datadictionary ./internal
 
-_build_all: 
+build-src: 
 	go build -v `go list ./...`
 
-build_accept: 
-	cd _test; go build -o echo_server
+build-test-srv: 
+	cd _test; go build -o echo_server ./test-server/
 
-build: _build_all build_accept
+build: build-src build-test-srv
+
+test-ci: 
+	go test -v -cover . ./datadictionary ./internal
+
+generate-ci: clean
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/$(shell echo $(FIX_TEST) | tr  '[:lower:]' '[:upper:]').xml; 
 
 fix40:
 	cd _test; ./runat.sh $@.cfg 5001 "definitions/server/$@/*.def"
