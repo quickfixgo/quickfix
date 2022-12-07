@@ -301,6 +301,14 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 	return nil
 }
 
+func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	err := store.SaveMessage(seqNum, msg)
+	if err != nil {
+		return err
+	}
+	return store.IncrNextSenderMsgSeqNum()
+}
+
 func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err error) {
 	msgInfo, found := store.offsets[seqNum]
 	if !found {

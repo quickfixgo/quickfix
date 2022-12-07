@@ -251,6 +251,15 @@ func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {
 	return
 }
 
+func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	// TODO add transaction
+	err := store.SaveMessage(seqNum, msg)
+	if err != nil {
+		return err
+	}
+	return store.IncrNextSenderMsgSeqNum()
+}
+
 func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte, err error) {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	//Marshal into database form
