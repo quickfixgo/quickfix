@@ -23,6 +23,7 @@ func (suite *MongoStoreTestSuite) SetupTest() {
 		suite.T().SkipNow()
 	}
 	mongoDatabase := "automated_testing_database"
+	mongoReplicaSet := "replicaset"
 
 	// create settings
 	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
@@ -30,11 +31,12 @@ func (suite *MongoStoreTestSuite) SetupTest() {
 [DEFAULT]
 MongoStoreConnection=%s
 MongoStoreDatabase=%s
+MongoStoreReplicaSet=%s
 
 [SESSION]
 BeginString=%s
 SenderCompID=%s
-TargetCompID=%s`, mongoDbCxn, mongoDatabase, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+TargetCompID=%s`, mongoDbCxn, mongoDatabase, mongoReplicaSet, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
 	require.Nil(suite.T(), err)
 
 	// create store

@@ -363,6 +363,10 @@ MongoStoreDatabase
 
 The MongoDB-specific name of the database to use.  Only used with MongoStoreFactory.
 
+MongoStoreReplicaSet
+
+The MongoDB-specific name of the replica set to use. Optional, only used with MongoStoreFactory.
+
 SQLStoreDriver
 
 The name of the database driver to use (see https://github.com/golang/go/wiki/SQLDrivers for the list of available drivers).  Only used with SqlStoreFactory.

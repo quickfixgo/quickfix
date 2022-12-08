@@ -314,12 +314,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 		return err
 	}
 
-	err = store.cache.SetNextSenderMsgSeqNum(next)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
 func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
