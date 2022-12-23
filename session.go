@@ -754,6 +754,14 @@ func (s *session) run() {
 		}
 
 	})
+
+	// Without this sleep the ticker will be aligned at the millisecond which
+	// corresponds to the creation of the session. If the session creation
+	// happened at 07:00:00.678 and the session StartTime is 07:30:00, any new
+	// connection received between 07:30:00.000 and 07:30:00.677 will be
+	// rejected. Aligning the ticker with a round second fixes that.
+	time.Sleep(time.Until(time.Now().Truncate(time.Second).Add(time.Second)))
+
 	ticker := time.NewTicker(time.Second)
 
 	defer func() {
