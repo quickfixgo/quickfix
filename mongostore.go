@@ -27,7 +27,7 @@ type mongoStore struct {
 	db                 *mongo.Client
 	messagesCollection string
 	sessionsCollection string
-	allowTransactions bool
+	allowTransactions  bool
 }
 
 // NewMongoStoreFactory returns a mongo-based implementation of MessageStoreFactory
@@ -283,9 +283,9 @@ func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg [
 		if err != nil {
 			return err
 		}
-		
+
 		next = store.cache.NextSenderMsgSeqNum() + 1
-	
+
 		msgFilter = generateMessageFilter(&store.sessionID)
 		sessionUpdate := generateMessageFilter(&store.sessionID)
 		sessionUpdate.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()

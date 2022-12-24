@@ -37,8 +37,8 @@ jobs:
         env:
           GOLANGCI_LINT_VERSION: '1.46.2'
           GOLANGCI_LINT_SHA256: '242cd4f2d6ac0556e315192e8555784d13da5d1874e51304711570769c4f2b9b'
-      - name: Test style
-        run: make test-style
+      - name: Run Lint
+        run: make lint
 
   build:
     name: build

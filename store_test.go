@@ -113,7 +113,6 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-
 func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() {
 	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(420))
 
