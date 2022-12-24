@@ -325,9 +325,7 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 
 func (s *session) persist(seqNum int, msgBytes []byte) error {
 	if !s.DisableMessagePersist {
-		if err := s.store.SaveMessage(seqNum, msgBytes); err != nil {
-			return err
-		}
+		return s.store.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, msgBytes)
 	}
 
 	return s.store.IncrNextSenderMsgSeqNum()

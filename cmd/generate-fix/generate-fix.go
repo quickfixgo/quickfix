@@ -122,7 +122,6 @@ func main() {
 		usage()
 	}
 
-
 	args := flag.Args()
 	if len(args) == 1 {
 		dictpath := args[0]

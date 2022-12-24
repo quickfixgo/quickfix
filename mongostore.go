@@ -27,6 +27,7 @@ type mongoStore struct {
 	db                 *mongo.Client
 	messagesCollection string
 	sessionsCollection string
+	allowTransactions  bool
 }
 
 // NewMongoStoreFactory returns a mongo-based implementation of MessageStoreFactory
@@ -57,10 +58,16 @@ func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, e
 	if err != nil {
 		return nil, err
 	}
-	return newMongoStore(sessionID, mongoConnectionURL, mongoDatabase, f.messagesCollection, f.sessionsCollection)
+
+	// Optional.
+	mongoReplicaSet, _ := sessionSettings.Setting(config.MongoStoreReplicaSet)
+
+	return newMongoStore(sessionID, mongoConnectionURL, mongoDatabase, mongoReplicaSet, f.messagesCollection, f.sessionsCollection)
 }
 
-func newMongoStore(sessionID SessionID, mongoURL string, mongoDatabase string, messagesCollection string, sessionsCollection string) (store *mongoStore, err error) {
+func newMongoStore(sessionID SessionID, mongoURL, mongoDatabase, mongoReplicaSet, messagesCollection, sessionsCollection string) (store *mongoStore, err error) {
+
+	allowTransactions := len(mongoReplicaSet) > 0
 	store = &mongoStore{
 		sessionID:          sessionID,
 		cache:              &memoryStore{},
@@ -68,6 +75,7 @@ func newMongoStore(sessionID SessionID, mongoURL string, mongoDatabase string, m
 		mongoDatabase:      mongoDatabase,
 		messagesCollection: messagesCollection,
 		sessionsCollection: sessionsCollection,
+		allowTransactions:  allowTransactions,
 	}
 
 	if err = store.cache.Reset(); err != nil {
@@ -77,7 +85,7 @@ func newMongoStore(sessionID SessionID, mongoURL string, mongoDatabase string, m
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	store.db, err = mongo.Connect(ctx, options.Client().ApplyURI(mongoURL))
+	store.db, err = mongo.Connect(ctx, options.Client().ApplyURI(mongoURL).SetDirect(len(mongoReplicaSet) == 0).SetReplicaSet(mongoReplicaSet))
 	if err != nil {
 		return
 	}
@@ -249,6 +257,52 @@ func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {
 	msgFilter.Message = msg
 	_, err = store.db.Database(store.mongoDatabase).Collection(store.messagesCollection).InsertOne(context.Background(), msgFilter)
 	return
+}
+
+func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+
+	if !store.allowTransactions {
+		err := store.SaveMessage(seqNum, msg)
+		if err != nil {
+			return err
+		}
+		return store.IncrNextSenderMsgSeqNum()
+	}
+
+	// If the mongodb supports replicasets, perform this operation as a transaction instead-
+	var next int
+	err := store.db.UseSession(context.Background(), func(sessionCtx mongo.SessionContext) error {
+		if err := sessionCtx.StartTransaction(); err != nil {
+			return err
+		}
+
+		msgFilter := generateMessageFilter(&store.sessionID)
+		msgFilter.Msgseq = seqNum
+		msgFilter.Message = msg
+		_, err := store.db.Database(store.mongoDatabase).Collection(store.messagesCollection).InsertOne(sessionCtx, msgFilter)
+		if err != nil {
+			return err
+		}
+
+		next = store.cache.NextSenderMsgSeqNum() + 1
+
+		msgFilter = generateMessageFilter(&store.sessionID)
+		sessionUpdate := generateMessageFilter(&store.sessionID)
+		sessionUpdate.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()
+		sessionUpdate.OutgoingSeqNum = next
+		sessionUpdate.CreationTime = store.cache.CreationTime()
+		_, err = store.db.Database(store.mongoDatabase).Collection(store.sessionsCollection).UpdateOne(sessionCtx, msgFilter, bson.M{"$set": sessionUpdate})
+		if err != nil {
+			return err
+		}
+
+		return sessionCtx.CommitTransaction(context.Background())
+	})
+	if err != nil {
+		return err
+	}
+
+	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
 func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte, err error) {

@@ -34,7 +34,7 @@ func checkIfTimeImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok 
 		if vt, err = quickfixValueType(t); err != nil {
 			return
 		}
-	
+
 		if vt == "time.Time" {
 			return true, nil
 		}
