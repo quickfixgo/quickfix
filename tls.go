@@ -97,7 +97,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 	return
 }
 
-//defaultTLSConfig brought to you by https://github.com/gtank/cryptopasta/
+// defaultTLSConfig brought to you by https://github.com/gtank/cryptopasta/
 func defaultTLSConfig() *tls.Config {
 	return &tls.Config{
 		// Avoids most of the memorably-named TLS attacks

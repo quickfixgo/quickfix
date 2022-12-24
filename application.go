@@ -1,7 +1,7 @@
 package quickfix
 
-//Application interface should be implemented by FIX Applications.
-//This is the primary interface for processing messages from a FIX Session.
+// Application interface should be implemented by FIX Applications.
+// This is the primary interface for processing messages from a FIX Session.
 type Application interface {
 	//OnCreate notification of a session begin created.
 	OnCreate(sessionID SessionID)

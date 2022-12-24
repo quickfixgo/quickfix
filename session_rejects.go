@@ -4,12 +4,12 @@ import (
 	"fmt"
 )
 
-//IncorrectBeginString is a message reject specific to incorrect begin strings.
+// IncorrectBeginString is a message reject specific to incorrect begin strings.
 type incorrectBeginString struct{ messageRejectError }
 
 func (e incorrectBeginString) Error() string { return "Incorrect BeginString" }
 
-//targetTooHigh is a MessageReject where the sequence number is larger than expected.
+// targetTooHigh is a MessageReject where the sequence number is larger than expected.
 type targetTooHigh struct {
 	messageRejectError
 	ReceivedTarget int
@@ -20,7 +20,7 @@ func (e targetTooHigh) Error() string {
 	return fmt.Sprintf("MsgSeqNum too high, expecting %d but received %d", e.ExpectedTarget, e.ReceivedTarget)
 }
 
-//targetTooLow is a MessageReject where the sequence number is less than expected.
+// targetTooLow is a MessageReject where the sequence number is less than expected.
 type targetTooLow struct {
 	messageRejectError
 	ReceivedTarget int

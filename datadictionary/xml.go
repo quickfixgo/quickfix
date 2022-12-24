@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 )
 
-//XMLDoc is the unmarshalled root of a FIX Dictionary.
+// XMLDoc is the unmarshalled root of a FIX Dictionary.
 type XMLDoc struct {
 	Type        string `xml:"type,attr"`
 	Major       string `xml:"major,attr"`
@@ -27,7 +27,7 @@ type XMLComponent struct {
 	Members []*XMLComponentMember `xml:",any"`
 }
 
-//XMLField represents the fields/field xml element.
+// XMLField represents the fields/field xml element.
 type XMLField struct {
 	Number int         `xml:"number,attr"`
 	Name   string      `xml:"name,attr"`
@@ -35,13 +35,13 @@ type XMLField struct {
 	Values []*XMLValue `xml:"value"`
 }
 
-//XMLValue represents the fields/field/value xml element.
+// XMLValue represents the fields/field/value xml element.
 type XMLValue struct {
 	Enum        string `xml:"enum,attr"`
 	Description string `xml:"description,attr"`
 }
 
-//XMLComponentMember represents child elements of header, trailer, messages/message, and components/component elements
+// XMLComponentMember represents child elements of header, trailer, messages/message, and components/component elements
 type XMLComponentMember struct {
 	XMLName  xml.Name
 	Name     string `xml:"name,attr"`

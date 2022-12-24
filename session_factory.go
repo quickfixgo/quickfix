@@ -46,7 +46,7 @@ type sessionFactory struct {
 	BuildInitiators bool
 }
 
-//Creates Session, associates with internal session registry
+// Creates Session, associates with internal session registry
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,

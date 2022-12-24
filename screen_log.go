@@ -40,7 +40,7 @@ func (screenLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 	return log, nil
 }
 
-//NewScreenLogFactory creates an instance of LogFactory that writes messages and events to stdout.
+// NewScreenLogFactory creates an instance of LogFactory that writes messages and events to stdout.
 func NewScreenLogFactory() LogFactory {
 	return screenLogFactory{}
 }
