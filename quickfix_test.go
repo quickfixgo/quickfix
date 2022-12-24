@@ -52,7 +52,7 @@ func (s *QuickFIXSuite) MessageEqualsBytes(expectedBytes []byte, msg *Message) {
 	s.Equal(string(actualBytes), string(expectedBytes))
 }
 
-//MockStore wraps a memory store and mocks Refresh for convenience
+// MockStore wraps a memory store and mocks Refresh for convenience
 type MockStore struct {
 	mock.Mock
 	memoryStore

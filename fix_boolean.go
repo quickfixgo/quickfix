@@ -4,10 +4,10 @@ import (
 	"errors"
 )
 
-//FIXBoolean is a FIX Boolean value, implements FieldValue.
+// FIXBoolean is a FIX Boolean value, implements FieldValue.
 type FIXBoolean bool
 
-//Bool converts the FIXBoolean value to bool
+// Bool converts the FIXBoolean value to bool
 func (f FIXBoolean) Bool() bool { return bool(f) }
 
 func (f *FIXBoolean) Read(bytes []byte) error {
