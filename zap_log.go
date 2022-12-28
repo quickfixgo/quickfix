@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+
 	"go.uber.org/zap"
 )
 
