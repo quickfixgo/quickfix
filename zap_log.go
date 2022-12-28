@@ -6,8 +6,11 @@ import (
 )
 
 // ZAP logger for quickfix
-// Uses ZAP (https://pkg.go.dev/go.uber.org/zap), currently the lowest latency logger for golang
-// Supports screen logging, json logging and a fair amount of additional customization
+// Uses ZAP (https://pkg.go.dev/go.uber.org/zap), a very low latency logger for golang which supports
+//  - screen logging
+//  - json logging
+//  - caller details with line numbers (short and full path)
+//  - default configurations that give stack traces when appropriate in dev and production default configurations.
 // This wrapper is pretty straightforward passing the quickfix logging directly to zap at info level
 // It sets a named logger for each session with Prefix+Sender:Target as the label.
 // Setting prefix to "" results in the message being labeled with just the sender and target.
@@ -19,6 +22,19 @@ import (
 //   - Allow different log levels for messages and events
 //   - Pre-check info is enabled - which would save some formatting time if info is disabled (unlikely?)
 //   - Support split logging of events to ZAP and messages to a file
+// ---
+// Usage
+//   ...
+//   Initialize zap
+//   zapCfg := zap.NewDevelopmentConfig()
+//   zapCfg.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder  // colourize levels
+//   Atom := zapCfg.Level   // use Atom to turn on/off log levels if you need to
+//   logger, _ := zapCfg.Build()
+//   zap.ReplaceGlobals(logger)
+//   ...
+//   logFactory := quickfix.NewZapLogFactory("FIX_", true)  // FIX_ prefix and message logging enabled
+//   acceptor, err := quickfix.NewAcceptor(app, messageStoreFactory, appSettings, logFactory)
+//   ...
 //
 
 type ZapLog struct {
