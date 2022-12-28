@@ -21,18 +21,18 @@ func TestReplaceEos(t *testing.T) {
 }
 
 func TestZapLogFactory_Create(t *testing.T) {
-	f := NewZapLogFactory("fix ", false)
+	f := NewZapLogFactory("FIX_", false)
 	l, err := f.Create()
 	assert.Nil(t, err, "no error from Create()")
 	zl, ok := l.(ZapLog)
 	assert.True(t, ok, "logger is of type ZapLog")
-	assert.Equal(t, "fix GLOBAL", zl.name, "logger name")
+	assert.Equal(t, "FIX_GLOBAL", zl.name, "logger name")
 }
 
 func TestZapLogFactory_CreateSessionLog(t *testing.T) {
 
 	f := NewZapLogFactory("", false)
-	sessionId := SessionID{
+	sessionID := SessionID{
 		BeginString:      "",
 		TargetCompID:     "TOCOMP",
 		TargetSubID:      "",
@@ -42,7 +42,7 @@ func TestZapLogFactory_CreateSessionLog(t *testing.T) {
 		SenderLocationID: "",
 		Qualifier:        "",
 	}
-	l, err := f.CreateSessionLog(sessionId)
+	l, err := f.CreateSessionLog(sessionID)
 	assert.Nil(t, err, "no error from Create()")
 	zl, ok := l.(ZapLog)
 	assert.True(t, ok, "logger is of type ZapLog")
