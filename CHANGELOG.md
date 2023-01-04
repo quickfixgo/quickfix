@@ -18,7 +18,7 @@ ENHANCEMENTS
 * Add Go Module support [GH 340]
 * Support timeout on ssl connection [GH 347, 349]
 * Dynamic Sessions [GH 521]
-
+* Upgrade Mongo Driver to support transactions [GH 527]
 
 BUG FIXES
 
@@ -29,7 +29,8 @@ BUG FIXES
 * Fix concurrent map write [GH 436]
 * Race condition during bilateral initial resend request [GH 439]
 * Deadlock when disconnecting dynamic session [GH 524]
-
+* Align session's ticker with round second [GH 533]
+* Seqnum persist and increment fix [GH 528]
 
 
 ## 0.6.0 (August 14, 2017)
