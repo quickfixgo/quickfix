@@ -1,3 +1,37 @@
+## 0.7.0 (January 2, 2023)
+
+FEATURES
+
+* PersistMessages Config [GH 297]
+* MaxLatency [GH 242]
+* ResetOnDisconnect Configuration [GH 68]
+* Support for High Precision Timestamps [GH 288]
+* LogonTimeout [GH 295]
+* LogoutTimeout [GH 296]
+* Socks Proxy [GH 375]
+
+ENHANCEMENTS
+
+* Add SocketUseSSL parameter to allow SSL/TLS without client certs [GH 311]
+* Support for RejectInvalidMessage configuration [GH 336]
+* Add deep copy for Messages [GH 338]
+* Add Go Module support [GH 340]
+* Support timeout on ssl connection [GH 347, 349]
+* Dynamic Sessions [GH 521]
+
+
+BUG FIXES
+
+* header and trailer templates use rootpath [GH 302]
+* Initiator stop panic if stop chan's already closed [GH 359]
+* Connection closed when inbound logon has a too-low sequence number [GH 369]
+* TLS server name config [GH 384]
+* Fix concurrent map write [GH 436]
+* Race condition during bilateral initial resend request [GH 439]
+* Deadlock when disconnecting dynamic session [GH 524]
+
+
+
 ## 0.6.0 (August 14, 2017)
 
 FEATURES
