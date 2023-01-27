@@ -14,7 +14,7 @@ const (
 	ascii9 = 57
 )
 
-//atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
+// atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func atoi(d []byte) (int, error) {
 	if d[0] == asciiMinus {
 		n, err := parseUInt(d[1:])
@@ -24,7 +24,7 @@ func atoi(d []byte) (int, error) {
 	return parseUInt(d)
 }
 
-//parseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
+// parseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func parseUInt(d []byte) (n int, err error) {
 	if len(d) == 0 {
 		err = errors.New("empty bytes")
@@ -43,10 +43,10 @@ func parseUInt(d []byte) (n int, err error) {
 	return
 }
 
-//FIXInt is a FIX Int Value, implements FieldValue
+// FIXInt is a FIX Int Value, implements FieldValue
 type FIXInt int
 
-//Int converts the FIXInt value to int
+// Int converts the FIXInt value to int
 func (f FIXInt) Int() int { return int(f) }
 
 func (f *FIXInt) Read(bytes []byte) error {

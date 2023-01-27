@@ -5,8 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/internal"
 )
 
 type LogonStateTestSuite struct {
@@ -76,16 +77,47 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("OnLogon")
 	s.MockApp.On("ToAdmin")
+	s.Zero(s.session.HeartBtInt)
 	s.fixMsgIn(s.session, logon)
 
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.HeartBtInt)
+	s.Equal(32*time.Second, s.session.HeartBtInt) //should be written from logon message
+	s.False(s.session.HeartBtIntOverride)
 
 	s.LastToAdminMessageSent()
 	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagHeartBtInt, 32, s.MockApp.lastToAdmin.Body)
+
+	s.NextTargetMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonHeartBtIntOverride() {
+	s.IncrNextSenderMsgSeqNum()
+	s.MessageFactory.seqNum = 1
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.session.HeartBtIntOverride = true
+	s.session.HeartBtInt = time.Second
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(inSession{})
+	s.Equal(time.Second, s.session.HeartBtInt) //should not have changed
+	s.True(s.session.HeartBtIntOverride)
+
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeLogon), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagHeartBtInt, 1, s.MockApp.lastToAdmin.Body)
 
 	s.NextTargetMsgSeqNum(3)
 	s.NextSenderMsgSeqNum(3)
@@ -301,4 +333,32 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.fixMsgIn(s.session, s.SequenceReset(7))
 	s.State(inSession{})
 	s.NextTargetMsgSeqNum(7)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Header.SetInt(tagMsgSeqNum, 1)
+
+	s.MockApp.On("ToAdmin")
+	s.NextTargetMsgSeqNum(2)
+	s.fixMsgIn(s.session, logon)
+
+	s.State(latentState{})
+	s.NextTargetMsgSeqNum(2)
+
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 1)
+	msgBytesSent, ok := s.Receiver.LastMessage()
+	s.Require().True(ok)
+	sentMessage := NewMessage()
+	err := ParseMessage(sentMessage, bytes.NewBuffer(msgBytesSent))
+	s.Require().Nil(err)
+	s.MessageType(string(msgTypeLogout), sentMessage)
+
+	s.session.sendQueued()
+	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagText, "MsgSeqNum too low, expecting 2 but received 1", s.MockApp.lastToAdmin.Body)
 }

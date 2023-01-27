@@ -1,8 +1,9 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/config"
 	"testing"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 func TestSessionSettings_StringSettings(t *testing.T) {

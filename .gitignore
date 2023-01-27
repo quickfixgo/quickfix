@@ -1,6 +1,7 @@
 *~
 *.swp
 *.swo
+.idea
 vendor
 _test/test
 _test/echo_server

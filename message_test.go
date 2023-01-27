@@ -5,8 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 func BenchmarkParseMessage(b *testing.B) {
@@ -169,20 +170,39 @@ func (s *MessageSuite) TestReverseRouteFIX40() {
 }
 
 func (s *MessageSuite) TestCopyIntoMessage() {
-	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	msgString := "8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"
+	msgBuf := bytes.NewBufferString(msgString)
+	s.Nil(ParseMessage(s.msg, msgBuf))
 
 	dest := NewMessage()
 	s.msg.CopyInto(dest)
+
 	checkFieldInt(s, dest.Header.FieldMap, int(tagMsgSeqNum), 2)
 	checkFieldInt(s, dest.Body.FieldMap, 21, 3)
 	checkFieldString(s, dest.Body.FieldMap, 11, "ID")
 	s.Equal(len(dest.bodyBytes), len(s.msg.bodyBytes))
+
+	// copying decouples the message from its input buffer, so the raw message will be re-rendered
+	renderedString := "8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP115=JCD116=CS128=MG129=CB142=JV143=RY144=BB145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=033"
+	s.Equal(dest.String(), renderedString)
 
 	s.True(reflect.DeepEqual(s.msg.bodyBytes, dest.bodyBytes))
 	s.True(s.msg.IsMsgTypeOf("D"))
 	s.Equal(s.msg.ReceiveTime, dest.ReceiveTime)
 
 	s.True(reflect.DeepEqual(s.msg.fields, dest.fields))
+
+	// update the source message to validate the copy is truly deep
+	newMsgString := "8=FIX.4.49=4935=A52=20140615-19:49:56553=my_user554=secret10=072"
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString(newMsgString)))
+	s.True(s.msg.IsMsgTypeOf("A"))
+	s.Equal(s.msg.String(), newMsgString)
+
+	// clear the source buffer also
+	msgBuf.Reset()
+
+	s.True(dest.IsMsgTypeOf("D"))
+	s.Equal(dest.String(), renderedString)
 }
 
 func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {

@@ -9,10 +9,10 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-//Header is first section of a FIX Message
+// Header is first section of a FIX Message
 type Header struct{ FieldMap }
 
-//in the message header, the first 3 tags in the message header must be 8,9,35
+// in the message header, the first 3 tags in the message header must be 8,9,35
 func headerFieldOrdering(i, j Tag) bool {
 	var ordering = func(t Tag) uint32 {
 		switch t {
@@ -40,20 +40,20 @@ func headerFieldOrdering(i, j Tag) bool {
 	return i < j
 }
 
-//Init initializes the Header instance
+// Init initializes the Header instance
 func (h *Header) Init() {
 	h.initWithOrdering(headerFieldOrdering)
 }
 
-//Body is the primary application section of a FIX message
+// Body is the primary application section of a FIX message
 type Body struct{ FieldMap }
 
-//Init initializes the FIX message
+// Init initializes the FIX message
 func (b *Body) Init() {
 	b.init()
 }
 
-//Trailer is the last section of a FIX message
+// Trailer is the last section of a FIX message
 type Trailer struct{ FieldMap }
 
 // In the trailer, CheckSum (tag 10) must be last
@@ -68,12 +68,12 @@ func trailerFieldOrdering(i, j Tag) bool {
 	return i < j
 }
 
-//Init initializes the FIX message
+// Init initializes the FIX message
 func (t *Trailer) Init() {
 	t.initWithOrdering(trailerFieldOrdering)
 }
 
-//Message is a FIX Message abstraction.
+// Message is a FIX Message abstraction.
 type Message struct {
 	Header  Header
 	Trailer Trailer
@@ -94,17 +94,17 @@ type Message struct {
 	keepMessage bool
 }
 
-//ToMessage returns the message itself
+// ToMessage returns the message itself
 func (m *Message) ToMessage() *Message { return m }
 
-//parseError is returned when bytes cannot be parsed as a FIX message.
+// parseError is returned when bytes cannot be parsed as a FIX message.
 type parseError struct {
 	OrigError string
 }
 
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
-//NewMessage returns a newly initialized Message instance
+// NewMessage returns a newly initialized Message instance
 func NewMessage() *Message {
 	m := new(Message)
 	m.Header.Init()
@@ -114,18 +114,13 @@ func NewMessage() *Message {
 	return m
 }
 
-// CopyInto erases the dest messages and copies the curreny message content
+// CopyInto erases the dest messages and copies the currency message content
 // into it.
-func (m *Message) CopyInto(to *Message) error {
-	to.Header.Clear()
-	to.Body.Clear()
-	to.Trailer.Clear()
+func (m *Message) CopyInto(to *Message) {
+	m.Header.CopyInto(&to.Header.FieldMap)
+	m.Body.CopyInto(&to.Body.FieldMap)
+	m.Trailer.CopyInto(&to.Trailer.FieldMap)
 
-	to.Header.FieldMap = cloneFieldMap(m.Header.FieldMap)
-	to.Body.FieldMap = cloneFieldMap(m.Body.FieldMap)
-	to.Trailer.FieldMap = cloneFieldMap(m.Trailer.FieldMap)
-
-	to.rawMessage = m.rawMessage
 	to.ReceiveTime = m.ReceiveTime
 	to.bodyBytes = make([]byte, len(m.bodyBytes))
 	copy(to.bodyBytes, m.bodyBytes)
@@ -133,15 +128,14 @@ func (m *Message) CopyInto(to *Message) error {
 	for i := range to.fields {
 		to.fields[i].init(m.fields[i].tag, m.fields[i].value)
 	}
-	return nil
 }
 
-//ParseMessage constructs a Message from a byte slice wrapping a FIX message.
+// ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
 	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil)
 }
 
-//ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
+// ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
 func ParseMessageWithDataDictionary(
 	msg *Message,
 	rawMessage *bytes.Buffer,
@@ -293,7 +287,7 @@ func (m *Message) IsMsgTypeOf(msgType string) bool {
 	return false
 }
 
-//reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
+// reverseRoute returns a message builder with routing header fields initialized as the reverse of this message.
 func (m *Message) reverseRoute() *Message {
 	reverseMsg := NewMessage()
 
@@ -368,7 +362,7 @@ func formatCheckSum(value int) string {
 	return fmt.Sprintf("%03d", value)
 }
 
-//Build constructs a []byte from a Message instance
+// Build constructs a []byte from a Message instance
 func (m *Message) build() []byte {
 	m.cook()
 
@@ -384,15 +378,4 @@ func (m *Message) cook() {
 	m.Header.SetInt(tagBodyLength, bodyLength)
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
 	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
-}
-
-func cloneFieldMap(f FieldMap) FieldMap {
-	res := FieldMap{}
-	res.tagLookup = make(map[Tag]field)
-	for tag, field := range f.tagLookup {
-		res.tagLookup[tag] = field
-	}
-	res.tags = make([]Tag, len(f.tags))
-	copy(res.tags, f.tags)
-	return res
 }

@@ -2,12 +2,13 @@ package quickfix
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 	"log"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
 // MongoStoreTestSuite runs all tests in the MessageStoreTestSuite against the MongoStore implementation
@@ -22,6 +23,7 @@ func (suite *MongoStoreTestSuite) SetupTest() {
 		suite.T().SkipNow()
 	}
 	mongoDatabase := "automated_testing_database"
+	mongoReplicaSet := "replicaset"
 
 	// create settings
 	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
@@ -29,11 +31,12 @@ func (suite *MongoStoreTestSuite) SetupTest() {
 [DEFAULT]
 MongoStoreConnection=%s
 MongoStoreDatabase=%s
+MongoStoreReplicaSet=%s
 
 [SESSION]
 BeginString=%s
 SenderCompID=%s
-TargetCompID=%s`, mongoDbCxn, mongoDatabase, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+TargetCompID=%s`, mongoDbCxn, mongoDatabase, mongoReplicaSet, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
 	require.Nil(suite.T(), err)
 
 	// create store
@@ -44,7 +47,10 @@ TargetCompID=%s`, mongoDbCxn, mongoDatabase, sessionID.BeginString, sessionID.Se
 }
 
 func (suite *MongoStoreTestSuite) TearDownTest() {
-	suite.msgStore.Close()
+	if suite.msgStore != nil {
+		err := suite.msgStore.Close()
+		require.Nil(suite.T(), err)
+	}
 }
 
 func TestMongoStoreTestSuite(t *testing.T) {

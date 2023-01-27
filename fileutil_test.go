@@ -53,6 +53,7 @@ func TestOpenOrCreateFile(t *testing.T) {
 
 	// Then it should be created
 	f, err := openOrCreateFile(fname, 0664)
+	require.Nil(t, err)
 	requireFileExists(t, fname)
 
 	// When the file already exists

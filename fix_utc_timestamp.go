@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-//TimestampPrecision defines the precision used by FIXUTCTimestamp
+// TimestampPrecision defines the precision used by FIXUTCTimestamp
 type TimestampPrecision int
 
-//All TimestampPrecisions supported by FIX
+// All TimestampPrecisions supported by FIX
 const (
 	Millis TimestampPrecision = iota
 	Seconds
@@ -16,7 +16,7 @@ const (
 	Nanos
 )
 
-//FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
+// FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
 type FIXUTCTimestamp struct {
 	time.Time
 	Precision TimestampPrecision

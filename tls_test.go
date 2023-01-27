@@ -4,8 +4,9 @@ import (
 	"crypto/tls"
 	"testing"
 
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type TLSTestSuite struct {
@@ -60,7 +61,7 @@ func (s *TLSTestSuite) TestLoadTLSNoCA() {
 	s.Len(tlsConfig.Certificates, 1)
 	s.Nil(tlsConfig.RootCAs)
 	s.Nil(tlsConfig.ClientCAs)
-	s.Equal(tls.NoClientCert, tlsConfig.ClientAuth)
+	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
 }
 
 func (s *TLSTestSuite) TestLoadTLSWithBadCA() {
@@ -87,7 +88,67 @@ func (s *TLSTestSuite) TestLoadTLSWithCA() {
 	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
 }
 
+func (s *TLSTestSuite) TestLoadTLSWithOnlyCA() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().Set(config.SocketCAFile, s.CAFile)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.NotNil(tlsConfig.RootCAs)
+	s.NotNil(tlsConfig.ClientCAs)
+}
+
+func (s *TLSTestSuite) TestLoadTLSWithoutSSLWithOnlyCA() {
+	s.settings.GlobalSettings().Set(config.SocketCAFile, s.CAFile)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.Nil(tlsConfig)
+}
+
+func (s *TLSTestSuite) TestLoadTLSAllowSkipClientCerts() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.Equal(tls.NoClientCert, tlsConfig.ClientAuth)
+}
+
+func (s *TLSTestSuite) TestServerNameUseSSL() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().Set(config.SocketServerName, "DummyServerNameUseSSL")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal("DummyServerNameUseSSL", tlsConfig.ServerName)
+}
+
+func (s *TLSTestSuite) TestServerNameWithCerts() {
+	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
+	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
+	s.settings.GlobalSettings().Set(config.SocketServerName, "DummyServerNameWithCerts")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal("DummyServerNameWithCerts", tlsConfig.ServerName)
+}
+
 func (s *TLSTestSuite) TestInsecureSkipVerify() {
+	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.Nil(tlsConfig)
+}
+
+func (s *TLSTestSuite) TestInsecureSkipVerifyWithUseSSL() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
 	s.settings.GlobalSettings().Set(config.SocketInsecureSkipVerify, "Y")
 
 	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
@@ -120,6 +181,7 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 
 	s.Nil(err)
 	s.NotNil(tlsConfig)
+	//nolint:staticcheck
 	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionSSL30))
 
 	// TLS10

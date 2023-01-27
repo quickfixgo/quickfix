@@ -5,10 +5,10 @@ import (
 	"strconv"
 )
 
-//FIXFloat is a FIX Float Value, implements FieldValue
+// FIXFloat is a FIX Float Value, implements FieldValue
 type FIXFloat float64
 
-//Float64 converts the FIXFloat value to float64
+// Float64 converts the FIXFloat value to float64
 func (f FIXFloat) Float64() float64 { return float64(f) }
 
 func (f *FIXFloat) Read(bytes []byte) error {

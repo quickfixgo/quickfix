@@ -54,9 +54,6 @@ func (s resendState) FixMsgIn(session *session, msg *Message) (nextState session
 
 		delete(s.messageStash, targetSeqNum)
 
-		//return stashed message to pool
-		session.returnToPool(msg)
-
 		nextState = inSession{}.FixMsgIn(session, msg)
 		if !nextState.IsLoggedOn() {
 			return

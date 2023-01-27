@@ -1,6 +1,6 @@
 package internal
 
-//Event is an abstraction for session events
+// Event is an abstraction for session events
 type Event int
 
 const (

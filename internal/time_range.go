@@ -1,11 +1,12 @@
 package internal
 
 import (
-	"errors"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
-//TimeOfDay represents the time of day
+// TimeOfDay represents the time of day
 type TimeOfDay struct {
 	hour, minute, second int
 	d                    time.Duration
@@ -13,9 +14,7 @@ type TimeOfDay struct {
 
 const shortForm = "15:04:05"
 
-var errParseTime = errors.New("Time must be in the format HH:MM:SS")
-
-//NewTimeOfDay returns a newly initialized TimeOfDay
+// NewTimeOfDay returns a newly initialized TimeOfDay
 func NewTimeOfDay(hour, minute, second int) TimeOfDay {
 	d := time.Duration(second)*time.Second +
 		time.Duration(minute)*time.Minute +
@@ -24,29 +23,29 @@ func NewTimeOfDay(hour, minute, second int) TimeOfDay {
 	return TimeOfDay{hour: hour, minute: minute, second: second, d: d}
 }
 
-//ParseTimeOfDay parses a TimeOfDay from a string in the format HH:MM:SS
+// ParseTimeOfDay parses a TimeOfDay from a string in the format HH:MM:SS
 func ParseTimeOfDay(str string) (TimeOfDay, error) {
 	t, err := time.Parse(shortForm, str)
 	if err != nil {
-		return TimeOfDay{}, errParseTime
+		return TimeOfDay{}, errors.Wrap(err, "time must be in the format HH:MM:SS")
 	}
 
 	return NewTimeOfDay(t.Clock()), nil
 }
 
-//TimeRange represents a time band in a given time zone
+// TimeRange represents a time band in a given time zone
 type TimeRange struct {
 	startTime, endTime TimeOfDay
 	startDay, endDay   *time.Weekday
 	loc                *time.Location
 }
 
-//NewUTCTimeRange returns a time range in UTC
+// NewUTCTimeRange returns a time range in UTC
 func NewUTCTimeRange(start, end TimeOfDay) *TimeRange {
 	return NewTimeRangeInLocation(start, end, time.UTC)
 }
 
-//NewTimeRangeInLocation returns a time range in a given location
+// NewTimeRangeInLocation returns a time range in a given location
 func NewTimeRangeInLocation(start, end TimeOfDay, loc *time.Location) *TimeRange {
 	if loc == nil {
 		panic("time: missing Location in call to NewTimeRangeInLocation")
@@ -55,12 +54,12 @@ func NewTimeRangeInLocation(start, end TimeOfDay, loc *time.Location) *TimeRange
 	return &TimeRange{startTime: start, endTime: end, loc: loc}
 }
 
-//NewUTCWeekRange returns a weekly TimeRange
+// NewUTCWeekRange returns a weekly TimeRange
 func NewUTCWeekRange(startTime, endTime TimeOfDay, startDay, endDay time.Weekday) *TimeRange {
 	return NewWeekRangeInLocation(startTime, endTime, startDay, endDay, time.UTC)
 }
 
-//NewWeekRangeInLocation returns a time range in a given location
+// NewWeekRangeInLocation returns a time range in a given location
 func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.Weekday, loc *time.Location) *TimeRange {
 	r := NewTimeRangeInLocation(startTime, endTime, loc)
 	r.startDay = &startDay
@@ -121,7 +120,7 @@ func (r *TimeRange) isInWeekRange(t time.Time) bool {
 	return true
 }
 
-//IsInRange returns true if time t is within in the time range
+// IsInRange returns true if time t is within in the time range
 func (r *TimeRange) IsInRange(t time.Time) bool {
 	if r == nil {
 		return true
@@ -134,7 +133,7 @@ func (r *TimeRange) IsInRange(t time.Time) bool {
 	return r.isInTimeRange(t)
 }
 
-//IsInSameRange determines if two points in time are in the same time range
+// IsInSameRange determines if two points in time are in the same time range
 func (r *TimeRange) IsInSameRange(t1, t2 time.Time) bool {
 	if r == nil {
 		return true

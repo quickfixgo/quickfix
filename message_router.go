@@ -5,7 +5,7 @@ type routeKey struct {
 	MsgType    string
 }
 
-//FIX ApplVerID string values
+// FIX ApplVerID string values
 const (
 	ApplVerIDFIX27    = "0"
 	ApplVerIDFIX30    = "1"
@@ -19,25 +19,25 @@ const (
 	ApplVerIDFIX50SP2 = "9"
 )
 
-//A MessageRoute is a function that can process a fromApp/fromAdmin callback
+// A MessageRoute is a function that can process a fromApp/fromAdmin callback
 type MessageRoute func(msg *Message, sessionID SessionID) MessageRejectError
 
-//A MessageRouter is a mutex for MessageRoutes
+// A MessageRouter is a mutex for MessageRoutes
 type MessageRouter struct {
 	routes map[routeKey]MessageRoute
 }
 
-//NewMessageRouter returns an initialized MessageRouter instance
+// NewMessageRouter returns an initialized MessageRouter instance
 func NewMessageRouter() *MessageRouter {
 	return &MessageRouter{routes: make(map[routeKey]MessageRoute)}
 }
 
-//AddRoute adds a route to the MessageRouter instance keyed to begin string and msgType.
+// AddRoute adds a route to the MessageRouter instance keyed to begin string and msgType.
 func (c MessageRouter) AddRoute(beginString string, msgType string, router MessageRoute) {
 	c.routes[routeKey{beginString, msgType}] = router
 }
 
-//Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
+// Route may be called from the fromApp/fromAdmin callbacks. Messages that cannot be routed will be rejected with UnsupportedMessageType.
 func (c MessageRouter) Route(msg *Message, sessionID SessionID) MessageRejectError {
 	beginString, err := msg.Header.GetBytes(tagBeginString)
 	if err != nil {

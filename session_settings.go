@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-//SessionSettings maps session settings to values with typed accessors.
+// SessionSettings maps session settings to values with typed accessors.
 type SessionSettings struct {
 	settings map[string]string
 }
 
-//ConditionallyRequiredSetting indicates a missing setting
+// ConditionallyRequiredSetting indicates a missing setting
 type ConditionallyRequiredSetting struct {
 	Setting string
 }
@@ -20,7 +20,7 @@ func (e ConditionallyRequiredSetting) Error() string {
 	return fmt.Sprintf("Conditionally Required Setting: %v", e.Setting)
 }
 
-//IncorrectFormatForSetting indicates a setting that is incorrectly formatted
+// IncorrectFormatForSetting indicates a setting that is incorrectly formatted
 type IncorrectFormatForSetting struct {
 	Setting, Value string
 	Err            error
@@ -30,12 +30,12 @@ func (e IncorrectFormatForSetting) Error() string {
 	return fmt.Sprintf("%q is invalid for %s", e.Value, e.Setting)
 }
 
-//Init initializes or resets SessionSettings
+// Init initializes or resets SessionSettings
 func (s *SessionSettings) Init() {
 	s.settings = make(map[string]string)
 }
 
-//NewSessionSettings returns a newly initialized SessionSettings instance
+// NewSessionSettings returns a newly initialized SessionSettings instance
 func NewSessionSettings() *SessionSettings {
 	s := &SessionSettings{}
 	s.Init()
@@ -43,7 +43,7 @@ func NewSessionSettings() *SessionSettings {
 	return s
 }
 
-//Set assigns a value to a setting on SessionSettings.
+// Set assigns a value to a setting on SessionSettings.
 func (s *SessionSettings) Set(setting string, val string) {
 	//lazy init
 	if s.settings == nil {
@@ -53,13 +53,13 @@ func (s *SessionSettings) Set(setting string, val string) {
 	s.settings[setting] = val
 }
 
-//HasSetting returns true if a setting is set, false if not
+// HasSetting returns true if a setting is set, false if not
 func (s *SessionSettings) HasSetting(setting string) bool {
 	_, ok := s.settings[setting]
 	return ok
 }
 
-//Setting is a settings string accessor. Returns an error if the setting is missing.
+// Setting is a settings string accessor. Returns an error if the setting is missing.
 func (s *SessionSettings) Setting(setting string) (string, error) {
 	val, ok := s.settings[setting]
 	if !ok {
@@ -69,7 +69,7 @@ func (s *SessionSettings) Setting(setting string) (string, error) {
 	return val, nil
 }
 
-//IntSetting returns the requested setting parsed as an int.  Returns an errror if the setting is not set or cannot be parsed as an int.
+// IntSetting returns the requested setting parsed as an int.  Returns an errror if the setting is not set or cannot be parsed as an int.
 func (s *SessionSettings) IntSetting(setting string) (val int, err error) {
 	stringVal, err := s.Setting(setting)
 
@@ -84,8 +84,8 @@ func (s *SessionSettings) IntSetting(setting string) (val int, err error) {
 	return
 }
 
-//DurationSetting returns the requested setting parsed as a time.Duration.
-//Returns an error if the setting is not set or cannot be parsed as a time.Duration.
+// DurationSetting returns the requested setting parsed as a time.Duration.
+// Returns an error if the setting is not set or cannot be parsed as a time.Duration.
 func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, err error) {
 	stringVal, err := s.Setting(setting)
 
@@ -100,7 +100,7 @@ func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, er
 	return
 }
 
-//BoolSetting returns the requested setting parsed as a boolean.  Returns an errror if the setting is not set or cannot be parsed as a bool.
+// BoolSetting returns the requested setting parsed as a boolean.  Returns an error if the setting is not set or cannot be parsed as a bool.
 func (s SessionSettings) BoolSetting(setting string) (bool, error) {
 	stringVal, err := s.Setting(setting)
 

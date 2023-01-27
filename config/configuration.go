@@ -2,7 +2,7 @@ package config
 
 //NOTE: Additions to this file should be made to both config/doc.go and http://www.quickfixgo.org/docs/
 
-//Const configuration settings
+// Const configuration settings
 const (
 	BeginString                  string = "BeginString"
 	SenderCompID                 string = "SenderCompID"
@@ -20,8 +20,16 @@ const (
 	SocketCertificateFile        string = "SocketCertificateFile"
 	SocketCAFile                 string = "SocketCAFile"
 	SocketInsecureSkipVerify     string = "SocketInsecureSkipVerify"
+	SocketServerName             string = "SocketServerName"
 	SocketMinimumTLSVersion      string = "SocketMinimumTLSVersion"
 	SocketTimeout                string = "SocketTimeout"
+	SocketUseSSL                 string = "SocketUseSSL"
+	ProxyType                    string = "ProxyType"
+	ProxyHost                    string = "ProxyHost"
+	ProxyPort                    string = "ProxyPort"
+	ProxyUser                    string = "ProxyUser"
+	ProxyPassword                string = "ProxyPassword"
+	UseTCPProxy                  string = "UseTCPProxy"
 	DefaultApplVerID             string = "DefaultApplVerID"
 	StartTime                    string = "StartTime"
 	EndTime                      string = "EndTime"
@@ -36,7 +44,10 @@ const (
 	ResetOnLogout                string = "ResetOnLogout"
 	ResetOnDisconnect            string = "ResetOnDisconnect"
 	ReconnectInterval            string = "ReconnectInterval"
+	LogoutTimeout                string = "LogoutTimeout"
+	LogonTimeout                 string = "LogonTimeout"
 	HeartBtInt                   string = "HeartBtInt"
+	HeartBtIntOverride           string = "HeartBtIntOverride"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
 	SQLStoreDriver               string = "SQLStoreDriver"
@@ -44,6 +55,7 @@ const (
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
 	MongoStoreConnection         string = "MongoStoreConnection"
 	MongoStoreDatabase           string = "MongoStoreDatabase"
+	MongoStoreReplicaSet         string = "MongoStoreReplicaSet"
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
@@ -52,4 +64,6 @@ const (
 	MaxLatency                   string = "MaxLatency"
 	PersistMessages              string = "PersistMessages"
 	RejectInvalidMessage         string = "RejectInvalidMessage"
+	DynamicSessions              string = "DynamicSessions"
+	DynamicQualifier             string = "DynamicQualifier"
 )

@@ -4,35 +4,51 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-type validator interface {
+// Validator validates a FIX message
+type Validator interface {
 	Validate(*Message) MessageRejectError
 }
 
-type validatorSettings struct {
+// ValidatorSettings describe validation behavior
+type ValidatorSettings struct {
 	CheckFieldsOutOfOrder bool
-	RejectInvalidMessage bool
-
+	RejectInvalidMessage  bool
 }
 
-//Default configuration for message validation.
-//See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
-var defaultValidatorSettings = validatorSettings{
+// Default configuration for message validation.
+// See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
+var defaultValidatorSettings = ValidatorSettings{
 	CheckFieldsOutOfOrder: true,
-	RejectInvalidMessage: true,
+	RejectInvalidMessage:  true,
 }
 
 type fixValidator struct {
 	dataDictionary *datadictionary.DataDictionary
-	settings       validatorSettings
+	settings       ValidatorSettings
 }
 
 type fixtValidator struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
-	settings                validatorSettings
+	settings                ValidatorSettings
 }
 
-//Validate tests the message against the provided data dictionary.
+// NewValidator creates a FIX message validator from the given data dictionaries
+func NewValidator(settings ValidatorSettings, appDataDictionary, transportDataDictionary *datadictionary.DataDictionary) Validator {
+	if transportDataDictionary != nil {
+		return &fixtValidator{
+			transportDataDictionary: transportDataDictionary,
+			appDataDictionary:       appDataDictionary,
+			settings:                settings,
+		}
+	}
+	return &fixValidator{
+		dataDictionary: appDataDictionary,
+		settings:       settings,
+	}
+}
+
+// Validate tests the message against the provided data dictionary.
 func (v *fixValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)
@@ -45,8 +61,8 @@ func (v *fixValidator) Validate(msg *Message) MessageRejectError {
 	return validateFIX(v.dataDictionary, v.settings, msgType, msg)
 }
 
-//Validate tests the message against the provided transport and app data dictionaries.
-//If the message is an admin message, it will be validated against the transport data dictionary.
+// Validate tests the message against the provided transport and app data dictionaries.
+// If the message is an admin message, it will be validated against the transport data dictionary.
 func (v *fixtValidator) Validate(msg *Message) MessageRejectError {
 	if !msg.Header.Has(tagMsgType) {
 		return RequiredTagMissing(tagMsgType)
@@ -62,7 +78,7 @@ func (v *fixtValidator) Validate(msg *Message) MessageRejectError {
 	return validateFIXT(v.transportDataDictionary, v.appDataDictionary, v.settings, msgType, msg)
 }
 
-func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg *Message) MessageRejectError {
+func validateFIX(d *datadictionary.DataDictionary, settings ValidatorSettings, msgType string, msg *Message) MessageRejectError {
 	if err := validateMsgType(d, msgType, msg); err != nil {
 		return err
 	}
@@ -87,12 +103,10 @@ func validateFIX(d *datadictionary.DataDictionary, settings validatorSettings, m
 		}
 	}
 
-
-
 	return nil
 }
 
-func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings validatorSettings, msgType string, msg *Message) MessageRejectError {
+func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings ValidatorSettings, msgType string, msg *Message) MessageRejectError {
 	if err := validateMsgType(appDD, msgType, msg); err != nil {
 		return err
 	}
@@ -119,7 +133,7 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings va
 }
 
 func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
-	if _, validMsgType := d.Messages[msgType]; validMsgType == false {
+	if _, validMsgType := d.Messages[msgType]; !validMsgType {
 		return InvalidMessageType()
 	}
 	return nil

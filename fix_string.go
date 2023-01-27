@@ -1,6 +1,6 @@
 package quickfix
 
-//FIXString is a FIX String Value, implements FieldValue
+// FIXString is a FIX String Value, implements FieldValue
 type FIXString string
 
 func (f FIXString) String() string {

@@ -1,6 +1,6 @@
 package quickfix
 
-//Tag is a typed int representing a FIX tag
+// Tag is a typed int representing a FIX tag
 type Tag int
 
 const (
@@ -43,6 +43,7 @@ const (
 	tagBusinessRejectReason Tag = 380
 	tagSessionRejectReason  Tag = 373
 	tagRefMsgType           Tag = 372
+	tagBusinessRejectRefID  Tag = 379
 	tagRefTagID             Tag = 371
 	tagRefSeqNum            Tag = 45
 	tagEncryptMethod        Tag = 98
@@ -60,7 +61,7 @@ const (
 	tagCheckSum        Tag = 10
 )
 
-//IsTrailer returns true if tag belongs in the message trailer
+// IsTrailer returns true if tag belongs in the message trailer
 func (t Tag) IsTrailer() bool {
 	switch t {
 	case tagSignatureLength, tagSignature, tagCheckSum:
@@ -69,7 +70,7 @@ func (t Tag) IsTrailer() bool {
 	return false
 }
 
-//IsHeader returns true if tag belongs in the message header
+// IsHeader returns true if tag belongs in the message header
 func (t Tag) IsHeader() bool {
 	switch t {
 	case tagBeginString,
