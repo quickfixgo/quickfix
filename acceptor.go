@@ -298,7 +298,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	// We have a session ID and a network connection. This seems to be a good place for any custom authentication logic.
 	if a.connectionValidator != nil {
 		if err := a.connectionValidator.Validate(netConn, sessID); err != nil {
-			a.globalLog.OnEventf("Unable to validate a connection %v", err.Error())
+			a.globalLog.OnEventf("Unable to validate a connection for session %v: %v", sessID, err.Error())
 			return
 		}
 	}
@@ -328,7 +328,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	msgOut := make(chan []byte)
 
 	if err := session.connect(msgIn, msgOut); err != nil {
-		a.globalLog.OnEventf("Unable to accept %v", err.Error())
+		a.globalLog.OnEventf("Unable to accept session %v connection: %v", sessID, err.Error())
 		return
 	}
 
