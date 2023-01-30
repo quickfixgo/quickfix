@@ -17,6 +17,7 @@ linters:
     - revive
     - unused
     - staticcheck
+    - godot
 
 linters-settings:
   gofmt:

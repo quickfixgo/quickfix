@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -70,7 +85,7 @@ func (s *SessionSuite) TestInsertSendingTime() {
 		Precision         TimestampPrecision
 		ExpectedPrecision TimestampPrecision
 	}{
-		{BeginStringFIX40, Millis, Seconds}, //config is ignored for fix < 4.2
+		{BeginStringFIX40, Millis, Seconds}, // Config is ignored for fix < 4.2.
 		{BeginStringFIX41, Millis, Seconds},
 
 		{BeginStringFIX42, Millis, Millis},
@@ -170,7 +185,7 @@ func (s *SessionSuite) TestCheckTargetTooHigh() {
 	s.Require().NotNil(err, "sequence number too high should return an error")
 	s.IsType(targetTooHigh{}, err)
 
-	//spot on
+	// Spot on.
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	s.Nil(s.session.checkTargetTooHigh(msg))
 }
@@ -217,13 +232,13 @@ func (s *SessionSuite) TestCheckTargetTooLow() {
 	s.Require().NotNil(err, "sequence number is required")
 	s.Equal(rejectReasonRequiredTagMissing, err.RejectReason())
 
-	//too low
+	// Too low.
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(43))
 	err = s.session.checkTargetTooLow(msg)
 	s.NotNil(err, "sequence number too low should return error")
 	s.IsType(targetTooLow{}, err)
 
-	//spot on
+	// Spot on.
 	msg.Header.SetField(tagMsgSeqNum, FIXInt(45))
 	s.Nil(s.session.checkTargetTooLow(msg))
 }
@@ -238,34 +253,34 @@ func (s *SessionSuite) TestShouldSendReset() {
 		NextTargetMsgSeqNum int
 		Expected            bool
 	}{
-		{BeginStringFIX40, true, false, false, 1, 1, false}, //ResetSeqNumFlag not available < fix41
+		{BeginStringFIX40, true, false, false, 1, 1, false}, // ResetSeqNumFlag not available < fix41.
 
-		{BeginStringFIX41, true, false, false, 1, 1, true}, //session must be configured to reset on logon
+		{BeginStringFIX41, true, false, false, 1, 1, true}, // Session must be configured to reset on logon.
 		{BeginStringFIX42, true, false, false, 1, 1, true},
 		{BeginStringFIX43, true, false, false, 1, 1, true},
 		{BeginStringFIX44, true, false, false, 1, 1, true},
 		{BeginStringFIXT11, true, false, false, 1, 1, true},
 
-		{BeginStringFIX41, false, true, false, 1, 1, true}, //or disconnect
+		{BeginStringFIX41, false, true, false, 1, 1, true}, // Or disconnect.
 		{BeginStringFIX42, false, true, false, 1, 1, true},
 		{BeginStringFIX43, false, true, false, 1, 1, true},
 		{BeginStringFIX44, false, true, false, 1, 1, true},
 		{BeginStringFIXT11, false, true, false, 1, 1, true},
 
-		{BeginStringFIX41, false, false, true, 1, 1, true}, //or logout
+		{BeginStringFIX41, false, false, true, 1, 1, true}, // Or logout.
 		{BeginStringFIX42, false, false, true, 1, 1, true},
 		{BeginStringFIX43, false, false, true, 1, 1, true},
 		{BeginStringFIX44, false, false, true, 1, 1, true},
 		{BeginStringFIXT11, false, false, true, 1, 1, true},
 
-		{BeginStringFIX41, true, true, false, 1, 1, true}, //or combo
+		{BeginStringFIX41, true, true, false, 1, 1, true}, // Or combo.
 		{BeginStringFIX42, false, true, true, 1, 1, true},
 		{BeginStringFIX43, true, false, true, 1, 1, true},
 		{BeginStringFIX44, true, true, true, 1, 1, true},
 
-		{BeginStringFIX41, false, false, false, 1, 1, false}, //or will not be set
+		{BeginStringFIX41, false, false, false, 1, 1, false}, // Or will not be set.
 
-		{BeginStringFIX41, true, false, false, 1, 10, false}, //session seq numbers should be reset at the time of check
+		{BeginStringFIX41, true, false, false, 1, 10, false}, // Session seq numbers should be reset at the time of check.
 		{BeginStringFIX42, true, false, false, 2, 1, false},
 		{BeginStringFIX43, true, false, false, 14, 100, false},
 	}
@@ -930,7 +945,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueue() {
 	suite.MessageType(string(msgTypeLogon), msg)
 	suite.FieldEquals(tagMsgSeqNum, 3, msg.Header)
 
-	//only one message sent
+	// Only one message sent.
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
 }
@@ -952,7 +967,7 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.MessageType(string(msgTypeLogon), msg)
 	suite.FieldEquals(tagMsgSeqNum, 1, msg.Header)
 
-	//only one message sent
+	// Only one message sent.
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
 }

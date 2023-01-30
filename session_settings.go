@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -11,7 +26,7 @@ type SessionSettings struct {
 	settings map[string]string
 }
 
-// ConditionallyRequiredSetting indicates a missing setting
+// ConditionallyRequiredSetting indicates a missing setting.
 type ConditionallyRequiredSetting struct {
 	Setting string
 }
@@ -20,7 +35,7 @@ func (e ConditionallyRequiredSetting) Error() string {
 	return fmt.Sprintf("Conditionally Required Setting: %v", e.Setting)
 }
 
-// IncorrectFormatForSetting indicates a setting that is incorrectly formatted
+// IncorrectFormatForSetting indicates a setting that is incorrectly formatted.
 type IncorrectFormatForSetting struct {
 	Setting, Value string
 	Err            error
@@ -30,12 +45,12 @@ func (e IncorrectFormatForSetting) Error() string {
 	return fmt.Sprintf("%q is invalid for %s", e.Value, e.Setting)
 }
 
-// Init initializes or resets SessionSettings
+// Init initializes or resets SessionSettings.
 func (s *SessionSettings) Init() {
 	s.settings = make(map[string]string)
 }
 
-// NewSessionSettings returns a newly initialized SessionSettings instance
+// NewSessionSettings returns a newly initialized SessionSettings instance.
 func NewSessionSettings() *SessionSettings {
 	s := &SessionSettings{}
 	s.Init()
@@ -45,7 +60,7 @@ func NewSessionSettings() *SessionSettings {
 
 // Set assigns a value to a setting on SessionSettings.
 func (s *SessionSettings) Set(setting string, val string) {
-	//lazy init
+	// Lazy init.
 	if s.settings == nil {
 		s.Init()
 	}
@@ -53,7 +68,7 @@ func (s *SessionSettings) Set(setting string, val string) {
 	s.settings[setting] = val
 }
 
-// HasSetting returns true if a setting is set, false if not
+// HasSetting returns true if a setting is set, false if not.
 func (s *SessionSettings) HasSetting(setting string) bool {
 	_, ok := s.settings[setting]
 	return ok

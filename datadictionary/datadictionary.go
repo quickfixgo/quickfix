@@ -23,13 +23,13 @@ type DataDictionary struct {
 	Trailer         *MessageDef
 }
 
-// MessagePart can represent a Field, Repeating Group, or Component
+// MessagePart can represent a Field, Repeating Group, or Component.
 type MessagePart interface {
 	Name() string
 	Required() bool
 }
 
-// messagePartWithFields is a MessagePart with multiple Fields
+// messagePartWithFields is a MessagePart with multiple Fields.
 type messagePartWithFields interface {
 	MessagePart
 	Fields() []*FieldDef
@@ -45,7 +45,7 @@ type ComponentType struct {
 	requiredParts  []MessagePart
 }
 
-// NewComponentType returns an initialized component type
+// NewComponentType returns an initialized component type.
 func NewComponentType(name string, parts []MessagePart) *ComponentType {
 	comp := ComponentType{
 		name:  name,
@@ -77,20 +77,20 @@ func NewComponentType(name string, parts []MessagePart) *ComponentType {
 	return &comp
 }
 
-// Name returns the name of this component type
+// Name returns the name of this component type.
 func (c ComponentType) Name() string { return c.name }
 
 // Fields returns all fields contained in this component. Includes fields
-// encapsulated in components of this component
+// encapsulated in components of this component.
 func (c ComponentType) Fields() []*FieldDef { return c.fields }
 
-// RequiredFields returns those fields that are required for this component
+// RequiredFields returns those fields that are required for this component.
 func (c ComponentType) RequiredFields() []*FieldDef { return c.requiredFields }
 
-// RequiredParts returns those parts that are required for this component
+// RequiredParts returns those parts that are required for this component.
 func (c ComponentType) RequiredParts() []MessagePart { return c.requiredParts }
 
-// Parts returns all parts in declaration order contained in this component
+// Parts returns all parts in declaration order contained in this component.
 func (c ComponentType) Parts() []MessagePart { return c.parts }
 
 // TagSet is set for tags.
@@ -101,13 +101,13 @@ func (t TagSet) Add(tag int) {
 	t[tag] = struct{}{}
 }
 
-// Component is a Component as it appears in a given MessageDef
+// Component is a Component as it appears in a given MessageDef.
 type Component struct {
 	*ComponentType
 	required bool
 }
 
-// NewComponent returns an initialized Component instance
+// NewComponent returns an initialized Component instance.
 func NewComponent(ct *ComponentType, required bool) *Component {
 	return &Component{
 		ComponentType: ct,
@@ -116,10 +116,10 @@ func NewComponent(ct *ComponentType, required bool) *Component {
 }
 
 // Required returns true if this component is required for the containing
-// MessageDef
+// MessageDef.
 func (c Component) Required() bool { return c.required }
 
-// Field models a field or repeating group in a message
+// Field models a field or repeating group in a message.
 type Field interface {
 	Tag() int
 }
@@ -135,7 +135,7 @@ type FieldDef struct {
 	requiredFields []*FieldDef
 }
 
-// NewFieldDef returns an initialized FieldDef
+// NewFieldDef returns an initialized FieldDef.
 func NewFieldDef(fieldType *FieldType, required bool) *FieldDef {
 	return &FieldDef{
 		FieldType: fieldType,
@@ -143,7 +143,7 @@ func NewFieldDef(fieldType *FieldType, required bool) *FieldDef {
 	}
 }
 
-// NewGroupFieldDef returns an initialized FieldDef for a repeating group
+// NewGroupFieldDef returns an initialized FieldDef for a repeating group.
 func NewGroupFieldDef(fieldType *FieldType, required bool, parts []MessagePart) *FieldDef {
 	field := FieldDef{
 		FieldType: fieldType,
@@ -179,7 +179,7 @@ func NewGroupFieldDef(fieldType *FieldType, required bool, parts []MessagePart) 
 }
 
 // Required returns true if this FieldDef is required for the containing
-// MessageDef
+// MessageDef.
 func (f FieldDef) Required() bool { return f.required }
 
 // IsGroup is true if the field is a repeating group.
@@ -188,11 +188,11 @@ func (f FieldDef) IsGroup() bool {
 }
 
 // RequiredParts returns those parts that are required for this FieldDef. IsGroup
-// must return true
+// must return true.
 func (f FieldDef) RequiredParts() []MessagePart { return f.requiredParts }
 
 // RequiredFields returns those fields that are required for this FieldDef. IsGroup
-// must return true
+// must return true.
 func (f FieldDef) RequiredFields() []*FieldDef { return f.requiredFields }
 
 func (f FieldDef) childTags() []int {
@@ -214,7 +214,7 @@ type FieldType struct {
 	Enums map[string]Enum
 }
 
-// NewFieldType returns a pointer to an initialized FieldType
+// NewFieldType returns a pointer to an initialized FieldType.
 func NewFieldType(name string, tag int, fixType string) *FieldType {
 	return &FieldType{
 		name: name,
@@ -223,10 +223,10 @@ func NewFieldType(name string, tag int, fixType string) *FieldType {
 	}
 }
 
-// Name returns the name for this FieldType
+// Name returns the name for this FieldType.
 func (f FieldType) Name() string { return f.name }
 
-// Tag returns the tag for this fieldType
+// Tag returns the tag for this fieldType.
 func (f FieldType) Tag() int { return f.tag }
 
 // Enum is a container for value and description.
@@ -240,8 +240,7 @@ type MessageDef struct {
 	Name    string
 	MsgType string
 	Fields  map[int]*FieldDef
-	//Parts are the MessageParts of contained in this MessageDef in declaration
-	//order
+	// Parts are the MessageParts of contained in this MessageDef in declaration order.
 	Parts         []MessagePart
 	requiredParts []MessagePart
 
@@ -249,10 +248,10 @@ type MessageDef struct {
 	Tags         TagSet
 }
 
-// RequiredParts returns those parts that are required for this Message
+// RequiredParts returns those parts that are required for this Message.
 func (m MessageDef) RequiredParts() []MessagePart { return m.requiredParts }
 
-// NewMessageDef returns a pointer to an initialized MessageDef
+// NewMessageDef returns a pointer to an initialized MessageDef.
 func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 	msg := MessageDef{
 		Name:         name,
@@ -283,8 +282,8 @@ func NewMessageDef(name, msgType string, parts []MessagePart) *MessageDef {
 		switch pType := part.(type) {
 		case messagePartWithFields:
 			for _, f := range pType.Fields() {
-				//field if required in component is required in message only if
-				//component is required
+				// Field if required in component is required in message only if
+				// component is required.
 				processField(f, pType.Required())
 			}
 

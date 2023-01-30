@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -193,29 +208,29 @@ func handleStateError(s *session, err error) sessionState {
 // sessionState is the current state of the session state machine. The session state determines how the session responds to
 // incoming messages, timeouts, and requests to send application messages.
 type sessionState interface {
-	//FixMsgIn is called by the session on incoming messages from the counter party.  The return type is the next session state
-	//following message processing
+	// FixMsgIn is called by the session on incoming messages from the counter party.
+	// The return type is the next session state following message processing.
 	FixMsgIn(*session, *Message) (nextState sessionState)
 
-	//Timeout is called by the session on a timeout event.
+	// Timeout is called by the session on a timeout event.
 	Timeout(*session, internal.Event) (nextState sessionState)
 
-	//IsLoggedOn returns true if state is logged on an in session, false otherwise
+	// IsLoggedOn returns true if state is logged on an in session, false otherwise.
 	IsLoggedOn() bool
 
-	//IsConnected returns true if the state is connected
+	// IsConnected returns true if the state is connected.
 	IsConnected() bool
 
-	//IsSessionTime returns true if the state is in session time
+	// IsSessionTime returns true if the state is in session time.
 	IsSessionTime() bool
 
-	//ShutdownNow terminates the session state immediately
+	// ShutdownNow terminates the session state immediately.
 	ShutdownNow(*session)
 
-	//Stop triggers a clean stop
+	// Stop triggers a clean stop.
 	Stop(*session) (nextState sessionState)
 
-	//Stringer debugging convenience
+	// Stringer debugging convenience.
 	fmt.Stringer
 }
 
