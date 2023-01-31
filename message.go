@@ -205,6 +205,10 @@ func ParseMessageWithDataDictionary(
 		return
 	}
 
+	//prevTag := tagMsgType
+	xmlDataLen := 0
+	xmlDataMsg := false
+
 	msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
 	fieldIndex++
 
@@ -212,7 +216,13 @@ func ParseMessageWithDataDictionary(
 	foundBody := false
 	for {
 		parsedFieldBytes = &msg.fields[fieldIndex]
-		rawBytes, err = extractField(parsedFieldBytes, rawBytes)
+		if xmlDataLen > 0 {
+			rawBytes, err = extractXMLDataField(parsedFieldBytes, rawBytes, xmlDataLen)
+			xmlDataLen = 0
+			xmlDataMsg = true
+		} else {
+			rawBytes, err = extractField(parsedFieldBytes, rawBytes)
+		}
 		if err != nil {
 			return
 		}
@@ -235,6 +245,10 @@ func ParseMessageWithDataDictionary(
 			msg.bodyBytes = rawBytes
 		}
 
+		//prevTag = parsedFieldBytes.tag
+		if parsedFieldBytes.tag == tagXMLDataLen {
+			xmlDataLen, _ = msg.Header.GetInt(tagXMLDataLen)
+		}
 		fieldIndex++
 	}
 
@@ -255,7 +269,7 @@ func ParseMessageWithDataDictionary(
 	bodyLength, err := msg.Header.GetInt(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
-	} else if length != bodyLength {
+	} else if length != bodyLength && !xmlDataMsg {
 		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 
@@ -351,6 +365,19 @@ func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remB
 	}
 
 	return
+}
+
+func extractXMLDataField(parsedFieldBytes *TagValue, buffer []byte, dataLen int) (remBytes []byte, err error) {
+	endIndex := bytes.IndexByte(buffer, '=')
+	if endIndex == -1 {
+		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
+		remBytes = buffer
+		return
+	}
+	endIndex += dataLen + 1
+
+	err = parsedFieldBytes.parse(buffer[:endIndex+1])
+	return buffer[(endIndex + 1):], err
 }
 
 func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, err error) {

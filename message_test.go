@@ -28,9 +28,9 @@ import (
 func BenchmarkParseMessage(b *testing.B) {
 	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
-	var msg Message
+	msg := NewMessage()
 	for i := 0; i < b.N; i++ {
-		_ = ParseMessage(&msg, rawMsg)
+		_ = ParseMessage(msg, rawMsg)
 	}
 }
 
@@ -45,6 +45,16 @@ func TestMessageSuite(t *testing.T) {
 
 func (s *MessageSuite) SetupTest() {
 	s.msg = NewMessage()
+}
+
+func TestXMLNonFIX(t *testing.T) {
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=37235=n34=25512369=148152=20200522-07:05:33.75649=CME50=G56=OAEAAAN57=TRADE_CAPTURE143=US,IL212=261213=<RTRF>8=FIX.4.29=22535=BZ34=6549369=651852=20200522-07:05:33.74649=CME50=G56=9Q5000N57=DUMMY143=US,IL11=ACP159013113373460=20200522-07:05:33.734533=0893=Y1028=Y1300=991369=99612:325081373=31374=91375=15979=159013113373461769710=167</RTRF>10=245\"")
+	msg := NewMessage()
+	_ = ParseMessage(msg, rawMsg)
+
+	if !msg.Header.Has(tagXMLData) {
+		t.Error("Expected xmldata tag")
+	}
 }
 
 func (s *MessageSuite) TestParseMessageEmpty() {
