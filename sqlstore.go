@@ -67,10 +67,18 @@ func NewSQLStoreFactory(settings *Settings) MessageStoreFactory {
 
 // Create creates a new SQLStore implementation of the MessageStore interface.
 func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
+	globalSettings := f.settings.GlobalSettings()
+	dynamicSessions, _ := globalSettings.BoolSetting(config.DynamicSessions)
+
 	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
 	if !ok {
-		return nil, fmt.Errorf("unknown session: %v", sessionID)
+		if dynamicSessions {
+			sessionSettings = globalSettings
+		} else {
+			return nil, fmt.Errorf("unknown session: %v", sessionID)
+		}
 	}
+
 	sqlDriver, err := sessionSettings.Setting(config.SQLStoreDriver)
 	if err != nil {
 		return nil, err
