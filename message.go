@@ -205,7 +205,6 @@ func ParseMessageWithDataDictionary(
 		return
 	}
 
-	//prevTag := tagMsgType
 	xmlDataLen := 0
 	xmlDataMsg := false
 
@@ -245,7 +244,6 @@ func ParseMessageWithDataDictionary(
 			msg.bodyBytes = rawBytes
 		}
 
-		//prevTag = parsedFieldBytes.tag
 		if parsedFieldBytes.tag == tagXMLDataLen {
 			xmlDataLen, _ = msg.Header.GetInt(tagXMLDataLen)
 		}
