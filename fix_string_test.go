@@ -44,6 +44,8 @@ func TestFIXStringRead(t *testing.T) {
 		expectError bool
 	}{
 		{[]byte("blah"), "blah", false},
+		{nil, "", false},
+		{[]byte(""), "", false},
 	}
 
 	for _, test := range tests {

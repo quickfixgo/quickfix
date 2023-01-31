@@ -45,14 +45,10 @@ func Send(m Messagable) (err error) {
 
 	var senderCompID FIXString
 	if err := msg.Header.GetField(tagSenderCompID, &senderCompID); err != nil {
-
-		return nil
+		return err
 	}
 
-	var targetSubID FIXString
-	msg.Header.GetField(tagTargetSubID, &targetSubID)
-
-	sessionID := SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(senderCompID), TargetSubID: string(targetSubID)}
+	sessionID := SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(senderCompID)}
 
 	return SendToTarget(msg, sessionID)
 }
