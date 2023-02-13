@@ -1,10 +1,8 @@
 package quickfix
 
 import (
-	"fmt"
 	"testing"
 
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	. "github.com/smartystreets/goconvey/convey"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -14,7 +12,6 @@ func NewGormDB() (*gorm.DB, error) {
 	dsn := "host=127.0.0.1 user=postgres dbname=lb_test port=5432 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err == nil {
-		fmt.Println(db.Migrator().DropTable(&GormMessages{}))
 		db.Migrator().DropTable(&GormSessions{})
 	}
 	return db, err
