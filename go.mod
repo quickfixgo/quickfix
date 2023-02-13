@@ -10,6 +10,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.2.0
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/stretchr/testify v1.6.1
-	golang.org/x/net v0.0.0-20200707034311-ab3426394381
+	github.com/stretchr/testify v1.8.0
+	golang.org/x/net v0.3.0
+	gorm.io/driver/postgres v1.4.7
+	gorm.io/gorm v1.24.5
 )

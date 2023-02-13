@@ -1,20 +1,27 @@
 package quickfix
 
 import (
+	"fmt"
 	"testing"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	. "github.com/smartystreets/goconvey/convey"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func NewGormDB() (*gorm.DB, error) {
-	return gorm.Open("postgres", "host=127.0.0.1 user=postgres dbname=initiator sslmode=disable password=123456")
+	dsn := "host=127.0.0.1 user=postgres dbname=lb_test port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err == nil {
+		fmt.Println(db.Migrator().DropTable(&GormMessages{}))
+		db.Migrator().DropTable(&GormSessions{})
+	}
+	return db, err
 }
 func Test_GromStoreCreate(t *testing.T) {
 	Convey(`GromStoreCreate`, t, func() {
 		db, err := NewGormDB()
-		db.LogMode(true)
 		So(err, ShouldBeNil)
 		So(db, ShouldNotBeNil)
 		sessionID := SessionID{BeginString: "FIX.4.2", TargetCompID: "IB", SenderCompID: "LB"}
@@ -35,7 +42,6 @@ func Test_GromStoreCreate(t *testing.T) {
 func Test_GromStoreSaveMessage(t *testing.T) {
 	Convey(`GromStoreSaveMessage`, t, func() {
 		db, err := NewGormDB()
-		db.LogMode(true)
 		So(err, ShouldBeNil)
 		So(db, ShouldNotBeNil)
 		sessionID := SessionID{BeginString: "FIX.4.2", TargetCompID: "IB", SenderCompID: "LB"}
