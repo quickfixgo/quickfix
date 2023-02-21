@@ -102,17 +102,13 @@ func (store *gromStore) Refresh() error {
 }
 
 func (store *gromStore) populateCache() error {
-	var dest struct {
-		CreationTime   time.Time `gorm:"column:creation_time"`
-		IncomingSeqNum int       `gorm:"column:incoming_seqnum"`
-		OutgoingSeqNum int       `gorm:"column:outgoing_seqnum"`
-	}
+	dest := GormSessions{}
 	s := store.sessionID
 	err := store.db.Table(`sessions`).Where(`beginstring=? AND session_qualifier=?
 	  AND sendercompid=? AND sendersubid=? AND senderlocid=?
 	  AND targetcompid=? AND targetsubid=? AND targetlocid=?`, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Find(&dest).Error
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).First(&dest).Error
 	if err == nil {
 		store.cache.creationTime = dest.CreationTime
 		if err = store.cache.SetNextTargetMsgSeqNum(dest.IncomingSeqNum); err != nil {

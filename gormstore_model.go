@@ -14,8 +14,8 @@ type GormSessions struct {
 	TargetLocId      string    `gorm:"column:targetlocid;primaryKey;type:varchar(64)"`
 	SessionQualifier string    `gorm:"column:session_qualifier;primaryKey;type:varchar(64)"`
 	CreationTime     time.Time `gorm:"column:creation_time"`
-	IncomingSeqNum   int64     `gorm:"column:incoming_seqnum"`
-	OutgoingSeqNum   int64     `gorm:"column:outgoing_seqnum"`
+	IncomingSeqNum   int       `gorm:"column:incoming_seqnum"`
+	OutgoingSeqNum   int       `gorm:"column:outgoing_seqnum"`
 }
 
 func (g GormSessions) TableName() string {
