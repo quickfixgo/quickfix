@@ -24,13 +24,19 @@ func NewNutsDbStoreFactory(settings *Settings, db *nutsdb.DB) MessageStoreFactor
 }
 
 func (f nutsDbStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
-	_, ok := f.settings.SessionSettings()[sessionID]
+	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
 	if !ok {
 		return nil, errors.Errorf("unknown session: %v", sessionID)
 	}
+	bucket, err := sessionSettings.Setting("Bucket")
+	if err != nil {
+		return nil, err
+	}
+
 	store := &nutsDbStore{
-		db:    f.db,
-		cache: &memoryStore{},
+		db:     f.db,
+		cache:  &memoryStore{},
+		bucket: bucket,
 	}
 	if err = store.cache.Reset(); err != nil {
 		err = errors.Wrap(err, "cache reset")
