@@ -28,7 +28,7 @@ func (f nutsDbStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, 
 	if !ok {
 		return nil, errors.Errorf("unknown session: %v", sessionID)
 	}
-	bucket, err := sessionSettings.Setting("Bucket")
+	bucket, err := sessionSettings.Setting("Tenant")
 	if err != nil {
 		return nil, err
 	}
