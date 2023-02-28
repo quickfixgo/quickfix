@@ -19,7 +19,7 @@ func TestSetup(t *testing.T) {
 TimeStampPrecision=MICROS
 
 [SESSION]
-Bucket=lb_hk
+Tenant=lb_hk
 BeginString=%s
 SenderCompID=%s
 TargetCompID=%s`, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
