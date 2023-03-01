@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"strings"
 	"testing"
 
 	"github.com/nutsdb/nutsdb"
@@ -14,16 +13,16 @@ import (
 func TestSetup(t *testing.T) {
 	// create settings
 	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
-	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
-[DEFAULT]
-TimeStampPrecision=MICROS
+	// 	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
+	// [DEFAULT]
+	// TimeStampPrecision=MICROS
 
-[SESSION]
-Tenant=lb_hk
-BeginString=%s
-SenderCompID=%s
-TargetCompID=%s`, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
-	require.Nil(t, err)
+	// [SESSION]
+	// Tenant=lb_hk
+	// BeginString=%s
+	// SenderCompID=%s
+	// TargetCompID=%s`, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+	// require.Nil(t, err)
 
 	file := path.Join(os.TempDir(), fmt.Sprintf("%d", os.Getpid()))
 	file = path.Join(file, "/tmp/nutsdb")
@@ -39,7 +38,7 @@ TargetCompID=%s`, sessionID.BeginString, sessionID.SenderCompID, sessionID.Targe
 
 	defer os.RemoveAll(file)
 
-	messageStoreFactory := NewNutsDbStoreFactory(settings, db)
+	messageStoreFactory := NewNutsDbStoreFactory(db)
 	store, err := messageStoreFactory.Create(sessionID)
 	require.Nil(t, err)
 	require.NotNil(t, store)

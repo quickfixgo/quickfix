@@ -15,28 +15,19 @@ var (
 )
 
 type nutsDbStoreFactory struct {
-	settings *Settings
-	db       *nutsdb.DB
+	db *nutsdb.DB
 }
 
-func NewNutsDbStoreFactory(settings *Settings, db *nutsdb.DB) MessageStoreFactory {
-	return nutsDbStoreFactory{settings: settings, db: db}
+func NewNutsDbStoreFactory(db *nutsdb.DB) MessageStoreFactory {
+	return nutsDbStoreFactory{db: db}
 }
 
 func (f nutsDbStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
-	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
-	if !ok {
-		return nil, errors.Errorf("unknown session: %v", sessionID)
-	}
-	bucket, err := sessionSettings.Setting("Tenant")
-	if err != nil {
-		return nil, err
-	}
-
+	sessionPrefix := sessionIDFilenamePrefix(sessionID)
 	store := &nutsDbStore{
 		db:     f.db,
 		cache:  &memoryStore{},
-		bucket: bucket,
+		bucket: sessionPrefix,
 	}
 	if err = store.cache.Reset(); err != nil {
 		err = errors.Wrap(err, "cache reset")
