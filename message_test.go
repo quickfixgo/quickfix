@@ -88,6 +88,15 @@ func (s *MessageSuite) TestParseOutOfOrder() {
 	s.Nil(ParseMessage(s.msg, rawMsg))
 }
 
+func (s *MessageSuite) TestRoundtripBuildFromBodyBytes() {
+	expected := bytes.NewBufferString("8=FIX.4.29=14235=D34=143=Y49=ISLD52=20230305-21:16:44.00256=TW122=20230305-21:16:44.00211=11=tag1group12=tag2group112=11=tag1group22=tag2group210=099")
+	err := ParseMessage(s.msg, expected)
+	s.NoError(err)
+
+	actual := s.msg.buildFromBodyBytes()
+	s.Equal(expected.Bytes(), actual)
+}
+
 func (s *MessageSuite) TestBuild() {
 	s.msg.Header.SetField(tagBeginString, FIXString(BeginStringFIX44))
 	s.msg.Header.SetField(tagMsgType, FIXString("A"))

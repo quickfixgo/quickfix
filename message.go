@@ -212,14 +212,14 @@ func ParseMessageWithDataDictionary(
 			trailerBytes = rawBytes
 			msg.Body.add(msg.fields[fieldIndex : fieldIndex+1])
 		}
-		if parsedFieldBytes.tag == tagCheckSum {
-			break
-		}
 
 		if !foundBody {
 			msg.bodyBytes = rawBytes
 		}
 
+		if parsedFieldBytes.tag == tagCheckSum {
+			break
+		}
 		fieldIndex++
 	}
 
@@ -373,9 +373,34 @@ func (m *Message) build() []byte {
 	return b.Bytes()
 }
 
+// introduced to work around issue with resending messages with repeating groups
+// issue described: https://github.com/quickfixgo/quickfix/issues/276
+func (m *Message) buildFromBodyBytes() []byte {
+	m.cookFromBodyBytes()
+
+	var b bytes.Buffer
+	m.Header.write(&b)
+	b.Write(m.bodyBytes)
+	m.Trailer.write(&b)
+	return b.Bytes()
+}
+
 func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	m.Header.SetInt(tagBodyLength, bodyLength)
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
+	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
+}
+
+func (m *Message) cookFromBodyBytes() {
+	bodyLength := m.Header.length() + len(m.bodyBytes) + m.Trailer.length()
+	m.Header.SetInt(tagBodyLength, bodyLength)
+
+	bodyTotal := 0
+	for _, b := range []byte(m.bodyBytes) {
+		bodyTotal += int(b)
+	}
+
+	checkSum := (m.Header.total() + bodyTotal + m.Trailer.total()) % 256
 	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
 }
