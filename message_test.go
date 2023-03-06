@@ -222,12 +222,14 @@ func (s *MessageSuite) TestCopyIntoMessage() {
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString(newMsgString)))
 	s.True(s.msg.IsMsgTypeOf("A"))
 	s.Equal(s.msg.String(), newMsgString)
+	s.Equal(string(s.msg.Bytes()), newMsgString)
 
 	// clear the source buffer also
 	msgBuf.Reset()
 
 	s.True(dest.IsMsgTypeOf("D"))
 	s.Equal(dest.String(), renderedString)
+	s.Equal(string(dest.Bytes()), renderedString)
 }
 
 func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {
