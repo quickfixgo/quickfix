@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jinzhu/gorm"
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
 )
 
 type gormStoreFactory struct {
@@ -34,6 +34,11 @@ func (f gormStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 		cache:     &memoryStore{},
 		db:        f.db,
 	}
+	err = store.initTables()
+	if err != nil {
+		err = errors.Wrap(err, "initTables err")
+		return
+	}
 	if err = store.cache.Reset(); err != nil {
 		err = errors.Wrap(err, "cache reset")
 		return
@@ -43,6 +48,22 @@ func (f gormStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 	}
 	return store, nil
 
+}
+
+func (store *gromStore) initTables() (err error) {
+	if !store.db.Migrator().HasTable("sessions") {
+		err = store.db.Migrator().CreateTable(&GormSessions{})
+		if err != nil {
+			return errors.Wrap(err, "gromStore.initTables err")
+		}
+	}
+	if !store.db.Migrator().HasTable("messages") {
+		err = store.db.Migrator().CreateTable(&GormMessages{})
+		if err != nil {
+			return errors.Wrap(err, "gromStore.initTables err")
+		}
+	}
+	return nil
 }
 
 // Reset deletes the store records and sets the seqnums back to 1
@@ -81,17 +102,13 @@ func (store *gromStore) Refresh() error {
 }
 
 func (store *gromStore) populateCache() error {
-	var dest struct {
-		CreationTime   time.Time `gorm:"column:creation_time"`
-		IncomingSeqNum int       `gorm:"column:incoming_seqnum"`
-		OutgoingSeqNum int       `gorm:"column:outgoing_seqnum"`
-	}
+	dest := GormSessions{}
 	s := store.sessionID
 	err := store.db.Table(`sessions`).Where(`beginstring=? AND session_qualifier=?
 	  AND sendercompid=? AND sendersubid=? AND senderlocid=?
 	  AND targetcompid=? AND targetsubid=? AND targetlocid=?`, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
-		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Find(&dest).Error
+		s.TargetCompID, s.TargetSubID, s.TargetLocationID).First(&dest).Error
 	if err == nil {
 		store.cache.creationTime = dest.CreationTime
 		if err = store.cache.SetNextTargetMsgSeqNum(dest.IncomingSeqNum); err != nil {
@@ -102,7 +119,7 @@ func (store *gromStore) populateCache() error {
 		}
 		return nil
 	}
-	if gorm.IsRecordNotFoundError(err) {
+	if err == gorm.ErrRecordNotFound {
 		return store.db.Exec(`INSERT INTO sessions (
 			creation_time, incoming_seqnum, outgoing_seqnum,
 			beginstring, session_qualifier,
@@ -191,7 +208,7 @@ func (store *gromStore) SaveMessage(seqNum int, msg []byte) error {
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID).Error
 	if err != nil {
-		counter := 0
+		var counter int64
 		store.db.Table("messages").Where(`beginstring=? AND session_qualifier=?
 		AND sendercompid=? AND sendersubid=? AND senderlocid=?
 		AND targetcompid=? AND targetsubid=? AND targetlocid=?
@@ -240,7 +257,10 @@ func (store *gromStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error
 // Close closes the store's database connection
 func (store *gromStore) Close() error {
 	if store.db != nil {
-		store.db.Close()
+		db, err := store.db.DB()
+		if err != nil {
+			db.Close()
+		}
 		store.db = nil
 	}
 	return nil
