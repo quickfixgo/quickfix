@@ -8,6 +8,7 @@ require (
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.10
+	github.com/nutsdb/nutsdb v0.12.0
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.2.0
 	github.com/smartystreets/goconvey v1.6.4
