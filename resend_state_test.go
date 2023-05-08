@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/suite"
 
@@ -188,4 +189,33 @@ func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
 	s.MessageType(string(msgTypeResendRequest), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 3, s.MockApp.lastToAdmin.Body)
 	s.FieldEquals(tagEndSeqNo, 0, s.MockApp.lastToAdmin.Body)
+}
+
+// TestFixMsgResendWithOldSendingTime tests that we suspend staleness checks during replay
+// as a replayed message may be arbitrarily old.
+func (s *resendStateTestSuite) TestFixMsgResendWithOldSendingTime() {
+	s.session.State = inSession{}
+	s.ResendRequestChunkSize = 2
+
+	// In session expects seq number 1, send too high.
+	s.MessageFactory.SetNextSeqNum(4)
+	s.MockApp.On("ToAdmin")
+
+	msgSeqNum4 := s.NewOrderSingle()
+	s.fixMsgIn(s.session, msgSeqNum4)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(resendState{})
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeResendRequest), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagEndSeqNo, 2, s.MockApp.lastToAdmin.Body)
+	s.NextTargetMsgSeqNum(1)
+
+	msgSeqNum5 := s.NewOrderSingle()
+	// Set the sending time far enough in the past to trip the staleness check.
+	msgSeqNum5.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now().Add(-s.MaxLatency)})
+	s.fixMsgIn(s.session, msgSeqNum5)
+	s.State(resendState{})
+	s.NextTargetMsgSeqNum(1)
 }
