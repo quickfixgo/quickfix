@@ -104,9 +104,6 @@ type Message struct {
 
 	// Field bytes as they appear in the raw message.
 	fields []TagValue
-
-	// Flag is true if this message should not be returned to pool after use.
-	keepMessage bool
 }
 
 // ToMessage returns the message itself.
