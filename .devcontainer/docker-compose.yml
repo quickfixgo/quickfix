@@ -4,10 +4,10 @@ services:
   app:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ..:/workspace:cached
-
+      - /var/run/docker.sock:/var/run/docker.sock
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
@@ -21,16 +21,15 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
-    image: mongo:latest
+    image: bitnami/mongodb:latest
     restart: unless-stopped
     volumes:
       - mongodb-data:/data/db
-
-    # Uncomment to change startup options
-    # environment:
-    #  MONGO_INITDB_ROOT_USERNAME: root
-    #  MONGO_INITDB_ROOT_PASSWORD: example
-    #  MONGO_INITDB_DATABASE: your-database-here
+    ports:
+       - 27017:27017
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      ALLOW_EMPTY_PASSWORD: 'yes'
 
     # Add "forwardPorts": ["27017"] to **devcontainer.json** to forward MongoDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

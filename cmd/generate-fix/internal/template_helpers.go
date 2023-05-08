@@ -22,6 +22,27 @@ func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (
 	return
 }
 
+func checkIfTimeImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok bool, err error) {
+	var t string
+	for _, fType := range fTypes {
+		t, err = quickfixType(fType)
+		if err != nil {
+			return
+		}
+
+		var vt string
+		if vt, err = quickfixValueType(t); err != nil {
+			return
+		}
+
+		if vt == "time.Time" {
+			return true, nil
+		}
+	}
+
+	return
+}
+
 func checkFieldDecimalRequired(f *datadictionary.FieldDef) (required bool, err error) {
 	var globalType *datadictionary.FieldType
 	if globalType, err = getGlobalFieldType(f); err != nil {
@@ -285,7 +306,7 @@ func routerBeginString(spec *datadictionary.DataDictionary) (routerBeginString s
 		routerBeginString = "FIXT.1.1"
 	case spec.Major != 5 && spec.ServicePack == 0:
 		routerBeginString = fmt.Sprintf("FIX.%v.%v", spec.Major, spec.Minor)
-		//ApplVerID enums
+		// ApplVerID enums.
 	case spec.Major == 2:
 		routerBeginString = "0"
 	case spec.Major == 3:

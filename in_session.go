@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -145,7 +160,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 				return handleStateError(session, err)
 			}
 		case newSeqNo < expectedSeqNum:
-			//FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess)
+			// FIXME: to be compliant with legacy tests, do not include tag in reftagid? (11c_NewSeqNoLess).
 			if err := session.doReject(msg, valueIsIncorrectNoTag()); err != nil {
 				return handleStateError(session, err)
 			}
@@ -261,7 +276,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		var nextState resendState
 		switch currentState := session.State.(type) {
 		case resendState:
-			//assumes target too high reject already sent
+			// Assumes target too high reject already sent.
 			nextState = currentState
 		default:
 			var err error

@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -13,9 +28,9 @@ import (
 func BenchmarkParseMessage(b *testing.B) {
 	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
-	var msg Message
+	msg := NewMessage()
 	for i := 0; i < b.N; i++ {
-		_ = ParseMessage(&msg, rawMsg)
+		_ = ParseMessage(msg, rawMsg)
 	}
 }
 
@@ -30,6 +45,16 @@ func TestMessageSuite(t *testing.T) {
 
 func (s *MessageSuite) SetupTest() {
 	s.msg = NewMessage()
+}
+
+func TestXMLNonFIX(t *testing.T) {
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=37235=n34=25512369=148152=20200522-07:05:33.75649=CME50=G56=OAEAAAN57=TRADE_CAPTURE143=US,IL212=261213=<RTRF>8=FIX.4.29=22535=BZ34=6549369=651852=20200522-07:05:33.74649=CME50=G56=9Q5000N57=DUMMY143=US,IL11=ACP159013113373460=20200522-07:05:33.734533=0893=Y1028=Y1300=991369=99612:325081373=31374=91375=15979=159013113373461769710=167</RTRF>10=245\"")
+	msg := NewMessage()
+	_ = ParseMessage(msg, rawMsg)
+
+	if !msg.Header.Has(tagXMLData) {
+		t.Error("Expected xmldata tag")
+	}
 }
 
 func (s *MessageSuite) TestParseMessageEmpty() {
@@ -83,7 +108,7 @@ func (s *MessageSuite) TestParseMessageWithDataDictionary() {
 }
 
 func (s *MessageSuite) TestParseOutOfOrder() {
-	//allow fields out of order, save for validation
+	// Allow fields out of order, save for validation.
 	rawMsg := bytes.NewBufferString("8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250")
 	s.Nil(ParseMessage(s.msg, rawMsg))
 }
@@ -159,7 +184,7 @@ func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
 }
 
 func (s *MessageSuite) TestReverseRouteFIX40() {
-	//onbehalfof/deliverto location id not supported in fix 4.0
+	// The onbehalfof/deliverto location id not supported in fix 4.0.
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
 	builder := s.msg.reverseRoute()
@@ -197,12 +222,14 @@ func (s *MessageSuite) TestCopyIntoMessage() {
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString(newMsgString)))
 	s.True(s.msg.IsMsgTypeOf("A"))
 	s.Equal(s.msg.String(), newMsgString)
+	s.Equal(string(s.msg.Bytes()), newMsgString)
 
 	// clear the source buffer also
 	msgBuf.Reset()
 
 	s.True(dest.IsMsgTypeOf("D"))
 	s.Equal(dest.String(), renderedString)
+	s.Equal(string(dest.Bytes()), renderedString)
 }
 
 func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {

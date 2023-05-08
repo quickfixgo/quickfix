@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -10,13 +25,13 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
-//The Settings type represents a collection of global and session settings.
+// The Settings type represents a collection of global and session settings.
 type Settings struct {
 	globalSettings  *SessionSettings
 	sessionSettings map[SessionID]*SessionSettings
 }
 
-//Init initializes or resets a Settings instance
+// Init initializes or resets a Settings instance.
 func (s *Settings) Init() {
 	s.globalSettings = NewSessionSettings()
 	s.sessionSettings = make(map[SessionID]*SessionSettings)
@@ -28,7 +43,7 @@ func (s *Settings) lazyInit() {
 	}
 }
 
-//NewSettings creates a Settings instance
+// NewSettings creates a Settings instance.
 func NewSettings() *Settings {
 	s := &Settings{}
 	s.Init()
@@ -75,8 +90,8 @@ func sessionIDFromSessionSettings(globalSettings *SessionSettings, sessionSettin
 	return sessionID
 }
 
-//ParseSettings creates and initializes a Settings instance with config parsed from a Reader.
-//Returns error if the config is has parse errors
+// ParseSettings creates and initializes a Settings instance with config parsed from a Reader.
+// Returns error if the config is has parse errors.
 func ParseSettings(reader io.Reader) (*Settings, error) {
 	s := NewSettings()
 
@@ -130,13 +145,13 @@ func ParseSettings(reader io.Reader) (*Settings, error) {
 	return s, err
 }
 
-//GlobalSettings are default setting inherited by all session settings.
+// GlobalSettings are default setting inherited by all session settings.
 func (s *Settings) GlobalSettings() *SessionSettings {
 	s.lazyInit()
 	return s.globalSettings
 }
 
-//SessionSettings return all session settings overlaying globalsettings.
+// SessionSettings return all session settings overlaying globalsettings.
 func (s *Settings) SessionSettings() map[SessionID]*SessionSettings {
 	allSessionSettings := make(map[SessionID]*SessionSettings)
 
@@ -149,7 +164,7 @@ func (s *Settings) SessionSettings() map[SessionID]*SessionSettings {
 	return allSessionSettings
 }
 
-//AddSession adds Session Settings to Settings instance. Returns an error if session settings with duplicate sessionID has already been added
+// AddSession adds Session Settings to Settings instance. Returns an error if session settings with duplicate sessionID has already been added.
 func (s *Settings) AddSession(sessionSettings *SessionSettings) (SessionID, error) {
 	s.lazyInit()
 
