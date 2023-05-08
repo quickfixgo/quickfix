@@ -191,13 +191,13 @@ func (s *resendStateTestSuite) TestFixMsgInResendChunk() {
 	s.FieldEquals(tagEndSeqNo, 0, s.MockApp.lastToAdmin.Body)
 }
 
-//TestFixMsgResendWithOldSendingTime Tests that we suspend staleness checks during replay
-//as a replayed message may be arbitrarily old
+// TestFixMsgResendWithOldSendingTime tests that we suspend staleness checks during replay
+// as a replayed message may be arbitrarily old.
 func (s *resendStateTestSuite) TestFixMsgResendWithOldSendingTime() {
 	s.session.State = inSession{}
 	s.ResendRequestChunkSize = 2
 
-	//in session expects seq number 1, send too high
+	// In session expects seq number 1, send too high.
 	s.MessageFactory.SetNextSeqNum(4)
 	s.MockApp.On("ToAdmin")
 
@@ -213,7 +213,7 @@ func (s *resendStateTestSuite) TestFixMsgResendWithOldSendingTime() {
 	s.NextTargetMsgSeqNum(1)
 
 	msgSeqNum5 := s.NewOrderSingle()
-	//set the sending time far enough in the past to trip the staleness check
+	// Set the sending time far enough in the past to trip the staleness check.
 	msgSeqNum5.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now().Add(-s.MaxLatency)})
 	s.fixMsgIn(s.session, msgSeqNum5)
 	s.State(resendState{})
