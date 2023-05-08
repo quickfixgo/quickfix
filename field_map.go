@@ -227,6 +227,14 @@ func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 	return m.SetBytes(tag, []byte(value))
 }
 
+// Remove removes a tag from field map.
+func (m *FieldMap) Remove(tag Tag) {
+	m.rwLock.Lock()
+	defer m.rwLock.Unlock()
+
+	delete(m.tagLookup, tag)
+}
+
 // Clear purges all fields from field map.
 func (m *FieldMap) Clear() {
 	m.rwLock.Lock()

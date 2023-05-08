@@ -190,3 +190,15 @@ func TestFieldMap_CopyInto(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "a", s)
 }
+
+func TestFieldMap_Remove(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetField(1, FIXString("hello"))
+	fMap.SetField(2, FIXString("world"))
+
+	fMap.Remove(1)
+	assert.False(t, fMap.Has(1))
+	assert.True(t, fMap.Has(2))
+}

@@ -272,7 +272,6 @@ func ParseMessageWithDataDictionary(
 	}
 
 	return
-
 }
 
 func isHeaderField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
@@ -388,6 +387,14 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 
 	err = parsedFieldBytes.parse(buffer[:endIndex+1])
 	return buffer[(endIndex + 1):], err
+}
+
+func (m *Message) Bytes() []byte {
+	if m.rawMessage != nil {
+		return m.rawMessage.Bytes()
+	}
+
+	return m.build()
 }
 
 func (m *Message) String() string {
