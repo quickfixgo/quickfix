@@ -66,7 +66,7 @@ class ReflectorClient
     def @reflector.waitConnectAction(cid)
     end
 
-    def @reflector.waitDisconnectAction(cid, canBeDisconnectedByPeer)
+    def @reflector.waitDisconnectAction(cid)
       begin
         socket = @sockets[cid]
         if IO.select([socket], nil, nil, 10) == nil then
@@ -75,7 +75,7 @@ class ReflectorClient
         raise "Expected disconnection, got data"
         end
       rescue Errno::ECONNRESET
-        raise unless canBeDisconnectedByPeer
+        # Ignore, server has already disconnected the socket
       end
     end
 

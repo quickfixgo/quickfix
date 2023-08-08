@@ -57,21 +57,20 @@ class ReflectorServer < SocketServer
 	@server.waitConnectAction
     end
 
-    def @reflector.waitDisconnectAction(cid, canBeDisconnectedByPeer)
+    def @reflector.waitDisconnectAction(cid)
       begin
         if IO.select([@socket], nil, nil, 10) == nil then
           raise "Connection hangs after five seconds."
         elsif !@socket.eof? then
           raise "Expected disconnection, got data"
         end
-      rescue Errno::ECONNRESET => e
-        unless canBeDisconnectedByPeer
-          raise
-        end
+      rescue Errno::ECONNRESET
+        # Ignore, client has already disconnected the socket
       end
     end
 
   end
+
   def connectAction(s)
     if @socket == nil
       @socket = s
