@@ -68,7 +68,9 @@ class Reflector < Array
       if body == "CONNECT"
         waitConnectAction(cid)
       elsif body == "DISCONNECT"
-        waitDisconnectAction(cid)
+        waitDisconnectAction(cid, false)
+      elsif body == "DISCONNECT_OR_ALREADY_DISCONNECTED"
+        waitDisconnectAction(cid, true)
       else
         raise "Syntax error: " + body
       end

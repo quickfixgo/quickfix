@@ -181,9 +181,14 @@ class ReflectorTestCase < RUNIT::TestCase
       @econ += cid.to_s + "," + "eCONNECT" + "|"
     end
 
-    def reflector.waitDisconnectAction(cid)
-      @cum += cid.to_s + "," + "eDISCONNECT" + "|"
-      @edis += cid.to_s + "," + "eDISCONNECT" + "|"
+    def reflector.waitDisconnectAction(cid, canBeDisconnectedByPeer)
+      if canBeDisconnectedByPeer then
+        @cum += cid.to_s + "," + "eDISCONNECT_OR_ALREADY_DISCONNECTED" + "|"
+        @edis += cid.to_s + "," + "eDISCONNECT_OR_ALREADY_DISCONNECTED" + "|"
+      else
+        @cum += cid.to_s + "," + "eDISCONNECT" + "|"
+        @edis += cid.to_s + "," + "eDISCONNECT" + "|"
+      end
     end
 
     def reflector.errorAction(lineNum, msg)
