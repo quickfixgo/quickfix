@@ -27,6 +27,7 @@ func init() {
 		"collectStandardImports":                collectStandardImports,
 		"collectExtraImports":                   collectExtraImports,
 		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
+		"checkIfTimeImportRequiredForFields":    checkIfTimeImportRequiredForFields,
 		"checkIfEnumImportRequired":             checkIfEnumImportRequired,
 	}
 
@@ -337,7 +338,7 @@ const (
 	FieldTemplate = template.Must(template.New("Field").Funcs(tmplFuncs).Parse(`
 package field
 import (
-	"time"
+	{{ if checkIfTimeImportRequiredForFields . }}"time"{{ end }}
 
 	{{ if checkIfDecimalImportRequiredForFields . }}"github.com/shopspring/decimal"{{ end }}
 

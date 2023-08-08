@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -32,7 +47,7 @@ func sessionIDFilenamePrefix(s SessionID) string {
 	return strings.Join(fname, "-")
 }
 
-// closeFile behaves like Close, except that no error is returned if the file does not exist
+// closeFile behaves like Close, except that no error is returned if the file does not exist.
 func closeFile(f *os.File) error {
 	if f != nil {
 		if err := f.Close(); err != nil {
@@ -44,7 +59,7 @@ func closeFile(f *os.File) error {
 	return nil
 }
 
-// removeFile behaves like os.Remove, except that no error is returned if the file does not exist
+// removeFile behaves like os.Remove, except that no error is returned if the file does not exist.
 func removeFile(fname string) error {
 	if err := os.Remove(fname); (err != nil) && !os.IsNotExist(err) {
 		return errors.Wrapf(err, "remove %v", fname)
@@ -52,7 +67,7 @@ func removeFile(fname string) error {
 	return nil
 }
 
-// openOrCreateFile opens a file for reading and writing, creating it if necessary
+// openOrCreateFile opens a file for reading and writing, creating it if necessary.
 func openOrCreateFile(fname string, perm os.FileMode) (f *os.File, err error) {
 	if f, err = os.OpenFile(fname, os.O_RDWR, perm); err != nil {
 		if f, err = os.OpenFile(fname, os.O_RDWR|os.O_CREATE, perm); err != nil {

@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -35,8 +50,8 @@ type fileLogFactory struct {
 	sessionLogPaths map[SessionID]string
 }
 
-//NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
-//The location of global and session log files is configured via FileLogPath.
+// NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
+// The location of global and session log files is configured via FileLogPath.
 func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	logFactory := fileLogFactory{}
 

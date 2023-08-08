@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -9,13 +24,13 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations
+// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations.
 type MessageStoreTestSuite struct {
 	suite.Suite
 	msgStore MessageStore
 }
 
-// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation
+// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation.
 type MemoryStoreTestSuite struct {
 	MessageStoreTestSuite
 }
@@ -105,6 +120,46 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	// And the messages are retrieved from the MessageStore
 	actualMsgs, err = s.msgStore.GetMessages(1, 3)
 	s.Require().Nil(err)
+
+	// Then the messages should still be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+}
+
+func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() {
+	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(420))
+
+	// Given the following saved messages
+	expectedMsgsBySeqNum := map[int]string{
+		1: "In the frozen land of Nador",
+		2: "they were forced to eat Robin's minstrels",
+		3: "and there was much rejoicing",
+	}
+	for seqNum, msg := range expectedMsgsBySeqNum {
+		s.Require().Nil(s.msgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
+	}
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+
+	// When the messages are retrieved from the MessageStore
+	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	// Then the messages should be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+
+	// When the store is refreshed from its backing store
+	s.Require().Nil(s.msgStore.Refresh())
+
+	// And the messages are retrieved from the MessageStore
+	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
 
 	// Then the messages should still be
 	s.Require().Len(actualMsgs, 3)
