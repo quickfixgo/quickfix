@@ -6,6 +6,8 @@ import (
 
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type gormStoreFactory struct {
@@ -24,8 +26,14 @@ type gromStore struct {
 }
 
 func (f gormStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
+	var dynamicSessions bool
+	if f.settings.GlobalSettings().HasSetting(config.DynamicSessions) {
+		if dynamicSessions, err = f.settings.globalSettings.BoolSetting(config.DynamicSessions); err != nil {
+			return
+		}
+	}
 	_, ok := f.settings.SessionSettings()[sessionID]
-	if !ok {
+	if !ok && !dynamicSessions {
 		return nil, fmt.Errorf("unknown session: %v", sessionID)
 	}
 
