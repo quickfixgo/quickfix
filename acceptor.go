@@ -235,9 +235,9 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	msgBytes, err := parser.ReadMessage()
 	if err != nil {
 		if err == io.EOF {
-			a.globalLog.OnEvent("Connection Terminated")
+			a.globalLog.OnEventf("%s->%s Connection Terminated", netConn.RemoteAddr().String(), netConn.LocalAddr().String())
 		} else {
-			a.globalLog.OnEvent(err.Error())
+			a.globalLog.OnEventf("%s->%s %s", netConn.RemoteAddr().String(), netConn.LocalAddr().String(), err.Error())
 		}
 		return
 	}
