@@ -67,11 +67,15 @@ class ReflectorClient
     end
 
     def @reflector.waitDisconnectAction(cid)
-      socket = @sockets[cid]
-      if IO.select([socket], nil, nil, 10) == nil then 
-	    raise "Connection hangs after ten seconds."
-      elsif !socket.eof? then
-	    raise "Expected disconnection, got data"
+      begin
+        socket = @sockets[cid]
+        if IO.select([socket], nil, nil, 10) == nil then
+        raise "Connection hangs after ten seconds."
+        elsif !socket.eof? then
+        raise "Expected disconnection, got data"
+        end
+      rescue Errno::ECONNRESET
+        # Ignore, server has already disconnected the socket
       end
     end
 
