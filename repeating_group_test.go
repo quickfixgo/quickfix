@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -97,16 +112,16 @@ func TestRepeatingGroup_ReadError(t *testing.T) {
 	}{
 		{
 			[]TagValue{
-				TagValue{value: []byte("1")},
-				TagValue{tag: Tag(2), value: []byte("not in template")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
+				{value: []byte("1")},
+				{tag: Tag(2), value: []byte("not in template")},
+				{tag: Tag(1), value: []byte("hello")},
 			}, 0},
 		{
 			[]TagValue{
-				TagValue{value: []byte("2")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
-				TagValue{tag: Tag(2), value: []byte("not in template")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
+				{value: []byte("2")},
+				{tag: Tag(1), value: []byte("hello")},
+				{tag: Tag(2), value: []byte("not in template")},
+				{tag: Tag(1), value: []byte("hello")},
 			}, 1}}
 
 	for _, s := range tests {
@@ -128,29 +143,29 @@ func TestRepeatingGroup_Read(t *testing.T) {
 		tv               []TagValue
 		expectedGroupTvs [][]TagValue
 	}{
-		{singleFieldTemplate, []TagValue{TagValue{value: []byte("0")}},
+		{singleFieldTemplate, []TagValue{{value: []byte("0")}},
 			[][]TagValue{}},
-		{singleFieldTemplate, []TagValue{TagValue{value: []byte("1")}, TagValue{tag: Tag(1), value: []byte("hello")}},
+		{singleFieldTemplate, []TagValue{{value: []byte("1")}, {tag: Tag(1), value: []byte("hello")}},
 			[][]TagValue{{TagValue{tag: Tag(1), value: []byte("hello")}}}},
 		{singleFieldTemplate,
-			[]TagValue{TagValue{value: []byte("1")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
-				TagValue{tag: Tag(2), value: []byte("not in group")}},
+			[]TagValue{{value: []byte("1")},
+				{tag: Tag(1), value: []byte("hello")},
+				{tag: Tag(2), value: []byte("not in group")}},
 			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}}}},
 		{singleFieldTemplate,
-			[]TagValue{TagValue{value: []byte("2")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
-				TagValue{tag: Tag(1), value: []byte("world")}},
+			[]TagValue{{value: []byte("2")},
+				{tag: Tag(1), value: []byte("hello")},
+				{tag: Tag(1), value: []byte("world")}},
 			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
 				{TagValue{tag: Tag(1), value: []byte("world")}},
 			}},
 		{multiFieldTemplate,
 			[]TagValue{
-				TagValue{value: []byte("2")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
-				TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")},
+				{value: []byte("2")},
+				{tag: Tag(1), value: []byte("hello")},
+				{tag: Tag(1), value: []byte("goodbye")}, {tag: Tag(2), value: []byte("cruel")}, {tag: Tag(3), value: []byte("world")},
 			},
 			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
@@ -158,10 +173,10 @@ func TestRepeatingGroup_Read(t *testing.T) {
 			}},
 		{multiFieldTemplate,
 			[]TagValue{
-				TagValue{value: []byte("3")},
-				TagValue{tag: Tag(1), value: []byte("hello")},
-				TagValue{tag: Tag(1), value: []byte("goodbye")}, TagValue{tag: Tag(2), value: []byte("cruel")}, TagValue{tag: Tag(3), value: []byte("world")},
-				TagValue{tag: Tag(1), value: []byte("another")},
+				{value: []byte("3")},
+				{tag: Tag(1), value: []byte("hello")},
+				{tag: Tag(1), value: []byte("goodbye")}, {tag: Tag(2), value: []byte("cruel")}, {tag: Tag(3), value: []byte("world")},
+				{tag: Tag(1), value: []byte("another")},
 			},
 			[][]TagValue{
 				{TagValue{tag: Tag(1), value: []byte("hello")}},
@@ -185,6 +200,8 @@ func TestRepeatingGroup_Read(t *testing.T) {
 			for _, expected := range test.expectedGroupTvs[g] {
 				var actual FIXString
 				require.Nil(t, group.GetField(expected.tag, &actual))
+				require.NotNil(t, group.tags)
+				require.Equal(t, len(group.tags), len(group.tagLookup))
 
 				if !bytes.Equal(expected.value, []byte(actual)) {
 					t.Errorf("%v, %v: expected %s, got %s", g, expected.tag, expected.value, actual)
@@ -200,11 +217,11 @@ func TestRepeatingGroup_ReadRecursive(t *testing.T) {
 
 	f := NewRepeatingGroup(Tag(1), parentTemplate)
 	_, err := f.Read([]TagValue{
-		TagValue{value: []byte("2")},
-		TagValue{tag: Tag(2), value: []byte("hello")},
-		TagValue{tag: 3, value: []byte("1")}, TagValue{tag: 4, value: []byte("foo")},
-		TagValue{tag: Tag(2), value: []byte("world")},
-		TagValue{tag: 3, value: []byte("2")}, TagValue{tag: 4, value: []byte("foo")}, TagValue{tag: 4, value: []byte("bar")}, TagValue{tag: 5, value: []byte("fubar")},
+		{value: []byte("2")},
+		{tag: Tag(2), value: []byte("hello")},
+		{tag: 3, value: []byte("1")}, {tag: 4, value: []byte("foo")},
+		{tag: Tag(2), value: []byte("world")},
+		{tag: 3, value: []byte("2")}, {tag: 4, value: []byte("foo")}, {tag: 4, value: []byte("bar")}, {tag: 5, value: []byte("fubar")},
 	})
 	require.Nil(t, err)
 

@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -22,28 +37,27 @@ func (sm *stateMachine) Start(s *session) {
 }
 
 func (sm *stateMachine) Connect(session *session) {
-	if !sm.IsSessionTime() {
-		session.log.OnEvent("Connection outside of session time")
-		sm.handleDisconnectState(session)
+	// No special logon logic needed for FIX Acceptors.
+	if !session.InitiateLogon {
+		sm.setState(session, logonState{})
 		return
 	}
 
-	if session.InitiateLogon {
-		if session.RefreshOnLogon {
-			if err := session.store.Refresh(); err != nil {
-				session.logError(err)
-				return
-			}
-		}
-
-		session.log.OnEvent("Sending logon request")
-		if err := session.sendLogon(); err != nil {
+	if session.RefreshOnLogon {
+		if err := session.store.Refresh(); err != nil {
 			session.logError(err)
 			return
 		}
 	}
+	session.log.OnEvent("Sending logon request")
+	if err := session.sendLogon(); err != nil {
+		session.logError(err)
+		return
+	}
 
 	sm.setState(session, logonState{})
+	// Fire logon timeout event after the pre-configured delay period.
+	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- internal.LogonTimeout })
 }
 
 func (sm *stateMachine) Stop(session *session) {
@@ -69,7 +83,7 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 
 	session.log.OnIncoming(m.bytes.Bytes())
 
-	msg := session.messagePool.Get()
+	msg := NewMessage()
 	if err := ParseMessageWithDataDictionary(msg, m.bytes, session.transportDataDictionary, session.appDataDictionary); err != nil {
 		session.log.OnEventf("Msg Parse Error: %v, %q", err.Error(), m.bytes)
 	} else {
@@ -77,9 +91,6 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 		sm.fixMsgIn(session, msg)
 	}
 
-	if !msg.keepMessage {
-		session.returnToPool(msg)
-	}
 	session.peerTimer.Reset(time.Duration(float64(1.2) * float64(session.HeartBtInt)))
 }
 
@@ -194,32 +205,32 @@ func handleStateError(s *session, err error) sessionState {
 	return latentState{}
 }
 
-//sessionState is the current state of the session state machine. The session state determines how the session responds to
-//incoming messages, timeouts, and requests to send application messages.
+// sessionState is the current state of the session state machine. The session state determines how the session responds to
+// incoming messages, timeouts, and requests to send application messages.
 type sessionState interface {
-	//FixMsgIn is called by the session on incoming messages from the counter party.  The return type is the next session state
-	//following message processing
+	// FixMsgIn is called by the session on incoming messages from the counter party.
+	// The return type is the next session state following message processing.
 	FixMsgIn(*session, *Message) (nextState sessionState)
 
-	//Timeout is called by the session on a timeout event.
+	// Timeout is called by the session on a timeout event.
 	Timeout(*session, internal.Event) (nextState sessionState)
 
-	//IsLoggedOn returns true if state is logged on an in session, false otherwise
+	// IsLoggedOn returns true if state is logged on an in session, false otherwise.
 	IsLoggedOn() bool
 
-	//IsConnected returns true if the state is connected
+	// IsConnected returns true if the state is connected.
 	IsConnected() bool
 
-	//IsSessionTime returns true if the state is in session time
+	// IsSessionTime returns true if the state is in session time.
 	IsSessionTime() bool
 
-	//ShutdownNow terminates the session state immediately
+	// ShutdownNow terminates the session state immediately.
 	ShutdownNow(*session)
 
-	//Stop triggers a clean stop
+	// Stop triggers a clean stop.
 	Stop(*session) (nextState sessionState)
 
-	//debugging convenience
+	// Stringer debugging convenience.
 	fmt.Stringer
 }
 

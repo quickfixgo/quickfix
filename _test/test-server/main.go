@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -8,8 +9,8 @@ import (
 	"os/signal"
 
 	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/gen/field"
-	"github.com/quickfixgo/quickfix/gen/tag"
+	field "github.com/quickfixgo/quickfix/gen/field"
+	tag "github.com/quickfixgo/quickfix/gen/tag"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
@@ -57,7 +58,8 @@ func (e *EchoApplication) processMsg(msg *quickfix.Message, sessionID quickfix.S
 		}
 
 		sessionOrderID := sessionID.String() + orderID.String()
-		if possResend.FIXBoolean {
+
+		if bytes.Equal(possResend.Write(), []byte("Y")) {
 			if e.OrderIds[sessionOrderID] {
 				return nil
 			}
@@ -67,7 +69,7 @@ func (e *EchoApplication) processMsg(msg *quickfix.Message, sessionID quickfix.S
 	}
 
 	reply := copyMessage(msg)
-	if possResend.FIXBoolean {
+	if bytes.Equal(possResend.Write(), []byte("Y")) {
 		reply.Header.Set(possResend)
 	}
 
@@ -109,6 +111,7 @@ func main() {
 	router.AddRoute(quickfix.ApplVerIDFIX50SP1, "d", app.processMsg)
 	router.AddRoute(quickfix.ApplVerIDFIX50SP2, "d", app.processMsg)
 
+	fmt.Println("starting test server")
 	cfg, err := os.Open(os.Args[1])
 	if err != nil {
 		fmt.Printf("Error opening %v, %v\n", os.Args[1], err)
@@ -139,9 +142,10 @@ func main() {
 		return
 	}
 
-	interrupt := make(chan os.Signal)
-	signal.Notify(interrupt)
-	<-interrupt
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	<-c
+	fmt.Println("stopping test server")
 
 	acceptor.Stop()
 }

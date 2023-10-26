@@ -1,8 +1,27 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
-import "time"
+import (
+	"time"
 
-//The MessageStore interface provides methods to record and retrieve messages for resend purposes
+	"github.com/pkg/errors"
+)
+
+// The MessageStore interface provides methods to record and retrieve messages for resend purposes.
 type MessageStore interface {
 	NextSenderMsgSeqNum() int
 	NextTargetMsgSeqNum() int
@@ -16,6 +35,7 @@ type MessageStore interface {
 	CreationTime() time.Time
 
 	SaveMessage(seqNum int, msg []byte) error
+	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error
 	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
 
 	Refresh() error
@@ -24,7 +44,7 @@ type MessageStore interface {
 	Close() error
 }
 
-//The MessageStoreFactory interface is used by session to create a session specific message store
+// The MessageStoreFactory interface is used by session to create a session specific message store.
 type MessageStoreFactory interface {
 	Create(sessionID SessionID) (MessageStore, error)
 }
@@ -75,12 +95,12 @@ func (store *memoryStore) Reset() error {
 }
 
 func (store *memoryStore) Refresh() error {
-	//nop, nothing to refresh
+	// NOP, nothing to refresh.
 	return nil
 }
 
 func (store *memoryStore) Close() error {
-	//nop, nothing to close
+	// NOP, nothing to close.
 	return nil
 }
 
@@ -91,6 +111,14 @@ func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
 
 	store.messageMap[seqNum] = msg
 	return nil
+}
+
+func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	err := store.SaveMessage(seqNum, msg)
+	if err != nil {
+		return err
+	}
+	return store.IncrNextSenderMsgSeqNum()
 }
 
 func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
@@ -107,9 +135,11 @@ type memoryStoreFactory struct{}
 
 func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
 	m := new(memoryStore)
-	m.Reset()
+	if err := m.Reset(); err != nil {
+		return m, errors.Wrap(err, "reset")
+	}
 	return m, nil
 }
 
-//NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores
+// NewMemoryStoreFactory returns a MessageStoreFactory instance that created in-memory MessageStores.
 func NewMemoryStoreFactory() MessageStoreFactory { return memoryStoreFactory{} }

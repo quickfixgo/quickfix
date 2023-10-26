@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -5,10 +20,10 @@ import (
 	"time"
 )
 
-//TimestampPrecision defines the precision used by FIXUTCTimestamp
+// TimestampPrecision defines the precision used by FIXUTCTimestamp.
 type TimestampPrecision int
 
-//All TimestampPrecisions supported by FIX
+// All TimestampPrecisions supported by FIX.
 const (
 	Millis TimestampPrecision = iota
 	Seconds
@@ -16,7 +31,7 @@ const (
 	Nanos
 )
 
-//FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue
+// FIXUTCTimestamp is a FIX UTC Timestamp value, implements FieldValue.
 type FIXUTCTimestamp struct {
 	time.Time
 	Precision TimestampPrecision
@@ -31,12 +46,12 @@ const (
 
 func (f *FIXUTCTimestamp) Read(bytes []byte) (err error) {
 	switch len(bytes) {
-	//seconds
+	// Seconds.
 	case 17:
 		f.Time, err = time.Parse(utcTimestampSecondsFormat, string(bytes))
 		f.Precision = Seconds
 
-	//millis
+	// Millis.
 	case 21:
 		f.Time, err = time.Parse(utcTimestampMillisFormat, string(bytes))
 		f.Precision = Millis

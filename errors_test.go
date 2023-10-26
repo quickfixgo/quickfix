@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -43,6 +58,33 @@ func TestNewBusinessMessageRejectError(t *testing.T) {
 	}
 	if msgRej.RejectReason() != expectedRejectReason {
 		t.Errorf("expected: %d, got: %d\n", expectedRejectReason, msgRej.RejectReason())
+	}
+	if *msgRej.RefTagID() != expectedRefTagID {
+		t.Errorf("expected: %d, got: %d\n", expectedRefTagID, msgRej.RefTagID())
+	}
+	if msgRej.IsBusinessReject() != expectedIsBusinessReject {
+		t.Error("Expected IsBusinessReject to be true\n")
+	}
+}
+
+func TestNewBusinessMessageRejectErrorWithRefID(t *testing.T) {
+	var (
+		expectedErrorString             = "Custom error"
+		expectedRejectReason            = 5
+		expectedbusinessRejectRefID     = "1"
+		expectedRefTagID            Tag = 44
+		expectedIsBusinessReject        = true
+	)
+	msgRej := NewBusinessMessageRejectErrorWithRefID(expectedErrorString, expectedRejectReason, expectedbusinessRejectRefID, &expectedRefTagID)
+
+	if strings.Compare(msgRej.Error(), expectedErrorString) != 0 {
+		t.Errorf("expected: %s, got: %s\n", expectedErrorString, msgRej.Error())
+	}
+	if msgRej.RejectReason() != expectedRejectReason {
+		t.Errorf("expected: %d, got: %d\n", expectedRejectReason, msgRej.RejectReason())
+	}
+	if strings.Compare(msgRej.BusinessRejectRefID(), expectedbusinessRejectRefID) != 0 {
+		t.Errorf("expected: %s, got: %s\n", expectedbusinessRejectRefID, msgRej.BusinessRejectRefID())
 	}
 	if *msgRej.RefTagID() != expectedRefTagID {
 		t.Errorf("expected: %d, got: %d\n", expectedRefTagID, msgRej.RefTagID())
