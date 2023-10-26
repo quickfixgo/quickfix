@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -9,13 +24,13 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations
+// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations.
 type MessageStoreTestSuite struct {
 	suite.Suite
 	msgStore MessageStore
 }
 
-// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation
+// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation.
 type MemoryStoreTestSuite struct {
 	MessageStoreTestSuite
 }
@@ -113,22 +128,62 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
-	// When messages are retrieved from an empty store
-	messages, err := suite.msgStore.GetMessages(1, 2)
-	require.Nil(suite.T(), err)
-
-	// Then no messages should be returned
-	require.Empty(suite.T(), messages, "Did not expect messages from empty store")
-}
-
-func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
-	t := suite.T()
+func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() {
+	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(420))
 
 	// Given the following saved messages
-	require.Nil(t, suite.msgStore.SaveMessage(1, []byte("hello")))
-	require.Nil(t, suite.msgStore.SaveMessage(2, []byte("cruel")))
-	require.Nil(t, suite.msgStore.SaveMessage(3, []byte("world")))
+	expectedMsgsBySeqNum := map[int]string{
+		1: "In the frozen land of Nador",
+		2: "they were forced to eat Robin's minstrels",
+		3: "and there was much rejoicing",
+	}
+	for seqNum, msg := range expectedMsgsBySeqNum {
+		s.Require().Nil(s.msgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
+	}
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+
+	// When the messages are retrieved from the MessageStore
+	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	// Then the messages should be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+
+	// When the store is refreshed from its backing store
+	s.Require().Nil(s.msgStore.Refresh())
+
+	// And the messages are retrieved from the MessageStore
+	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+
+	// Then the messages should still be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+}
+
+func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
+	// When messages are retrieved from an empty store
+	messages, err := s.msgStore.GetMessages(1, 2)
+	require.Nil(s.T(), err)
+
+	// Then no messages should be returned
+	require.Empty(s.T(), messages, "Did not expect messages from empty store")
+}
+
+func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
+	t := s.T()
+
+	// Given the following saved messages
+	require.Nil(t, s.msgStore.SaveMessage(1, []byte("hello")))
+	require.Nil(t, s.msgStore.SaveMessage(2, []byte("cruel")))
+	require.Nil(t, s.msgStore.SaveMessage(3, []byte("world")))
 
 	// When the following requests are made to the store
 	var testCases = []struct {
@@ -148,7 +203,7 @@ func (suite *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges()
 
 	// Then the returned messages should be
 	for _, tc := range testCases {
-		actualMsgs, err := suite.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
+		actualMsgs, err := s.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
 		require.Nil(t, err)
 		require.Len(t, actualMsgs, len(tc.expectedBytes))
 		for i, expectedMsg := range tc.expectedBytes {

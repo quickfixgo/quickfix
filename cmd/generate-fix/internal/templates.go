@@ -26,6 +26,7 @@ func init() {
 		"getGlobalFieldType":                    getGlobalFieldType,
 		"collectExtraImports":                   collectExtraImports,
 		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
+		"checkIfTimeImportRequiredForFields":    checkIfTimeImportRequiredForFields,
 		"checkIfEnumImportRequired":             checkIfEnumImportRequired,
 	}
 
@@ -312,7 +313,7 @@ import(
 	"{{ importRootPath }}/enum"
 	"{{ importRootPath }}/tag"
 {{ if checkIfDecimalImportRequiredForFields . }} "github.com/shopspring/decimal" {{ end }}
-	"time"
+{{ if checkIfTimeImportRequiredForFields . }} "time" {{ end }}
 )
 
 {{ range . }}

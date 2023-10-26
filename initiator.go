@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -10,7 +25,7 @@ import (
 	"golang.org/x/net/proxy"
 )
 
-//Initiator initiates connections and processes messages for all sessions.
+// Initiator initiates connections and processes messages for all sessions.
 type Initiator struct {
 	app             Application
 	settings        *Settings
@@ -24,12 +39,12 @@ type Initiator struct {
 	sessionFactory
 }
 
-//Start Initiator.
+// Start Initiator.
 func (i *Initiator) Start() (err error) {
 	i.stopChan = make(chan interface{})
 
 	for sessionID, settings := range i.sessionSettings {
-		//TODO: move into session factory
+		// TODO: move into session factory.
 		var tlsConfig *tls.Config
 		if tlsConfig, err = loadTLSConfig(settings); err != nil {
 			return
@@ -46,15 +61,15 @@ func (i *Initiator) Start() (err error) {
 			i.wg.Done()
 		}(sessionID)
 	}
-
+	i.wg.Wait()
 	return
 }
 
-//Stop Initiator.
+// Stop Initiator.
 func (i *Initiator) Stop() {
 	select {
 	case <-i.stopChan:
-		//closed already
+		// Closed already.
 		return
 	default:
 	}
@@ -62,7 +77,7 @@ func (i *Initiator) Stop() {
 	i.wg.Wait()
 }
 
-//NewInitiator creates and initializes a new Initiator.
+// NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := &Initiator{
 		app:             app,
@@ -92,7 +107,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	return i, nil
 }
 
-//waitForInSessionTime returns true if the session is in session, false if the handler should stop
+// waitForInSessionTime returns true if the session is in session, false if the handler should stop.
 func (i *Initiator) waitForInSessionTime(session *session) bool {
 	inSessionTime := make(chan interface{})
 	go func() {
@@ -109,7 +124,7 @@ func (i *Initiator) waitForInSessionTime(session *session) bool {
 	return true
 }
 
-//waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
+// waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop.
 func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bool {
 	select {
 	case <-time.After(reconnectInterval):
