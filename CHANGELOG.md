@@ -1,3 +1,12 @@
+## 0.8.1 (October 27, 2023)
+
+BUG FIXES
+
+* Remove initiator wait [GH 587]
+* for xml charset and bug of "Incorrect NumInGroup" [GH 368, 363, 365, 366]
+* Allow time.Duration or int for timeouts [GH 477]
+* Trim extra non-ascii characters that can arise from manually editing [GH 463, 464]
+
 ## 0.8.0 (October 25, 2023)
 
 ENHANCEMENTS
