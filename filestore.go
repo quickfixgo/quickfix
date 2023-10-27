@@ -222,7 +222,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
-		if targetSeqNum, err := strconv.Atoi(strings.Trim(string(targetSeqNumBytes),"\r\n")); err == nil {
+		if targetSeqNum, err := strconv.Atoi(strings.Trim(string(targetSeqNumBytes), "\r\n")); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next target")
 			}
