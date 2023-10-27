@@ -19,10 +19,12 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
 
+	assert2 "github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
@@ -61,4 +63,15 @@ func (suite *FileStoreTestSuite) TearDownTest() {
 
 func TestFileStoreTestSuite(t *testing.T) {
 	suite.Run(t, new(FileStoreTestSuite))
+}
+
+func TestStringParse(t *testing.T) {
+	assert := assert2.New(t)
+	i, err := strconv.Atoi(strings.Trim("00005\n", "\r\n"))
+	assert.Nil(err)
+	assert.Equal(5, i)
+
+	i, err = strconv.Atoi(strings.Trim("00006\r", "\r\n"))
+	assert.Nil(err)
+	assert.Equal(6, i)
 }

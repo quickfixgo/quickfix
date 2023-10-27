@@ -1,3 +1,18 @@
+## 0.8.0 (October 25, 2023)
+
+ENHANCEMENTS
+
+* Remove tag from field map [GH 544]
+* Add message.Bytes() to avoid string conversion [GH 546]
+* Check RejectInvalidMessage on FIXT validation [GH 572]
+
+BUG FIXES
+
+* Fix repeating group read tags lost [GH 462]
+* Acceptance test result must be predictable [GH 578]
+* Makes event timer stop idempotent [GH 580, 581]
+* Added WaitGroup Wait in Initiator [GH 584]
+
 ## 0.7.0 (January 2, 2023)
 
 FEATURES
