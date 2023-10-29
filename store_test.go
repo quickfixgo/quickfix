@@ -16,6 +16,7 @@
 package quickfix
 
 import (
+	"strings"
 	"testing"
 	"time"
 
@@ -140,6 +141,56 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMes
 	for seqNum, msg := range expectedMsgsBySeqNum {
 		s.Require().Nil(s.msgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
 	}
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+
+	// When the messages are retrieved from the MessageStore
+	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	// Then the messages should be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+
+	// When the store is refreshed from its backing store
+	s.Require().Nil(s.msgStore.Refresh())
+
+	// And the messages are retrieved from the MessageStore
+	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+
+	// Then the messages should still be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+}
+
+func (s *MessageStoreTestSuite) TestMessageStore_SaveMessages_AndIncrement_GetMessage() {
+	if !strings.Contains(s.T().Name(), "TestSqlStoreTestSuite") {
+		s.T().Skip("Only SQL store implemented this method for now")
+	}
+	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(420))
+
+	// Given the following saved messages
+	const (
+		m1 = "In the frozen land of Nador"
+		m2 = "they were forced to eat Robin's minstrels"
+		m3 = "and there was much rejoicing"
+	)
+	expectedMsgsBySeqNum := map[int]string{
+		1: m1,
+		2: m2,
+		3: m3,
+	}
+	s.Require().Nil(s.msgStore.SaveMessagesAndIncrNextSenderMsgSeqNum(1, [][]byte{
+		[]byte(m1),
+		[]byte(m2),
+		[]byte(m3),
+	}))
 	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
 
 	// When the messages are retrieved from the MessageStore

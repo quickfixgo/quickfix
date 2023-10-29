@@ -64,6 +64,25 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	return session.queueForSend(msg)
 }
 
+// SendAppToTarget is similar to SendToTarget, but it sends application messages in batch to the sessionID.
+// The entire batch would fail if:
+// - any message in the batch fails ToApp() validation
+// - any message in the batch is an admin message
+// This is more efficient compare to SendToTarget in the case of sending a burst of application messages,
+// especially when using a persistent store like SQLStore, because it allows batching at the storage layer.
+func SendAppToTarget(m []Messagable, sessionID SessionID) error {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return errUnknownSession
+	}
+	msg := make([]*Message, len(m))
+	for i, v := range m {
+		msg[i] = v.ToMessage()
+	}
+
+	return session.queueBatchAppsForSend(msg)
+}
+
 // UnregisterSession removes a session from the set of known sessions.
 func UnregisterSession(sessionID SessionID) error {
 	sessionsLock.Lock()

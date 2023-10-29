@@ -327,6 +327,10 @@ func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg [
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
+func (store *mongoStore) SaveMessagesAndIncrNextSenderMsgSeqNum(seqNum int, msg [][]byte) error {
+	return errors.New("not implemented")
+}
+
 func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte, err error) {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	// Marshal into database form.
