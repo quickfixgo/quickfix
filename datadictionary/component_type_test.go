@@ -3,8 +3,9 @@ package datadictionary_test
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
 func TestNewComponentType(t *testing.T) {

@@ -122,13 +122,25 @@ func main() {
 		usage()
 	}
 
-	specs := make([]*datadictionary.DataDictionary, flag.NArg())
-	for i, dataDictPath := range flag.Args() {
-		var err error
-		specs[i], err = datadictionary.Parse(dataDictPath)
+	args := flag.Args()
+	if len(args) == 1 {
+		dictpath := args[0]
+		if strings.Contains(dictpath, "FIX50SP1") {
+			args = append(args, strings.Replace(dictpath, "FIX50SP1", "FIXT11", -1))
+		} else if strings.Contains(dictpath, "FIX50SP2") {
+			args = append(args, strings.Replace(dictpath, "FIX50SP2", "FIXT11", -1))
+		} else if strings.Contains(dictpath, "FIX50") {
+			args = append(args, strings.Replace(dictpath, "FIX50", "FIXT11", -1))
+		}
+	}
+	specs := []*datadictionary.DataDictionary{}
+
+	for _, dataDictPath := range args {
+		spec, err := datadictionary.Parse(dataDictPath)
 		if err != nil {
 			log.Fatalf("Error Parsing %v: %v", dataDictPath, err)
 		}
+		specs = append(specs, spec)
 	}
 
 	internal.BuildGlobalFieldTypes(specs)
@@ -152,7 +164,7 @@ func main() {
 		}
 
 		switch pkg {
-		//uses fixt11 header/trailer
+		// Uses fixt11 header/trailer.
 		case "fix50", "fix50sp1", "fix50sp2":
 		default:
 			waitGroup.Add(1)

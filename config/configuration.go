@@ -1,8 +1,8 @@
 package config
 
-//NOTE: Additions to this file should be made to both config/doc.go and http://www.quickfixgo.org/docs/
+// NOTE: Additions to this file should be made to both config/doc.go and http://www.quickfixgo.org/docs/
 
-//Const configuration settings
+// Const configuration settings.
 const (
 	BeginString                  string = "BeginString"
 	SenderCompID                 string = "SenderCompID"
@@ -50,11 +50,13 @@ const (
 	HeartBtIntOverride           string = "HeartBtIntOverride"
 	FileLogPath                  string = "FileLogPath"
 	FileStorePath                string = "FileStorePath"
+	FileStoreSync                string = "FileStoreSync"
 	SQLStoreDriver               string = "SQLStoreDriver"
 	SQLStoreDataSourceName       string = "SQLStoreDataSourceName"
 	SQLStoreConnMaxLifetime      string = "SQLStoreConnMaxLifetime"
 	MongoStoreConnection         string = "MongoStoreConnection"
 	MongoStoreDatabase           string = "MongoStoreDatabase"
+	MongoStoreReplicaSet         string = "MongoStoreReplicaSet"
 	ValidateFieldsOutOfOrder     string = "ValidateFieldsOutOfOrder"
 	ResendRequestChunkSize       string = "ResendRequestChunkSize"
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"

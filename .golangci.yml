@@ -1,0 +1,28 @@
+run:
+  timeout: 10m
+  skip-dirs:
+    - gen
+    - vendor
+
+linters:
+  disable-all: true
+  enable:
+    - dupl
+    - gofmt
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - revive
+    - unused
+    - staticcheck
+    - godot
+
+linters-settings:
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/quickfixgo/quickfix
+  dupl:
+    threshold: 400

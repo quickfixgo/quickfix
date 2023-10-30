@@ -1,36 +1,35 @@
+
 all: vet test
 
 clean:
 	rm -rf gen
 
 generate: clean
-	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go ../spec/*.xml
-	go get -u all 
-
-generate-dist:
-	cd ..; go run quickfix/cmd/generate-fix/generate-fix.go quickfix/spec/*.xml
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/*.xml
 
 fmt:
-	go fmt `go list ./... | grep -v quickfix/gen`
+	gofmt -l -w -s $(shell find . -type f -name '*.go')
 
 vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
-lint:
-	go get github.com/golang/lint/golint
-	golint .
-
 test: 
-	go test -v -cover . ./datadictionary ./internal
+	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover . ./datadictionary ./internal
 
-_build_all: 
-	go build -v `go list ./...`
+linters-install:
+	@golangci-lint --version >/dev/null 2>&1 || { \
+		echo "installing linting tools..."; \
+		curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.50.1; \
+	}
 
-build_accept: 
-	cd _test; go build -o echo_server
+lint: linters-install
+	golangci-lint run
 
-build: _build_all build_accept
+# ---------------------------------------------------------------
+# Targets related to running acceptance tests -
 
+build-test-srv:
+	cd _test; go build -o echo_server ./test-server/
 fix40:
 	cd _test; ./runat.sh $@.cfg 5001 "definitions/server/$@/*.def"
 fix41:
@@ -52,3 +51,20 @@ ACCEPT_SUITE=fix40 fix41 fix42 fix43 fix44 fix50 fix50sp1 fix50sp2
 accept: $(ACCEPT_SUITE)
 
 .PHONY: test $(ACCEPT_SUITE)
+# ---------------------------------------------------------------
+
+# ---------------------------------------------------------------
+# These targets are specific to the Github CI Runner -
+
+build-src:
+	go build -v `go list ./...`
+
+build: build-src build-test-srv
+
+test-ci:
+	go test -v -cover . ./datadictionary ./internal
+
+generate-ci: clean
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/$(shell echo $(FIX_TEST) | tr  '[:lower:]' '[:upper:]').xml; 
+
+# ---------------------------------------------------------------

@@ -1,18 +1,35 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
 	"fmt"
 	"os"
 	"path"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
 
+	assert2 "github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
-// FileStoreTestSuite runs all tests in the MessageStoreTestSuite against the FileStore implementation
+// FileStoreTestSuite runs all tests in the MessageStoreTestSuite against the FileStore implementation.
 type FileStoreTestSuite struct {
 	MessageStoreTestSuite
 	fileStoreRootPath string
@@ -46,4 +63,15 @@ func (suite *FileStoreTestSuite) TearDownTest() {
 
 func TestFileStoreTestSuite(t *testing.T) {
 	suite.Run(t, new(FileStoreTestSuite))
+}
+
+func TestStringParse(t *testing.T) {
+	assert := assert2.New(t)
+	i, err := strconv.Atoi(strings.Trim("00005\n", "\r\n"))
+	assert.Nil(err)
+	assert.Equal(5, i)
+
+	i, err = strconv.Atoi(strings.Trim("00006\r", "\r\n"))
+	assert.Nil(err)
+	assert.Equal(6, i)
 }

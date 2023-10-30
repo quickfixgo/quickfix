@@ -22,6 +22,27 @@ func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (
 	return
 }
 
+func checkIfTimeImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok bool, err error) {
+	var t string
+	for _, fType := range fTypes {
+		t, err = quickfixType(fType)
+		if err != nil {
+			return
+		}
+
+		var vt string
+		if vt, err = quickfixValueType(t); err != nil {
+			return
+		}
+
+		if vt == "time.Time" {
+			return true, nil
+		}
+	}
+
+	return
+}
+
 func checkFieldDecimalRequired(f *datadictionary.FieldDef) (required bool, err error) {
 	var globalType *datadictionary.FieldType
 	if globalType, err = getGlobalFieldType(f); err != nil {
@@ -77,8 +98,8 @@ func checkFieldTimeRequired(f *datadictionary.FieldDef) (required bool, err erro
 	return
 }
 
-func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
-	var timeRequired, decimalRequired bool
+func collectStandardImports(m *datadictionary.MessageDef) (imports []string, err error) {
+	var timeRequired bool
 	for _, f := range m.Fields {
 		if !timeRequired {
 			if timeRequired, err = checkFieldTimeRequired(f); err != nil {
@@ -86,19 +107,30 @@ func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err er
 			}
 		}
 
-		if !decimalRequired {
-			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
-				return
-			}
-		}
-
-		if decimalRequired && timeRequired {
+		if timeRequired {
 			break
 		}
 	}
 
 	if timeRequired {
 		imports = append(imports, "time")
+	}
+
+	return
+}
+
+func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
+	var decimalRequired bool
+	for _, f := range m.Fields {
+		if !decimalRequired {
+			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
+				return
+			}
+		}
+
+		if decimalRequired {
+			break
+		}
 	}
 
 	if decimalRequired {
@@ -180,7 +212,7 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 		fallthrough
 	case "MONTHYEAR":
 		fallthrough
-	case "LOCALMKTDATE":
+	case "LOCALMKTTIME", "LOCALMKTDATE":
 		fallthrough
 	case "TIME":
 		fallthrough
@@ -204,6 +236,8 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 		fallthrough
 	case "TZTIMESTAMP":
 		fallthrough
+	case "XID", "XIDREF":
+		fallthrough
 	case "STRING":
 		quickfixType = "FIXString"
 
@@ -217,6 +251,8 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 	case "NUMINGROUP":
 		fallthrough
 	case "SEQNUM":
+		fallthrough
+	case "TAGNUM":
 		fallthrough
 	case "INT":
 		quickfixType = "FIXInt"
@@ -285,7 +321,7 @@ func routerBeginString(spec *datadictionary.DataDictionary) (routerBeginString s
 		routerBeginString = "FIXT.1.1"
 	case spec.Major != 5 && spec.ServicePack == 0:
 		routerBeginString = fmt.Sprintf("FIX.%v.%v", spec.Major, spec.Minor)
-		//ApplVerID enums
+		// ApplVerID enums.
 	case spec.Major == 2:
 		routerBeginString = "0"
 	case spec.Major == 3:

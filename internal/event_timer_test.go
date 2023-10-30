@@ -13,25 +13,15 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package internal
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
-func TestFIXBytesWrite(t *testing.T) {
-	val := []byte("hello")
-	field := FIXBytes(val)
-	b := field.Write()
+func TestEventTimer_Stop_idempotent(*testing.T) {
+	t := NewEventTimer(func() {})
 
-	assert.Equal(t, val, b)
-}
-
-func TestFIXBytesRead(t *testing.T) {
-	val := []byte("world")
-	var field FIXBytes
-	assert.Nil(t, field.Read(val))
-	assert.Equal(t, val, []byte(field))
+	t.Stop()
+	t.Stop()
 }
