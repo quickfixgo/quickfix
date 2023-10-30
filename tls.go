@@ -19,7 +19,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -95,7 +95,7 @@ func loadTLSConfig(settings *SessionSettings) (tlsConfig *tls.Config, err error)
 		return
 	}
 
-	pem, err := ioutil.ReadFile(caFile)
+	pem, err := os.ReadFile(caFile)
 	if err != nil {
 		return
 	}

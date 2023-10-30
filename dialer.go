@@ -18,6 +18,7 @@ package quickfix
 import (
 	"fmt"
 	"net"
+	"time"
 
 	"golang.org/x/net/proxy"
 
@@ -27,8 +28,16 @@ import (
 func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error) {
 	stdDialer := &net.Dialer{}
 	if settings.HasSetting(config.SocketTimeout) {
-		if stdDialer.Timeout, err = settings.DurationSetting(config.SocketTimeout); err != nil {
-			return
+		timeout, err := settings.DurationSetting(config.SocketTimeout)
+		if err != nil {
+			timeoutInt, err := settings.IntSetting(config.SocketTimeout)
+			if err != nil {
+				return stdDialer, err
+			}
+
+			stdDialer.Timeout = time.Duration(timeoutInt) * time.Second
+		} else {
+			stdDialer.Timeout = timeout
 		}
 	}
 	dialer = stdDialer

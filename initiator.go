@@ -61,7 +61,6 @@ func (i *Initiator) Start() (err error) {
 			i.wg.Done()
 		}(sessionID)
 	}
-
 	return
 }
 
