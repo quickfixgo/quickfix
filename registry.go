@@ -85,10 +85,7 @@ func UnregisterSession(sessionID SessionID) error {
 	sessionsLock.Lock()
 	defer sessionsLock.Unlock()
 
-	if _, ok :
-  
-  
-  sessions[sessionID]; ok {
+	if _, ok := sessions[sessionID]; ok {
 		delete(sessions, sessionID)
 		return nil
 	}
