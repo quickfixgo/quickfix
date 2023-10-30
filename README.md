@@ -10,7 +10,7 @@ Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in G
 <ul>
   <li>100% free and open source with a liberal <a href="https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt">license</a></li>
   <li>Supports FIX versions 4.0 - 5.0SP2</li>
-  <li>Runs on any hardware and operating system supported by Go (1.18+ required)</li>
+  <li>Runs on any hardware and operating system supported by Go (1.21+ required)</li>
   <li>Spec driven run-time message validation</li>
   <li>Spec driven code generation of type-safe FIX messages, fields, and repeating groups</li>
   <li>Support for protocol customizations</li>
