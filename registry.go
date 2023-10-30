@@ -64,6 +64,22 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	return session.queueForSend(msg)
 }
 
+// ResetSession resets session's sequence numbers.
+func ResetSession(sessionID SessionID) error {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return errUnknownSession
+	}
+	session.log.OnEvent("Session reset")
+	session.State.ShutdownNow(session)
+	if err := session.dropAndReset(); err != nil {
+		session.logError(err)
+		return err
+	}
+
+	return nil
+}
+
 // UnregisterSession removes a session from the set of known sessions.
 func UnregisterSession(sessionID SessionID) error {
 	sessionsLock.Lock()
