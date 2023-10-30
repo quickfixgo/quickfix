@@ -64,7 +64,7 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	return session.queueForSend(msg)
 }
 
-// ResetSession resets session's sequence numbers
+// ResetSession resets session's sequence numbers.
 func ResetSession(sessionID SessionID) error {
 	session, ok := lookupSession(sessionID)
 	if !ok {
