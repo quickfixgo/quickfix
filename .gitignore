@@ -8,3 +8,4 @@ _test/echo_server
 _test/tmp
 _vendor*
 gen
+.DS_Store
