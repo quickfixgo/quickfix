@@ -24,6 +24,7 @@ func init() {
 		"quickfixType":                          quickfixType,
 		"quickfixValueType":                     quickfixValueType,
 		"getGlobalFieldType":                    getGlobalFieldType,
+		"collectStandardImports":                collectStandardImports,
 		"collectExtraImports":                   collectExtraImports,
 		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
 		"checkIfTimeImportRequiredForFields":    checkIfTimeImportRequiredForFields,
@@ -112,7 +113,14 @@ func ({{ template "receiver" }} {{ $.Name }}) Has{{ .Name}}() bool {
 
 {{ define "group_template" }}
 quickfix.GroupTemplate{
-{{- range $index, $field := . }}{{if $index}},{{end}}{{if $field.IsGroup }}New{{ $field.Name }}RepeatingGroup(){{else}}quickfix.GroupElement(tag.{{$field.Name}}){{ end }}{{ end }} }
+{{- range $index, $field := . }}
+	{{- if $field.IsGroup }}
+	New{{ $field.Name }}RepeatingGroup(),
+	{{- else}}
+	quickfix.GroupElement(tag.{{$field.Name}}),
+	{{- end }}
+{{- end }}
+}
 {{- end }}
 
 {{ define "field_args" }}
@@ -140,7 +148,11 @@ type {{ .Name }}RepeatingGroup struct {
 // New{{ .Name }}RepeatingGroup returns an initialized, {{ .Name }}RepeatingGroup.
 func New{{ .Name }}RepeatingGroup() {{ .Name }}RepeatingGroup {
 	return {{ .Name }}RepeatingGroup{
-		quickfix.NewRepeatingGroup(tag.{{ .Name }}, {{ template "group_template" .Fields }})}
+		quickfix.NewRepeatingGroup(
+			tag.{{ .Name }},
+			{{- template "group_template" .Fields }},
+		),
+	}
 }
 
 // Add create and append a new {{ .Name }} to this group.
@@ -161,12 +173,17 @@ func ({{ template "receiver" }} {{ .Name}}RepeatingGroup) Get(i int) {{ .Name }}
 {{ define "receiver" }}h{{ end }}
 package {{ .Package }}
 
-import(
+import (
+	{{- if collectStandardImports .MessageDef }}
+	{{- range collectStandardImports .MessageDef }}
+	"{{ . }}"
+	{{- end }}{{ "\n" }}
+	{{- end }}
+	{{- if collectExtraImports .MessageDef }}
 	{{- range collectExtraImports .MessageDef }}
 	"{{ . }}"
+	{{- end }}{{ "\n" }}
 	{{- end }}
-
-
 	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
@@ -197,11 +214,17 @@ func NewHeader(header *quickfix.Header) (h Header) {
 {{ define "receiver" }}t{{ end }}
 package {{ .Package }}
 
-import(
+import (
+	{{- if collectStandardImports .MessageDef }}
+	{{- range collectStandardImports .MessageDef }}
+	"{{ . }}"
+	{{- end }}{{ "\n" }}
+	{{- end }}
+	{{- if collectExtraImports .MessageDef }}
 	{{- range collectExtraImports .MessageDef }}
 	"{{ . }}"
+	{{- end }}{{ "\n" }}
 	{{- end }}
-
 	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
@@ -225,11 +248,17 @@ type Trailer struct {
 {{ define "receiver" }}m{{ end }}
 package {{ .Package }}
 
-import(
+import (
+	{{- if collectStandardImports .MessageDef }}
+	{{- range collectStandardImports .MessageDef }}
+	"{{ . }}"
+	{{- end }}{{ "\n" }}
+	{{- end }}
+	{{- if collectExtraImports .MessageDef }}
 	{{- range collectExtraImports .MessageDef }}
 	"{{ . }}"
+	{{- end }}{{ "\n" }}
 	{{- end }}
-
 	"github.com/quickfixgo/quickfix"
 	{{- if checkIfEnumImportRequired .MessageDef}}
 	"{{ importRootPath }}/enum"
@@ -297,23 +326,25 @@ func Route(router RouteOut) (string, string, quickfix.MessageRoute) {
 
 	TagTemplate = template.Must(template.New("Tag").Parse(`
 package tag
-import("github.com/quickfixgo/quickfix")
+import "github.com/quickfixgo/quickfix"
 
 const (
 {{- range .}}
-{{ .Name }} quickfix.Tag =  {{ .Tag }}
+{{ .Name }} quickfix.Tag = {{ .Tag }}
 {{- end }}
 )
 	`))
 
 	FieldTemplate = template.Must(template.New("Field").Funcs(tmplFuncs).Parse(`
 package field
-import(
+import (
+	{{ if checkIfTimeImportRequiredForFields . }}"time"{{ end }}
+
+	{{ if checkIfDecimalImportRequiredForFields . }}"github.com/shopspring/decimal"{{ end }}
+
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/enum"
 	"{{ importRootPath }}/tag"
-{{ if checkIfDecimalImportRequiredForFields . }} "github.com/shopspring/decimal" {{ end }}
-{{ if checkIfTimeImportRequiredForFields . }} "time" {{ end }}
 )
 
 {{ range . }}
