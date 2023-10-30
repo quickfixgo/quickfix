@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"os/signal"
@@ -92,7 +92,7 @@ func copyMessage(msg *quickfix.Message) *quickfix.Message {
 
 func main() {
 	app := &EchoApplication{}
-	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
+	app.log = log.New(io.Discard, "", log.LstdFlags)
 	//app.log = log.New(os.Stdout, "", log.LstdFlags)
 
 	router.AddRoute(quickfix.BeginStringFIX40, "D", app.processMsg)
