@@ -18,6 +18,7 @@ package quickfix
 import (
 	"net"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/pkg/errors"
@@ -259,8 +260,37 @@ func (f sessionFactory) newSession(
 		}
 
 		if !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay) {
-			s.SessionTime = internal.NewTimeRangeInLocation(start, end, loc)
+			var weekdays []time.Weekday
+			if settings.HasSetting(config.Weekdays) {
+				var weekdaysStr string
+				if weekdaysStr, err = settings.Setting(config.Weekdays); err != nil {
+					return
+				}
+
+				dayStrs := strings.Split(weekdaysStr, ",")
+
+				for _, dayStr := range dayStrs {
+					day, ok := dayLookup[dayStr]
+					if !ok {
+						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: weekdaysStr}
+						return
+					}
+					weekdays = append(weekdays, day)
+				}
+			}
+
+			var sessionTime *internal.TimeRange
+			sessionTime, err = internal.NewTimeRangeInLocation(start, end, weekdays, loc)
+			if err != nil {
+				return
+			}
+			s.SessionTime = sessionTime
 		} else {
+			if settings.HasSetting(config.Weekdays) {
+				err = errors.New("Weekdays cannot be specified with StartDay/EndDay")
+				return
+			}
+
 			var startDayStr, endDayStr string
 			if startDayStr, err = settings.Setting(config.StartDay); err != nil {
 				return
@@ -287,7 +317,12 @@ func (f sessionFactory) newSession(
 				return
 			}
 
-			s.SessionTime = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+			var sessionTime *internal.TimeRange
+			sessionTime, err = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+			if err != nil {
+				return
+			}
+			s.SessionTime = sessionTime
 		}
 	}
 
