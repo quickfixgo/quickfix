@@ -10,6 +10,7 @@ type EventTimer struct {
 	timer *time.Timer
 	done  chan struct{}
 	wg    sync.WaitGroup
+	once  sync.Once
 }
 
 func NewEventTimer(task func()) *EventTimer {
@@ -45,7 +46,10 @@ func (t *EventTimer) Stop() {
 		return
 	}
 
-	close(t.done)
+	t.once.Do(func() {
+		close(t.done)
+	})
+
 	t.wg.Wait()
 }
 

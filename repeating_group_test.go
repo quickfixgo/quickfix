@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -185,6 +200,8 @@ func TestRepeatingGroup_Read(t *testing.T) {
 			for _, expected := range test.expectedGroupTvs[g] {
 				var actual FIXString
 				require.Nil(t, group.GetField(expected.tag, &actual))
+				require.NotNil(t, group.tags)
+				require.Equal(t, len(group.tags), len(group.tagLookup))
 
 				if !bytes.Equal(expected.value, []byte(actual)) {
 					t.Errorf("%v, %v: expected %s, got %s", g, expected.tag, expected.value, actual)
