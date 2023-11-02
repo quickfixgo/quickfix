@@ -84,15 +84,21 @@ Time of day that this FIX session becomes deactivated. Valid Values:
 
 # StartDay
 
-For week long sessions, the starting day of week for the session. Use in combination with StartTime. Valid Values:
+For week long sessions, the starting day of week for the session. Use in combination with StartTime. Incompatible with Weekdays. Valid Values:
 
 	Full day of week in English, or 3 letter abbreviation (i.e. Monday and Mon are valid)
 
 # EndDay
 
-For week long sessions, the ending day of week for the session. Use in combination with EndTime. Valid Values:
+For week long sessions, the ending day of week for the session. Use in combination with EndTime. Incompatible with Weekdays. Valid Values:
 
 	Full day of week in English, or 3 letter abbreviation (i.e. Monday and Mon are valid)
+
+# Weekdays
+
+For daily sessions that are only active on specific days of the week. Use in combination with StartTime and EndTime. Incompatible with StartDay and EndDay. Valid Values:
+
+	Comma delimited list of days of the week in English, or 3 letter abbreviation (e.g. "Monday,Tuesday,Wednesday" or "Mon,Tue,Wed" would both be valid values).
 
 # EnableLastMsgSeqNumProcessed
 

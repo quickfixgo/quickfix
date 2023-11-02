@@ -36,41 +36,66 @@ func ParseTimeOfDay(str string) (TimeOfDay, error) {
 // TimeRange represents a time band in a given time zone.
 type TimeRange struct {
 	startTime, endTime TimeOfDay
+	weekdays           []time.Weekday
 	startDay, endDay   *time.Weekday
 	loc                *time.Location
 }
 
 // NewUTCTimeRange returns a time range in UTC.
-func NewUTCTimeRange(start, end TimeOfDay) *TimeRange {
-	return NewTimeRangeInLocation(start, end, time.UTC)
+func NewUTCTimeRange(start, end TimeOfDay, weekdays []time.Weekday) (*TimeRange, error) {
+	return NewTimeRangeInLocation(start, end, weekdays, time.UTC)
 }
 
 // NewTimeRangeInLocation returns a time range in a given location.
-func NewTimeRangeInLocation(start, end TimeOfDay, loc *time.Location) *TimeRange {
+func NewTimeRangeInLocation(start, end TimeOfDay, weekdays []time.Weekday, loc *time.Location) (*TimeRange, error) {
+
 	if loc == nil {
-		panic("time: missing Location in call to NewTimeRangeInLocation")
+		return nil, errors.New("time: missing Location in call to NewTimeRangeInLocation")
 	}
 
-	return &TimeRange{startTime: start, endTime: end, loc: loc}
+	return &TimeRange{
+		startTime: start,
+		endTime:   end,
+		weekdays:  weekdays,
+		loc:       loc,
+	}, nil
 }
 
 // NewUTCWeekRange returns a weekly TimeRange.
-func NewUTCWeekRange(startTime, endTime TimeOfDay, startDay, endDay time.Weekday) *TimeRange {
+func NewUTCWeekRange(startTime, endTime TimeOfDay, startDay, endDay time.Weekday) (*TimeRange, error) {
 	return NewWeekRangeInLocation(startTime, endTime, startDay, endDay, time.UTC)
 }
 
 // NewWeekRangeInLocation returns a time range in a given location.
-func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.Weekday, loc *time.Location) *TimeRange {
-	r := NewTimeRangeInLocation(startTime, endTime, loc)
+func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.Weekday, loc *time.Location) (*TimeRange, error) {
+	r, err := NewTimeRangeInLocation(startTime, endTime, []time.Weekday{}, loc)
+	if err != nil {
+		return nil, err
+	}
 	r.startDay = &startDay
 	r.endDay = &endDay
 
-	return r
+	return r, nil
 }
 
 func (r *TimeRange) isInTimeRange(t time.Time) bool {
 	t = t.In(r.loc)
 	ts := NewTimeOfDay(t.Clock()).d
+
+	if len(r.weekdays) > 0 {
+		found := false
+
+		for _, weekday := range r.weekdays {
+			if t.Weekday() == weekday {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			return false
+		}
+	}
 
 	if r.startTime.d < r.endTime.d {
 		return r.startTime.d <= ts && ts <= r.endTime.d

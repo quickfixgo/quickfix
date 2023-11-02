@@ -35,6 +35,7 @@ const (
 	EndTime                      string = "EndTime"
 	StartDay                     string = "StartDay"
 	EndDay                       string = "EndDay"
+	Weekdays                     string = "Weekdays"
 	TimeZone                     string = "TimeZone"
 	DataDictionary               string = "DataDictionary"
 	TransportDataDictionary      string = "TransportDataDictionary"
