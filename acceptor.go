@@ -36,6 +36,7 @@ type Acceptor struct {
 	settings              *Settings
 	logFactory            LogFactory
 	storeFactory          MessageStoreFactory
+	fileFactory           fileStoreFactory
 	globalLog             Log
 	sessions              map[SessionID]*session
 	sessionGroup          sync.WaitGroup
