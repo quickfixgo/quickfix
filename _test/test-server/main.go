@@ -7,8 +7,12 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"path"
+	"strings"
+	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/config"
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
 )
@@ -131,7 +135,21 @@ func main() {
 		return
 	}
 
-	acceptor, err := quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+	storeType := os.Args[2]
+
+	var acceptor *quickfix.Acceptor
+	switch strings.ToUpper(storeType) {
+	case "FILE":
+		fileStoreRootPath := path.Join(os.TempDir(), fmt.Sprintf("FileStoreTestSuite-%d", os.Getpid()))
+		fileStorePath := path.Join(fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano()))
+		appSettings.GlobalSettings().Set(config.FileStorePath, fileStorePath)
+		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
+	case "MEMORY":
+		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+	default:
+		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+	}
+
 	if err != nil {
 		fmt.Println("Unable to create Acceptor: ", err)
 		return

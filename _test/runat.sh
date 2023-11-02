@@ -2,9 +2,10 @@
 
 CFG=$1
 PORT=$2
-TESTS=$3
+STORETYPE=$3
+TESTS=$4
 
-./echo_server $CFG &
+./echo_server $CFG $STORETYPE &
 pid=$!
 
 ruby -I. Runner.rb 127.0.0.1 $PORT $TESTS

@@ -356,10 +356,14 @@ func (s *SessionSuite) TestCheckSessionTimeInRange() {
 		s.IncrNextSenderMsgSeqNum()
 		s.IncrNextTargetMsgSeqNum()
 
-		s.session.SessionTime = internal.NewUTCTimeRange(
+		sessionTime, err := internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Clock()),
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			[]time.Weekday{},
 		)
+		s.Nil(err)
+
+		s.session.SessionTime = sessionTime
 
 		s.session.CheckSessionTime(s.session, now)
 		if test.after != nil {
@@ -403,10 +407,14 @@ func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		s.session.SessionTime = internal.NewUTCTimeRange(
+		sessionTime, err := internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+			[]time.Weekday{},
 		)
+		s.Nil(err)
+
+		s.session.SessionTime = sessionTime
 
 		if test.expectOnLogout {
 			s.MockApp.On("OnLogout")
@@ -457,10 +465,14 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		s.session.SessionTime = internal.NewUTCTimeRange(
+		sessionTime, err := internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Duration(-1)*time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			[]time.Weekday{},
 		)
+		s.Nil(err)
+
+		s.session.SessionTime = sessionTime
 
 		if test.expectOnLogout {
 			s.MockApp.On("OnLogout")
@@ -506,10 +518,14 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		s.session.SessionTime = internal.NewUTCTimeRange(
+		sessionTime, err := internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+			[]time.Weekday{},
 		)
+		s.Nil(err)
+
+		s.session.SessionTime = sessionTime
 		if test.expectOnLogout {
 			s.MockApp.On("OnLogout")
 		}
@@ -555,10 +571,14 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 		s.MockApp.AssertExpectations(s.T())
 
 		now := time.Now().UTC()
-		s.session.SessionTime = internal.NewUTCTimeRange(
+		sessionTime, err := internal.NewUTCTimeRange(
 			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+			[]time.Weekday{},
 		)
+		s.Nil(err)
+
+		s.session.SessionTime = sessionTime
 		if test.expectOnLogout {
 			s.MockApp.On("OnLogout")
 		}
@@ -600,10 +620,14 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 			s.IncrNextTargetMsgSeqNum()
 
 			now := time.Now().UTC()
-			s.session.SessionTime = internal.NewUTCTimeRange(
+			sessionTime, err := internal.NewUTCTimeRange(
 				internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
 				internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+				[]time.Weekday{},
 			)
+			s.Nil(err)
+
+			s.session.SessionTime = sessionTime
 			if test.expectOnLogout {
 				s.MockApp.On("OnLogout")
 			}

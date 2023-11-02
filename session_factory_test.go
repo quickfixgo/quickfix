@@ -191,8 +191,11 @@ func (s *SessionFactorySuite) TestStartAndEndTime() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	var weekday []time.Weekday
+	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday)
+	s.Nil(err)
 	s.Equal(
-		*internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0)),
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -206,8 +209,45 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZone() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	var weekday []time.Weekday
+	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday, time.Local)
+	s.Nil(err)
 	s.Equal(
-		*internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), time.Local),
+		*expectedRange,
+		*session.SessionTime,
+	)
+}
+
+func (s *SessionFactorySuite) TestStartAndEndTimeAndWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.Weekdays, "Monday,Tuesday,Wednesday")
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.SessionTime)
+
+	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday, time.Wednesday})
+	s.Nil(err)
+	s.Equal(
+		*expectedRange,
+		*session.SessionTime,
+	)
+}
+
+func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZoneAndWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.TimeZone, "Local")
+	s.SessionSettings.Set(config.Weekdays, "Mon,Tue")
+
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.SessionTime)
+
+	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday}, time.Local)
+	s.Nil(err)
+	s.Equal(
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -232,11 +272,14 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDay() {
 		s.Nil(err)
 		s.NotNil(session.SessionTime)
 
+		expectedRange, err := internal.NewUTCWeekRange(
+			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+			time.Sunday, time.Thursday,
+		)
+
+		s.Nil(err)
 		s.Equal(
-			*internal.NewUTCWeekRange(
-				internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-				time.Sunday, time.Thursday,
-			),
+			*expectedRange,
 			*session.SessionTime,
 		)
 	}
@@ -253,11 +296,14 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDayAndTimeZone() 
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	expectedRange, err := internal.NewWeekRangeInLocation(
+		internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+		time.Sunday, time.Thursday, time.Local,
+	)
+
+	s.Nil(err)
 	s.Equal(
-		*internal.NewWeekRangeInLocation(
-			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-			time.Sunday, time.Thursday, time.Local,
-		),
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -296,6 +342,46 @@ func (s *SessionFactorySuite) TestInvalidTimeZone() {
 	s.NotNil(err)
 }
 
+func (s *SessionFactorySuite) TestInvalidWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+
+	testcases := []struct {
+		label string
+		input string
+	}{
+		{
+			label: "invalid day value",
+			input: "Monday,Tuesday,not valid",
+		},
+		{
+			label: "invalid separator",
+			input: "Monday;Tuesday",
+		},
+		{
+			label: "whitespace",
+			input: "Monday, Tuesday",
+		},
+		{
+			label: "trailing comma",
+			input: "Monday,",
+		},
+		{
+			label: "empty value",
+			input: "Monday,,Tuesday",
+		},
+	}
+
+	for _, testcase := range testcases {
+		s.T().Run(testcase.label, func(t *testing.T) {
+			s.SessionSettings.Set(config.Weekdays, testcase.input)
+
+			_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+			s.NotNil(err)
+		})
+	}
+}
+
 func (s *SessionFactorySuite) TestMissingStartOrEndDay() {
 	s.SessionSettings.Set(config.StartTime, "12:00:00")
 	s.SessionSettings.Set(config.EndTime, "14:00:00")
@@ -326,6 +412,17 @@ func (s *SessionFactorySuite) TestStartOrEndDayParseError() {
 	s.SessionSettings.Set(config.EndDay, "blah")
 
 	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *SessionFactorySuite) TestStartEndDayWithWeekdaysError() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "Monday")
+	s.SessionSettings.Set(config.EndDay, "Wednesday")
+	s.SessionSettings.Set(config.Weekdays, "Monday,Tuesday,Wednesday")
+
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 }
 
