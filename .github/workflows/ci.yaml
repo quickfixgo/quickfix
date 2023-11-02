@@ -37,6 +37,9 @@ jobs:
     strategy:
       matrix:
         go: [1.21]
+        store-type:
+          - memory
+          - file
         fix-version:
           -
           - fix40
@@ -67,4 +70,5 @@ jobs:
           GO111MODULE: on
           MONGODB_TEST_CXN: mongodb://localhost:27017
           FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: ${{ matrix.store-type }}
         run: if [ -z $FIX_TEST ]; then make build-src && make test-ci; else make generate-ci && make build && make $FIX_TEST; fi

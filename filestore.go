@@ -76,7 +76,10 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 
 	dirname, err := sessionSettings.Setting(config.FileStorePath)
 	if err != nil {
-		return nil, err
+		dirname, err = globalSettings.Setting(config.FileStorePath)
+		if err != nil {
+			return nil, err
+		}
 	}
 	var fsync bool
 	if sessionSettings.HasSetting(config.FileStoreSync) {

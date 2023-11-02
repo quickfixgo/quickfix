@@ -31,21 +31,21 @@ lint: linters-install
 build-test-srv:
 	cd _test; go build -o echo_server ./test-server/
 fix40:
-	cd _test; ./runat.sh $@.cfg 5001 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5001 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix41:
-	cd _test; ./runat.sh $@.cfg 5002 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5002 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix42:
-	cd _test; ./runat.sh $@.cfg 5003 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5003 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix43:
-	cd _test; ./runat.sh $@.cfg 5004 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5004 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix44:
-	cd _test; ./runat.sh $@.cfg 5005 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5005 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix50:
-	cd _test; ./runat.sh $@.cfg 5006 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5006 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix50sp1:
-	cd _test; ./runat.sh $@.cfg 5007 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5007 $(STORE_TYPE) "definitions/server/$@/*.def"
 fix50sp2:
-	cd _test; ./runat.sh $@.cfg 5008 "definitions/server/$@/*.def"
+	cd _test; ./runat.sh $@.cfg 5008 $(STORE_TYPE) "definitions/server/$@/*.def"
 
 ACCEPT_SUITE=fix40 fix41 fix42 fix43 fix44 fix50 fix50sp1 fix50sp2 
 accept: $(ACCEPT_SUITE)
