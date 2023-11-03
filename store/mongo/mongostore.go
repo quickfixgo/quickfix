@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package mongo
 
 import (
 	"context"
@@ -25,18 +25,19 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
 
 type mongoStoreFactory struct {
-	settings           *Settings
+	settings           *quickfix.Settings
 	messagesCollection string
 	sessionsCollection string
 }
 
 type mongoStore struct {
-	sessionID          SessionID
-	cache              *memoryStore
+	sessionID          quickfix.SessionID
+	cache              quickfix.MessageStore
 	mongoURL           string
 	mongoDatabase      string
 	db                 *mongo.Client
@@ -45,13 +46,13 @@ type mongoStore struct {
 	allowTransactions  bool
 }
 
-// NewMongoStoreFactory returns a mongo-based implementation of MessageStoreFactory.
-func NewMongoStoreFactory(settings *Settings) MessageStoreFactory {
-	return NewMongoStoreFactoryPrefixed(settings, "")
+// NewStoreFactory returns a mongo-based implementation of MessageStoreFactory.
+func NewStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
+	return NewStoreFactoryPrefixed(settings, "")
 }
 
-// NewMongoStoreFactoryPrefixed returns a mongo-based implementation of MessageStoreFactory, with prefix on collections.
-func NewMongoStoreFactoryPrefixed(settings *Settings, collectionsPrefix string) MessageStoreFactory {
+// NewStoreFactoryPrefixed returns a mongo-based implementation of MessageStoreFactory, with prefix on collections.
+func NewStoreFactoryPrefixed(settings *quickfix.Settings, collectionsPrefix string) quickfix.MessageStoreFactory {
 	return mongoStoreFactory{
 		settings:           settings,
 		messagesCollection: collectionsPrefix + "messages",
@@ -60,7 +61,7 @@ func NewMongoStoreFactoryPrefixed(settings *Settings, collectionsPrefix string) 
 }
 
 // Create creates a new MongoStore implementation of the MessageStore interface.
-func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
+func (f mongoStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix.MessageStore, err error) {
 	globalSettings := f.settings.GlobalSettings()
 	dynamicSessions, _ := globalSettings.BoolSetting(config.DynamicSessions)
 
@@ -87,12 +88,18 @@ func (f mongoStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, e
 	return newMongoStore(sessionID, mongoConnectionURL, mongoDatabase, mongoReplicaSet, f.messagesCollection, f.sessionsCollection)
 }
 
-func newMongoStore(sessionID SessionID, mongoURL, mongoDatabase, mongoReplicaSet, messagesCollection, sessionsCollection string) (store *mongoStore, err error) {
+func newMongoStore(sessionID quickfix.SessionID, mongoURL, mongoDatabase, mongoReplicaSet, messagesCollection, sessionsCollection string) (store *mongoStore, err error) {
+
+	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
+	if memErr != nil {
+		err = errors.Wrap(memErr, "cache creation")
+		return
+	} 
 
 	allowTransactions := len(mongoReplicaSet) > 0
 	store = &mongoStore{
 		sessionID:          sessionID,
-		cache:              &memoryStore{},
+		cache:              memStore,
 		mongoURL:           mongoURL,
 		mongoDatabase:      mongoDatabase,
 		messagesCollection: messagesCollection,
@@ -116,7 +123,7 @@ func newMongoStore(sessionID SessionID, mongoURL, mongoDatabase, mongoReplicaSet
 	return
 }
 
-func generateMessageFilter(s *SessionID) (messageFilter *mongoQuickFixEntryData) {
+func generateMessageFilter(s *quickfix.SessionID) (messageFilter *mongoQuickFixEntryData) {
 	messageFilter = &mongoQuickFixEntryData{
 		BeginString:      s.BeginString,
 		SessionQualifier: s.Qualifier,
@@ -193,7 +200,7 @@ func (store *mongoStore) populateCache() error {
 			return errors.Wrap(err, "decode")
 		}
 
-		store.cache.creationTime = sessionData.CreationTime
+		store.cache.SetCreationTime(sessionData.CreationTime)
 		if err := store.cache.SetNextTargetMsgSeqNum(sessionData.IncomingSeqNum); err != nil {
 			return errors.Wrap(err, "cache set next target")
 		}
@@ -206,7 +213,7 @@ func (store *mongoStore) populateCache() error {
 	}
 
 	// session record not found, create it
-	msgFilter.CreationTime = store.cache.creationTime
+	msgFilter.CreationTime = store.cache.CreationTime()
 	msgFilter.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()
 	msgFilter.OutgoingSeqNum = store.cache.NextSenderMsgSeqNum()
 
@@ -271,6 +278,10 @@ func (store *mongoStore) IncrNextTargetMsgSeqNum() error {
 // CreationTime returns the creation time of the store.
 func (store *mongoStore) CreationTime() time.Time {
 	return store.cache.CreationTime()
+}
+
+// SetCreationTime is a no-op for MongoStore.
+func (store *mongoStore) SetCreationTime(_ time.Time)  {
 }
 
 func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {

@@ -346,13 +346,15 @@ func (s *SessionSuite) TestCheckSessionTimeInRange() {
 		s.session.State = test.before
 
 		now := time.Now().UTC()
-		store := new(memoryStore)
+		memStore, memErr := NewMemoryStoreFactory().Create(s.sessionID)
+		s.Require().Nil(memErr)
+
 		if test.before.IsSessionTime() {
-			s.Require().Nil(store.Reset())
+			s.Require().Nil(memStore.Reset())
 		} else {
-			store.creationTime = now.Add(time.Duration(-1) * time.Minute)
+			memStore.SetCreationTime(now.Add(time.Duration(-1) * time.Minute))
 		}
-		s.session.store = store
+		s.session.store = memStore
 		s.IncrNextSenderMsgSeqNum()
 		s.IncrNextTargetMsgSeqNum()
 

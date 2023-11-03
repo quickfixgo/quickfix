@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"fmt"
@@ -26,6 +26,7 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -35,12 +36,12 @@ type msgDef struct {
 }
 
 type fileStoreFactory struct {
-	settings *Settings
+	settings *quickfix.Settings
 }
 
 type fileStore struct {
-	sessionID          SessionID
-	cache              *memoryStore
+	sessionID          quickfix.SessionID
+	cache              quickfix.MessageStore
 	offsets            map[int]msgDef
 	bodyFname          string
 	headerFname        string
@@ -56,12 +57,12 @@ type fileStore struct {
 }
 
 // NewFileStoreFactory returns a file-based implementation of MessageStoreFactory.
-func NewFileStoreFactory(settings *Settings) MessageStoreFactory {
+func NewFileStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
 	return fileStoreFactory{settings: settings}
 }
 
 // Create creates a new FileStore implementation of the MessageStore interface.
-func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
+func (f fileStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix.MessageStore, err error) {
 	globalSettings := f.settings.GlobalSettings()
 	dynamicSessions, _ := globalSettings.BoolSetting(config.DynamicSessions)
 
@@ -92,16 +93,21 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 	return newFileStore(sessionID, dirname, fsync)
 }
 
-func newFileStore(sessionID SessionID, dirname string, fileSync bool) (*fileStore, error) {
+func newFileStore(sessionID quickfix.SessionID, dirname string, fileSync bool) (*fileStore, error) {
 	if err := os.MkdirAll(dirname, os.ModePerm); err != nil {
 		return nil, err
 	}
 
-	sessionPrefix := sessionIDFilenamePrefix(sessionID)
+	sessionPrefix := createFilenamePrefix(sessionID)
+
+	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
+	if memErr != nil {
+		return nil, errors.Wrap(memErr, "cache creation")
+	} 
 
 	store := &fileStore{
 		sessionID:          sessionID,
-		cache:              &memoryStore{},
+		cache:             memStore,
 		offsets:            make(map[int]msgDef),
 		bodyFname:          path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "body")),
 		headerFname:        path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "header")),
@@ -209,7 +215,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	if timeBytes, err := os.ReadFile(store.sessionFname); err == nil {
 		var ctime time.Time
 		if err := ctime.UnmarshalText(timeBytes); err == nil {
-			store.cache.creationTime = ctime
+			store.cache.SetCreationTime(ctime)
 			creationTimePopulated = true
 		}
 	}
@@ -313,6 +319,10 @@ func (store *fileStore) IncrNextTargetMsgSeqNum() error {
 // CreationTime returns the creation time of the store.
 func (store *fileStore) CreationTime() time.Time {
 	return store.cache.CreationTime()
+}
+
+// SetCreationTime is a no-op for FileStore.
+func (store *fileStore) SetCreationTime(_ time.Time)  {
 }
 
 func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {

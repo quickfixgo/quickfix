@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package mongo
 
 import (
 	"fmt"
@@ -22,13 +22,15 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/internal/testsuite"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
-// MongoStoreTestSuite runs all tests in the MessageStoreTestSuite against the MongoStore implementation.
+// MongoStoreTestSuite runs all tests in the message.StoreTestSuite against the MongoStore implementation.
 type MongoStoreTestSuite struct {
-	MessageStoreTestSuite
+	testsuite.StoreTestSuite
 }
 
 func (suite *MongoStoreTestSuite) SetupTest() {
@@ -41,8 +43,8 @@ func (suite *MongoStoreTestSuite) SetupTest() {
 	mongoReplicaSet := "replicaset"
 
 	// create settings
-	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
-	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
+	sessionID := quickfix.SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+	settings, err := quickfix.ParseSettings(strings.NewReader(fmt.Sprintf(`
 [DEFAULT]
 MongoStoreConnection=%s
 MongoStoreDatabase=%s
@@ -55,15 +57,15 @@ TargetCompID=%s`, mongoDbCxn, mongoDatabase, mongoReplicaSet, sessionID.BeginStr
 	require.Nil(suite.T(), err)
 
 	// create store
-	suite.msgStore, err = NewMongoStoreFactory(settings).Create(sessionID)
+	suite.MsgStore, err = NewStoreFactory(settings).Create(sessionID)
 	require.Nil(suite.T(), err)
-	err = suite.msgStore.Reset()
+	err = suite.MsgStore.Reset()
 	require.Nil(suite.T(), err)
 }
 
 func (suite *MongoStoreTestSuite) TearDownTest() {
-	if suite.msgStore != nil {
-		err := suite.msgStore.Close()
+	if suite.MsgStore != nil {
+		err := suite.MsgStore.Close()
 		require.Nil(suite.T(), err)
 	}
 }
