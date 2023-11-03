@@ -56,8 +56,8 @@ type fileStore struct {
 	fileSync           bool
 }
 
-// NewFileStoreFactory returns a file-based implementation of MessageStoreFactory.
-func NewFileStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
+// NewStoreFactory returns a file-based implementation of MessageStoreFactory.
+func NewStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
 	return fileStoreFactory{settings: settings}
 }
 

@@ -61,8 +61,8 @@ func postgresPlaceholder(i int) string {
 	return fmt.Sprintf("$%d", i+1)
 }
 
-// NewSQLStoreFactory returns a sql-based implementation of MessageStoreFactory.
-func NewSQLStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
+// NewStoreFactory returns a sql-based implementation of MessageStoreFactory.
+func NewStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
 	return sqlStoreFactory{settings: settings}
 }
 

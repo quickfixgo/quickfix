@@ -15,6 +15,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
+	"github.com/quickfixgo/quickfix/store/file"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
@@ -156,9 +157,9 @@ func main() {
 		appSettings.GlobalSettings().Set(config.FileStorePath, fileStorePath)
 		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
 
-		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
+		acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), appSettings, fileLogFactory)
 	case "MEMORY":
-		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+		fallthrough
 	default:
 		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
 	}

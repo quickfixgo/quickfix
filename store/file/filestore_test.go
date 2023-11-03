@@ -54,7 +54,7 @@ TargetCompID=%s`, fileStorePath, sessionID.BeginString, sessionID.SenderCompID, 
 	require.Nil(suite.T(), err)
 
 	// create store
-	suite.MsgStore, err = NewFileStoreFactory(settings).Create(sessionID)
+	suite.MsgStore, err = NewStoreFactory(settings).Create(sessionID)
 	require.Nil(suite.T(), err)
 }
 
