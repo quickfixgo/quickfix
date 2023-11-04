@@ -18,7 +18,7 @@ package quickfix
 import (
 	"bytes"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type logonState struct{ connectedNotLoggedOn }
@@ -59,9 +59,9 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 	return inSession{}
 }
 
-func (s logonState) Timeout(session *session, e internal.Event) (nextState sessionState) {
+func (s logonState) Timeout(session *session, e toolkit.Event) (nextState sessionState) {
 	switch e {
-	case internal.LogonTimeout:
+	case toolkit.LogonTimeout:
 		session.log.OnEvent("Timed out waiting for logon response")
 		return latentState{}
 	}

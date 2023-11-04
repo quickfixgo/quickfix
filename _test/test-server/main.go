@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/config"
-	field "github.com/quickfixgo/quickfix/gen/field"
-	tag "github.com/quickfixgo/quickfix/gen/tag"
+	"github.com/terracefi/quickfix"
+	"github.com/terracefi/quickfix/config"
+	field "github.com/terracefi/quickfix/gen/field"
+	tag "github.com/terracefi/quickfix/gen/tag"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()

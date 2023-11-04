@@ -12,8 +12,8 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/quickfixgo/quickfix/cmd/generate-fix/internal"
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/terracefi/quickfix/cmd/generate-fix/toolkit"
+	"github.com/terracefi/quickfix/datadictionary"
 )
 
 var (
@@ -60,7 +60,7 @@ func genHeader(pkg string, spec *datadictionary.DataDictionary) {
 		MessageDef: spec.Header,
 		FIXSpec:    spec,
 	}
-	gen(internal.HeaderTemplate, path.Join(pkg, "header.generated.go"), c)
+	gen(toolkit.HeaderTemplate, path.Join(pkg, "header.generated.go"), c)
 }
 
 func genTrailer(pkg string, spec *datadictionary.DataDictionary) {
@@ -69,7 +69,7 @@ func genTrailer(pkg string, spec *datadictionary.DataDictionary) {
 		Name:       "Trailer",
 		MessageDef: spec.Trailer,
 	}
-	gen(internal.TrailerTemplate, path.Join(pkg, "trailer.generated.go"), c)
+	gen(toolkit.TrailerTemplate, path.Join(pkg, "trailer.generated.go"), c)
 }
 
 func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadictionary.MessageDef) {
@@ -85,19 +85,19 @@ func genMessage(fixPkg string, spec *datadictionary.DataDictionary, msg *datadic
 		MessageDef:       msg,
 	}
 
-	gen(internal.MessageTemplate, path.Join(fixPkg, pkgName, msg.Name+".generated.go"), c)
+	gen(toolkit.MessageTemplate, path.Join(fixPkg, pkgName, msg.Name+".generated.go"), c)
 }
 
 func genTags() {
-	gen(internal.TagTemplate, "tag/tag_numbers.generated.go", internal.GlobalFieldTypes)
+	gen(toolkit.TagTemplate, "tag/tag_numbers.generated.go", toolkit.GlobalFieldTypes)
 }
 
 func genFields() {
-	gen(internal.FieldTemplate, "field/fields.generated.go", internal.GlobalFieldTypes)
+	gen(toolkit.FieldTemplate, "field/fields.generated.go", toolkit.GlobalFieldTypes)
 }
 
 func genEnums() {
-	gen(internal.EnumTemplate, "enum/enums.generated.go", internal.GlobalFieldTypes)
+	gen(toolkit.EnumTemplate, "enum/enums.generated.go", toolkit.GlobalFieldTypes)
 }
 
 func gen(t *template.Template, fileOut string, data interface{}) {
@@ -109,7 +109,7 @@ func gen(t *template.Template, fileOut string, data interface{}) {
 		return
 	}
 
-	if err := internal.WriteFile(fileOut, writer.String()); err != nil {
+	if err := toolkit.WriteFile(fileOut, writer.String()); err != nil {
 		errors <- err
 	}
 }
@@ -143,7 +143,7 @@ func main() {
 		specs = append(specs, spec)
 	}
 
-	internal.BuildGlobalFieldTypes(specs)
+	toolkit.BuildGlobalFieldTypes(specs)
 
 	waitGroup.Add(1)
 	go genTags()
@@ -185,7 +185,7 @@ func main() {
 		close(errors)
 	}()
 
-	var h internal.ErrorHandler
+	var h toolkit.ErrorHandler
 	for err := range errors {
 		h.Handle(err)
 	}

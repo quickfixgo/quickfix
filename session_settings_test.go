@@ -18,7 +18,7 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/terracefi/quickfix/config"
 )
 
 func TestSessionSettings_StringSettings(t *testing.T) {

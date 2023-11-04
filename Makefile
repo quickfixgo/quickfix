@@ -14,7 +14,7 @@ vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
 test: 
-	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover . ./datadictionary ./internal
+	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover . ./datadictionary ./toolkit
 
 linters-install:
 	@golangci-lint --version >/dev/null 2>&1 || { \
@@ -62,7 +62,7 @@ build-src:
 build: build-src build-test-srv
 
 test-ci:
-	go test -v -cover . ./datadictionary ./internal
+	go test -v -cover . ./datadictionary ./toolkit
 
 generate-ci: clean
 	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/$(shell echo $(FIX_TEST) | tr  '[:lower:]' '[:upper:]').xml; 

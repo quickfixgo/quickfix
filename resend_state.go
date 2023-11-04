@@ -15,7 +15,7 @@
 
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/terracefi/quickfix/toolkit"
 
 type resendState struct {
 	loggedOn
@@ -26,7 +26,7 @@ type resendState struct {
 
 func (s resendState) String() string { return "Resend" }
 
-func (s resendState) Timeout(session *session, event internal.Event) (nextState sessionState) {
+func (s resendState) Timeout(session *session, event toolkit.Event) (nextState sessionState) {
 	nextState = inSession{}.Timeout(session, event)
 	switch nextState.(type) {
 	case inSession:

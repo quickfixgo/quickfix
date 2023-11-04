@@ -19,8 +19,23 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
+
+// Event is an abstraction for session events.
+type Event int
+
+const (
+	// PeerTimeout indicates the session peer has become unresponsive.
+	PeerTimeout Event = iota
+	// NeedHeartbeat indicates the session should send a heartbeat.
+	NeedHeartbeat
+	// LogonTimeout indicates the peer has not sent a logon request.
+	LogonTimeout
+	// LogoutTimeout indicates the peer has not sent a logout request.
+	LogoutTimeout
+)
+
 
 type inSession struct{ loggedOn }
 
@@ -63,15 +78,15 @@ func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 	return state
 }
 
-func (state inSession) Timeout(session *session, event internal.Event) (nextState sessionState) {
+func (state inSession) Timeout(session *session, event toolkit.Event) (nextState sessionState) {
 	switch event {
-	case internal.NeedHeartbeat:
+	case toolkit.NeedHeartbeat:
 		heartBt := NewMessage()
 		heartBt.Header.SetField(tagMsgType, FIXString("0"))
 		if err := session.send(heartBt); err != nil {
 			return handleStateError(session, err)
 		}
-	case internal.PeerTimeout:
+	case toolkit.PeerTimeout:
 		testReq := NewMessage()
 		testReq.Header.SetField(tagMsgType, FIXString("1"))
 		testReq.Body.SetField(tagTestReqID, FIXString("TEST"))

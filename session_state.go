@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type stateMachine struct {
@@ -57,7 +57,7 @@ func (sm *stateMachine) Connect(session *session) {
 
 	sm.setState(session, logonState{})
 	// Fire logon timeout event after the pre-configured delay period.
-	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- internal.LogonTimeout })
+	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- toolkit.LogonTimeout })
 }
 
 func (sm *stateMachine) Stop(session *session) {
@@ -111,7 +111,7 @@ func (sm *stateMachine) SendAppMessages(session *session) {
 	}
 }
 
-func (sm *stateMachine) Timeout(session *session, e internal.Event) {
+func (sm *stateMachine) Timeout(session *session, e toolkit.Event) {
 	sm.CheckSessionTime(session, time.Now())
 	sm.setState(session, sm.State.Timeout(session, e))
 }
@@ -213,7 +213,7 @@ type sessionState interface {
 	FixMsgIn(*session, *Message) (nextState sessionState)
 
 	// Timeout is called by the session on a timeout event.
-	Timeout(*session, internal.Event) (nextState sessionState)
+	Timeout(*session, toolkit.Event) (nextState sessionState)
 
 	// IsLoggedOn returns true if state is logged on an in session, false otherwise.
 	IsLoggedOn() bool

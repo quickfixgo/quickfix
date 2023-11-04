@@ -21,8 +21,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/config"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type SessionFactorySuite struct {
@@ -192,7 +192,7 @@ func (s *SessionFactorySuite) TestStartAndEndTime() {
 	s.NotNil(session.SessionTime)
 
 	var weekday []time.Weekday
-	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday)
+	expectedRange, err := toolkit.NewUTCTimeRange(toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0), weekday)
 	s.Nil(err)
 	s.Equal(
 		*expectedRange,
@@ -210,7 +210,7 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZone() {
 	s.NotNil(session.SessionTime)
 
 	var weekday []time.Weekday
-	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday, time.Local)
+	expectedRange, err := toolkit.NewTimeRangeInLocation(toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0), weekday, time.Local)
 	s.Nil(err)
 	s.Equal(
 		*expectedRange,
@@ -226,7 +226,7 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndWeekdays() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
-	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday, time.Wednesday})
+	expectedRange, err := toolkit.NewUTCTimeRange(toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday, time.Wednesday})
 	s.Nil(err)
 	s.Equal(
 		*expectedRange,
@@ -244,7 +244,7 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZoneAndWeekdays() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
-	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday}, time.Local)
+	expectedRange, err := toolkit.NewTimeRangeInLocation(toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday}, time.Local)
 	s.Nil(err)
 	s.Equal(
 		*expectedRange,
@@ -272,8 +272,8 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDay() {
 		s.Nil(err)
 		s.NotNil(session.SessionTime)
 
-		expectedRange, err := internal.NewUTCWeekRange(
-			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+		expectedRange, err := toolkit.NewUTCWeekRange(
+			toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0),
 			time.Sunday, time.Thursday,
 		)
 
@@ -296,8 +296,8 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDayAndTimeZone() 
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
-	expectedRange, err := internal.NewWeekRangeInLocation(
-		internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+	expectedRange, err := toolkit.NewWeekRangeInLocation(
+		toolkit.NewTimeOfDay(12, 0, 0), toolkit.NewTimeOfDay(14, 0, 0),
 		time.Sunday, time.Thursday, time.Local,
 	)
 

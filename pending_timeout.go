@@ -15,15 +15,15 @@
 
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/terracefi/quickfix/toolkit"
 
 type pendingTimeout struct {
 	sessionState
 }
 
-func (s pendingTimeout) Timeout(session *session, event internal.Event) (nextState sessionState) {
+func (s pendingTimeout) Timeout(session *session, event toolkit.Event) (nextState sessionState) {
 	switch event {
-	case internal.PeerTimeout:
+	case toolkit.PeerTimeout:
 		session.log.OnEvent("Session Timeout")
 		return latentState{}
 	}

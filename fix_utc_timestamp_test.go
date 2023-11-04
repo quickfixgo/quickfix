@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix"
+	"github.com/terracefi/quickfix"
 )
 
 func TestFIXUTCTimestampWrite(t *testing.T) {

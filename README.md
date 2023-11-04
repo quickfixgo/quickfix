@@ -96,7 +96,7 @@ Following installation, `generate-fix` is installed to `$GOPATH/bin/generate-fix
 ## Commercial Support
 <p><a href="https://connamara.com">Connamara Systems</a> offers commercial support for developers who are integrating any of the QuickFIX implementations (Go, C++, Java, .NET). The support is offered in 10-hour bundles and grants developers access, via telephone or email, to the team that created QuickFIX/Go, QuickFIX/n, and are maintainers of QuickFIX.</p>
 
-<p>In addition to offering QuickFIX support, Connamara delivers Made-To-Measure Trading Solutions by bridging the gap between buy and build. By using internally developed trading platform components, Connamara delivers the best of off-the-shelf ISV solutions and custom application development. Coupled with Connamara’s unique licensing model, trading firms can get the best of both build and buy.</p>
+<p>In addition to offering QuickFIX support, Connamara delivers Made-To-Measure Trading Solutions by bridging the gap between buy and build. By using toolkitly developed trading platform components, Connamara delivers the best of off-the-shelf ISV solutions and custom application development. Coupled with Connamara’s unique licensing model, trading firms can get the best of both build and buy.</p>
 
 
 ## Contributing

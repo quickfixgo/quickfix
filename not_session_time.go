@@ -15,7 +15,7 @@
 
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/terracefi/quickfix/toolkit"
 
 type notSessionTime struct{ latentState }
 
@@ -27,7 +27,7 @@ func (state notSessionTime) FixMsgIn(session *session, msg *Message) (nextState 
 	return state
 }
 
-func (state notSessionTime) Timeout(*session, internal.Event) (nextState sessionState) {
+func (state notSessionTime) Timeout(*session, toolkit.Event) (nextState sessionState) {
 	return state
 }
 

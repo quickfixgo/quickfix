@@ -23,7 +23,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/terracefi/quickfix/config"
 )
 
 type sqlStoreFactory struct {

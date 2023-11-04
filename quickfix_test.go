@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type QuickFIXSuite struct {
@@ -219,7 +219,7 @@ func (s *SessionSuiteRig) Init() {
 		application:  &s.MockApp,
 		log:          nullLog{},
 		messageOut:   s.Receiver.sendChannel,
-		sessionEvent: make(chan internal.Event),
+		sessionEvent: make(chan toolkit.Event),
 	}
 	s.MaxLatency = 120 * time.Second
 }

@@ -16,7 +16,7 @@
 package quickfix
 
 import (
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/terracefi/quickfix/datadictionary"
 )
 
 // Validator validates a FIX message.

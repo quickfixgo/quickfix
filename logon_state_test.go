@@ -22,7 +22,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type LogonStateTestSuite struct {
@@ -45,7 +45,7 @@ func (s *LogonStateTestSuite) TestPreliminary() {
 }
 
 func (s *LogonStateTestSuite) TestTimeoutLogonTimeout() {
-	s.Timeout(s.session, internal.LogonTimeout)
+	s.Timeout(s.session, toolkit.LogonTimeout)
 	s.State(latentState{})
 }
 
@@ -53,14 +53,14 @@ func (s *LogonStateTestSuite) TestTimeoutLogonTimeoutInitiatedLogon() {
 	s.session.InitiateLogon = true
 
 	s.MockApp.On("OnLogout")
-	s.Timeout(s.session, internal.LogonTimeout)
+	s.Timeout(s.session, toolkit.LogonTimeout)
 
 	s.MockApp.AssertExpectations(s.T())
 	s.State(latentState{})
 }
 
 func (s *LogonStateTestSuite) TestTimeoutNotLogonTimeout() {
-	tests := []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogoutTimeout}
+	tests := []toolkit.Event{toolkit.PeerTimeout, toolkit.NeedHeartbeat, toolkit.LogoutTimeout}
 
 	for _, test := range tests {
 		s.Timeout(s.session, test)

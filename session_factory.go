@@ -23,9 +23,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/config"
+	"github.com/terracefi/quickfix/datadictionary"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 var dayLookup = map[string]time.Weekday{
@@ -62,7 +62,7 @@ type sessionFactory struct {
 	BuildInitiators bool
 }
 
-// Creates Session, associates with internal session registry.
+// Creates Session, associates with toolkit session registry.
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,
@@ -225,8 +225,8 @@ func (f sessionFactory) newSession(
 			return
 		}
 
-		var start, end internal.TimeOfDay
-		if start, err = internal.ParseTimeOfDay(startTimeStr); err != nil {
+		var start, end toolkit.TimeOfDay
+		if start, err = toolkit.ParseTimeOfDay(startTimeStr); err != nil {
 			err = errors.Wrapf(
 				err, "problem parsing time of day '%v' for setting '%v",
 				settings.settings[config.StartTime], config.StartTime,
@@ -234,7 +234,7 @@ func (f sessionFactory) newSession(
 			return
 		}
 
-		if end, err = internal.ParseTimeOfDay(endTimeStr); err != nil {
+		if end, err = toolkit.ParseTimeOfDay(endTimeStr); err != nil {
 			err = errors.Wrapf(
 				err, "problem parsing time of day '%v' for setting '%v",
 				settings.settings[config.EndTime], config.EndTime,
@@ -279,8 +279,8 @@ func (f sessionFactory) newSession(
 				}
 			}
 
-			var sessionTime *internal.TimeRange
-			sessionTime, err = internal.NewTimeRangeInLocation(start, end, weekdays, loc)
+			var sessionTime *toolkit.TimeRange
+			sessionTime, err = toolkit.NewTimeRangeInLocation(start, end, weekdays, loc)
 			if err != nil {
 				return
 			}
@@ -317,8 +317,8 @@ func (f sessionFactory) newSession(
 				return
 			}
 
-			var sessionTime *internal.TimeRange
-			sessionTime, err = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+			var sessionTime *toolkit.TimeRange
+			sessionTime, err = toolkit.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
 			if err != nil {
 				return
 			}
@@ -373,7 +373,7 @@ func (f sessionFactory) newSession(
 		return
 	}
 
-	s.sessionEvent = make(chan internal.Event)
+	s.sessionEvent = make(chan toolkit.Event)
 	s.messageEvent = make(chan bool, 1)
 	s.admin = make(chan interface{})
 	s.application = application

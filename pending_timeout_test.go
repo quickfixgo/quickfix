@@ -20,7 +20,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 type PendingTimeoutTestSuite struct {
@@ -59,7 +59,7 @@ func (s *PendingTimeoutTestSuite) TestSessionTimeout() {
 		s.session.State = state
 
 		s.MockApp.On("OnLogout").Return(nil)
-		s.session.Timeout(s.session, internal.PeerTimeout)
+		s.session.Timeout(s.session, toolkit.PeerTimeout)
 
 		s.MockApp.AssertExpectations(s.T())
 		s.State(latentState{})
@@ -72,7 +72,7 @@ func (s *PendingTimeoutTestSuite) TestTimeoutUnchangedState() {
 		{resendState{}},
 	}
 
-	testEvents := []internal.Event{internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
+	testEvents := []toolkit.Event{toolkit.NeedHeartbeat, toolkit.LogonTimeout, toolkit.LogoutTimeout}
 
 	for _, state := range tests {
 		s.session.State = state

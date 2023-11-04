@@ -15,7 +15,7 @@
 
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/terracefi/quickfix/toolkit"
 
 type logoutState struct{ connectedNotLoggedOn }
 
@@ -30,9 +30,9 @@ func (state logoutState) FixMsgIn(session *session, msg *Message) (nextState ses
 	return state
 }
 
-func (state logoutState) Timeout(session *session, event internal.Event) (nextState sessionState) {
+func (state logoutState) Timeout(session *session, event toolkit.Event) (nextState sessionState) {
 	switch event {
-	case internal.LogoutTimeout:
+	case toolkit.LogoutTimeout:
 		session.log.OnEvent("Timed out waiting for logout response")
 		return latentState{}
 	}

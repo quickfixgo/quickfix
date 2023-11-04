@@ -22,8 +22,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/datadictionary"
+	"github.com/terracefi/quickfix/toolkit"
 )
 
 // The Session is the primary FIX abstraction for message communication.
@@ -42,20 +42,20 @@ type session struct {
 	// Mutex for access to toSend.
 	sendMutex sync.Mutex
 
-	sessionEvent chan internal.Event
+	sessionEvent chan toolkit.Event
 	messageEvent chan bool
 	application  Application
 	Validator
 	stateMachine
-	stateTimer *internal.EventTimer
-	peerTimer  *internal.EventTimer
+	stateTimer *toolkit.EventTimer
+	peerTimer  *toolkit.EventTimer
 	sentReset  bool
 	stopOnce   sync.Once
 
 	targetDefaultApplVerID string
 
 	admin chan interface{}
-	internal.SessionSettings
+	toolkit.SessionSettings
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 
@@ -498,7 +498,7 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 		return
 	}
 	s.log.OnEvent("Inititated logout request")
-	time.AfterFunc(s.LogoutTimeout, func() { s.sessionEvent <- internal.LogoutTimeout })
+	time.AfterFunc(s.LogoutTimeout, func() { s.sessionEvent <- toolkit.LogoutTimeout })
 	return
 }
 
@@ -769,17 +769,17 @@ func (s *session) onAdmin(msg interface{}) {
 func (s *session) run() {
 	s.Start(s)
 	var stopChan = make(chan struct{})
-	s.stateTimer = internal.NewEventTimer(func() {
+	s.stateTimer = toolkit.NewEventTimer(func() {
 		select {
 		// Deadlock in write to chan s.sessionEvent after s.Stopped()==true and end of loop session.go:766 because no reader of chan s.sessionEvent.
-		case s.sessionEvent <- internal.NeedHeartbeat:
+		case s.sessionEvent <- toolkit.NeedHeartbeat:
 		case <-stopChan:
 		}
 	})
-	s.peerTimer = internal.NewEventTimer(func() {
+	s.peerTimer = toolkit.NewEventTimer(func() {
 		select {
 		// Deadlock in write to chan s.sessionEvent after s.Stopped()==true and end of loop session.go:766 because no reader of chan s.sessionEvent.
-		case s.sessionEvent <- internal.PeerTimeout:
+		case s.sessionEvent <- toolkit.PeerTimeout:
 		case <-stopChan:
 		}
 

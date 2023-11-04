@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/terracefi/quickfix/toolkit"
 
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -356,9 +356,9 @@ func (s *SessionSuite) TestCheckSessionTimeInRange() {
 		s.IncrNextSenderMsgSeqNum()
 		s.IncrNextTargetMsgSeqNum()
 
-		sessionTime, err := internal.NewUTCTimeRange(
-			internal.NewTimeOfDay(now.Clock()),
-			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+		sessionTime, err := toolkit.NewUTCTimeRange(
+			toolkit.NewTimeOfDay(now.Clock()),
+			toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			[]time.Weekday{},
 		)
 		s.Nil(err)
@@ -407,9 +407,9 @@ func (s *SessionSuite) TestCheckSessionTimeNotInRange() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		sessionTime, err := internal.NewUTCTimeRange(
-			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
-			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		sessionTime, err := toolkit.NewUTCTimeRange(
+			toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			toolkit.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 			[]time.Weekday{},
 		)
 		s.Nil(err)
@@ -465,9 +465,9 @@ func (s *SessionSuite) TestCheckSessionTimeInRangeButNotSameRangeAsStore() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		sessionTime, err := internal.NewUTCTimeRange(
-			internal.NewTimeOfDay(now.Add(time.Duration(-1)*time.Hour).Clock()),
-			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
+		sessionTime, err := toolkit.NewUTCTimeRange(
+			toolkit.NewTimeOfDay(now.Add(time.Duration(-1)*time.Hour).Clock()),
+			toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
 			[]time.Weekday{},
 		)
 		s.Nil(err)
@@ -518,9 +518,9 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 		s.IncrNextTargetMsgSeqNum()
 
 		now := time.Now().UTC()
-		sessionTime, err := internal.NewUTCTimeRange(
-			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
-			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		sessionTime, err := toolkit.NewUTCTimeRange(
+			toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			toolkit.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 			[]time.Weekday{},
 		)
 		s.Nil(err)
@@ -571,9 +571,9 @@ func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 		s.MockApp.AssertExpectations(s.T())
 
 		now := time.Now().UTC()
-		sessionTime, err := internal.NewUTCTimeRange(
-			internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
-			internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+		sessionTime, err := toolkit.NewUTCTimeRange(
+			toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
+			toolkit.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 			[]time.Weekday{},
 		)
 		s.Nil(err)
@@ -608,7 +608,7 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 		{before: pendingTimeout{inSession{}}, expectOnLogout: true, expectSendLogout: true},
 	}
 
-	var events = []internal.Event{internal.PeerTimeout, internal.NeedHeartbeat, internal.LogonTimeout, internal.LogoutTimeout}
+	var events = []toolkit.Event{toolkit.PeerTimeout, toolkit.NeedHeartbeat, toolkit.LogonTimeout, toolkit.LogoutTimeout}
 
 	for _, test := range tests {
 		for _, event := range events {
@@ -620,9 +620,9 @@ func (s *SessionSuite) TestTimeoutNotInSessionTime() {
 			s.IncrNextTargetMsgSeqNum()
 
 			now := time.Now().UTC()
-			sessionTime, err := internal.NewUTCTimeRange(
-				internal.NewTimeOfDay(now.Add(time.Hour).Clock()),
-				internal.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
+			sessionTime, err := toolkit.NewUTCTimeRange(
+				toolkit.NewTimeOfDay(now.Add(time.Hour).Clock()),
+				toolkit.NewTimeOfDay(now.Add(time.Duration(2)*time.Hour).Clock()),
 				[]time.Weekday{},
 			)
 			s.Nil(err)
