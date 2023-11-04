@@ -23,6 +23,6 @@ linters-settings:
   gofmt:
     simplify: true
   goimports:
-    local-prefixes: github.com/quickfixgo/quickfix
+    local-prefixes: github.com/terracefi/quickfix
   dupl:
     threshold: 400

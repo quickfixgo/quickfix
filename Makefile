@@ -5,7 +5,7 @@ clean:
 	rm -rf gen
 
 generate: clean
-	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/*.xml
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/terracefi/quickfix/gen ../spec/*.xml
 
 fmt:
 	gofmt -l -w -s $(shell find . -type f -name '*.go')
@@ -65,6 +65,6 @@ test-ci:
 	go test -v -cover . ./datadictionary ./toolkit
 
 generate-ci: clean
-	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/quickfixgo/quickfix/gen ../spec/$(shell echo $(FIX_TEST) | tr  '[:lower:]' '[:upper:]').xml; 
+	mkdir -p gen; cd gen; go run ../cmd/generate-fix/generate-fix.go -pkg-root=github.com/terracefi/quickfix/gen ../spec/$(shell echo $(FIX_TEST) | tr  '[:lower:]' '[:upper:]').xml; 
 
 # ---------------------------------------------------------------

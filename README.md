@@ -1,6 +1,6 @@
 # QuickFIX/Go
 
-[![Build Status](https://github.com/quickfixgo/quickfix/workflows/CI/badge.svg)](https://github.com/quickfixgo/quickfix/actions) [![GoDoc](https://godoc.org/github.com/quickfixgo/quickfix?status.png)](https://godoc.org/github.com/quickfixgo/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/quickfix)](https://goreportcard.com/report/github.com/quickfixgo/quickfix)
+[![Build Status](https://github.com/terracefi/quickfix/workflows/CI/badge.svg)](https://github.com/terracefi/quickfix/actions) [![GoDoc](https://godoc.org/github.com/terracefi/quickfix?status.png)](https://godoc.org/github.com/terracefi/quickfix) [![Go Report Card](https://goreportcard.com/badge/github.com/terracefi/quickfix)](https://goreportcard.com/report/github.com/terracefi/quickfix)
 
 Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in Go
 
@@ -8,7 +8,7 @@ Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in G
 <p>QuickFIX/Go is a <a href="https://www.fixtrading.org/">FIX Protocol Community</a> implementation for the <a href="https://golang.org">Go programming language</a>.</p> 
 
 <ul>
-  <li>100% free and open source with a liberal <a href="https://github.com/quickfixgo/quickfix/blob/master/LICENSE.txt">license</a></li>
+  <li>100% free and open source with a liberal <a href="https://github.com/terracefi/quickfix/blob/master/LICENSE.txt">license</a></li>
   <li>Supports FIX versions 4.0 - 5.0SP2</li>
   <li>Runs on any hardware and operating system supported by Go (1.21+ required)</li>
   <li>Spec driven run-time message validation</li>
@@ -31,7 +31,7 @@ Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in G
 With [Go module](https://github.com/golang/go/wiki/Modules) support, simply add the following import
 
 ```
-import "github.com/quickfixgo/quickfix"
+import "github.com/terracefi/quickfix"
 ```
 
 to your code, and then `go [build|run|test]` will automatically fetch the necessary dependencies.
@@ -39,32 +39,32 @@ to your code, and then `go [build|run|test]` will automatically fetch the necess
 Otherwise, run the following Go command to install the `quickfix` package:
 
 ```sh
-go get -u github.com/quickfixgo/quickfix
+go get -u github.com/terracefi/quickfix
 ```
 
 ## Getting Started
 
 * [QuickFIX User Manual](http://quickfixgo.org/docs)
-* [Go API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
-* See [examples](https://github.com/quickfixgo/examples) for some simple examples of using QuickFIX/Go.
+* [Go API Documentation](https://godoc.org/github.com/terracefi/quickfix)
+* See [examples](https://github.com/terracefi/examples) for some simple examples of using QuickFIX/Go.
 
 ## FIX Messaging Model
 To send and receive messages, your application will need a few additional packages.
 
 QuickFIX/Go maintains separate packages for tags, fields, enums, messages, and message components auto-generated from the FIX 4.0 - FIX5.0SP2 XML specifications-
 
-* [Tag](https://github.com/quickfixgo/tag)
-* [Field](https://github.com/quickfixgo/field)
-* [Enum](https://github.com/quickfixgo/enum)
-* [FIX 4.0](https://github.com/quickfixgo/fix40)
-* [FIX 4.1](https://github.com/quickfixgo/fix41)
-* [FIX 4.2](https://github.com/quickfixgo/fix42)
-* [FIX 4.3](https://github.com/quickfixgo/fix43)
-* [FIX 4.4](https://github.com/quickfixgo/fix44)
-* [FIX 5.0](https://github.com/quickfixgo/fix50)
-* [FIX 5.0 SP1](https://github.com/quickfixgo/fix50sp1)
-* [FIX 5.0 SP2](https://github.com/quickfixgo/fix50sp2)
-* [FIXT 1.1](https://github.com/quickfixgo/fixt11)
+* [Tag](https://github.com/terracefi/tag)
+* [Field](https://github.com/terracefi/field)
+* [Enum](https://github.com/terracefi/enum)
+* [FIX 4.0](https://github.com/terracefi/fix40)
+* [FIX 4.1](https://github.com/terracefi/fix41)
+* [FIX 4.2](https://github.com/terracefi/fix42)
+* [FIX 4.3](https://github.com/terracefi/fix43)
+* [FIX 4.4](https://github.com/terracefi/fix44)
+* [FIX 5.0](https://github.com/terracefi/fix50)
+* [FIX 5.0 SP1](https://github.com/terracefi/fix50sp1)
+* [FIX 5.0 SP2](https://github.com/terracefi/fix50sp2)
+* [FIXT 1.1](https://github.com/terracefi/fixt11)
 
 For most FIX applications, these generated resources are sufficient. Custom FIX applications may generate source specific to the FIX spec of that application using the `generate-fix` tool included with QuickFIX/Go.
 
@@ -73,7 +73,7 @@ Following installation, `generate-fix` is installed to `$GOPATH/bin/generate-fix
 ## General Support
 <h3>Github Discussions</h3>
 
-<p>Our <a href="https://github.com/quickfixgo/quickfix/discussions/categories/q-a">Github Discussions Board</a> is free, public, and easily searchable. It’s the preferred method of user support from the QuickFIX/Go team.
+<p>Our <a href="https://github.com/terracefi/quickfix/discussions/categories/q-a">Github Discussions Board</a> is free, public, and easily searchable. It’s the preferred method of user support from the QuickFIX/Go team.
 
 <p>Please provide as much detail as you can when asking a question, and include relevant configurations and code snippets.</p>
 
@@ -87,7 +87,7 @@ Following installation, `generate-fix` is installed to `$GOPATH/bin/generate-fix
 
 <p><strong>Note:</strong> Please do not submit questions or help requests to the issues list. It is for bugs and issues. If you need help, please use the Discussions board as described above and you’ll be able to send your question to the entire community.</p>
 
-<p><a href="https://github.com/quickfixgo/quickfix/issues">GitHub Issues</a></p>
+<p><a href="https://github.com/terracefi/quickfix/issues">GitHub Issues</a></p>
 
 <p>Please provide sample code, logs, and a description of the problem when the issue is submitted.</p>
 
@@ -120,7 +120,7 @@ If this exits with exit status 0, then everything is working!
 
 ### Generated Code
 
-Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/quickfixgo).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
+Generated code from the FIX40-FIX50SP2 specs are available as separate repos under the [QuickFIX/Go organization](https://github.com/terracefi).  The source specifications for this generated code is located in `spec/`.  Generated code can be identified by the `.generated.go` suffix.  Any changes to generated code must be captured by changes to source in `cmd/generate-fix`.  After making changes to the code generator source, run the following to re-generate the source
 
 ```sh
 make generate
@@ -149,4 +149,4 @@ make accept
 
 ## Licensing
 
-This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/quickfixgo/quickfix/blob/main/LICENSE.txt) for the terms specified by the QuickFIX Software License.
+This software is available under the QuickFIX Software License. Please see the [LICENSE.txt](https://github.com/terracefi/quickfix/blob/main/LICENSE.txt) for the terms specified by the QuickFIX Software License.
