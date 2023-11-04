@@ -60,6 +60,8 @@ type session struct {
 	appDataDictionary       *datadictionary.DataDictionary
 
 	timestampPrecision TimestampPrecision
+
+	disconnectMutex sync.Mutex
 }
 
 func (s *session) logError(err error) {
@@ -705,6 +707,8 @@ type fixIn struct {
 
 func (s *session) onDisconnect() {
 	s.log.OnEvent("Disconnected")
+	s.disconnectMutex.Lock()
+	defer s.disconnectMutex.Unlock()
 	if s.ResetOnDisconnect {
 		if err := s.dropAndReset(); err != nil {
 			s.logError(err)
