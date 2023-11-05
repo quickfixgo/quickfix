@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/terracefi/quickfix/toolkit"
@@ -26,6 +27,7 @@ type stateMachine struct {
 	State                 sessionState
 	pendingStop, stopped  bool
 	notifyOnInSessionTime chan interface{}
+	msgInLock 		   sync.Mutex
 }
 
 func (sm *stateMachine) Start(s *session) {
@@ -95,6 +97,8 @@ func (sm *stateMachine) Incoming(session *session, m fixIn) {
 }
 
 func (sm *stateMachine) fixMsgIn(session *session, m *Message) {
+	sm.msgInLock.Lock()
+	defer sm.msgInLock.Unlock()
 	sm.setState(session, sm.State.FixMsgIn(session, m))
 }
 
