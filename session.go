@@ -369,6 +369,8 @@ func (s *session) EnqueueBytesAndSend(msg []byte) {
 }
 
 func (s *session) sendBytes(msg []byte) {
+	s.disconnectMutex.Lock()
+	defer s.disconnectMutex.Unlock()
 	if s.messageOut == nil {
 		s.log.OnEventf("Failed to send: disconnected")
 		return
