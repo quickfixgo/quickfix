@@ -17,7 +17,6 @@ package quickfix
 
 import (
 	"bytes"
-	"sync"
 	"time"
 
 	"github.com/terracefi/quickfix/toolkit"
@@ -40,7 +39,7 @@ const (
 
 type inSession struct{ 
 	loggedOn
-	lock sync.Mutex
+	// lock sync.Mutex
 }
 
 func (state inSession) String() string { return "In Session" }
@@ -289,8 +288,8 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 }
 
 func (state inSession) processReject(session *session, msg *Message, rej MessageRejectError) sessionState {
-	state.lock.Lock()
-	defer state.lock.Unlock()
+	// state.lock.Lock()
+	// defer state.lock.Unlock()
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
