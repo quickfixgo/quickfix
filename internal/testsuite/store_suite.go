@@ -29,8 +29,7 @@ type StoreTestSuite struct {
 	MsgStore quickfix.MessageStore
 }
 
-
-func (s *StoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum() {
+func (s *StoreTestSuite) TestMessageStoreSetNextMsgSeqNumRefreshIncrNextMsgSeqNum() {
 	// Given a MessageStore with the following sender and target seqnums
 	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(867))
 	s.Require().Nil(s.MsgStore.SetNextTargetMsgSeqNum(5309))
@@ -58,7 +57,7 @@ func (s *StoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSe
 	s.Equal(5310, s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *StoreTestSuite) TestMessageStore_Reset() {
+func (s *StoreTestSuite) TestMessageStoreReset() {
 	// Given a MessageStore with the following sender and target seqnums
 	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(1234))
 	s.Require().Nil(s.MsgStore.SetNextTargetMsgSeqNum(5678))
@@ -78,7 +77,7 @@ func (s *StoreTestSuite) TestMessageStore_Reset() {
 	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *StoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
+func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 	// Given the following saved messages
 	expectedMsgsBySeqNum := map[int]string{
 		1: "In the frozen land of Nador",
@@ -113,7 +112,7 @@ func (s *StoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (s *StoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() {
+func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(420))
 
 	// Given the following saved messages
@@ -153,7 +152,7 @@ func (s *StoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() 
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (s *StoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
+func (s *StoreTestSuite) TestMessageStoreGetMessagesEmptyStore() {
 	// When messages are retrieved from an empty store
 	messages, err := s.MsgStore.GetMessages(1, 2)
 	require.Nil(s.T(), err)
@@ -162,7 +161,7 @@ func (s *StoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
 	require.Empty(s.T(), messages, "Did not expect messages from empty store")
 }
 
-func (s *StoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
+func (s *StoreTestSuite) TestMessageStoreGetMessagesVariousRanges() {
 	t := s.T()
 
 	// Given the following saved messages
@@ -197,7 +196,7 @@ func (s *StoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
 	}
 }
 
-func (s *StoreTestSuite) TestMessageStore_CreationTime() {
+func (s *StoreTestSuite) TestMessageStoreCreationTime() {
 	s.False(s.MsgStore.CreationTime().IsZero())
 
 	t0 := time.Now()

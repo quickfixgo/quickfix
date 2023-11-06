@@ -104,7 +104,7 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 	if memErr != nil {
 		err = errors.Wrap(memErr, "cache creation")
 		return
-	} 
+	}
 
 	store = &sqlStore{
 		sessionID:          sessionID,
@@ -289,7 +289,7 @@ func (store *sqlStore) CreationTime() time.Time {
 }
 
 // SetCreationTime is a no-op for SQLStore.
-func (store *sqlStore) SetCreationTime(_ time.Time)  {
+func (store *sqlStore) SetCreationTime(_ time.Time) {
 }
 
 func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {

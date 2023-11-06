@@ -94,7 +94,7 @@ func newMongoStore(sessionID quickfix.SessionID, mongoURL, mongoDatabase, mongoR
 	if memErr != nil {
 		err = errors.Wrap(memErr, "cache creation")
 		return
-	} 
+	}
 
 	allowTransactions := len(mongoReplicaSet) > 0
 	store = &mongoStore{
@@ -281,7 +281,7 @@ func (store *mongoStore) CreationTime() time.Time {
 }
 
 // SetCreationTime is a no-op for MongoStore.
-func (store *mongoStore) SetCreationTime(_ time.Time)  {
+func (store *mongoStore) SetCreationTime(_ time.Time) {
 }
 
 func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {

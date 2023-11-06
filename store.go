@@ -31,8 +31,7 @@ type MessageStore interface {
 	SetNextTargetMsgSeqNum(next int) error
 
 	CreationTime() time.Time
-	SetCreationTime(time.Time) 
-
+	SetCreationTime(time.Time)
 
 	SaveMessage(seqNum int, msg []byte) error
 	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error

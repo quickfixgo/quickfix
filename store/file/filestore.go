@@ -103,11 +103,11 @@ func newFileStore(sessionID quickfix.SessionID, dirname string, fileSync bool) (
 	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
 	if memErr != nil {
 		return nil, errors.Wrap(memErr, "cache creation")
-	} 
+	}
 
 	store := &fileStore{
 		sessionID:          sessionID,
-		cache:             memStore,
+		cache:              memStore,
 		offsets:            make(map[int]msgDef),
 		bodyFname:          path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "body")),
 		headerFname:        path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "header")),
@@ -322,7 +322,7 @@ func (store *fileStore) CreationTime() time.Time {
 }
 
 // SetCreationTime is a no-op for FileStore.
-func (store *fileStore) SetCreationTime(_ time.Time)  {
+func (store *fileStore) SetCreationTime(_ time.Time) {
 }
 
 func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {

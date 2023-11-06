@@ -24,7 +24,6 @@ import (
 	"github.com/quickfixgo/quickfix"
 )
 
-
 func createFilenamePrefix(s quickfix.SessionID) string {
 	sender := []string{s.SenderCompID}
 	if s.SenderSubID != "" {

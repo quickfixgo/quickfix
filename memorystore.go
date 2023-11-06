@@ -21,7 +21,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-
 type memoryStore struct {
 	senderMsgSeqNum, targetMsgSeqNum int
 	creationTime                     time.Time
