@@ -48,7 +48,7 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	// create tables
 	db, err := sql.Open(sqlDriver, sqlDsn)
 	require.Nil(suite.T(), err)
-	ddlFnames, err := filepath.Glob(fmt.Sprintf("_sql/%s/*.sql", sqlDriver))
+	ddlFnames, err := filepath.Glob(fmt.Sprintf("../../_sql/%s/*.sql", sqlDriver))
 	require.Nil(suite.T(), err)
 	for _, fname := range ddlFnames {
 		sqlBytes, err := os.ReadFile(fname)
