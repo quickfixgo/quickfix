@@ -22,7 +22,5 @@ linters:
 linters-settings:
   gofmt:
     simplify: true
-  goimports:
-    local-prefixes: github.com/quickfixgo/quickfix
   dupl:
     threshold: 400
