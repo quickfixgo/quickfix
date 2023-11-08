@@ -38,8 +38,10 @@ jobs:
       matrix:
         go: [1.21]
         store-type:
+          -
           - memory
           - file
+          - mongo
         fix-version:
           -
           - fix40
@@ -65,10 +67,15 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-      - name: Test
+      - name: Unit  test
+        env:
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: ${{ matrix.store-type }}
+        run: if [ -z $FIX_TEST ] && [ -z $STORE_TYPE ]; then make build-src && make test-ci; fi
+      - name: Acceptance test
         env:
           GO111MODULE: on
           MONGODB_TEST_CXN: mongodb://localhost:27017
           FIX_TEST: ${{ matrix.fix-version }}
           STORE_TYPE: ${{ matrix.store-type }}
-        run: if [ -z $FIX_TEST ]; then make build-src && make test-ci; else make generate-ci && make build && make $FIX_TEST; fi
+        run: if [ $FIX_TEST ] && [ $STORE_TYPE ]; then make generate-ci && make build && make $FIX_TEST; fi
