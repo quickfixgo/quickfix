@@ -118,7 +118,7 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 		return
 	}
 
-	if store.sqlDriver == "postgres" {
+	if store.sqlDriver == "postgres" || store.sqlDriver == "pgx" {
 		store.placeholder = postgresPlaceholder
 	}
 
