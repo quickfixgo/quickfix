@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package sql
 
 import (
 	"database/sql"
@@ -26,13 +26,15 @@ import (
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/internal/testsuite"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
 // SqlStoreTestSuite runs all tests in the MessageStoreTestSuite against the SqlStore implementation.
 type SQLStoreTestSuite struct {
-	MessageStoreTestSuite
+	testsuite.StoreTestSuite
 	sqlStoreRootPath string
 }
 
@@ -46,7 +48,7 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	// create tables
 	db, err := sql.Open(sqlDriver, sqlDsn)
 	require.Nil(suite.T(), err)
-	ddlFnames, err := filepath.Glob(fmt.Sprintf("_sql/%s/*.sql", sqlDriver))
+	ddlFnames, err := filepath.Glob(fmt.Sprintf("../../_sql/%s/*.sql", sqlDriver))
 	require.Nil(suite.T(), err)
 	for _, fname := range ddlFnames {
 		sqlBytes, err := os.ReadFile(fname)
@@ -56,8 +58,8 @@ func (suite *SQLStoreTestSuite) SetupTest() {
 	}
 
 	// create settings
-	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
-	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`
+	sessionID := quickfix.SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+	settings, err := quickfix.ParseSettings(strings.NewReader(fmt.Sprintf(`
 [DEFAULT]
 SQLStoreDriver=%s
 SQLStoreDataSourceName=%s
@@ -70,7 +72,7 @@ TargetCompID=%s`, sqlDriver, sqlDsn, sessionID.BeginString, sessionID.SenderComp
 	require.Nil(suite.T(), err)
 
 	// create store
-	suite.msgStore, err = NewSQLStoreFactory(settings).Create(sessionID)
+	suite.MsgStore, err = NewStoreFactory(settings).Create(sessionID)
 	require.Nil(suite.T(), err)
 }
 
@@ -80,7 +82,7 @@ func (suite *SQLStoreTestSuite) TestSqlPlaceholderReplacement() {
 }
 
 func (suite *SQLStoreTestSuite) TearDownTest() {
-	suite.msgStore.Close()
+	suite.MsgStore.Close()
 	os.RemoveAll(suite.sqlStoreRootPath)
 }
 

@@ -13,15 +13,18 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/pkg/errors"
+	"github.com/quickfixgo/quickfix"
 )
 
-func sessionIDFilenamePrefix(s SessionID) string {
+func createFilenamePrefix(s quickfix.SessionID) string {
 	sender := []string{s.SenderCompID}
 	if s.SenderSubID != "" {
 		sender = append(sender, s.SenderSubID)
@@ -43,6 +46,26 @@ func sessionIDFilenamePrefix(s SessionID) string {
 		fname = append(fname, s.Qualifier)
 	}
 	return strings.Join(fname, "-")
+}
+
+// closeFile behaves like Close, except that no error is returned if the file does not exist.
+func closeFile(f *os.File) error {
+	if f != nil {
+		if err := f.Close(); err != nil {
+			if !os.IsNotExist(err) {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+// removeFile behaves like os.Remove, except that no error is returned if the file does not exist.
+func removeFile(fname string) error {
+	if err := os.Remove(fname); (err != nil) && !os.IsNotExist(err) {
+		return errors.Wrapf(err, "remove %v", fname)
+	}
+	return nil
 }
 
 // openOrCreateFile opens a file for reading and writing, creating it if necessary.

@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package sql
 
 import (
 	"database/sql"
@@ -23,16 +23,17 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
 
 type sqlStoreFactory struct {
-	settings *Settings
+	settings *quickfix.Settings
 }
 
 type sqlStore struct {
-	sessionID          SessionID
-	cache              *memoryStore
+	sessionID          quickfix.SessionID
+	cache              quickfix.MessageStore
 	sqlDriver          string
 	sqlDataSourceName  string
 	sqlConnMaxLifetime time.Duration
@@ -60,13 +61,13 @@ func postgresPlaceholder(i int) string {
 	return fmt.Sprintf("$%d", i+1)
 }
 
-// NewSQLStoreFactory returns a sql-based implementation of MessageStoreFactory.
-func NewSQLStoreFactory(settings *Settings) MessageStoreFactory {
+// NewStoreFactory returns a sql-based implementation of MessageStoreFactory.
+func NewStoreFactory(settings *quickfix.Settings) quickfix.MessageStoreFactory {
 	return sqlStoreFactory{settings: settings}
 }
 
 // Create creates a new SQLStore implementation of the MessageStore interface.
-func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
+func (f sqlStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix.MessageStore, err error) {
 	globalSettings := f.settings.GlobalSettings()
 	dynamicSessions, _ := globalSettings.BoolSetting(config.DynamicSessions)
 
@@ -97,10 +98,17 @@ func (f sqlStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err
 	return newSQLStore(sessionID, sqlDriver, sqlDataSourceName, sqlConnMaxLifetime)
 }
 
-func newSQLStore(sessionID SessionID, driver string, dataSourceName string, connMaxLifetime time.Duration) (store *sqlStore, err error) {
+func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName string, connMaxLifetime time.Duration) (store *sqlStore, err error) {
+
+	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
+	if memErr != nil {
+		err = errors.Wrap(memErr, "cache creation")
+		return
+	}
+
 	store = &sqlStore{
 		sessionID:          sessionID,
-		cache:              &memoryStore{},
+		cache:              memStore,
 		sqlDriver:          driver,
 		sqlDataSourceName:  dataSourceName,
 		sqlConnMaxLifetime: connMaxLifetime,
@@ -185,7 +193,7 @@ func (store *sqlStore) populateCache() error {
 
 	// session record found, load it
 	if err == nil {
-		store.cache.creationTime = creationTime
+		store.cache.SetCreationTime(creationTime)
 		if err = store.cache.SetNextTargetMsgSeqNum(incomingSeqNum); err != nil {
 			return errors.Wrap(err, "cache set next target")
 		}
@@ -207,7 +215,7 @@ func (store *sqlStore) populateCache() error {
 			sendercompid, sendersubid, senderlocid,
 			targetcompid, targetsubid, targetlocid)
 			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
-		store.cache.creationTime,
+		store.cache.CreationTime(),
 		store.cache.NextTargetMsgSeqNum(),
 		store.cache.NextSenderMsgSeqNum(),
 		s.BeginString, s.Qualifier,
@@ -278,6 +286,10 @@ func (store *sqlStore) IncrNextTargetMsgSeqNum() error {
 // CreationTime returns the creation time of the store.
 func (store *sqlStore) CreationTime() time.Time {
 	return store.cache.CreationTime()
+}
+
+// SetCreationTime is a no-op for SQLStore.
+func (store *sqlStore) SetCreationTime(_ time.Time) {
 }
 
 func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {

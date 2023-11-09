@@ -13,87 +13,71 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package testsuite
 
 import (
-	"testing"
 	"time"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )
 
-// MessageStoreTestSuite is the suite of all tests that should be run against all MessageStore implementations.
-type MessageStoreTestSuite struct {
+type StoreTestSuite struct {
 	suite.Suite
-	msgStore MessageStore
+	MsgStore quickfix.MessageStore
 }
 
-// MemoryStoreTestSuite runs all tests in the MessageStoreTestSuite against the MemoryStore implementation.
-type MemoryStoreTestSuite struct {
-	MessageStoreTestSuite
-}
-
-func (suite *MemoryStoreTestSuite) SetupTest() {
-	var err error
-	suite.msgStore, err = NewMemoryStoreFactory().Create(SessionID{})
-	require.Nil(suite.T(), err)
-}
-
-func TestMemoryStoreTestSuite(t *testing.T) {
-	suite.Run(t, new(MemoryStoreTestSuite))
-}
-
-func (s *MessageStoreTestSuite) TestMessageStore_SetNextMsgSeqNum_Refresh_IncrNextMsgSeqNum() {
+func (s *StoreTestSuite) TestMessageStoreSetNextMsgSeqNumRefreshIncrNextMsgSeqNum() {
 	// Given a MessageStore with the following sender and target seqnums
-	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(867))
-	s.Require().Nil(s.msgStore.SetNextTargetMsgSeqNum(5309))
+	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(867))
+	s.Require().Nil(s.MsgStore.SetNextTargetMsgSeqNum(5309))
 
 	// When the store is refreshed from its backing store
-	s.Require().Nil(s.msgStore.Refresh())
+	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(867, s.msgStore.NextSenderMsgSeqNum())
-	s.Equal(5309, s.msgStore.NextTargetMsgSeqNum())
+	s.Equal(867, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(5309, s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the sender and target seqnums are incremented
-	s.Require().Nil(s.msgStore.IncrNextSenderMsgSeqNum())
-	s.Require().Nil(s.msgStore.IncrNextTargetMsgSeqNum())
+	s.Require().Nil(s.MsgStore.IncrNextSenderMsgSeqNum())
+	s.Require().Nil(s.MsgStore.IncrNextTargetMsgSeqNum())
 
 	// Then the sender and target seqnums should be
-	s.Equal(868, s.msgStore.NextSenderMsgSeqNum())
-	s.Equal(5310, s.msgStore.NextTargetMsgSeqNum())
+	s.Equal(868, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(5310, s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
-	s.Require().Nil(s.msgStore.Refresh())
+	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(868, s.msgStore.NextSenderMsgSeqNum())
-	s.Equal(5310, s.msgStore.NextTargetMsgSeqNum())
+	s.Equal(868, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(5310, s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_Reset() {
+func (s *StoreTestSuite) TestMessageStoreReset() {
 	// Given a MessageStore with the following sender and target seqnums
-	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(1234))
-	s.Require().Nil(s.msgStore.SetNextTargetMsgSeqNum(5678))
+	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(1234))
+	s.Require().Nil(s.MsgStore.SetNextTargetMsgSeqNum(5678))
 
 	// When the store is reset
-	s.Require().Nil(s.msgStore.Reset())
+	s.Require().Nil(s.MsgStore.Reset())
 
 	// Then the sender and target seqnums should be
-	s.Equal(1, s.msgStore.NextSenderMsgSeqNum())
-	s.Equal(1, s.msgStore.NextTargetMsgSeqNum())
+	s.Equal(1, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
-	s.Require().Nil(s.msgStore.Refresh())
+	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(1, s.msgStore.NextSenderMsgSeqNum())
-	s.Equal(1, s.msgStore.NextTargetMsgSeqNum())
+	s.Equal(1, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
+func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 	// Given the following saved messages
 	expectedMsgsBySeqNum := map[int]string{
 		1: "In the frozen land of Nador",
@@ -101,11 +85,11 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 		3: "and there was much rejoicing",
 	}
 	for seqNum, msg := range expectedMsgsBySeqNum {
-		s.Require().Nil(s.msgStore.SaveMessage(seqNum, []byte(msg)))
+		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(msg)))
 	}
 
 	// When the messages are retrieved from the MessageStore
-	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	actualMsgs, err := s.MsgStore.GetMessages(1, 3)
 	s.Require().Nil(err)
 
 	// Then the messages should be
@@ -115,10 +99,10 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 
 	// When the store is refreshed from its backing store
-	s.Require().Nil(s.msgStore.Refresh())
+	s.Require().Nil(s.MsgStore.Refresh())
 
 	// And the messages are retrieved from the MessageStore
-	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	actualMsgs, err = s.MsgStore.GetMessages(1, 3)
 	s.Require().Nil(err)
 
 	// Then the messages should still be
@@ -128,8 +112,8 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_GetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMessage() {
-	s.Require().Nil(s.msgStore.SetNextSenderMsgSeqNum(420))
+func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
+	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(420))
 
 	// Given the following saved messages
 	expectedMsgsBySeqNum := map[int]string{
@@ -138,12 +122,12 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMes
 		3: "and there was much rejoicing",
 	}
 	for seqNum, msg := range expectedMsgsBySeqNum {
-		s.Require().Nil(s.msgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
+		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
 	}
-	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
 
 	// When the messages are retrieved from the MessageStore
-	actualMsgs, err := s.msgStore.GetMessages(1, 3)
+	actualMsgs, err := s.MsgStore.GetMessages(1, 3)
 	s.Require().Nil(err)
 
 	// Then the messages should be
@@ -153,13 +137,13 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMes
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 
 	// When the store is refreshed from its backing store
-	s.Require().Nil(s.msgStore.Refresh())
+	s.Require().Nil(s.MsgStore.Refresh())
 
 	// And the messages are retrieved from the MessageStore
-	actualMsgs, err = s.msgStore.GetMessages(1, 3)
+	actualMsgs, err = s.MsgStore.GetMessages(1, 3)
 	s.Require().Nil(err)
 
-	s.Equal(423, s.msgStore.NextSenderMsgSeqNum())
+	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
 
 	// Then the messages should still be
 	s.Require().Len(actualMsgs, 3)
@@ -168,22 +152,22 @@ func (s *MessageStoreTestSuite) TestMessageStore_SaveMessage_AndIncrement_GetMes
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_EmptyStore() {
+func (s *StoreTestSuite) TestMessageStoreGetMessagesEmptyStore() {
 	// When messages are retrieved from an empty store
-	messages, err := s.msgStore.GetMessages(1, 2)
+	messages, err := s.MsgStore.GetMessages(1, 2)
 	require.Nil(s.T(), err)
 
 	// Then no messages should be returned
 	require.Empty(s.T(), messages, "Did not expect messages from empty store")
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
+func (s *StoreTestSuite) TestMessageStoreGetMessagesVariousRanges() {
 	t := s.T()
 
 	// Given the following saved messages
-	require.Nil(t, s.msgStore.SaveMessage(1, []byte("hello")))
-	require.Nil(t, s.msgStore.SaveMessage(2, []byte("cruel")))
-	require.Nil(t, s.msgStore.SaveMessage(3, []byte("world")))
+	require.Nil(t, s.MsgStore.SaveMessage(1, []byte("hello")))
+	require.Nil(t, s.MsgStore.SaveMessage(2, []byte("cruel")))
+	require.Nil(t, s.MsgStore.SaveMessage(3, []byte("world")))
 
 	// When the following requests are made to the store
 	var testCases = []struct {
@@ -203,7 +187,7 @@ func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
 
 	// Then the returned messages should be
 	for _, tc := range testCases {
-		actualMsgs, err := s.msgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
+		actualMsgs, err := s.MsgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
 		require.Nil(t, err)
 		require.Len(t, actualMsgs, len(tc.expectedBytes))
 		for i, expectedMsg := range tc.expectedBytes {
@@ -212,12 +196,12 @@ func (s *MessageStoreTestSuite) TestMessageStore_GetMessages_VariousRanges() {
 	}
 }
 
-func (s *MessageStoreTestSuite) TestMessageStore_CreationTime() {
-	s.False(s.msgStore.CreationTime().IsZero())
+func (s *StoreTestSuite) TestMessageStoreCreationTime() {
+	s.False(s.MsgStore.CreationTime().IsZero())
 
 	t0 := time.Now()
-	s.Require().Nil(s.msgStore.Reset())
+	s.Require().Nil(s.MsgStore.Reset())
 	t1 := time.Now()
-	s.Require().True(s.msgStore.CreationTime().After(t0))
-	s.Require().True(s.msgStore.CreationTime().Before(t1))
+	s.Require().True(s.MsgStore.CreationTime().After(t0))
+	s.Require().True(s.MsgStore.CreationTime().Before(t1))
 }
