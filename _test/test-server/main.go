@@ -139,10 +139,23 @@ func main() {
 
 	var acceptor *quickfix.Acceptor
 	switch strings.ToUpper(storeType) {
+	case "MONGO":
+		mongoDbCxn := "mongodb://localhost:27017"
+		mongoDatabase := "automated_testing_database"
+		mongoReplicaSet := "replicaset"
+
+		appSettings.GlobalSettings().Set(config.MongoStoreConnection, mongoDbCxn)
+		appSettings.GlobalSettings().Set(config.MongoStoreDatabase, mongoDatabase)
+		appSettings.GlobalSettings().Set(config.MongoStoreReplicaSet, mongoReplicaSet)
+		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
+
+		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
 	case "FILE":
 		fileStoreRootPath := path.Join(os.TempDir(), fmt.Sprintf("FileStoreTestSuite-%d", os.Getpid()))
 		fileStorePath := path.Join(fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano()))
 		appSettings.GlobalSettings().Set(config.FileStorePath, fileStorePath)
+		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
+
 		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
 	case "MEMORY":
 		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
