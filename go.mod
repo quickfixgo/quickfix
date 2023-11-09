@@ -3,7 +3,7 @@ module github.com/quickfixgo/quickfix
 go 1.21
 
 require (
-	github.com/armon/go-proxyproto v0.0.0-20210323213023-7e956b284f0a
+	github.com/armon/go-proxyproto v0.1.0
 	github.com/mattn/go-sqlite3 v1.14.18
 	github.com/pkg/errors v0.9.1
 	github.com/shopspring/decimal v1.3.1
