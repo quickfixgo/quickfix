@@ -77,7 +77,7 @@ func (f fileStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfi
 
 	dirname, err := sessionSettings.Setting(config.FileStorePath)
 	if err != nil {
-			return nil, err
+		return nil, err
 	}
 	var fsync bool
 	if sessionSettings.HasSetting(config.FileStoreSync) {
