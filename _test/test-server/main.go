@@ -16,6 +16,7 @@ import (
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
 	"github.com/quickfixgo/quickfix/store/file"
+	"github.com/quickfixgo/quickfix/store/mongo"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
@@ -150,7 +151,7 @@ func main() {
 		appSettings.GlobalSettings().Set(config.MongoStoreReplicaSet, mongoReplicaSet)
 		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
 
-		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
+		acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), appSettings, fileLogFactory)
 	case "FILE":
 		fileStoreRootPath := path.Join(os.TempDir(), fmt.Sprintf("FileStoreTestSuite-%d", os.Getpid()))
 		fileStorePath := path.Join(fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano()))
