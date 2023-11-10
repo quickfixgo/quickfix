@@ -172,6 +172,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 	}
 
 	if err := session.verifySelect(msg, checkTooHigh, checkTooLow); err != nil {
+		session.log.OnEvent("SequenceReset rejected on validation")
 		return state.processReject(session, msg, err)
 	}
 
