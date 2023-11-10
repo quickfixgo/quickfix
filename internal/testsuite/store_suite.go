@@ -152,6 +152,48 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
 }
 
+func (s *StoreTestSuite) TestMessageStoreSaveBatchAndIncrementGetMessage() {
+	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(420))
+
+	// Given the following saved messages
+	expectedMsgsBySeqNum := map[int]string{
+		1: "In the frozen land of Nador",
+		2: "they were forced to eat Robin's minstrels",
+		3: "and there was much rejoicing",
+	}
+	var msgs [][]byte
+	for _, msg := range expectedMsgsBySeqNum {
+		msgs = append(msgs, []byte(msg))
+	}
+	s.Require().Nil(s.MsgStore.SaveBatchAndIncrNextSenderMsgSeqNum(1, msgs))
+	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
+
+	// When the messages are retrieved from the MessageStore
+	actualMsgs, err := s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	// Then the messages should be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+
+	// When the store is refreshed from its backing store
+	s.Require().Nil(s.MsgStore.Refresh())
+
+	// And the messages are retrieved from the MessageStore
+	actualMsgs, err = s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
+
+	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
+
+	// Then the messages should still be
+	s.Require().Len(actualMsgs, 3)
+	s.Equal(expectedMsgsBySeqNum[1], string(actualMsgs[0]))
+	s.Equal(expectedMsgsBySeqNum[2], string(actualMsgs[1]))
+	s.Equal(expectedMsgsBySeqNum[3], string(actualMsgs[2]))
+}
+
 func (s *StoreTestSuite) TestMessageStoreGetMessagesEmptyStore() {
 	// When messages are retrieved from an empty store
 	messages, err := s.MsgStore.GetMessages(1, 2)

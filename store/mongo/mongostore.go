@@ -338,6 +338,56 @@ func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg [
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
+func (store *mongoStore) SaveBatchAndIncrNextSenderMsgSeqNum(seqNum int, messages [][]byte) error {
+
+	if !store.allowTransactions {
+		for _, msg := range messages {
+			if err := store.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, msg); err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+
+	// If the mongodb supports replicasets, perform this operation as a transaction instead-
+	var next int
+	err := store.db.UseSession(context.Background(), func(sessionCtx mongo.SessionContext) error {
+		if err := sessionCtx.StartTransaction(); err != nil {
+			return err
+		}
+
+		entries := make([]interface{}, 0, len(messages))
+		for _, msg := range messages {
+			msgFilter := generateMessageFilter(&store.sessionID)
+			msgFilter.Msgseq = seqNum
+			msgFilter.Message = msg
+		}
+		_, err := store.db.Database(store.mongoDatabase).Collection(store.messagesCollection).InsertMany(sessionCtx, entries)
+		if err != nil {
+			return err
+		}
+
+		next = store.cache.NextSenderMsgSeqNum() + len(messages)
+
+		msgFilter := generateMessageFilter(&store.sessionID)
+		sessionUpdate := generateMessageFilter(&store.sessionID)
+		sessionUpdate.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()
+		sessionUpdate.OutgoingSeqNum = next
+		sessionUpdate.CreationTime = store.cache.CreationTime()
+		_, err = store.db.Database(store.mongoDatabase).Collection(store.sessionsCollection).UpdateOne(sessionCtx, msgFilter, bson.M{"$set": sessionUpdate})
+		if err != nil {
+			return err
+		}
+
+		return sessionCtx.CommitTransaction(context.Background())
+	})
+	if err != nil {
+		return err
+	}
+
+	return store.cache.SetNextSenderMsgSeqNum(next)
+}
+
 func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte, err error) {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	// Marshal into database form.
