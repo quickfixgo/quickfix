@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"bytes"
+	"strings"
 	"time"
 
 	"github.com/terracefi/quickfix/toolkit"
@@ -36,8 +37,7 @@ const (
 	LogoutTimeout
 )
 
-
-type inSession struct{ 
+type inSession struct {
 	loggedOn
 	// lock sync.Mutex
 }
@@ -163,7 +163,15 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 		}
 	}
 
-	if err := session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag)); err != nil {
+	checkTooHigh, checkTooLow := bool(gapFillFlag), bool(gapFillFlag)
+	// NOTE: Manually stops check for CrossX
+	// 123=true is set for the sequence reset messages from CrossX but their new sequence tend to be too low
+	// TargetCompID: CROSSXUAT / CROSSXLD
+	if strings.HasPrefix(session.sessionID.TargetCompID, "CROSSX") {
+		checkTooHigh, checkTooLow = false, false
+	}
+
+	if err := session.verifySelect(msg, checkTooHigh, checkTooLow); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
