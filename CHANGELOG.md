@@ -1,3 +1,77 @@
+## 0.9.0 (November 13, 2023)
+
+### FEATURES
+* Add Weekdays config setting as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/590
+* `MessageStore` Refactor
+
+The message store types external to a quickfix-go application have been refactored into individual sub-packages within `quickfix`. The benefit of this is that the dependencies for these specific store types are no longer included in the quickfix package itself, so many projects depending on the quickfix package will no longer be bloated with large indirect dependencies if they are not specifically implemented in your application. This applies to the `mongo` (MongoDB), `file` (A file on-disk), and `sql` (Any db accessed with a go sql driver interface). The `memorystore` (in-memory message store) syntax remains unchanged. The minor drawback to this is that with some re-packaging came some minor syntax changes. See https://github.com/quickfixgo/quickfix/issues/547 and https://github.com/quickfixgo/quickfix/pull/592 for more information. The relevant examples are below.
+
+MONGO
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/mongo"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+FILE
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/file"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+SQL
+
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/sql"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, sql.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+
+### ENHANCEMENTS
+* Acceptance suite store type expansions https://github.com/quickfixgo/quickfix/pull/596 and https://github.com/quickfixgo/quickfix/pull/591
+* Support Go v1.21 https://github.com/quickfixgo/quickfix/pull/589
+
+
+### BUG FIXES
+* Resolves outstanding issues with postgres db creation syntax and `pgx` driver https://github.com/quickfixgo/quickfix/pull/598
+* Fix sequence number bug when storage fails https://github.com/quickfixgo/quickfix/pull/432
+
+
 ## 0.8.1 (October 27, 2023)
 
 BUG FIXES

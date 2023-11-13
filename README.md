@@ -4,6 +4,10 @@
 
 Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in Go
 
+### Looking for help with `MessageStore` syntax changes?
+See v0.9.0 release notes [here](https://github.com/quickfixgo/quickfix/releases/tag/v0.9.0)
+
+
 ## About
 <p>QuickFIX/Go is a <a href="https://www.fixtrading.org/">FIX Protocol Community</a> implementation for the <a href="https://golang.org">Go programming language</a>.</p> 
 
@@ -24,7 +28,7 @@ Open Source [FIX Protocol](http://www.fixprotocol.org/) library implemented in G
 </ul>
 
 <br>
-<img width="208" alt="Sponsored by Connamara" src="https://user-images.githubusercontent.com/3065126/212457799-abd6408a-972d-4168-9feb-b80ce1f1ec83.png">
+<img width="208" alt="Sponsored by Connamara" src="https://user-images.githubusercontent.com/3065126/282546730-16220337-4960-48ae-8c2f-760fbaedb135.png">
 
 ## Installation
 
