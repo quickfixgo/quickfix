@@ -35,6 +35,7 @@ type MessageStore interface {
 
 	SaveMessage(seqNum int, msg []byte) error
 	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error
+	SaveBatchAndIncrNextSenderMsgSeqNum(seqNum int, msg [][]byte) error
 	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
 
 	Refresh() error
