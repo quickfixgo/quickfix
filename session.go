@@ -11,7 +11,7 @@ import (
 	"github.com/quickfixgo/quickfix/internal"
 )
 
-//The Session is the primary FIX abstraction for message communication
+// The Session is the primary FIX abstraction for message communication
 type session struct {
 	store MessageStore
 
@@ -45,14 +45,17 @@ type session struct {
 
 	messagePool
 	timestampPrecision TimestampPrecision
+
+	lastConnectData *EventLogon
+	lastLogonData   *EventLogon
 }
 
 func (s *session) logError(err error) {
 	s.log.OnEvent(err.Error())
 }
 
-//TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
-//Applicable for For FIX.T.1 sessions.
+// TargetDefaultApplicationVersionID returns the default application version ID for messages received by this version.
+// Applicable for For FIX.T.1 sessions.
 func (s *session) TargetDefaultApplicationVersionID() string {
 	return s.targetDefaultApplVerID
 }
@@ -205,7 +208,7 @@ func (s *session) resend(msg *Message) bool {
 	return s.application.ToApp(msg, s.sessionID) == nil
 }
 
-//queueForSend will validate, persist, and queue the message for send
+// queueForSend will validate, persist, and queue the message for send
 func (s *session) queueForSend(msg *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
@@ -225,7 +228,7 @@ func (s *session) queueForSend(msg *Message) error {
 	return nil
 }
 
-//send will validate, persist, queue the message. If the session is logged on, send all messages in the queue
+// send will validate, persist, queue the message. If the session is logged on, send all messages in the queue
 func (s *session) send(msg *Message) error {
 	return s.sendInReplyTo(msg, nil)
 }
@@ -248,7 +251,7 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	return nil
 }
 
-//dropAndReset will drop the send queue and reset the message store
+// dropAndReset will drop the send queue and reset the message store
 func (s *session) dropAndReset() error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
@@ -257,7 +260,7 @@ func (s *session) dropAndReset() error {
 	return s.store.Reset()
 }
 
-//dropAndSend will validate and persist the message, then drops the send queue and sends the message.
+// dropAndSend will validate and persist the message, then drops the send queue and sends the message.
 func (s *session) dropAndSend(msg *Message) error {
 	return s.dropAndSendInReplyTo(msg, nil)
 }
@@ -450,6 +453,11 @@ func (s *session) handleLogon(msg *Message) error {
 
 	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.HeartBtInt)))
 	s.application.OnLogon(s.sessionID)
+
+	if s.lastConnectData != nil {
+		s.application.OnEvent(s.sessionID, EventTypeLogon, s.lastConnectData)
+		s.lastLogonData = s.lastConnectData
+	}
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		return err

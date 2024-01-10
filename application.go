@@ -12,6 +12,8 @@ type Application interface {
 	//Notification of a session logging off or disconnecting.
 	OnLogout(sessionID SessionID)
 
+	OnEvent(sessionID SessionID, tp EventType, ev interface{})
+
 	//Notification of admin message being sent to target.
 	ToAdmin(message *Message, sessionID SessionID)
 
