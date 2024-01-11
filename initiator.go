@@ -148,7 +148,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		if useLastLogon && session.lastLogonData != nil {
 			address = session.lastLogonData.Addr
 		}
-		session.log.OnEventf("Connecting to: %v, useLastLogon: %v", address, useLastLogon)
+		session.log.OnEventf("Session: %+v Connecting to: %v, useLastLogon: %v", session.sessionID, address, useLastLogon)
 		session.lastConnectData = &EventLogon{Addr: address, TS: time.Now().Unix()}
 
 		netConn, err := dialer.Dial("tcp", address)
