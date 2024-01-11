@@ -200,7 +200,9 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		if !useLastLogon {
 			connectionAttempt++
 		}
-		useLastLogon = !useLastLogon
+		if session.lastLogonData != nil {
+			useLastLogon = !useLastLogon
+		}
 
 		session.log.OnEventf("Reconnecting in %v", session.ReconnectInterval)
 		if !i.waitForReconnectInterval(session.ReconnectInterval) {
