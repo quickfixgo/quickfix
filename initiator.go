@@ -134,7 +134,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 	}()
 
 	connectionAttempt := 0
-	useLastLogon := true
+	useLastLogon := session.lastLogonData != nil
 
 	for {
 		if !i.waitForInSessionTime(session) {
