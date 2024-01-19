@@ -64,6 +64,21 @@ func SendToTarget(m Messagable, sessionID SessionID) error {
 	return session.queueForSend(msg)
 }
 
+// SendBatchToTarget sends a batch of messages based on the sessionID. This allows for better mutex contention if we're sending large batches of messages repeatedly.
+func SendBatchToTarget(messages []Messagable, sessionID SessionID) error {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return errUnknownSession
+	}
+	msgs := make([]*Message, 0, len(messages))
+	for _, m := range messages {
+		msg := m.ToMessage()
+		msgs = append(msgs, msg)
+	}
+
+	return session.queueBatchForSend(msgs)
+}
+
 // ResetSession resets session's sequence numbers.
 func ResetSession(sessionID SessionID) error {
 	session, ok := lookupSession(sessionID)

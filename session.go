@@ -225,6 +225,20 @@ func (s *session) resend(msg *Message) bool {
 
 // queueForSend will validate, persist, and queue the message for send.
 func (s *session) queueForSend(msg *Message) error {
+	if err := s.queueForSendLocked(msg); err != nil {
+		return err
+	}
+
+	select {
+	case s.messageEvent <- true:
+	default:
+	}
+
+	return nil
+}
+
+// queueForSendLocked is the critical section portion of queueForSend.
+func (s *session) queueForSendLocked(msg *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
@@ -235,9 +249,32 @@ func (s *session) queueForSend(msg *Message) error {
 
 	s.toSend = append(s.toSend, msgBytes)
 
+	return nil
+}
+
+// queueBatchForSend will validate, persist, and queue a batch of messages for send.
+func (s *session) queueBatchForSend(msgs []*Message) error {
+	s.queueBatchForSendLocked(msgs)
+
 	select {
 	case s.messageEvent <- true:
 	default:
+	}
+
+	return nil
+}
+
+// queueBatchForSendLocked is the critical section portion of queueBatchForSend.
+func (s *session) queueBatchForSendLocked(msgs []*Message) error {
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
+
+	for _, msg := range msgs {
+		msgBytes, err := s.prepMessageForSend(msg, nil)
+		if err != nil {
+			return err
+		}
+		s.toSend = append(s.toSend, msgBytes)
 	}
 
 	return nil

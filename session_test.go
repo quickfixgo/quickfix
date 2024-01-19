@@ -821,6 +821,17 @@ func (suite *SessionSendTestSuite) TestQueueForSendAppMessage() {
 	suite.NextSenderMsgSeqNum(2)
 }
 
+func (suite *SessionSendTestSuite) TestQueueBatchForSendAppMessage() {
+	suite.MockApp.On("ToApp").Return(nil)
+	require.Nil(suite.T(), suite.queueBatchForSend([]*Message{suite.NewOrderSingle(), suite.NewOrderSingle(), suite.NewOrderSingle()}))
+
+	suite.MockApp.AssertExpectations(suite.T())
+	suite.NoMessageSent()
+	suite.MessagePersisted(suite.MockApp.lastToApp)
+	suite.FieldEquals(tagMsgSeqNum, 3, suite.MockApp.lastToApp.Header)
+	suite.NextSenderMsgSeqNum(4)
+}
+
 func (suite *SessionSendTestSuite) TestQueueForSendDoNotSendAppMessage() {
 	suite.MockApp.On("ToApp").Return(ErrDoNotSend)
 	suite.Equal(ErrDoNotSend, suite.queueForSend(suite.NewOrderSingle()))
