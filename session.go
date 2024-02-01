@@ -265,7 +265,7 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	}
 
 	s.toSend = append(s.toSend, msgBytes)
-	s.sendQueued()
+	s.sendQueued(true)
 
 	return nil
 }
@@ -294,7 +294,7 @@ func (s *session) dropAndSendInReplyTo(msg *Message, inReplyTo *Message) error {
 
 	s.dropQueued()
 	s.toSend = append(s.toSend, msgBytes)
-	s.sendQueued()
+	s.sendQueued(true)
 
 	return nil
 }
@@ -350,9 +350,9 @@ func (s *session) persist(seqNum int, msgBytes []byte) error {
 	return s.store.IncrNextSenderMsgSeqNum()
 }
 
-func (s *session) sendQueued() {
+func (s *session) sendQueued(blockUntilSent bool) {
 	for i, msgBytes := range s.toSend {
-		if !s.sendBytes(msgBytes) {
+		if !s.sendBytes(msgBytes, blockUntilSent) {
 			s.toSend = s.toSend[i:]
 			s.notifyMessageOut()
 			return
@@ -371,13 +371,20 @@ func (s *session) EnqueueBytesAndSend(msg []byte) {
 	defer s.sendMutex.Unlock()
 
 	s.toSend = append(s.toSend, msg)
-	s.sendQueued()
+	s.sendQueued(true)
 }
 
-func (s *session) sendBytes(msg []byte) bool {
+func (s *session) sendBytes(msg []byte, blockUntilSent bool) bool {
 	if s.messageOut == nil {
 		s.log.OnEventf("Failed to send: disconnected")
 		return false
+	}
+
+	if blockUntilSent {
+		s.messageOut <- msg
+		s.log.OnOutgoing(msg)
+		s.stateTimer.Reset(s.HeartBtInt)
+		return true
 	}
 
 	select {
