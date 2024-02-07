@@ -7,9 +7,10 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/gen/field"
 	"github.com/quickfixgo/quickfix/gen/tag"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
@@ -30,6 +31,10 @@ func (e *EchoApplication) OnLogout(sessionID quickfix.SessionID) {
 	e.log.Printf("OnLogout %v\n", sessionID.String())
 }
 func (e EchoApplication) ToAdmin(msgBuilder *quickfix.Message, sessionID quickfix.SessionID) {
+}
+
+func (e EchoApplication) OnEvent(sessionID quickfix.SessionID, tp quickfix.EventType, ev interface{}) {
+
 }
 
 func (e EchoApplication) ToApp(msgBuilder *quickfix.Message, sessionID quickfix.SessionID) (err error) {
