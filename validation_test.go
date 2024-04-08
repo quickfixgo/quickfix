@@ -74,6 +74,7 @@ func TestValidate(t *testing.T) {
 		tcInvalidTagCheckDisabledFixT(),
 		tcInvalidTagCheckEnabled(),
 		tcInvalidTagCheckEnabledFixT(),
+		validNewOrderSingleFailsToValidate(),
 	}
 
 	msg := NewMessage()
@@ -86,7 +87,7 @@ func TestValidate(t *testing.T) {
 			continue
 
 		case reject != nil && test.DoNotExpectReject:
-			t.Errorf("%v: Unexpected reject: %v", test.TestName, reject)
+			t.Errorf("%v: Unexpected reject: %v, Tag %v, Reason: %v", test.TestName, reject, *reject.RefTagID(), reject.RejectReason())
 			continue
 
 		case reject == nil:
@@ -303,6 +304,20 @@ func tcTagNotDefinedForMessage() validateTest {
 		ExpectedRejectReason: rejectReasonTagNotDefinedForThisMessageType,
 		ExpectedRefTagID:     &tag,
 	}
+}
+
+func validNewOrderSingleFailsToValidate() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX429.xml")
+	validator := NewValidator(defaultValidatorSettings, dict, nil)
+	msgBytes := []byte("8=FIX.4.29=077835=D49=BLPRFQ56=TGTCOMPID34=68550=SENDERSUBID115=OBOCOMP116=ON BEHALF OF AB52=20240405-03:58:4360=20240405-03:58:43.767120=JPY423=164=2024040938=18110040=211=ORD_ETF_COMPID_123456131=RFQ_ETF_COMPID_123456762=ETF6703=144=553.0639006704=215=JPY75=202404056705=553.098100106=MAXIS NY Dow Industrial Averag107=MAXIS NY DOW INDUST ETF JPYH167=ETP48=N.A.21=322=154=155=2242117=Q_RFQ_ETF_COMPID_123456_1207=JP6087=552.900000453=3448=123456A123ABC1ABCD12447=N452=13802=3523=OBOCOMP803=1523=26121113803=2523=ON BEHALF OF ABC803=9448=BTBS447=D452=72802=1523=123456ABCD123456803=4025448=123456ABCDEFGHI12447=N452=661907=11903=123456ABCD123456BBG000000000PADDING123456ABCDEFGHI121905=BTBS1906=5768=1769=20240405-03:58:43.391770=110=186")
+
+	return validateTest{
+		TestName:          "Process BBG NewOrderSingle",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+
 }
 
 func tcTagNotDefinedForMessageFixT() validateTest {
@@ -1014,7 +1029,7 @@ func TestValidateVisitField(t *testing.T) {
 		}
 
 		if reject != nil {
-			t.Errorf("Unexpected reject: %v", reject)
+			t.Errorf("Unexpected reject: %v, Reason: %v", reject, reject.RejectReason())
 		}
 
 		if len(remFields) != test.expectedRemFields {
