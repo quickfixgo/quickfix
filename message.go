@@ -373,6 +373,21 @@ func (m *Message) build() []byte {
 	return b.Bytes()
 }
 
+// Constructs a []byte from a Message instance, using the given bodyBytes.
+// This is a workaround for the fact that we currently rely on the generated Message types to properly serialize/deserialize RepeatingGroups.
+// In other words, we cannot go from bytes to a Message then back to bytes, which is exactly what we need to do in the case of a Resend.
+// This func lets us pull the Message from the Store, parse it, update the Header, and then build it back into bytes using the original Body.
+// Note: The only standard non-Body group is NoHops.  If that is used in the Header, this workaround may fail.
+func (m *Message) buildWithBodyBytes(bodyBytes []byte) []byte {
+	m.cook()
+
+	var b bytes.Buffer
+	m.Header.write(&b)
+	b.Write(bodyBytes)
+	m.Trailer.write(&b)
+	return b.Bytes()
+}
+
 func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	m.Header.SetInt(tagBodyLength, bodyLength)
