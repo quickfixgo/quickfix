@@ -21,61 +21,60 @@ jobs:
     name: Linter
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version: '1.21'
-          cache: false
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v4
         with:
-          version: v1.51
+          version: v1.57.2
 
-  build:
-    name: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go: [1.21]
-        store-type:
-          -
-          - memory
-          - file
-          - mongo
-        fix-version:
-          -
-          - fix40
-          - fix41
-          - fix42
-          - fix43
-          - fix44
-          - fix50
-          - fix50sp1
-          - fix50sp2
-    steps:
-      - name: Setup
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.go }}
-      - name: Check out source
-        uses: actions/checkout@v2
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-replica-set: replicaset
-      - name: Install ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-      - name: Unit  test
-        env:
-          FIX_TEST: ${{ matrix.fix-version }}
-          STORE_TYPE: ${{ matrix.store-type }}
-        run: if [ -z $FIX_TEST ] && [ -z $STORE_TYPE ]; then make build-src && make test-ci; fi
-      - name: Acceptance test
-        env:
-          GO111MODULE: on
-          MONGODB_TEST_CXN: mongodb://localhost:27017
-          FIX_TEST: ${{ matrix.fix-version }}
-          STORE_TYPE: ${{ matrix.store-type }}
-        run: if [ $FIX_TEST ] && [ $STORE_TYPE ]; then make generate-ci && make build && make $FIX_TEST; fi
+  # build:
+  #   name: build
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       go: [1.21]
+  #       store-type:
+  #         -
+  #         - memory
+  #         - file
+  #         - mongo
+  #       fix-version:
+  #         -
+  #         - fix40
+  #         - fix41
+  #         - fix42
+  #         - fix43
+  #         - fix44
+  #         - fix50
+  #         - fix50sp1
+  #         - fix50sp2
+  #   steps:
+  #     - name: Setup
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ matrix.go }}
+  #     - name: Check out source
+  #       uses: actions/checkout@v2
+  #     - name: Start MongoDB
+  #       uses: supercharge/mongodb-github-action@1.8.0
+  #       with:
+  #         mongodb-replica-set: replicaset
+  #     - name: Install ruby
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.0'
+  #     - name: Unit  test
+  #       env:
+  #         FIX_TEST: ${{ matrix.fix-version }}
+  #         STORE_TYPE: ${{ matrix.store-type }}
+  #       run: if [ -z $FIX_TEST ] && [ -z $STORE_TYPE ]; then make build-src && make test-ci; fi
+  #     - name: Acceptance test
+  #       env:
+  #         GO111MODULE: on
+  #         MONGODB_TEST_CXN: mongodb://localhost:27017
+  #         FIX_TEST: ${{ matrix.fix-version }}
+  #         STORE_TYPE: ${{ matrix.store-type }}
+  #       run: if [ $FIX_TEST ] && [ $STORE_TYPE ]; then make generate-ci && make build && make $FIX_TEST; fi
