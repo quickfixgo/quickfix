@@ -210,6 +210,7 @@ func ParseMessageWithDataDictionary(
 
 	trailerBytes := []byte{}
 	foundBody := false
+	foundTrailer := false
 	for {
 		parsedFieldBytes = &msg.fields[fieldIndex]
 		if xmlDataLen > 0 {
@@ -228,6 +229,7 @@ func ParseMessageWithDataDictionary(
 			msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
 		case isTrailerField(parsedFieldBytes.tag, transportDataDictionary):
 			msg.Trailer.add(msg.fields[fieldIndex : fieldIndex+1])
+			foundTrailer = true
 		default:
 			foundBody = true
 			trailerBytes = rawBytes
@@ -245,6 +247,12 @@ func ParseMessageWithDataDictionary(
 			xmlDataLen, _ = msg.Header.GetInt(tagXMLDataLen)
 		}
 		fieldIndex++
+	}
+
+	// This will happen if there are no fields in the body
+	if foundTrailer && !foundBody {
+		trailerBytes = rawBytes
+		msg.bodyBytes = nil
 	}
 
 	// Body length would only be larger than trailer if fields out of order.
@@ -413,6 +421,21 @@ func (m *Message) build() []byte {
 	var b bytes.Buffer
 	m.Header.write(&b)
 	m.Body.write(&b)
+	m.Trailer.write(&b)
+	return b.Bytes()
+}
+
+// Constructs a []byte from a Message instance, using the given bodyBytes.
+// This is a workaround for the fact that we currently rely on the generated Message types to properly serialize/deserialize RepeatingGroups.
+// In other words, we cannot go from bytes to a Message then back to bytes, which is exactly what we need to do in the case of a Resend.
+// This func lets us pull the Message from the Store, parse it, update the Header, and then build it back into bytes using the original Body.
+// Note: The only standard non-Body group is NoHops.  If that is used in the Header, this workaround may fail.
+func (m *Message) buildWithBodyBytes(bodyBytes []byte) []byte {
+	m.cook()
+
+	var b bytes.Buffer
+	m.Header.write(&b)
+	b.Write(bodyBytes)
 	m.Trailer.write(&b)
 	return b.Bytes()
 }
