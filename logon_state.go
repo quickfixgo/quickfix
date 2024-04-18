@@ -68,7 +68,7 @@ func (s logonState) Timeout(session *session, e internal.Event) (nextState sessi
 	return s
 }
 
-func (s logonState) Stop(session *session) (nextState sessionState) {
+func (s logonState) Stop(_ *session) (nextState sessionState) {
 	return latentState{}
 }
 

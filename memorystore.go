@@ -109,7 +109,7 @@ func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, err
 
 type memoryStoreFactory struct{}
 
-func (f memoryStoreFactory) Create(sessionID SessionID) (MessageStore, error) {
+func (f memoryStoreFactory) Create(_ SessionID) (MessageStore, error) {
 	m := new(memoryStore)
 	if err := m.Reset(); err != nil {
 		return m, errors.Wrap(err, "reset")

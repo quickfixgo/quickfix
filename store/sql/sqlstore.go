@@ -50,10 +50,10 @@ func sqlString(raw string, placeholder placeholderFunc) string {
 		return raw
 	}
 	idx := 0
-	return rePlaceholder.ReplaceAllStringFunc(raw, func(s string) string {
-		new := placeholder(idx)
+	return rePlaceholder.ReplaceAllStringFunc(raw, func(_ string) string {
+		p := placeholder(idx)
 		idx++
-		return new
+		return p
 	})
 }
 

@@ -1,6 +1,12 @@
 run:
   timeout: 10m
-  skip-dirs:
+  # deprecated config - 
+  # skip-dirs:
+  #   - gen
+  #   - vendor
+
+issues:
+  exclude-dirs:
     - gen
     - vendor
 
