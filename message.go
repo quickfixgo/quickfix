@@ -152,7 +152,7 @@ func ParseMessageWithDataDictionary(
 	msg *Message,
 	rawMessage *bytes.Buffer,
 	transportDataDictionary *datadictionary.DataDictionary,
-	applicationDataDictionary *datadictionary.DataDictionary,
+	_ *datadictionary.DataDictionary,
 ) (err error) {
 	msg.Header.Clear()
 	msg.Body.Clear()
@@ -322,7 +322,7 @@ func (m *Message) IsMsgTypeOf(msgType string) bool {
 func (m *Message) reverseRoute() *Message {
 	reverseMsg := NewMessage()
 
-	copy := func(src Tag, dest Tag) {
+	copyFunc := func(src Tag, dest Tag) {
 		var field FIXString
 		if m.Header.GetField(src, &field) == nil {
 			if len(field) != 0 {
@@ -331,25 +331,25 @@ func (m *Message) reverseRoute() *Message {
 		}
 	}
 
-	copy(tagSenderCompID, tagTargetCompID)
-	copy(tagSenderSubID, tagTargetSubID)
-	copy(tagSenderLocationID, tagTargetLocationID)
+	copyFunc(tagSenderCompID, tagTargetCompID)
+	copyFunc(tagSenderSubID, tagTargetSubID)
+	copyFunc(tagSenderLocationID, tagTargetLocationID)
 
-	copy(tagTargetCompID, tagSenderCompID)
-	copy(tagTargetSubID, tagSenderSubID)
-	copy(tagTargetLocationID, tagSenderLocationID)
+	copyFunc(tagTargetCompID, tagSenderCompID)
+	copyFunc(tagTargetSubID, tagSenderSubID)
+	copyFunc(tagTargetLocationID, tagSenderLocationID)
 
-	copy(tagOnBehalfOfCompID, tagDeliverToCompID)
-	copy(tagOnBehalfOfSubID, tagDeliverToSubID)
-	copy(tagDeliverToCompID, tagOnBehalfOfCompID)
-	copy(tagDeliverToSubID, tagOnBehalfOfSubID)
+	copyFunc(tagOnBehalfOfCompID, tagDeliverToCompID)
+	copyFunc(tagOnBehalfOfSubID, tagDeliverToSubID)
+	copyFunc(tagDeliverToCompID, tagOnBehalfOfCompID)
+	copyFunc(tagDeliverToSubID, tagOnBehalfOfSubID)
 
 	// Tags added in 4.1.
 	var beginString FIXString
 	if m.Header.GetField(tagBeginString, &beginString) == nil {
 		if string(beginString) != BeginStringFIX40 {
-			copy(tagOnBehalfOfLocationID, tagDeliverToLocationID)
-			copy(tagDeliverToLocationID, tagOnBehalfOfLocationID)
+			copyFunc(tagOnBehalfOfLocationID, tagDeliverToLocationID)
+			copyFunc(tagDeliverToLocationID, tagOnBehalfOfLocationID)
 		}
 	}
 

@@ -315,7 +315,7 @@ func Parse(path string) (*DataDictionary, error) {
 func ParseSrc(xmlSrc io.Reader) (*DataDictionary, error) {
 	doc := new(XMLDoc)
 	decoder := xml.NewDecoder(xmlSrc)
-	decoder.CharsetReader = func(encoding string, input io.Reader) (io.Reader, error) {
+	decoder.CharsetReader = func(_ string, input io.Reader) (io.Reader, error) {
 		return input, nil
 	}
 

@@ -85,18 +85,18 @@ type MockApp struct {
 	lastToApp       *Message
 }
 
-func (e *MockApp) OnCreate(sessionID SessionID) {
+func (e *MockApp) OnCreate(_ SessionID) {
 }
 
-func (e *MockApp) OnLogon(sessionID SessionID) {
+func (e *MockApp) OnLogon(_ SessionID) {
 	e.Called()
 }
 
-func (e *MockApp) OnLogout(sessionID SessionID) {
+func (e *MockApp) OnLogout(_ SessionID) {
 	e.Called()
 }
 
-func (e *MockApp) FromAdmin(msg *Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromAdmin(_ *Message, _ SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}
@@ -104,7 +104,7 @@ func (e *MockApp) FromAdmin(msg *Message, sessionID SessionID) (reject MessageRe
 	return nil
 }
 
-func (e *MockApp) ToAdmin(msg *Message, sessionID SessionID) {
+func (e *MockApp) ToAdmin(msg *Message, _ SessionID) {
 	e.Called()
 
 	if e.decorateToAdmin != nil {
@@ -114,12 +114,12 @@ func (e *MockApp) ToAdmin(msg *Message, sessionID SessionID) {
 	e.lastToAdmin = msg
 }
 
-func (e *MockApp) ToApp(msg *Message, sessionID SessionID) (err error) {
+func (e *MockApp) ToApp(msg *Message, _ SessionID) (err error) {
 	e.lastToApp = msg
 	return e.Called().Error(0)
 }
 
-func (e *MockApp) FromApp(msg *Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromApp(_ *Message, _ SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}

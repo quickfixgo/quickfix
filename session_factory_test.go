@@ -373,7 +373,7 @@ func (s *SessionFactorySuite) TestInvalidWeekdays() {
 	}
 
 	for _, testcase := range testcases {
-		s.T().Run(testcase.label, func(t *testing.T) {
+		s.T().Run(testcase.label, func(_ *testing.T) {
 			s.SessionSettings.Set(config.Weekdays, testcase.input)
 
 			_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)

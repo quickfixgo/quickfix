@@ -1,5 +1,6 @@
 run:
   timeout: 10m
+  # deprecated config - 
   # skip-dirs:
   #   - gen
   #   - vendor
