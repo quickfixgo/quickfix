@@ -928,10 +928,10 @@ func tcMultipleRepeatingGroupFields() validateTest {
 	dict, _ := datadictionary.Parse("spec/FIX43.xml")
 	validator := NewValidator(defaultValidatorSettings, dict, nil)
 	return validateTest{
-		TestName:             "Multiple repeating group fields in a message",
-		Validator:            validator,
-		MessageBytes:         []byte("8=FIX.4.39=17635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID453=2448=PARTYID452=3523=SUBID448=PARTYID2452=378=179=ACCOUNT80=121=140=154=138=20055=INTC60=20140329-22:38:4510=178"),
-		DoNotExpectReject:    true,
+		TestName:          "Multiple repeating group fields in a message",
+		Validator:         validator,
+		MessageBytes:      []byte("8=FIX.4.39=17635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID453=2448=PARTYID452=3523=SUBID448=PARTYID2452=378=179=ACCOUNT80=121=140=154=138=20055=INTC60=20140329-22:38:4510=178"),
+		DoNotExpectReject: true,
 	}
 }
 

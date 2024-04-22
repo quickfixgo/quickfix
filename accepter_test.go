@@ -21,7 +21,7 @@ import (
 
 	"github.com/quickfixgo/quickfix/config"
 
-	proxyproto "github.com/armon/go-proxyproto"
+	proxyproto "github.com/pires/go-proxyproto"
 	"github.com/stretchr/testify/assert"
 )
 
