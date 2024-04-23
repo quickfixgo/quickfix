@@ -60,7 +60,7 @@ func TestFIXDecimalRead(t *testing.T) {
 		require.Equal(t, test.expectError, err != nil)
 
 		if !test.expectError {
-			assert.True(t, test.expected.Equals(field.Decimal), "Expected %s got %s", test.expected, field.Decimal)
+			assert.True(t, test.expected.Equal(field.Decimal), "Expected %s got %s", test.expected, field.Decimal)
 		}
 	}
 }
