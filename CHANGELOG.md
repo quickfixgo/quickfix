@@ -1,3 +1,6 @@
+## 0.9.1 (April 15, 2024)
+* Preserve original body when resending https://github.com/quickfixgo/quickfix/pull/624
+
 ## 0.9.0 (November 13, 2023)
 
 ### FEATURES

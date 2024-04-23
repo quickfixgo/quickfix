@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"sync"
 
-	proxyproto "github.com/armon/go-proxyproto"
+	proxyproto "github.com/pires/go-proxyproto"
 
 	"github.com/quickfixgo/quickfix/config"
 )

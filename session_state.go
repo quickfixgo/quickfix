@@ -105,7 +105,7 @@ func (sm *stateMachine) SendAppMessages(session *session) {
 	defer session.sendMutex.Unlock()
 
 	if session.IsLoggedOn() {
-		session.sendQueued()
+		session.sendQueued(false)
 	} else {
 		session.dropQueued()
 	}

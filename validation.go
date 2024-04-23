@@ -149,7 +149,7 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings Va
 	return nil
 }
 
-func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
+func validateMsgType(d *datadictionary.DataDictionary, msgType string, _ *Message) MessageRejectError {
 	if _, validMsgType := d.Messages[msgType]; !validMsgType {
 		return InvalidMessageType()
 	}
@@ -246,7 +246,6 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 			if childDefs[0].Required() {
 				return fieldStack, RequiredTagMissing(Tag(childDefs[0].Tag()))
 			}
-			fieldStack = fieldStack[1:]
 		}
 
 		childDefs = childDefs[1:]
@@ -296,7 +295,7 @@ func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadic
 	return nil
 }
 
-func validateRequiredFieldMap(msg *Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
+func validateRequiredFieldMap(_ *Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
 	for required := range requiredTags {
 		requiredTag := Tag(required)
 		if !fieldMap.Has(requiredTag) {
@@ -328,7 +327,7 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 	return nil
 }
 
-func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field TagValue) MessageRejectError {
+func validateField(d *datadictionary.DataDictionary, _ datadictionary.TagSet, field TagValue) MessageRejectError {
 	if len(field.value) == 0 {
 		return TagSpecifiedWithoutAValue(field.tag)
 	}
