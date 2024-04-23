@@ -1,4 +1,12 @@
+## 0.9.2 (April 23, 2024)
+
+### BUG FIXES
+* Prevent message queue blocking in the case of network connection trouble https://github.com/quickfixgo/quickfix/pull/615 https://github.com/quickfixgo/quickfix/pull/628
+* Corrects validation of multiple repeating groups with different fields https://github.com/quickfixgo/quickfix/pull/623
+
 ## 0.9.1 (April 15, 2024)
+
+### BUG FIXES
 * Preserve original body when resending https://github.com/quickfixgo/quickfix/pull/624
 
 ## 0.9.0 (November 13, 2023)
