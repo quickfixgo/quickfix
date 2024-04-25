@@ -66,6 +66,8 @@ const (
 	MaxLatency                   string = "MaxLatency"
 	PersistMessages              string = "PersistMessages"
 	RejectInvalidMessage         string = "RejectInvalidMessage"
+	AllowUnknownMessageFields    string = "AllowUnknownMessageFields"
+	CheckUserDefinedFields       string = "CheckUserDefinedFields"
 	DynamicSessions              string = "DynamicSessions"
 	DynamicQualifier             string = "DynamicQualifier"
 )
