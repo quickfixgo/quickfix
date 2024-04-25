@@ -673,14 +673,18 @@ func (s *SessionSuite) TestInitiateLogonResetSeqNumFlag() {
 	}
 	s.session.State = latentState{}
 	s.session.HeartBtInt = time.Duration(45) * time.Second
+	s.Require().Nil(s.store.Reset())
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
 	s.IncrNextTargetMsgSeqNum()
 	s.IncrNextSenderMsgSeqNum()
+	s.session.ResetOnLogon = true
 	s.session.InitiateLogon = true
 
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
 	s.MockApp.On("ToAdmin")
-	s.MockApp.decorateToAdmin = func(msg *Message) {
-		msg.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
-	}
 	s.session.onAdmin(adminMsg)
 
 	s.MockApp.AssertExpectations(s.T())
