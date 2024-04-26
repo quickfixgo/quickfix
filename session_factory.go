@@ -99,6 +99,18 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.AllowUnknownMessageFields) {
+		if validatorSettings.AllowUnknownMessageFields, err = settings.BoolSetting(config.AllowUnknownMessageFields); err != nil {
+			return
+		}
+	}
+
+	if settings.HasSetting(config.CheckUserDefinedFields) {
+		if validatorSettings.CheckUserDefinedFields, err = settings.BoolSetting(config.CheckUserDefinedFields); err != nil {
+			return
+		}
+	}
+
 	if sessionID.IsFIXT() {
 		if s.DefaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
 			return
