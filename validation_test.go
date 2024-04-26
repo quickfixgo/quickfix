@@ -74,6 +74,14 @@ func TestValidate(t *testing.T) {
 		tcInvalidTagCheckDisabledFixT(),
 		tcInvalidTagCheckEnabled(),
 		tcInvalidTagCheckEnabledFixT(),
+		tcAllowUnknownMessageFieldsEnabled(),
+		tcAllowUnknownMessageFieldsEnabledFixT(),
+		tcAllowUnknownMessageFieldsDisabled(),
+		tcAllowUnknownMessageFieldsDisabledFixT(),
+		tcCheckUserDefinedFieldsEnabled(),
+		tcCheckUserDefinedFieldsEnabledFixT(),
+		tcCheckUserDefinedFieldsDisabled(),
+		tcCheckUserDefinedFieldsDisabledFixT(),
 		tcMultipleRepeatingGroupFields(),
 	}
 
@@ -783,6 +791,168 @@ func tcInvalidTagCheckEnabledFixT() validateTest {
 		MessageBytes:      msgBytes,
 		DoNotExpectReject: false,
 		ExpectedRefTagID:  &tag,
+	}
+}
+
+func tcAllowUnknownMessageFieldsEnabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.AllowUnknownMessageFields = true
+	validator := NewValidator(customValidatorSettings, dict, nil)
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(41)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Allow Unknown Message Fields - Enabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcAllowUnknownMessageFieldsEnabledFixT() validateTest {
+	tDict, _ := datadictionary.Parse("spec/FIXT11.xml")
+	appDict, _ := datadictionary.Parse("spec/FIX50SP2.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.AllowUnknownMessageFields = true
+	validator := NewValidator(customValidatorSettings, appDict, tDict)
+
+	builder := createFIX50SP2NewOrderSingle()
+	tag := Tag(41)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Allow Unknown Message Fields - Enabled FIXT",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcAllowUnknownMessageFieldsDisabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.AllowUnknownMessageFields = false
+	validator := NewValidator(customValidatorSettings, dict, nil)
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(41)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:             "Allow Unknown Message Fields - Disabled",
+		Validator:            validator,
+		MessageBytes:         msgBytes,
+		DoNotExpectReject:    false,
+		ExpectedRejectReason: rejectReasonTagNotDefinedForThisMessageType,
+		ExpectedRefTagID:     &tag,
+	}
+}
+
+func tcAllowUnknownMessageFieldsDisabledFixT() validateTest {
+	tDict, _ := datadictionary.Parse("spec/FIXT11.xml")
+	appDict, _ := datadictionary.Parse("spec/FIX50SP2.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.RejectInvalidMessage = true
+	validator := NewValidator(customValidatorSettings, appDict, tDict)
+
+	builder := createFIX50SP2NewOrderSingle()
+	tag := Tag(41)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:             "Allow Unknown Message Fields - Disabled FIXT",
+		Validator:            validator,
+		MessageBytes:         msgBytes,
+		DoNotExpectReject:    false,
+		ExpectedRejectReason: rejectReasonTagNotDefinedForThisMessageType,
+		ExpectedRefTagID:     &tag,
+	}
+}
+
+func tcCheckUserDefinedFieldsEnabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.CheckUserDefinedFields = true
+	validator := NewValidator(customValidatorSettings, dict, nil)
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Check User Defined Fields - Enabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: false,
+		ExpectedRefTagID:  &tag,
+	}
+}
+
+func tcCheckUserDefinedFieldsEnabledFixT() validateTest {
+	tDict, _ := datadictionary.Parse("spec/FIXT11.xml")
+	appDict, _ := datadictionary.Parse("spec/FIX50SP2.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.RejectInvalidMessage = true
+	validator := NewValidator(customValidatorSettings, appDict, tDict)
+
+	builder := createFIX50SP2NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Check User Defined Fields - Enabled FIXT",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: false,
+		ExpectedRefTagID:  &tag,
+	}
+}
+
+func tcCheckUserDefinedFieldsDisabled() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX40.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.CheckUserDefinedFields = false
+	validator := NewValidator(customValidatorSettings, dict, nil)
+
+	builder := createFIX40NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Check User Defined Fields - Disabled",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcCheckUserDefinedFieldsDisabledFixT() validateTest {
+	tDict, _ := datadictionary.Parse("spec/FIXT11.xml")
+	appDict, _ := datadictionary.Parse("spec/FIX50SP2.xml")
+	customValidatorSettings := defaultValidatorSettings
+	customValidatorSettings.CheckUserDefinedFields = false
+	validator := NewValidator(customValidatorSettings, appDict, tDict)
+
+	builder := createFIX50SP2NewOrderSingle()
+	tag := Tag(9999)
+	builder.Body.SetField(tag, FIXString("hello"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Check User Defined Fields - Disabled FIXT",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
 	}
 }
 
