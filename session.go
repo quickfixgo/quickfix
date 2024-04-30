@@ -310,8 +310,6 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 	}
 
 	if isAdminMessageType(msgType) {
-		s.application.ToAdmin(msg, s.sessionID)
-
 		if bytes.Equal(msgType, msgTypeLogon) {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
@@ -330,6 +328,7 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 				msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
 			}
 		}
+		s.application.ToAdmin(msg, s.sessionID)
 	} else {
 		if err = s.application.ToApp(msg, s.sessionID); err != nil {
 			return
