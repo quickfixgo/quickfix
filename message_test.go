@@ -146,6 +146,29 @@ func (s *MessageSuite) TestReBuild() {
 	s.True(bytes.Equal(s.msg.bodyBytes, expectedBodyBytes), "Incorrect body bytes, got %s", string(s.msg.bodyBytes))
 }
 
+func (s *MessageSuite) TestRebuildWithRepeatingGroup() {
+
+	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
+	s.Nil(dictErr)
+
+	// Given message bytes from a valid string
+	rawMsg := bytes.NewBufferString("8=FIX.4.49=21035=D34=2347=UTF-852=20231231-20:19:4149=0100150=01001a56=TEST44=1211=139761=1010040021=1386=1336=NOPL55=SYMABC54=160=20231231-20:19:4138=140=259=0453=1448=4501447=D452=28354=6355=Public10=104")
+
+	// When we parse it into a message
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+
+	// And then rebuild the message bytes
+	rebuildBytes := s.msg.build()
+
+	// this method does result in test passing. 
+	//s.msg.buildWithBodyBytes(s.msg.bodyBytes)
+
+	expectedBytes := []byte("8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST347=UTF-844=1211=139761=1010040021=1386=1336=NOPL55=SYMABC54=160=20231231-20:19:4138=140=259=0453=1448=4501447=D452=28354=6355=Public10=104")
+
+	// Then the bytes should be the same with repeating group properly ordered
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n +%s\n -%s", rebuildBytes, expectedBytes)
+}
+
 func (s *MessageSuite) TestReBuildWithRepeatingGroupForResend() {
 	// Given the following message with a repeating group
 	origHeader := "8=FIXT.1.19=16135=834=349=ISLD52=20240415-03:43:17.92356=TW"
