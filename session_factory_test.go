@@ -472,6 +472,23 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
 }
 
+func (s *SessionFactorySuite) TestDuplicateSession() {
+	s.sessionFactory.BuildInitiators = true
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
+	s.SessionSettings.Set(config.SocketConnectPort, "5000")
+
+	session, err := s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.True(session.InitiateLogon)
+	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+	s.Equal("Duplicate SessionID", err.Error())
+	UnregisterSession(s.SessionID)
+	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+}
+
 func (s *SessionFactorySuite) TestNewSessionBuildAcceptors() {
 	s.sessionFactory.BuildInitiators = false
 	s.SessionSettings.Set(config.HeartBtInt, "34")
