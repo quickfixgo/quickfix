@@ -144,6 +144,13 @@ func (a *Acceptor) Stop() {
 		session.stop()
 	}
 	a.sessionGroup.Wait()
+
+	for sessionID := range a.sessions {
+		err := UnregisterSession(sessionID)
+		if err != nil {
+			return
+		}
+	}
 }
 
 // RemoteAddr gets remote IP address for a given session.

@@ -74,14 +74,14 @@ func (i *Initiator) Stop() {
 	}
 	close(i.stopChan)
 
+	i.wg.Wait()
+
 	for sessionID := range i.sessionSettings {
 		err := UnregisterSession(sessionID)
 		if err != nil {
 			return
 		}
 	}
-
-	i.wg.Wait()
 }
 
 // NewInitiator creates and initializes a new Initiator.
