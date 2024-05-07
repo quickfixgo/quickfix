@@ -73,7 +73,15 @@ func (i *Initiator) Stop() {
 	default:
 	}
 	close(i.stopChan)
+
 	i.wg.Wait()
+
+	for sessionID := range i.sessionSettings {
+		err := UnregisterSession(sessionID)
+		if err != nil {
+			return
+		}
+	}
 }
 
 // NewInitiator creates and initializes a new Initiator.
