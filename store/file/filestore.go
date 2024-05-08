@@ -361,10 +361,11 @@ func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []
 }
 
 func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err error) {
-	msgInfo, found := store.offsets.Load(seqNum)
+	msgInfoTemp, found := store.offsets.Load(seqNum)
 	if !found {
 		return
 	}
+	msgInfo := msgInfoTemp.(msgDef)
 
 	msg = make([]byte, msgInfo.size)
 	if _, err = store.bodyFile.ReadAt(msg, msgInfo.offset); err != nil {
