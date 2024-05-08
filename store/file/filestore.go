@@ -365,7 +365,10 @@ func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err erro
 	if !found {
 		return
 	}
-	msgInfo := msgInfoTemp.(msgDef)
+	msgInfo, ok := msgInfoTemp.(msgDef)
+	if !ok {
+		return nil, true, fmt.Errorf("incorrect msgInfo type while reading file: %s", store.bodyFname)
+	}
 
 	msg = make([]byte, msgInfo.size)
 	if _, err = store.bodyFile.ReadAt(msg, msgInfo.offset); err != nil {
