@@ -1,3 +1,13 @@
+## 0.9.3 (May 9, 2024)
+
+### BUG FIXES
+* Change filestore.offsets from map[int]msgDef to sync.Map https://github.com/quickfixgo/quickfix/pull/639
+* Unregister sessions on stop https://github.com/quickfixgo/quickfix/pull/637
+* Corrects ResetOnLogon behavior for initiators https://github.com/quickfixgo/quickfix/pull/635
+
+### FEATURES
+* Add AllowUnknownMessageFields & CheckUserDefinedFields settings as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/632
+
 ## 0.9.2 (April 23, 2024)
 
 ### BUG FIXES
