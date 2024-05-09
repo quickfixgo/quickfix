@@ -22,6 +22,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -42,7 +43,7 @@ type fileStoreFactory struct {
 type fileStore struct {
 	sessionID          quickfix.SessionID
 	cache              quickfix.MessageStore
-	offsets            map[int]msgDef
+	offsets            sync.Map
 	bodyFname          string
 	headerFname        string
 	sessionFname       string
@@ -106,7 +107,7 @@ func newFileStore(sessionID quickfix.SessionID, dirname string, fileSync bool) (
 	store := &fileStore{
 		sessionID:          sessionID,
 		cache:              memStore,
-		offsets:            make(map[int]msgDef),
+		offsets:            sync.Map{},
 		bodyFname:          path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "body")),
 		headerFname:        path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "header")),
 		sessionFname:       path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "session")),
@@ -206,7 +207,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 			if cnt, err := fmt.Fscanf(tmpHeaderFile, "%d,%d,%d\n", &seqNum, &offset, &size); err != nil || cnt != 3 {
 				break
 			}
-			store.offsets[seqNum] = msgDef{offset: offset, size: size}
+			store.offsets.Store(seqNum, msgDef{offset: offset, size: size})
 		}
 	}
 
@@ -347,7 +348,7 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 		}
 	}
 
-	store.offsets[seqNum] = msgDef{offset: offset, size: len(msg)}
+	store.offsets.Store(seqNum, msgDef{offset: offset, size: len(msg)})
 	return nil
 }
 
@@ -360,9 +361,13 @@ func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []
 }
 
 func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err error) {
-	msgInfo, found := store.offsets[seqNum]
+	msgInfoTemp, found := store.offsets.Load(seqNum)
 	if !found {
 		return
+	}
+	msgInfo, ok := msgInfoTemp.(msgDef)
+	if !ok {
+		return nil, true, fmt.Errorf("incorrect msgInfo type while reading file: %s", store.bodyFname)
 	}
 
 	msg = make([]byte, msgInfo.size)
