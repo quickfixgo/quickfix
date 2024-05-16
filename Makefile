@@ -25,6 +25,10 @@ linters-install:
 lint: linters-install
 	golangci-lint run
 
+# An easy way to run the linter without going through the install process -
+# docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:v1.57.2 golangci-lint run -v
+# See https://golangci-lint.run/welcome/install/ for more details.
+
 # ---------------------------------------------------------------
 # Targets related to running acceptance tests -
 

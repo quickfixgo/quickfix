@@ -152,9 +152,9 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithDictionary() {
 
 	// Given message bytes from a valid string with a 453 repeating group.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=16535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=1448=4501447=D452=28"+
-	"10=026")
+		"8=FIX.4.49=16535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=1448=4501447=D452=28" +
+			"10=026")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -162,12 +162,12 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithDictionary() {
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=16535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=1448=4501447=D452=28"+
-	"10=026")
-	
+		"8=FIX.4.49=16535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=1448=4501447=D452=28" +
+			"10=026")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildTwoRepeatingGroupsWithDictionary() {
@@ -183,9 +183,9 @@ func (s *MessageSuite) TestRebuildTwoRepeatingGroupsWithDictionary() {
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte("8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST347=UTF-81=1010040011=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41354=6355=Public386=1336=NOPL453=1448=4501447=D452=2810=104")
-	
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildOneRepeatingGroupWithTwoMembersWithDictionary() {
@@ -194,9 +194,9 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithTwoMembersWithDictionary(
 
 	// Given message bytes from a valid string with a 453 repeating group that has 2 child groups.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=18735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=044")
+		"8=FIX.4.49=18735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=044")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -204,12 +204,12 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithTwoMembersWithDictionary(
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=18735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=044")
-	
+		"8=FIX.4.49=18735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=044")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildTwoSequentialRepeatingGroupWithDictionary() {
@@ -218,9 +218,9 @@ func (s *MessageSuite) TestRebuildTwoSequentialRepeatingGroupWithDictionary() {
 
 	// Given message bytes from a valid string with both a 78 and 453 repeating group that each have 2 child groups.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=279=acct179=acct2453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=243")
+		"8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=279=acct179=acct2453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=243")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -228,24 +228,24 @@ func (s *MessageSuite) TestRebuildTwoSequentialRepeatingGroupWithDictionary() {
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=279=acct179=acct2453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=243")
-	
+		"8=FIX.4.49=21035=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=279=acct179=acct2453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=243")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildNestedRepeatingGroupWithDictionary() {
 	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
 	s.Nil(dictErr)
 
-	// Given message bytes from a valid string with a 78 repeating group that has 
+	// Given message bytes from a valid string with a 78 repeating group that has
 	// a nested 539 group and then another 80 tag in the 78 group
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=17735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid80=100"+
-	"10=206")
+		"8=FIX.4.49=17735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid80=100" +
+			"10=206")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -253,24 +253,24 @@ func (s *MessageSuite) TestRebuildNestedRepeatingGroupWithDictionary() {
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=17735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid80=100"+
-	"10=206")
-	
+		"8=FIX.4.49=17735=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid80=100" +
+			"10=206")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildDoubleNestedRepeatingGroupWithDictionary() {
 	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
 	s.Nil(dictErr)
 
-	// Given message bytes from a valid string with a 78 repeating group that has a 
+	// Given message bytes from a valid string with a 78 repeating group that has a
 	// double nested 539 and then 804 groups and then another 80 tag in the 78 group
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=20235=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid80=100"+
-	"10=117")
+		"8=FIX.4.49=20235=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid80=100" +
+			"10=117")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -278,24 +278,24 @@ func (s *MessageSuite) TestRebuildDoubleNestedRepeatingGroupWithDictionary() {
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=20235=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid80=100"+
-	"10=117")
-	
+		"8=FIX.4.49=20235=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid80=100" +
+			"10=117")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildDoubleNestedThenAnotherRepeatingGroupWithDictionary() {
 	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
 	s.Nil(dictErr)
 
-	// Given message bytes from a valid string with a 78 repeating group that has a double nested 539 and then 804 groups 
+	// Given message bytes from a valid string with a 78 repeating group that has a double nested 539 and then 804 groups
 	// and then another repeating group 453 with two children.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=24535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=106")
+		"8=FIX.4.49=24535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=106")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -303,24 +303,24 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenAnotherRepeatingGroupWithDicti
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=24535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=106")
-	
+		"8=FIX.4.49=24535=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=106")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildDoubleNestedThenBodyTagThenAnotherRepeatingGroupWithDictionary() {
 	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
 	s.Nil(dictErr)
 
-	// Given message bytes from a valid string with a 78 repeating group that has a double nested 539 and then 804 groups 
+	// Given message bytes from a valid string with a 78 repeating group that has a double nested 539 and then 804 groups
 	// then a 376 body tag and then another repeating group 453 with two children.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=25635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid376=compid453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=198")
+		"8=FIX.4.49=25635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid376=compid453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=198")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -328,44 +328,44 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenBodyTagThenAnotherRepeatingGro
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=25635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid376=compid453=2448=4501447=D452=28448=4502447=D452=28"+
-	"10=198")
-	
+		"8=FIX.4.49=25635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:4178=179=acct1539=1524=nestedid804=1545=doublenestedid376=compid453=2448=4501447=D452=28448=4502447=D452=28" +
+			"10=198")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestRebuildDoubleNestedWithTwoMembersRepeatingGroupWithDictionary() {
 	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
 	s.Nil(dictErr)
 
-	// Given message bytes from a valid string with a 78 repeating group that 
+	// Given message bytes from a valid string with a 78 repeating group that
 	// has a double nested 539 and then 804 groups all with two children.
 	rawMsg := bytes.NewBufferString(
-	"8=FIX.4.49=40635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41"+
-	"78=179=acct1"+
-		"539=2"+
-			"524=nestedid"+
-			"804=2"+
-				"545=doublenestedid"+
-				"545=doublenestedid2"+
-			"524=nestedid2"+
-			"804=2"+
-				"545=doublenestedid"+
-				"545=doublenestedid2"+
-	"79=acct2"+
-		"539=2"+
-			"524=nestedid"+
-			"804=2"+
-				"545=doublenestedid"+
-				"545=doublenestedid2"+
-			"524=nestedid2"+
-			"804=2"+
-				"545=doublenestedid"+
-				"545=doublenestedid2"+
-	"10=046")
+		"8=FIX.4.49=40635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41" +
+			"78=179=acct1" +
+			"539=2" +
+			"524=nestedid" +
+			"804=2" +
+			"545=doublenestedid" +
+			"545=doublenestedid2" +
+			"524=nestedid2" +
+			"804=2" +
+			"545=doublenestedid" +
+			"545=doublenestedid2" +
+			"79=acct2" +
+			"539=2" +
+			"524=nestedid" +
+			"804=2" +
+			"545=doublenestedid" +
+			"545=doublenestedid2" +
+			"524=nestedid2" +
+			"804=2" +
+			"545=doublenestedid" +
+			"545=doublenestedid2" +
+			"10=046")
 
 	// When we parse it into a message
 	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
@@ -373,14 +373,14 @@ func (s *MessageSuite) TestRebuildDoubleNestedWithTwoMembersRepeatingGroupWithDi
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
 	expectedBytes := []byte(
-	"8=FIX.4.49=40635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST"+
-	"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41"+
-	"78=179=acct1539=2524=nestedid804=2545=doublenestedid545=doublenestedid2524=nestedid2804=2545=doublenestedid545=doublenestedid2"+
-	"79=acct2539=2524=nestedid804=2545=doublenestedid545=doublenestedid2524=nestedid2804=2545=doublenestedid545=doublenestedid2"+
-	"10=046")
-	
+		"8=FIX.4.49=40635=D34=249=0100150=01001a52=20231231-20:19:4156=TEST" +
+			"1=acct111=1397621=138=140=244=1254=155=SYMABC59=060=20231231-20:19:41" +
+			"78=179=acct1539=2524=nestedid804=2545=doublenestedid545=doublenestedid2524=nestedid2804=2545=doublenestedid545=doublenestedid2" +
+			"79=acct2539=2524=nestedid804=2545=doublenestedid545=doublenestedid2524=nestedid2804=2545=doublenestedid545=doublenestedid2" +
+			"10=046")
+
 	// Then the bytes should have repeating groups properly ordered
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes,)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n but got: %s", expectedBytes, rebuildBytes)
 }
 
 func (s *MessageSuite) TestReBuildWithRepeatingGroupForResend() {

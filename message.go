@@ -29,15 +29,15 @@ type Header struct{ FieldMap }
 
 // msgparser contains message parsing vars needed to parse a string into a message.
 type msgParser struct {
-	msg *Message
+	msg                     *Message
 	transportDataDictionary *datadictionary.DataDictionary
-	appDataDictionary *datadictionary.DataDictionary
-	rawBytes []byte
-	fieldIndex int
-	parsedFieldBytes *TagValue
-	trailerBytes []byte
-	foundBody bool
-	foundTrailer bool
+	appDataDictionary       *datadictionary.DataDictionary
+	rawBytes                []byte
+	fieldIndex              int
+	parsedFieldBytes        *TagValue
+	trailerBytes            []byte
+	foundBody               bool
+	foundTrailer            bool
 }
 
 // in the message header, the first 3 tags in the message header must be 8,9,35.
@@ -169,9 +169,9 @@ func ParseMessageWithDataDictionary(
 ) (err error) {
 	// Create msgparser before we go any further.
 	mp := &msgParser{
-		msg: msg,
+		msg:                     msg,
 		transportDataDictionary: transportDataDictionary,
-		appDataDictionary: appDataDictionary,
+		appDataDictionary:       appDataDictionary,
 	}
 	mp.msg.rawMessage = rawMessage
 	mp.rawBytes = rawMessage.Bytes()
@@ -224,7 +224,6 @@ func doParsing(mp *msgParser) (err error) {
 		return
 	}
 	mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
-
 
 	// Start parsing.
 	mp.fieldIndex++
@@ -308,7 +307,7 @@ func parseGroup(mp *msgParser, tags []Tag) {
 	mp.foundBody = true
 	dm := mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1]
 	fields := getGroupFields(mp.msg, tags, mp.appDataDictionary)
-	
+
 	for {
 		mp.fieldIndex++
 		mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
@@ -327,7 +326,7 @@ func parseGroup(mp *msgParser, tags []Tag) {
 			// Add the field member to the group.
 			dm = append(dm, *mp.parsedFieldBytes)
 		} else if isHeaderField(mp.parsedFieldBytes.tag, mp.transportDataDictionary) {
-			// Found a header tag for some reason.. 
+			// Found a header tag for some reason..
 			mp.msg.Body.add(dm)
 			mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 			break
@@ -348,23 +347,23 @@ func parseGroup(mp *msgParser, tags []Tag) {
 				dm = mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1]
 				fields = getGroupFields(mp.msg, searchTags, mp.appDataDictionary)
 				continue
-			} else {
-					if len(tags) > 1 {
-						searchTags = tags[:len(tags)-1]
-					}
-					// Did this tag occur after a nested group and belongs to the parent group.	
-					if isNumInGroupField(mp.msg, searchTags, mp.appDataDictionary) {
-						// Add the field member to the group.
-						dm = append(dm, *mp.parsedFieldBytes)
-						// Continue parsing the parent group.
-						fields = getGroupFields(mp.msg, searchTags, mp.appDataDictionary)
-						continue
-					}
-					// Add the repeating group.
-					mp.msg.Body.add(dm)
-					// Add the next body field.
-					mp.msg.Body.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 			}
+			if len(tags) > 1 {
+				searchTags = tags[:len(tags)-1]
+			}
+			// Did this tag occur after a nested group and belongs to the parent group.
+			if isNumInGroupField(mp.msg, searchTags, mp.appDataDictionary) {
+				// Add the field member to the group.
+				dm = append(dm, *mp.parsedFieldBytes)
+				// Continue parsing the parent group.
+				fields = getGroupFields(mp.msg, searchTags, mp.appDataDictionary)
+				continue
+			}
+			// Add the repeating group.
+			mp.msg.Body.add(dm)
+			// Add the next body field.
+			mp.msg.Body.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+
 			break
 		}
 	}
@@ -384,7 +383,7 @@ func isNumInGroupField(msg *Message, tags []Tag, appDataDictionary *datadictiona
 			for idx, tag := range tags {
 				fd, ok := fields[int(tag)]
 				if ok {
-					if idx == len(tags) - 1 {
+					if idx == len(tags)-1 {
 						if len(fd.Fields) > 0 {
 							return true
 						}
@@ -417,7 +416,7 @@ func getGroupFields(msg *Message, tags []Tag, appDataDictionary *datadictionary.
 			for idx, tag := range tags {
 				fd, ok := fields[int(tag)]
 				if ok {
-					if idx == len(tags) - 1 {
+					if idx == len(tags)-1 {
 						if len(fd.Fields) > 0 {
 							return fd.Fields
 						}
@@ -438,7 +437,7 @@ func getGroupFields(msg *Message, tags []Tag, appDataDictionary *datadictionary.
 
 // isGroupMember evaluates if this tag belongs to a repeating group.
 func isGroupMember(tag Tag, fields []*datadictionary.FieldDef) bool {
-	for _, f := range fields{
+	for _, f := range fields {
 		if f.Tag() == int(tag) {
 			return true
 		}
