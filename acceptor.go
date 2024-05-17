@@ -356,7 +356,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 
 	go func() {
 		msgIn <- fixIn{msgBytes, parser.lastRead}
-		readLoop(parser, msgIn)
+		readLoop(parser, msgIn, a.globalLog)
 	}()
 
 	writeLoop(netConn, msgOut, a.globalLog)
