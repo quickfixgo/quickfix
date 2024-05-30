@@ -1,3 +1,11 @@
+## 0.9.4 (May 29, 2024)
+
+### ENHANCEMENTS
+* Adds log to readLoop just like writeLoop https://github.com/quickfixgo/quickfix/pull/642
+
+### BUG FIXES
+* Maintain repeating group field order when parsing messages  https://github.com/quickfixgo/quickfix/pull/636
+
 ## 0.9.3 (May 9, 2024)
 
 ### BUG FIXES
