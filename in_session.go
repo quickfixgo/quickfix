@@ -140,14 +140,6 @@ func (state inSession) handleTestRequest(session *session, msg *Message) (nextSt
 		}
 	}
 
-	if err := session.checkTargetTooLow(msg); err != nil {
-		return state
-	}
-
-	if err := session.checkTargetTooHigh(msg); err != nil {
-		return state
-	}
-
 	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
 		return handleStateError(session, err)
 	}
