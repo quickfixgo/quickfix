@@ -102,14 +102,23 @@ func (state inSession) handleLogout(session *session, msg *Message) (nextState s
 		session.log.OnEvent("Received logout response")
 	}
 
-	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
-		session.logError(err)
-	}
-
 	if session.ResetOnLogout {
 		if err := session.dropAndReset(); err != nil {
 			session.logError(err)
 		}
+		return latentState{}
+	}
+
+	if err := session.checkTargetTooLow(msg); err != nil {
+		return latentState{}
+	}
+
+	if err := session.checkTargetTooHigh(msg); err != nil {
+		return latentState{}
+	}
+
+	if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
+		session.logError(err)
 	}
 
 	return latentState{}
