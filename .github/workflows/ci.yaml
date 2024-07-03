@@ -31,18 +31,118 @@ jobs:
           version: v1.57.2
 
   build:
-    name: build
+    name: Build Source
     runs-on: ubuntu-latest
     strategy:
       matrix:
         go: [1.21]
-        store-type:
-          -
-          - memory
-          - file
-          - mongo
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Build
+        run: make build-src
+
+  unittest:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-replica-set: replicaset
+      - name: Unit test
+        env:
+          MONGODB_TEST_CXN: mongodb://localhost:27017
+        run: make test-ci
+
+  servermem:
+    name: Server MemoryStore Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
         fix-version:
-          -
+          - fix40
+          - fix41
+          - fix42
+          - fix43
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Acceptance test
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: server
+        run: make generate-ci && make build && make $FIX_TEST
+
+  serverfile:
+    name: Server FileStore Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+        fix-version:
+          - fix40
+          - fix41
+          - fix42
+          - fix43
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Acceptance test
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: file
+          ACCEPTANCE_SET: server
+        run: make generate-ci && make build && make $FIX_TEST
+
+  servermongo:
+    name: Server MongoStore Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+        fix-version:
           - fix40
           - fix41
           - fix42
@@ -66,15 +166,107 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-      - name: Unit  test
-        env:
-          FIX_TEST: ${{ matrix.fix-version }}
-          STORE_TYPE: ${{ matrix.store-type }}
-        run: if [ -z $FIX_TEST ] && [ -z $STORE_TYPE ]; then make build-src && make test-ci; fi
       - name: Acceptance test
         env:
           GO111MODULE: on
           MONGODB_TEST_CXN: mongodb://localhost:27017
           FIX_TEST: ${{ matrix.fix-version }}
-          STORE_TYPE: ${{ matrix.store-type }}
-        run: if [ $FIX_TEST ] && [ $STORE_TYPE ]; then make generate-ci && make build && make $FIX_TEST; fi
+          STORE_TYPE: mongo
+          ACCEPTANCE_SET: server
+        run: make generate-ci && make build && make $FIX_TEST
+
+  resendreqchunksize:
+    name: ResendRequestChunkSize Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+        fix-version:
+          - fix40
+          - fix41
+          - fix42
+          - fix43
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Acceptance test
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: resendreqchunksize
+        run: make generate-ci && make build && make $FIX_TEST
+
+  lastseqnumprocessed:
+    name: LastSeqNumProcessed Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+        fix-version:
+          - fix42
+          - fix43
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Acceptance test
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: lastseqnumprocessed
+        run: make generate-ci && make build && make $FIX_TEST
+
+  # nextexpectedseqnum:
+  #   name: NextExpectedSeqNum Suite
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       go: [1.21]
+  #       fix-version:
+  #         - fix44
+  #         - fix50
+  #         - fix50sp1
+  #         - fix50sp2
+  #   steps:
+  #     - name: Setup
+  #       uses: actions/setup-go@v2
+  #       with:
+  #         go-version: ${{ matrix.go }}
+  #     - name: Check out source
+  #       uses: actions/checkout@v2
+  #     - name: Install ruby
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.0'
+  #     - name: Acceptance test
+  #       env:
+  #         GO111MODULE: on
+  #         FIX_TEST: ${{ matrix.fix-version }}
+  #         STORE_TYPE: memory
+  #         ACCEPTANCE_SET: nextexpectedseqnum
+  #       run: make generate-ci && make build && make $FIX_TEST
