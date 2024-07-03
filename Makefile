@@ -38,24 +38,30 @@ else
 STORE := memory
 endif
 
+ifdef ACCEPTANCE_SET
+TEST_SET := $(ACCEPTANCE_SET)
+else
+TEST_SET := server
+endif
+
 build-test-srv:
 	cd _test; go build -v -o echo_server ./test-server/
 fix40:
-	cd _test; ./runat.sh $@.cfg 5001 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5001 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix41:
-	cd _test; ./runat.sh $@.cfg 5002 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5002 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix42:
-	cd _test; ./runat.sh $@.cfg 5003 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5003 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix43:
-	cd _test; ./runat.sh $@.cfg 5004 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5004 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix44:
-	cd _test; ./runat.sh $@.cfg 5005 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5005 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix50:
-	cd _test; ./runat.sh $@.cfg 5006 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5006 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix50sp1:
-	cd _test; ./runat.sh $@.cfg 5007 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5007 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 fix50sp2:
-	cd _test; ./runat.sh $@.cfg 5008 $(STORE) "definitions/server/$@/*.def"
+	cd _test; ./runat.sh cfg/$(TEST_SET)/$@.cfg 5008 $(STORE) "definitions/$(TEST_SET)/$@/*.def"
 
 ACCEPT_SUITE=fix40 fix41 fix42 fix43 fix44 fix50 fix50sp1 fix50sp2 
 accept: $(ACCEPT_SUITE)

@@ -96,6 +96,23 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 	s.NoMessageQueued()
 }
 
+func (s *InSessionTestSuite) TestLogoutTargetTooHigh() {
+	s.MessageFactory.seqNum = 5
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.MockApp.On("OnLogout")
+	s.session.fixMsgIn(s.session, s.Logout())
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(2)
+}
+
 func (s *InSessionTestSuite) TestTimeoutNeedHeartbeat() {
 	s.MockApp.On("ToAdmin").Return(nil)
 	s.session.Timeout(s.session, internal.NeedHeartbeat)
