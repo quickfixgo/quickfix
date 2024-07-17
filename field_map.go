@@ -128,6 +128,16 @@ func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 	return f[0].value, nil
 }
 
+// getBytesNoLock is a lock free zero-copy GetField wrapper for []bytes fields.
+func (m FieldMap) getBytesNoLock(tag Tag) ([]byte, MessageRejectError) {
+	f, ok := m.tagLookup[tag]
+	if !ok {
+		return nil, ConditionallyRequiredFieldMissing(tag)
+	}
+
+	return f[0].value, nil
+}
+
 // GetBool is a GetField wrapper for bool fields.
 func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 	var val FIXBoolean
@@ -140,6 +150,21 @@ func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 // GetInt is a GetField wrapper for int fields.
 func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	bytes, err := m.GetBytes(tag)
+	if err != nil {
+		return 0, err
+	}
+
+	var val FIXInt
+	if val.Read(bytes) != nil {
+		err = IncorrectDataFormatForValue(tag)
+	}
+
+	return int(val), err
+}
+
+// GetInt is a lock free GetField wrapper for int fields.
+func (m FieldMap) getIntNoLock(tag Tag) (int, MessageRejectError) {
+	bytes, err := m.getBytesNoLock(tag)
 	if err != nil {
 		return 0, err
 	}
@@ -263,9 +288,6 @@ func (m *FieldMap) CopyInto(to *FieldMap) {
 }
 
 func (m *FieldMap) add(f field) {
-	m.rwLock.Lock()
-	defer m.rwLock.Unlock()
-
 	t := fieldTag(f)
 	if _, ok := m.tagLookup[t]; !ok {
 		m.tags = append(m.tags, t)

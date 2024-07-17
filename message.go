@@ -186,6 +186,13 @@ func doParsing(mp *msgParser) (err error) {
 	mp.msg.Body.Clear()
 	mp.msg.Trailer.Clear()
 
+	mp.msg.Header.rwLock.Lock()
+	defer mp.msg.Header.rwLock.Unlock()
+	mp.msg.Body.rwLock.Lock()
+	defer mp.msg.Body.rwLock.Unlock()
+	mp.msg.Trailer.rwLock.Lock()
+	defer mp.msg.Trailer.rwLock.Unlock()
+
 	// Allocate expected message fields in one chunk.
 	fieldCount := 0
 	for _, b := range mp.rawBytes {
@@ -267,7 +274,7 @@ func doParsing(mp *msgParser) (err error) {
 		}
 
 		if mp.parsedFieldBytes.tag == tagXMLDataLen {
-			xmlDataLen, _ = mp.msg.Header.GetInt(tagXMLDataLen)
+			xmlDataLen, _ = mp.msg.Header.getIntNoLock(tagXMLDataLen)
 		}
 		mp.fieldIndex++
 	}
@@ -292,7 +299,7 @@ func doParsing(mp *msgParser) (err error) {
 		}
 	}
 
-	bodyLength, err := mp.msg.Header.GetInt(tagBodyLength)
+	bodyLength, err := mp.msg.Header.getIntNoLock(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
 	} else if length != bodyLength && !xmlDataMsg {
