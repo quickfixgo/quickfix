@@ -25,7 +25,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
-func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error) {
+func loadDialerConfig(settings *SessionSettings) (dialer proxy.ContextDialer, err error) {
 	stdDialer := &net.Dialer{}
 	if settings.HasSetting(config.SocketTimeout) {
 		timeout, err := settings.DurationSetting(config.SocketTimeout)
@@ -73,9 +73,23 @@ func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error
 			}
 		}
 
-		dialer, err = proxy.SOCKS5("tcp", fmt.Sprintf("%s:%d", proxyHost, proxyPort), proxyAuth, dialer)
+		var proxyDialer proxy.Dialer
+
+		proxyDialer, err = proxy.SOCKS5("tcp", fmt.Sprintf("%s:%d", proxyHost, proxyPort), proxyAuth, stdDialer)
+		if err != nil {
+			return
+		}
+
+		if contextDialer, ok := proxyDialer.(proxy.ContextDialer); ok {
+			dialer = contextDialer
+		} else {
+			err = fmt.Errorf("proxy does not support context dialer")
+			return
+		}
+
 	default:
 		err = fmt.Errorf("unsupported proxy type %s", proxyType)
 	}
+
 	return
 }
