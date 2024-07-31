@@ -97,14 +97,24 @@ func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg 
 	return store.IncrNextSenderMsgSeqNum()
 }
 
-func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
-	var msgs [][]byte
+func (store *memoryStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
 	for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
 		if m, ok := store.messageMap[seqNum]; ok {
-			msgs = append(msgs, m)
+			if err := cb(m); err != nil {
+				return err
+			}
 		}
 	}
-	return msgs, nil
+	return nil
+}
+
+func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	var msgs [][]byte
+	err := store.IterateMessages(beginSeqNum, endSeqNum, func(m []byte) error {
+		msgs = append(msgs, m)
+		return nil
+	})
+	return msgs, err
 }
 
 type memoryStoreFactory struct{}

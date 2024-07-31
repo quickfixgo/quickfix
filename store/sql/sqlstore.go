@@ -352,9 +352,8 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
-func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+func (store *sqlStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
 	s := store.sessionID
-	var msgs [][]byte
 	rows, err := store.db.Query(sqlString(`SELECT message FROM messages
 		WHERE beginstring=? AND session_qualifier=?
 		AND sendercompid=? AND sendersubid=? AND senderlocid=?
@@ -366,23 +365,29 @@ func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID,
 		beginSeqNum, endSeqNum)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	for rows.Next() {
 		var message string
-		if err := rows.Scan(&message); err != nil {
-			return nil, err
+		if err = rows.Scan(&message); err != nil {
+			return err
+		} else if err = cb([]byte(message)); err != nil {
+			return err
 		}
-		msgs = append(msgs, []byte(message))
 	}
 
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
+	return rows.Err()
+}
 
-	return msgs, nil
+func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	var msgs [][]byte
+	err := store.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
+		msgs = append(msgs, msg)
+		return nil
+	})
+	return msgs, err
 }
 
 // Close closes the store's database connection.
