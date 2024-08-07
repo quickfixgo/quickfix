@@ -378,18 +378,28 @@ func (store *fileStore) getMessage(seqNum int) (msg []byte, found bool, err erro
 	return msg, true, nil
 }
 
-func (store *fileStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
-	var msgs [][]byte
+func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
 	for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
 		m, found, err := store.getMessage(seqNum)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		if found {
-			msgs = append(msgs, m)
+			if err = cb(m); err != nil {
+				return err
+			}
 		}
 	}
-	return msgs, nil
+	return nil
+}
+
+func (store *fileStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	var msgs [][]byte
+	err := store.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
+		msgs = append(msgs, msg)
+		return nil
+	})
+	return msgs, err
 }
 
 // Close closes the store's files.

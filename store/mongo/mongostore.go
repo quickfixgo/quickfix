@@ -338,17 +338,17 @@ func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg [
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
-func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte, err error) {
+func (store *mongoStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	// Marshal into database form.
 	msgFilterBytes, err := bson.Marshal(msgFilter)
 	if err != nil {
-		return
+		return err
 	}
 	seqFilter := bson.M{}
 	err = bson.Unmarshal(msgFilterBytes, &seqFilter)
 	if err != nil {
-		return
+		return err
 	}
 	// Modify the query to use a range for the sequence filter.
 	seqFilter["msgseq"] = bson.M{
@@ -358,18 +358,26 @@ func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) (msgs [][]byte,
 	sortOpt := options.Find().SetSort(bson.D{{Key: "msgseq", Value: 1}})
 	cursor, err := store.db.Database(store.mongoDatabase).Collection(store.messagesCollection).Find(context.Background(), seqFilter, sortOpt)
 	if err != nil {
-		return
+		return err
 	}
-
+	defer func() { _ = cursor.Close(context.Background()) }()
 	for cursor.Next(context.Background()) {
 		if err = cursor.Decode(&msgFilter); err != nil {
-			return
+			return err
+		} else if err = cb(msgFilter.Message); err != nil {
+			return err
 		}
-		msgs = append(msgs, msgFilter.Message)
 	}
+	return nil
+}
 
-	err = cursor.Close(context.Background())
-	return
+func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+	var msgs [][]byte
+	err := store.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
+		msgs = append(msgs, msg)
+		return nil
+	})
+	return msgs, err
 }
 
 // Close closes the store's database connection.
