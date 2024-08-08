@@ -335,13 +335,14 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 			a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
 			return
 		}
-		a.sessions[sessID], err = a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
+		dynamicSession, err := a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
 		if err != nil {
 			a.globalLog.OnEventf("Dynamic session %v failed to create: %v", sessID, err)
 			return
 		}
-		a.dynamicSessionChan <- a.sessions[sessID]
-		session = a.sessions[sessID]
+		a.sessions[sessID] = dynamicSession
+		a.dynamicSessionChan <- dynamicSession
+		session = dynamicSession
 	}
 
 	a.sessionAddr.Store(sessID, netConn.RemoteAddr())
