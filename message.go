@@ -187,12 +187,7 @@ func doParsing(mp *msgParser) (err error) {
 	mp.msg.Trailer.Clear()
 
 	// Allocate expected message fields in one chunk.
-	fieldCount := 0
-	for _, b := range mp.rawBytes {
-		if b == '\001' {
-			fieldCount++
-		}
-	}
+	fieldCount := bytes.Count(mp.rawBytes, []byte{'\001'})
 	if fieldCount == 0 {
 		return parseError{OrigError: fmt.Sprintf("No Fields detected in %s", string(mp.rawBytes))}
 	}
