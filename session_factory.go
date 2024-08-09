@@ -284,7 +284,7 @@ func (f sessionFactory) newSession(
 				for _, dayStr := range dayStrs {
 					day, ok := dayLookup[dayStr]
 					if !ok {
-						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: weekdaysStr}
+						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: []byte(weekdaysStr)}
 						return
 					}
 					weekdays = append(weekdays, day)
@@ -315,7 +315,7 @@ func (f sessionFactory) newSession(
 			parseDay := func(setting, dayStr string) (day time.Weekday, err error) {
 				day, ok := dayLookup[dayStr]
 				if !ok {
-					return day, IncorrectFormatForSetting{Setting: setting, Value: dayStr}
+					return day, IncorrectFormatForSetting{Setting: setting, Value: []byte(dayStr)}
 				}
 				return
 			}
@@ -355,7 +355,7 @@ func (f sessionFactory) newSession(
 			s.timestampPrecision = Nanos
 
 		default:
-			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: precisionStr}
+			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: []byte(precisionStr)}
 			return
 		}
 	}

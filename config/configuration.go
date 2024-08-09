@@ -739,6 +739,47 @@ const (
 	//  - A filepath to a file with read access.
 	SocketCAFile string = "SocketCAFile"
 
+	// SocketPrivateKeyBytes is an optional value containing raw bytes of a PEM
+	// encoded private key to use for secure TLS communications.
+	// Must be used with SocketCertificateBytes.
+	// Must contain PEM encoded data.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - Raw bytes containing a valid PEM encoded private key.
+	SocketPrivateKeyBytes string = "SocketPrivateKeyBytes"
+
+	// SocketCertificateBytes is an optional value containing raw bytes of a PEM
+	// encoded certificate to use for secure TLS communications.
+	// Must be used with SocketPrivateKeyBytes.
+	// Must contain PEM encoded data.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - Raw bytes containing a valid PEM encoded certificate.
+	SocketCertificateBytes string = "SocketCertificateBytes"
+
+	// SocketCABytes is an optional value containing raw bytes of a PEM encoded
+	// root CA to use for secure TLS communications. For acceptors, client
+	// certificates will be verified against this CA. For initiators, clients
+	// will use the CA to verify the server certificate. If not configured,
+	// initiators will verify the server certificates using the host's root CA
+	// set.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - Raw bytes containing a valid PEM encoded CA.
+	SocketCABytes string = "SocketCABytes"
+
 	// SocketInsecureSkipVerify controls whether a client verifies the server's certificate chain and host name.
 	// If SocketInsecureSkipVerify is set to Y, crypto/tls accepts any certificate presented by the server and any host name in that certificate.
 	// In this mode, TLS is susceptible to machine-in-the-middle attacks unless custom verification is used.

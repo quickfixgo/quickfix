@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"crypto/tls"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -26,8 +27,9 @@ import (
 
 type TLSTestSuite struct {
 	suite.Suite
-	settings                                *Settings
-	PrivateKeyFile, CertificateFile, CAFile string
+	settings                                   *Settings
+	PrivateKeyFile, CertificateFile, CAFile    string
+	PrivateKeyBytes, CertificateBytes, CABytes []byte
 }
 
 func TestTLSTestSuite(t *testing.T) {
@@ -39,6 +41,18 @@ func (s *TLSTestSuite) SetupTest() {
 	s.PrivateKeyFile = "_test_data/localhost.key"
 	s.CertificateFile = "_test_data/localhost.crt"
 	s.CAFile = "_test_data/ca.crt"
+
+	privateKeyBytes, err := os.ReadFile(s.PrivateKeyFile)
+	s.Require().NoError(err)
+	s.PrivateKeyBytes = privateKeyBytes
+
+	certificateBytes, err := os.ReadFile(s.CertificateFile)
+	s.Require().NoError(err)
+	s.CertificateBytes = certificateBytes
+
+	caBytes, err := os.ReadFile(s.CAFile)
+	s.Require().NoError(err)
+	s.CABytes = caBytes
 }
 
 func (s *TLSTestSuite) TestLoadTLSNoSettings() {
@@ -51,11 +65,13 @@ func (s *TLSTestSuite) TestLoadTLSMissingKeyOrCert() {
 	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
 	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
+	s.EqualError(err, "Conditionally Required Setting: SocketCertificateFile")
 
 	s.SetupTest()
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
 	_, err = loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
+	s.EqualError(err, "Conditionally Required Setting: SocketPrivateKeyFile")
 }
 
 func (s *TLSTestSuite) TestLoadTLSInvalidKeyOrCert() {
@@ -63,6 +79,7 @@ func (s *TLSTestSuite) TestLoadTLSInvalidKeyOrCert() {
 	s.settings.GlobalSettings().Set(config.SocketCertificateFile, "foo")
 	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
+	s.EqualError(err, "failed to load key pair: open foo: no such file or directory")
 }
 
 func (s *TLSTestSuite) TestLoadTLSNoCA() {
@@ -86,6 +103,7 @@ func (s *TLSTestSuite) TestLoadTLSWithBadCA() {
 
 	_, err := loadTLSConfig(s.settings.GlobalSettings())
 	s.NotNil(err)
+	s.EqualError(err, "failed to read CA bundle: open bar: no such file or directory")
 }
 
 func (s *TLSTestSuite) TestLoadTLSWithCA() {
@@ -222,4 +240,94 @@ func (s *TLSTestSuite) TestMinimumTLSVersion() {
 	s.Nil(err)
 	s.NotNil(tlsConfig)
 	s.Equal(tlsConfig.MinVersion, uint16(tls.VersionTLS12))
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesMissingKeyOrCert() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.NotNil(err)
+	s.EqualError(err, "Conditionally Required Setting: SocketCertificateBytes")
+
+	s.SetupTest()
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+	_, err = loadTLSConfig(s.settings.GlobalSettings())
+	s.NotNil(err)
+	s.EqualError(err, "Conditionally Required Setting: SocketPrivateKeyBytes")
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesInvalidKeyOrCert() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, []byte("not a cert"))
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.NotNil(err)
+	s.EqualError(err, "failed to parse key pair: tls: failed to find any PEM data in certificate input")
+
+	s.SetupTest()
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, []byte("not a key"))
+	_, err = loadTLSConfig(s.settings.GlobalSettings())
+	s.NotNil(err)
+	s.EqualError(err, "failed to parse key pair: tls: failed to find any PEM data in key input")
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesNoCA() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.NoError(err)
+	s.NotNil(tlsConfig)
+
+	s.Len(tlsConfig.Certificates, 1)
+	s.Nil(tlsConfig.RootCAs)
+	s.Nil(tlsConfig.ClientCAs)
+	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesWithBadCA() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCABytes, []byte("bar"))
+
+	_, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.NotNil(err)
+	s.EqualError(err, "failed to parse CA bundle from raw bytes")
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesWithCA() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCABytes, s.CABytes)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.Len(tlsConfig.Certificates, 1)
+	s.NotNil(tlsConfig.RootCAs)
+	s.NotNil(tlsConfig.ClientCAs)
+	s.Equal(tls.RequireAndVerifyClientCert, tlsConfig.ClientAuth)
+}
+
+func (s *TLSTestSuite) TestLoadTLSBytesWithOnlyCA() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().SetRaw(config.SocketCABytes, s.CABytes)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+
+	s.NotNil(tlsConfig.RootCAs)
+	s.NotNil(tlsConfig.ClientCAs)
+}
+
+func (s *TLSTestSuite) TestServerNameWithCertsFromBytes() {
+	s.settings.GlobalSettings().SetRaw(config.SocketPrivateKeyBytes, s.PrivateKeyBytes)
+	s.settings.GlobalSettings().SetRaw(config.SocketCertificateBytes, s.CertificateBytes)
+	s.settings.GlobalSettings().Set(config.SocketServerName, "DummyServerNameWithCerts")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Equal("DummyServerNameWithCerts", tlsConfig.ServerName)
 }
