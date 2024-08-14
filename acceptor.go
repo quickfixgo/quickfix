@@ -38,6 +38,7 @@ type Acceptor struct {
 	storeFactory          MessageStoreFactory
 	globalLog             Log
 	sessions              map[SessionID]*session
+	sessionsLock          sync.RWMutex
 	sessionGroup          sync.WaitGroup
 	listenerShutdown      sync.WaitGroup
 	dynamicSessions       bool
@@ -48,6 +49,7 @@ type Acceptor struct {
 	sessionHostPort       map[SessionID]int
 	listeners             map[string]net.Listener
 	connectionValidator   ConnectionValidator
+	sessionProvider       AcceptorSessionProvider
 	sessionFactory
 }
 
@@ -104,14 +106,8 @@ func (a *Acceptor) Start() (err error) {
 			a.listeners[address] = &proxyproto.Listener{Listener: a.listeners[address]}
 		}
 	}
+	a.startSessions()
 
-	for _, s := range a.sessions {
-		a.sessionGroup.Add(1)
-		go func(s *session) {
-			s.run()
-			a.sessionGroup.Done()
-		}(s)
-	}
 	if a.dynamicSessions {
 		a.dynamicSessionChan = make(chan *session)
 		a.sessionGroup.Add(1)
@@ -140,17 +136,7 @@ func (a *Acceptor) Stop() {
 	if a.dynamicSessions {
 		close(a.dynamicSessionChan)
 	}
-	for _, session := range a.sessions {
-		session.stop()
-	}
-	a.sessionGroup.Wait()
-
-	for sessionID := range a.sessions {
-		err := UnregisterSession(sessionID)
-		if err != nil {
-			return
-		}
-	}
+	a.stopSessions()
 }
 
 // RemoteAddr gets remote IP address for a given session.
@@ -191,6 +177,15 @@ func NewAcceptor(app Application, storeFactory MessageStoreFactory, settings *Se
 	}
 
 	for sessionID, sessionSettings := range settings.SessionSettings() {
+		if sessionSettings.HasSetting(config.AcceptorTemplate) {
+			var acceptorTemplate bool
+			if acceptorTemplate, err = sessionSettings.BoolSetting(config.AcceptorTemplate); err != nil {
+				return
+			}
+			if acceptorTemplate {
+				continue
+			}
+		}
 		sessID := sessionID
 		sessID.Qualifier = ""
 
@@ -331,18 +326,35 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {
-		if !a.dynamicSessions {
-			a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
-			return
+		var dynamicSessionCreated bool
+		if a.sessionProvider != nil {
+			session, err = a.sessionProvider.GetSession(sessID)
+			if err != nil {
+				if err == errUnknownSession && a.dynamicSessions {
+					goto CREATE_SHORT_LIVED_DYNAMIC_SESSION
+				}
+				a.globalLog.OnEventf("Failed to get session %v from provider: %v", sessID, err)
+				return
+			}
+			a.addMngdDynamicSession(sessID, session)
+			dynamicSessionCreated = true
 		}
-		dynamicSession, err := a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
-		if err != nil {
-			a.globalLog.OnEventf("Dynamic session %v failed to create: %v", sessID, err)
-			return
+	CREATE_SHORT_LIVED_DYNAMIC_SESSION:
+		if !dynamicSessionCreated {
+			if !a.dynamicSessions {
+				a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
+				return
+			}
+			dynamicSession, err := a.sessionFactory.createSession(sessID, a.storeFactory, a.settings.globalSettings.clone(), a.logFactory, a.app)
+			if err != nil {
+				a.globalLog.OnEventf("Dynamic session %v failed to create: %v", sessID, err)
+				return
+			}
+			a.dynamicSessionChan <- dynamicSession
+			session = dynamicSession
+			defer session.stop()
 		}
-		a.dynamicSessionChan <- dynamicSession
-		session = dynamicSession
-		defer session.stop()
+
 	}
 
 	a.sessionAddr.Store(sessID, netConn.RemoteAddr())
@@ -412,6 +424,46 @@ LOOP:
 	}
 }
 
+func (a *Acceptor) startSessions() {
+	a.sessionsLock.RLock()
+	defer a.sessionsLock.RUnlock()
+	for _, s := range a.sessions {
+		a.sessionGroup.Add(1)
+		go func(s *session) {
+			s.run()
+			a.sessionGroup.Done()
+		}(s)
+	}
+}
+
+func (a *Acceptor) stopSessions() {
+	a.sessionsLock.RLock()
+	defer a.sessionsLock.RUnlock()
+	for _, session := range a.sessions {
+		session.stop()
+	}
+	a.sessionGroup.Wait()
+
+	for sessionID := range a.sessions {
+		err := UnregisterSession(sessionID)
+		if err != nil {
+			return
+		}
+	}
+}
+
+func (a *Acceptor) addMngdDynamicSession(sessID SessionID, session *session) {
+	a.sessionsLock.Lock()
+	defer a.sessionsLock.Unlock()
+
+	a.sessions[sessID] = session
+	a.sessionGroup.Add(1)
+	go func() {
+		session.run()
+		a.sessionGroup.Done()
+	}()
+}
+
 // SetConnectionValidator sets an optional connection validator.
 // Use it when you need a custom authentication logic that includes lower level interactions,
 // like mTLS auth or IP whitelistening.
@@ -420,4 +472,9 @@ LOOP:
 //	a.SetConnectionValidator(nil)
 func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
 	a.connectionValidator = validator
+}
+
+// SetSessionProvider sets an optional session provider.
+func (a *Acceptor) SetSessionProvider(sessionProvider AcceptorSessionProvider) {
+	a.sessionProvider = sessionProvider
 }

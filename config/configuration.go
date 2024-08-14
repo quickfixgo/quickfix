@@ -697,6 +697,9 @@ const (
 	//  - Y
 	//  - N
 	DynamicQualifier string = "DynamicQualifier"
+
+	// AcceptorTemplate designates a template Acceptor session.
+	AcceptorTemplate string = "AcceptorTemplate"
 )
 
 const (
