@@ -1,3 +1,18 @@
+## 0.9.5 (August 14, 2024)
+
+### ENHANCEMENTS
+* Introduce message iterator to avoid loading all messages into memory at once upon resend request https://github.com/quickfixgo/quickfix/pull/659
+* Only lock fieldmap once during message parsing https://github.com/quickfixgo/quickfix/pull/658
+* Optimize tag value parsing https://github.com/quickfixgo/quickfix/pull/657
+* Use bytes.Count to count the number of message fields https://github.com/quickfixgo/quickfix/pull/655
+* Port config documentation into proper go doc format https://github.com/quickfixgo/quickfix/pull/649
+* Support TLS configuration as raw bytes https://github.com/quickfixgo/quickfix/pull/647
+
+### BUG FIXES
+* Use the Go generated file convention https://github.com/quickfixgo/quickfix/pull/660
+* Fix stuck call to Dial when calling Stop on the Initiator https://github.com/quickfixgo/quickfix/pull/654
+* Do not increment NextTargetMsgSeqNum for out of sequence Logout and Test Requests https://github.com/quickfixgo/quickfix/pull/645
+
 ## 0.9.4 (May 29, 2024)
 
 ### ENHANCEMENTS
