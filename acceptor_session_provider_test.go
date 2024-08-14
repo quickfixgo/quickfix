@@ -136,10 +136,11 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) TestSessionCreation() {
 		suite.NoError(err)
 		suite.NotNil(session)
 		sessionID := session.sessionID
-		suite.Equal(test.expected.sessionID, sessionID, test.name+": created sessionID not expected")
-		suite.Equal(test.expected.resetOnLogout, session.ResetOnLogout, test.name+":ResetOnLogout not expected")
-		suite.Equal(test.expected.refreshOnLogon, session.RefreshOnLogon, test.name+":RefreshOnLogon not expected")
-		suite.Equal(test.expected.resetOnDisconnect, session.ResetOnDisconnect, test.name+":ResetOnDisconnect not expected")
+		suite.Require().Equal(test.expected.sessionID, sessionID, test.name+": created sessionID not expected")
+		suite.Require().Equal(test.expected.resetOnLogout, session.ResetOnLogout, test.name+":ResetOnLogout not expected")
+		suite.Require().Equal(test.expected.refreshOnLogon, session.RefreshOnLogon, test.name+":RefreshOnLogon not expected")
+		suite.Require().Equal(test.expected.resetOnDisconnect, session.ResetOnDisconnect, test.name+":ResetOnDisconnect not expected")
+		UnregisterSession(sessionID)
 	}
 }
 
@@ -213,6 +214,7 @@ func TestStaticSessionProvider_GetSession(t *testing.T) {
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("StaticSessionProvider.GetSession() = %v, want %v", got, tt.want)
 			}
+			UnregisterSession(tt.args.sessionID)
 		})
 	}
 }
