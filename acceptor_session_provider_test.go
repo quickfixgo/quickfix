@@ -123,14 +123,14 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) SetupTest() {
 	)
 	suite.setUpSettings(templateID2, "RefreshOnLogon", "Y")
 
-	templateId3 := SessionID{BeginString: "FIX.4.4", SenderCompID: "ANY", TargetCompID: "ANY"}
+	templateID3 := SessionID{BeginString: "FIX.4.4", SenderCompID: "ANY", TargetCompID: "ANY"}
 	templateMappings = append(
 		templateMappings,
 		&TemplateMapping{Pattern: SessionID{BeginString: "FIX.4.2", SenderCompID: WildcardPattern, SenderSubID: WildcardPattern, SenderLocationID: WildcardPattern,
 			TargetCompID: WildcardPattern, TargetSubID: WildcardPattern, TargetLocationID: WildcardPattern, Qualifier: WildcardPattern,
-		}, TemplateID: templateId3},
+		}, TemplateID: templateID3},
 	)
-	suite.setUpSettings(templateId3, "ResetOnDisconnect", "Y")
+	suite.setUpSettings(templateID3, "ResetOnDisconnect", "Y")
 
 	templateIDProvider := &DefaultTemplateIDProvider{
 		templateMappings: templateMappings,
