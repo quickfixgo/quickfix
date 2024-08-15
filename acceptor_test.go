@@ -337,8 +337,8 @@ type mockCustomTemplateIDProvider struct {
 	staticTemplateID SessionID
 }
 
-// mockCustomTemplateIDProvider always returns the same templateID
-func (p *mockCustomTemplateIDProvider) GetTemplateID(inboundSessionID SessionID) *SessionID {
+// mockCustomTemplateIDProvider always returns the same templateID.
+func (p *mockCustomTemplateIDProvider) GetTemplateID(_ SessionID) *SessionID {
 	return &p.staticTemplateID
 }
 

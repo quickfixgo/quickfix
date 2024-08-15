@@ -144,7 +144,7 @@ func (a *Acceptor) configureDyanmicSessionProvider() error {
 	if setter, ok := a.storeFactory.(TemplateIDProviderSetter); ok {
 		setter.SetTemplateIDProvider(a.templateIDProvider)
 	}
-	a.dynamicAcceptorSessionProvider = NewDynamicAcceptorSessionProvider(a.settings, a.storeFactory, a.logFactory, a.app, a.templateIDProvider)
+	a.dynamicAcceptorSessionProvider = newDynamicAcceptorSessionProvider(a.settings, a.storeFactory, a.logFactory, a.app, a.templateIDProvider)
 	return nil
 }
 

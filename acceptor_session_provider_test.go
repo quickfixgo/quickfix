@@ -116,12 +116,12 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) SetupTest() {
 	)
 	suite.setUpSettings(templateID1, "ResetOnLogout", "Y")
 
-	templateId2 := SessionID{BeginString: "FIX.4.4", SenderCompID: "S1", TargetCompID: "ANY"}
+	templateID2 := SessionID{BeginString: "FIX.4.4", SenderCompID: "S1", TargetCompID: "ANY"}
 	templateMappings = append(
 		templateMappings,
-		&TemplateMapping{Pattern: SessionID{BeginString: "FIX.4.4", SenderCompID: WildcardPattern, TargetCompID: WildcardPattern}, TemplateID: templateId2},
+		&TemplateMapping{Pattern: SessionID{BeginString: "FIX.4.4", SenderCompID: WildcardPattern, TargetCompID: WildcardPattern}, TemplateID: templateID2},
 	)
-	suite.setUpSettings(templateId2, "RefreshOnLogon", "Y")
+	suite.setUpSettings(templateID2, "RefreshOnLogon", "Y")
 
 	templateId3 := SessionID{BeginString: "FIX.4.4", SenderCompID: "ANY", TargetCompID: "ANY"}
 	templateMappings = append(
@@ -136,7 +136,7 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) SetupTest() {
 		templateMappings: templateMappings,
 	}
 
-	suite.dynamicAcceptorSessionProvider = NewDynamicAcceptorSessionProvider(suite.settings, suite.messageStoreFactory,
+	suite.dynamicAcceptorSessionProvider = newDynamicAcceptorSessionProvider(suite.settings, suite.messageStoreFactory,
 		suite.logFactory, suite.app, templateIDProvider)
 }
 

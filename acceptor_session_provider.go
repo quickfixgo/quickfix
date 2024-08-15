@@ -69,7 +69,7 @@ type dynamicAcceptorSessionProvider struct {
 	templateIDProvider TemplateIDProvider
 }
 
-func NewDynamicAcceptorSessionProvider(settings *Settings, messageStoreFactory MessageStoreFactory, logFactory LogFactory,
+func newDynamicAcceptorSessionProvider(settings *Settings, messageStoreFactory MessageStoreFactory, logFactory LogFactory,
 	application Application, templateIDProvider TemplateIDProvider,
 ) *dynamicAcceptorSessionProvider {
 	return &dynamicAcceptorSessionProvider{
