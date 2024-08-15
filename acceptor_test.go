@@ -19,12 +19,12 @@ import (
 	"bytes"
 	"io"
 	"net"
+	"strings"
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
-
 	proxyproto "github.com/pires/go-proxyproto"
+	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -165,76 +165,74 @@ type AcceptorTemplateTestSuite struct {
 	sessionID2 SessionID
 	sessionID3 SessionID
 
-	testDynamicSessionID SessionID
-	logonSessionID       SessionID
-	seqNum               int
-
-	dynamicSessionProvider AcceptorSessionProvider
+	cliSessionID   SessionID
+	logonSessionID SessionID
+	seqNum         int
 }
 
-func (suite *AcceptorTemplateTestSuite) setupAcceptor() {
-	settings := NewSettings()
-	settings.globalSettings.Set(config.SocketAcceptPort, "5001")
-	sessionID1 := SessionID{BeginString: BeginStringFIX42, SenderCompID: "sender1", TargetCompID: "target1"}
-	sessionSettings1 := NewSessionSettings()
-	sessionSettings1.Set(config.BeginString, sessionID1.BeginString)
-	sessionSettings1.Set(config.SenderCompID, sessionID1.SenderCompID)
-	sessionSettings1.Set(config.TargetCompID, sessionID1.TargetCompID)
-	suite.sessionID1 = sessionID1
-	settings.AddSession(sessionSettings1)
+func (suite *AcceptorTemplateTestSuite) BeforeTest(_, _ string) {
+	cfg := `
+[default]
+ConnectionType=acceptor
+SocketAcceptPort=5001
+TimeZone=America/New_York
+StartTime=00:00:01
+EndTime=23:59:59
+HeartBtInt=30
 
-	sessionID2 := SessionID{BeginString: BeginStringFIX43, SenderCompID: "sender2", TargetCompID: "target2"}
-	sessionSettings2 := NewSessionSettings()
-	sessionSettings2.Set(config.BeginString, sessionID2.BeginString)
-	sessionSettings2.Set(config.SenderCompID, sessionID2.SenderCompID)
-	sessionSettings2.Set(config.TargetCompID, sessionID2.TargetCompID)
-	suite.sessionID2 = sessionID2
-	settings.AddSession(sessionSettings2)
+[session]
+BeginString=FIX.4.2
+SenderCompID=sender1
+TargetCompID=target1
 
-	// acceptor template
-	sessionID3 := SessionID{BeginString: BeginStringFIX43, SenderCompID: "*", SenderSubID: "*", SenderLocationID: "*",
+[session]
+BeginString=FIX.4.3
+SenderCompID=sender2
+TargetCompID=target2
+ResetOnLogon=Y
+
+[session]
+AcceptorTemplate=Y
+BeginString=FIX.4.3
+SenderCompID=*
+SenderSubID=*
+SenderLocationID=*
+TargetCompID=target3
+TargetSubID=*
+TargetLocationID=*
+ResetOnLogout=Y
+`
+	stringReader := strings.NewReader(cfg)
+	settings, err := ParseSettings(stringReader)
+	if err != nil {
+		suite.FailNow("parse setting failed", err)
+	}
+	suite.sessionID1 = SessionID{BeginString: BeginStringFIX42, SenderCompID: "sender1", TargetCompID: "target1"}
+	suite.sessionID2 = SessionID{BeginString: BeginStringFIX43, SenderCompID: "sender2", TargetCompID: "target2"}
+	suite.sessionID3 = SessionID{BeginString: BeginStringFIX43, SenderCompID: "*", SenderSubID: "*", SenderLocationID: "*",
 		TargetCompID: "target3", TargetSubID: "*", TargetLocationID: "*"}
-	sessionSettings3 := NewSessionSettings()
-	sessionSettings3.Set(config.BeginString, sessionID3.BeginString)
-	sessionSettings3.Set(config.SenderCompID, sessionID3.SenderCompID)
-	sessionSettings3.Set(config.SenderSubID, sessionID3.SenderSubID)
-	sessionSettings3.Set(config.SenderLocationID, sessionID3.SenderLocationID)
-	sessionSettings3.Set(config.TargetCompID, sessionID3.TargetCompID)
-	sessionSettings3.Set(config.TargetSubID, sessionID3.TargetSubID)
-	sessionSettings3.Set(config.TargetLocationID, sessionID3.TargetLocationID)
-	sessionSettings3.Set(config.ResetOnLogout, "Y")
-	sessionSettings3.Set(config.AcceptorTemplate, "Y")
-	suite.sessionID3 = sessionID3
-	settings.AddSession(sessionSettings3)
 
 	app := &noopApp{}
-	a, err := NewAcceptor(app, memoryStoreFactory{}, settings, NewScreenLogFactory())
+	a, err := NewAcceptor(app, memoryStoreFactory{}, settings, NewNullLogFactory())
 	if err != nil {
 		suite.Fail("Failed to create acceptor", err)
 	}
 	suite.acceptor = a
 
-	templateMappings := make([]*TemplateMapping, 0)
-	templateMappings = append(templateMappings, &TemplateMapping{
-		Pattern:    suite.sessionID3,
-		TemplateID: suite.sessionID3,
-	})
-	suite.dynamicSessionProvider = NewDynamicAcceptorSessionProvider(suite.acceptor.settings, suite.acceptor.storeFactory, suite.acceptor.logFactory, suite.acceptor.app, templateMappings)
-	suite.acceptor.SetSessionProvider(suite.dynamicSessionProvider)
-
-	suite.testDynamicSessionID = SessionID{BeginString: BeginStringFIX43, SenderCompID: "target3", TargetCompID: "dynamicSender"}
+	suite.cliSessionID = SessionID{BeginString: BeginStringFIX43, SenderCompID: "target3", TargetCompID: "dynamicSender"}
 	suite.logonSessionID = SessionID{BeginString: BeginStringFIX43, SenderCompID: "dynamicSender", TargetCompID: "target3"}
-	if err := suite.acceptor.Start(); err != nil {
-		suite.FailNow("acceptor start failed", err)
-	}
+	suite.seqNum = 1
+}
 
-	suite.verifySessionCount(2)
+func (suite *AcceptorTemplateTestSuite) TearDownTest() {
+	suite.acceptor.Stop()
+	suite.acceptor = nil
 	suite.seqNum = 1
 }
 
 func (suite *AcceptorTemplateTestSuite) logonAndDisconnectAfterCheck(sessionID SessionID,
 	checkFuncAfterLogon func(),
-	mustHaveResponse bool) {
+	wantLogonSuccess bool) {
 	inboundMessages := []*Message{mockLogonMessage(sessionID, suite.seqNum)}
 	suite.seqNum++
 	var respondedLogonMessageReceived bool
@@ -250,7 +248,9 @@ func (suite *AcceptorTemplateTestSuite) logonAndDisconnectAfterCheck(sessionID S
 		suite.Require().NoError(err, "parse responding message failed")
 		msgType, err := responseMsg.Header.GetString(tagMsgType)
 		suite.Require().NoError(err, "unexpected mssage")
-		suite.Require().Equalf("A", msgType, "expected logon message in response %s", responseMsg.String())
+		if wantLogonSuccess && msgType != "A" {
+			return
+		}
 		respondedLogonMessageReceived = true
 		if checkFuncAfterLogon != nil {
 			checkFuncAfterLogon()
@@ -258,7 +258,7 @@ func (suite *AcceptorTemplateTestSuite) logonAndDisconnectAfterCheck(sessionID S
 		close(mockConn1.closeChan)
 	}
 	suite.acceptor.handleConnection(mockConn1)
-	if mustHaveResponse {
+	if wantLogonSuccess {
 		suite.Require().Equal(true, respondedLogonMessageReceived, "expected responding logon message")
 	}
 }
@@ -268,10 +268,14 @@ func (suite *AcceptorTemplateTestSuite) verifySessionCount(expectedSessionCount 
 	suite.Require().Equalf(expectedSessionCount, len(sessions), "expected %v sessions but found %v in registry", expectedSessionCount, sessions)
 }
 
-func (suite *AcceptorTemplateTestSuite) testCreateDynamicSessionBySessionProvider() {
-	suite.setupAcceptor()
+func (suite *AcceptorTemplateTestSuite) TestCreateDynamicSessionBySessionProvider() {
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
 	logonSessionID := suite.logonSessionID
-	suite.logonAndDisconnectAfterCheck(suite.testDynamicSessionID, func() {
+	suite.logonAndDisconnectAfterCheck(suite.cliSessionID, func() {
 		suite.verifySessionCount(3)
 
 		createdSession, ok := suite.acceptor.sessions[logonSessionID]
@@ -285,100 +289,102 @@ func (suite *AcceptorTemplateTestSuite) testCreateDynamicSessionBySessionProvide
 		}
 		suite.Require().Equal("127.0.0.1:5002", remoteAddr.String(), "expect remoteAddr for dynamic session to be 127.0.0.1:5002 but got %v", remoteAddr.String())
 	}, true)
-	suite.acceptor.Stop()
 }
 
-func (suite *AcceptorTemplateTestSuite) testSessionCreatedBySessionProviderShouldBeKept() {
-	suite.setupAcceptor()
+func (suite *AcceptorTemplateTestSuite) TestSessionCreatedBySessionProviderShouldBeKept() {
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
 	logonSessionID := suite.logonSessionID
-	suite.logonAndDisconnectAfterCheck(suite.testDynamicSessionID, func() {
+	suite.logonAndDisconnectAfterCheck(suite.cliSessionID, func() {
 		suite.verifySessionCount(3)
 	}, true)
 	err := SendToTarget(createFIX43NewOrderSingle(), logonSessionID)
 	suite.NoError(err, "expected message can still be sent after session disconnected")
-	suite.acceptor.Stop()
 }
 
-func (suite *AcceptorTemplateTestSuite) testNoNewSessionCreatedWhenSameSessionIDLogons() {
-	suite.setupAcceptor()
-	suite.logonAndDisconnectAfterCheck(suite.testDynamicSessionID, func() {
+func (suite *AcceptorTemplateTestSuite) TestNoNewSessionCreatedWhenSameSessionIDLogons() {
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
+	suite.logonAndDisconnectAfterCheck(suite.cliSessionID, func() {
 		suite.verifySessionCount(3)
 	}, true)
-	suite.logonAndDisconnectAfterCheck(suite.testDynamicSessionID, func() {
+	suite.logonAndDisconnectAfterCheck(suite.cliSessionID, func() {
 		suite.verifySessionCount(3)
 	}, true)
-	suite.logonAndDisconnectAfterCheck(suite.testDynamicSessionID, func() {
+	suite.logonAndDisconnectAfterCheck(suite.cliSessionID, func() {
 		suite.verifySessionCount(3)
 	}, true)
-	suite.acceptor.Stop()
 }
 
-func (suite *AcceptorTemplateTestSuite) testSessionNotFoundBySessionProvider() {
-	suite.setupAcceptor()
+func (suite *AcceptorTemplateTestSuite) TestSessionNotFoundBySessionProvider() {
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
 	sessionID := SessionID{BeginString: BeginStringFIX43, SenderCompID: "unknownSender", TargetCompID: "unknownTarget"}
 	suite.logonAndDisconnectAfterCheck(sessionID, func() {}, false)
 	suite.verifySessionCount(2)
-	suite.acceptor.Stop()
 }
 
-func (suite *AcceptorTemplateTestSuite) TestSequentially() {
-	suite.Run("testCreateDynamicSessionBySessionProvider", suite.testCreateDynamicSessionBySessionProvider)
-	suite.Run("testSessionCreatedBySessionProviderShouldBeKept", suite.testSessionCreatedBySessionProviderShouldBeKept)
-	suite.Run("testNoNewSessionCreatedWhenSameSessionIDLogons", suite.testNoNewSessionCreatedWhenSameSessionIDLogons)
-	suite.Run("testSessionNotFoundBySessionProvider", suite.testSessionNotFoundBySessionProvider)
+type mockCustomTemplateIDProvider struct {
+	staticTemplateID SessionID
+}
+
+// mockCustomTemplateIDProvider always returns the same templateID
+func (p *mockCustomTemplateIDProvider) GetTemplateID(inboundSessionID SessionID) *SessionID {
+	return &p.staticTemplateID
+}
+
+func (suite *AcceptorTemplateTestSuite) TestCustomTemplateIDProvider_NoSessionCreated() {
+	// this templateIDProvider selects session FIX.4.3:sender2->sender2 as the template
+	templateIDProvider := &mockCustomTemplateIDProvider{staticTemplateID: SessionID{
+		BeginString: BeginStringFIX43, SenderCompID: "sender2", TargetCompID: "target2",
+	}}
+	suite.acceptor.SetTemplateIDProvider(templateIDProvider)
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
+	// no session created
+	logon1 := SessionID{BeginString: BeginStringFIX42, SenderCompID: "target1", TargetCompID: "sender1"}
+	suite.logonAndDisconnectAfterCheck(logon1, func() {
+		suite.verifySessionCount(2)
+	}, true)
+}
+
+func (suite *AcceptorTemplateTestSuite) TestCustomTemplateIDProvider_SessionCreated() {
+	// this templateIDProvider selects session FIX.4.3:sender2->sender2 as the template
+	templateIDProvider := &mockCustomTemplateIDProvider{staticTemplateID: SessionID{
+		BeginString: BeginStringFIX43, SenderCompID: "sender2", TargetCompID: "target2",
+	}}
+	suite.acceptor.SetTemplateIDProvider(templateIDProvider)
+	if err := suite.acceptor.Start(); err != nil {
+		suite.FailNow("acceptor start failed", err)
+	}
+	suite.verifySessionCount(2)
+
+	// session created
+	logonSessionID2 := SessionID{BeginString: BeginStringFIX42, SenderCompID: "any", TargetCompID: "any"}
+	suite.logonAndDisconnectAfterCheck(logonSessionID2, func() {
+		suite.verifySessionCount(3)
+	}, true)
+	// logon again
+	suite.logonAndDisconnectAfterCheck(logonSessionID2, func() {
+		suite.verifySessionCount(3)
+	}, true)
+
+	session2 := suite.acceptor.sessions[logonSessionID2]
+	suite.Require().Equal(true, session2.ResetOnLogon, "expected session2 ResetOnLogon=Y")
 }
 
 func TestAcceptorTemplateTestSuite(t *testing.T) {
 	suite.Run(t, new(AcceptorTemplateTestSuite))
-}
-
-type DynamicSessionTestSuite struct {
-	suite.Suite
-}
-
-func (suite *DynamicSessionTestSuite) TestDynamicSession() {
-	settings := NewSettings()
-	settings.globalSettings.Set(config.SocketAcceptPort, "5003")
-	settings.globalSettings.Set(config.DynamicSessions, "Y")
-	sessionId1 := SessionID{BeginString: BeginStringFIX42, SenderCompID: "dynamicSender1", TargetCompID: "dynamicTarget1"}
-	sessionSettings1 := NewSessionSettings()
-	sessionSettings1.Set(config.BeginString, sessionId1.BeginString)
-	sessionSettings1.Set(config.SenderCompID, sessionId1.SenderCompID)
-	sessionSettings1.Set(config.TargetCompID, sessionId1.TargetCompID)
-	settings.AddSession(sessionSettings1)
-
-	a, err := NewAcceptor(&noopApp{}, memoryStoreFactory{}, settings, NewNullLogFactory())
-	suite.Require().NoError(err, "create acceptor with DynamicSession=Y failed")
-
-	if err := a.Start(); err != nil {
-		suite.FailNow("acceptor start failed: %v", err)
-	}
-
-	inboundSessionID := SessionID{BeginString: BeginStringFIX43, SenderCompID: "X", TargetCompID: "Y"}
-	inboundMessages := []*Message{mockLogonMessage(inboundSessionID, 1)}
-	reversedInboundSessionID := SessionID{BeginString: BeginStringFIX43, SenderCompID: "Y", TargetCompID: "X"}
-
-	mockConn1 := &mockConn{
-		closeChan:       make(chan struct{}),
-		inboundMessages: inboundMessages,
-		localAddr:       &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 5001},
-		remoteAddr:      &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 5002},
-	}
-
-	var respondedLogonMessageReceived bool
-	mockConn1.onWriteback = func(_ []byte) {
-		respondedLogonMessageReceived = true
-		// close conn
-		close(mockConn1.closeChan)
-	}
-
-	a.handleConnection(mockConn1)
-	suite.Require().Equal(true, respondedLogonMessageReceived, "expected responding logon message")
-	err = SendToTarget(createFIX43NewOrderSingle(), reversedInboundSessionID)
-	suite.Error(err, "session created by DynamicSession is unregistered after session connected")
-	a.Stop()
-}
-
-func TestDynamicSessionTestSuite(t *testing.T) {
-	suite.Run(t, new(DynamicSessionTestSuite))
 }

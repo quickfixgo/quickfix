@@ -6,63 +6,94 @@ const (
 	WildcardPattern string = "*"
 )
 
-type AcceptorSessionProvider interface {
-	GetSession(SessionID) (*session, error)
-}
-
-type StaticAcceptorSessionProvider struct {
-	sessions map[SessionID]*session
-}
-
-func (p *StaticAcceptorSessionProvider) GetSession(sessionID SessionID) (*session, error) {
-	s, ok := p.sessions[sessionID]
-	if !ok {
-		return nil, errUnknownSession
-	}
-	return s, nil
-}
-
-// DynamicAcceptorSessionProvider dynamically defines sessions for an acceptor. This can be useful for
-// applications like simulators that want to accept any connection and
-// dynamically create an associated session.
+// TemplateIDProvider is an interface for obtaining templateIDs for inbound sessions.
 //
-// For more complex situations, you can use this class as a starting
-// point for implementing your own AcceptorSessionProvider.
-type DynamicAcceptorSessionProvider struct {
+//	The SessionSettings for the template SessionID must be configured in the Acceptor.
+//	The sessionSettings of an inbound session inherits from the template SessionID.
+//	If no matching template is found, return nil, and no session will be created for the inbound logon request.
+type TemplateIDProvider interface {
+	GetTemplateID(inbound SessionID) (templateID *SessionID)
+}
+
+type TemplateIDProviderSetter interface {
+	SetTemplateIDProvider(TemplateIDProvider)
+}
+
+type DefaultTemplateIDProvider struct {
+	templateMappings []*TemplateMapping
+}
+
+func NewDefaultTemplateIDProvider(settings *Settings) (*DefaultTemplateIDProvider, error) {
+	templateMappings := make([]*TemplateMapping, 0)
+	for sid, ss := range settings.SessionSettings() {
+		var (
+			acceptorTemplate bool
+			err              error
+		)
+		if ss.HasSetting(config.AcceptorTemplate) {
+			acceptorTemplate, err = ss.BoolSetting(config.AcceptorTemplate)
+			if err != nil {
+				return nil, err
+			}
+		}
+		if acceptorTemplate {
+			templateMappings = append(templateMappings, &TemplateMapping{
+				Pattern:    sid,
+				TemplateID: sid,
+			})
+		}
+	}
+	return &DefaultTemplateIDProvider{templateMappings: templateMappings}, nil
+}
+
+func (p *DefaultTemplateIDProvider) GetTemplateID(inbound SessionID) (templateID *SessionID) {
+	return p.lookupTemplateID(inbound)
+}
+
+func (p *DefaultTemplateIDProvider) lookupTemplateID(sessionID SessionID) *SessionID {
+	for _, mapping := range p.templateMappings {
+		if isTemplateMatching(mapping.Pattern, sessionID) {
+			return &mapping.TemplateID
+		}
+	}
+	return nil
+}
+
+type dynamicAcceptorSessionProvider struct {
 	settings            *Settings
 	messageStoreFactory MessageStoreFactory
 	logFactory          LogFactory
 	sessionFactory      *sessionFactory
 	application         Application
-	templateMappings    []*TemplateMapping
+
+	templateIDProvider TemplateIDProvider
 }
 
 func NewDynamicAcceptorSessionProvider(settings *Settings, messageStoreFactory MessageStoreFactory, logFactory LogFactory,
-	application Application, templateMappings []*TemplateMapping,
-) *DynamicAcceptorSessionProvider {
-	return &DynamicAcceptorSessionProvider{
+	application Application, templateIDProvider TemplateIDProvider,
+) *dynamicAcceptorSessionProvider {
+	return &dynamicAcceptorSessionProvider{
 		settings:            settings,
 		messageStoreFactory: messageStoreFactory,
 		logFactory:          logFactory,
 		sessionFactory:      &sessionFactory{},
 		application:         application,
-		templateMappings:    templateMappings,
+		templateIDProvider:  templateIDProvider,
 	}
 }
 
-func (p *DynamicAcceptorSessionProvider) FindTemplateID(sessionID SessionID) *SessionID {
-	return p.lookupTemplateID(sessionID)
-}
-
-func (p *DynamicAcceptorSessionProvider) GetSession(sessionID SessionID) (*session, error) {
+func (p *dynamicAcceptorSessionProvider) GetSession(sessionID SessionID) (*session, error) {
 	s, ok := lookupSession(sessionID)
-	if !ok {
-		templateID := p.lookupTemplateID(sessionID)
+	if !ok && p.templateIDProvider != nil {
+		templateID := p.templateIDProvider.GetTemplateID(sessionID)
 		if templateID == nil {
 			return nil, errUnknownSession
 		}
 		dynamicSessionSettings := p.settings.globalSettings.clone()
-		templateSettings := p.settings.sessionSettings[*templateID]
+		templateSettings, ok := p.settings.sessionSettings[*templateID]
+		if !ok {
+			return nil, errUnknownSession
+		}
 		dynamicSessionSettings.overlay(templateSettings)
 		dynamicSessionSettings.Set(config.BeginString, sessionID.BeginString)
 		dynamicSessionSettings.Set(config.SenderCompID, sessionID.SenderCompID)
@@ -82,16 +113,10 @@ func (p *DynamicAcceptorSessionProvider) GetSession(sessionID SessionID) (*sessi
 			return nil, err
 		}
 	}
-	return s, nil
-}
-
-func (provider *DynamicAcceptorSessionProvider) lookupTemplateID(sessionID SessionID) *SessionID {
-	for _, mapping := range provider.templateMappings {
-		if isTemplateMatching(mapping.Pattern, sessionID) {
-			return &mapping.TemplateID
-		}
+	if s == nil {
+		return nil, errUnknownSession
 	}
-	return nil
+	return s, nil
 }
 
 func isTemplateMatching(pattern SessionID, sessionID SessionID) bool {

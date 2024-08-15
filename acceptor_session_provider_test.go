@@ -1,24 +1,104 @@
 package quickfix
 
 import (
-	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/stretchr/testify/suite"
 )
 
+var _ Application = &noopApp{}
+
+type noopApp struct {
+}
+
+func (n *noopApp) FromAdmin(_ *Message, _ SessionID) MessageRejectError {
+	return nil
+}
+
+func (n *noopApp) FromApp(_ *Message, _ SessionID) MessageRejectError {
+	return nil
+}
+
+func (n *noopApp) OnCreate(_ SessionID) {
+}
+
+func (n *noopApp) OnLogon(_ SessionID) {
+}
+
+func (n *noopApp) OnLogout(_ SessionID) {
+}
+
+func (n *noopApp) ToAdmin(_ *Message, _ SessionID) {
+}
+
+func (n *noopApp) ToApp(_ *Message, _ SessionID) error {
+	return nil
+}
+
 type DynamicAcceptorSessionProviderTestSuite struct {
 	suite.Suite
 
-	provider *DynamicAcceptorSessionProvider
+	dynamicAcceptorSessionProvider *dynamicAcceptorSessionProvider
 
 	settings            *Settings
 	messageStoreFactory MessageStoreFactory
 	logFactory          LogFactory
 	app                 Application
 	sessionFactory      *sessionFactory
-	TemplateMapping     []*TemplateMapping
+}
+
+func (suite *DynamicAcceptorSessionProviderTestSuite) TestNewDefaultTemplateIDProvider() {
+	cfg := `
+[default]
+ConnectionType=acceptor
+SocketAcceptPort=9878
+BeginString=FIX.4.2
+TimeZone=America/New_York
+StartTime=00:00:01
+EndTime=23:59:59
+HeartBtInt=30
+
+[session]
+AcceptorTemplate=Y
+SenderCompID=test1
+TargetCompID=*
+ResetOnLogon=Y
+
+[session]
+AcceptorTemplate=Y
+SenderCompID=test2
+TargetCompID=*
+ResetOnLogon=Y
+	`
+	stringReader := strings.NewReader(cfg)
+	settings, err := ParseSettings(stringReader)
+	if err != nil {
+		suite.FailNow("parse setting failed", err)
+	}
+
+	provider, err := NewDefaultTemplateIDProvider(settings)
+	if err != nil {
+		suite.FailNow("create TemplateIDProvider failed", err)
+	}
+
+	s1 := SessionID{BeginString: "FIX.4.2", SenderCompID: "test1", TargetCompID: "cli"}
+	templateID1 := provider.GetTemplateID(s1)
+	suite.Require().NotNil(templateID1, "expected template matched")
+	suite.Require().Equal(
+		*templateID1,
+		SessionID{BeginString: "FIX.4.2", SenderCompID: "test1", TargetCompID: "*"},
+		"unexpected templateID",
+	)
+
+	s2 := SessionID{BeginString: "FIX.4.3", SenderCompID: "test1", TargetCompID: "cli"}
+	templateID2 := provider.GetTemplateID(s2)
+	suite.Require().Nilf(templateID2, "expected template not matched for %v", s2.String())
+
+	s3 := SessionID{BeginString: "FIX.4.2", SenderCompID: "X", TargetCompID: "cli"}
+	templateID3 := provider.GetTemplateID(s3)
+	suite.Require().Nilf(templateID3, "expected template not matched for %v", s3.String())
 }
 
 func (suite *DynamicAcceptorSessionProviderTestSuite) SetupTest() {
@@ -27,33 +107,37 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) SetupTest() {
 	suite.logFactory = nullLogFactory{}
 	suite.app = &noopApp{}
 	suite.sessionFactory = &sessionFactory{}
-	suite.TemplateMapping = make([]*TemplateMapping, 0)
+	templateMappings := make([]*TemplateMapping, 0)
 
-	templateId1 := SessionID{BeginString: "FIX.4.2", SenderCompID: "ANY", TargetCompID: "ANY"}
-	suite.TemplateMapping = append(
-		suite.TemplateMapping,
-		&TemplateMapping{Pattern: SessionID{BeginString: WildcardPattern, SenderCompID: "S1", TargetCompID: WildcardPattern}, TemplateID: templateId1},
+	templateID1 := SessionID{BeginString: "FIX.4.2", SenderCompID: "ANY", TargetCompID: "ANY"}
+	templateMappings = append(
+		templateMappings,
+		&TemplateMapping{Pattern: SessionID{BeginString: WildcardPattern, SenderCompID: "S1", TargetCompID: WildcardPattern}, TemplateID: templateID1},
 	)
-	suite.setUpSettings(templateId1, "ResetOnLogout", "Y")
+	suite.setUpSettings(templateID1, "ResetOnLogout", "Y")
 
 	templateId2 := SessionID{BeginString: "FIX.4.4", SenderCompID: "S1", TargetCompID: "ANY"}
-	suite.TemplateMapping = append(
-		suite.TemplateMapping,
+	templateMappings = append(
+		templateMappings,
 		&TemplateMapping{Pattern: SessionID{BeginString: "FIX.4.4", SenderCompID: WildcardPattern, TargetCompID: WildcardPattern}, TemplateID: templateId2},
 	)
 	suite.setUpSettings(templateId2, "RefreshOnLogon", "Y")
 
 	templateId3 := SessionID{BeginString: "FIX.4.4", SenderCompID: "ANY", TargetCompID: "ANY"}
-	suite.TemplateMapping = append(
-		suite.TemplateMapping,
+	templateMappings = append(
+		templateMappings,
 		&TemplateMapping{Pattern: SessionID{BeginString: "FIX.4.2", SenderCompID: WildcardPattern, SenderSubID: WildcardPattern, SenderLocationID: WildcardPattern,
 			TargetCompID: WildcardPattern, TargetSubID: WildcardPattern, TargetLocationID: WildcardPattern, Qualifier: WildcardPattern,
 		}, TemplateID: templateId3},
 	)
 	suite.setUpSettings(templateId3, "ResetOnDisconnect", "Y")
 
-	suite.provider = NewDynamicAcceptorSessionProvider(suite.settings, suite.messageStoreFactory,
-		suite.logFactory, suite.app, suite.TemplateMapping)
+	templateIDProvider := &DefaultTemplateIDProvider{
+		templateMappings: templateMappings,
+	}
+
+	suite.dynamicAcceptorSessionProvider = NewDynamicAcceptorSessionProvider(suite.settings, suite.messageStoreFactory,
+		suite.logFactory, suite.app, templateIDProvider)
 }
 
 func (suite *DynamicAcceptorSessionProviderTestSuite) setUpSettings(TemplateID SessionID, key, value string) {
@@ -132,7 +216,7 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) TestSessionCreation() {
 	}
 
 	for _, test := range tests {
-		session, err := suite.provider.GetSession(test.input)
+		session, err := suite.dynamicAcceptorSessionProvider.GetSession(test.input)
 		suite.NoError(err)
 		suite.NotNil(session)
 		sessionID := session.sessionID
@@ -158,92 +242,11 @@ func (suite *DynamicAcceptorSessionProviderTestSuite) TestTemplateNotFound() {
 	}
 
 	for _, test := range tests {
-		_, err := suite.provider.GetSession(test.input)
+		_, err := suite.dynamicAcceptorSessionProvider.GetSession(test.input)
 		suite.Error(err, test.name+": expected error for template not found")
 	}
 }
 
 func TestDynamicAcceptorSessionProviderTestSuite(t *testing.T) {
 	suite.Run(t, new(DynamicAcceptorSessionProviderTestSuite))
-}
-
-func TestStaticSessionProvider_GetSession(t *testing.T) {
-	sessions := make(map[SessionID]*session)
-	sessionID1 := SessionID{BeginString: "FIX.4.2", SenderCompID: "SENDER", TargetCompID: "TARGET"}
-	session1 := &session{sessionID: sessionID1}
-	sessions[sessionID1] = session1
-
-	type args struct {
-		sessionID SessionID
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    *session
-		wantErr bool
-	}{
-		{
-			name: "session found",
-			args: args{
-				sessionID: sessionID1,
-			},
-			want:    session1,
-			wantErr: false,
-		},
-		{
-			name: "session not found",
-			args: args{
-				sessionID: SessionID{
-					BeginString: "FIX.4.2", SenderCompID: "X", TargetCompID: "Y",
-				},
-			},
-			want:    nil,
-			wantErr: true,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			p := &StaticAcceptorSessionProvider{
-				sessions: sessions,
-			}
-			got, err := p.GetSession(tt.args.sessionID)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("StaticSessionProvider.GetSession() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("StaticSessionProvider.GetSession() = %v, want %v", got, tt.want)
-			}
-			UnregisterSession(tt.args.sessionID)
-		})
-	}
-}
-
-var _ Application = &noopApp{}
-
-type noopApp struct {
-}
-
-func (n *noopApp) FromAdmin(message *Message, sessionID SessionID) MessageRejectError {
-	return nil
-}
-
-func (n *noopApp) FromApp(message *Message, sessionID SessionID) MessageRejectError {
-	return nil
-}
-
-func (n *noopApp) OnCreate(sessionID SessionID) {
-}
-
-func (n *noopApp) OnLogon(sessionID SessionID) {
-}
-
-func (n *noopApp) OnLogout(sessionID SessionID) {
-}
-
-func (n *noopApp) ToAdmin(message *Message, sessionID SessionID) {
-}
-
-func (n *noopApp) ToApp(message *Message, sessionID SessionID) error {
-	return nil
 }

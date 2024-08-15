@@ -32,24 +32,25 @@ import (
 
 // Acceptor accepts connections from FIX clients and manages the associated sessions.
 type Acceptor struct {
-	app                   Application
-	settings              *Settings
-	logFactory            LogFactory
-	storeFactory          MessageStoreFactory
-	globalLog             Log
-	sessions              map[SessionID]*session
-	sessionsLock          sync.RWMutex
-	sessionGroup          sync.WaitGroup
-	listenerShutdown      sync.WaitGroup
-	dynamicSessions       bool
-	dynamicQualifier      bool
-	dynamicQualifierCount int
-	dynamicSessionChan    chan *session
-	sessionAddr           sync.Map
-	sessionHostPort       map[SessionID]int
-	listeners             map[string]net.Listener
-	connectionValidator   ConnectionValidator
-	sessionProvider       AcceptorSessionProvider
+	app                            Application
+	settings                       *Settings
+	logFactory                     LogFactory
+	storeFactory                   MessageStoreFactory
+	globalLog                      Log
+	sessions                       map[SessionID]*session
+	sessionsLock                   sync.RWMutex
+	sessionGroup                   sync.WaitGroup
+	listenerShutdown               sync.WaitGroup
+	dynamicSessions                bool
+	dynamicQualifier               bool
+	dynamicQualifierCount          int
+	dynamicSessionChan             chan *session
+	sessionAddr                    sync.Map
+	sessionHostPort                map[SessionID]int
+	listeners                      map[string]net.Listener
+	connectionValidator            ConnectionValidator
+	templateIDProvider             TemplateIDProvider
+	dynamicAcceptorSessionProvider *dynamicAcceptorSessionProvider
 	sessionFactory
 }
 
@@ -62,6 +63,11 @@ type ConnectionValidator interface {
 
 // Start accepting connections.
 func (a *Acceptor) Start() (err error) {
+
+	if err = a.configureDyanmicSessionProvider(); err != nil {
+		return
+	}
+
 	socketAcceptHost := ""
 	if a.settings.GlobalSettings().HasSetting(config.SocketAcceptHost) {
 		if socketAcceptHost, err = a.settings.GlobalSettings().Setting(config.SocketAcceptHost); err != nil {
@@ -121,6 +127,25 @@ func (a *Acceptor) Start() (err error) {
 		go a.listenForConnections(listener)
 	}
 	return
+}
+
+func (a *Acceptor) configureDyanmicSessionProvider() error {
+	if a.templateIDProvider == nil {
+		defaultTemplateIDProvider, err := NewDefaultTemplateIDProvider(a.settings)
+		if err != nil {
+			return err
+		}
+		if len(defaultTemplateIDProvider.templateMappings) == 0 {
+			// no templateMappings
+			return nil
+		}
+		a.templateIDProvider = defaultTemplateIDProvider
+	}
+	if setter, ok := a.storeFactory.(TemplateIDProviderSetter); ok {
+		setter.SetTemplateIDProvider(a.templateIDProvider)
+	}
+	a.dynamicAcceptorSessionProvider = NewDynamicAcceptorSessionProvider(a.settings, a.storeFactory, a.logFactory, a.app, a.templateIDProvider)
+	return nil
 }
 
 // Stop logs out existing sessions, close their connections, and stop accepting new connections.
@@ -326,21 +351,14 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	}
 	session, ok := a.sessions[sessID]
 	if !ok {
-		var dynamicSessionCreated bool
-		if a.sessionProvider != nil {
-			session, err = a.sessionProvider.GetSession(sessID)
+		if a.dynamicAcceptorSessionProvider != nil {
+			session, err = a.dynamicAcceptorSessionProvider.GetSession(sessID)
 			if err != nil {
-				if err == errUnknownSession && a.dynamicSessions {
-					goto CREATE_SHORT_LIVED_DYNAMIC_SESSION
-				}
 				a.globalLog.OnEventf("Failed to get session %v from provider: %v", sessID, err)
 				return
 			}
 			a.addMngdDynamicSession(sessID, session)
-			dynamicSessionCreated = true
-		}
-	CREATE_SHORT_LIVED_DYNAMIC_SESSION:
-		if !dynamicSessionCreated {
+		} else {
 			if !a.dynamicSessions {
 				a.globalLog.OnEventf("Session %v not found for incoming message: %s", sessID, msgBytes)
 				return
@@ -354,7 +372,6 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 			session = dynamicSession
 			defer session.stop()
 		}
-
 	}
 
 	a.sessionAddr.Store(sessID, netConn.RemoteAddr())
@@ -474,7 +491,8 @@ func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
 	a.connectionValidator = validator
 }
 
-// SetSessionProvider sets an optional session provider.
-func (a *Acceptor) SetSessionProvider(sessionProvider AcceptorSessionProvider) {
-	a.sessionProvider = sessionProvider
+// SetTemplateIDProvider sets an optional templateID provider.
+// If not set and AcceptorTemplate=Y is configured for a session, the `DefaultTemplateIDProvider` will be used.
+func (a *Acceptor) SetTemplateIDProvider(templateIDProvider TemplateIDProvider) {
+	a.templateIDProvider = templateIDProvider
 }

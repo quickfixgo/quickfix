@@ -38,6 +38,12 @@ type msgDef struct {
 
 type fileStoreFactory struct {
 	settings *quickfix.Settings
+
+	templateIDProvider quickfix.TemplateIDProvider
+}
+
+func (f *fileStoreFactory) SetTemplateIDProvider(templateIDProvider quickfix.TemplateIDProvider) {
+	f.templateIDProvider = templateIDProvider
 }
 
 type fileStore struct {
@@ -69,10 +75,20 @@ func (f fileStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfi
 
 	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
 	if !ok {
-		if dynamicSessions {
-			sessionSettings = globalSettings
+		if f.templateIDProvider != nil {
+			templateID := f.templateIDProvider.GetTemplateID(sessionID)
+			if templateID != nil {
+				sessionSettings, ok = f.settings.SessionSettings()[*templateID]
+				if !ok {
+					return nil, fmt.Errorf("unknown session: %v", sessionID)
+				}
+			}
 		} else {
-			return nil, fmt.Errorf("unknown session: %v", sessionID)
+			if dynamicSessions {
+				sessionSettings = globalSettings
+			} else {
+				return nil, fmt.Errorf("unknown session: %v", sessionID)
+			}
 		}
 	}
 

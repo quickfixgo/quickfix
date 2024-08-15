@@ -33,6 +33,12 @@ type mongoStoreFactory struct {
 	settings           *quickfix.Settings
 	messagesCollection string
 	sessionsCollection string
+
+	templateIDProvider quickfix.TemplateIDProvider
+}
+
+func (f *mongoStoreFactory) SetTemplateIDProvider(templateIDProvider quickfix.TemplateIDProvider) {
+	f.templateIDProvider = templateIDProvider
 }
 
 type mongoStore struct {
@@ -67,10 +73,20 @@ func (f mongoStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickf
 
 	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
 	if !ok {
-		if dynamicSessions {
-			sessionSettings = globalSettings
+		if f.templateIDProvider != nil {
+			templateID := f.templateIDProvider.GetTemplateID(sessionID)
+			if templateID != nil {
+				sessionSettings, ok = f.settings.SessionSettings()[*templateID]
+				if !ok {
+					return nil, fmt.Errorf("unknown session: %v", sessionID)
+				}
+			}
 		} else {
-			return nil, fmt.Errorf("unknown session: %v", sessionID)
+			if dynamicSessions {
+				sessionSettings = globalSettings
+			} else {
+				return nil, fmt.Errorf("unknown session: %v", sessionID)
+			}
 		}
 	}
 	mongoConnectionURL, err := sessionSettings.Setting(config.MongoStoreConnection)
