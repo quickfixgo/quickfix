@@ -29,6 +29,12 @@ import (
 
 type sqlStoreFactory struct {
 	settings *quickfix.Settings
+
+	templateIDProvider quickfix.TemplateIDProvider
+}
+
+func (f *sqlStoreFactory) SetTemplateIDProvider(templateIDProvider quickfix.TemplateIDProvider) {
+	f.templateIDProvider = templateIDProvider
 }
 
 type sqlStore struct {
@@ -73,10 +79,20 @@ func (f sqlStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix
 
 	sessionSettings, ok := f.settings.SessionSettings()[sessionID]
 	if !ok {
-		if dynamicSessions {
-			sessionSettings = globalSettings
+		if f.templateIDProvider != nil {
+			templateID := f.templateIDProvider.GetTemplateID(sessionID)
+			if templateID != nil {
+				sessionSettings, ok = f.settings.SessionSettings()[*templateID]
+				if !ok {
+					return nil, fmt.Errorf("unknown session: %v", sessionID)
+				}
+			}
 		} else {
-			return nil, fmt.Errorf("unknown session: %v", sessionID)
+			if dynamicSessions {
+				sessionSettings = globalSettings
+			} else {
+				return nil, fmt.Errorf("unknown session: %v", sessionID)
+			}
 		}
 	}
 
