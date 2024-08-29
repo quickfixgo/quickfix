@@ -106,7 +106,7 @@ func TestAcceptor_SetTLSConfig(t *testing.T) {
 	// as opposed to the Certificates slice, that is static in nature, and is only populated once and needs application restart to reload the certs.
 	customizedTLSConfig := tls.Config{
 		Certificates: []tls.Certificate{},
-		GetCertificate: func(chi *tls.ClientHelloInfo) (*tls.Certificate, error) {
+		GetCertificate: func(*tls.ClientHelloInfo) (*tls.Certificate, error) {
 			cert, err := tls.LoadX509KeyPair("_test_data/localhost.crt", "_test_data/localhost.key")
 			if err != nil {
 				return nil, err
