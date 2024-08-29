@@ -23,7 +23,7 @@ func NewNutsDbStoreFactory(db *nutsdb.DB) MessageStoreFactory {
 }
 
 func (f nutsDbStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, err error) {
-	sessionPrefix := sessionIDFilenamePrefix(sessionID)
+	sessionPrefix := SessionIDFilenamePrefix(sessionID)
 	store := &nutsDbStore{
 		db:     f.db,
 		cache:  &memoryStore{},

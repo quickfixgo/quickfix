@@ -35,8 +35,8 @@ type fileLogFactory struct {
 	sessionLogPaths map[SessionID]string
 }
 
-//NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
-//The location of global and session log files is configured via FileLogPath.
+// NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
+// The location of global and session log files is configured via FileLogPath.
 func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 	logFactory := fileLogFactory{}
 
@@ -97,6 +97,6 @@ func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 		return nil, fmt.Errorf("logger not defined for %v", sessionID)
 	}
 
-	prefix := sessionIDFilenamePrefix(sessionID)
+	prefix := SessionIDFilenamePrefix(sessionID)
 	return newFileLog(prefix, logPath)
 }

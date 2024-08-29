@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func sessionIDFilenamePrefix(s SessionID) string {
+func SessionIDFilenamePrefix(s SessionID) string {
 	sender := []string{s.SenderCompID}
 	if s.SenderSubID != "" {
 		sender = append(sender, s.SenderSubID)

@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/pkg/errors"
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type msgDef struct {
@@ -71,7 +71,7 @@ func newFileStore(sessionID SessionID, dirname string, fileSync bool) (*fileStor
 		return nil, err
 	}
 
-	sessionPrefix := sessionIDFilenamePrefix(sessionID)
+	sessionPrefix := SessionIDFilenamePrefix(sessionID)
 
 	store := &fileStore{
 		sessionID:          sessionID,
