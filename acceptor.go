@@ -426,11 +426,12 @@ func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
 	a.connectionValidator = validator
 }
 
-// SetTLSConfig allows the creator of the Acceptor to specify a fully customizable tls.Config.
-
-// When the caller explicitly provides a tls.Config with this function,
+// SetTLSConfig allows the creator of the Acceptor to specify a fully customizable tls.Config of their choice,
+// which will be used in the Start() method.
+//
+// Note: when the caller explicitly provides a tls.Config with this function,
 // it takes precendent over TLS settings specified in the acceptor's settings.GlobalSettings(),
-// meaning that the setting object is not inspected or used for the creation of the tls.Config.
+// meaning that the `settings.GlobalSettings()` object is not inspected or used for the creation of the tls.Config.
 func (a *Acceptor) SetTLSConfig(tlsConfig *tls.Config) {
 	a.tlsConfig = tlsConfig
 }
