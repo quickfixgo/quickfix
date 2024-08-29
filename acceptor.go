@@ -19,7 +19,6 @@ import (
 	"bufio"
 	"bytes"
 	"crypto/tls"
-	"fmt"
 	"io"
 	"net"
 	"runtime/debug"
@@ -233,7 +232,6 @@ func (a *Acceptor) invalidMessage(msg *bytes.Buffer, err error) {
 func (a *Acceptor) handleConnection(netConn net.Conn) {
 	defer func() {
 		if err := recover(); err != nil {
-			fmt.Println("asdqwe", a.globalLog)
 			a.globalLog.OnEventf("Connection Terminated with Panic: %s", debug.Stack())
 		}
 
