@@ -209,9 +209,9 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 	return nil
 }
 
-func (session *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
+func (s *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
 	sequenceReset := NewMessage()
-	session.fillDefaultHeader(sequenceReset, &inReplyTo)
+	s.fillDefaultHeader(sequenceReset, &inReplyTo)
 
 	sequenceReset.Header.SetField(tagMsgType, FIXString("4"))
 	sequenceReset.Header.SetField(tagMsgSeqNum, FIXInt(beginSeqNo))
@@ -224,12 +224,12 @@ func (session *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inRe
 		sequenceReset.Header.SetField(tagOrigSendingTime, origSendingTime)
 	}
 
-	session.application.ToAdmin(sequenceReset, session.sessionID)
+	s.application.ToAdmin(sequenceReset, s.sessionID)
 
 	msgBytes := sequenceReset.build()
 
-	session.EnqueueBytesAndSend(msgBytes)
-	session.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
+	s.EnqueueBytesAndSend(msgBytes)
+	s.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
 
 	return
 }
@@ -549,19 +549,19 @@ func (s *session) handleLogon(msg *Message) error {
 
 	// Evaluate tag 789 to see if we end up with an implied gapfill/resend.
 	if s.EnableNextExpectedMsgSeqNum && !msg.Body.Has(tagResetSeqNumFlag) {
-			targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
-			if getErr == nil {
-					if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
-						if !s.DisableMessagePersist {
-							seqResetErr := s.generateSequenceReset(targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived+1, *msg)
-							if seqResetErr != nil {
-								return seqResetErr
-							}
-						} else {
-							return targetTooHigh{ReceivedTarget: targetWantsNextSeqNumToBe, ExpectedTarget: nextSenderMsgNumAtLogonReceived}
-						}
+		targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
+		if getErr == nil {
+			if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
+				if !s.DisableMessagePersist {
+					seqResetErr := s.generateSequenceReset(targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived+1, *msg)
+					if seqResetErr != nil {
+						return seqResetErr
 					}
+				} else {
+					return targetTooHigh{ReceivedTarget: targetWantsNextSeqNumToBe, ExpectedTarget: nextSenderMsgNumAtLogonReceived}
+				}
 			}
+		}
 	}
 
 	if err := s.checkTargetTooHigh(msg); err != nil {

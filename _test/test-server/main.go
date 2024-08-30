@@ -185,7 +185,7 @@ func main() {
 	http.HandleFunc("/seqnum", func(w http.ResponseWriter, r *http.Request) {
 		defer w.WriteHeader(http.StatusOK)
 		queryParams := r.URL.Query()
-		sessionStr, ok :=  queryParams["SESSION"]
+		sessionStr, ok := queryParams["SESSION"]
 		if !ok {
 			fmt.Println("cannot find session")
 			os.Exit(1)
@@ -193,11 +193,11 @@ func main() {
 		splts := strings.Split(sessionStr[0], ":")
 		parties := strings.Split(splts[1], "->")
 		sessionID := quickfix.SessionID{
-			BeginString: splts[0],
+			BeginString:  splts[0],
 			SenderCompID: parties[0],
 			TargetCompID: parties[1],
 		}
-		num, ok :=  queryParams["NEXTTARGETSEQNUM"]
+		num, ok := queryParams["NEXTTARGETSEQNUM"]
 		if ok {
 			seqnumInt, cErr := strconv.Atoi(num[0])
 			if cErr != nil {
@@ -213,7 +213,7 @@ func main() {
 			return
 		}
 
-		num, ok =  queryParams["NEXTSENDERSEQNUM"]
+		num, ok = queryParams["NEXTSENDERSEQNUM"]
 		if ok {
 			seqnumInt, cErr := strconv.Atoi(num[0])
 			if cErr != nil {
@@ -225,10 +225,10 @@ func main() {
 				fmt.Println("err setting sender seqnum: " + setErr.Error())
 				return
 			}
-			fmt.Println("set sender seqnum to: "+num[0])
+			fmt.Println("set sender seqnum to: " + num[0])
 			return
 		}
-		
+
 		fmt.Println("never found seqnum")
 		os.Exit(1)
 	})
