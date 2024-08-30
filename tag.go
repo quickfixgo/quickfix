@@ -44,6 +44,7 @@ const (
 	tagXMLData                Tag = 213
 	tagMessageEncoding        Tag = 347
 	tagLastMsgSeqNumProcessed Tag = 369
+	tagNextExpectedMsgSeqNum  Tag = 789
 	tagOnBehalfOfSendingTime  Tag = 370
 	tagApplVerID              Tag = 1128
 	tagCstmApplVerID          Tag = 1129

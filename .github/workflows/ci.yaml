@@ -241,32 +241,32 @@ jobs:
           ACCEPTANCE_SET: lastseqnumprocessed
         run: make generate-ci && make build && make $FIX_TEST
 
-  # nextexpectedseqnum:
-  #   name: NextExpectedSeqNum Suite
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       go: [1.21]
-  #       fix-version:
-  #         - fix44
-  #         - fix50
-  #         - fix50sp1
-  #         - fix50sp2
-  #   steps:
-  #     - name: Setup
-  #       uses: actions/setup-go@v2
-  #       with:
-  #         go-version: ${{ matrix.go }}
-  #     - name: Check out source
-  #       uses: actions/checkout@v2
-  #     - name: Install ruby
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: '3.0'
-  #     - name: Acceptance test
-  #       env:
-  #         GO111MODULE: on
-  #         FIX_TEST: ${{ matrix.fix-version }}
-  #         STORE_TYPE: memory
-  #         ACCEPTANCE_SET: nextexpectedseqnum
-  #       run: make generate-ci && make build && make $FIX_TEST
+  nextexpectedseqnum:
+    name: NextExpectedSeqNum Suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [1.21]
+        fix-version:
+          - fix44
+          - fix50
+          - fix50sp1
+          - fix50sp2
+    steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check out source
+        uses: actions/checkout@v2
+      - name: Install ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Acceptance test
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: nextexpectedseqnum
+        run: make generate-ci && make build && make $FIX_TEST

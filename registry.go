@@ -93,6 +93,42 @@ func UnregisterSession(sessionID SessionID) error {
 	return errUnknownSession
 }
 
+// SetNextTargetMsgSeqNum set the next expected target message sequence number for the session matching the session id.
+func SetNextTargetMsgSeqNum(sessionID SessionID, seqNum int) error {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return errUnknownSession
+	}
+	return session.store.SetNextTargetMsgSeqNum(seqNum)
+}
+
+// SetNextSenderMsgSeqNum sets the next outgoing message sequence number for the session matching the session id.
+func SetNextSenderMsgSeqNum(sessionID SessionID, seqNum int) error {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return errUnknownSession
+	}
+	return session.store.SetNextSenderMsgSeqNum(seqNum)
+}
+
+// GetExpectedSenderNum retrieves the expected sender sequence number for the session matching the session id.
+func GetExpectedSenderNum(sessionID SessionID) (int, error) {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return 0, errUnknownSession
+	}
+	return session.store.NextSenderMsgSeqNum(), nil
+}
+
+// GetExpectedTargetNum retrieves the next target sequence number for the session matching the session id.
+func GetExpectedTargetNum(sessionID SessionID) (int, error) {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return 0, errUnknownSession
+	}
+	return session.store.NextTargetMsgSeqNum(), nil
+}
+
 func registerSession(s *session) error {
 	sessionsLock.Lock()
 	defer sessionsLock.Unlock()
