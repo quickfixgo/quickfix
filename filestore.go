@@ -3,14 +3,13 @@ package quickfix
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"strconv"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
 	"github.com/pkg/errors"
+	"github.com/quickfixgo/quickfix/config"
 )
 
 type msgDef struct {
@@ -169,7 +168,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if timeBytes, err := ioutil.ReadFile(store.sessionFname); err == nil {
+	if timeBytes, err := os.ReadFile(store.sessionFname); err == nil {
 		var ctime time.Time
 		if err := ctime.UnmarshalText(timeBytes); err == nil {
 			store.cache.creationTime = ctime
@@ -177,7 +176,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if senderSeqNumBytes, err := ioutil.ReadFile(store.senderSeqNumsFname); err == nil {
+	if senderSeqNumBytes, err := os.ReadFile(store.senderSeqNumsFname); err == nil {
 		if senderSeqNum, err := strconv.Atoi(string(senderSeqNumBytes)); err == nil {
 			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
@@ -185,7 +184,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 		}
 	}
 
-	if targetSeqNumBytes, err := ioutil.ReadFile(store.targetSeqNumsFname); err == nil {
+	if targetSeqNumBytes, err := os.ReadFile(store.targetSeqNumsFname); err == nil {
 		if targetSeqNum, err := strconv.Atoi(string(targetSeqNumBytes)); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next target")
@@ -275,11 +274,11 @@ func (store *fileStore) CreationTime() time.Time {
 }
 
 func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
-	offset, err := store.bodyFile.Seek(0, os.SEEK_END)
+	offset, err := store.bodyFile.Seek(0, io.SeekEnd)
 	if err != nil {
 		return fmt.Errorf("unable to seek to end of file: %s: %s", store.bodyFname, err.Error())
 	}
-	if _, err := store.headerFile.Seek(0, os.SEEK_END); err != nil {
+	if _, err := store.headerFile.Seek(0, io.SeekEnd); err != nil {
 		return fmt.Errorf("unable to seek to end of file: %s: %s", store.headerFname, err.Error())
 	}
 	if _, err := fmt.Fprintf(store.headerFile, "%d,%d,%d\n", seqNum, offset, len(msg)); err != nil {
