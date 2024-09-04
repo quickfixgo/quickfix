@@ -16,6 +16,7 @@
 package quickfix
 
 import (
+	"crypto/tls"
 	"net"
 	"testing"
 
@@ -23,6 +24,7 @@ import (
 
 	proxyproto "github.com/pires/go-proxyproto"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestAcceptor_Start(t *testing.T) {
@@ -82,4 +84,45 @@ func TestAcceptor_Start(t *testing.T) {
 			acceptor.Stop()
 		})
 	}
+}
+
+func TestAcceptor_SetTLSConfig(t *testing.T) {
+	sessionSettings := NewSessionSettings()
+	sessionSettings.Set(config.BeginString, BeginStringFIX42)
+	sessionSettings.Set(config.SenderCompID, "sender")
+	sessionSettings.Set(config.TargetCompID, "target")
+
+	genericSettings := NewSettings()
+
+	genericSettings.GlobalSettings().Set("SocketAcceptPort", "5001")
+	_, err := genericSettings.AddSession(sessionSettings)
+	require.NoError(t, err)
+
+	logger, err := NewScreenLogFactory().Create()
+	require.NoError(t, err)
+	acceptor := &Acceptor{settings: genericSettings, globalLog: logger}
+	defer acceptor.Stop()
+	// example of a customized tls.Config that loads the certificates dynamically by the `GetCertificate` function
+	// as opposed to the Certificates slice, that is static in nature, and is only populated once and needs application restart to reload the certs.
+	customizedTLSConfig := tls.Config{
+		Certificates: []tls.Certificate{},
+		GetCertificate: func(*tls.ClientHelloInfo) (*tls.Certificate, error) {
+			cert, err := tls.LoadX509KeyPair("_test_data/localhost.crt", "_test_data/localhost.key")
+			if err != nil {
+				return nil, err
+			}
+			return &cert, nil
+		},
+	}
+
+	acceptor.SetTLSConfig(&customizedTLSConfig)
+	assert.NoError(t, acceptor.Start())
+	assert.Len(t, acceptor.listeners, 1)
+
+	conn, err := tls.Dial("tcp", "localhost:5001", &tls.Config{
+		InsecureSkipVerify: true,
+	})
+	require.NoError(t, err)
+	assert.NotNil(t, conn)
+	defer conn.Close()
 }

@@ -48,6 +48,7 @@ type Acceptor struct {
 	sessionHostPort       map[SessionID]int
 	listeners             map[string]net.Listener
 	connectionValidator   ConnectionValidator
+	tlsConfig             *tls.Config
 	sessionFactory
 }
 
@@ -81,9 +82,12 @@ func (a *Acceptor) Start() (err error) {
 		a.listeners[address] = nil
 	}
 
-	var tlsConfig *tls.Config
-	if tlsConfig, err = loadTLSConfig(a.settings.GlobalSettings()); err != nil {
-		return
+	if a.tlsConfig == nil {
+		var tlsConfig *tls.Config
+		if tlsConfig, err = loadTLSConfig(a.settings.GlobalSettings()); err != nil {
+			return
+		}
+		a.tlsConfig = tlsConfig
 	}
 
 	var useTCPProxy bool
@@ -94,8 +98,8 @@ func (a *Acceptor) Start() (err error) {
 	}
 
 	for address := range a.listeners {
-		if tlsConfig != nil {
-			if a.listeners[address], err = tls.Listen("tcp", address, tlsConfig); err != nil {
+		if a.tlsConfig != nil {
+			if a.listeners[address], err = tls.Listen("tcp", address, a.tlsConfig); err != nil {
 				return
 			}
 		} else if a.listeners[address], err = net.Listen("tcp", address); err != nil {
@@ -420,4 +424,14 @@ LOOP:
 //	a.SetConnectionValidator(nil)
 func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
 	a.connectionValidator = validator
+}
+
+// SetTLSConfig allows the creator of the Acceptor to specify a fully customizable tls.Config of their choice,
+// which will be used in the Start() method.
+//
+// Note: when the caller explicitly provides a tls.Config with this function,
+// it takes precendent over TLS settings specified in the acceptor's settings.GlobalSettings(),
+// meaning that the `settings.GlobalSettings()` object is not inspected or used for the creation of the tls.Config.
+func (a *Acceptor) SetTLSConfig(tlsConfig *tls.Config) {
+	a.tlsConfig = tlsConfig
 }
