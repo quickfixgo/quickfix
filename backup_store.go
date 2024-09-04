@@ -11,23 +11,23 @@ const (
 	OperationReset
 )
 
-type PersistentMessage struct {
+type BackupMessage struct {
 	Operation int
 	SeqNum    int
 	Msg       []byte
 }
 
 type backupStoreFactory struct {
-	messagesQueue chan *PersistentMessage
+	messagesQueue chan *BackupMessage
 	backupFactory MessageStoreFactory
 }
 
 type backupStore struct {
-	messagesQueue chan *PersistentMessage
+	messagesQueue chan *BackupMessage
 	store         MessageStore
 }
 
-func NewBackupStoreFactory(messagesQueue chan *PersistentMessage, backupFactory MessageStoreFactory) *backupStoreFactory {
+func NewBackupStoreFactory(messagesQueue chan *BackupMessage, backupFactory MessageStoreFactory) *backupStoreFactory {
 	return &backupStoreFactory{messagesQueue: messagesQueue, backupFactory: backupFactory}
 }
 
@@ -40,7 +40,7 @@ func (f backupStoreFactory) Create(sessionID SessionID) (msgStore *backupStore, 
 	return newBackupStore(backupStore, f.messagesQueue), nil
 }
 
-func newBackupStore(store MessageStore, messagesQueue chan *PersistentMessage) *backupStore {
+func newBackupStore(store MessageStore, messagesQueue chan *BackupMessage) *backupStore {
 	backup := &backupStore{messagesQueue: messagesQueue, store: store}
 
 	backup.start()
@@ -77,7 +77,7 @@ func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
 	}
 
 	select {
-	case s.messagesQueue <- &PersistentMessage{Operation: OperationSetNextSenderMsgSeqNum, SeqNum: next}:
+	case s.messagesQueue <- &BackupMessage{Operation: OperationSetNextSenderMsgSeqNum, SeqNum: next}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SetNextSenderMsgSeqNum operation")
 	}
@@ -89,7 +89,7 @@ func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
 	}
 
 	select {
-	case s.messagesQueue <- &PersistentMessage{Operation: OperationSetNextTargetMsgSeqNum, SeqNum: next}:
+	case s.messagesQueue <- &BackupMessage{Operation: OperationSetNextTargetMsgSeqNum, SeqNum: next}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SetNextTargetMsgSeqNum operation")
 	}
@@ -101,7 +101,7 @@ func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
 	}
 
 	select {
-	case s.messagesQueue <- &PersistentMessage{Operation: OperationSaveMessage, SeqNum: seqNum, Msg: msg}:
+	case s.messagesQueue <- &BackupMessage{Operation: OperationSaveMessage, SeqNum: seqNum, Msg: msg}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SaveMessage operation")
 	}
@@ -113,7 +113,7 @@ func (s *backupStore) Reset() {
 	}
 
 	select {
-	case s.messagesQueue <- &PersistentMessage{Operation: OperationReset}:
+	case s.messagesQueue <- &BackupMessage{Operation: OperationReset}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the Reset operation")
 	}
