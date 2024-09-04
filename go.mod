@@ -3,7 +3,7 @@ module github.com/quickfixgo/quickfix
 go 1.13
 
 require (
-	git.5th.im/lb-public/gear/log v1.8.0 // indirect
+	git.5th.im/lb-public/gear/log v1.8.0
 	github.com/armon/go-proxyproto v0.0.0-20200108142055-f0b8253b1507
 	github.com/glebarez/sqlite v1.4.1
 	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8

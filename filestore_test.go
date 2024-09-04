@@ -35,7 +35,8 @@ TargetCompID=%s`, fileStorePath, sessionID.BeginString, sessionID.SenderCompID, 
 	require.Nil(suite.T(), err)
 
 	// create store
-	suite.msgStore, err = NewFileStoreFactory(settings).Create(sessionID)
+	backupStore := &backupStoreFactory{messagesQueue: make(chan *BackupMessage, 100), backupFactory: NewMemoryStoreFactory()}
+	suite.msgStore, err = NewFileStoreFactory(settings, backupStore).Create(sessionID)
 	require.Nil(suite.T(), err)
 }
 
