@@ -11,7 +11,6 @@ const (
 	operationSetNextTargetMsgSeqNum
 	operationSaveMessage
 	operationReset
-	operationRefresh
 )
 
 type persisteMessage struct {
@@ -56,9 +55,6 @@ func (s *backupStore) start() {
 				}
 			case operationReset:
 				if err := s.store.Reset(); err != nil {
-				}
-			case operationRefresh:
-				if err := s.store.Refresh(); err != nil {
 				}
 			default:
 				log.Errorf("backup store: unsupported operation(%v)\n", message.operation)
