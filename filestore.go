@@ -99,8 +99,6 @@ func newFileStore(sessionID SessionID, dirname string, backupStore MessageStore)
 		backup:             newBackupStore(backupStore),
 	}
 
-	store.backup.start()
-
 	if err := store.Refresh(); err != nil {
 		return nil, err
 	}
@@ -132,9 +130,9 @@ func (store *fileStore) Reset() error {
 	if err := removeFile(store.targetSeqNumsFname); err != nil {
 		return err
 	}
-	if store.backup != nil {
-		store.backup.Reset()
-	}
+
+	store.backup.Reset()
+
 	if err := store.Refresh(); err != nil {
 		return err
 	}
@@ -186,10 +184,6 @@ func (store *fileStore) Refresh() (err error) {
 
 	if err := store.SetNextTargetMsgSeqNum(store.NextTargetMsgSeqNum()); err != nil {
 		return errors.Wrap(err, "set next target")
-	}
-
-	if store.backup != nil {
-		store.backup.Refresh()
 	}
 
 	return nil
@@ -285,9 +279,7 @@ func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
 		return err
 	}
 
-	if store.backup != nil {
-		store.backup.SetNextSenderMsgSeqNum(next)
-	}
+	store.backup.SetNextSenderMsgSeqNum(next)
 
 	return nil
 }
@@ -301,9 +293,7 @@ func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
 		return err
 	}
 
-	if store.backup != nil {
-		store.backup.SetNextTargetMsgSeqNum(next)
-	}
+	store.backup.SetNextTargetMsgSeqNum(next)
 
 	return nil
 }
@@ -319,9 +309,7 @@ func (store *fileStore) IncrNextSenderMsgSeqNum() error {
 		return err
 	}
 
-	if store.backup != nil {
-		store.backup.SetNextSenderMsgSeqNum(seqNum)
-	}
+	store.backup.SetNextSenderMsgSeqNum(seqNum)
 
 	return nil
 }
@@ -337,9 +325,7 @@ func (store *fileStore) IncrNextTargetMsgSeqNum() error {
 		return err
 	}
 
-	if store.backup != nil {
-		store.backup.SetNextTargetMsgSeqNum(seqNum)
-	}
+	store.backup.SetNextTargetMsgSeqNum(seqNum)
 
 	return nil
 }
@@ -373,9 +359,7 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 		return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
 	}
 
-	if store.backup != nil {
-		store.backup.SaveMessage(seqNum, msg)
-	}
+	store.backup.SaveMessage(seqNum, msg)
 
 	return nil
 }
@@ -431,10 +415,6 @@ func (store *fileStore) Close() error {
 	store.sessionFile = nil
 	store.senderSeqNumsFile = nil
 	store.targetSeqNumsFile = nil
-
-	if store.backup != nil {
-		store.backup.Close()
-	}
 
 	return nil
 }

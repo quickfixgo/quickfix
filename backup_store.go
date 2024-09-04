@@ -1,7 +1,7 @@
 package quickfix
 
 import (
-	"time"
+	"reflect"
 
 	"git.5th.im/lb-public/gear/log"
 )
@@ -21,13 +21,24 @@ type persisteMessage struct {
 }
 
 type backupStore struct {
-	stop     chan struct{}
 	messages chan *persisteMessage
 	store    MessageStore
 }
 
 func newBackupStore(store MessageStore) *backupStore {
-	return &backupStore{stop: make(chan struct{}), messages: make(chan *persisteMessage, 500), store: store}
+	if store == nil {
+		return nil
+	}
+
+	if reflect.ValueOf(store).IsNil() {
+		return nil
+	}
+
+	backup := &backupStore{messages: make(chan *persisteMessage, 500), store: store}
+
+	backup.start()
+
+	return backup
 }
 
 func (s *backupStore) start() {
@@ -53,12 +64,14 @@ func (s *backupStore) start() {
 				log.Errorf("backup store: unsupported operation(%v)\n", message.operation)
 			}
 		}
-
-		close(s.stop)
 	}()
 }
 
 func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
+	if s == nil {
+		return
+	}
+
 	select {
 	case s.messages <- &persisteMessage{operation: operationSetNextSenderMsgSeqNum, seqNum: next}:
 	default:
@@ -67,6 +80,10 @@ func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
 }
 
 func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
+	if s == nil {
+		return
+	}
+
 	select {
 	case s.messages <- &persisteMessage{operation: operationSetNextTargetMsgSeqNum, seqNum: next}:
 	default:
@@ -75,6 +92,10 @@ func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
 }
 
 func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
+	if s == nil {
+		return
+	}
+
 	select {
 	case s.messages <- &persisteMessage{operation: operationSaveMessage, seqNum: seqNum, msg: msg}:
 	default:
@@ -83,29 +104,13 @@ func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
 }
 
 func (s *backupStore) Reset() {
+	if s == nil {
+		return
+	}
+
 	select {
 	case s.messages <- &persisteMessage{operation: operationReset}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the Reset operation")
-	}
-}
-
-func (s *backupStore) Refresh() {
-	select {
-	case s.messages <- &persisteMessage{operation: operationRefresh}:
-	default:
-		log.Warn("encountering a large amount of traffic, drop the Refresh operation")
-	}
-}
-
-func (s *backupStore) Close() {
-	close(s.messages)
-
-	ticker := time.NewTicker(time.Second * 10)
-
-	select {
-	case <-s.stop:
-	case <-ticker.C:
-		// log
 	}
 }
