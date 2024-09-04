@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"git.5th.im/lb-public/gear/log"
 	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -44,7 +45,7 @@ type fileStore struct {
 	sessionFile        *os.File
 	senderSeqNumsFile  *os.File
 	targetSeqNumsFile  *os.File
-	backup             *storeBackup
+	backup             *backupStore
 }
 
 // NewFileStoreFactory returns a file-based implementation of MessageStoreFactory
@@ -73,7 +74,7 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 
 	backupStore, err := f.backup.Create(sessionID)
 	if err != nil {
-		// log
+		log.Errorf("file store: failed to init backup store, err: %v", err)
 	}
 
 	return newFileStore(sessionID, dirname, backupStore)
@@ -95,7 +96,7 @@ func newFileStore(sessionID SessionID, dirname string, backupStore MessageStore)
 		sessionFname:       path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "session")),
 		senderSeqNumsFname: path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "senderseqnums")),
 		targetSeqNumsFname: path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "targetseqnums")),
-		backup:             newStoreBackup(backupStore),
+		backup:             newBackupStore(backupStore),
 	}
 
 	store.backup.start()

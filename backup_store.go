@@ -2,6 +2,8 @@ package quickfix
 
 import (
 	"time"
+
+	"git.5th.im/lb-public/gear/log"
 )
 
 const (
@@ -18,17 +20,17 @@ type persisteMessage struct {
 	msg       []byte
 }
 
-type storeBackup struct {
+type backupStore struct {
 	stop     chan struct{}
 	messages chan *persisteMessage
 	store    MessageStore
 }
 
-func newStoreBackup(store MessageStore) *storeBackup {
-	return &storeBackup{stop: make(chan struct{}), messages: make(chan *persisteMessage, 500), store: store}
+func newBackupStore(store MessageStore) *backupStore {
+	return &backupStore{stop: make(chan struct{}), messages: make(chan *persisteMessage, 500), store: store}
 }
 
-func (s *storeBackup) start() {
+func (s *backupStore) start() {
 	go func() {
 		for message := range s.messages {
 			switch message.operation {
@@ -48,7 +50,7 @@ func (s *storeBackup) start() {
 				if err := s.store.Refresh(); err != nil {
 				}
 			default:
-				// log
+				log.Errorf("backup store: unsupported operation(%v)\n", message.operation)
 			}
 		}
 
@@ -56,50 +58,50 @@ func (s *storeBackup) start() {
 	}()
 }
 
-func (s *storeBackup) SetNextSenderMsgSeqNum(next int) {
+func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
 	select {
 	case s.messages <- &persisteMessage{operation: operationSetNextSenderMsgSeqNum, seqNum: next}:
 	default:
-		// log
+		log.Warn("encountering a large amount of traffic, drop the SetNextSenderMsgSeqNum operation")
 	}
 }
 
-func (s *storeBackup) SetNextTargetMsgSeqNum(next int) {
+func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
 	select {
 	case s.messages <- &persisteMessage{operation: operationSetNextTargetMsgSeqNum, seqNum: next}:
 	default:
-		// log
+		log.Warn("encountering a large amount of traffic, drop the SetNextTargetMsgSeqNum operation")
 	}
 }
 
-func (s *storeBackup) SaveMessage(seqNum int, msg []byte) {
+func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
 	select {
 	case s.messages <- &persisteMessage{operation: operationSaveMessage, seqNum: seqNum, msg: msg}:
 	default:
-		// log
+		log.Warn("encountering a large amount of traffic, drop the SaveMessage operation")
 	}
 }
 
-func (s *storeBackup) Reset() {
+func (s *backupStore) Reset() {
 	select {
 	case s.messages <- &persisteMessage{operation: operationReset}:
 	default:
-		// log
+		log.Warn("encountering a large amount of traffic, drop the Reset operation")
 	}
 }
 
-func (s *storeBackup) Refresh() {
+func (s *backupStore) Refresh() {
 	select {
 	case s.messages <- &persisteMessage{operation: operationRefresh}:
 	default:
-		// log
+		log.Warn("encountering a large amount of traffic, drop the Refresh operation")
 	}
 }
 
-func (s *storeBackup) Close() {
+func (s *backupStore) Close() {
 	close(s.messages)
 
-	ticker := time.NewTicker(time.Second * 20)
+	ticker := time.NewTicker(time.Second * 10)
 
 	select {
 	case <-s.stop:
