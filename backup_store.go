@@ -1,8 +1,6 @@
 package quickfix
 
 import (
-	"reflect"
-
 	"git.5th.im/lb-public/gear/log"
 )
 
@@ -13,27 +11,37 @@ const (
 	operationReset
 )
 
-type persisteMessage struct {
+type persistentMessage struct {
 	operation int
 	seqNum    int
 	msg       []byte
 }
 
-type backupStore struct {
-	messages chan *persisteMessage
-	store    MessageStore
+type backupStoreFactory struct {
+	messagesQueue chan *persistentMessage
+	backupFactory MessageStoreFactory
 }
 
-func newBackupStore(store MessageStore) *backupStore {
-	if store == nil {
-		return nil
+type backupStore struct {
+	messagesQueue chan *persistentMessage
+	store         MessageStore
+}
+
+func NewBackupStoreFactory(messagesQueue chan *persistentMessage, backupFactory MessageStoreFactory) *backupStoreFactory {
+	return &backupStoreFactory{messagesQueue: messagesQueue, backupFactory: backupFactory}
+}
+
+func (f backupStoreFactory) Create(sessionID SessionID) (msgStore *backupStore, err error) {
+	backupStore, err := f.backupFactory.Create(sessionID)
+	if err != nil {
+		return nil, err
 	}
 
-	if reflect.ValueOf(store).IsNil() {
-		return nil
-	}
+	return newBackupStore(backupStore, f.messagesQueue), nil
+}
 
-	backup := &backupStore{messages: make(chan *persisteMessage, 500), store: store}
+func newBackupStore(store MessageStore, messagesQueue chan *persistentMessage) *backupStore {
+	backup := &backupStore{messagesQueue: messagesQueue, store: store}
 
 	backup.start()
 
@@ -42,7 +50,7 @@ func newBackupStore(store MessageStore) *backupStore {
 
 func (s *backupStore) start() {
 	go func() {
-		for message := range s.messages {
+		for message := range s.messagesQueue {
 			switch message.operation {
 			case operationSetNextSenderMsgSeqNum:
 				if err := s.store.SetNextSenderMsgSeqNum(message.seqNum); err != nil {
@@ -69,7 +77,7 @@ func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
 	}
 
 	select {
-	case s.messages <- &persisteMessage{operation: operationSetNextSenderMsgSeqNum, seqNum: next}:
+	case s.messagesQueue <- &persistentMessage{operation: operationSetNextSenderMsgSeqNum, seqNum: next}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SetNextSenderMsgSeqNum operation")
 	}
@@ -81,7 +89,7 @@ func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
 	}
 
 	select {
-	case s.messages <- &persisteMessage{operation: operationSetNextTargetMsgSeqNum, seqNum: next}:
+	case s.messagesQueue <- &persistentMessage{operation: operationSetNextTargetMsgSeqNum, seqNum: next}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SetNextTargetMsgSeqNum operation")
 	}
@@ -93,7 +101,7 @@ func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
 	}
 
 	select {
-	case s.messages <- &persisteMessage{operation: operationSaveMessage, seqNum: seqNum, msg: msg}:
+	case s.messagesQueue <- &persistentMessage{operation: operationSaveMessage, seqNum: seqNum, msg: msg}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the SaveMessage operation")
 	}
@@ -105,7 +113,7 @@ func (s *backupStore) Reset() {
 	}
 
 	select {
-	case s.messages <- &persisteMessage{operation: operationReset}:
+	case s.messagesQueue <- &persistentMessage{operation: operationReset}:
 	default:
 		log.Warn("encountering a large amount of traffic, drop the Reset operation")
 	}
