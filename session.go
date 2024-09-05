@@ -181,11 +181,57 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.DefaultApplVerID))
 	}
 
+	// Evaluate tag 789.
+	if s.EnableNextExpectedMsgSeqNum {
+		if inReplyTo != nil {
+			targetWantsNextSeqNumToBe, getErr := inReplyTo.Body.GetInt(tagNextExpectedMsgSeqNum)
+			if getErr == nil {
+				actualNextNum := s.store.NextSenderMsgSeqNum()
+				// // Is the 789 we received too high ??
+				if targetWantsNextSeqNumToBe > actualNextNum {
+					// we can't resend what we never sent! something unrecoverable has happened.
+					return RejectLogon{fmt.Sprintf("Tag 789 (NextExpectedMsgSeqNum) is higher than expected. Expected %d, Received %d", actualNextNum, targetWantsNextSeqNumToBe)}
+				}
+				nextSeqNum := s.store.NextTargetMsgSeqNum()
+				logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextSeqNum+1))
+			}
+		} else {
+			// We are sending a logon.
+			nextseqnum := s.store.NextTargetMsgSeqNum()
+			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum+1))
+		}
+	}
+
 	if err := s.dropAndSendInReplyTo(logon, inReplyTo); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (s *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
+	sequenceReset := NewMessage()
+	s.fillDefaultHeader(sequenceReset, &inReplyTo)
+
+	sequenceReset.Header.SetField(tagMsgType, FIXString("4"))
+	sequenceReset.Header.SetField(tagMsgSeqNum, FIXInt(beginSeqNo))
+	sequenceReset.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+	sequenceReset.Body.SetField(tagNewSeqNo, FIXInt(endSeqNo))
+	sequenceReset.Body.SetField(tagGapFillFlag, FIXBoolean(true))
+
+	var origSendingTime FIXString
+	if err := sequenceReset.Header.GetField(tagSendingTime, &origSendingTime); err == nil {
+		sequenceReset.Header.SetField(tagOrigSendingTime, origSendingTime)
+	}
+
+	s.application.ToAdmin(sequenceReset, s.sessionID)
+
+	msgBytes := sequenceReset.build()
+
+	s.EnqueueBytesAndSend(msgBytes)
+	s.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
+
+	return
 }
 
 func (s *session) buildLogout(reason string) *Message {
@@ -471,6 +517,8 @@ func (s *session) handleLogon(msg *Message) error {
 		}
 	}
 
+	nextSenderMsgNumAtLogonReceived := s.store.NextSenderMsgSeqNum()
+
 	if resetStore {
 		if err := s.store.Reset(); err != nil {
 			return err
@@ -498,6 +546,23 @@ func (s *session) handleLogon(msg *Message) error {
 
 	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.HeartBtInt)))
 	s.application.OnLogon(s.sessionID)
+
+	// Evaluate tag 789 to see if we end up with an implied gapfill/resend.
+	if s.EnableNextExpectedMsgSeqNum && !msg.Body.Has(tagResetSeqNumFlag) {
+		targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
+		if getErr == nil {
+			if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
+				if !s.DisableMessagePersist {
+					seqResetErr := s.generateSequenceReset(targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived+1, *msg)
+					if seqResetErr != nil {
+						return seqResetErr
+					}
+				} else {
+					return targetTooHigh{ReceivedTarget: targetWantsNextSeqNumToBe, ExpectedTarget: nextSenderMsgNumAtLogonReceived}
+				}
+			}
+		}
+	}
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		return err

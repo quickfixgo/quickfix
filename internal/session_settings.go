@@ -14,6 +14,7 @@ type SessionSettings struct {
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
 	EnableLastMsgSeqNumProcessed bool
+	EnableNextExpectedMsgSeqNum  bool
 	SkipCheckLatency             bool
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool

@@ -196,6 +196,12 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.EnableNextExpectedMsgSeqNum) {
+		if s.EnableNextExpectedMsgSeqNum, err = settings.BoolSetting(config.EnableNextExpectedMsgSeqNum); err != nil {
+			return
+		}
+	}
+
 	if settings.HasSetting(config.CheckLatency) {
 		var doCheckLatency bool
 		if doCheckLatency, err = settings.BoolSetting(config.CheckLatency); err != nil {

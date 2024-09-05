@@ -1019,4 +1019,17 @@ const (
 	//  - Y
 	//  - N
 	EnableLastMsgSeqNumProcessed string = "EnableLastMsgSeqNumProcessed"
+
+	// EnableNextExpectedMsgSeqNum tells the FIX engine to add tag NextExpectedMsgSeqNum (optional tag 789) on the
+	// sent Logon message and use value of tag 789 on received Logon message to synchronize session.
+	// This should not be enabled for FIX versions less than FIX.4.4.
+	//
+	// Required: No
+	//
+	// Default: N
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	EnableNextExpectedMsgSeqNum string = "EnableNextExpectedMsgSeqNum"
 )
