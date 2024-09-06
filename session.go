@@ -848,6 +848,7 @@ func (s *session) onAdmin(msg interface{}) {
 }
 
 func (s *session) run() {
+	s.stopOnce = sync.Once{}
 	s.Start(s)
 	var stopChan = make(chan struct{})
 	s.stateTimer = internal.NewEventTimer(func() {
