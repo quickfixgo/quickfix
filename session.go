@@ -509,7 +509,8 @@ func (s *session) handleLogon(msg *Message) error {
 
 	nextSenderMsgNumAtLogonReceived := s.store.NextSenderMsgSeqNum()
 
-	if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
+	// Make sure this is a valid session before resetting the store.
+	if err := s.verifyMsgAgainstAppImpl(msg); err != nil {
 		return err
 	}
 
@@ -527,6 +528,12 @@ func (s *session) handleLogon(msg *Message) error {
 		if err := s.store.Reset(); err != nil {
 			return err
 		}
+	}
+
+	// Verify seq num too high but dont check against app implementation since we just did that. 
+	// Don't need to double check.
+	if err := s.verifySelect(msg, false, true, false); err != nil {
+		return err
 	}
 
 	if !s.InitiateLogon {
@@ -586,18 +593,18 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 }
 
 func (s *session) verify(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, true, true)
+	return s.verifySelect(msg, true, true, true)
 }
 
 func (s *session) verifyIgnoreSeqNumTooHigh(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, false, true)
+	return s.verifySelect(msg, false, true, true)
 }
 
 func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, false, false)
+	return s.verifySelect(msg, false, false, true)
 }
 
-func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
+func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool, checkAppImpl bool) MessageRejectError {
 	if reject := s.checkBeginString(msg); reject != nil {
 		return reject
 	}
@@ -626,6 +633,14 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 		}
 	}
 
+	if checkAppImpl {
+		return s.verifyMsgAgainstAppImpl(msg)
+	}
+
+	return nil
+}
+
+func (s *session) verifyMsgAgainstAppImpl(msg *Message) MessageRejectError {
 	if s.Validator != nil {
 		if reject := s.Validator.Validate(msg); reject != nil {
 			return reject
