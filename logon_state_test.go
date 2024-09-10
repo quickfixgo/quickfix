@@ -226,6 +226,27 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonExpectResetSeqNum() 
 	s.NextSenderMsgSeqNum(2)
 }
 
+func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonRejectedSeqNumNotReset() {
+	s.session.InitiateLogon = true
+	s.session.sentReset = true
+	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+
+	s.MockApp.On("FromAdmin").Return(RejectLogon{"reject message"})
+	s.MockApp.On("OnLogout")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(3)
+}
+
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonUnExpectedResetSeqNum() {
 	s.session.InitiateLogon = true
 	s.session.sentReset = false
@@ -358,6 +379,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
 	logon.Header.SetInt(tagMsgSeqNum, 1)
 
+	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToAdmin")
 	s.NextTargetMsgSeqNum(2)
 	s.fixMsgIn(s.session, logon)
