@@ -87,7 +87,7 @@ func (state inSession) Timeout(session *session, event internal.Event) (nextStat
 }
 
 func (state inSession) handleLogout(session *session, msg *Message) (nextState sessionState) {
-	if err := session.verifySelect(msg, false, false); err != nil {
+	if err := session.verifySelect(msg, false, false, true); err != nil {
 		return state.processReject(session, msg, err)
 	}
 
@@ -154,7 +154,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 		}
 	}
 
-	if err := session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag)); err != nil {
+	if err := session.verifySelect(msg, bool(gapFillFlag), bool(gapFillFlag), true); err != nil {
 		return state.processReject(session, msg, err)
 	}
 

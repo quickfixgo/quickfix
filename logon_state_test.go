@@ -358,6 +358,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
 	logon.Header.SetInt(tagMsgSeqNum, 1)
 
+	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToAdmin")
 	s.NextTargetMsgSeqNum(2)
 	s.fixMsgIn(s.session, logon)
