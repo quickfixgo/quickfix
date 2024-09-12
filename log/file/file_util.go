@@ -13,15 +13,17 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/quickfixgo/quickfix"
 )
 
-func sessionIDFilenamePrefix(s SessionID) string {
+func sessionIDFilenamePrefix(s quickfix.SessionID) string {
 	sender := []string{s.SenderCompID}
 	if s.SenderSubID != "" {
 		sender = append(sender, s.SenderSubID)

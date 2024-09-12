@@ -849,6 +849,100 @@ const (
 	// Valid Values:
 	//  - A valid path
 	FileLogPath string = "FileLogPath"
+
+	// SQLLogDriver sets the name of the database driver to use for application logs (see https://go.dev/wiki/SQLDrivers for the list of available drivers).
+	// SQLLogDriver is only relevant if also using sql.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: Only if using a sql db as your Log
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - See https://go.dev/wiki/SQLDrivers
+	SQLLogDriver string = "SQLLogDriver"
+
+	// SQLLogDataSourceName sets the driver-specific data source name of the database to use for application logs.
+	// This usually consists of at least a database name and connection information.
+	// SQLLogDataSourceName is only relevant if also using sql.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// See https://pkg.go.dev/database/sql#Open for more information.
+	//
+	// Required: Only if using a sql db as your Log.
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - A string correspondinng to a datasource
+	SQLLogDataSourceName string = "SQLLogDataSourceName"
+
+	// SQLLogConnMaxLifetime sets the maximum duration of time that a database connection may be reused.
+	// See https://pkg.go.dev/database/sql#DB.SetConnMaxLifetime for more information.
+	//
+	// If your database server has a config option to close inactive connections after some duration (e.g. MySQL "wait_timeout"),
+	// set SQLLogConnMaxLifetime to a value less than that duration.
+	//
+	// Example Values:
+	//  - SQLLogConnMaxLifetime=14400s # 14400 seconds
+	//  - SQLLogConnMaxLifetime=2h45m  # 2 hours and 45 minutes
+	//
+	// SQLLogConnMaxLifetime is only relevant if also using sql.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: 0 (forever)
+	//
+	// Valid Values:
+	//  - A valid go time.Duration
+	SQLLogConnMaxLifetime string = "SQLLogConnMaxLifetime"
+
+	// MongoLogConnection sets the MongoDB connection URL to use for application logs.
+	//
+	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
+	//
+	// MongoLogConnection is only relevant if also using mongo.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: Only if using MongoDB as your Log.
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - A string representing a MongoDB connection
+	MongoLogConnection string = "MongoLogConnection"
+
+	// MongoLogDatabase sets the MongoDB-specific name of the database to use for application logs.
+	//
+	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
+	//
+	// MongoLogDatabase is only relevant if also using mongo.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: Only if using MongoDB as your Log.
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - A string corresponding to a MongoDB database
+	MongoLogDatabase string = "MongoLogDatabase"
+
+	// MongoLogReplicaSet sets the MongoDB replica set to use for application logs.
+	// This is optional.
+	//
+	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
+	//
+	// MongoLogReplicaSet is only relevant if also using mongo.NewLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//  - A string corresponding to a MongoDB replica set
+	MongoLogReplicaSet string = "MongoLogReplicaSet"
 )
 
 const (
@@ -895,7 +989,7 @@ const (
 	//  - N
 	FileStoreSync string = "FileStoreSync"
 
-	// SQLStoreDriver sets the name of the database driver to use (see https://go.dev/wiki/SQLDrivers for the list of available drivers).
+	// SQLStoreDriver sets the name of the database driver to use for message storage (see https://go.dev/wiki/SQLDrivers for the list of available drivers).
 	// SQLStoreDriver is only relevant if also using sql.NewStoreFactory(..) in code
 	// when creating your MessageStoreFactory for your initiator or acceptor.
 	//
@@ -907,7 +1001,7 @@ const (
 	//  - See https://go.dev/wiki/SQLDrivers
 	SQLStoreDriver string = "SQLStoreDriver"
 
-	// SQLStoreDataSourceName sets the driver-specific data source name of the database to use.
+	// SQLStoreDataSourceName sets the driver-specific data source name of the database to use for messagge storage.
 	// This usually consists of at least a database name and connection information.
 	// SQLStoreDataSourceName is only relevant if also using sql.NewStoreFactory(..) in code
 	// when creating your MessageStoreFactory for your initiator or acceptor.
@@ -943,7 +1037,7 @@ const (
 	//  - A valid go time.Duration
 	SQLStoreConnMaxLifetime string = "SQLStoreConnMaxLifetime"
 
-	// MongoStoreConnection sets the MongoDB connection URL to use.
+	// MongoStoreConnection sets the MongoDB connection URL to use for message storage.
 	//
 	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
 	//
@@ -958,7 +1052,7 @@ const (
 	//  - A string representing a MongoDB connection
 	MongoStoreConnection string = "MongoStoreConnection"
 
-	// MongoStoreDatabase sets the MongoDB-specific name of the database to use.
+	// MongoStoreDatabase sets the MongoDB-specific name of the database to use for message storage.
 	//
 	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
 	//
@@ -973,7 +1067,7 @@ const (
 	//  - A string corresponding to a MongoDB database
 	MongoStoreDatabase string = "MongoStoreDatabase"
 
-	// MongoStoreReplicaSet sets the MongoDB replica set to use.
+	// MongoStoreReplicaSet sets the MongoDB replica set to use for message storage.
 	// This is optional.
 	//
 	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.

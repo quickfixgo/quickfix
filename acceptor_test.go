@@ -98,7 +98,7 @@ func TestAcceptor_SetTLSConfig(t *testing.T) {
 	_, err := genericSettings.AddSession(sessionSettings)
 	require.NoError(t, err)
 
-	logger, err := NewScreenLogFactory().Create()
+	logger, err := NewNullLogFactory().Create()
 	require.NoError(t, err)
 	acceptor := &Acceptor{settings: genericSettings, globalLog: logger}
 	defer acceptor.Stop()
