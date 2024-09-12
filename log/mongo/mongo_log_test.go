@@ -31,7 +31,9 @@ import (
 // MongoLogTestSuite runs tests for the MongoLog impl of Log.
 type MongoLogTestSuite struct {
 	suite.Suite
-	log *mongoLog
+	log       *mongoLog
+	settings  *quickfix.Settings
+	sessionID quickfix.SessionID
 }
 
 func (suite *MongoLogTestSuite) SetupTest() {
@@ -57,13 +59,39 @@ SenderCompID=%s
 TargetCompID=%s`, mongoDbCxn, mongoDatabase, mongoReplicaSet, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
 	require.Nil(suite.T(), err)
 
+	suite.sessionID = sessionID
+	suite.settings = settings
+}
+
+func (suite *MongoLogTestSuite) TestMongoLogNoSession() {
 	// create log
-	log, err := NewLogFactory(settings).CreateSessionLog(sessionID)
+	log, err := NewLogFactory(suite.settings).Create()
 	require.Nil(suite.T(), err)
 	suite.log = log.(*mongoLog)
+
+	suite.log.OnIncoming([]byte("Cool1"))
+	suite.log.OnOutgoing([]byte("Cool2"))
+	entries, err := suite.log.getEntries("messages_log")
+	require.Nil(suite.T(), err)
+	require.Len(suite.T(), entries, 2)
+	require.Equal(suite.T(), "Cool1", entries[0])
+	require.Equal(suite.T(), "Cool2", entries[1])
+
+	suite.log.OnEvent("Cool3")
+	suite.log.OnEvent("Cool4")
+	entries, err = suite.log.getEntries("event_log")
+	require.Nil(suite.T(), err)
+	require.Len(suite.T(), entries, 2)
+	require.Equal(suite.T(), "Cool3", entries[0])
+	require.Equal(suite.T(), "Cool4", entries[1])
 }
 
 func (suite *MongoLogTestSuite) TestMongoLog() {
+	// create log
+	log, err := NewLogFactory(suite.settings).CreateSessionLog(suite.sessionID)
+	require.Nil(suite.T(), err)
+	suite.log = log.(*mongoLog)
+
 	suite.log.OnIncoming([]byte("Cool1"))
 	suite.log.OnOutgoing([]byte("Cool2"))
 	entries, err := suite.log.getEntries("messages_log")
