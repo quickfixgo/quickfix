@@ -1,3 +1,14 @@
+## 0.9.6 (September 20, 2024)
+
+### ENHANCEMENTS
+* Allow the clients of acceptor to specify their own tls.Config https://github.com/quickfixgo/quickfix/pull/667
+* Adds NextExpectedSeqNum setting https://github.com/quickfixgo/quickfix/pull/668
+
+### BUG FIXES
+* Reinit stop sync to prevent deadlock on sequential start/stops https://github.com/quickfixgo/quickfix/pull/669
+* Check logon auth before resetting store https://github.com/quickfixgo/quickfix/pull/670
+* Reverts ToAdmin call sequencing https://github.com/quickfixgo/quickfix/pull/674
+
 ## 0.9.5 (August 14, 2024)
 
 ### ENHANCEMENTS
