@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"fmt"
@@ -21,6 +21,7 @@ import (
 	"os"
 	"path"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
 
@@ -47,12 +48,12 @@ func (l fileLog) OnEventf(format string, v ...interface{}) {
 
 type fileLogFactory struct {
 	globalLogPath   string
-	sessionLogPaths map[SessionID]string
+	sessionLogPaths map[quickfix.SessionID]string
 }
 
-// NewFileLogFactory creates an instance of LogFactory that writes messages and events to file.
+// NewLogFactory creates an instance of LogFactory that writes messages and events to file.
 // The location of global and session log files is configured via FileLogPath.
-func NewFileLogFactory(settings *Settings) (LogFactory, error) {
+func NewLogFactory(settings *quickfix.Settings) (quickfix.LogFactory, error) {
 	logFactory := fileLogFactory{}
 
 	var err error
@@ -60,7 +61,7 @@ func NewFileLogFactory(settings *Settings) (LogFactory, error) {
 		return logFactory, err
 	}
 
-	logFactory.sessionLogPaths = make(map[SessionID]string)
+	logFactory.sessionLogPaths = make(map[quickfix.SessionID]string)
 
 	for sid, sessionSettings := range settings.SessionSettings() {
 		logPath, err := sessionSettings.Setting(config.FileLogPath)
@@ -101,11 +102,11 @@ func newFileLog(prefix string, logPath string) (fileLog, error) {
 	return l, nil
 }
 
-func (f fileLogFactory) Create() (Log, error) {
+func (f fileLogFactory) Create() (quickfix.Log, error) {
 	return newFileLog("GLOBAL", f.globalLogPath)
 }
 
-func (f fileLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
+func (f fileLogFactory) CreateSessionLog(sessionID quickfix.SessionID) (quickfix.Log, error) {
 	logPath, ok := f.sessionLogPaths[sessionID]
 
 	if !ok {

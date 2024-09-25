@@ -13,11 +13,13 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package screen
 
 import (
 	"fmt"
 	"time"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 type screenLog struct {
@@ -45,17 +47,17 @@ func (l screenLog) OnEventf(format string, a ...interface{}) {
 
 type screenLogFactory struct{}
 
-func (screenLogFactory) Create() (Log, error) {
+func (screenLogFactory) Create() (quickfix.Log, error) {
 	log := screenLog{"GLOBAL"}
 	return log, nil
 }
 
-func (screenLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
+func (screenLogFactory) CreateSessionLog(sessionID quickfix.SessionID) (quickfix.Log, error) {
 	log := screenLog{sessionID.String()}
 	return log, nil
 }
 
-// NewScreenLogFactory creates an instance of LogFactory that writes messages and events to stdout.
-func NewScreenLogFactory() LogFactory {
+// NewLogFactory creates an instance of LogFactory that writes messages and events to stdout.
+func NewLogFactory() quickfix.LogFactory {
 	return screenLogFactory{}
 }

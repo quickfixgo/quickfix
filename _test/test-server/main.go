@@ -17,6 +17,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
+	filelog "github.com/quickfixgo/quickfix/log/file"
 	"github.com/quickfixgo/quickfix/store/file"
 	"github.com/quickfixgo/quickfix/store/mongo"
 )
@@ -132,7 +133,7 @@ func main() {
 		return
 	}
 
-	fileLogFactory, err := quickfix.NewFileLogFactory(appSettings)
+	fileLogFactory, err := filelog.NewLogFactory(appSettings)
 	if err != nil {
 		fmt.Println("Error creating file log factory:", err)
 		return

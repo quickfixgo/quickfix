@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"bufio"
@@ -22,11 +22,13 @@ import (
 	"path"
 	"strings"
 	"testing"
+
+	"github.com/quickfixgo/quickfix"
 )
 
 func TestFileLog_NewFileLogFactory(t *testing.T) {
 
-	_, err := NewFileLogFactory(NewSettings())
+	_, err := NewLogFactory(quickfix.NewSettings())
 
 	if err == nil {
 		t.Error("Should expect error when settings have no file log path")
@@ -52,9 +54,9 @@ TargetCompID=ARCA
 SessionQualifier=BS
 `
 	stringReader := strings.NewReader(cfg)
-	settings, _ := ParseSettings(stringReader)
+	settings, _ := quickfix.ParseSettings(stringReader)
 
-	factory, err := NewFileLogFactory(settings)
+	factory, err := NewLogFactory(settings)
 
 	if err != nil {
 		t.Error("Did not expect error", err)
@@ -68,7 +70,7 @@ SessionQualifier=BS
 type fileLogHelper struct {
 	LogPath string
 	Prefix  string
-	Log     Log
+	Log     quickfix.Log
 }
 
 func newFileLogHelper(t *testing.T) *fileLogHelper {

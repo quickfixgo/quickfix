@@ -13,7 +13,7 @@
 // Contact ask@quickfixengine.org if any conditions of this licensing
 // are not clear to you.
 
-package quickfix
+package file
 
 import (
 	"fmt"
@@ -21,6 +21,7 @@ import (
 	"path"
 	"testing"
 
+	"github.com/quickfixgo/quickfix"
 	"github.com/stretchr/testify/require"
 )
 
@@ -37,7 +38,7 @@ func requireFileExists(t *testing.T, fname string) {
 
 func TestSessionIDFilename_MinimallyQualifiedSessionID(t *testing.T) {
 	// When the session ID is
-	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+	sessionID := quickfix.SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
 
 	// Then the filename should be
 	require.Equal(t, "FIX.4.4-SENDER-TARGET", sessionIDFilenamePrefix(sessionID))
@@ -45,7 +46,7 @@ func TestSessionIDFilename_MinimallyQualifiedSessionID(t *testing.T) {
 
 func TestSessionIDFilename_FullyQualifiedSessionID(t *testing.T) {
 	// When the session ID is
-	sessionID := SessionID{
+	sessionID := quickfix.SessionID{
 		BeginString:      "FIX.4.4",
 		SenderCompID:     "A",
 		SenderSubID:      "B",
