@@ -129,6 +129,24 @@ func GetExpectedTargetNum(sessionID SessionID) (int, error) {
 	return session.store.NextTargetMsgSeqNum(), nil
 }
 
+// GetMessageStore returns the MessageStore interface for session matching the session id.
+func GetMessageStore(sessionID SessionID) (MessageStore, error) {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return nil, errUnknownSession
+	}
+	return session.store, nil
+}
+
+// GetLog returns the Log interface for session matching the session id.
+func GetLog(sessionID SessionID) (Log, error) {
+	session, ok := lookupSession(sessionID)
+	if !ok {
+		return nil, errUnknownSession
+	}
+	return session.log, nil
+}
+
 func registerSession(s *session) error {
 	sessionsLock.Lock()
 	defer sessionsLock.Unlock()
