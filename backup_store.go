@@ -49,6 +49,10 @@ func newBackupStore(store MessageStore, messagesQueue chan *BackupMessage) *back
 }
 
 func (s *backupStore) start() {
+	if s == nil {
+		return
+	}
+
 	go func() {
 		for message := range s.messagesQueue {
 			switch message.Operation {
