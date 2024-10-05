@@ -1,7 +1,7 @@
 package quickfix
 
 import (
-	"git.5th.im/lb-public/gear/log"
+	"fmt"
 )
 
 const (
@@ -69,7 +69,7 @@ func (s *backupStore) start() {
 				if err := s.store.Reset(); err != nil {
 				}
 			default:
-				log.Errorf("backup store: unsupported operation(%v)\n", message.Operation)
+				fmt.Printf("backup store: unsupported operation(%v)\n", message.Operation)
 			}
 		}
 	}()
@@ -83,7 +83,7 @@ func (s *backupStore) SetNextSenderMsgSeqNum(next int) {
 	select {
 	case s.messagesQueue <- &BackupMessage{Operation: OperationSetNextSenderMsgSeqNum, SeqNum: next}:
 	default:
-		log.Warn("encountering a large amount of traffic, drop the SetNextSenderMsgSeqNum operation")
+		fmt.Println("encountering a large amount of traffic, drop the SetNextSenderMsgSeqNum operation")
 	}
 }
 
@@ -95,7 +95,7 @@ func (s *backupStore) SetNextTargetMsgSeqNum(next int) {
 	select {
 	case s.messagesQueue <- &BackupMessage{Operation: OperationSetNextTargetMsgSeqNum, SeqNum: next}:
 	default:
-		log.Warn("encountering a large amount of traffic, drop the SetNextTargetMsgSeqNum operation")
+		fmt.Println("encountering a large amount of traffic, drop the SetNextTargetMsgSeqNum operation")
 	}
 }
 
@@ -107,7 +107,7 @@ func (s *backupStore) SaveMessage(seqNum int, msg []byte) {
 	select {
 	case s.messagesQueue <- &BackupMessage{Operation: OperationSaveMessage, SeqNum: seqNum, Msg: msg}:
 	default:
-		log.Warn("encountering a large amount of traffic, drop the SaveMessage operation")
+		fmt.Println("encountering a large amount of traffic, drop the SaveMessage operation")
 	}
 }
 
@@ -119,6 +119,6 @@ func (s *backupStore) Reset() {
 	select {
 	case s.messagesQueue <- &BackupMessage{Operation: OperationReset}:
 	default:
-		log.Warn("encountering a large amount of traffic, drop the Reset operation")
+		fmt.Println("encountering a large amount of traffic, drop the Reset operation")
 	}
 }

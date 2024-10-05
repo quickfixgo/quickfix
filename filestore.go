@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"time"
 
-	"git.5th.im/lb-public/gear/log"
 	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -63,7 +62,7 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 
 	backupStore, err := f.backupFactory.Create(sessionID)
 	if err != nil {
-		log.Errorf("file store: failed to init backup store, err: %v", err)
+		fmt.Printf("file store: failed to init backup store, err: %v\n", err)
 	}
 
 	return newFileStore(sessionID, dirname, backupStore)
