@@ -107,16 +107,52 @@ func (s *MessageSuite) TestReBuild() {
 
 	s.msg.Header.SetField(tagOrigSendingTime, FIXString("20140515-19:49:56.659"))
 	s.msg.Header.SetField(tagSendingTime, FIXString("20140615-19:49:56"))
+	s.msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
 
 	rebuildBytes := s.msg.build()
 
-	expectedBytes := []byte("8=FIX.4.29=12635=D34=249=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=128")
+	expectedBytes := []byte("8=FIX.4.29=13135=D34=243=Y49=TW52=20140615-19:49:5656=ISLD122=20140515-19:49:56.65911=10021=140=154=155=TSLA60=00010101-00:00:00.00010=122")
 
-	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n +%s\n-%s", rebuildBytes, expectedBytes)
+	s.True(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n +%s\n -%s", rebuildBytes, expectedBytes)
 
 	expectedBodyBytes := []byte("11=10021=140=154=155=TSLA60=00010101-00:00:00.000")
 
 	s.True(bytes.Equal(s.msg.bodyBytes, expectedBodyBytes), "Incorrect body bytes, got %s", string(s.msg.bodyBytes))
+}
+
+func (s *MessageSuite) TestReBuildWithRepeatingGroupForResend() {
+	// Given the following message with a repeating group
+	origHeader := "8=FIXT.1.19=16135=834=349=ISLD52=20240415-03:43:17.92356=TW"
+	origBody := "6=1.0011=114=1.0017=131=1.0032=1.0037=138=1.0039=254=155=1150=2151=0.00453=1448=xyzzy447=D452=1"
+	origTrailer := "10=014"
+	rawMsg := bytes.NewBufferString(origHeader + origBody + origTrailer)
+
+	// When I reparse the message from the store during a resend request
+	s.Nil(ParseMessage(s.msg, rawMsg))
+
+	// And I update the headers for resend
+	s.msg.Header.SetField(tagOrigSendingTime, FIXString("20240415-03:43:17.923"))
+	s.msg.Header.SetField(tagSendingTime, FIXString("20240415-14:41:23.456"))
+	s.msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+
+	// When I rebuild the message
+	rebuildBytes := s.msg.build()
+
+	// Then the repeating groups will not be in the correct order in the rebuilt message (note tags 447, 448, 452, 453)
+	expectedBytes := []byte("8=FIXT.1.19=19235=834=343=Y49=ISLD52=20240415-14:41:23.45656=TW122=20240415-03:43:17.9236=1.0011=114=1.0017=131=1.0032=1.0037=138=1.0039=254=155=1150=2151=0.00453=1448=xyzzy447=D452=110=018")
+	s.False(bytes.Equal(expectedBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedBytes, rebuildBytes)
+	expectedOutOfOrderBytes := []byte("8=FIXT.1.19=19235=834=343=Y49=ISLD52=20240415-14:41:23.45656=TW122=20240415-03:43:17.9236=1.0011=114=1.0017=131=1.0032=1.0037=138=1.0039=254=155=1150=2151=0.00447=D448=xyzzy452=1453=110=018")
+	s.True(bytes.Equal(expectedOutOfOrderBytes, rebuildBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedOutOfOrderBytes, rebuildBytes)
+
+	// But the bodyBytes will still be correct
+	origBodyBytes := []byte(origBody)
+	s.True(bytes.Equal(origBodyBytes, s.msg.bodyBytes), "Incorrect body bytes, \n expected: %s\n  but was: %s", origBodyBytes, s.msg.bodyBytes)
+
+	// So when I combine the updated header + the original bodyBytes + the as-is trailer
+	resendBytes := s.msg.buildWithBodyBytes(s.msg.bodyBytes)
+
+	// Then the reparsed, rebuilt message will retain the correct ordering of repeating group tags during resend
+	s.True(bytes.Equal(expectedBytes, resendBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedBytes, resendBytes)
 }
 
 func (s *MessageSuite) TestReverseRoute() {

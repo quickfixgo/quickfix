@@ -25,7 +25,7 @@ func TestSessionIDFilename_MinimallyQualifiedSessionID(t *testing.T) {
 	sessionID := SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
 
 	// Then the filename should be
-	require.Equal(t, "FIX.4.4-SENDER-TARGET", sessionIDFilenamePrefix(sessionID))
+	require.Equal(t, "FIX.4.4-SENDER-TARGET", SessionIDFilenamePrefix(sessionID))
 }
 
 func TestSessionIDFilename_FullyQualifiedSessionID(t *testing.T) {
@@ -42,7 +42,7 @@ func TestSessionIDFilename_FullyQualifiedSessionID(t *testing.T) {
 	}
 
 	// Then the filename should be
-	require.Equal(t, "FIX.4.4-A_B_C-D_E_F-G", sessionIDFilenamePrefix(sessionID))
+	require.Equal(t, "FIX.4.4-A_B_C-D_E_F-G", SessionIDFilenamePrefix(sessionID))
 }
 
 func TestOpenOrCreateFile(t *testing.T) {

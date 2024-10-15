@@ -36,6 +36,7 @@ type fileStore struct {
 	sessionFile        *os.File
 	senderSeqNumsFile  *os.File
 	targetSeqNumsFile  *os.File
+	fileSync           bool
 	backupStore        *backupStore
 }
 
@@ -59,21 +60,29 @@ func (f fileStoreFactory) Create(sessionID SessionID) (msgStore MessageStore, er
 	if err != nil {
 		return nil, err
 	}
-
+	var fsync bool
+	if sessionSettings.HasSetting(config.FileStoreSync) {
+		fsync, err = sessionSettings.BoolSetting(config.FileStoreSync)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		fsync = true //existing behavior is to fsync writes
+	}
 	backupStore, err := f.backupFactory.Create(sessionID)
 	if err != nil {
 		fmt.Printf("file store: failed to init backup store, err: %v\n", err)
 	}
 
-	return newFileStore(sessionID, dirname, backupStore)
+	return newFileStore(sessionID, dirname, fsync, backupStore)
 }
 
-func newFileStore(sessionID SessionID, dirname string, backupStore *backupStore) (*fileStore, error) {
+func newFileStore(sessionID SessionID, dirname string, fileSync bool, backupStore *backupStore) (*fileStore, error) {
 	if err := os.MkdirAll(dirname, os.ModePerm); err != nil {
 		return nil, err
 	}
 
-	sessionPrefix := sessionIDFilenamePrefix(sessionID)
+	sessionPrefix := SessionIDFilenamePrefix(sessionID)
 
 	store := &fileStore{
 		sessionID:          sessionID,
@@ -84,6 +93,7 @@ func newFileStore(sessionID SessionID, dirname string, backupStore *backupStore)
 		sessionFname:       path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "session")),
 		senderSeqNumsFname: path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "senderseqnums")),
 		targetSeqNumsFname: path.Join(dirname, fmt.Sprintf("%s.%s", sessionPrefix, "targetseqnums")),
+		fileSync:           fileSync,
 		backupStore:        backupStore,
 	}
 
@@ -229,8 +239,10 @@ func (store *fileStore) setSession() error {
 	if _, err := store.sessionFile.Write(data); err != nil {
 		return fmt.Errorf("unable to write to file: %s: %s", store.sessionFname, err.Error())
 	}
-	if err := store.sessionFile.Sync(); err != nil {
-		return fmt.Errorf("unable to flush file: %s: %s", store.sessionFname, err.Error())
+	if store.fileSync {
+		if err := store.sessionFile.Sync(); err != nil {
+			return fmt.Errorf("unable to flush file: %s: %s", store.sessionFname, err.Error())
+		}
 	}
 	return nil
 }
@@ -242,8 +254,10 @@ func (store *fileStore) setSeqNum(f *os.File, seqNum int) error {
 	if _, err := fmt.Fprintf(f, "%019d", seqNum); err != nil {
 		return fmt.Errorf("unable to write to file: %s: %s", f.Name(), err.Error())
 	}
-	if err := f.Sync(); err != nil {
-		return fmt.Errorf("unable to flush file: %s: %s", f.Name(), err.Error())
+	if store.fileSync {
+		if err := f.Sync(); err != nil {
+			return fmt.Errorf("unable to flush file: %s: %s", f.Name(), err.Error())
+		}
 	}
 	return nil
 }
@@ -340,11 +354,13 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 	if _, err := store.bodyFile.Write(msg); err != nil {
 		return fmt.Errorf("unable to write to file: %s: %s", store.bodyFname, err.Error())
 	}
-	if err := store.bodyFile.Sync(); err != nil {
-		return fmt.Errorf("unable to flush file: %s: %s", store.bodyFname, err.Error())
-	}
-	if err := store.headerFile.Sync(); err != nil {
-		return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
+	if store.fileSync {
+		if err := store.bodyFile.Sync(); err != nil {
+			return fmt.Errorf("unable to flush file: %s: %s", store.bodyFname, err.Error())
+		}
+		if err := store.headerFile.Sync(); err != nil {
+			return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
+		}
 	}
 
 	store.backupStore.SaveMessage(seqNum, msg)
