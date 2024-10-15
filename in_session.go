@@ -383,7 +383,7 @@ func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, 
 
 	msgBytes := sequenceReset.build()
 
-	session.sendBytes(msgBytes)
+	session.EnqueueBytesAndSend(msgBytes)
 	session.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
 
 	return
