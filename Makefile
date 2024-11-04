@@ -16,6 +16,10 @@ vet:
 test: 
 	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover `go list ./... | grep -v quickfix/gen`
 
+fuzz:
+	go test -fuzztime 600s -fuzz=FuzzParser .
+	go test -fuzztime 600s -fuzz=FuzzParseMessage .
+
 linters-install:
 	@golangci-lint --version >/dev/null 2>&1 || { \
 		echo "installing linting tools..."; \

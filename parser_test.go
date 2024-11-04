@@ -186,3 +186,25 @@ func (s *ParserSuite) TestReadMessageGrowBuffer() {
 		s.Equal(tc.expectedBufferLen, len(s.parser.buffer))
 	}
 }
+
+func FuzzParser(f *testing.F) {
+
+	stream0 := "8=FIXT.1.19=11135=D34=449=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=2348=FIXT.1.19=9535=D34=549=TW52=20140511-23:10:3456=ISLD11=ID21=340=154=155=INTC60=20140511-23:10:3410=198"
+	stream1 := "8=\x019=\x01"
+	stream2 := "8=\x019=9300000000000000000\x01"
+	stream3 := "hello8=FIX.4.09=5blah10=1038=FIX.4.09=4foo10=103"
+
+	f.Add(stream0)
+	f.Add(stream1)
+	f.Add(stream2)
+	f.Add(stream3)
+
+	f.Fuzz(func(_ *testing.T, input string) {
+		if len(input) < 8 {
+			return
+		}
+
+		parser := newParser(strings.NewReader(input))
+		_, _ = parser.ReadMessage()
+	})
+}
