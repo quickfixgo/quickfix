@@ -9,7 +9,7 @@ import (
 
 type inSession struct{ loggedOn }
 
-func (state inSession) String() string { return "In Session" }
+func (state inSession) String() string { return SessionStateInSession }
 
 func (state inSession) FixMsgIn(session *session, msg *Message) sessionState {
 	msgType, err := msg.Header.GetBytes(tagMsgType)

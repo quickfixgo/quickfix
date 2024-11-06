@@ -4,7 +4,7 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type latentState struct{ inSessionTime }
 
-func (state latentState) String() string    { return "Latent State" }
+func (state latentState) String() string    { return SessionStateLatentState }
 func (state latentState) IsLoggedOn() bool  { return false }
 func (state latentState) IsConnected() bool { return false }
 

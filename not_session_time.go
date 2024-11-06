@@ -4,7 +4,7 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type notSessionTime struct{ latentState }
 
-func (notSessionTime) String() string      { return "Not session time" }
+func (notSessionTime) String() string      { return SessionStateNotSessionTime }
 func (notSessionTime) IsSessionTime() bool { return false }
 
 func (state notSessionTime) FixMsgIn(session *session, msg *Message) (nextState sessionState) {
