@@ -2,6 +2,7 @@ package quickfix
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 	"time"
 
@@ -955,4 +956,34 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	//only one message sent
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
+}
+
+func TestSessionState(t *testing.T) {
+	type wants struct {
+		connected bool
+		loggedOn  bool
+	}
+
+	tests := []struct {
+		name  string
+		state sessionState
+		want  wants
+	}{
+		{name: "latentState", state: latentState{}, want: wants{connected: false, loggedOn: false}},
+		{name: "logonState", state: logonState{}, want: wants{connected: true, loggedOn: false}},
+		{name: "inSession", state: inSession{}, want: wants{connected: true, loggedOn: true}},
+		{name: "logoutState", state: logoutState{}, want: wants{connected: true, loggedOn: false}},
+		{name: "resendState", state: resendState{}, want: wants{connected: true, loggedOn: true}},
+		{name: "pendingTimeout", state: pendingTimeout{inSession{}}, want: wants{connected: true, loggedOn: true}},
+		{name: "notSessionTime", state: notSessionTime{}, want: wants{connected: false, loggedOn: false}},
+	}
+
+	for _, test := range tests {
+		if !reflect.DeepEqual(test.state.IsConnected(), test.want.connected) {
+			t.Errorf("%s.IsConnected() got = %v", test.name, test.state.IsConnected())
+		}
+		if !reflect.DeepEqual(test.state.IsLoggedOn(), test.want.loggedOn) {
+			t.Errorf("%s.IsLoggedOn() got = %v", test.name, test.state.IsLoggedOn())
+		}
+	}
 }
