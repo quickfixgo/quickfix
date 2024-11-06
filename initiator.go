@@ -71,6 +71,15 @@ func (i *Initiator) IsConnectedAndLoggedOn(sessionID SessionID) bool {
 	return session.IsConnected() && session.IsLoggedOn()
 }
 
+func (i *Initiator) SessionState(sessionID SessionID) string {
+	session, ok := i.sessions[sessionID]
+	if !ok {
+		return SessionStateUnknown
+	}
+
+	return session.State.String()
+}
+
 // NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := &Initiator{
