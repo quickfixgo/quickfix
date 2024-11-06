@@ -62,6 +62,15 @@ func (i *Initiator) Stop() {
 	i.wg.Wait()
 }
 
+func (i *Initiator) IsConnectedAndLoggedOn(sessionID SessionID) bool {
+	session, ok := i.sessions[sessionID]
+	if !ok {
+		return false
+	}
+
+	return session.IsConnected() && session.IsLoggedOn()
+}
+
 // NewInitiator creates and initializes a new Initiator.
 func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings *Settings, logFactory LogFactory) (*Initiator, error) {
 	i := &Initiator{
