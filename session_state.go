@@ -203,6 +203,12 @@ type sessionState interface {
 	//Timeout is called by the session on a timeout event.
 	Timeout(*session, internal.Event) (nextState sessionState)
 
+	//IsLoggedOn returns true if state is logged on an in session, false otherwise
+	IsLoggedOn() bool
+
+	//IsConnected returns true if the state is connected
+	IsConnected() bool
+
 	//IsSessionTime returns true if the state is in session time
 	IsSessionTime() bool
 
@@ -214,16 +220,6 @@ type sessionState interface {
 
 	//debugging convenience
 	fmt.Stringer
-
-	SessionStateReader
-}
-
-type SessionStateReader interface {
-	//IsLoggedOn returns true if state is logged on an in session, false otherwise
-	IsLoggedOn() bool
-
-	//IsConnected returns true if the state is connected
-	IsConnected() bool
 }
 
 type inSessionTime struct{}
