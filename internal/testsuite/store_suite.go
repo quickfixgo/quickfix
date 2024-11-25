@@ -16,6 +16,7 @@
 package testsuite
 
 import (
+	"sort"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -106,8 +107,13 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	for seqNum, msg := range expectedMsgsBySeqNum {
-		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(msg)))
+	var seqNums []int
+	for seqNum := range expectedMsgsBySeqNum {
+		seqNums = append(seqNums, seqNum)
+	}
+	sort.Ints(seqNums)
+	for _, seqNum := range seqNums {
+		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
 	}
 
 	// When the messages are retrieved from the MessageStore
@@ -141,8 +147,13 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	for seqNum, msg := range expectedMsgsBySeqNum {
-		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
+	var seqNums []int
+	for seqNum := range expectedMsgsBySeqNum {
+		seqNums = append(seqNums, seqNum)
+	}
+	sort.Ints(seqNums)
+	for _, seqNum := range seqNums {
+		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
 	}
 	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
 
