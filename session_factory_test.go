@@ -484,7 +484,7 @@ func (s *SessionFactorySuite) TestDuplicateSession() {
 	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 	s.Equal("Duplicate SessionID", err.Error())
-	UnregisterSession(s.SessionID)
+	s.UnregisterSession(s.SessionID)
 	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.Nil(err)
 }
