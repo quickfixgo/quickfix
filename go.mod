@@ -8,6 +8,10 @@ require (
 	github.com/pires/go-proxyproto v0.8.0
 	github.com/pkg/errors v0.9.1
 	github.com/quagmt/udecimal v1.8.0
+	github.com/quickfixgo/enum v0.1.0
+	github.com/quickfixgo/field v0.1.0
+	github.com/quickfixgo/fix44 v0.1.0
+	github.com/quickfixgo/tag v0.1.0
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.10.0
 	go.mongodb.org/mongo-driver v1.17.1
