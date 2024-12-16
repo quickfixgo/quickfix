@@ -40,11 +40,11 @@ func (l *SlogLog) Create() (Log, error) {
 }
 
 func (l *SlogLog) CreateSessionLog(sessionID SessionID) (Log, error) {
-	return &SlogLog{Name: l.Name, Logger: l.Logger.With("session", sessionID.String())}, nil
+	return &SlogLog{Name: l.Name, Logger: l.Logger.With("sessionID", sessionID.String())}, nil
 }
 
 func (l *SlogLog) logMessage(msg string, data []byte) {
-	slog.Info(msg, "message", ToValues(data))
+	l.Logger.Info(msg, "message", ToValues(data))
 }
 
 func ToValues(s []byte) slog.Value {
