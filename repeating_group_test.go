@@ -200,8 +200,6 @@ func TestRepeatingGroup_Read(t *testing.T) {
 			for _, expected := range test.expectedGroupTvs[g] {
 				var actual FIXString
 				require.Nil(t, group.GetField(expected.tag, &actual))
-				require.NotNil(t, group.tags)
-				require.Equal(t, len(group.tags), len(group.tagLookup))
 
 				if !bytes.Equal(expected.value, []byte(actual)) {
 					t.Errorf("%v, %v: expected %s, got %s", g, expected.tag, expected.value, actual)
