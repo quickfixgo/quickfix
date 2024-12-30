@@ -353,6 +353,10 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 		return logoutState{}
 	}
 
+	if session.SessionSettings.DisableCheckOriginalTimestamp {
+		return state
+	}
+
 	if !msg.Header.Has(tagOrigSendingTime) {
 		if err := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); err != nil {
 			return handleStateError(session, err)

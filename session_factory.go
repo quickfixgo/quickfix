@@ -202,6 +202,15 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.CheckOriginalTimestamp) {
+		var checkTimestamp bool
+		if checkTimestamp, err = settings.BoolSetting(config.CheckOriginalTimestamp); err != nil {
+			return
+		}
+
+		s.DisableCheckOriginalTimestamp = !checkTimestamp
+	}
+
 	if settings.HasSetting(config.CheckLatency) {
 		var doCheckLatency bool
 		if doCheckLatency, err = settings.BoolSetting(config.CheckLatency); err != nil {

@@ -19,6 +19,8 @@ type SessionSettings struct {
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
 
+	DisableCheckOriginalTimestamp bool
+
 	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string
 

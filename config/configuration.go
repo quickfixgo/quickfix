@@ -1126,4 +1126,17 @@ const (
 	//  - Y
 	//  - N
 	EnableNextExpectedMsgSeqNum string = "EnableNextExpectedMsgSeqNum"
+
+	// CheckOriginalTimestamp if set to Y, the FIX engine will check the OrigSendingTime (tag 122) in the header of incoming messages.
+	// When enabled, if the OrigSendingTime is not present or the original sending time is later than the SendingTime (tag 52),
+	// the message will be rejected.
+	//
+	// Required: No
+	//
+	// Default: Y
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	CheckOriginalTimestamp string = "CheckOriginalTimestamp"
 )
