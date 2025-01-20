@@ -1,69 +1,69 @@
 ## 0.9.6 (September 20, 2024)
 
 ### ENHANCEMENTS
-* Allow the clients of acceptor to specify their own tls.Config https://github.com/quickfixgo/quickfix/pull/667
-* Adds NextExpectedSeqNum setting https://github.com/quickfixgo/quickfix/pull/668
+* Allow the clients of acceptor to specify their own tls.Config https://github.com/SilkageNet/quickfix/pull/667
+* Adds NextExpectedSeqNum setting https://github.com/SilkageNet/quickfix/pull/668
 
 ### BUG FIXES
-* Reinit stop sync to prevent deadlock on sequential start/stops https://github.com/quickfixgo/quickfix/pull/669
-* Check logon auth before resetting store https://github.com/quickfixgo/quickfix/pull/670
-* Reverts ToAdmin call sequencing https://github.com/quickfixgo/quickfix/pull/674
+* Reinit stop sync to prevent deadlock on sequential start/stops https://github.com/SilkageNet/quickfix/pull/669
+* Check logon auth before resetting store https://github.com/SilkageNet/quickfix/pull/670
+* Reverts ToAdmin call sequencing https://github.com/SilkageNet/quickfix/pull/674
 
 ## 0.9.5 (August 14, 2024)
 
 ### ENHANCEMENTS
-* Introduce message iterator to avoid loading all messages into memory at once upon resend request https://github.com/quickfixgo/quickfix/pull/659
-* Only lock fieldmap once during message parsing https://github.com/quickfixgo/quickfix/pull/658
-* Optimize tag value parsing https://github.com/quickfixgo/quickfix/pull/657
-* Use bytes.Count to count the number of message fields https://github.com/quickfixgo/quickfix/pull/655
-* Port config documentation into proper go doc format https://github.com/quickfixgo/quickfix/pull/649
-* Support TLS configuration as raw bytes https://github.com/quickfixgo/quickfix/pull/647
+* Introduce message iterator to avoid loading all messages into memory at once upon resend request https://github.com/SilkageNet/quickfix/pull/659
+* Only lock fieldmap once during message parsing https://github.com/SilkageNet/quickfix/pull/658
+* Optimize tag value parsing https://github.com/SilkageNet/quickfix/pull/657
+* Use bytes.Count to count the number of message fields https://github.com/SilkageNet/quickfix/pull/655
+* Port config documentation into proper go doc format https://github.com/SilkageNet/quickfix/pull/649
+* Support TLS configuration as raw bytes https://github.com/SilkageNet/quickfix/pull/647
 
 ### BUG FIXES
-* Use the Go generated file convention https://github.com/quickfixgo/quickfix/pull/660
-* Fix stuck call to Dial when calling Stop on the Initiator https://github.com/quickfixgo/quickfix/pull/654
-* Do not increment NextTargetMsgSeqNum for out of sequence Logout and Test Requests https://github.com/quickfixgo/quickfix/pull/645
+* Use the Go generated file convention https://github.com/SilkageNet/quickfix/pull/660
+* Fix stuck call to Dial when calling Stop on the Initiator https://github.com/SilkageNet/quickfix/pull/654
+* Do not increment NextTargetMsgSeqNum for out of sequence Logout and Test Requests https://github.com/SilkageNet/quickfix/pull/645
 
 ## 0.9.4 (May 29, 2024)
 
 ### ENHANCEMENTS
-* Adds log to readLoop just like writeLoop https://github.com/quickfixgo/quickfix/pull/642
+* Adds log to readLoop just like writeLoop https://github.com/SilkageNet/quickfix/pull/642
 
 ### BUG FIXES
-* Maintain repeating group field order when parsing messages  https://github.com/quickfixgo/quickfix/pull/636
+* Maintain repeating group field order when parsing messages  https://github.com/SilkageNet/quickfix/pull/636
 
 ## 0.9.3 (May 9, 2024)
 
 ### BUG FIXES
-* Change filestore.offsets from map[int]msgDef to sync.Map https://github.com/quickfixgo/quickfix/pull/639
-* Unregister sessions on stop https://github.com/quickfixgo/quickfix/pull/637
-* Corrects ResetOnLogon behavior for initiators https://github.com/quickfixgo/quickfix/pull/635
+* Change filestore.offsets from map[int]msgDef to sync.Map https://github.com/SilkageNet/quickfix/pull/639
+* Unregister sessions on stop https://github.com/SilkageNet/quickfix/pull/637
+* Corrects ResetOnLogon behavior for initiators https://github.com/SilkageNet/quickfix/pull/635
 
 ### FEATURES
-* Add AllowUnknownMessageFields & CheckUserDefinedFields settings as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/632
+* Add AllowUnknownMessageFields & CheckUserDefinedFields settings as included in QuickFIX/J https://github.com/SilkageNet/quickfix/pull/632
 
 ## 0.9.2 (April 23, 2024)
 
 ### BUG FIXES
-* Prevent message queue blocking in the case of network connection trouble https://github.com/quickfixgo/quickfix/pull/615 https://github.com/quickfixgo/quickfix/pull/628
-* Corrects validation of multiple repeating groups with different fields https://github.com/quickfixgo/quickfix/pull/623
+* Prevent message queue blocking in the case of network connection trouble https://github.com/SilkageNet/quickfix/pull/615 https://github.com/SilkageNet/quickfix/pull/628
+* Corrects validation of multiple repeating groups with different fields https://github.com/SilkageNet/quickfix/pull/623
 
 ## 0.9.1 (April 15, 2024)
 
 ### BUG FIXES
-* Preserve original body when resending https://github.com/quickfixgo/quickfix/pull/624
+* Preserve original body when resending https://github.com/SilkageNet/quickfix/pull/624
 
 ## 0.9.0 (November 13, 2023)
 
 ### FEATURES
-* Add Weekdays config setting as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/590
+* Add Weekdays config setting as included in QuickFIX/J https://github.com/SilkageNet/quickfix/pull/590
 * `MessageStore` Refactor
 
-The message store types external to a quickfix-go application have been refactored into individual sub-packages within `quickfix`. The benefit of this is that the dependencies for these specific store types are no longer included in the quickfix package itself, so many projects depending on the quickfix package will no longer be bloated with large indirect dependencies if they are not specifically implemented in your application. This applies to the `mongo` (MongoDB), `file` (A file on-disk), and `sql` (Any db accessed with a go sql driver interface). The `memorystore` (in-memory message store) syntax remains unchanged. The minor drawback to this is that with some re-packaging came some minor syntax changes. See https://github.com/quickfixgo/quickfix/issues/547 and https://github.com/quickfixgo/quickfix/pull/592 for more information. The relevant examples are below.
+The message store types external to a quickfix-go application have been refactored into individual sub-packages within `quickfix`. The benefit of this is that the dependencies for these specific store types are no longer included in the quickfix package itself, so many projects depending on the quickfix package will no longer be bloated with large indirect dependencies if they are not specifically implemented in your application. This applies to the `mongo` (MongoDB), `file` (A file on-disk), and `sql` (Any db accessed with a go sql driver interface). The `memorystore` (in-memory message store) syntax remains unchanged. The minor drawback to this is that with some re-packaging came some minor syntax changes. See https://github.com/SilkageNet/quickfix/issues/547 and https://github.com/SilkageNet/quickfix/pull/592 for more information. The relevant examples are below.
 
 MONGO
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/SilkageNet/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -71,8 +71,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSetti
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/mongo"
+  "github.com/SilkageNet/quickfix"
+  "github.com/SilkageNet/quickfix/store/mongo"
 )
 
 ...
@@ -81,7 +81,7 @@ acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), ap
 
 FILE
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/SilkageNet/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -89,8 +89,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettin
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/file"
+  "github.com/SilkageNet/quickfix"
+  "github.com/SilkageNet/quickfix/store/file"
 )
 
 ...
@@ -100,7 +100,7 @@ acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), app
 SQL
 
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/SilkageNet/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -108,8 +108,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSetting
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/sql"
+  "github.com/SilkageNet/quickfix"
+  "github.com/SilkageNet/quickfix/store/sql"
 )
 
 ...
@@ -118,13 +118,13 @@ acceptor, err = quickfix.NewAcceptor(app, sql.NewStoreFactory(appSettings), appS
 
 
 ### ENHANCEMENTS
-* Acceptance suite store type expansions https://github.com/quickfixgo/quickfix/pull/596 and https://github.com/quickfixgo/quickfix/pull/591
-* Support Go v1.21 https://github.com/quickfixgo/quickfix/pull/589
+* Acceptance suite store type expansions https://github.com/SilkageNet/quickfix/pull/596 and https://github.com/SilkageNet/quickfix/pull/591
+* Support Go v1.21 https://github.com/SilkageNet/quickfix/pull/589
 
 
 ### BUG FIXES
-* Resolves outstanding issues with postgres db creation syntax and `pgx` driver https://github.com/quickfixgo/quickfix/pull/598
-* Fix sequence number bug when storage fails https://github.com/quickfixgo/quickfix/pull/432
+* Resolves outstanding issues with postgres db creation syntax and `pgx` driver https://github.com/SilkageNet/quickfix/pull/598
+* Fix sequence number bug when storage fails https://github.com/SilkageNet/quickfix/pull/432
 
 
 ## 0.8.1 (October 27, 2023)

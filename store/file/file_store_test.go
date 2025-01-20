@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/internal/testsuite"
+	"github.com/SilkageNet/quickfix"
+	"github.com/SilkageNet/quickfix/internal/testsuite"
 	assert2 "github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"

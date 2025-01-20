@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/SilkageNet/quickfix/config"
 )
 
 func TestSessionSettings_StringSettings(t *testing.T) {

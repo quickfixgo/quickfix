@@ -16,7 +16,7 @@
 package composite
 
 import (
-	"github.com/quickfixgo/quickfix"
+	"github.com/SilkageNet/quickfix"
 )
 
 type compositeLog struct {

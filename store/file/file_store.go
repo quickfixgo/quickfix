@@ -24,9 +24,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/SilkageNet/quickfix"
+	"github.com/SilkageNet/quickfix/config"
 	"github.com/pkg/errors"
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/config"
 )
 
 type fileStoreFactory struct {

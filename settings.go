@@ -22,7 +22,7 @@ import (
 	"io"
 	"regexp"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/SilkageNet/quickfix/config"
 )
 
 // The Settings type represents a collection of global and session settings.

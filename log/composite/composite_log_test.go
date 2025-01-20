@@ -24,12 +24,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/SilkageNet/quickfix"
+	"github.com/SilkageNet/quickfix/log/file"
+	"github.com/SilkageNet/quickfix/log/mongo"
+	"github.com/SilkageNet/quickfix/log/screen"
+	"github.com/SilkageNet/quickfix/log/sql"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/log/file"
-	"github.com/quickfixgo/quickfix/log/mongo"
-	"github.com/quickfixgo/quickfix/log/screen"
-	"github.com/quickfixgo/quickfix/log/sql"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )

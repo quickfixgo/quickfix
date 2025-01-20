@@ -20,7 +20,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/SilkageNet/quickfix/internal"
 )
 
 type LogoutStateTestSuite struct {
