@@ -282,9 +282,9 @@ type {{ .Name }} struct {
 // FromMessage creates a {{ .Name }} from a quickfix.Message instance.
 func FromMessage(m *quickfix.Message) {{ .Name }} {
 	return {{ .Name }}{
-		Header: {{ .TransportPackage}}.Header{&m.Header},
+		Header: {{ .TransportPackage}}.Header{Header: &m.Header},
 		Body: &m.Body,
-		Trailer: {{ .TransportPackage}}.Trailer{&m.Trailer},
+		Trailer: {{ .TransportPackage}}.Trailer{Trailer: &m.Trailer},
 		Message: m,
 	}
 }
