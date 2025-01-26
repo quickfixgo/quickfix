@@ -41,7 +41,7 @@ type msgParser struct {
 }
 
 // in the message header, the first 3 tags in the message header must be 8,9,35.
-func headerFieldOrdering(i, j Tag) bool {
+func headerFieldOrdering(i, j Tag) int {
 	var ordering = func(t Tag) uint32 {
 		switch t {
 		case tagBeginString:
@@ -60,12 +60,12 @@ func headerFieldOrdering(i, j Tag) bool {
 
 	switch {
 	case orderi < orderj:
-		return true
+		return -1
 	case orderi > orderj:
-		return false
+		return 1
 	}
 
-	return i < j
+	return int(i - j)
 }
 
 // Init initializes the Header instance.
@@ -85,15 +85,15 @@ func (b *Body) Init() {
 type Trailer struct{ FieldMap }
 
 // In the trailer, CheckSum (tag 10) must be last.
-func trailerFieldOrdering(i, j Tag) bool {
+func trailerFieldOrdering(i, j Tag) int {
 	switch {
 	case i == tagCheckSum:
-		return false
+		return 1
 	case j == tagCheckSum:
-		return true
+		return -1
 	}
 
-	return i < j
+	return int(i - j)
 }
 
 // Init initializes the FIX message.
@@ -181,17 +181,10 @@ func ParseMessageWithDataDictionary(
 
 // doParsing executes the message parsing process.
 func doParsing(mp *msgParser) (err error) {
-	mp.msg.Header.rwLock.Lock()
-	defer mp.msg.Header.rwLock.Unlock()
-	mp.msg.Body.rwLock.Lock()
-	defer mp.msg.Body.rwLock.Unlock()
-	mp.msg.Trailer.rwLock.Lock()
-	defer mp.msg.Trailer.rwLock.Unlock()
-
 	// Initialize for parsing.
-	mp.msg.Header.clearNoLock()
-	mp.msg.Body.clearNoLock()
-	mp.msg.Trailer.clearNoLock()
+	mp.msg.Header.Clear()
+	mp.msg.Body.Clear()
+	mp.msg.Trailer.Clear()
 
 	// Allocate expected message fields in one chunk.
 	fieldCount := bytes.Count(mp.rawBytes, []byte{'\001'})
@@ -269,7 +262,7 @@ func doParsing(mp *msgParser) (err error) {
 		}
 
 		if mp.parsedFieldBytes.tag == tagXMLDataLen {
-			xmlDataLen, _ = mp.msg.Header.getIntNoLock(tagXMLDataLen)
+			xmlDataLen, _ = mp.msg.Header.GetInt(tagXMLDataLen)
 		}
 		mp.fieldIndex++
 	}
@@ -294,7 +287,7 @@ func doParsing(mp *msgParser) (err error) {
 		}
 	}
 
-	bodyLength, err := mp.msg.Header.getIntNoLock(tagBodyLength)
+	bodyLength, err := mp.msg.Header.GetInt(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
 	} else if length != bodyLength && !xmlDataMsg {
@@ -328,7 +321,7 @@ func parseGroup(mp *msgParser, tags []Tag) {
 			// Add the field member to the group.
 			dm = append(dm, *mp.parsedFieldBytes)
 		} else if isHeaderField(mp.parsedFieldBytes.tag, mp.transportDataDictionary) {
-			// Found a header tag for some reason..
+			// Found a header tag for some reason.
 			mp.msg.Body.add(dm)
 			mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 			break
@@ -375,7 +368,7 @@ func parseGroup(mp *msgParser, tags []Tag) {
 // tags slice will contain multiple tags if the tag in question is found while processing a group already.
 func isNumInGroupField(msg *Message, tags []Tag, appDataDictionary *datadictionary.DataDictionary) bool {
 	if appDataDictionary != nil {
-		msgt, err := msg.msgTypeNoLock()
+		msgt, err := msg.MsgType()
 		if err != nil {
 			return false
 		}
@@ -408,7 +401,7 @@ func isNumInGroupField(msg *Message, tags []Tag, appDataDictionary *datadictiona
 // tags slice will contain multiple tags if the tag in question is found while processing a group already.
 func getGroupFields(msg *Message, tags []Tag, appDataDictionary *datadictionary.DataDictionary) (fields []*datadictionary.FieldDef) {
 	if appDataDictionary != nil {
-		msgt, err := msg.msgTypeNoLock()
+		msgt, err := msg.MsgType()
 		if err != nil {
 			return
 		}
@@ -476,10 +469,6 @@ func isTrailerField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
 // MsgType returns MsgType (tag 35) field's value.
 func (m *Message) MsgType() (string, MessageRejectError) {
 	return m.Header.GetString(tagMsgType)
-}
-
-func (m *Message) msgTypeNoLock() (string, MessageRejectError) {
-	return m.Header.getStringNoLock(tagMsgType)
 }
 
 // IsMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.

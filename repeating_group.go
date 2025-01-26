@@ -129,13 +129,11 @@ func (f RepeatingGroup) Write() []TagValue {
 
 	for _, group := range f.groups {
 		tags := group.sortedTags()
-		group.rwLock.RLock()
 		for _, tag := range tags {
-			if fields, ok := group.tagLookup[tag]; ok {
+			if fields, ok := group.tagLookup.Get(tag); ok {
 				tvs = append(tvs, fields...)
 			}
 		}
-		group.rwLock.RUnlock()
 	}
 
 	return tvs
@@ -159,7 +157,7 @@ func (f RepeatingGroup) groupTagOrder() tagOrder {
 		tagMap[f.Tag()] = i
 	}
 
-	return func(i, j Tag) bool {
+	return func(i, j Tag) int {
 		orderi := math.MaxInt32
 		orderj := math.MaxInt32
 
@@ -171,7 +169,7 @@ func (f RepeatingGroup) groupTagOrder() tagOrder {
 			orderj = jIndex
 		}
 
-		return orderi < orderj
+		return orderi - orderj
 	}
 }
 
@@ -215,10 +213,7 @@ func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
 			f.groups = append(f.groups, group)
 		}
 
-		group.rwLock.Lock()
-		group.tagLookup[tvRange[0].tag] = tvRange
-		group.tags = append(group.tags, gi.Tag())
-		group.rwLock.Unlock()
+		group.tagLookup.Set(tvRange[0].tag, tvRange)
 	}
 
 	if len(f.groups) != expectedGroupSize {
