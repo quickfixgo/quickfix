@@ -591,9 +591,9 @@ func (m *Message) build() []byte {
 	m.cook()
 
 	var b bytes.Buffer
-	m.Header.write(&b)
-	m.Body.write(&b)
-	m.Trailer.write(&b)
+	m.Header.write(&b, true /* sorted */)
+	m.Body.write(&b, false /* sorted */)
+	m.Trailer.write(&b, true /* sorted */)
 	return b.Bytes()
 }
 
@@ -606,9 +606,9 @@ func (m *Message) buildWithBodyBytes(bodyBytes []byte) []byte {
 	m.cook()
 
 	var b bytes.Buffer
-	m.Header.write(&b)
+	m.Header.write(&b, true /* sorted */)
 	b.Write(bodyBytes)
-	m.Trailer.write(&b)
+	m.Trailer.write(&b, true /* sorted */)
 	return b.Bytes()
 }
 

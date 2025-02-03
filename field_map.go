@@ -366,11 +366,16 @@ func (m *FieldMap) sortedTags() []Tag {
 	return m.tags
 }
 
-func (m FieldMap) write(buffer *bytes.Buffer) {
+func (m FieldMap) write(buffer *bytes.Buffer, sorted bool) {
 	m.rwLock.Lock()
 	defer m.rwLock.Unlock()
 
-	for _, tag := range m.sortedTags() {
+	tags := m.tags
+	if sorted {
+		tags = m.sortedTags()
+	}
+
+	for _, tag := range tags {
 		if f, ok := m.tagLookup[tag]; ok {
 			writeField(f, buffer)
 		}
