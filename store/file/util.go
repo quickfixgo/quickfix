@@ -48,9 +48,14 @@ func createFilenamePrefix(s quickfix.SessionID) string {
 	return strings.Join(fname, "-")
 }
 
-// closeFile behaves like Close, except that no error is returned if the file does not exist.
-func closeFile(f *os.File) error {
+// closeSyncFile behaves like Sync and Close, except that no error is returned if the file does not exist.
+func closeSyncFile(f *os.File) error {
 	if f != nil {
+		if err := f.Sync(); err != nil {
+			if !os.IsNotExist(err) {
+				return err
+			}
+		}
 		if err := f.Close(); err != nil {
 			if !os.IsNotExist(err) {
 				return err
