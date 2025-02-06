@@ -364,11 +364,14 @@ func validateField(d *datadictionary.DataDictionary,
 	_ datadictionary.TagSet,
 	field TagValue,
 ) MessageRejectError {
+	// If the field has no value, return an error
 	if len(field.value) == 0 {
 		return TagSpecifiedWithoutAValue(field.tag)
 	}
 
 	fieldType, isMessageField := getFieldType(d, int(field.tag))
+
+	// If the field is neither a message field nor explicitly allowed, return an error
 	if !isMessageField && !checkFieldNotDefined(settings, field.tag) {
 		return InvalidTagNumber(field.tag)
 	}
@@ -377,80 +380,46 @@ func validateField(d *datadictionary.DataDictionary,
 		return nil
 	}
 
+	// Validate against allowed enumerations
 	allowedValues := d.FieldTypeByTag[int(field.tag)].Enums
 	if len(allowedValues) != 0 {
 		if _, validValue := allowedValues[string(field.value)]; !validValue {
 			return ValueIsIncorrect(field.tag)
 		}
 	}
+	// Define field type mappings for easy lookup
+	fieldTypeMapping := map[string]FieldValue{
+		"MULTIPLESTRINGVALUE": new(FIXString), "MULTIPLEVALUESTRING": new(FIXString),
+		"MULTIPLECHARVALUE": new(FIXString), "CHAR": new(FIXString),
+		"CURRENCY": new(FIXString), "DATA": new(FIXString),
+		"MONTHYEAR": new(FIXString), "LOCALMKTDATE": new(FIXString),
+		"DATE": new(FIXString), "EXCHANGE": new(FIXString),
+		"LANGUAGE": new(FIXString), "XMLDATA": new(FIXString),
+		"COUNTRY": new(FIXString), "UTCTIMEONLY": new(FIXString),
+		"UTCDATEONLY": new(FIXString), "UTCDATE": new(FIXString),
+		"TZTIMEONLY": new(FIXString), "TZTIMESTAMP": new(FIXString),
+		"STRING": new(FIXString),
 
-	var prototype FieldValue
-	switch fieldType.Type {
-	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-		fallthrough
-	case "MULTIPLECHARVALUE":
-		fallthrough
-	case "CHAR":
-		fallthrough
-	case "CURRENCY":
-		fallthrough
-	case "DATA":
-		fallthrough
-	case "MONTHYEAR":
-		fallthrough
-	case "LOCALMKTDATE", "DATE":
-		fallthrough
-	case "EXCHANGE":
-		fallthrough
-	case "LANGUAGE":
-		fallthrough
-	case "XMLDATA":
-		fallthrough
-	case "COUNTRY":
-		fallthrough
-	case "UTCTIMEONLY":
-		fallthrough
-	case "UTCDATEONLY", "UTCDATE":
-		fallthrough
-	case "TZTIMEONLY":
-		fallthrough
-	case "TZTIMESTAMP":
-		fallthrough
-	case "STRING":
-		prototype = new(FIXString)
+		"BOOLEAN": new(FIXBoolean),
 
-	case "BOOLEAN":
-		prototype = new(FIXBoolean)
+		"LENGTH": new(FIXInt), "DAYOFMONTH": new(FIXInt),
+		"NUMINGROUP": new(FIXInt), "SEQNUM": new(FIXInt),
+		"INT": new(FIXInt),
 
-	case "LENGTH":
-		fallthrough
-	case "DAYOFMONTH":
-		fallthrough
-	case "NUMINGROUP":
-		fallthrough
-	case "SEQNUM":
-		fallthrough
-	case "INT":
-		prototype = new(FIXInt)
+		"UTCTIMESTAMP": new(FIXUTCTimestamp), "TIME": new(FIXUTCTimestamp),
 
-	case "UTCTIMESTAMP", "TIME":
-		prototype = new(FIXUTCTimestamp)
-
-	case "QTY", "QUANTITY":
-		fallthrough
-	case "AMT":
-		fallthrough
-	case "PRICE":
-		fallthrough
-	case "PRICEOFFSET":
-		fallthrough
-	case "PERCENTAGE":
-		fallthrough
-	case "FLOAT":
-		prototype = new(FIXFloat)
-
+		"QTY": new(FIXFloat), "QUANTITY": new(FIXFloat),
+		"AMT": new(FIXFloat), "PRICE": new(FIXFloat),
+		"PRICEOFFSET": new(FIXFloat), "PERCENTAGE": new(FIXFloat),
+		"FLOAT": new(FIXFloat),
+	}
+	// Get the appropriate prototype for field validation
+	prototype, exists := fieldTypeMapping[fieldType.Type]
+	if !exists {
+		return nil // If the field type is not recognized, no validation needed
 	}
 
+	// Validate the field's value format
 	if err := prototype.Read(field.value); err != nil {
 		return IncorrectDataFormatForValue(field.tag)
 	}
