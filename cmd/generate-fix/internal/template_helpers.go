@@ -199,91 +199,42 @@ func quickfixValueType(quickfixType string) (goType string, err error) {
 }
 
 func quickfixType(field *datadictionary.FieldType) (quickfixType string, err error) {
-	switch field.Type {
-	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":
-		fallthrough
-	case "MULTIPLECHARVALUE":
-		fallthrough
-	case "CHAR":
-		fallthrough
-	case "CURRENCY":
-		fallthrough
-	case "DATA":
-		fallthrough
-	case "MONTHYEAR":
-		fallthrough
-	case "LOCALMKTTIME", "LOCALMKTDATE":
-		fallthrough
-	case "TIME":
-		fallthrough
-	case "DATE":
-		fallthrough
-	case "EXCHANGE":
-		fallthrough
-	case "LANGUAGE":
-		fallthrough
-	case "XMLDATA":
-		fallthrough
-	case "COUNTRY":
-		fallthrough
-	case "UTCTIMEONLY":
-		fallthrough
-	case "UTCDATE":
-		fallthrough
-	case "UTCDATEONLY":
-		fallthrough
-	case "TZTIMEONLY":
-		fallthrough
-	case "TZTIMESTAMP":
-		fallthrough
-	case "XID", "XIDREF":
-		fallthrough
-	case "STRING":
-		quickfixType = "FIXString"
-
-	case "BOOLEAN":
-		quickfixType = "FIXBoolean"
-
-	case "LENGTH":
-		fallthrough
-	case "DAYOFMONTH":
-		fallthrough
-	case "NUMINGROUP":
-		fallthrough
-	case "SEQNUM":
-		fallthrough
-	case "TAGNUM":
-		fallthrough
-	case "INT":
-		quickfixType = "FIXInt"
-
-	case "UTCTIMESTAMP":
-		quickfixType = "FIXUTCTimestamp"
-
-	case "QTY":
-		fallthrough
-	case "QUANTITY":
-		fallthrough
-	case "AMT":
-		fallthrough
-	case "PRICE":
-		fallthrough
-	case "PRICEOFFSET":
-		fallthrough
-	case "PERCENTAGE":
-		fallthrough
-	case "FLOAT":
-		if *useFloat {
-			quickfixType = "FIXFloat"
-		} else {
-			quickfixType = "FIXDecimal"
-		}
-
-	default:
-		err = fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
+	// Define mappings of FIX field types to QuickFIX types
+	stringTypes := map[string]bool{
+		"MULTIPLESTRINGVALUE": true, "MULTIPLEVALUESTRING": true, "MULTIPLECHARVALUE": true,
+		"CHAR": true, "CURRENCY": true, "DATA": true, "MONTHYEAR": true,
+		"LOCALMKTTIME": true, "LOCALMKTDATE": true, "TIME": true, "DATE": true,
+		"EXCHANGE": true, "LANGUAGE": true, "XMLDATA": true, "COUNTRY": true,
+		"UTCTIMEONLY": true, "UTCDATE": true, "UTCDATEONLY": true, "TZTIMEONLY": true,
+		"TZTIMESTAMP": true, "XID": true, "XIDREF": true, "STRING": true,
+	}
+	intTypes := map[string]bool{
+		"LENGTH": true, "DAYOFMONTH": true, "NUMINGROUP": true,
+		"SEQNUM": true, "TAGNUM": true, "INT": true,
 	}
 
-	return
+	floatTypes := map[string]bool{
+		"QTY": true, "QUANTITY": true, "AMT": true,
+		"PRICE": true, "PRICEOFFSET": true, "PERCENTAGE": true, "FLOAT": true,
+	}
+
+	switch {
+	case stringTypes[field.Type]:
+		return "FIXString", nil
+	case intTypes[field.Type]:
+		return "FIXInt", nil
+	case field.Type == "BOOLEAN":
+		return "FIXBoolean", nil
+	case field.Type == "UTCTIMESTAMP":
+		return "FIXUTCTimestamp", nil
+	case floatTypes[field.Type]:
+		if *useFloat {
+			return "FIXFloat", nil
+		}
+		return "FIXDecimal", nil
+	default:
+		return "", fmt.Errorf("Unknown type '%v' for tag '%v'\n", field.Type, field.Tag())
+	}
 }
 
 func requiredFields(m *datadictionary.MessageDef) (required []*datadictionary.FieldDef) {
