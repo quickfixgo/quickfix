@@ -4,7 +4,7 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type logoutState struct{ connectedNotLoggedOn }
 
-func (state logoutState) String() string { return "Logout State" }
+func (state logoutState) String() string { return SessionStateLogoutState }
 
 func (state logoutState) FixMsgIn(session *session, msg *Message) (nextState sessionState) {
 	nextState = inSession{}.FixMsgIn(session, msg)

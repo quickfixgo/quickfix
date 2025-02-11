@@ -193,8 +193,18 @@ func handleStateError(s *session, err error) sessionState {
 	return latentState{}
 }
 
-//sessionState is the current state of the session state machine. The session state determines how the session responds to
-//incoming messages, timeouts, and requests to send application messages.
+const (
+	SessionStateUnknown        = "Unknown"
+	SessionStateLatentState    = "Latent State"
+	SessionStateInSession      = "In Session"
+	SessionStateLogonState     = "Logon State"
+	SessionStateLogoutState    = "Logout State"
+	SessionStateNotSessionTime = "Not session time"
+	SessionStateResend         = "Resend"
+)
+
+// sessionState is the current state of the session state machine. The session state determines how the session responds to
+// incoming messages, timeouts, and requests to send application messages.
 type sessionState interface {
 	//FixMsgIn is called by the session on incoming messages from the counter party.  The return type is the next session state
 	//following message processing

@@ -45,7 +45,7 @@ type sessionFactory struct {
 	BuildInitiators bool
 }
 
-//Creates Session, associates with internal session registry
+// Creates Session, associates with internal session registry
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,
@@ -307,6 +307,8 @@ func (f sessionFactory) newSession(
 	s.messageEvent = make(chan bool, 1)
 	s.admin = make(chan interface{})
 	s.application = application
+	s.stateMachine = stateMachine{State: latentState{}}
+
 	return
 }
 

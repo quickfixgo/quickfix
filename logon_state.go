@@ -8,7 +8,7 @@ import (
 
 type logonState struct{ connectedNotLoggedOn }
 
-func (s logonState) String() string { return "Logon State" }
+func (s logonState) String() string { return SessionStateLogonState }
 
 func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionState) {
 	msgType, err := msg.Header.GetBytes(tagMsgType)
