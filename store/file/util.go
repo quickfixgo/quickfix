@@ -20,7 +20,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix"
 )
 
@@ -68,7 +67,7 @@ func closeSyncFile(f *os.File) error {
 // removeFile behaves like os.Remove, except that no error is returned if the file does not exist.
 func removeFile(fname string) error {
 	if err := os.Remove(fname); (err != nil) && !os.IsNotExist(err) {
-		return errors.Wrapf(err, "remove %v", fname)
+		return fmt.Errorf("remove %v: %w", fname, err)
 	}
 	return nil
 }

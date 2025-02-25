@@ -16,12 +16,12 @@
 package quickfix
 
 import (
+	"errors"
+	"fmt"
 	"net"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/pkg/errors"
 
 	"github.com/quickfixgo/quickfix/config"
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -132,17 +132,17 @@ func (f sessionFactory) newSession(
 			}
 
 			if s.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
-				err = errors.Wrapf(
-					err, "problem parsing XML datadictionary path '%v' for setting '%v",
-					settings.settings[config.TransportDataDictionary], config.TransportDataDictionary,
+				err = fmt.Errorf(
+					"problem parsing XML datadictionary path '%v' for setting '%v': %w",
+					settings.settings[config.TransportDataDictionary], config.TransportDataDictionary, err,
 				)
 				return
 			}
 
 			if s.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
-				err = errors.Wrapf(
-					err, "problem parsing XML datadictionary path '%v' for setting '%v",
-					settings.settings[config.AppDataDictionary], config.AppDataDictionary,
+				err = fmt.Errorf(
+					"problem parsing XML datadictionary path '%v' for setting '%v': %w",
+					settings.settings[config.AppDataDictionary], config.AppDataDictionary, err,
 				)
 				return
 			}
@@ -156,9 +156,9 @@ func (f sessionFactory) newSession(
 		}
 
 		if s.appDataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
-			err = errors.Wrapf(
-				err, "problem parsing XML datadictionary path '%v' for setting '%v",
-				settings.settings[config.DataDictionary], config.DataDictionary,
+			err = fmt.Errorf(
+				"problem parsing XML datadictionary path '%v' for setting '%v': %w",
+				settings.settings[config.DataDictionary], config.DataDictionary, err,
 			)
 			return
 		}
@@ -245,17 +245,17 @@ func (f sessionFactory) newSession(
 
 		var start, end internal.TimeOfDay
 		if start, err = internal.ParseTimeOfDay(startTimeStr); err != nil {
-			err = errors.Wrapf(
-				err, "problem parsing time of day '%v' for setting '%v",
-				settings.settings[config.StartTime], config.StartTime,
+			err = fmt.Errorf(
+				"problem parsing time of day '%v' for setting '%v': %w",
+				settings.settings[config.StartTime], config.StartTime, err,
 			)
 			return
 		}
 
 		if end, err = internal.ParseTimeOfDay(endTimeStr); err != nil {
-			err = errors.Wrapf(
-				err, "problem parsing time of day '%v' for setting '%v",
-				settings.settings[config.EndTime], config.EndTime,
+			err = fmt.Errorf(
+				"problem parsing time of day '%v' for setting '%v': %w",
+				settings.settings[config.EndTime], config.EndTime, err,
 			)
 			return
 		}
@@ -269,9 +269,9 @@ func (f sessionFactory) newSession(
 
 			loc, err = time.LoadLocation(locStr)
 			if err != nil {
-				err = errors.Wrapf(
-					err, "problem parsing time zone '%v' for setting '%v",
-					settings.settings[config.TimeZone], config.TimeZone,
+				err = fmt.Errorf(
+					"problem parsing time zone '%v' for setting '%v': %w",
+					settings.settings[config.TimeZone], config.TimeZone, err,
 				)
 				return
 			}
