@@ -21,8 +21,6 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/pkg/errors"
-
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -102,7 +100,7 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 
 	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
 	if memErr != nil {
-		err = errors.Wrap(memErr, "cache creation")
+		err = fmt.Errorf("cache creation: %w", memErr)
 		return
 	}
 
@@ -114,7 +112,7 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 		sqlConnMaxLifetime: connMaxLifetime,
 	}
 	if err = store.cache.Reset(); err != nil {
-		err = errors.Wrap(err, "cache reset")
+		err = fmt.Errorf("cache reset: %w", err)
 		return
 	}
 
@@ -195,10 +193,10 @@ func (store *sqlStore) populateCache() error {
 	if err == nil {
 		store.cache.SetCreationTime(creationTime)
 		if err = store.cache.SetNextTargetMsgSeqNum(incomingSeqNum); err != nil {
-			return errors.Wrap(err, "cache set next target")
+			return fmt.Errorf("cache set next target: %w", err)
 		}
 		if err = store.cache.SetNextSenderMsgSeqNum(outgoingSeqNum); err != nil {
-			return errors.Wrap(err, "cache set next sender")
+			return fmt.Errorf("cache set next sender: %w", err)
 		}
 		return nil
 	}
@@ -270,7 +268,7 @@ func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *sqlStore) IncrNextSenderMsgSeqNum() error {
 	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "store next")
+		return fmt.Errorf("store next: %w", err)
 	}
 	return nil
 }
@@ -278,7 +276,7 @@ func (store *sqlStore) IncrNextSenderMsgSeqNum() error {
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *sqlStore) IncrNextTargetMsgSeqNum() error {
 	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "store next")
+		return fmt.Errorf("store next: %w", err)
 	}
 	return nil
 }

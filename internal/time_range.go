@@ -1,9 +1,9 @@
 package internal
 
 import (
+	"errors"
+	"fmt"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 // TimeOfDay represents the time of day.
@@ -27,7 +27,7 @@ func NewTimeOfDay(hour, minute, second int) TimeOfDay {
 func ParseTimeOfDay(str string) (TimeOfDay, error) {
 	t, err := time.Parse(shortForm, str)
 	if err != nil {
-		return TimeOfDay{}, errors.Wrap(err, "time must be in the format HH:MM:SS")
+		return TimeOfDay{}, fmt.Errorf("time must be in the format HH:MM:SS: %w", err)
 	}
 
 	return NewTimeOfDay(t.Clock()), nil
