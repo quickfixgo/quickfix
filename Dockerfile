@@ -1,14 +1,6 @@
-FROM    golang:1.19-buster as build
-
-WORKDIR /home/app
-
-COPY go.mod go.sum ./
-
-# Pull dependencies, if mod/sum aren't changed then this is cached
+FROM gemini-docker-internal.artifactory.service.internal.projecticeland.net/golang:v1.19-20221020T1944-git-1ecb529
+WORKDIR /app
+COPY . .
 RUN go mod download
 RUN go mod verify
-
-COPY . .
-
-RUN go test
-
+RUN go test ./...

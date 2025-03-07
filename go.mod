@@ -1,4 +1,4 @@
-module github.com/quickfixgo/quickfix
+module github.com/omni3x/quickfix
 
 go 1.19
 

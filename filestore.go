@@ -7,7 +7,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/omni3x/quickfix/config"
 )
 
 type msgDef struct {

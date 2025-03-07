@@ -3,7 +3,7 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/omni3x/quickfix/config"
 )
 
 func TestSessionSettings_StringSettings(t *testing.T) {

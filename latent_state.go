@@ -1,6 +1,6 @@
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "github.com/omni3x/quickfix/internal"
 
 type latentState struct{ inSessionTime }
 

@@ -1,32 +1,31 @@
+// prevents build from occurring as a result of indexing:
+//  if build was caused by indexing returns true in addition to setting the build result to the previous build result
+//  otherwise it returns false
+if (causedByIndexing()) {
+  return
+}
+
 def major = ''
 def minor = ''
 def patch = ''
 def tag = ''
-def dockerImage = ''
 
 pipeline {
-  agent { label 'linux' }
-
-  environment {
-    // Credential ID from https://jenkins.service.internal.projecticeland.net/credentials/
-    DOCKER_REGISTRY = "https://docker-virtual.artifactory.service.internal.projecticeland.net"
-
-    apiRegistry = 'omniex/quickfix'
+  agent {
+    label 'linux'
   }
 
   stages {
-
-    stage('Build Server') {
+    stage('Checkout') {
       steps {
-        script {
-          withCredentials([sshUserPrivateKey(credentialsId: 'github-molly-brown-ssh-key', keyFileVariable: 'GITHUB_KEY')]) {
-            withEnv(["GIT_SSH_COMMAND=ssh -i $GITHUB_KEY"]) {
-              docker.withRegistry(DOCKER_REGISTRY, "artifactory-m-devprod") {
-                dockerImage = docker.build("$apiRegistry:latest", "--pull -f ./Dockerfile .")
-              }
-            }
-          }
-        }
+        deleteDir()
+        checkout scm
+      }
+    }
+
+    stage('Build and Test') {
+      steps {
+        sh 'docker build --pull .'
       }
     }
 
@@ -56,7 +55,7 @@ pipeline {
     stage('Set New Version') {
       when {
         expression {
-          return ("${env.GIT_BRANCH}" == 'master' || "${env.GIT_BRANCH}" == 'release' || "${env.GIT_BRANCH}" == 'origin/master' || "${env.GIT_BRANCH}" == 'origin/release' )
+          return ("${env.GIT_BRANCH}" == 'master' || "${env.GIT_BRANCH}" == 'release' || "${env.GIT_BRANCH}" == 'origin/master' || "${env.GIT_BRANCH}" == 'origin/release')
         }
       }
 
@@ -121,7 +120,7 @@ pipeline {
     success {
       slackSend(
         channel: '#eotc-jenkins',
-        message: "SUCCESS: quickfix was released. version: ${tag}. '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+        message: "SUCCESS: quickfix release. version: ${tag}. '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
         color: 'good',
         teamDomain: 'iceland',
         tokenCredentialId: '2b40808d-04b7-415b-8401-a4d500a84aab'
@@ -130,7 +129,7 @@ pipeline {
     failure {
       slackSend(
         channel: '#eotc-jenkins',
-        message: "FAILED: quickfix failed to be released. version: ${tag}. '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+        message: "FAILURE: quickfix release. version: ${tag}. '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
         color: 'danger',
         teamDomain: 'iceland',
         tokenCredentialId: '2b40808d-04b7-415b-8401-a4d500a84aab'

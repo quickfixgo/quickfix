@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/omni3x/quickfix/config"
 )
 
 var isPostgres bool

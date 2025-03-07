@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"github.com/omni3x/quickfix/datadictionary"
 )
 
 // Header is first section of a FIX Message
