@@ -28,7 +28,7 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v4
         with:
-          version: v1.57.2
+          version: v1.64.6
 
   build:
     name: Build Source
@@ -101,6 +101,13 @@ jobs:
           STORE_TYPE: memory
           ACCEPTANCE_SET: server
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: server
+        run: make generate-ci-udecimal && make build && make $FIX_TEST
 
   serverfile:
     name: Server FileStore Suite
@@ -135,6 +142,13 @@ jobs:
           STORE_TYPE: file
           ACCEPTANCE_SET: server
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: file
+          ACCEPTANCE_SET: server
+        run: make generate-ci-udecimal && make build && make $FIX_TEST
 
   servermongo:
     name: Server MongoStore Suite
@@ -174,6 +188,13 @@ jobs:
           STORE_TYPE: mongo
           ACCEPTANCE_SET: server
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: mongo
+          ACCEPTANCE_SET: server
+        run: make generate-ci-udecimal && make build && make $FIX_TEST
 
   resendreqchunksize:
     name: ResendRequestChunkSize Suite
@@ -208,6 +229,13 @@ jobs:
           STORE_TYPE: memory
           ACCEPTANCE_SET: resendreqchunksize
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: resendreqchunksize
+        run: make generate-ci-udecimal && make build && make $FIX_TEST
 
   lastseqnumprocessed:
     name: LastSeqNumProcessed Suite
@@ -240,6 +268,13 @@ jobs:
           STORE_TYPE: memory
           ACCEPTANCE_SET: lastseqnumprocessed
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: lastseqnumprocessed
+        run: make generate-ci-udecimal && make build && make $FIX_TEST
 
   nextexpectedseqnum:
     name: NextExpectedSeqNum Suite
@@ -270,3 +305,10 @@ jobs:
           STORE_TYPE: memory
           ACCEPTANCE_SET: nextexpectedseqnum
         run: make generate-ci && make build && make $FIX_TEST
+      - name: Acceptance test with udecimal
+        env:
+          GO111MODULE: on
+          FIX_TEST: ${{ matrix.fix-version }}
+          STORE_TYPE: memory
+          ACCEPTANCE_SET: nextexpectedseqnum
+        run: make generate-ci-udecimal && make build && make $FIX_TEST

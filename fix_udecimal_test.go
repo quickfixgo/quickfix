@@ -18,13 +18,13 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/shopspring/decimal"
+	decimal "github.com/quagmt/udecimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-func BenchmarkFIXDecimalRead(b *testing.B) {
-	var dec FIXDecimal
+func BenchmarkFIXUDecimalRead(b *testing.B) {
+	var dec FIXUDecimal
 	byt := []byte("-124.3456")
 	for i := 0; i < b.N; i++ {
 		if err := dec.Read(byt); err != nil {
@@ -33,12 +33,8 @@ func BenchmarkFIXDecimalRead(b *testing.B) {
 	}
 }
 
-func BenchmarkFIXDecimalWrite(b *testing.B) {
-	decValue, err := decimal.NewFromString("-124.3456")
-	if err != nil {
-		b.FailNow()
-	}
-	dec := FIXDecimal{Decimal: decValue, Scale: 5}
+func BenchmarkFIXUDecimalWrite(b *testing.B) {
+	dec := FIXUDecimal{Decimal: decimal.MustParse("-124.3456"), Scale: 5}
 	for i := 0; i < b.N; i++ {
 		if byt := dec.Write(); len(byt) == 0 {
 			b.FailNow()
@@ -46,14 +42,14 @@ func BenchmarkFIXDecimalWrite(b *testing.B) {
 	}
 }
 
-func TestFIXDecimalWrite(t *testing.T) {
+func TestFIXUDecimalWrite(t *testing.T) {
 	var tests = []struct {
-		decimal  FIXDecimal
+		decimal  FIXUDecimal
 		expected string
 	}{
-		{decimal: FIXDecimal{Decimal: decimal.New(-1243456, -4), Scale: 4}, expected: "-124.3456"},
-		{decimal: FIXDecimal{Decimal: decimal.New(-1243456, -4), Scale: 5}, expected: "-124.34560"},
-		{decimal: FIXDecimal{Decimal: decimal.New(-1243456, -4), Scale: 0}, expected: "-124"},
+		{decimal: FIXUDecimal{Decimal: decimal.MustParse("-124.3456"), Scale: 4}, expected: "-124.3456"},
+		{decimal: FIXUDecimal{Decimal: decimal.MustParse("-124.3456"), Scale: 5}, expected: "-124.34560"},
+		{decimal: FIXUDecimal{Decimal: decimal.MustParse("-124.3456"), Scale: 0}, expected: "-124"},
 	}
 
 	for _, test := range tests {
@@ -62,22 +58,22 @@ func TestFIXDecimalWrite(t *testing.T) {
 	}
 }
 
-func TestFIXDecimalRead(t *testing.T) {
+func TestFIXUDecimalRead(t *testing.T) {
 	var tests = []struct {
 		bytes       string
 		expected    decimal.Decimal
 		expectError bool
 	}{
-		{bytes: "15", expected: decimal.New(15, 0)},
-		{bytes: "15.000", expected: decimal.New(15, 0)},
-		{bytes: "15.001", expected: decimal.New(15001, -3)},
-		{bytes: "-15.001", expected: decimal.New(-15001, -3)},
+		{bytes: "15", expected: decimal.MustParse("15")},
+		{bytes: "15.000", expected: decimal.MustParse("15")},
+		{bytes: "15.001", expected: decimal.MustParse("15.001")},
+		{bytes: "-15.001", expected: decimal.MustParse("-15.001")},
 		{bytes: "blah", expectError: true},
-		{bytes: "+200.00", expected: decimal.New(200, 0)},
+		{bytes: "+200.00", expected: decimal.MustParse("200")},
 	}
 
 	for _, test := range tests {
-		var field FIXDecimal
+		var field FIXUDecimal
 
 		err := field.Read([]byte(test.bytes))
 		require.Equal(t, test.expectError, err != nil)
