@@ -515,3 +515,27 @@ func checkFieldString(s *MessageSuite, fields FieldMap, tag int, expected string
 	s.NoError(err)
 	s.Equal(expected, toCheck)
 }
+
+func FuzzParseMessage(f *testing.F) {
+
+	rawMsg0 := "8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039"
+	rawMsg1 := "8=FIX.4.29=37235=n34=25512369=148152=20200522-07:05:33.75649=CME50=G56=OAEAAAN57=TRADE_CAPTURE143=US,IL212=261213=<RTRF>8=FIX.4.29=22535=BZ34=6549369=651852=20200522-07:05:33.74649=CME50=G56=9Q5000N57=DUMMY143=US,IL11=ACP159013113373460=20200522-07:05:33.734533=0893=Y1028=Y1300=991369=99612:325081373=31374=91375=15979=159013113373461769710=167</RTRF>10=245\""
+	rawMsg2 := "8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039"
+	rawMsg3 := "8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=039"
+	rawMsg4 := "8=FIX.4.09=8135=D11=id21=338=10040=154=155=MSFT34=249=TW52=20140521-22:07:0956=ISLD10=250"
+
+	f.Add(rawMsg0)
+	f.Add(rawMsg1)
+	f.Add(rawMsg2)
+	f.Add(rawMsg3)
+	f.Add(rawMsg4)
+
+	f.Fuzz(func(_ *testing.T, input string) {
+		if len(input) < 8 {
+			return
+		}
+
+		msg := NewMessage()
+		_ = ParseMessage(msg, bytes.NewBufferString(input))
+	})
+}
