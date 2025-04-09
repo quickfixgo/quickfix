@@ -155,6 +155,15 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 	}
 }
 
+func (sm *stateMachine) CheckResetTime(session *session, now time.Time) {
+	if session.EnableResetSeqTime {
+		ts := internal.NewTimeOfDay(now.Clock())
+		if session.ResetSeqTime == ts {
+			session.sendLogonInReplyTo(true, nil)
+		}
+	}
+}
+
 func (sm *stateMachine) setState(session *session, nextState sessionState) {
 	if !nextState.IsConnected() {
 		if sm.IsConnected() {

@@ -317,6 +317,17 @@ const (
 	//  - Y
 	//  - N
 	ResetOnDisconnect string = "ResetOnDisconnect"
+
+	// ResetSeqTime determines a time which a logon with a seqnum reset will be sent while keeping the session connected.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//	- 00:00:00
+	//  - A time in the format of HH:MM:SS, time is represented in time zone configured by TimeZone
+	ResetSeqTime string = "ResetSeqTime"
 )
 
 const (
