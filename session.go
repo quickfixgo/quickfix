@@ -919,6 +919,7 @@ func (s *session) run() {
 
 		case now := <-ticker.C:
 			s.CheckSessionTime(s, now)
+			s.CheckResetTime(s, now)
 		}
 	}
 }

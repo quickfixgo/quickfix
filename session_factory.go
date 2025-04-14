@@ -344,6 +344,26 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.ResetSeqTime) {
+		var seqTimeStr string
+		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
+			return
+		}
+
+		var seqTime internal.TimeOfDay
+		if seqTime, err = internal.ParseTimeOfDay(seqTimeStr); err != nil {
+			err = errors.Wrapf(
+				err, "problem parsing time of day '%v' for setting '%v",
+				settings.settings[config.StartTime], config.StartTime,
+			)
+			return
+		}
+		s.EnableResetSeqTime = true
+		s.ResetSeqTime = seqTime
+	} else {
+		s.EnableResetSeqTime = false
+	}
+
 	if settings.HasSetting(config.TimeStampPrecision) {
 		var precisionStr string
 		if precisionStr, err = settings.Setting(config.TimeStampPrecision); err != nil {
