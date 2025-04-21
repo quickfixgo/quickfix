@@ -93,7 +93,7 @@ func trailerFieldOrdering(i, j Tag) bool {
 		return true
 	}
 
-	return i < j
+	return i > j
 }
 
 // Init initializes the FIX message.
