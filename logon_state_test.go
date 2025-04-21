@@ -399,3 +399,34 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagText, "MsgSeqNum too low, expecting 2 but received 1", s.MockApp.lastToAdmin.Body)
 }
+
+func (s *LogonStateTestSuite) TestStayLoggedInOnReset() {
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(inSession{})
+
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+
+	s.NextTargetMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
+
+	s.fixMsgIn(s.session, logon)
+
+	s.True(s.session.IsConnected())
+	s.True(s.session.IsLoggedOn())
+
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(2)
+}
