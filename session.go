@@ -146,7 +146,7 @@ func (s *session) fillDefaultHeader(msg *Message, inReplyTo *Message) {
 				msg.Header.SetInt(tagLastMsgSeqNumProcessed, lastSeqNum)
 			}
 		} else {
-			msg.Header.SetInt(tagLastMsgSeqNumProcessed, s.store.NextTargetMsgSeqNum()-1)
+			msg.Header.SetUint64(tagLastMsgSeqNumProcessed, s.store.NextTargetMsgSeqNum()-1)
 		}
 	}
 }
@@ -184,7 +184,7 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 	// Evaluate tag 789.
 	if s.EnableNextExpectedMsgSeqNum {
 		if inReplyTo != nil {
-			targetWantsNextSeqNumToBe, getErr := inReplyTo.Body.GetInt(tagNextExpectedMsgSeqNum)
+			targetWantsNextSeqNumToBe, getErr := inReplyTo.Body.GetUint64(tagNextExpectedMsgSeqNum)
 			if getErr == nil {
 				actualNextNum := s.store.NextSenderMsgSeqNum()
 				// // Is the 789 we received too high ??
@@ -209,7 +209,7 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 	return nil
 }
 
-func (s *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
+func (s *session) generateSequenceReset(beginSeqNo uint64, endSeqNo uint64, inReplyTo Message) (err error) {
 	sequenceReset := NewMessage()
 	s.fillDefaultHeader(sequenceReset, &inReplyTo)
 
@@ -372,7 +372,7 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 
 				s.sentReset = true
 				seqNum = s.store.NextSenderMsgSeqNum()
-				msg.Header.SetField(tagMsgSeqNum, FIXInt(seqNum))
+				msg.Header.SetField(tagMsgSeqNum, FIXUint64(seqNum))
 			}
 		}
 	} else {
@@ -388,7 +388,7 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 	return
 }
 
-func (s *session) persist(seqNum int, msgBytes []byte) error {
+func (s *session) persist(seqNum uint64, msgBytes []byte) error {
 	if !s.DisableMessagePersist {
 		return s.store.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, msgBytes)
 	}
@@ -448,14 +448,14 @@ func (s *session) doTargetTooHigh(reject targetTooHigh) (nextState resendState, 
 	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1)
 }
 
-func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState, err error) {
+func (s *session) sendResendRequest(beginSeq, endSeq uint64) (nextState resendState, err error) {
 	nextState.resendRangeEnd = endSeq
 
 	resend := NewMessage()
 	resend.Header.SetBytes(tagMsgType, msgTypeResendRequest)
-	resend.Body.SetField(tagBeginSeqNo, FIXInt(beginSeq))
+	resend.Body.SetField(tagBeginSeqNo, FIXUint64(beginSeq))
 
-	var endSeqNo int
+	var endSeqNo uint64
 	if s.ResendRequestChunkSize != 0 {
 		endSeqNo = beginSeq + s.ResendRequestChunkSize - 1
 	} else {
@@ -556,7 +556,7 @@ func (s *session) handleLogon(msg *Message) error {
 
 	// Evaluate tag 789 to see if we end up with an implied gapfill/resend.
 	if s.EnableNextExpectedMsgSeqNum && !msg.Body.Has(tagResetSeqNumFlag) {
-		targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
+		targetWantsNextSeqNumToBe, getErr := msg.Body.GetUint64(tagNextExpectedMsgSeqNum)
 		if getErr == nil {
 			if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
 				if !s.DisableMessagePersist {
@@ -668,7 +668,7 @@ func (s *session) checkTargetTooLow(msg *Message) MessageRejectError {
 		return RequiredTagMissing(tagMsgSeqNum)
 	}
 
-	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	seqNum, err := msg.Header.GetUint64(tagMsgSeqNum)
 	if err != nil {
 		return err
 	}
@@ -685,7 +685,7 @@ func (s *session) checkTargetTooHigh(msg *Message) MessageRejectError {
 		return RequiredTagMissing(tagMsgSeqNum)
 	}
 
-	seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+	seqNum, err := msg.Header.GetUint64(tagMsgSeqNum)
 	if err != nil {
 		return err
 	}

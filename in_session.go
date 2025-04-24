@@ -240,7 +240,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo uin
 			return err // We cant continue with a message that cant be parsed correctly.
 		}
 		msgType, _ := msg.Header.GetBytes(tagMsgType)
-		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
+		sentMessageSeqNum, _ := msg.Header.GetUint64(tagMsgSeqNum)
 
 		if isAdminMessageType(msgType) {
 			nextSeqNum = sentMessageSeqNum + 1
@@ -297,7 +297,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		}
 
 		if nextState.messageStash == nil {
-			nextState.messageStash = make(map[int]*Message)
+			nextState.messageStash = make(map[uint64]*Message)
 		}
 
 		nextState.messageStash[TypedError.ReceivedTarget] = msg
@@ -387,7 +387,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 	return state
 }
 
-func (state *inSession) generateSequenceReset(session *session, beginSeqNo uint64, endSeqNo int, inReplyTo Message) (err error) {
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo uint64, endSeqNo uint64, inReplyTo Message) (err error) {
 	sequenceReset := NewMessage()
 	session.fillDefaultHeader(sequenceReset, &inReplyTo)
 
