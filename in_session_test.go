@@ -198,8 +198,8 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooHigh() {
 }
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooHighResendRequestChunkSize() {
 	var tests = []struct {
-		chunkSize        int
-		expectedEndSeqNo int
+		chunkSize        uint64
+		expectedEndSeqNo uint64
 	}{
 		{0, 0},
 		{10, 0},

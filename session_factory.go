@@ -232,7 +232,7 @@ func (f sessionFactory) newSession(
 	}
 
 	if settings.HasSetting(config.ResendRequestChunkSize) {
-		if s.ResendRequestChunkSize, err = settings.IntSetting(config.ResendRequestChunkSize); err != nil {
+		if s.ResendRequestChunkSize, err = settings.Uint64Setting(config.ResendRequestChunkSize); err != nil {
 			return
 		}
 	}

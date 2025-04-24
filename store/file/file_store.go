@@ -202,7 +202,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if senderSeqNumBytes, err := os.ReadFile(store.senderSeqNumsFname); err == nil {
-		if senderSeqNum, err := strconv.Atoi(strings.Trim(string(senderSeqNumBytes), "\r\n")); err == nil {
+		if senderSeqNum, err := strconv.ParseUint(strings.Trim(string(senderSeqNumBytes), "\r\n"), 10, 64); err == nil {
 			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
 			}
@@ -210,7 +210,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	}
 
 	if targetSeqNumBytes, err := os.ReadFile(store.targetSeqNumsFname); err == nil {
-		if targetSeqNum, err := strconv.Atoi(strings.Trim(string(targetSeqNumBytes), "\r\n")); err == nil {
+		if targetSeqNum, err := strconv.ParseUint(strings.Trim(string(targetSeqNumBytes), "\r\n"), 10, 64); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
 				return creationTimePopulated, errors.Wrap(err, "cache set next target")
 			}
@@ -243,7 +243,7 @@ func (store *fileStore) setSession() error {
 	return nil
 }
 
-func (store *fileStore) setSeqNum(f *os.File, seqNum int) error {
+func (store *fileStore) setSeqNum(f *os.File, seqNum uint64) error {
 	store.fileMu.Lock()
 	defer store.fileMu.Unlock()
 	if _, err := f.Seek(0, io.SeekStart); err != nil {
@@ -261,17 +261,17 @@ func (store *fileStore) setSeqNum(f *os.File, seqNum int) error {
 }
 
 // NextSenderMsgSeqNum returns the next MsgSeqNum that will be sent.
-func (store *fileStore) NextSenderMsgSeqNum() int {
+func (store *fileStore) NextSenderMsgSeqNum() uint64 {
 	return store.cache.NextSenderMsgSeqNum()
 }
 
 // NextTargetMsgSeqNum returns the next MsgSeqNum that should be received.
-func (store *fileStore) NextTargetMsgSeqNum() int {
+func (store *fileStore) NextTargetMsgSeqNum() uint64 {
 	return store.cache.NextTargetMsgSeqNum()
 }
 
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
-func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
+func (store *fileStore) SetNextSenderMsgSeqNum(next uint64) error {
 	if err := store.setSeqNum(store.senderSeqNumsFile, next); err != nil {
 		return errors.Wrap(err, "file")
 	}
@@ -279,7 +279,7 @@ func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
 }
 
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
-func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
+func (store *fileStore) SetNextTargetMsgSeqNum(next uint64) error {
 	if err := store.setSeqNum(store.targetSeqNumsFile, next); err != nil {
 		return errors.Wrap(err, "file")
 	}
@@ -311,7 +311,7 @@ func (store *fileStore) CreationTime() time.Time {
 func (store *fileStore) SetCreationTime(_ time.Time) {
 }
 
-func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
+func (store *fileStore) SaveMessage(seqNum uint64, msg []byte) error {
 	store.fileMu.Lock()
 	defer store.fileMu.Unlock()
 	offset, err := store.bodyFile.Seek(0, io.SeekEnd)
@@ -334,7 +334,7 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 	return nil
 }
 
-func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum uint64, msg []byte) error {
 	err := store.SaveMessage(seqNum, msg)
 	if err != nil {
 		return err
@@ -351,7 +351,7 @@ func (store *fileStore) syncBodyAndHeaderFilesLocked() error {
 	return nil
 }
 
-func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
+func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum uint64, cb func([]byte) error) error {
 	// Sync files
 	store.fileMu.Lock()
 	err := store.syncBodyAndHeaderFilesLocked()
@@ -377,7 +377,7 @@ func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]by
 
 	// Iterate over the header file
 	for {
-		var seqNum, size int
+		var seqNum, size uint64
 		var offset int64
 		if cnt, err := fmt.Fscanf(headerFile, "%d,%d,%d\n", &seqNum, &offset, &size); err != nil {
 			if errors.Is(err, io.EOF) {
@@ -402,7 +402,7 @@ func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]by
 	return nil
 }
 
-func (store *fileStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+func (store *fileStore) GetMessages(beginSeqNum, endSeqNum uint64) ([][]byte, error) {
 	var msgs [][]byte
 	err := store.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
 		msgs = append(msgs, msg)
