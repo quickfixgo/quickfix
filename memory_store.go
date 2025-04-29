@@ -22,16 +22,16 @@ import (
 )
 
 type memoryStore struct {
-	senderMsgSeqNum, targetMsgSeqNum int
+	senderMsgSeqNum, targetMsgSeqNum uint64
 	creationTime                     time.Time
-	messageMap                       map[int][]byte
+	messageMap                       map[uint64][]byte
 }
 
-func (store *memoryStore) NextSenderMsgSeqNum() int {
+func (store *memoryStore) NextSenderMsgSeqNum() uint64 {
 	return store.senderMsgSeqNum + 1
 }
 
-func (store *memoryStore) NextTargetMsgSeqNum() int {
+func (store *memoryStore) NextTargetMsgSeqNum() uint64 {
 	return store.targetMsgSeqNum + 1
 }
 
@@ -45,11 +45,11 @@ func (store *memoryStore) IncrNextTargetMsgSeqNum() error {
 	return nil
 }
 
-func (store *memoryStore) SetNextSenderMsgSeqNum(nextSeqNum int) error {
+func (store *memoryStore) SetNextSenderMsgSeqNum(nextSeqNum uint64) error {
 	store.senderMsgSeqNum = nextSeqNum - 1
 	return nil
 }
-func (store *memoryStore) SetNextTargetMsgSeqNum(nextSeqNum int) error {
+func (store *memoryStore) SetNextTargetMsgSeqNum(nextSeqNum uint64) error {
 	store.targetMsgSeqNum = nextSeqNum - 1
 	return nil
 }
@@ -80,16 +80,16 @@ func (store *memoryStore) Close() error {
 	return nil
 }
 
-func (store *memoryStore) SaveMessage(seqNum int, msg []byte) error {
+func (store *memoryStore) SaveMessage(seqNum uint64, msg []byte) error {
 	if store.messageMap == nil {
-		store.messageMap = make(map[int][]byte)
+		store.messageMap = make(map[uint64][]byte)
 	}
 
 	store.messageMap[seqNum] = msg
 	return nil
 }
 
-func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum uint64, msg []byte) error {
 	err := store.SaveMessage(seqNum, msg)
 	if err != nil {
 		return err
@@ -97,7 +97,7 @@ func (store *memoryStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg 
 	return store.IncrNextSenderMsgSeqNum()
 }
 
-func (store *memoryStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
+func (store *memoryStore) IterateMessages(beginSeqNum, endSeqNum uint64, cb func([]byte) error) error {
 	for seqNum := beginSeqNum; seqNum <= endSeqNum; seqNum++ {
 		if m, ok := store.messageMap[seqNum]; ok {
 			if err := cb(m); err != nil {
@@ -108,7 +108,7 @@ func (store *memoryStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]
 	return nil
 }
 
-func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+func (store *memoryStore) GetMessages(beginSeqNum, endSeqNum uint64) ([][]byte, error) {
 	var msgs [][]byte
 	err := store.IterateMessages(beginSeqNum, endSeqNum, func(m []byte) error {
 		msgs = append(msgs, m)
