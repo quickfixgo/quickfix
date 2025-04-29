@@ -20,17 +20,7 @@ import (
 	"strconv"
 )
 
-// atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
-func atou(d []byte) (uint64, error) {
-	// if d[0] == asciiMinus {
-	// 	n, err := parseUInt64(d[1:])
-	// 	return (-1) * n, err
-	// }
-
-	return parseUInt64(d)
-}
-
-// parseUInt is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
+// parseUInt is similar to the function in strconv, but is tuned for uint64s appearing in FIX field types.
 func parseUInt64(d []byte) (n uint64, err error) {
 	if len(d) == 0 {
 		err = errors.New("empty bytes")
@@ -49,14 +39,14 @@ func parseUInt64(d []byte) (n uint64, err error) {
 	return
 }
 
-// FIXInt is a FIX Int Value, implements FieldValue.
+// FIXUInt64 is a FIX Uint64 Value, implements FieldValue.
 type FIXUint64 uint64
 
-// Int converts the FIXInt value to int.
+// Uint64 converts the FIXUint64 value to uint64.
 func (f FIXUint64) Uint64() uint64 { return uint64(f) }
 
 func (f *FIXUint64) Read(bytes []byte) error {
-	i, err := atou(bytes)
+	i, err := parseUInt64(bytes)
 	if err != nil {
 		return err
 	}

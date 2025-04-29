@@ -245,7 +245,7 @@ func (store *sqlStore) Refresh() error {
 func (store *sqlStore) populateCache() error {
 	s := store.sessionID
 	var creationTime time.Time
-	var incomingSeqNum, outgoingSeqNum int
+	var incomingSeqNum, outgoingSeqNum uint64
 	row := store.db.QueryRow(sqlString(store.sqlGetSeqNums, store.placeholder),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
