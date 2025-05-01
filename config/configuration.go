@@ -1048,6 +1048,28 @@ const (
 	//  - A valid go time.Duration
 	SQLStoreConnMaxLifetime string = "SQLStoreConnMaxLifetime"
 
+	// SQLStoreMessagesTableName defines the table name for the messages table. Default is "messages".
+	// If you use a different table name, you must set up your database accordingly.
+	//
+	// Required: No
+	//
+	// Default: messages
+	//
+	// Valid Values:
+	//	- A valid string
+	SQLStoreMessagesTableName = "SQLStoreMessagesTable"
+
+	// SQLStoreSessionsTableName defines the table name for the messages table. Default is "sessions".
+	// If you use a different table name, you must set up your database accordingly.
+	//
+	// Required: No
+	//
+	// Default: sessions
+	//
+	// Valid Values:
+	//	- A valid string
+	SQLStoreSessionsTableName = "SQLStoreSessionsTable"
+
 	// MongoStoreConnection sets the MongoDB connection URL to use for message storage.
 	//
 	// See https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo#Connect for more information.
