@@ -142,7 +142,7 @@ TargetCompID=%s
 
 	// IterateMessages
 	count := 0
-	err = store.IterateMessages(1, 2, func(m []byte) error {
+	err = store.IterateMessages(1, 2, func(_ []byte) error {
 		count++
 		return nil
 	})
