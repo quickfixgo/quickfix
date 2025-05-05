@@ -1057,7 +1057,7 @@ const (
 	//
 	// Valid Values:
 	//	- A valid string
-	SQLStoreMessagesTableName = "SQLStoreMessagesTable"
+	SQLStoreMessagesTableName = "SQLStoreMessagesTableName"
 
 	// SQLStoreSessionsTableName defines the table name for the messages table. Default is "sessions".
 	// If you use a different table name, you must set up your database accordingly.
@@ -1068,7 +1068,7 @@ const (
 	//
 	// Valid Values:
 	//	- A valid string
-	SQLStoreSessionsTableName = "SQLStoreSessionsTable"
+	SQLStoreSessionsTableName = "SQLStoreSessionsTableName"
 
 	// MongoStoreConnection sets the MongoDB connection URL to use for message storage.
 	//
