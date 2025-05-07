@@ -157,8 +157,9 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 
 func (sm *stateMachine) CheckResetTime(session *session, now time.Time) {
 	if session.EnableResetSeqTime {
-		ts := internal.NewTimeOfDay(now.Clock())
-		if session.ResetSeqTime == ts {
+		if session.ResetSeqTime.Hour() == now.Hour() &&
+			session.ResetSeqTime.Minute() == now.Minute() &&
+			session.ResetSeqTime.Second() == now.Second() {
 			session.sendLogonInReplyTo(true, nil)
 		}
 	}
