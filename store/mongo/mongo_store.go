@@ -20,7 +20,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -92,7 +91,7 @@ func newMongoStore(sessionID quickfix.SessionID, mongoURL, mongoDatabase, mongoR
 
 	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
 	if memErr != nil {
-		err = errors.Wrap(memErr, "cache creation")
+		err = fmt.Errorf("cache creation: %w", memErr)
 		return
 	}
 
@@ -108,7 +107,7 @@ func newMongoStore(sessionID quickfix.SessionID, mongoURL, mongoDatabase, mongoR
 	}
 
 	if err = store.cache.Reset(); err != nil {
-		err = errors.Wrap(err, "cache reset")
+		err = fmt.Errorf("cache reset: %w", err)
 		return
 	}
 
@@ -190,23 +189,23 @@ func (store *mongoStore) populateCache() error {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	res := store.db.Database(store.mongoDatabase).Collection(store.sessionsCollection).FindOne(context.Background(), msgFilter)
 	if res.Err() != nil && res.Err() != mongo.ErrNoDocuments {
-		return errors.Wrap(res.Err(), "query")
+		return fmt.Errorf("query: %w", res.Err())
 	}
 
 	if res.Err() != mongo.ErrNoDocuments {
 		// session record found, load it
 		sessionData := &mongoQuickFixEntryData{}
 		if err := res.Decode(&sessionData); err != nil {
-			return errors.Wrap(err, "decode")
+			return fmt.Errorf("decode: %w", err)
 		}
 
 		store.cache.SetCreationTime(sessionData.CreationTime)
 		if err := store.cache.SetNextTargetMsgSeqNum(sessionData.IncomingSeqNum); err != nil {
-			return errors.Wrap(err, "cache set next target")
+			return fmt.Errorf("cache set next target: %w", err)
 		}
 
 		if err := store.cache.SetNextSenderMsgSeqNum(sessionData.OutgoingSeqNum); err != nil {
-			return errors.Wrap(err, "cache set next sender")
+			return fmt.Errorf("cache set next sender: %w", err)
 		}
 
 		return nil
@@ -218,7 +217,7 @@ func (store *mongoStore) populateCache() error {
 	msgFilter.OutgoingSeqNum = store.cache.NextSenderMsgSeqNum()
 
 	if _, err := store.db.Database(store.mongoDatabase).Collection(store.sessionsCollection).InsertOne(context.Background(), msgFilter); err != nil {
-		return errors.Wrap(err, "insert")
+		return fmt.Errorf("insert: %w", err)
 	}
 	return nil
 }
@@ -262,7 +261,7 @@ func (store *mongoStore) SetNextTargetMsgSeqNum(next int) error {
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *mongoStore) IncrNextSenderMsgSeqNum() error {
 	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "save sequence number")
+		return fmt.Errorf("save sequence number: %w", err)
 	}
 	return nil
 }
@@ -270,7 +269,7 @@ func (store *mongoStore) IncrNextSenderMsgSeqNum() error {
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *mongoStore) IncrNextTargetMsgSeqNum() error {
 	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "save sequence number")
+		return fmt.Errorf("save sequence number: %w", err)
 	}
 	return nil
 }
@@ -385,7 +384,7 @@ func (store *mongoStore) Close() error {
 	if store.db != nil {
 		err := store.db.Disconnect(context.Background())
 		if err != nil {
-			return errors.Wrap(err, "error disconnecting from database")
+			return fmt.Errorf("error disconnecting from database: %w", err)
 		}
 		store.db = nil
 	}
