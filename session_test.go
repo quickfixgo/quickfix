@@ -1007,7 +1007,7 @@ func (s *SessionSuite) TestSeqNumResetTime() {
 	s.SetupTest()
 
 	now := time.Now().UTC()
-	s.session.ResetSeqTime = internal.NewTimeOfDay(now.Clock())
+	s.session.ResetSeqTime = now
 	s.session.EnableResetSeqTime = true
 
 	s.IncrNextSenderMsgSeqNum()
