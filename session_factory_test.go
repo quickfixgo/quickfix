@@ -19,6 +19,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -41,7 +44,7 @@ func TestSessionFactorySuite(t *testing.T) {
 }
 
 func (s *SessionFactorySuite) SetupTest() {
-	s.sessionFactory = sessionFactory{}
+	s.sessionFactory = sessionFactory{Registry: NewRegistry()}
 	s.SessionID = SessionID{BeginString: "FIX.4.2", TargetCompID: "TW", SenderCompID: "ISLD"}
 	s.MessageStoreFactory = NewMemoryStoreFactory()
 	s.SessionSettings = NewSessionSettings()
@@ -483,8 +486,9 @@ func (s *SessionFactorySuite) TestDuplicateSession() {
 	s.True(session.InitiateLogon)
 	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
-	s.Equal("Duplicate SessionID", err.Error())
-	UnregisterSession(s.SessionID)
+	assert.ErrorIs(s.T(), err, errDuplicateSessionID)
+	err = s.UnregisterSession(s.SessionID)
+	require.NoError(s.T(), err)
 	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.Nil(err)
 }
