@@ -210,6 +210,7 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 	if err := state.resendMessages(session, int(beginSeqNo), endSeqNo, *msg); err != nil {
 		return handleStateError(session, err)
 	}
+	session.isResendRequestActive = false
 
 	if err := session.checkTargetTooLow(msg); err != nil {
 		return state
@@ -281,6 +282,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 }
 
 func (state inSession) processReject(session *session, msg *Message, rej MessageRejectError) sessionState {
+	session.isResendRequestActive = false
 	switch TypedError := rej.(type) {
 	case targetTooHigh:
 
