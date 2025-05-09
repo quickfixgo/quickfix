@@ -46,7 +46,7 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 
 		case targetTooHigh:
 			var tooHighErr error
-			if nextState, tooHighErr = session.doTargetTooHigh(err); tooHighErr != nil {
+			if nextState, tooHighErr = session.doTargetTooHigh(err, false); tooHighErr != nil {
 				return shutdownWithReason(session, msg, false, tooHighErr.Error())
 			}
 

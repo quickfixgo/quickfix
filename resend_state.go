@@ -48,7 +48,7 @@ func (s resendState) FixMsgIn(session *session, msg *Message) (nextState session
 	}
 
 	if s.currentResendRangeEnd != 0 && s.currentResendRangeEnd < session.store.NextTargetMsgSeqNum() {
-		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd)
+		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd, false)
 		if err != nil {
 			return handleStateError(session, err)
 		}
@@ -64,7 +64,7 @@ func (s resendState) FixMsgIn(session *session, msg *Message) (nextState session
 	}
 
 	if bool(gapFillFlag) && s.currentResendRangeEnd != 0 && s.currentResendRangeEnd == session.store.NextTargetMsgSeqNum() {
-		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd)
+		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd, false)
 		if err != nil {
 			return handleStateError(session, err)
 		}
