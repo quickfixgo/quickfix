@@ -297,6 +297,10 @@ func (s *session) notifyMessageOut() {
 
 // send will validate, persist, queue the message. If the session is logged on, send all messages in the queue.
 func (s *session) send(msg *Message) error {
+	if err := s.isResendRequestBlocking(msg); err != nil {
+		return err
+	}
+
 	return s.sendInReplyTo(msg, nil)
 }
 func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
@@ -306,12 +310,6 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
-
-	if blocked, err := s.isResendRequestBlocking(msg); err != nil {
-		return err
-	} else if blocked {
-		return nil
-	}
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -324,18 +322,18 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	return nil
 }
 
-func (s *session) isResendRequestBlocking(msg *Message) (bool, error) {
+func (s *session) isResendRequestBlocking(msg *Message) error {
 	msgType, err := msg.Header.GetBytes(tagMsgType)
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	if s.isResendRequestActive && !bytes.Equal(msgType, msgTypeResendRequest) {
 		s.log.OnEvent("Message blocked: resend request in progress")
-		return true, errors.New("cannot send message while resend request is active")
+		return errors.New("cannot send message while resend request is active")
 	}
 
-	return false, nil
+	return nil
 }
 
 // dropAndReset will drop the send queue and reset the message store.
@@ -465,12 +463,12 @@ func (s *session) sendBytes(msg []byte, blockUntilSent bool) bool {
 	}
 }
 
-func (s *session) doTargetTooHigh(reject targetTooHigh) (nextState resendState, err error) {
+func (s *session) doTargetTooHigh(reject targetTooHigh, isReject bool) (nextState resendState, err error) {
 	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
-	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1)
+	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1, isReject)
 }
 
-func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState, err error) {
+func (s *session) sendResendRequest(beginSeq, endSeq int, isReject bool) (nextState resendState, err error) {
 	nextState.resendRangeEnd = endSeq
 
 	resend := NewMessage()
@@ -499,7 +497,9 @@ func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState
 		return
 	}
 	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", beginSeq, endSeqNo)
-	s.isResendRequestActive = true
+	if !isReject {
+		s.isResendRequestActive = true
+	}
 
 	return
 }
