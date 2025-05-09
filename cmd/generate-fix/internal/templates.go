@@ -450,6 +450,15 @@ const(
 {{ $ft.Name }}_{{ .Description }} {{ $ft.Name }} = "{{ .Value }}"
 {{- end }}
 )
+func ({{ $ft.Name }} {{ $ft.Name }}) String() string {
+ switch {{ $ft.Name }} {
+ {{- range $ft.Enums }}
+ case {{ $ft.Name }}_{{ .Description }}:
+	return "{{ .Description }}"
+ {{- end }}
+ }
+ return "Unknown_{{ $ft.Name }}"
+}
 {{ end }}{{ end }}
 	`))
 }
