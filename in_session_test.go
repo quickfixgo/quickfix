@@ -373,26 +373,6 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.State(inSession{})
 }
 
-func (s *InSessionTestSuite) TestIsResendRequestActive() {
-	s.MockApp.On("FromAdmin").Return(nil)
-	s.MockApp.On("ToApp").Return(nil)
-	s.MockApp.On("ToAdmin")
-	s.sendResendRequest(5, 10, false)
-	s.True(s.isResendRequestActive)
-
-	nos := s.NewOrderSingle()
-	err := s.session.send(nos)
-
-	s.Error(err)
-	s.EqualError(err, "cannot send message while resend request is active")
-	s.fixMsgIn(s.session, s.ResendRequest(5))
-	s.False(s.isResendRequestActive)
-
-	err = s.session.send(nos)
-
-	s.NoError(err)
-}
-
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
 	s.IncrNextTargetMsgSeqNum()
 

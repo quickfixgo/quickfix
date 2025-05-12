@@ -52,8 +52,6 @@ type session struct {
 	sentReset  bool
 	stopOnce   sync.Once
 
-	isResendRequestActive bool
-
 	targetDefaultApplVerID string
 
 	admin chan interface{}
@@ -297,10 +295,6 @@ func (s *session) notifyMessageOut() {
 
 // send will validate, persist, queue the message. If the session is logged on, send all messages in the queue.
 func (s *session) send(msg *Message) error {
-	if err := s.isResendRequestBlocking(msg); err != nil {
-		return err
-	}
-
 	return s.sendInReplyTo(msg, nil)
 }
 func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
@@ -318,20 +312,6 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 
 	s.toSend = append(s.toSend, msgBytes)
 	s.sendQueued(true)
-
-	return nil
-}
-
-func (s *session) isResendRequestBlocking(msg *Message) error {
-	msgType, err := msg.Header.GetBytes(tagMsgType)
-	if err != nil {
-		return err
-	}
-
-	if s.isResendRequestActive && !bytes.Equal(msgType, msgTypeResendRequest) {
-		s.log.OnEvent("Message blocked: resend request in progress")
-		return errors.New("cannot send message while resend request is active")
-	}
 
 	return nil
 }
@@ -463,12 +443,12 @@ func (s *session) sendBytes(msg []byte, blockUntilSent bool) bool {
 	}
 }
 
-func (s *session) doTargetTooHigh(reject targetTooHigh, isReject bool) (nextState resendState, err error) {
+func (s *session) doTargetTooHigh(reject targetTooHigh) (nextState resendState, err error) {
 	s.log.OnEventf("MsgSeqNum too high, expecting %v but received %v", reject.ExpectedTarget, reject.ReceivedTarget)
-	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1, isReject)
+	return s.sendResendRequest(reject.ExpectedTarget, reject.ReceivedTarget-1)
 }
 
-func (s *session) sendResendRequest(beginSeq, endSeq int, isReject bool) (nextState resendState, err error) {
+func (s *session) sendResendRequest(beginSeq, endSeq int) (nextState resendState, err error) {
 	nextState.resendRangeEnd = endSeq
 
 	resend := NewMessage()
@@ -497,9 +477,6 @@ func (s *session) sendResendRequest(beginSeq, endSeq int, isReject bool) (nextSt
 		return
 	}
 	s.log.OnEventf("Sent ResendRequest FROM: %v TO: %v", beginSeq, endSeqNo)
-	if !isReject {
-		s.isResendRequestActive = true
-	}
 
 	return
 }
