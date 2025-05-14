@@ -89,6 +89,7 @@ func (f sessionFactory) newSession(
 		sessionID: sessionID,
 		stopOnce:  sync.Once{},
 	}
+	s.resendCond = sync.NewCond(&s.resendMutex)
 
 	var validatorSettings = defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {

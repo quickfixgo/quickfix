@@ -16,6 +16,7 @@
 package quickfix
 
 import (
+	"sync"
 	"time"
 
 	"github.com/stretchr/testify/mock"
@@ -221,6 +222,7 @@ func (s *SessionSuiteRig) Init() {
 		messageOut:   s.Receiver.sendChannel,
 		sessionEvent: make(chan internal.Event),
 	}
+	s.session.resendCond = sync.NewCond(&s.resendMutex)
 	s.MaxLatency = 120 * time.Second
 }
 

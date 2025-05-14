@@ -42,6 +42,10 @@ type session struct {
 	// Mutex for access to toSend.
 	sendMutex sync.Mutex
 
+	resendRequestActive bool
+	resendMutex         sync.Mutex
+	resendCond          *sync.Cond
+
 	sessionEvent chan internal.Event
 	messageEvent chan bool
 	application  Application
@@ -301,6 +305,12 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	if !s.IsLoggedOn() {
 		return s.queueForSend(msg)
 	}
+
+	s.resendMutex.Lock()
+	for s.resendRequestActive {
+		s.resendCond.Wait()
+	}
+	s.resendMutex.Unlock()
 
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()

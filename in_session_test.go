@@ -373,6 +373,42 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.State(inSession{})
 }
 
+func (s *InSessionTestSuite) TestSendBlockedWhenResendRequestActive() {
+	s.MockApp.On("ToApp").Return(nil)
+
+	s.session.resendMutex.Lock()
+	s.session.resendRequestActive = true
+	s.session.resendMutex.Unlock()
+
+	sendCompleted := make(chan struct{})
+	go func() {
+		err := s.session.send(s.NewOrderSingle())
+		s.Require().NoError(err)
+		close(sendCompleted)
+	}()
+
+	select {
+	case <-sendCompleted:
+		s.Fail("send should be blocked during active resend")
+	case <-time.After(50 * time.Millisecond):
+		s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 0)
+	}
+
+	s.session.resendMutex.Lock()
+	s.session.resendRequestActive = false
+	s.session.resendMutex.Unlock()
+	s.session.resendCond.Broadcast()
+
+	select {
+	case <-sendCompleted:
+		s.LastToAppMessageSent()
+		s.MessageType("D", s.MockApp.lastToApp)
+		s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	case <-time.After(100 * time.Millisecond):
+		s.Fail("send did not proceed after resend was cleared")
+	}
+}
+
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
 	s.IncrNextTargetMsgSeqNum()
 

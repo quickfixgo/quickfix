@@ -230,6 +230,17 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		return state.generateSequenceReset(session, beginSeqNo, endSeqNo+1, inReplyTo)
 	}
 
+	session.resendMutex.Lock()
+	session.resendRequestActive = true
+	session.resendMutex.Unlock()
+
+	defer func() {
+		session.resendMutex.Lock()
+		session.resendRequestActive = false
+		session.resendMutex.Unlock()
+		session.resendCond.Broadcast()
+	}()
+
 	seqNum := beginSeqNo
 	nextSeqNum := seqNum
 	msg := NewMessage()
