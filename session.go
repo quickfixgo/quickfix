@@ -40,11 +40,8 @@ type session struct {
 	toSend [][]byte
 
 	// Mutex for access to toSend.
-	sendMutex sync.RWMutex
-
-	resendRequestActive bool
-	resendMutex         sync.Mutex
-	resendCond          *sync.Cond
+	sendMutex   sync.Mutex
+	resendMutex sync.RWMutex
 
 	sessionEvent chan internal.Event
 	messageEvent chan bool
@@ -275,8 +272,8 @@ func (s *session) resend(msg *Message) bool {
 
 // queueForSend will validate, persist, and queue the message for send.
 func (s *session) queueForSend(msg *Message) error {
-	s.sendMutex.RLock()
-	defer s.sendMutex.RUnlock()
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, nil)
 	if err != nil {
@@ -306,14 +303,11 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 		return s.queueForSend(msg)
 	}
 
-	s.resendMutex.Lock()
-	for s.resendRequestActive {
-		s.resendCond.Wait()
-	}
-	s.resendMutex.Unlock()
+	s.resendMutex.RLock()
+	defer s.resendMutex.RUnlock()
 
-	s.sendMutex.RLock()
-	defer s.sendMutex.RUnlock()
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -328,8 +322,8 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 
 // dropAndReset will drop the send queue and reset the message store.
 func (s *session) dropAndReset() error {
-	s.sendMutex.RLock()
-	defer s.sendMutex.RUnlock()
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	s.dropQueued()
 	return s.store.Reset()
@@ -340,8 +334,8 @@ func (s *session) dropAndSend(msg *Message) error {
 	return s.dropAndSendInReplyTo(msg, nil)
 }
 func (s *session) dropAndSendInReplyTo(msg *Message, inReplyTo *Message) error {
-	s.sendMutex.RLock()
-	defer s.sendMutex.RUnlock()
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -423,8 +417,8 @@ func (s *session) dropQueued() {
 }
 
 func (s *session) EnqueueBytesAndSend(msg []byte) {
-	s.sendMutex.RLock()
-	defer s.sendMutex.RUnlock()
+	s.sendMutex.Lock()
+	defer s.sendMutex.Unlock()
 
 	s.toSend = append(s.toSend, msg)
 	s.sendQueued(true)

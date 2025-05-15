@@ -388,15 +388,9 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
 		Return(nil)
 
 	s.MockApp.On("FromAdmin").Return(nil)
-	go s.fixMsgIn(s.session, s.ResendRequest(1))
+	s.fixMsgIn(s.session, s.ResendRequest(1))
 
-	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
 	s.NextSenderMsgSeqNum(2)
-
-	s.Require().Nil(s.session.send(s.NewOrderSingle()))
-	s.LastToAppMessageSent()
-	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 2)
-	s.NextSenderMsgSeqNum(3)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
