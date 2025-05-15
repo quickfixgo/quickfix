@@ -19,6 +19,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/internal"
@@ -373,40 +374,29 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.State(inSession{})
 }
 
-func (s *InSessionTestSuite) TestSendBlockedWhenResendRequestActive() {
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
 	s.MockApp.On("ToApp").Return(nil)
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.LastToAppMessageSent()
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(2)
 
-	s.session.resendMutex.Lock()
-	s.session.resendRequestActive = true
-	s.session.resendMutex.Unlock()
+	s.MockStore.On("IterateMessages", mock.Anything, mock.Anything, mock.AnythingOfType("func([]byte) error")).
+		Run(func(args mock.Arguments) {
+			s.Require().Nil(s.session.send(s.NewOrderSingle()))
+		}).
+		Return(nil)
 
-	sendCompleted := make(chan struct{})
-	go func() {
-		err := s.session.send(s.NewOrderSingle())
-		s.Require().NoError(err)
-		close(sendCompleted)
-	}()
+	s.MockApp.On("FromAdmin").Return(nil)
+	go s.fixMsgIn(s.session, s.ResendRequest(1))
 
-	select {
-	case <-sendCompleted:
-		s.Fail("send should be blocked during active resend")
-	case <-time.After(50 * time.Millisecond):
-		s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 0)
-	}
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(2)
 
-	s.session.resendMutex.Lock()
-	s.session.resendRequestActive = false
-	s.session.resendMutex.Unlock()
-	s.session.resendCond.Broadcast()
-
-	select {
-	case <-sendCompleted:
-		s.LastToAppMessageSent()
-		s.MessageType("D", s.MockApp.lastToApp)
-		s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
-	case <-time.After(100 * time.Millisecond):
-		s.Fail("send did not proceed after resend was cleared")
-	}
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.LastToAppMessageSent()
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 2)
+	s.NextSenderMsgSeqNum(3)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {

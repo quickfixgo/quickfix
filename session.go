@@ -40,7 +40,7 @@ type session struct {
 	toSend [][]byte
 
 	// Mutex for access to toSend.
-	sendMutex sync.Mutex
+	sendMutex sync.RWMutex
 
 	resendRequestActive bool
 	resendMutex         sync.Mutex
@@ -275,8 +275,8 @@ func (s *session) resend(msg *Message) bool {
 
 // queueForSend will validate, persist, and queue the message for send.
 func (s *session) queueForSend(msg *Message) error {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
+	s.sendMutex.RLock()
+	defer s.sendMutex.RUnlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, nil)
 	if err != nil {
@@ -312,8 +312,8 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	}
 	s.resendMutex.Unlock()
 
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
+	s.sendMutex.RLock()
+	defer s.sendMutex.RUnlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -328,8 +328,8 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 
 // dropAndReset will drop the send queue and reset the message store.
 func (s *session) dropAndReset() error {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
+	s.sendMutex.RLock()
+	defer s.sendMutex.RUnlock()
 
 	s.dropQueued()
 	return s.store.Reset()
@@ -340,8 +340,8 @@ func (s *session) dropAndSend(msg *Message) error {
 	return s.dropAndSendInReplyTo(msg, nil)
 }
 func (s *session) dropAndSendInReplyTo(msg *Message, inReplyTo *Message) error {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
+	s.sendMutex.RLock()
+	defer s.sendMutex.RUnlock()
 
 	msgBytes, err := s.prepMessageForSend(msg, inReplyTo)
 	if err != nil {
@@ -423,8 +423,8 @@ func (s *session) dropQueued() {
 }
 
 func (s *session) EnqueueBytesAndSend(msg []byte) {
-	s.sendMutex.Lock()
-	defer s.sendMutex.Unlock()
+	s.sendMutex.RLock()
+	defer s.sendMutex.RUnlock()
 
 	s.toSend = append(s.toSend, msg)
 	s.sendQueued(true)
