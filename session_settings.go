@@ -120,6 +120,19 @@ func (s *SessionSettings) IntSetting(setting string) (int, error) {
 	return 0, IncorrectFormatForSetting{Setting: setting, Value: rawVal, Err: err}
 }
 
+func (s *SessionSettings) Uint64Setting(setting string) (uint64, error) {
+	rawVal, err := s.RawSetting(setting)
+	if err != nil {
+		return 0, err
+	}
+
+	if val, err := strconv.ParseUint(string(rawVal), 10, 64); err == nil {
+		return val, nil
+	}
+
+	return 0, IncorrectFormatForSetting{Setting: setting, Value: rawVal, Err: err}
+}
+
 // DurationSetting returns the requested setting parsed as a time.Duration.
 // Returns an error if the setting is not set or cannot be parsed as a time.Duration.
 func (s *SessionSettings) DurationSetting(setting string) (time.Duration, error) {
