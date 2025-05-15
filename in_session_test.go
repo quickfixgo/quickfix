@@ -382,7 +382,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
 	s.NextSenderMsgSeqNum(2)
 
 	s.MockStore.On("IterateMessages", mock.Anything, mock.Anything, mock.AnythingOfType("func([]byte) error")).
-		Run(func(args mock.Arguments) {
+		Run(func(_ mock.Arguments) {
 			s.Require().Nil(s.session.send(s.NewOrderSingle()))
 		}).
 		Return(nil)
