@@ -40,7 +40,9 @@ type session struct {
 	toSend [][]byte
 
 	// Mutex for access to toSend.
-	sendMutex   sync.Mutex
+	sendMutex sync.Mutex
+	// Mutex to prevent messages being sent when resendRequest is active
+	// Must be locked before sendMutex to prevent a potential deadlock
 	resendMutex sync.RWMutex
 
 	sessionEvent chan internal.Event
@@ -303,6 +305,7 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 		return s.queueForSend(msg)
 	}
 
+	// resendMutex must always be locked before sendMutex to prevent a potential deadlock
 	s.resendMutex.RLock()
 	defer s.resendMutex.RUnlock()
 
