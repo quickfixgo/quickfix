@@ -19,6 +19,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/internal"
@@ -371,6 +372,25 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 
 	s.NextSenderMsgSeqNum(4)
 	s.State(inSession{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
+	s.MockApp.On("ToApp").Return(nil)
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.LastToAppMessageSent()
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(2)
+
+	s.MockStore.On("IterateMessages", mock.Anything, mock.Anything, mock.AnythingOfType("func([]byte) error")).
+		Run(func(_ mock.Arguments) {
+			s.Require().Nil(s.session.send(s.NewOrderSingle()))
+		}).
+		Return(nil)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.NextSenderMsgSeqNum(2)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
