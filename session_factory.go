@@ -63,6 +63,8 @@ type sessionFactory struct {
 	BuildInitiators bool
 }
 
+const shortForm = "15:04:05"
+
 // Creates Session, associates with internal session registry.
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
@@ -280,6 +282,7 @@ func (f sessionFactory) newSession(
 				return
 			}
 		}
+		s.TimeZone = loc
 
 		if !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay) {
 			var weekdays []time.Weekday
@@ -354,11 +357,11 @@ func (f sessionFactory) newSession(
 			return
 		}
 
-		var seqTime internal.TimeOfDay
-		if seqTime, err = internal.ParseTimeOfDay(seqTimeStr); err != nil {
+		var seqTime time.Time
+		if seqTime, err = time.ParseInLocation(shortForm, seqTimeStr, s.TimeZone); err != nil {
 			err = errors.Wrapf(
 				err, "problem parsing time of day '%v' for setting '%v",
-				settings.settings[config.StartTime], config.StartTime,
+				settings.settings[config.ResetSeqTime], config.ResetSeqTime,
 			)
 			return
 		}
