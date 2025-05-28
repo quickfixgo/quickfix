@@ -81,6 +81,84 @@ func (suite *SQLStoreTestSuite) TestSqlPlaceholderReplacement() {
 	suite.Equal("A $1 B $2 C $3", got)
 }
 
+func (suite *SQLStoreTestSuite) TestStoreTableRenameOverride() {
+	sqlDriver := "sqlite3"
+	sqlDsn := path.Join(suite.sqlStoreRootPath, fmt.Sprintf("rename-override-%d.db", time.Now().UnixNano()))
+
+	// Create DB with original schema
+	db, err := sql.Open(sqlDriver, sqlDsn)
+	require.NoError(suite.T(), err)
+
+	ddlFnames, err := filepath.Glob(fmt.Sprintf("../../_sql/%s/*.sql", sqlDriver))
+	require.NoError(suite.T(), err)
+	for _, fname := range ddlFnames {
+		sqlBytes, err := os.ReadFile(fname)
+		require.NoError(suite.T(), err)
+		_, err = db.Exec(string(sqlBytes))
+		require.NoError(suite.T(), err)
+	}
+
+	// Rename tables
+	_, err = db.Exec(`ALTER TABLE sessions RENAME TO renamed_sessions`)
+	require.NoError(suite.T(), err)
+	_, err = db.Exec(`ALTER TABLE messages RENAME TO renamed_messages`)
+	require.NoError(suite.T(), err)
+
+	// Set config to use renamed tables
+	sessionID := quickfix.SessionID{BeginString: "FIX.4.4", SenderCompID: "SENDER", TargetCompID: "TARGET"}
+	settings, err := quickfix.ParseSettings(strings.NewReader(fmt.Sprintf(`
+[DEFAULT]
+SQLStoreDriver=%s
+SQLStoreDataSourceName=%s
+SQLStoreSessionsTableName=renamed_sessions
+SQLStoreMessagesTableName=renamed_messages
+
+[SESSION]
+BeginString=%s
+SenderCompID=%s
+TargetCompID=%s
+`, sqlDriver, sqlDsn, sessionID.BeginString, sessionID.SenderCompID, sessionID.TargetCompID)))
+	require.NoError(suite.T(), err)
+
+	// Create store with renamed table config
+	store, err := NewStoreFactory(settings).Create(sessionID)
+	require.NoError(suite.T(), err)
+	defer store.Close()
+
+	// SaveMessage + SetNextSenderMsgSeqNum
+	msg := []byte("8=FIX.4.4\x019=12\x0135=0\x01")
+	require.NoError(suite.T(), store.SaveMessage(1, msg))
+	require.NoError(suite.T(), store.SetNextSenderMsgSeqNum(2))
+	require.NoError(suite.T(), store.SetNextTargetMsgSeqNum(2))
+
+	// SaveMessageAndIncrNextSenderMsgSeqNum
+	require.NoError(suite.T(), store.SaveMessageAndIncrNextSenderMsgSeqNum(2, msg))
+
+	// Get and check sequence numbers
+	nextSender := store.NextSenderMsgSeqNum()
+	suite.Equal(3, nextSender)
+	nextTarget := store.NextTargetMsgSeqNum()
+	suite.Equal(2, nextTarget)
+
+	// IterateMessages
+	count := 0
+	err = store.IterateMessages(1, 2, func(_ []byte) error {
+		count++
+		return nil
+	})
+	require.NoError(suite.T(), err)
+	suite.Equal(2, count)
+
+	// Reset
+	require.NoError(suite.T(), store.Reset())
+
+	// After reset, sequence numbers should be 1
+	nextSender = store.NextSenderMsgSeqNum()
+	suite.Equal(1, nextSender)
+	nextTarget = store.NextTargetMsgSeqNum()
+	suite.Equal(1, nextTarget)
+}
+
 func (suite *SQLStoreTestSuite) TearDownTest() {
 	suite.MsgStore.Close()
 	os.RemoveAll(suite.sqlStoreRootPath)
