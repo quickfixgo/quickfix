@@ -27,8 +27,14 @@ func init() {
 		"collectStandardImports":                collectStandardImports,
 		"collectExtraImports":                   collectExtraImports,
 		"checkIfDecimalImportRequiredForFields": checkIfDecimalImportRequiredForFields,
-		"checkIfTimeImportRequiredForFields":    checkIfTimeImportRequiredForFields,
-		"checkIfEnumImportRequired":             checkIfEnumImportRequired,
+		"decimalImport": func() string {
+			if *useUDecimal {
+				return "github.com/quagmt/udecimal"
+			}
+			return "github.com/shopspring/decimal"
+		},
+		"checkIfTimeImportRequiredForFields": checkIfTimeImportRequiredForFields,
+		"checkIfEnumImportRequired":          checkIfEnumImportRequired,
 	}
 
 	baseTemplate := template.Must(template.New("Base").Funcs(tmplFuncs).Parse(`
@@ -43,6 +49,10 @@ Set{{ .Name }}(v enum.{{ .Name }}) {
 }
 {{- else if eq $qfix_type "FIXDecimal" -}}
 Set{{ .Name }}(value decimal.Decimal, scale int32) {
+	{{ template "receiver" }}.Set(field.New{{ .Name }}(value, scale))
+}
+{{- else if eq $qfix_type "FIXUDecimal" -}}
+Set{{ .Name }}(value udecimal.Decimal, scale uint8) {
 	{{ template "receiver" }}.Set(field.New{{ .Name }}(value, scale))
 }
 {{- else -}}
@@ -77,6 +87,8 @@ Get{{ .Name }}() (f field.{{ .Name }}Field, err quickfix.MessageRejectError) {
 Get{{ .Name }}() (v enum.{{ .Name }}, err quickfix.MessageRejectError) {
 {{- else if eq $bt "FIXDecimal" -}}
 Get{{ .Name }}() (v decimal.Decimal, err quickfix.MessageRejectError) {
+{{- else if eq $bt "FIXUDecimal" -}}
+Get{{ .Name }}() (v udecimal.Decimal, err quickfix.MessageRejectError) {
 {{- else -}}
 Get{{ .Name }}() (v {{ quickfixValueType $bt }}, err quickfix.MessageRejectError) {
 {{- end }}
@@ -345,7 +357,7 @@ package field
 import (
 	{{ if checkIfTimeImportRequiredForFields . }}"time"{{ end }}
 
-	{{ if checkIfDecimalImportRequiredForFields . }}"github.com/shopspring/decimal"{{ end }}
+	{{ if checkIfDecimalImportRequiredForFields . }}"{{ decimalImport }}"{{ end }}
 
 	"github.com/quickfixgo/quickfix"
 	"{{ importRootPath }}/enum"
@@ -391,6 +403,11 @@ func New{{ .Name }}(val enum.{{ .Name }}) {{ .Name }}Field {
 func New{{ .Name }}(val decimal.Decimal, scale int32) {{ .Name }}Field {
 	return {{ .Name }}Field{ quickfix.FIXDecimal{ Decimal: val, Scale: scale} }
 }
+{{ else if eq $base_type "FIXUDecimal" }}
+// New{{ .Name }} returns a new {{ .Name }}Field initialized with val and scale.
+func New{{ .Name }}(val udecimal.Decimal, scale uint8) {{ .Name }}Field {
+	return {{ .Name }}Field{ quickfix.FIXUDecimal{ Decimal: val, Scale: scale} }
+}
 {{ else }}
 // New{{ .Name }} returns a new {{ .Name }}Field initialized with val.
 func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
@@ -402,6 +419,8 @@ func New{{ .Name }}(val {{ quickfixValueType $base_type }}) {{ .Name }}Field {
 func (f {{ .Name }}Field) Value() enum.{{ .Name }} { return enum.{{ .Name }}(f.String()) }
 {{ else if eq $base_type "FIXDecimal" }}
 func (f {{ .Name }}Field) Value() (val decimal.Decimal) { return f.Decimal }
+{{ else if eq $base_type "FIXUDecimal" }}
+func (f {{ .Name }}Field) Value() (val udecimal.Decimal) { return f.Decimal }
 {{ else }}
 func (f {{ .Name }}Field) Value() ({{ quickfixValueType $base_type }}) {
 {{- if eq $base_type "FIXString" -}}

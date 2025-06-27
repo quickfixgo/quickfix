@@ -19,6 +19,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -84,7 +85,10 @@ func (f sessionFactory) createSession(
 func (f sessionFactory) newSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory,
 	application Application) (s *session, err error) {
-	s = &session{sessionID: sessionID}
+	s = &session{
+		sessionID: sessionID,
+		stopOnce:  sync.Once{},
+	}
 
 	var validatorSettings = defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
@@ -342,6 +346,26 @@ func (f sessionFactory) newSession(
 			}
 			s.SessionTime = sessionTime
 		}
+	}
+
+	if settings.HasSetting(config.ResetSeqTime) {
+		var seqTimeStr string
+		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
+			return
+		}
+
+		var seqTime internal.TimeOfDay
+		if seqTime, err = internal.ParseTimeOfDay(seqTimeStr); err != nil {
+			err = errors.Wrapf(
+				err, "problem parsing time of day '%v' for setting '%v",
+				settings.settings[config.StartTime], config.StartTime,
+			)
+			return
+		}
+		s.EnableResetSeqTime = true
+		s.ResetSeqTime = seqTime
+	} else {
+		s.EnableResetSeqTime = false
 	}
 
 	if settings.HasSetting(config.TimeStampPrecision) {

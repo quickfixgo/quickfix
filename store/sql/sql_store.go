@@ -27,6 +27,11 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
+const (
+	defaultMessagesTable = "messages"
+	defaultSessionsTable = "sessions"
+)
+
 type sqlStoreFactory struct {
 	settings *quickfix.Settings
 }
@@ -39,6 +44,19 @@ type sqlStore struct {
 	sqlConnMaxLifetime time.Duration
 	db                 *sql.DB
 	placeholder        placeholderFunc
+	messagesTable      string
+	sessionsTable      string
+
+	sqlUpdateSeqNums      string
+	sqlInsertSession      string
+	sqlGetSeqNums         string
+	sqlUpdateMessage      string
+	sqlInsertMessage      string
+	sqlGetMessages        string
+	sqlUpdateSession      string
+	sqlUpdateSenderSeqNum string
+	sqlUpdateTargetSeqNum string
+	sqlDeleteMessages     string
 }
 
 type placeholderFunc func(int) string
@@ -88,6 +106,17 @@ func (f sqlStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix
 	if err != nil {
 		return nil, err
 	}
+
+	messagesTableName := defaultMessagesTable
+	if name, err := sessionSettings.Setting(config.SQLStoreMessagesTableName); err == nil {
+		messagesTableName = name
+	}
+
+	sessionsTableName := defaultSessionsTable
+	if name, err := sessionSettings.Setting(config.SQLStoreSessionsTableName); err == nil {
+		sessionsTableName = name
+	}
+
 	sqlConnMaxLifetime := 0 * time.Second
 	if sessionSettings.HasSetting(config.SQLStoreConnMaxLifetime) {
 		sqlConnMaxLifetime, err = sessionSettings.DurationSetting(config.SQLStoreConnMaxLifetime)
@@ -95,10 +124,11 @@ func (f sqlStoreFactory) Create(sessionID quickfix.SessionID) (msgStore quickfix
 			return nil, err
 		}
 	}
-	return newSQLStore(sessionID, sqlDriver, sqlDataSourceName, sqlConnMaxLifetime)
+
+	return newSQLStore(sessionID, sqlDriver, sqlDataSourceName, messagesTableName, sessionsTableName, sqlConnMaxLifetime)
 }
 
-func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName string, connMaxLifetime time.Duration) (store *sqlStore, err error) {
+func newSQLStore(sessionID quickfix.SessionID, driver, dataSourceName, messagesTableName, sessionsTableName string, connMaxLifetime time.Duration) (store *sqlStore, err error) {
 
 	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
 	if memErr != nil {
@@ -112,6 +142,8 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 		sqlDriver:          driver,
 		sqlDataSourceName:  dataSourceName,
 		sqlConnMaxLifetime: connMaxLifetime,
+		messagesTable:      messagesTableName,
+		sessionsTable:      sessionsTableName,
 	}
 	if err = store.cache.Reset(); err != nil {
 		err = errors.Wrap(err, "cache reset")
@@ -130,6 +162,9 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 	if err = store.db.Ping(); err != nil { // ensure immediate connection
 		return nil, err
 	}
+
+	store.setSQLStatements()
+
 	if err = store.populateCache(); err != nil {
 		return nil, err
 	}
@@ -137,13 +172,48 @@ func newSQLStore(sessionID quickfix.SessionID, driver string, dataSourceName str
 	return store, nil
 }
 
+func (store *sqlStore) setSQLStatements() {
+	idColumns := `beginstring, session_qualifier, sendercompid, sendersubid, senderlocid, targetcompid, targetsubid, targetlocid`
+	idPlaceholders := `?,?,?,?,?,?,?,?`
+	idWhereClause := `beginstring=? AND session_qualifier=? AND sendercompid=? AND sendersubid=? AND senderlocid=? AND targetcompid=? AND targetsubid=? AND targetlocid=?`
+
+	store.sqlInsertMessage = fmt.Sprintf(`INSERT INTO %s (
+		msgseqnum, message, %s) VALUES (?, ?, %s)`,
+		store.messagesTable, idColumns, idPlaceholders)
+
+	store.sqlUpdateMessage = fmt.Sprintf(`UPDATE %s SET message=? WHERE %s AND msgseqnum=?`,
+		store.messagesTable, idWhereClause)
+
+	store.sqlGetMessages = fmt.Sprintf(`SELECT message FROM %s WHERE %s AND msgseqnum>=? AND msgseqnum<=? ORDER BY msgseqnum`,
+		store.messagesTable, idWhereClause)
+
+	store.sqlDeleteMessages = fmt.Sprintf(`DELETE FROM %s WHERE %s`,
+		store.messagesTable, idWhereClause)
+
+	store.sqlInsertSession = fmt.Sprintf(`INSERT INTO %s (
+		creation_time, incoming_seqnum, outgoing_seqnum, %s) VALUES (?, ?, ?, %s)`,
+		store.sessionsTable, idColumns, idPlaceholders)
+
+	store.sqlGetSeqNums = fmt.Sprintf(`SELECT creation_time, incoming_seqnum, outgoing_seqnum FROM %s WHERE %s`,
+		store.sessionsTable, idWhereClause)
+
+	store.sqlUpdateSession = fmt.Sprintf(`UPDATE %s SET creation_time=?, incoming_seqnum=?, outgoing_seqnum=? WHERE %s`,
+		store.sessionsTable, idWhereClause)
+
+	store.sqlUpdateSenderSeqNum = fmt.Sprintf(`UPDATE %s SET outgoing_seqnum=? WHERE %s`,
+		store.sessionsTable, idWhereClause)
+
+	store.sqlUpdateTargetSeqNum = fmt.Sprintf(`UPDATE %s SET incoming_seqnum=? WHERE %s`,
+		store.sessionsTable, idWhereClause)
+
+	store.sqlUpdateSeqNums = fmt.Sprintf(`UPDATE %s SET incoming_seqnum=?, outgoing_seqnum=? WHERE %s`,
+		store.sessionsTable, idWhereClause)
+}
+
 // Reset deletes the store records and sets the seqnums back to 1.
 func (store *sqlStore) Reset() error {
 	s := store.sessionID
-	_, err := store.db.Exec(sqlString(`DELETE FROM messages
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	_, err := store.db.Exec(sqlString(store.sqlDeleteMessages, store.placeholder),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
@@ -155,11 +225,7 @@ func (store *sqlStore) Reset() error {
 		return err
 	}
 
-	_, err = store.db.Exec(sqlString(`UPDATE sessions
-		SET creation_time=?, incoming_seqnum=?, outgoing_seqnum=?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	_, err = store.db.Exec(sqlString(store.sqlUpdateSession, store.placeholder),
 		store.cache.CreationTime(), store.cache.NextTargetMsgSeqNum(), store.cache.NextSenderMsgSeqNum(),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
@@ -180,11 +246,7 @@ func (store *sqlStore) populateCache() error {
 	s := store.sessionID
 	var creationTime time.Time
 	var incomingSeqNum, outgoingSeqNum int
-	row := store.db.QueryRow(sqlString(`SELECT creation_time, incoming_seqnum, outgoing_seqnum
-	  FROM sessions
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	row := store.db.QueryRow(sqlString(store.sqlGetSeqNums, store.placeholder),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
@@ -209,12 +271,7 @@ func (store *sqlStore) populateCache() error {
 	}
 
 	// session record not found, create it
-	_, err = store.db.Exec(sqlString(`INSERT INTO sessions (
-			creation_time, incoming_seqnum, outgoing_seqnum,
-			beginstring, session_qualifier,
-			sendercompid, sendersubid, senderlocid,
-			targetcompid, targetsubid, targetlocid)
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
+	_, err = store.db.Exec(sqlString(store.sqlInsertSession, store.placeholder),
 		store.cache.CreationTime(),
 		store.cache.NextTargetMsgSeqNum(),
 		store.cache.NextSenderMsgSeqNum(),
@@ -238,10 +295,7 @@ func (store *sqlStore) NextTargetMsgSeqNum() int {
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
 func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
 	s := store.sessionID
-	_, err := store.db.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	_, err := store.db.Exec(sqlString(store.sqlUpdateSenderSeqNum, store.placeholder),
 		next, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
@@ -254,10 +308,7 @@ func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
 func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
 	s := store.sessionID
-	_, err := store.db.Exec(sqlString(`UPDATE sessions SET incoming_seqnum = ?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	_, err := store.db.Exec(sqlString(store.sqlUpdateTargetSeqNum, store.placeholder),
 		next, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
@@ -295,12 +346,7 @@ func (store *sqlStore) SetCreationTime(_ time.Time) {
 func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 	s := store.sessionID
 
-	_, err := store.db.Exec(sqlString(`INSERT INTO messages (
-			msgseqnum, message,
-			beginstring, session_qualifier,
-			sendercompid, sendersubid, senderlocid,
-			targetcompid, targetsubid, targetlocid)
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
+	_, err := store.db.Exec(sqlString(store.sqlInsertMessage, store.placeholder),
 		seqNum, string(msg),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
@@ -318,12 +364,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 	}
 	defer tx.Rollback()
 
-	_, err = tx.Exec(sqlString(`INSERT INTO messages (
-			msgseqnum, message,
-			beginstring, session_qualifier,
-			sendercompid, sendersubid, senderlocid,
-			targetcompid, targetsubid, targetlocid)
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, store.placeholder),
+	_, err = tx.Exec(sqlString(store.sqlInsertMessage, store.placeholder),
 		seqNum, string(msg),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
@@ -333,10 +374,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 	}
 
 	next := store.cache.NextSenderMsgSeqNum() + 1
-	_, err = tx.Exec(sqlString(`UPDATE sessions SET outgoing_seqnum = ?
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?`, store.placeholder),
+	_, err = tx.Exec(sqlString(store.sqlUpdateSenderSeqNum, store.placeholder),
 		next, s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID)
@@ -354,12 +392,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 
 func (store *sqlStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
 	s := store.sessionID
-	rows, err := store.db.Query(sqlString(`SELECT message FROM messages
-		WHERE beginstring=? AND session_qualifier=?
-		AND sendercompid=? AND sendersubid=? AND senderlocid=?
-		AND targetcompid=? AND targetsubid=? AND targetlocid=?
-		AND msgseqnum>=? AND msgseqnum<=?
-		ORDER BY msgseqnum`, store.placeholder),
+	rows, err := store.db.Query(sqlString(store.sqlGetMessages, store.placeholder),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
 		s.TargetCompID, s.TargetSubID, s.TargetLocationID,

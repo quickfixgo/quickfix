@@ -317,6 +317,17 @@ const (
 	//  - Y
 	//  - N
 	ResetOnDisconnect string = "ResetOnDisconnect"
+
+	// ResetSeqTime determines a time which a logon with a seqnum reset will be sent while keeping the session connected.
+	//
+	// Required: No
+	//
+	// Default: N/A
+	//
+	// Valid Values:
+	//	- 00:00:00
+	//  - A time in the format of HH:MM:SS, time is represented in time zone configured by TimeZone
+	ResetSeqTime string = "ResetSeqTime"
 )
 
 const (
@@ -1036,6 +1047,28 @@ const (
 	// Valid Values:
 	//  - A valid go time.Duration
 	SQLStoreConnMaxLifetime string = "SQLStoreConnMaxLifetime"
+
+	// SQLStoreMessagesTableName defines the table name for the messages table. Default is "messages".
+	// If you use a different table name, you must set up your database accordingly.
+	//
+	// Required: No
+	//
+	// Default: messages
+	//
+	// Valid Values:
+	//	- A valid string
+	SQLStoreMessagesTableName = "SQLStoreMessagesTableName"
+
+	// SQLStoreSessionsTableName defines the table name for the messages table. Default is "sessions".
+	// If you use a different table name, you must set up your database accordingly.
+	//
+	// Required: No
+	//
+	// Default: sessions
+	//
+	// Valid Values:
+	//	- A valid string
+	SQLStoreSessionsTableName = "SQLStoreSessionsTableName"
 
 	// MongoStoreConnection sets the MongoDB connection URL to use for message storage.
 	//

@@ -329,14 +329,8 @@ func (store *fileStore) SaveMessage(seqNum int, msg []byte) error {
 		return fmt.Errorf("unable to write to file: %s: %s", store.bodyFname, err.Error())
 	}
 	if store.fileSync {
-		if err := store.bodyFile.Sync(); err != nil {
-			return fmt.Errorf("unable to flush file: %s: %s", store.bodyFname, err.Error())
-		}
-		if err := store.headerFile.Sync(); err != nil {
-			return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
-		}
+		return store.syncBodyAndHeaderFilesLocked()
 	}
-
 	return nil
 }
 
@@ -348,16 +342,36 @@ func (store *fileStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []
 	return store.IncrNextSenderMsgSeqNum()
 }
 
-func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
-	store.fileMu.Lock()
-	defer store.fileMu.Unlock()
-
-	// Sync files and seek to start of header file
+func (store *fileStore) syncBodyAndHeaderFilesLocked() error {
 	if err := store.bodyFile.Sync(); err != nil {
 		return fmt.Errorf("unable to flush file: %s: %s", store.bodyFname, err.Error())
 	} else if err = store.headerFile.Sync(); err != nil {
 		return fmt.Errorf("unable to flush file: %s: %s", store.headerFname, err.Error())
-	} else if _, err = store.headerFile.Seek(0, io.SeekStart); err != nil {
+	}
+	return nil
+}
+
+func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
+	// Sync files
+	store.fileMu.Lock()
+	err := store.syncBodyAndHeaderFilesLocked()
+	store.fileMu.Unlock()
+	if err != nil {
+		return err
+	}
+
+	// Open a read only view to body and header file
+	bodyFile, err := openOrCreateFile(store.bodyFname, 0440)
+	if err != nil {
+		return err
+	}
+	defer func() { _ = bodyFile.Close() }()
+	headerFile, err := openOrCreateFile(store.headerFname, 0440)
+	if err != nil {
+		return err
+	}
+	defer func() { _ = headerFile.Close() }()
+	if _, err = headerFile.Seek(0, io.SeekStart); err != nil {
 		return fmt.Errorf("unable to seek to start of file: %s: %s", store.headerFname, err.Error())
 	}
 
@@ -365,7 +379,7 @@ func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]by
 	for {
 		var seqNum, size int
 		var offset int64
-		if cnt, err := fmt.Fscanf(store.headerFile, "%d,%d,%d\n", &seqNum, &offset, &size); err != nil {
+		if cnt, err := fmt.Fscanf(headerFile, "%d,%d,%d\n", &seqNum, &offset, &size); err != nil {
 			if errors.Is(err, io.EOF) {
 				break
 			}
@@ -379,7 +393,7 @@ func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]by
 		}
 		// Otherwise process the file
 		msg := make([]byte, size)
-		if _, err := store.bodyFile.ReadAt(msg, offset); err != nil {
+		if _, err := bodyFile.ReadAt(msg, offset); err != nil {
 			return fmt.Errorf("unable to read from file: %s: %s", store.bodyFname, err.Error())
 		} else if err = cb(msg); err != nil {
 			return err

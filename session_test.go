@@ -1001,3 +1001,28 @@ func (suite *SessionSendTestSuite) TestDropAndSendDropsQueueWithReset() {
 	suite.LastToAdminMessageSent()
 	suite.NoMessageSent()
 }
+
+func (s *SessionSuite) TestSeqNumResetTime() {
+	s.MockApp.On("ToAdmin")
+	s.SetupTest()
+
+	now := time.Now().UTC()
+	s.session.ResetSeqTime = internal.NewTimeOfDay(now.Clock())
+	s.session.EnableResetSeqTime = true
+
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+
+	s.session.CheckResetTime(s.session, now)
+
+	s.NextSenderMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(2)
+
+}
