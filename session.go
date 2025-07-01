@@ -669,6 +669,21 @@ func (s *session) checkBeginString(msg *Message) MessageRejectError {
 	return nil
 }
 
+func (s *session) drainMessageIn() {
+	s.log.OnEventf("Draining %d messages from inbound channel...", len(s.messageIn))
+	for {
+		select {
+		case fixInc, ok := <-s.messageIn:
+			if !ok {
+				return
+			}
+			s.Incoming(s, fixInc)
+		default:
+			return
+		}
+	}
+}
+
 func (s *session) doReject(msg *Message, rej MessageRejectError) error {
 	reply := msg.reverseRoute()
 
@@ -735,6 +750,9 @@ func (s *session) onDisconnect() {
 		close(s.messageOut)
 		s.messageOut = nil
 	}
+
+	// s.messageIn is buffered so we need to drain it before disconnection
+	s.drainMessageIn()
 
 	s.messageIn = nil
 }

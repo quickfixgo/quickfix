@@ -18,6 +18,7 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -38,6 +39,11 @@ type Initiator struct {
 	sessions        map[SessionID]*session
 	sessionFactory
 }
+
+// note: Here we don't use "github.com/alpacahq/quickfix/config" to set the config "InitiatorInChanCapacity"
+// because we currently use "github.com/quickfixgo/quickfix/config" for the configs so it will break the dependencies
+// either way, the config can be passed through the SessionSettings map
+const initiatorInChanCapacityConfig = "InitiatorInChanCapacity"
 
 // Start Initiator.
 func (i *Initiator) Start() (err error) {
@@ -135,7 +141,10 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 }
 
 func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.Dialer) {
-	var wg sync.WaitGroup
+	var (
+		wg             sync.WaitGroup
+		inChanCapacity = i.getInChanCapacity(session.sessionID)
+	)
 	wg.Add(1)
 	go func() {
 		session.run()
@@ -183,7 +192,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			netConn = tlsConn
 		}
 
-		msgIn = make(chan fixIn)
+		msgIn = make(chan fixIn, inChanCapacity)
 		msgOut = make(chan []byte)
 		if err := session.connect(msgIn, msgOut); err != nil {
 			session.log.OnEventf("Failed to initiate: %v", err)
@@ -213,4 +222,25 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			return
 		}
 	}
+}
+
+func (i *Initiator) getInChanCapacity(sessionID SessionID) int {
+	if !i.settings.globalSettings.HasSetting(initiatorInChanCapacityConfig) {
+		return 0
+	}
+
+	inChanCapacityStr, err := i.settings.globalSettings.Setting(initiatorInChanCapacityConfig)
+	if err != nil {
+		// Zero channel size means unbuffered
+		i.sessions[sessionID].log.OnEventf("Failed to get setting %s, will default to 0: %v", initiatorInChanCapacityConfig, err)
+		return 0
+	}
+
+	inChanCapacityVal, err := strconv.Atoi(inChanCapacityStr)
+	if err != nil || inChanCapacityVal < 0 {
+		i.sessions[sessionID].log.OnEventf("Invalid value for setting %s, must be a non-negative integer, will default to 0 (unbuffered): %v", initiatorInChanCapacityConfig, err)
+		return 0
+	}
+
+	return inChanCapacityVal
 }
