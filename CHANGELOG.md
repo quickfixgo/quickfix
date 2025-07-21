@@ -1,3 +1,13 @@
+## 0.9.8 (July 21, 2025)
+
+### ENHANCEMENTS
+* Add DB name configuration [#711](https://github.com/quickfixgo/quickfix/pull/711)
+* Change ResetSeqTime to time.Time based on the config's timeZone [#712](https://github.com/quickfixgo/quickfix/pull/712)
+
+### BUG FIXES
+* Block Sends when Resend Request is active [#715](https://github.com/quickfixgo/quickfix/pull/715)
+* Fix the issue of incorrect time range calculation across days [#718](https://github.com/quickfixgo/quickfix/pull/718)
+
 ## 0.9.7 (April 23, 2025)
 
 ### FEATURES
