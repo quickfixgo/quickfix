@@ -1,3 +1,8 @@
+## 0.9.9 (July 31, 2025)
+
+### BUG FIXES
+* Adds missing tz for resetseqtime without starttime endtime #723 [#723](https://github.com/quickfixgo/quickfix/pull/723)
+
 ## 0.9.8 (July 21, 2025)
 
 ### ENHANCEMENTS
