@@ -352,6 +352,27 @@ func (f sessionFactory) newSession(
 	}
 
 	if settings.HasSetting(config.ResetSeqTime) {
+
+		if s.TimeZone == nil {
+			loc := time.UTC
+			if settings.HasSetting(config.TimeZone) {
+				var locStr string
+				if locStr, err = settings.Setting(config.TimeZone); err != nil {
+					return
+				}
+
+				loc, err = time.LoadLocation(locStr)
+				if err != nil {
+					err = errors.Wrapf(
+						err, "problem parsing time zone '%v' for setting '%v",
+						settings.settings[config.TimeZone], config.TimeZone,
+					)
+					return
+				}
+			}
+			s.TimeZone = loc
+		}
+
 		var seqTimeStr string
 		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
 			return
