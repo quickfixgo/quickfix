@@ -372,7 +372,7 @@ func (f sessionFactory) newSession(
 			}
 			s.TimeZone = loc
 		}
-	
+
 		var seqTimeStr string
 		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
 			return
