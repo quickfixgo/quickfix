@@ -1029,7 +1029,7 @@ func (s *SessionSuite) TestSeqNumResetTime() {
 
 func (s *SessionSuite) TestSeqNumResetTimeDisconnected() {
 	s.session.State = logonState{}
-	s.session.ResetSeqTime = time.Now().UTC().Add(time.Second * 3)
+	s.session.ResetSeqTime = time.Now().UTC().Add(time.Second * 2)
 	s.session.EnableResetSeqTime = true
 
 	s.NextSenderMsgSeqNum(1)
@@ -1043,8 +1043,12 @@ func (s *SessionSuite) TestSeqNumResetTimeDisconnected() {
 	s.Disconnected()
 	s.Stopped()
 
+	// Wait for reset time to pass.
+	time.Sleep(time.Second * 3)
+
 	s.MockApp.On("ToAdmin")
-	s.session.CheckResetTime(s.session, s.session.ResetSeqTime)
+	// Disconnected so the seq numbers should not be reset.
+	s.session.CheckResetTime(s.session, time.Now().UTC())
 	s.NextSenderMsgSeqNum(2)
-	s.NextTargetMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(2)
 }
