@@ -157,9 +157,7 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 
 func (sm *stateMachine) CheckResetTime(session *session, now time.Time) {
 	if session.EnableResetSeqTime {
-		// The last time we checked the reset time was before the configured reset time
-		// and the current time is after the configured reset time.
-		// so that means we've crossed the reset time boundary.
+		// If we have crossed the reset time boundary in between checks, we send the reset
 		if session.LastCheckedResetSeqTime.Before(session.ResetSeqTime) && now.After(session.ResetSeqTime) && session.stateMachine.State.IsConnected() {
 			session.sendLogonInReplyTo(true, nil)
 		}
