@@ -1010,11 +1010,15 @@ func (s *SessionSuite) TestSeqNumResetTime() {
 	s.session.ResetSeqTime = now
 	s.session.EnableResetSeqTime = true
 
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
 	s.IncrNextSenderMsgSeqNum()
 	s.IncrNextTargetMsgSeqNum()
 
 	s.MockApp.On("ToAdmin")
 
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
 	s.IncrNextSenderMsgSeqNum()
 	s.IncrNextTargetMsgSeqNum()
 
@@ -1022,8 +1026,8 @@ func (s *SessionSuite) TestSeqNumResetTime() {
 
 	s.session.CheckResetTime(s.session, now)
 
-	s.NextSenderMsgSeqNum(2)
-	s.NextSenderMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
 
 }
 
@@ -1082,6 +1086,103 @@ func (s *SessionSuite) TestSeqNumResetTimeAfterElapse() {
 func (s *SessionSuite) TestSeqNumResetTimeNotAfterDisconnect() {
 	s.session.State = logonState{}
 	before := time.Now().UTC()
+	resetTime := before.Add(time.Second * 2)
+	after := resetTime.Add(time.Second * 1)
+	s.session.ResetSeqTime = resetTime
+	s.session.EnableResetSeqTime = true
+
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.MockApp.On("ToAdmin")
+	s.session.CheckResetTime(s.session, before)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.onAdmin(stopReq{})
+	s.Disconnected()
+	s.Stopped()
+
+	s.session.LastCheckedResetSeqTime = before
+	s.session.CheckResetTime(s.session, after)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+}
+
+func (s *SessionSuite) TestSeqNumResetTimeDisconnected_LocalTZ() {
+	s.session.State = logonState{}
+	tz, err := time.LoadLocation("America/Chicago")
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.session.TimeZone = tz
+	s.session.ResetSeqTime = time.Now().In(tz).Add(time.Second * 2)
+	s.session.EnableResetSeqTime = true
+
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.onAdmin(stopReq{})
+	s.Disconnected()
+	s.Stopped()
+
+	// Wait for reset time to pass.
+	time.Sleep(time.Second * 3)
+
+	s.MockApp.On("ToAdmin")
+	// Disconnected so the seq numbers should not be reset.
+	s.session.CheckResetTime(s.session, time.Now().UTC())
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+}
+
+func (s *SessionSuite) TestSeqNumResetTimeAfterElapse_LocalTZ() {
+	s.session.State = logonState{}
+	tz, err := time.LoadLocation("America/Chicago")
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.session.TimeZone = tz
+	before := time.Now().In(tz)
+	resetTime := before.Add(time.Second * 2)
+	after := resetTime.Add(time.Second * 1)
+	s.session.ResetSeqTime = resetTime
+	s.session.EnableResetSeqTime = true
+
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.MockApp.On("ToAdmin")
+	s.session.CheckResetTime(s.session, before)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.LastCheckedResetSeqTime = before
+	s.session.CheckResetTime(s.session, after)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(1)
+}
+
+func (s *SessionSuite) TestSeqNumResetTimeNotAfterDisconnect_LocalTZ() {
+	s.session.State = logonState{}
+	tz, err := time.LoadLocation("America/Chicago")
+	if err != nil {
+		s.T().Fatal(err)
+	}
+	s.session.TimeZone = tz
+	before := time.Now().In(tz)
 	resetTime := before.Add(time.Second * 2)
 	after := resetTime.Add(time.Second * 1)
 	s.session.ResetSeqTime = resetTime
