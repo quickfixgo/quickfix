@@ -156,13 +156,27 @@ func (sm *stateMachine) CheckSessionTime(session *session, now time.Time) {
 }
 
 func (sm *stateMachine) CheckResetTime(session *session, now time.Time) {
-	if session.EnableResetSeqTime {
-		if session.ResetSeqTime.Hour() == now.Hour() &&
-			session.ResetSeqTime.Minute() == now.Minute() &&
-			session.ResetSeqTime.Second() == now.Second() {
-			session.sendLogonInReplyTo(true, nil)
-		}
+	// If the reset time is not enabled, we do nothing.
+	if !session.EnableResetSeqTime {
+		return
 	}
+	// If the last checked reset seq time is not set or we are not connected, we do nothing.
+	if session.lastCheckedResetSeqTime.IsZero() || !session.stateMachine.State.IsConnected() {
+		session.lastCheckedResetSeqTime = now
+		return
+	}
+
+	// Get the reset time for today
+	nowInTimeZone := now.In(session.ResetSeqTime.Location())
+	resetSeqTimeToday := time.Date(nowInTimeZone.Year(), nowInTimeZone.Month(), nowInTimeZone.Day(), session.ResetSeqTime.Hour(), session.ResetSeqTime.Minute(), session.ResetSeqTime.Second(), session.ResetSeqTime.Nanosecond(), session.ResetSeqTime.Location())
+
+	// If we have crossed the reset time boundary in between checks or we are at the reset time, we send the reset
+	if session.lastCheckedResetSeqTime.Before(resetSeqTimeToday) && !now.Before(resetSeqTimeToday) {
+		session.sendLogonInReplyTo(true, nil)
+	}
+
+	// Update the last checked reset seq time to now
+	session.lastCheckedResetSeqTime = now
 }
 
 func (sm *stateMachine) setState(session *session, nextState sessionState) {
