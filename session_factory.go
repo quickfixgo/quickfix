@@ -388,6 +388,7 @@ func (f sessionFactory) newSession(
 		}
 		s.EnableResetSeqTime = true
 		s.ResetSeqTime = seqTime
+		s.LastCheckedResetSeqTime = seqTime
 	} else {
 		s.EnableResetSeqTime = false
 	}

@@ -1052,3 +1052,59 @@ func (s *SessionSuite) TestSeqNumResetTimeDisconnected() {
 	s.NextSenderMsgSeqNum(2)
 	s.NextTargetMsgSeqNum(2)
 }
+
+func (s *SessionSuite) TestSeqNumResetTimeAfterElapse() {
+	s.session.State = logonState{}
+	before := time.Now().UTC()
+	resetTime := time.Now().UTC().Add(time.Second * 2)
+	after := resetTime.Add(time.Second * 1)
+	s.session.ResetSeqTime = resetTime
+	s.session.EnableResetSeqTime = true
+
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.MockApp.On("ToAdmin")
+	s.session.CheckResetTime(s.session, before)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.LastCheckedResetSeqTime = before
+	s.session.CheckResetTime(s.session, after)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(1)
+}
+
+func (s *SessionSuite) TestSeqNumResetTimeNotAfterDisconnect() {
+	s.session.State = logonState{}
+	before := time.Now().UTC()
+	resetTime := before.Add(time.Second * 2)
+	after := resetTime.Add(time.Second * 1)
+	s.session.ResetSeqTime = resetTime
+	s.session.EnableResetSeqTime = true
+
+	s.NextSenderMsgSeqNum(1)
+	s.NextTargetMsgSeqNum(1)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.MockApp.On("ToAdmin")
+	s.session.CheckResetTime(s.session, before)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+
+	s.session.onAdmin(stopReq{})
+	s.Disconnected()
+	s.Stopped()
+
+	s.session.LastCheckedResetSeqTime = before
+	s.session.CheckResetTime(s.session, after)
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+}
