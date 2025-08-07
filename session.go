@@ -62,7 +62,8 @@ type session struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 
-	timestampPrecision TimestampPrecision
+	timestampPrecision      TimestampPrecision
+	lastCheckedResetSeqTime time.Time
 }
 
 func (s *session) logError(err error) {
