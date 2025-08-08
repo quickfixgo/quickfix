@@ -1,3 +1,8 @@
+## 0.9.10 (August 8, 2025)
+
+### BUG FIXES
+* Send Reset if the ResetTime elapsed in between checks [#725](https://github.com/quickfixgo/quickfix/pull/725)
+
 ## 0.9.9 (July 31, 2025)
 
 ### BUG FIXES
