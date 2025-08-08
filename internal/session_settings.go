@@ -12,7 +12,7 @@ type SessionSettings struct {
 	HeartBtIntOverride           bool
 	SessionTime                  *TimeRange
 	InitiateLogon                bool
-	ResendRequestChunkSize       int
+	ResendRequestChunkSize       uint64
 	EnableLastMsgSeqNumProcessed bool
 	EnableNextExpectedMsgSeqNum  bool
 	SkipCheckLatency             bool
