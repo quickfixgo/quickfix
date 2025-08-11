@@ -17,9 +17,13 @@ package quickfix
 
 import (
 	"bytes"
+	"fmt"
+	"log"
 	"reflect"
 	"testing"
+	"time"
 
+	//fix44nos "github.com/quickfixgo/quickfix/gen/fix44/newordersingle"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -505,6 +509,41 @@ func (s *MessageSuite) TestCopyIntoMessage() {
 	s.Equal(string(dest.Bytes()), renderedString)
 }
 
+func (s *MessageSuite) TestRepeatingGroupTags() {
+	//nos := fix44nos.New(
+	//	field2.NewClOrdID("1234"),
+	//	field2.NewSide(enum.Side_BUY),
+	//	field2.NewTransactTime(time.Now()),
+	//	field2.NewOrdType(enum.OrdType_LIMIT),
+	//)
+	//partyIDsgrp := fix44nos.NewNoPartyIDsRepeatingGroup()
+	//partyIDs := partyIDsgrp.Add()
+	//partyIDs.SetPartyID("party-in-da-house")
+	//partyIDs.SetPartyRole(enum.PartyRole_CLIENT_ID)
+	//nos.SetNoPartyIDs(partyIDsgrp)
+	//qfMsg := NewMessage()
+	//err := ParseMessage(qfMsg, bytes.NewBuffer(nos.ToMessage().Bytes()))
+	//s.NotNil(err)
+
+	//msg := NewMessage()
+	//msg.Header.SetField(tag.ClOrdID, FIXString("1234"))
+	//msg.Header.SetField(tag.BeginString, FIXString("FIX.4.3"))
+	//msg.Header.SetField(tag.Side, FIXString("BUY"))
+	//msg.Header.SetField(tag.TransactTime, FIXUTCTimestamp{Time: time.Now()})
+	//msg.Header.SetField(tag.OrdType, FIXString("LIMIT"))
+	//msg.Header.SetField(tag.PartyID, FIXString("party-in-da-house"))
+	//msg.Header.SetField(tag.PartyRole, FIXString("CLIENT_ID"))
+
+	nos := createFIX44NewOrderSingle()
+	if err := ParseMessage(s.msg, bytes.NewBuffer(nos.ToMessage().Bytes())); err != nil {
+		log.Fatal(err)
+	}
+	// Should have different outputs, one with the correct format for PartyIDRepeatingGroup and one with a sorted format
+	fmt.Println(string(s.msg.Bytes()))
+	fmt.Println(string(s.msg.build()))
+	s.Equal(string(s.msg.Bytes()), string(s.msg.build()))
+}
+
 func checkFieldInt(s *MessageSuite, fields FieldMap, tag, expected int) {
 	toCheck, _ := fields.GetInt(Tag(tag))
 	s.Equal(expected, toCheck)
@@ -514,4 +553,30 @@ func checkFieldString(s *MessageSuite, fields FieldMap, tag int, expected string
 	toCheck, err := fields.GetString(Tag(tag))
 	s.NoError(err)
 	s.Equal(expected, toCheck)
+}
+
+func createFIX44NewOrderSingle() *Message {
+	msg := NewMessage()
+	msg.Header.SetField(tagMsgType, FIXString("D"))
+	msg.Header.SetField(tagBeginString, FIXString("FIX.4.4"))
+	msg.Header.SetField(tagBodyLength, FIXString("0"))
+	msg.Header.SetField(tagSenderCompID, FIXString("0"))
+	msg.Header.SetField(tagTargetCompID, FIXString("0"))
+	msg.Header.SetField(tagMsgSeqNum, FIXString("0"))
+	msg.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
+
+	//msg.Body.SetField(Tag(11), FIXString("A"))
+	//msg.Body.SetField(Tag(21), FIXString("1"))
+	//msg.Body.SetField(Tag(55), FIXString("A"))
+	//msg.Body.SetField(Tag(54), FIXString("1"))
+	//msg.Body.SetField(Tag(38), FIXInt(5))
+	//msg.Body.SetField(Tag(40), FIXString("1"))
+	msg.Body.SetField(Tag(60), FIXUTCTimestamp{Time: time.Now()})
+	msg.Body.SetField(Tag(453), FIXInt(1))
+	msg.Body.SetField(Tag(448), FIXString("testID"))
+	msg.Body.SetField(Tag(452), FIXInt(3))
+
+	msg.Trailer.SetField(tagCheckSum, FIXString("000"))
+
+	return msg
 }
