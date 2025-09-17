@@ -246,7 +246,7 @@ const (
 	//  - Comma delimited list of days of the week in English, or 3 letter abbreviation (e.g. "Monday,Tuesday,Wednesday" or "Mon,Tue,Wed" would both be valid values).
 	Weekdays string = "Weekdays"
 
-	// TimeZone sets the time zone for this session; if specified, StartTime and EndTime will be converted from this zone to UTC.
+	// TimeZone sets the time zone for this session; if specified, StartTime, EndTime, and ResetSeqTime will be converted from this zone to UTC.
 	// Times in messages will still be set to UTC as this is required by FIX specifications.
 	//
 	// Required: No
