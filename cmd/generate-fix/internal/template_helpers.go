@@ -6,15 +6,6 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-func isDecimalType(quickfixType string) bool {
-	switch quickfixType {
-	case "FIXDecimal", "FIXUDecimal":
-		return true
-	default:
-		return false
-	}
-}
-
 func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (ok bool, err error) {
 	var t string
 	for _, fType := range fTypes {
@@ -23,7 +14,7 @@ func checkIfDecimalImportRequiredForFields(fTypes []*datadictionary.FieldType) (
 			return
 		}
 
-		if isDecimalType(t) {
+		if t == "FIXDecimal" {
 			return true, nil
 		}
 	}
@@ -63,7 +54,7 @@ func checkFieldDecimalRequired(f *datadictionary.FieldDef) (required bool, err e
 		return
 	}
 
-	if isDecimalType(t) {
+	if t == "FIXDecimal" {
 		required = true
 		return
 	}
@@ -130,10 +121,6 @@ func collectStandardImports(m *datadictionary.MessageDef) (imports []string, err
 
 func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err error) {
 	var decimalRequired bool
-	importPath := "github.com/shopspring/decimal"
-	if *useUDecimal {
-		importPath = "github.com/quagmt/udecimal"
-	}
 	for _, f := range m.Fields {
 		if !decimalRequired {
 			if decimalRequired, err = checkFieldDecimalRequired(f); err != nil {
@@ -147,7 +134,7 @@ func collectExtraImports(m *datadictionary.MessageDef) (imports []string, err er
 	}
 
 	if decimalRequired {
-		imports = append(imports, importPath)
+		imports = append(imports, "github.com/shopspring/decimal")
 	}
 
 	return
@@ -204,8 +191,6 @@ func quickfixValueType(quickfixType string) (goType string, err error) {
 		goType = "float64"
 	case "FIXDecimal":
 		goType = "decimal.Decimal"
-	case "FIXUDecimal":
-		goType = "udecimal.Decimal"
 	default:
 		err = fmt.Errorf("Unknown QuickFIX Type: %v", quickfixType)
 	}
@@ -290,8 +275,6 @@ func quickfixType(field *datadictionary.FieldType) (quickfixType string, err err
 	case "FLOAT":
 		if *useFloat {
 			quickfixType = "FIXFloat"
-		} else if *useUDecimal {
-			quickfixType = "FIXUDecimal"
 		} else {
 			quickfixType = "FIXDecimal"
 		}

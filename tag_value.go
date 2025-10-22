@@ -39,28 +39,8 @@ func (tv *TagValue) init(tag Tag, value []byte) {
 }
 
 func (tv *TagValue) parse(rawFieldBytes []byte) error {
-	var sepIndex int
+	sepIndex := bytes.IndexByte(rawFieldBytes, '=')
 
-	// Most of the Fix tags are 4 or less characters long, so we can optimize
-	// for that by checking the 5 first characters without looping over the
-	// whole byte slice.
-	if len(rawFieldBytes) >= 5 {
-		if rawFieldBytes[1] == '=' {
-			sepIndex = 1
-			goto PARSE
-		} else if rawFieldBytes[2] == '=' {
-			sepIndex = 2
-			goto PARSE
-		} else if rawFieldBytes[3] == '=' {
-			sepIndex = 3
-			goto PARSE
-		} else if rawFieldBytes[4] == '=' {
-			sepIndex = 4
-			goto PARSE
-		}
-	}
-
-	sepIndex = bytes.IndexByte(rawFieldBytes, '=')
 	switch sepIndex {
 	case -1:
 		return fmt.Errorf("tagValue.Parse: No '=' in '%s'", rawFieldBytes)
@@ -68,7 +48,6 @@ func (tv *TagValue) parse(rawFieldBytes []byte) error {
 		return fmt.Errorf("tagValue.Parse: No tag in '%s'", rawFieldBytes)
 	}
 
-PARSE:
 	parsedTag, err := atoi(rawFieldBytes[:sepIndex])
 	if err != nil {
 		return fmt.Errorf("tagValue.Parse: %s", err.Error())

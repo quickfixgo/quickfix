@@ -17,17 +17,17 @@ package quickfix
 
 type nullLog struct{}
 
-func (l nullLog) OnIncoming([]byte)                   {}
-func (l nullLog) OnOutgoing([]byte)                   {}
-func (l nullLog) OnEvent(string)                      {}
-func (l nullLog) OnEventf(_ string, _ ...interface{}) {}
+func (l nullLog) OnIncoming([]byte)                        {}
+func (l nullLog) OnOutgoing([]byte)                        {}
+func (l nullLog) OnEvent(string)                           {}
+func (l nullLog) OnEventf(format string, a ...interface{}) {}
 
 type nullLogFactory struct{}
 
 func (nullLogFactory) Create() (Log, error) {
 	return nullLog{}, nil
 }
-func (nullLogFactory) CreateSessionLog(_ SessionID) (Log, error) {
+func (nullLogFactory) CreateSessionLog(sessionID SessionID) (Log, error) {
 	return nullLog{}, nil
 }
 

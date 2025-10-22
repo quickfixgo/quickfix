@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"sync"
 
-	proxyproto "github.com/pires/go-proxyproto"
+	proxyproto "github.com/armon/go-proxyproto"
 
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -48,8 +48,6 @@ type Acceptor struct {
 	sessionHostPort       map[SessionID]int
 	listeners             map[string]net.Listener
 	connectionValidator   ConnectionValidator
-	tlsConfig             *tls.Config
-	newListenerCallback   NewListenerCallback
 	sessionFactory
 }
 
@@ -59,9 +57,6 @@ type ConnectionValidator interface {
 	// For example, you may tie up a SenderCompID to an IP range, or to a specific TLS certificate as a part of mTLS.
 	Validate(netConn net.Conn, session SessionID) error
 }
-
-// NewListenerCallback is a function that returns a net.Listener for the given address and tls.Config struct.
-type NewListenerCallback func(address string, tlsConfig *tls.Config) (net.Listener, error)
 
 // Start accepting connections.
 func (a *Acceptor) Start() (err error) {
@@ -86,21 +81,9 @@ func (a *Acceptor) Start() (err error) {
 		a.listeners[address] = nil
 	}
 
-	if a.tlsConfig == nil {
-		var tlsConfig *tls.Config
-		if tlsConfig, err = loadTLSConfig(a.settings.GlobalSettings()); err != nil {
-			return
-		}
-		a.tlsConfig = tlsConfig
-	}
-
-	if a.newListenerCallback == nil {
-		a.newListenerCallback = func(address string, tlsConfig *tls.Config) (net.Listener, error) {
-			if tlsConfig != nil {
-				return tls.Listen("tcp", address, a.tlsConfig)
-			}
-			return net.Listen("tcp", address)
-		}
+	var tlsConfig *tls.Config
+	if tlsConfig, err = loadTLSConfig(a.settings.GlobalSettings()); err != nil {
+		return
 	}
 
 	var useTCPProxy bool
@@ -111,7 +94,11 @@ func (a *Acceptor) Start() (err error) {
 	}
 
 	for address := range a.listeners {
-		if a.listeners[address], err = a.newListenerCallback(address, a.tlsConfig); err != nil {
+		if tlsConfig != nil {
+			if a.listeners[address], err = tls.Listen("tcp", address, tlsConfig); err != nil {
+				return
+			}
+		} else if a.listeners[address], err = net.Listen("tcp", address); err != nil {
 			return
 		} else if useTCPProxy {
 			a.listeners[address] = &proxyproto.Listener{Listener: a.listeners[address]}
@@ -157,13 +144,6 @@ func (a *Acceptor) Stop() {
 		session.stop()
 	}
 	a.sessionGroup.Wait()
-
-	for sessionID := range a.sessions {
-		err := UnregisterSession(sessionID)
-		if err != nil {
-			return
-		}
-	}
 }
 
 // RemoteAddr gets remote IP address for a given session.
@@ -369,7 +349,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 
 	go func() {
 		msgIn <- fixIn{msgBytes, parser.lastRead}
-		readLoop(parser, msgIn, a.globalLog)
+		readLoop(parser, msgIn)
 	}()
 
 	writeLoop(netConn, msgOut, a.globalLog)
@@ -433,20 +413,4 @@ LOOP:
 //	a.SetConnectionValidator(nil)
 func (a *Acceptor) SetConnectionValidator(validator ConnectionValidator) {
 	a.connectionValidator = validator
-}
-
-// SetTLSConfig allows the creator of the Acceptor to specify a fully customizable tls.Config of their choice,
-// which will be used in the Start() method.
-//
-// Note: when the caller explicitly provides a tls.Config with this function,
-// it takes precendent over TLS settings specified in the acceptor's settings.GlobalSettings(),
-// meaning that the `settings.GlobalSettings()` object is not inspected or used for the creation of the tls.Config.
-func (a *Acceptor) SetTLSConfig(tlsConfig *tls.Config) {
-	a.tlsConfig = tlsConfig
-}
-
-// SetNewListenerCallback allows the creator of the Acceptor to specify the callback used to create each net.Listener
-// which will be used in the Start() method.
-func (a *Acceptor) SetNewListenerCallback(cb NewListenerCallback) {
-	a.newListenerCallback = cb
 }

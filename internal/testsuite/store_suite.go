@@ -16,7 +16,6 @@
 package testsuite
 
 import (
-	"sort"
 	"time"
 
 	"github.com/quickfixgo/quickfix"
@@ -78,28 +77,6 @@ func (s *StoreTestSuite) TestMessageStoreReset() {
 	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *StoreTestSuite) fetchMessages(beginSeqNum, endSeqNum int) (msgs [][]byte) {
-	s.T().Helper()
-
-	// Fetch messages from the new iterator
-	err := s.MsgStore.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
-		msgs = append(msgs, msg)
-		return nil
-	})
-	s.Require().Nil(err)
-
-	// Fetch messages from the old getter
-	oldMsgs, err := s.MsgStore.GetMessages(beginSeqNum, endSeqNum)
-	s.Require().Nil(err)
-
-	// Ensure the output is the same
-	s.Require().Len(msgs, len(oldMsgs))
-	for idx, msg := range msgs {
-		s.Require().EqualValues(msg, oldMsgs[idx])
-	}
-	return
-}
-
 func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 	// Given the following saved messages
 	expectedMsgsBySeqNum := map[int]string{
@@ -107,17 +84,13 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	var seqNums []int
-	for seqNum := range expectedMsgsBySeqNum {
-		seqNums = append(seqNums, seqNum)
-	}
-	sort.Ints(seqNums)
-	for _, seqNum := range seqNums {
-		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
+	for seqNum, msg := range expectedMsgsBySeqNum {
+		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(msg)))
 	}
 
 	// When the messages are retrieved from the MessageStore
-	actualMsgs := s.fetchMessages(1, 3)
+	actualMsgs, err := s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	// Then the messages should be
 	s.Require().Len(actualMsgs, 3)
@@ -129,7 +102,8 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 	s.Require().Nil(s.MsgStore.Refresh())
 
 	// And the messages are retrieved from the MessageStore
-	actualMsgs = s.fetchMessages(1, 3)
+	actualMsgs, err = s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	// Then the messages should still be
 	s.Require().Len(actualMsgs, 3)
@@ -147,18 +121,14 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	var seqNums []int
-	for seqNum := range expectedMsgsBySeqNum {
-		seqNums = append(seqNums, seqNum)
-	}
-	sort.Ints(seqNums)
-	for _, seqNum := range seqNums {
-		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
+	for seqNum, msg := range expectedMsgsBySeqNum {
+		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(msg)))
 	}
 	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
 
 	// When the messages are retrieved from the MessageStore
-	actualMsgs := s.fetchMessages(1, 3)
+	actualMsgs, err := s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	// Then the messages should be
 	s.Require().Len(actualMsgs, 3)
@@ -170,7 +140,8 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 	s.Require().Nil(s.MsgStore.Refresh())
 
 	// And the messages are retrieved from the MessageStore
-	actualMsgs = s.fetchMessages(1, 3)
+	actualMsgs, err = s.MsgStore.GetMessages(1, 3)
+	s.Require().Nil(err)
 
 	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
 
@@ -183,7 +154,8 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 
 func (s *StoreTestSuite) TestMessageStoreGetMessagesEmptyStore() {
 	// When messages are retrieved from an empty store
-	messages := s.fetchMessages(1, 2)
+	messages, err := s.MsgStore.GetMessages(1, 2)
+	require.Nil(s.T(), err)
 
 	// Then no messages should be returned
 	require.Empty(s.T(), messages, "Did not expect messages from empty store")
@@ -215,7 +187,8 @@ func (s *StoreTestSuite) TestMessageStoreGetMessagesVariousRanges() {
 
 	// Then the returned messages should be
 	for _, tc := range testCases {
-		actualMsgs := s.fetchMessages(tc.beginSeqNo, tc.endSeqNo)
+		actualMsgs, err := s.MsgStore.GetMessages(tc.beginSeqNo, tc.endSeqNo)
+		require.Nil(t, err)
 		require.Len(t, actualMsgs, len(tc.expectedBytes))
 		for i, expectedMsg := range tc.expectedBytes {
 			assert.Equal(t, string(expectedMsg), string(actualMsgs[i]))

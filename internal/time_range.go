@@ -78,12 +78,15 @@ func NewWeekRangeInLocation(startTime, endTime TimeOfDay, startDay, endDay time.
 	return r, nil
 }
 
-func (r *TimeRange) isInWeekdays(day time.Weekday) bool {
+func (r *TimeRange) isInTimeRange(t time.Time) bool {
+	t = t.In(r.loc)
+	ts := NewTimeOfDay(t.Clock()).d
+
 	if len(r.weekdays) > 0 {
 		found := false
 
 		for _, weekday := range r.weekdays {
-			if day == weekday {
+			if t.Weekday() == weekday {
 				found = true
 				break
 			}
@@ -94,34 +97,11 @@ func (r *TimeRange) isInWeekdays(day time.Weekday) bool {
 		}
 	}
 
-	return true
-}
-
-func (r *TimeRange) addWeekdayOffset(day time.Weekday, offset int) time.Weekday {
-	return (day + time.Weekday(offset)) % 7
-}
-
-func (r *TimeRange) isInTimeRange(t time.Time) bool {
-	t = t.In(r.loc)
-	ts := NewTimeOfDay(t.Clock()).d
-
 	if r.startTime.d < r.endTime.d {
-		if r.isInWeekdays(t.Weekday()) {
-			return r.startTime.d <= ts && ts <= r.endTime.d
-		}
-
-		return false
+		return r.startTime.d <= ts && ts <= r.endTime.d
 	}
 
-	if ts <= r.endTime.d {
-		return r.isInWeekdays(r.addWeekdayOffset(t.Weekday(), -1))
-	}
-
-	if ts >= r.startTime.d {
-		return r.isInWeekdays(t.Weekday())
-	}
-
-	return false
+	return !(r.endTime.d < ts && ts < r.startTime.d)
 }
 
 func (r *TimeRange) isInWeekRange(t time.Time) bool {

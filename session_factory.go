@@ -19,7 +19,6 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -63,8 +62,6 @@ type sessionFactory struct {
 	BuildInitiators bool
 }
 
-const shortForm = "15:04:05"
-
 // Creates Session, associates with internal session registry.
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
@@ -87,10 +84,7 @@ func (f sessionFactory) createSession(
 func (f sessionFactory) newSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory,
 	application Application) (s *session, err error) {
-	s = &session{
-		sessionID: sessionID,
-		stopOnce:  sync.Once{},
-	}
+	s = &session{sessionID: sessionID}
 
 	var validatorSettings = defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
@@ -101,18 +95,6 @@ func (f sessionFactory) newSession(
 
 	if settings.HasSetting(config.RejectInvalidMessage) {
 		if validatorSettings.RejectInvalidMessage, err = settings.BoolSetting(config.RejectInvalidMessage); err != nil {
-			return
-		}
-	}
-
-	if settings.HasSetting(config.AllowUnknownMessageFields) {
-		if validatorSettings.AllowUnknownMessageFields, err = settings.BoolSetting(config.AllowUnknownMessageFields); err != nil {
-			return
-		}
-	}
-
-	if settings.HasSetting(config.CheckUserDefinedFields) {
-		if validatorSettings.CheckUserDefinedFields, err = settings.BoolSetting(config.CheckUserDefinedFields); err != nil {
 			return
 		}
 	}
@@ -202,12 +184,6 @@ func (f sessionFactory) newSession(
 		}
 	}
 
-	if settings.HasSetting(config.EnableNextExpectedMsgSeqNum) {
-		if s.EnableNextExpectedMsgSeqNum, err = settings.BoolSetting(config.EnableNextExpectedMsgSeqNum); err != nil {
-			return
-		}
-	}
-
 	if settings.HasSetting(config.CheckLatency) {
 		var doCheckLatency bool
 		if doCheckLatency, err = settings.BoolSetting(config.CheckLatency); err != nil {
@@ -282,7 +258,6 @@ func (f sessionFactory) newSession(
 				return
 			}
 		}
-		s.TimeZone = loc
 
 		if !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay) {
 			var weekdays []time.Weekday
@@ -297,7 +272,7 @@ func (f sessionFactory) newSession(
 				for _, dayStr := range dayStrs {
 					day, ok := dayLookup[dayStr]
 					if !ok {
-						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: []byte(weekdaysStr)}
+						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: weekdaysStr}
 						return
 					}
 					weekdays = append(weekdays, day)
@@ -328,7 +303,7 @@ func (f sessionFactory) newSession(
 			parseDay := func(setting, dayStr string) (day time.Weekday, err error) {
 				day, ok := dayLookup[dayStr]
 				if !ok {
-					return day, IncorrectFormatForSetting{Setting: setting, Value: []byte(dayStr)}
+					return day, IncorrectFormatForSetting{Setting: setting, Value: dayStr}
 				}
 				return
 			}
@@ -351,47 +326,6 @@ func (f sessionFactory) newSession(
 		}
 	}
 
-	if settings.HasSetting(config.ResetSeqTime) {
-
-		if s.TimeZone == nil {
-			loc := time.UTC
-			if settings.HasSetting(config.TimeZone) {
-				var locStr string
-				if locStr, err = settings.Setting(config.TimeZone); err != nil {
-					return
-				}
-
-				loc, err = time.LoadLocation(locStr)
-				if err != nil {
-					err = errors.Wrapf(
-						err, "problem parsing time zone '%v' for setting '%v",
-						settings.settings[config.TimeZone], config.TimeZone,
-					)
-					return
-				}
-			}
-			s.TimeZone = loc
-		}
-
-		var seqTimeStr string
-		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
-			return
-		}
-
-		var seqTime time.Time
-		if seqTime, err = time.ParseInLocation(shortForm, seqTimeStr, s.TimeZone); err != nil {
-			err = errors.Wrapf(
-				err, "problem parsing time of day '%v' for setting '%v",
-				settings.settings[config.ResetSeqTime], config.ResetSeqTime,
-			)
-			return
-		}
-		s.EnableResetSeqTime = true
-		s.ResetSeqTime = seqTime
-	} else {
-		s.EnableResetSeqTime = false
-	}
-
 	if settings.HasSetting(config.TimeStampPrecision) {
 		var precisionStr string
 		if precisionStr, err = settings.Setting(config.TimeStampPrecision); err != nil {
@@ -409,7 +343,7 @@ func (f sessionFactory) newSession(
 			s.timestampPrecision = Nanos
 
 		default:
-			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: []byte(precisionStr)}
+			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: precisionStr}
 			return
 		}
 	}

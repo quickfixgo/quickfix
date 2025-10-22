@@ -14,13 +14,9 @@ type SessionSettings struct {
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
 	EnableLastMsgSeqNumProcessed bool
-	EnableNextExpectedMsgSeqNum  bool
 	SkipCheckLatency             bool
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
-	TimeZone                     *time.Location
-	ResetSeqTime                 time.Time
-	EnableResetSeqTime           bool
 
 	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string

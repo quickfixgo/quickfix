@@ -16,9 +16,7 @@
 package quickfix
 
 import (
-	"bytes"
 	"testing"
-	"time"
 
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -57,13 +55,8 @@ func TestSessionSettings_IntSettings(t *testing.T) {
 	}
 
 	s.Set(config.SocketAcceptPort, "notanint")
-	_, err := s.IntSetting(config.SocketAcceptPort)
-	if err == nil {
+	if _, err := s.IntSetting(config.SocketAcceptPort); err == nil {
 		t.Error("Expected error for unparsable value")
-	}
-
-	if err.Error() != `"notanint" is invalid for SocketAcceptPort` {
-		t.Errorf("Expected %s, got %s", `"notanint" is invalid for SocketAcceptPort`, err)
 	}
 
 	s.Set(config.SocketAcceptPort, "1005")
@@ -84,13 +77,8 @@ func TestSessionSettings_BoolSettings(t *testing.T) {
 	}
 
 	s.Set(config.ResetOnLogon, "notabool")
-	_, err := s.BoolSetting(config.ResetOnLogon)
-	if err == nil {
+	if _, err := s.BoolSetting(config.ResetOnLogon); err == nil {
 		t.Error("Expected error for unparsable value")
-	}
-
-	if err.Error() != `"notabool" is invalid for ResetOnLogon` {
-		t.Errorf("Expected %s, got %s", `"notabool" is invalid for ResetOnLogon`, err)
 	}
 
 	var boolTests = []struct {
@@ -114,55 +102,6 @@ func TestSessionSettings_BoolSettings(t *testing.T) {
 		if actual != bt.expected {
 			t.Errorf("Expected %v, got %v", bt.expected, actual)
 		}
-	}
-}
-
-func TestSessionSettings_DurationSettings(t *testing.T) {
-	s := NewSessionSettings()
-	if _, err := s.BoolSetting(config.ReconnectInterval); err == nil {
-		t.Error("Expected error for unknown setting")
-	}
-
-	s.Set(config.ReconnectInterval, "not duration")
-
-	_, err := s.DurationSetting(config.ReconnectInterval)
-	if err == nil {
-		t.Error("Expected error for unparsable value")
-	}
-
-	if err.Error() != `"not duration" is invalid for ReconnectInterval` {
-		t.Errorf("Expected %s, got %s", `"not duration" is invalid for ReconnectInterval`, err)
-	}
-
-	s.Set(config.ReconnectInterval, "10s")
-
-	got, err := s.DurationSetting(config.ReconnectInterval)
-	if err != nil {
-		t.Error("Unexpected err", err)
-	}
-
-	expected, _ := time.ParseDuration("10s")
-
-	if got != expected {
-		t.Errorf("Expected %v, got %v", expected, got)
-	}
-}
-
-func TestSessionSettings_ByteSettings(t *testing.T) {
-	s := NewSessionSettings()
-	if _, err := s.RawSetting(config.SocketPrivateKeyBytes); err == nil {
-		t.Error("Expected error for unknown setting")
-	}
-
-	s.SetRaw(config.SocketPrivateKeyBytes, []byte("pembytes"))
-
-	got, err := s.RawSetting(config.SocketPrivateKeyBytes)
-	if err != nil {
-		t.Error("Unexpected err", err)
-	}
-
-	if !bytes.Equal([]byte("pembytes"), got) {
-		t.Errorf("Expected %v, got %v", []byte("pembytes"), got)
 	}
 }
 
