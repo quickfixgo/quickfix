@@ -40,6 +40,6 @@ func (state logoutState) Timeout(session *session, event internal.Event) (nextSt
 	return state
 }
 
-func (state logoutState) Stop(session *session) (nextstate sessionState) {
+func (state logoutState) Stop(_ *session) (nextstate sessionState) {
 	return state
 }

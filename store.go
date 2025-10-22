@@ -36,6 +36,7 @@ type MessageStore interface {
 	SaveMessage(seqNum int, msg []byte) error
 	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error
 	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
+	IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error
 
 	Refresh() error
 	Reset() error

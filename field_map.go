@@ -115,11 +115,35 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
+// GetField parses of a field with Tag tag. Returned reject may indicate the field is not present, or the field value is invalid.
+func (m FieldMap) getFieldNoLock(tag Tag, parser FieldValueReader) MessageRejectError {
+	f, ok := m.tagLookup[tag]
+	if !ok {
+		return ConditionallyRequiredFieldMissing(tag)
+	}
+
+	if err := parser.Read(f[0].value); err != nil {
+		return IncorrectDataFormatForValue(tag)
+	}
+
+	return nil
+}
+
 // GetBytes is a zero-copy GetField wrapper for []bytes fields.
 func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 	m.rwLock.RLock()
 	defer m.rwLock.RUnlock()
 
+	f, ok := m.tagLookup[tag]
+	if !ok {
+		return nil, ConditionallyRequiredFieldMissing(tag)
+	}
+
+	return f[0].value, nil
+}
+
+// getBytesNoLock is a lock free zero-copy GetField wrapper for []bytes fields.
+func (m FieldMap) getBytesNoLock(tag Tag) ([]byte, MessageRejectError) {
 	f, ok := m.tagLookup[tag]
 	if !ok {
 		return nil, ConditionallyRequiredFieldMissing(tag)
@@ -140,6 +164,21 @@ func (m FieldMap) GetBool(tag Tag) (bool, MessageRejectError) {
 // GetInt is a GetField wrapper for int fields.
 func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	bytes, err := m.GetBytes(tag)
+	if err != nil {
+		return 0, err
+	}
+
+	var val FIXInt
+	if val.Read(bytes) != nil {
+		err = IncorrectDataFormatForValue(tag)
+	}
+
+	return int(val), err
+}
+
+// GetInt is a lock free GetField wrapper for int fields.
+func (m FieldMap) getIntNoLock(tag Tag) (int, MessageRejectError) {
+	bytes, err := m.getBytesNoLock(tag)
 	if err != nil {
 		return 0, err
 	}
@@ -174,6 +213,15 @@ func (m FieldMap) GetTime(tag Tag) (t time.Time, err MessageRejectError) {
 func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
 	var val FIXString
 	if err := m.GetField(tag, &val); err != nil {
+		return "", err
+	}
+	return string(val), nil
+}
+
+// GetString is a GetField wrapper for string fields.
+func (m FieldMap) getStringNoLock(tag Tag) (string, MessageRejectError) {
+	var val FIXString
+	if err := m.getFieldNoLock(tag, &val); err != nil {
 		return "", err
 	}
 	return string(val), nil
@@ -246,6 +294,13 @@ func (m *FieldMap) Clear() {
 	}
 }
 
+func (m *FieldMap) clearNoLock() {
+	m.tags = m.tags[0:0]
+	for k := range m.tagLookup {
+		delete(m.tagLookup, k)
+	}
+}
+
 // CopyInto overwrites the given FieldMap with this one.
 func (m *FieldMap) CopyInto(to *FieldMap) {
 	m.rwLock.RLock()
@@ -263,9 +318,6 @@ func (m *FieldMap) CopyInto(to *FieldMap) {
 }
 
 func (m *FieldMap) add(f field) {
-	m.rwLock.Lock()
-	defer m.rwLock.Unlock()
-
 	t := fieldTag(f)
 	if _, ok := m.tagLookup[t]; !ok {
 		m.tags = append(m.tags, t)

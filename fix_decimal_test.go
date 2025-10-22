@@ -23,6 +23,29 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func BenchmarkFIXDecimalRead(b *testing.B) {
+	var dec FIXDecimal
+	byt := []byte("-124.3456")
+	for i := 0; i < b.N; i++ {
+		if err := dec.Read(byt); err != nil {
+			b.FailNow()
+		}
+	}
+}
+
+func BenchmarkFIXDecimalWrite(b *testing.B) {
+	decValue, err := decimal.NewFromString("-124.3456")
+	if err != nil {
+		b.FailNow()
+	}
+	dec := FIXDecimal{Decimal: decValue, Scale: 5}
+	for i := 0; i < b.N; i++ {
+		if byt := dec.Write(); len(byt) == 0 {
+			b.FailNow()
+		}
+	}
+}
+
 func TestFIXDecimalWrite(t *testing.T) {
 	var tests = []struct {
 		decimal  FIXDecimal
@@ -60,7 +83,7 @@ func TestFIXDecimalRead(t *testing.T) {
 		require.Equal(t, test.expectError, err != nil)
 
 		if !test.expectError {
-			assert.True(t, test.expected.Equals(field.Decimal), "Expected %s got %s", test.expected, field.Decimal)
+			assert.True(t, test.expected.Equal(field.Decimal), "Expected %s got %s", test.expected, field.Decimal)
 		}
 	}
 }

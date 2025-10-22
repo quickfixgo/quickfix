@@ -245,6 +245,33 @@ func TestTimeRangeIsInRange(t *testing.T) {
 			now:             time.Date(2016, time.August, 10, 2, 0, 0, 0, time.UTC),
 			expectedInRange: false,
 		},
+		{
+			label:           "18:59:00 Sunday, crossing midnight",
+			start:           NewTimeOfDay(19, 0, 0),
+			end:             NewTimeOfDay(6, 0, 0),
+			weekdays:        []time.Weekday{time.Sunday},
+			location:        time.UTC,
+			now:             time.Date(2006, time.December, 3, 18, 59, 0, 0, time.UTC),
+			expectedInRange: false,
+		},
+		{
+			label:           "5:59AM Monday, crossing midnight",
+			start:           NewTimeOfDay(19, 0, 0),
+			end:             NewTimeOfDay(6, 0, 0),
+			weekdays:        []time.Weekday{time.Sunday},
+			location:        time.UTC,
+			now:             time.Date(2006, time.December, 4, 5, 59, 0, 0, time.UTC),
+			expectedInRange: true,
+		},
+		{
+			label:           "6:01AM Monday, crossing midnight",
+			start:           NewTimeOfDay(19, 0, 0),
+			end:             NewTimeOfDay(6, 0, 0),
+			weekdays:        []time.Weekday{time.Sunday},
+			location:        time.UTC,
+			now:             time.Date(2006, time.December, 4, 6, 1, 0, 0, time.UTC),
+			expectedInRange: false,
+		},
 	}
 
 	for _, tc := range testcases {

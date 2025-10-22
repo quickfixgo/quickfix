@@ -56,6 +56,22 @@ func (s resendState) FixMsgIn(session *session, msg *Message) (nextState session
 		return nextResendState
 	}
 
+	var gapFillFlag FIXBoolean
+	if msg.Body.Has(tagGapFillFlag) {
+		if err := msg.Body.GetField(tagGapFillFlag, &gapFillFlag); err != nil {
+			return handleStateError(session, err)
+		}
+	}
+
+	if bool(gapFillFlag) && s.currentResendRangeEnd != 0 && s.currentResendRangeEnd == session.store.NextTargetMsgSeqNum() {
+		nextResendState, err := session.sendResendRequest(session.store.NextTargetMsgSeqNum(), s.resendRangeEnd)
+		if err != nil {
+			return handleStateError(session, err)
+		}
+		nextResendState.messageStash = s.messageStash
+		return nextResendState
+	}
+
 	if s.resendRangeEnd >= session.store.NextTargetMsgSeqNum() {
 		return s
 	}

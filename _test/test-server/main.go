@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 
@@ -15,6 +17,7 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
+	filelog "github.com/quickfixgo/quickfix/log/file"
 	"github.com/quickfixgo/quickfix/store/file"
 	"github.com/quickfixgo/quickfix/store/mongo"
 )
@@ -130,12 +133,16 @@ func main() {
 		return
 	}
 
-	fileLogFactory, err := quickfix.NewFileLogFactory(appSettings)
-
+	fileLogFactory, err := filelog.NewLogFactory(appSettings)
 	if err != nil {
 		fmt.Println("Error creating file log factory:", err)
 		return
 	}
+	//fileLogFactory := quickfix.NewScreenLogFactory()
+	// if err != nil {
+	// 	fmt.Println("Error creating file log factory:", err)
+	// 	return
+	// }
 
 	storeType := os.Args[2]
 
@@ -174,6 +181,69 @@ func main() {
 		fmt.Println("Unable to start Acceptor: ", err)
 		return
 	}
+
+	// http handler for seqnum resets for specific test defs. not applicable for most tests.
+	http.HandleFunc("/seqnum", func(w http.ResponseWriter, r *http.Request) {
+		defer w.WriteHeader(http.StatusOK)
+		queryParams := r.URL.Query()
+		sessionStr, ok := queryParams["SESSION"]
+		if !ok {
+			fmt.Println("cannot find session")
+			os.Exit(1)
+		}
+		splts := strings.Split(sessionStr[0], ":")
+		parties := strings.Split(splts[1], "->")
+		sessionID := quickfix.SessionID{
+			BeginString:  splts[0],
+			SenderCompID: parties[0],
+			TargetCompID: parties[1],
+		}
+		num, ok := queryParams["NEXTTARGETSEQNUM"]
+		if ok {
+			seqnumInt, cErr := strconv.Atoi(num[0])
+			if cErr != nil {
+				fmt.Println("cannot find seqnum")
+				os.Exit(1)
+			}
+			setErr := quickfix.SetNextTargetMsgSeqNum(sessionID, seqnumInt)
+			if setErr != nil {
+				fmt.Println("err setting target seqnum: " + setErr.Error())
+				return
+			}
+			fmt.Println("set target seqnum to: " + num[0])
+			return
+		}
+
+		num, ok = queryParams["NEXTSENDERSEQNUM"]
+		if ok {
+			seqnumInt, cErr := strconv.Atoi(num[0])
+			if cErr != nil {
+				fmt.Println("cannot find seqnum")
+				os.Exit(1)
+			}
+			setErr := quickfix.SetNextSenderMsgSeqNum(sessionID, seqnumInt)
+			if setErr != nil {
+				fmt.Println("err setting sender seqnum: " + setErr.Error())
+				return
+			}
+			fmt.Println("set sender seqnum to: " + num[0])
+			return
+		}
+
+		fmt.Println("never found seqnum")
+		os.Exit(1)
+	})
+	websrvr := http.Server{Addr: ":8095"}
+	defer func() {
+		if err := websrvr.Close(); err != nil {
+			fmt.Println("unable to stop srver: ", err)
+		}
+	}()
+	go func() {
+		if err := websrvr.ListenAndServe(); err != http.ErrServerClosed {
+			fmt.Println("websrvr err: ", err)
+		}
+	}()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)

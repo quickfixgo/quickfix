@@ -23,7 +23,7 @@ import (
 
 // SessionSettings maps session settings to values with typed accessors.
 type SessionSettings struct {
-	settings map[string]string
+	settings map[string][]byte
 }
 
 // ConditionallyRequiredSetting indicates a missing setting.
@@ -37,8 +37,9 @@ func (e ConditionallyRequiredSetting) Error() string {
 
 // IncorrectFormatForSetting indicates a setting that is incorrectly formatted.
 type IncorrectFormatForSetting struct {
-	Setting, Value string
-	Err            error
+	Setting string
+	Value   []byte
+	Err     error
 }
 
 func (e IncorrectFormatForSetting) Error() string {
@@ -47,7 +48,7 @@ func (e IncorrectFormatForSetting) Error() string {
 
 // Init initializes or resets SessionSettings.
 func (s *SessionSettings) Init() {
-	s.settings = make(map[string]string)
+	s.settings = make(map[string][]byte)
 }
 
 // NewSessionSettings returns a newly initialized SessionSettings instance.
@@ -58,8 +59,8 @@ func NewSessionSettings() *SessionSettings {
 	return s
 }
 
-// Set assigns a value to a setting on SessionSettings.
-func (s *SessionSettings) Set(setting string, val string) {
+// SetRaw assigns a value to a setting on SessionSettings.
+func (s *SessionSettings) SetRaw(setting string, val []byte) {
 	// Lazy init.
 	if s.settings == nil {
 		s.Init()
@@ -68,69 +69,87 @@ func (s *SessionSettings) Set(setting string, val string) {
 	s.settings[setting] = val
 }
 
+// Set assigns a string value to a setting on SessionSettings.
+func (s *SessionSettings) Set(setting string, val string) {
+	// Lazy init
+	if s.settings == nil {
+		s.Init()
+	}
+
+	s.settings[setting] = []byte(val)
+}
+
 // HasSetting returns true if a setting is set, false if not.
 func (s *SessionSettings) HasSetting(setting string) bool {
 	_, ok := s.settings[setting]
 	return ok
 }
 
-// Setting is a settings string accessor. Returns an error if the setting is missing.
-func (s *SessionSettings) Setting(setting string) (string, error) {
+// RawSetting is a settings accessor that returns the raw byte slice value of
+// the setting. Returns an error if the setting is missing.
+func (s *SessionSettings) RawSetting(setting string) ([]byte, error) {
 	val, ok := s.settings[setting]
 	if !ok {
-		return val, ConditionallyRequiredSetting{setting}
+		return nil, ConditionallyRequiredSetting{Setting: setting}
 	}
 
 	return val, nil
 }
 
-// IntSetting returns the requested setting parsed as an int.  Returns an errror if the setting is not set or cannot be parsed as an int.
-func (s *SessionSettings) IntSetting(setting string) (val int, err error) {
-	stringVal, err := s.Setting(setting)
-
+// Setting is a settings string accessor. Returns an error if the setting is missing.
+func (s *SessionSettings) Setting(setting string) (string, error) {
+	val, err := s.RawSetting(setting)
 	if err != nil {
-		return
+		return "", err
 	}
 
-	if val, err = strconv.Atoi(stringVal); err != nil {
-		return val, IncorrectFormatForSetting{Setting: setting, Value: stringVal, Err: err}
+	return string(val), nil
+}
+
+// IntSetting returns the requested setting parsed as an int.  Returns an errror if the setting is not set or cannot be parsed as an int.
+func (s *SessionSettings) IntSetting(setting string) (int, error) {
+	rawVal, err := s.RawSetting(setting)
+	if err != nil {
+		return 0, err
 	}
 
-	return
+	if val, err := strconv.Atoi(string(rawVal)); err == nil {
+		return val, nil
+	}
+
+	return 0, IncorrectFormatForSetting{Setting: setting, Value: rawVal, Err: err}
 }
 
 // DurationSetting returns the requested setting parsed as a time.Duration.
 // Returns an error if the setting is not set or cannot be parsed as a time.Duration.
-func (s *SessionSettings) DurationSetting(setting string) (val time.Duration, err error) {
-	stringVal, err := s.Setting(setting)
-
+func (s *SessionSettings) DurationSetting(setting string) (time.Duration, error) {
+	rawVal, err := s.RawSetting(setting)
 	if err != nil {
-		return
+		return 0, err
 	}
 
-	if val, err = time.ParseDuration(stringVal); err != nil {
-		return val, IncorrectFormatForSetting{Setting: setting, Value: stringVal, Err: err}
+	if val, err := time.ParseDuration(string(rawVal)); err == nil {
+		return val, nil
 	}
 
-	return
+	return 0, IncorrectFormatForSetting{Setting: setting, Value: rawVal, Err: err}
 }
 
 // BoolSetting returns the requested setting parsed as a boolean.  Returns an error if the setting is not set or cannot be parsed as a bool.
 func (s SessionSettings) BoolSetting(setting string) (bool, error) {
-	stringVal, err := s.Setting(setting)
-
+	rawVal, err := s.RawSetting(setting)
 	if err != nil {
 		return false, err
 	}
 
-	switch stringVal {
+	switch string(rawVal) {
 	case "Y", "y":
 		return true, nil
 	case "N", "n":
 		return false, nil
 	}
 
-	return false, IncorrectFormatForSetting{Setting: setting, Value: stringVal}
+	return false, IncorrectFormatForSetting{Setting: setting, Value: rawVal}
 }
 
 func (s *SessionSettings) overlay(overlay *SessionSettings) {

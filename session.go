@@ -41,6 +41,9 @@ type session struct {
 
 	// Mutex for access to toSend.
 	sendMutex sync.Mutex
+	// Mutex to prevent messages being sent when resendRequest is active
+	// Must be locked before sendMutex to prevent a potential deadlock
+	resendMutex sync.RWMutex
 
 	sessionEvent chan internal.Event
 	messageEvent chan bool
@@ -59,7 +62,8 @@ type session struct {
 	transportDataDictionary *datadictionary.DataDictionary
 	appDataDictionary       *datadictionary.DataDictionary
 
-	timestampPrecision TimestampPrecision
+	timestampPrecision      TimestampPrecision
+	lastCheckedResetSeqTime time.Time
 }
 
 func (s *session) logError(err error) {
@@ -181,11 +185,57 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 		logon.Body.SetField(tagDefaultApplVerID, FIXString(s.DefaultApplVerID))
 	}
 
+	// Evaluate tag 789.
+	if s.EnableNextExpectedMsgSeqNum {
+		if inReplyTo != nil {
+			targetWantsNextSeqNumToBe, getErr := inReplyTo.Body.GetInt(tagNextExpectedMsgSeqNum)
+			if getErr == nil {
+				actualNextNum := s.store.NextSenderMsgSeqNum()
+				// // Is the 789 we received too high ??
+				if targetWantsNextSeqNumToBe > actualNextNum {
+					// we can't resend what we never sent! something unrecoverable has happened.
+					return RejectLogon{fmt.Sprintf("Tag 789 (NextExpectedMsgSeqNum) is higher than expected. Expected %d, Received %d", actualNextNum, targetWantsNextSeqNumToBe)}
+				}
+				nextSeqNum := s.store.NextTargetMsgSeqNum()
+				logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextSeqNum+1))
+			}
+		} else {
+			// We are sending a logon.
+			nextseqnum := s.store.NextTargetMsgSeqNum()
+			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum+1))
+		}
+	}
+
 	if err := s.dropAndSendInReplyTo(logon, inReplyTo); err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (s *session) generateSequenceReset(beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
+	sequenceReset := NewMessage()
+	s.fillDefaultHeader(sequenceReset, &inReplyTo)
+
+	sequenceReset.Header.SetField(tagMsgType, FIXString("4"))
+	sequenceReset.Header.SetField(tagMsgSeqNum, FIXInt(beginSeqNo))
+	sequenceReset.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+	sequenceReset.Body.SetField(tagNewSeqNo, FIXInt(endSeqNo))
+	sequenceReset.Body.SetField(tagGapFillFlag, FIXBoolean(true))
+
+	var origSendingTime FIXString
+	if err := sequenceReset.Header.GetField(tagSendingTime, &origSendingTime); err == nil {
+		sequenceReset.Header.SetField(tagOrigSendingTime, origSendingTime)
+	}
+
+	s.application.ToAdmin(sequenceReset, s.sessionID)
+
+	msgBytes := sequenceReset.build()
+
+	s.EnqueueBytesAndSend(msgBytes)
+	s.log.OnEventf("Sent SequenceReset TO: %v", endSeqNo)
+
+	return
 }
 
 func (s *session) buildLogout(reason string) *Message {
@@ -256,6 +306,10 @@ func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 		return s.queueForSend(msg)
 	}
 
+	// resendMutex must always be locked before sendMutex to prevent a potential deadlock
+	s.resendMutex.RLock()
+	defer s.resendMutex.RUnlock()
+
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
@@ -311,7 +365,6 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 
 	if isAdminMessageType(msgType) {
 		s.application.ToAdmin(msg, s.sessionID)
-
 		if bytes.Equal(msgType, msgTypeLogon) {
 			var resetSeqNumFlag FIXBoolean
 			if msg.Body.Has(tagResetSeqNumFlag) {
@@ -336,6 +389,7 @@ func (s *session) prepMessageForSend(msg *Message, inReplyTo *Message) (msgBytes
 		}
 	}
 
+	// Message converted to bytes here.
 	msgBytes = msg.build()
 	err = s.persist(seqNum, msgBytes)
 
@@ -461,6 +515,13 @@ func (s *session) handleLogon(msg *Message) error {
 		}
 	}
 
+	nextSenderMsgNumAtLogonReceived := s.store.NextSenderMsgSeqNum()
+
+	// Make sure this is a valid session before resetting the store.
+	if err := s.verifyMsgAgainstAppImpl(msg); err != nil {
+		return err
+	}
+
 	var resetSeqNumFlag FIXBoolean
 	if err := msg.Body.GetField(tagResetSeqNumFlag, &resetSeqNumFlag); err == nil {
 		if resetSeqNumFlag {
@@ -477,6 +538,8 @@ func (s *session) handleLogon(msg *Message) error {
 		}
 	}
 
+	// Verify seq num too high but dont check against app implementation since we just did that.
+	// Don't need to double check.
 	if err := s.verifyIgnoreSeqNumTooHigh(msg); err != nil {
 		return err
 	}
@@ -498,6 +561,23 @@ func (s *session) handleLogon(msg *Message) error {
 
 	s.peerTimer.Reset(time.Duration(float64(1.2) * float64(s.HeartBtInt)))
 	s.application.OnLogon(s.sessionID)
+
+	// Evaluate tag 789 to see if we end up with an implied gapfill/resend.
+	if s.EnableNextExpectedMsgSeqNum && !msg.Body.Has(tagResetSeqNumFlag) {
+		targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
+		if getErr == nil {
+			if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
+				if !s.DisableMessagePersist {
+					seqResetErr := s.generateSequenceReset(targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived+1, *msg)
+					if seqResetErr != nil {
+						return seqResetErr
+					}
+				} else {
+					return targetTooHigh{ReceivedTarget: targetWantsNextSeqNumToBe, ExpectedTarget: nextSenderMsgNumAtLogonReceived}
+				}
+			}
+		}
+	}
 
 	if err := s.checkTargetTooHigh(msg); err != nil {
 		return err
@@ -521,18 +601,18 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 }
 
 func (s *session) verify(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, true, true)
+	return s.verifySelect(msg, true, true, true)
 }
 
 func (s *session) verifyIgnoreSeqNumTooHigh(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, false, true)
+	return s.verifySelect(msg, false, true, false)
 }
 
 func (s *session) verifyIgnoreSeqNumTooHighOrLow(msg *Message) MessageRejectError {
-	return s.verifySelect(msg, false, false)
+	return s.verifySelect(msg, false, false, true)
 }
 
-func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool) MessageRejectError {
+func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool, checkAppImpl bool) MessageRejectError {
 	if reject := s.checkBeginString(msg); reject != nil {
 		return reject
 	}
@@ -561,6 +641,14 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 		}
 	}
 
+	if checkAppImpl {
+		return s.verifyMsgAgainstAppImpl(msg)
+	}
+
+	return nil
+}
+
+func (s *session) verifyMsgAgainstAppImpl(msg *Message) MessageRejectError {
 	if s.Validator != nil {
 		if reject := s.Validator.Validate(msg); reject != nil {
 			return reject
@@ -856,6 +944,7 @@ func (s *session) run() {
 
 		case now := <-ticker.C:
 			s.CheckSessionTime(s, now)
+			s.CheckResetTime(s, now)
 		}
 	}
 }

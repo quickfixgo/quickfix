@@ -1,1 +1,1 @@
-FROM mcr.microsoft.com/devcontainers/go:1.21
+FROM mcr.microsoft.com/devcontainers/go:1.23

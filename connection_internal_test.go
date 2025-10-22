@@ -45,7 +45,7 @@ func TestReadLoop(t *testing.T) {
 	stream := "hello8=FIX.4.09=5blah10=103garbage8=FIX.4.09=4foo10=103"
 
 	parser := newParser(strings.NewReader(stream))
-	go readLoop(parser, msgIn)
+	go readLoop(parser, msgIn, nullLog{})
 
 	var tests = []struct {
 		expectedMsg   string

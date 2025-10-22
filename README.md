@@ -48,7 +48,7 @@ go get -u github.com/quickfixgo/quickfix
 
 ## Getting Started
 
-* [QuickFIX User Manual](http://quickfixgo.org/docs)
+* [QuickFIX User Manual](https://quickfixengine.org/go/documentation/)
 * [Go API Documentation](https://godoc.org/github.com/quickfixgo/quickfix)
 * See [examples](https://github.com/quickfixgo/examples) for some simple examples of using QuickFIX/Go.
 
