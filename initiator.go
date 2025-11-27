@@ -151,21 +151,29 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		wg.Done()
 	}()
 
+	// This is used to cancel read/write loops on reconnect/stop.
+	// During reconnect attempts, we are creating new context for read/write loops and canceling the old one immediately.
+	// During stop, we cancel the last created context here only after the session is stopped and we are safe to stop the read/write loop following the logout and disconnect.
+	readWriteCancel := func() {}
+
 	defer func() {
 		session.stop()
 		wg.Wait()
+		readWriteCancel()
 	}()
 
 	connectionAttempt := 0
+
+	ctx := context.Background()
 
 	for {
 		if !i.waitForInSessionTime(session) {
 			return
 		}
 
-		ctx := context.Background()
 		dialCtx, dialCancel := context.WithCancel(ctx)
-		readWriteCtx, readWriteCancel := context.WithCancel(ctx)
+		readWriteCtx, rwCancel := context.WithCancel(ctx)
+		readWriteCancel = rwCancel
 
 		// We start a goroutine in order to be able to cancel the dialer mid-connection
 		// on receiving a stop signal to stop the initiator.
@@ -173,8 +181,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			select {
 			case <-i.stopChan:
 				dialCancel()
-				readWriteCancel()
-			case <-ctx.Done():
+			case <-dialCtx.Done():
 				return
 			}
 		}()
@@ -238,6 +245,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 
 	reconnect:
 		dialCancel()
+		readWriteCancel()
 
 		connectionAttempt++
 		session.log.OnEventf("Reconnecting in %v", session.ReconnectInterval)

@@ -320,7 +320,8 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 		}
 	}
 
-	sessID := SessionID{BeginString: string(beginString),
+	sessID := SessionID{
+		BeginString:  string(beginString),
 		SenderCompID: string(targetCompID), SenderSubID: string(targetSubID), SenderLocationID: string(targetLocationID),
 		TargetCompID: string(senderCompID), TargetSubID: string(senderSubID), TargetLocationID: string(senderLocationID),
 	}
@@ -379,8 +380,8 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 
 func (a *Acceptor) dynamicSessionsLoop() {
 	var id int
-	var sessions = map[int]*session{}
-	var complete = make(chan int)
+	sessions := map[int]*session{}
+	complete := make(chan int)
 	defer close(complete)
 LOOP:
 	for {

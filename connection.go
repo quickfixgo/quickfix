@@ -25,16 +25,14 @@ func writeLoop(ctx context.Context, connection io.Writer, messageOut chan []byte
 		select {
 		case <-ctx.Done():
 			return
-		default:
-		}
+		case msg, ok := <-messageOut:
+			if !ok {
+				return
+			}
 
-		msg, ok := <-messageOut
-		if !ok {
-			return
-		}
-
-		if _, err := connection.Write(msg); err != nil {
-			log.OnEvent(err.Error())
+			if _, err := connection.Write(msg); err != nil {
+				log.OnEvent(err.Error())
+			}
 		}
 	}
 }

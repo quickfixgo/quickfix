@@ -301,6 +301,7 @@ func (s *session) notifyMessageOut() {
 func (s *session) send(msg *Message) error {
 	return s.sendInReplyTo(msg, nil)
 }
+
 func (s *session) sendInReplyTo(msg *Message, inReplyTo *Message) error {
 	if !s.IsLoggedOn() {
 		return s.queueForSend(msg)
@@ -337,6 +338,7 @@ func (s *session) dropAndReset() error {
 func (s *session) dropAndSend(msg *Message) error {
 	return s.dropAndSendInReplyTo(msg, nil)
 }
+
 func (s *session) dropAndSendInReplyTo(msg *Message, inReplyTo *Message) error {
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
@@ -623,7 +625,7 @@ func (s *session) verifySelect(msg *Message, checkTooHigh bool, checkTooLow bool
 
 	switch s.stateMachine.State.(type) {
 	case resendState:
-		//Don't check staleness of a replay
+		// Don't check staleness of a replay
 	default:
 		if reject := s.checkSendingTime(msg); reject != nil {
 			return reject
@@ -872,7 +874,7 @@ func (s *session) onAdmin(msg interface{}) {
 
 func (s *session) run() {
 	s.Start(s)
-	var stopChan = make(chan struct{})
+	stopChan := make(chan struct{})
 	s.stateTimer = internal.NewEventTimer(func() {
 		select {
 		// Deadlock in write to chan s.sessionEvent after s.Stopped()==true and end of loop session.go:766 because no reader of chan s.sessionEvent.
@@ -886,7 +888,6 @@ func (s *session) run() {
 		case s.sessionEvent <- internal.PeerTimeout:
 		case <-stopChan:
 		}
-
 	})
 
 	// Without this sleep the ticker will be aligned at the millisecond which
@@ -916,6 +917,7 @@ func (s *session) run() {
 
 		case fixIn, ok := <-s.messageIn:
 			if !ok {
+				s.messageIn = nil // prevent repeated reads. Channel will be reinitialized on reconnect.
 				s.Disconnected(s)
 			} else {
 				s.Incoming(s, fixIn)
