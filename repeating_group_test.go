@@ -54,6 +54,26 @@ func TestRepeatingGroup_Add(t *testing.T) {
 	}
 }
 
+func TestRepeatingGroup_Get(t *testing.T) {
+	f := RepeatingGroup{template: GroupTemplate{GroupElement(1)}}
+
+	g1 := f.Add()
+	g1.SetField(Tag(1), FIXString("first"))
+	g2 := f.Add()
+	g2.SetField(Tag(1), FIXString("second"))
+
+	assert.Equal(t, 2, f.Len())
+
+	group0 := f.Get(0)
+	var val FIXString
+	require.Nil(t, group0.GetField(Tag(1), &val))
+	assert.Equal(t, "first", string(val))
+
+	group1 := f.Get(1)
+	require.Nil(t, group1.GetField(Tag(1), &val))
+	assert.Equal(t, "second", string(val))
+}
+
 func TestRepeatingGroup_Write(t *testing.T) {
 	f1 := RepeatingGroup{tag: 10, template: GroupTemplate{
 		GroupElement(1),

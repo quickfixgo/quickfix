@@ -18,6 +18,7 @@ package quickfix
 import (
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 // ErrDoNotSend is a convenience error to indicate a DoNotSend in ToApp.
@@ -124,8 +125,9 @@ func ValueIsIncorrect(tag Tag) MessageRejectError {
 }
 
 // ConditionallyRequiredFieldMissing indicates that the requested field could not be found in the FIX message.
+// Uses strconv.Itoa instead of fmt.Sprintf to avoid format string parsing overhead.
 func ConditionallyRequiredFieldMissing(tag Tag) MessageRejectError {
-	return NewBusinessMessageRejectError(fmt.Sprintf("Conditionally Required Field Missing (%d)", tag), rejectReasonConditionallyRequiredFieldMissing, &tag)
+	return NewBusinessMessageRejectError("Conditionally Required Field Missing ("+strconv.Itoa(int(tag))+")", rejectReasonConditionallyRequiredFieldMissing, &tag)
 }
 
 // valueIsIncorrectNoTag returns an error indicating a field with value that is not valid.

@@ -76,16 +76,45 @@ type Group struct{ FieldMap }
 
 // RepeatingGroup is a FIX Repeating Group type.
 type RepeatingGroup struct {
-	tag      Tag
-	template GroupTemplate
-	groups   []*Group
+	tag       Tag
+	template  GroupTemplate
+	groups    []*Group
+	tagOrder  tagOrder // cached to avoid closure allocation per Read/Add call
+	delimiter Tag      // cached to avoid template[0].Tag() calls
 }
 
 // NewRepeatingGroup returns an initilized RepeatingGroup instance.
 func NewRepeatingGroup(tag Tag, template GroupTemplate) *RepeatingGroup {
-	return &RepeatingGroup{
+	rg := &RepeatingGroup{
 		tag:      tag,
 		template: template,
+	}
+	rg.initCachedValues()
+	return rg
+}
+
+// initCachedValues pre-computes tag ordering and delimiter once per RepeatingGroup.
+// Previously, groupTagOrder() created a new closure with a new map on every call,
+// causing significant allocations during message parsing with repeating groups.
+func (f *RepeatingGroup) initCachedValues() {
+	if len(f.template) > 0 {
+		f.delimiter = f.template[0].Tag()
+	}
+
+	tagMap := make(map[Tag]int, len(f.template))
+	for i, tmpl := range f.template {
+		tagMap[tmpl.Tag()] = i
+	}
+	f.tagOrder = func(i, j Tag) bool {
+		orderi := math.MaxInt32
+		orderj := math.MaxInt32
+		if iIndex, ok := tagMap[i]; ok {
+			orderi = iIndex
+		}
+		if jIndex, ok := tagMap[j]; ok {
+			orderj = jIndex
+		}
+		return orderi < orderj
 	}
 }
 
@@ -96,10 +125,12 @@ func (f RepeatingGroup) Tag() Tag {
 
 // Clone makes a copy of this RepeatingGroup (tag, template).
 func (f RepeatingGroup) Clone() GroupItem {
-	return &RepeatingGroup{
+	rg := &RepeatingGroup{
 		tag:      f.tag,
 		template: f.template.Clone(),
 	}
+	rg.initCachedValues()
+	return rg
 }
 
 // Len returns the number of Groups in this RepeatingGroup.
@@ -115,7 +146,10 @@ func (f RepeatingGroup) Get(i int) *Group {
 // Add appends a new group to the RepeatingGroup and returns the new Group.
 func (f *RepeatingGroup) Add() *Group {
 	g := new(Group)
-	g.initWithOrdering(f.groupTagOrder())
+	if f.tagOrder == nil {
+		f.initCachedValues()
+	}
+	g.initWithOrdering(f.tagOrder)
 
 	f.groups = append(f.groups, g)
 	return g
@@ -153,34 +187,15 @@ func (f RepeatingGroup) findItemInGroupTemplate(t Tag) (item GroupItem, ok bool)
 	return
 }
 
-func (f RepeatingGroup) groupTagOrder() tagOrder {
-	tagMap := make(map[Tag]int)
-	for i, f := range f.template {
-		tagMap[f.Tag()] = i
+func (f RepeatingGroup) getDelimiter() Tag {
+	if f.delimiter != 0 {
+		return f.delimiter
 	}
-
-	return func(i, j Tag) bool {
-		orderi := math.MaxInt32
-		orderj := math.MaxInt32
-
-		if iIndex, ok := tagMap[i]; ok {
-			orderi = iIndex
-		}
-
-		if jIndex, ok := tagMap[j]; ok {
-			orderj = jIndex
-		}
-
-		return orderi < orderj
-	}
-}
-
-func (f RepeatingGroup) delimiter() Tag {
 	return f.template[0].Tag()
 }
 
 func (f RepeatingGroup) isDelimiter(t Tag) bool {
-	return t == f.delimiter()
+	return t == f.getDelimiter()
 }
 
 func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
@@ -194,7 +209,19 @@ func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
 	}
 
 	tv = tv[1:cap(tv)]
-	tagOrdering := f.groupTagOrder()
+	// Use cached tag ordering, initialize if needed.
+	if f.tagOrder == nil {
+		f.initCachedValues()
+	}
+	tagOrdering := f.tagOrder
+
+	// Pre-allocate groups slice to avoid repeated allocations during append.
+	if cap(f.groups) < expectedGroupSize {
+		f.groups = make([]*Group, 0, expectedGroupSize)
+	} else {
+		f.groups = f.groups[:0]
+	}
+
 	group := new(Group)
 	group.initWithOrdering(tagOrdering)
 	for len(tv) > 0 {
@@ -222,7 +249,7 @@ func (f *RepeatingGroup) Read(tv []TagValue) ([]TagValue, error) {
 	}
 
 	if len(f.groups) != expectedGroupSize {
-		return tv, repeatingGroupFieldsOutOfOrder(f.tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.tag, f.delimiter(), expectedGroupSize, len(f.groups)))
+		return tv, repeatingGroupFieldsOutOfOrder(f.tag, fmt.Sprintf("group %v: template is wrong or delimiter %v not found: expected %v groups, but found %v", f.tag, f.getDelimiter(), expectedGroupSize, len(f.groups)))
 	}
 
 	return tv, err

@@ -515,3 +515,71 @@ func checkFieldString(s *MessageSuite, fields FieldMap, tag int, expected string
 	s.NoError(err)
 	s.Equal(expected, toCheck)
 }
+
+func BenchmarkParseMessageNew(b *testing.B) {
+	// SOH = 0x01 is the FIX field delimiter
+	rawMsgStr := "8=FIX.4.2\x019=104\x0135=D\x0134=2\x0149=TW\x0152=20140515-19:49:56.659\x0156=ISLD\x0111=100\x0121=1\x0140=1\x0154=1\x0155=TSLA\x0160=00010101-00:00:00.000\x0110=039\x01"
+
+	for i := 0; i < b.N; i++ {
+		msg := NewMessage()
+		rawMsg := bytes.NewBufferString(rawMsgStr)
+		_ = ParseMessage(msg, rawMsg)
+	}
+}
+
+func BenchmarkGetString(b *testing.B) {
+	// SOH = 0x01 is the FIX field delimiter
+	rawMsgStr := "8=FIX.4.2\x019=104\x0135=D\x0134=2\x0149=TW\x0152=20140515-19:49:56.659\x0156=ISLD\x0111=100\x0121=1\x0140=1\x0154=1\x0155=TSLA\x0160=00010101-00:00:00.000\x0110=039\x01"
+	msg := NewMessage()
+	rawMsg := bytes.NewBufferString(rawMsgStr)
+	if err := ParseMessage(msg, rawMsg); err != nil {
+		b.Fatalf("ParseMessage failed: %v", err)
+	}
+
+	// Verify tags exist before benchmarking
+	if !msg.Header.Has(tagBeginString) {
+		b.Fatal("tagBeginString not found")
+	}
+	if !msg.Header.Has(tagSenderCompID) {
+		b.Fatal("tagSenderCompID not found")
+	}
+	if !msg.Header.Has(tagTargetCompID) {
+		b.Fatal("tagTargetCompID not found")
+	}
+	if !msg.Body.Has(Tag(55)) {
+		b.Fatal("tag 55 not found")
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		_, _ = msg.Header.GetString(tagBeginString)
+		_, _ = msg.Header.GetString(tagSenderCompID)
+		_, _ = msg.Header.GetString(tagTargetCompID)
+		_, _ = msg.Body.GetString(Tag(55))
+	}
+}
+
+func BenchmarkRepeatingGroupRead(b *testing.B) {
+	// Message with repeating group, SOH = 0x01 is the FIX field delimiter
+	rawMsgStr := "8=FIX.4.4\x019=165\x0135=D\x0134=2\x0149=01001\x0150=01001a\x0152=20231231-20:19:41\x0156=TEST\x011=acct1\x0111=13976\x0121=1\x0138=1\x0140=2\x0144=12\x0154=1\x0155=SYMABC\x0159=0\x0160=20231231-20:19:41\x01453=1\x01448=4501\x01447=D\x01452=28\x0110=026\x01"
+
+	dict, _ := datadictionary.Parse("spec/FIX44.xml")
+	msg := NewMessage()
+
+	for i := 0; i < b.N; i++ {
+		rawMsg := bytes.NewBufferString(rawMsgStr)
+		_ = ParseMessageWithDataDictionary(msg, rawMsg, dict, dict)
+	}
+}
+
+func BenchmarkParseMessagePool(b *testing.B) {
+	// SOH = 0x01 is the FIX field delimiter
+	rawMsgStr := "8=FIX.4.2\x019=104\x0135=D\x0134=2\x0149=TW\x0152=20140515-19:49:56.659\x0156=ISLD\x0111=100\x0121=1\x0140=1\x0154=1\x0155=TSLA\x0160=00010101-00:00:00.000\x0110=039\x01"
+
+	for i := 0; i < b.N; i++ {
+		msg := AcquireMessage()
+		rawMsg := bytes.NewBufferString(rawMsgStr)
+		_ = ParseMessage(msg, rawMsg)
+		ReleaseMessage(msg)
+	}
+}

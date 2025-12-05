@@ -115,20 +115,6 @@ func (m FieldMap) GetField(tag Tag, parser FieldValueReader) MessageRejectError 
 	return nil
 }
 
-// GetField parses of a field with Tag tag. Returned reject may indicate the field is not present, or the field value is invalid.
-func (m FieldMap) getFieldNoLock(tag Tag, parser FieldValueReader) MessageRejectError {
-	f, ok := m.tagLookup[tag]
-	if !ok {
-		return ConditionallyRequiredFieldMissing(tag)
-	}
-
-	if err := parser.Read(f[0].value); err != nil {
-		return IncorrectDataFormatForValue(tag)
-	}
-
-	return nil
-}
-
 // GetBytes is a zero-copy GetField wrapper for []bytes fields.
 func (m FieldMap) GetBytes(tag Tag) ([]byte, MessageRejectError) {
 	m.rwLock.RLock()
@@ -196,7 +182,7 @@ func (m FieldMap) GetTime(tag Tag) (t time.Time, err MessageRejectError) {
 	m.rwLock.RLock()
 	defer m.rwLock.RUnlock()
 
-	bytes, err := m.GetBytes(tag)
+	bytes, err := m.getBytesNoLock(tag)
 	if err != nil {
 		return
 	}
@@ -210,21 +196,25 @@ func (m FieldMap) GetTime(tag Tag) (t time.Time, err MessageRejectError) {
 }
 
 // GetString is a GetField wrapper for string fields.
+// Optimized to directly access tagLookup and convert bytes to string,
+// avoiding the intermediate FIXString allocation that GetField would create.
 func (m FieldMap) GetString(tag Tag) (string, MessageRejectError) {
-	var val FIXString
-	if err := m.GetField(tag, &val); err != nil {
-		return "", err
+	m.rwLock.RLock()
+	f, ok := m.tagLookup[tag]
+	m.rwLock.RUnlock()
+	if !ok {
+		return "", ConditionallyRequiredFieldMissing(tag)
 	}
-	return string(val), nil
+	return string(f[0].value), nil
 }
 
-// GetString is a GetField wrapper for string fields.
+// getStringNoLock is a lock-free GetField wrapper for string fields.
 func (m FieldMap) getStringNoLock(tag Tag) (string, MessageRejectError) {
-	var val FIXString
-	if err := m.getFieldNoLock(tag, &val); err != nil {
-		return "", err
+	f, ok := m.tagLookup[tag]
+	if !ok {
+		return "", ConditionallyRequiredFieldMissing(tag)
 	}
-	return string(val), nil
+	return string(f[0].value), nil
 }
 
 // GetGroup is a Get function specific to Group Fields.

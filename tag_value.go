@@ -29,10 +29,14 @@ type TagValue struct {
 }
 
 func (tv *TagValue) init(tag Tag, value []byte) {
-	tv.bytes = strconv.AppendInt(nil, int64(tag), 10)
-	tv.bytes = append(tv.bytes, []byte("=")...)
+	// Pre-allocate exact capacity to avoid slice growth allocations.
+	// Previous impl used append with nil slice, causing multiple grows.
+	capacity := 10 + 1 + len(value) + 1 // max tag digits + '=' + value + SOH
+	tv.bytes = make([]byte, 0, capacity)
+	tv.bytes = strconv.AppendInt(tv.bytes, int64(tag), 10)
+	tv.bytes = append(tv.bytes, '=')
 	tv.bytes = append(tv.bytes, value...)
-	tv.bytes = append(tv.bytes, []byte("")...)
+	tv.bytes = append(tv.bytes, '\001') // SOH (0x01) - FIX field delimiter
 
 	tv.tag = tag
 	tv.value = value
@@ -89,7 +93,7 @@ func (tv TagValue) String() string {
 func (tv TagValue) total() int {
 	total := 0
 
-	for _, b := range []byte(tv.bytes) {
+	for _, b := range tv.bytes {
 		total += int(b)
 	}
 

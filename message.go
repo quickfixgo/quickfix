@@ -19,10 +19,22 @@ import (
 	"bytes"
 	"fmt"
 	"math"
+	"sync"
 	"time"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
+
+// messagePool provides reusable Message objects to reduce allocations.
+var messagePool = sync.Pool{
+	New: func() interface{} {
+		m := &Message{}
+		m.Header.Init()
+		m.Body.Init()
+		m.Trailer.Init()
+		return m
+	},
+}
 
 // Header is first section of a FIX Message.
 type Header struct{ FieldMap }
@@ -137,6 +149,28 @@ func NewMessage() *Message {
 	m.Trailer.Init()
 
 	return m
+}
+
+// AcquireMessage returns a Message from the pool, reducing allocations.
+// The returned Message must be released with ReleaseMessage when no longer needed.
+func AcquireMessage() *Message {
+	return messagePool.Get().(*Message)
+}
+
+// ReleaseMessage returns a Message to the pool for reuse.
+// The Message should not be used after calling this function.
+func ReleaseMessage(m *Message) {
+	if m == nil {
+		return
+	}
+	m.Header.Clear()
+	m.Body.Clear()
+	m.Trailer.Clear()
+	m.rawMessage = nil
+	m.bodyBytes = nil
+	m.fields = m.fields[:0]
+	m.ReceiveTime = time.Time{}
+	messagePool.Put(m)
 }
 
 // CopyInto erases the dest messages and copies the currency message content

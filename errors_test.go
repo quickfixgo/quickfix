@@ -295,3 +295,23 @@ func TestInvalidTagNumber(t *testing.T) {
 		t.Error("Expected IsBusinessReject to be false\n")
 	}
 }
+
+func TestRejectLogon(t *testing.T) {
+	rej := RejectLogon{Text: "logon rejected"}
+
+	if rej.Error() != "logon rejected" {
+		t.Errorf("expected 'logon rejected', got: %s", rej.Error())
+	}
+	if rej.RefTagID() != nil {
+		t.Error("expected nil RefTagID")
+	}
+	if rej.RejectReason() != 0 {
+		t.Errorf("expected 0, got: %d", rej.RejectReason())
+	}
+	if rej.BusinessRejectRefID() != "" {
+		t.Errorf("expected empty string, got: %s", rej.BusinessRejectRefID())
+	}
+	if rej.IsBusinessReject() {
+		t.Error("expected false")
+	}
+}

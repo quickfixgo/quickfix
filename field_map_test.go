@@ -202,3 +202,23 @@ func TestFieldMap_Remove(t *testing.T) {
 	assert.False(t, fMap.Has(1))
 	assert.True(t, fMap.Has(2))
 }
+
+func TestFieldMap_Tags(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetField(1, FIXString("hello"))
+	fMap.SetField(2, FIXString("world"))
+	fMap.SetField(44, FIXString("price"))
+
+	tags := fMap.Tags()
+	assert.Len(t, tags, 3)
+
+	tagSet := make(map[Tag]bool)
+	for _, tag := range tags {
+		tagSet[tag] = true
+	}
+	assert.True(t, tagSet[Tag(1)])
+	assert.True(t, tagSet[Tag(2)])
+	assert.True(t, tagSet[Tag(44)])
+}
