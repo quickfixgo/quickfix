@@ -301,6 +301,10 @@ func doParsing(mp *msgParser) (err error) {
 		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 
+	if err != nil {
+		return
+	}
+
 	calculatedCheckSum := 0
 	for i := 0; i <= mp.fieldIndex; i++ {
 		if mp.msg.fields[i].tag == tagCheckSum {
@@ -314,11 +318,12 @@ func doParsing(mp *msgParser) (err error) {
 	var expectedCheckSumStr string
 	expectedCheckSumStr, err = mp.msg.Trailer.getStringNoLock(tagCheckSum)
 	if err != nil {
-		return parseError{OrigError: "CheckSum tag missing"}
+		err = parseError{OrigError: "CheckSum tag missing"}
+		return
 	}
 
 	if expectedCheckSumStr != formatCheckSum(calculatedCheckSum) {
-		return parseError{
+		err = parseError{
 			OrigError: fmt.Sprintf("Expected CheckSum=%s, Received CheckSum=%s", formatCheckSum(calculatedCheckSum), expectedCheckSumStr),
 		}
 	}
