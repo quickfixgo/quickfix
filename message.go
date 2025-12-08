@@ -297,11 +297,9 @@ func doParsing(mp *msgParser) (err error) {
 	bodyLength, err := mp.msg.Header.getIntNoLock(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
+		return
 	} else if length != bodyLength && !xmlDataMsg {
 		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
-	}
-
-	if err != nil {
 		return
 	}
 
