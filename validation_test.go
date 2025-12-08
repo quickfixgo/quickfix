@@ -20,8 +20,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
@@ -32,6 +30,7 @@ type validateTest struct {
 	ExpectedRejectReason int
 	ExpectedRefTagID     *Tag
 	DoNotExpectReject    bool
+	ExpectParseError     bool
 }
 
 func TestValidate(t *testing.T) {
@@ -90,38 +89,49 @@ func TestValidate(t *testing.T) {
 
 	msg := NewMessage()
 	for _, test := range tests {
-		assert.Nil(t, ParseMessage(msg, bytes.NewBuffer(test.MessageBytes)))
-		reject := test.Validator.Validate(msg)
+		t.Run(test.TestName, func(t *testing.T) {
+			err := ParseMessage(msg, bytes.NewBuffer(test.MessageBytes))
 
-		switch {
-		case reject == nil && test.DoNotExpectReject:
-			continue
+			if test.ExpectParseError {
+				if err == nil {
+					t.Errorf("%v: Expected ParseMessage to fail, but it succeeded", test.TestName)
+				}
+				return
+			}
 
-		case reject != nil && test.DoNotExpectReject:
-			t.Errorf("%v: Unexpected reject: %v", test.TestName, reject)
-			continue
+			if err != nil {
+				t.Fatalf("ParseMessage failed: %v", err)
+			}
+			reject := test.Validator.Validate(msg)
 
-		case reject == nil:
-			t.Errorf("%v: Expected reject", test.TestName)
-			continue
-		}
+			switch {
+			case reject == nil && test.DoNotExpectReject:
+				return
 
-		if reject.RejectReason() != test.ExpectedRejectReason {
-			t.Errorf("%v: Expected reason %v got %v", test.TestName, test.ExpectedRejectReason, reject.RejectReason())
-		}
+			case reject != nil && test.DoNotExpectReject:
+				t.Errorf("%v: Unexpected reject: %v", test.TestName, reject)
+				return
 
-		switch {
-		case reject.RefTagID() == nil && test.ExpectedRefTagID == nil:
-		// OK, expected and actual ref tag not set.
-		case reject.RefTagID() != nil && test.ExpectedRefTagID == nil:
-			t.Errorf("%v: Unexpected RefTag '%v'", test.TestName, *reject.RefTagID())
-		case reject.RefTagID() == nil && test.ExpectedRefTagID != nil:
-			t.Errorf("%v: Expected RefTag '%v'", test.TestName, *test.ExpectedRefTagID)
-		case *reject.RefTagID() == *test.ExpectedRefTagID:
-			// OK, tags equal.
-		default:
-			t.Errorf("%v: Expected RefTag '%v' got '%v'", test.TestName, *test.ExpectedRefTagID, *reject.RefTagID())
-		}
+			case reject == nil:
+				t.Errorf("%v: Expected reject", test.TestName)
+				return
+			}
+
+			if reject.RejectReason() != test.ExpectedRejectReason {
+				t.Errorf("%v: Expected reason %v got %v", test.TestName, test.ExpectedRejectReason, reject.RejectReason())
+			}
+
+			switch {
+			case reject.RefTagID() == nil && test.ExpectedRefTagID == nil:
+			case reject.RefTagID() != nil && test.ExpectedRefTagID == nil:
+				t.Errorf("%v: Unexpected RefTag '%v'", test.TestName, *reject.RefTagID())
+			case reject.RefTagID() == nil && test.ExpectedRefTagID != nil:
+				t.Errorf("%v: Expected RefTag '%v'", test.TestName, *test.ExpectedRefTagID)
+			case *reject.RefTagID() == *test.ExpectedRefTagID:
+			default:
+				t.Errorf("%v: Expected RefTag '%v' got '%v'", test.TestName, *test.ExpectedRefTagID, *reject.RefTagID())
+			}
+		})
 	}
 }
 
@@ -201,6 +211,7 @@ func tcInvalidTagNumberHeader() validateTest {
 	invalidHeaderFieldMessage := createFIX40NewOrderSingle()
 	tag := Tag(9999)
 	invalidHeaderFieldMessage.Header.SetField(tag, FIXString("hello"))
+	invalidHeaderFieldMessage.cook()
 	msgBytes := invalidHeaderFieldMessage.build()
 
 	return validateTest{
@@ -1109,7 +1120,7 @@ func tcTagAppearsMoreThanOnce() validateTest {
 	return validateTest{
 		TestName:             "Tag appears more than once",
 		Validator:            validator,
-		MessageBytes:         []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
+		MessageBytes:         []byte("8=FIX.4.09=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=166"),
 		ExpectedRejectReason: rejectReasonTagAppearsMoreThanOnce,
 		ExpectedRefTagID:     &tag,
 	}
@@ -1124,7 +1135,7 @@ func tcTagAppearsMoreThanOnceFixT() validateTest {
 	return validateTest{
 		TestName:             "Tag appears more than once FIXT",
 		Validator:            validator,
-		MessageBytes:         []byte("8=FIXT.1.19=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=234"),
+		MessageBytes:         []byte("8=FIXT.1.19=10735=D34=249=TW52=20060102-15:04:0556=ISLD11=ID21=140=140=254=138=20055=INTC60=20060102-15:04:0510=248"),
 		ExpectedRejectReason: rejectReasonTagAppearsMoreThanOnce,
 		ExpectedRefTagID:     &tag,
 	}
@@ -1151,7 +1162,7 @@ func tcFloatValidationFixT() validateTest {
 	return validateTest{
 		TestName:             "FloatValidation FIXT",
 		Validator:            validator,
-		MessageBytes:         []byte("8=FIXT.1.19=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=178"),
+		MessageBytes:         []byte("8=FIXT.1.19=10635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID21=140=154=138=+200.0055=INTC60=20140329-22:38:4510=002"),
 		ExpectedRejectReason: rejectReasonIncorrectDataFormatForValue,
 		ExpectedRefTagID:     &tag,
 	}
@@ -1163,7 +1174,7 @@ func tcMultipleRepeatingGroupFields() validateTest {
 	return validateTest{
 		TestName:          "Multiple repeating group fields in a message",
 		Validator:         validator,
-		MessageBytes:      []byte("8=FIX.4.39=17635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID453=2448=PARTYID452=3523=SUBID448=PARTYID2452=378=179=ACCOUNT80=121=140=154=138=20055=INTC60=20140329-22:38:4510=178"),
+		MessageBytes:      []byte("8=FIX.4.39=17635=D34=249=TW52=20140329-22:38:4556=ISLD11=ID453=2448=PARTYID452=3523=SUBID448=PARTYID2452=378=179=ACCOUNT80=121=140=154=138=20055=INTC60=20140329-22:38:4510=012"),
 		DoNotExpectReject: true,
 	}
 }
