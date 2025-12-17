@@ -40,7 +40,6 @@ type Acceptor struct {
 	sessions              map[SessionID]*session
 	sessionGroup          sync.WaitGroup
 	listenerShutdown      sync.WaitGroup
-	validateChecksum      bool
 	dynamicSessions       bool
 	dynamicQualifier      bool
 	dynamicQualifierCount int
