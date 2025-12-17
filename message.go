@@ -158,7 +158,7 @@ func (m *Message) CopyInto(to *Message) {
 
 // ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
-	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil, true)
+	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil, false)
 }
 
 // ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
