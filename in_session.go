@@ -239,7 +239,8 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	nextSeqNum := seqNum
 	msg := NewMessage()
 	err := session.store.IterateMessages(beginSeqNo, endSeqNo, func(msgBytes []byte) error {
-		err := ParseMessageWithDataDictionary(msg, bytes.NewBuffer(msgBytes), session.transportDataDictionary, session.appDataDictionary)
+		skipChecksum := !session.SessionSettings.ValidateChecksum
+		err := ParseMessageWithDataDictionary(msg, bytes.NewBuffer(msgBytes), session.transportDataDictionary, session.appDataDictionary, skipChecksum)
 		if err != nil {
 			session.log.OnEventf("Resend Msg Parse Error: %v, %v", err.Error(), bytes.NewBuffer(msgBytes).String())
 			return err // We cant continue with a message that cant be parsed correctly.

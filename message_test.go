@@ -101,10 +101,26 @@ func (s *MessageSuite) TestParseMessageWithDataDictionary() {
 	}
 	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=036")
 
-	err := ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict)
+	err := ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false)
 	s.Nil(err)
 	s.FieldEquals(Tag(10030), "CUST", s.msg.Header)
 	s.FieldEquals(Tag(5050), "HELLO", s.msg.Trailer)
+}
+
+func (s *MessageSuite) TestParseMessageSkipChecksum() {
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=035")
+
+	// Test Strict Mode (skipChecksum = false) -> Should Fail
+	err := ParseMessageWithDataDictionary(s.msg, rawMsg, nil, nil, false)
+	s.NotNil(err, "Expected error when validating invalid checksum")
+	s.Contains(err.Error(), "Expected CheckSum")
+
+	// Test Lenient Mode (skipChecksum = true) -> Should Pass
+	s.msg = NewMessage()
+	rawMsg = bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=035")
+
+	err = ParseMessageWithDataDictionary(s.msg, rawMsg, nil, nil, true)
+	s.Nil(err, "Expected no error when skipping checksum validation")
 }
 
 func (s *MessageSuite) TestParseOutOfOrder() {
@@ -157,7 +173,7 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithDictionary() {
 			"10=026")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -178,7 +194,7 @@ func (s *MessageSuite) TestRebuildTwoRepeatingGroupsWithDictionary() {
 	rawMsg := bytes.NewBufferString("8=FIX.4.49=21035=D34=2347=UTF-852=20231231-20:19:4149=0100150=01001a56=TEST44=1211=139761=1010040021=1386=1336=NOPL55=SYMABC54=160=20231231-20:19:4138=140=259=0453=1448=4501447=D452=28354=6355=Public10=104")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -199,7 +215,7 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithTwoMembersWithDictionary(
 			"10=044")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -223,7 +239,7 @@ func (s *MessageSuite) TestRebuildTwoSequentialRepeatingGroupWithDictionary() {
 			"10=243")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -248,7 +264,7 @@ func (s *MessageSuite) TestRebuildNestedRepeatingGroupWithDictionary() {
 			"10=206")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -273,7 +289,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedRepeatingGroupWithDictionary() {
 			"10=117")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -298,7 +314,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenAnotherRepeatingGroupWithDicti
 			"10=106")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -323,7 +339,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenBodyTagThenAnotherRepeatingGro
 			"10=198")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -368,7 +384,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedWithTwoMembersRepeatingGroupWithDi
 			"10=046")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()

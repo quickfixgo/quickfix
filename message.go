@@ -38,6 +38,7 @@ type msgParser struct {
 	trailerBytes            []byte
 	foundBody               bool
 	foundTrailer            bool
+	skipChecksum            bool
 }
 
 // in the message header, the first 3 tags in the message header must be 8,9,35.
@@ -157,7 +158,7 @@ func (m *Message) CopyInto(to *Message) {
 
 // ParseMessage constructs a Message from a byte slice wrapping a FIX message.
 func ParseMessage(msg *Message, rawMessage *bytes.Buffer) (err error) {
-	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil)
+	return ParseMessageWithDataDictionary(msg, rawMessage, nil, nil, true)
 }
 
 // ParseMessageWithDataDictionary constructs a Message from a byte slice wrapping a FIX message using an optional session and application DataDictionary for reference.
@@ -166,12 +167,14 @@ func ParseMessageWithDataDictionary(
 	rawMessage *bytes.Buffer,
 	transportDataDictionary *datadictionary.DataDictionary,
 	appDataDictionary *datadictionary.DataDictionary,
+	skipChecksum bool,
 ) (err error) {
 	// Create msgparser before we go any further.
 	mp := &msgParser{
 		msg:                     msg,
 		transportDataDictionary: transportDataDictionary,
 		appDataDictionary:       appDataDictionary,
+		skipChecksum:            skipChecksum,
 	}
 	mp.msg.rawMessage = rawMessage
 	mp.rawBytes = rawMessage.Bytes()
@@ -313,16 +316,18 @@ func doParsing(mp *msgParser) (err error) {
 
 	calculatedCheckSum = calculatedCheckSum % 256
 
-	var expectedCheckSumStr string
-	expectedCheckSumStr, err = mp.msg.Trailer.getStringNoLock(tagCheckSum)
-	if err != nil {
-		err = parseError{OrigError: "CheckSum tag missing"}
-		return
-	}
+	if !mp.skipChecksum {
+		var expectedCheckSumStr string
+		expectedCheckSumStr, err = mp.msg.Trailer.getStringNoLock(tagCheckSum)
+		if err != nil {
+			err = parseError{OrigError: "CheckSum tag missing"}
+			return
+		}
 
-	if expectedCheckSumStr != formatCheckSum(calculatedCheckSum) {
-		err = parseError{
-			OrigError: fmt.Sprintf("Expected CheckSum=%s, Received CheckSum=%s", formatCheckSum(calculatedCheckSum), expectedCheckSumStr),
+		if expectedCheckSumStr != formatCheckSum(calculatedCheckSum) {
+			err = parseError{
+				OrigError: fmt.Sprintf("Expected CheckSum=%s, Received CheckSum=%s", formatCheckSum(calculatedCheckSum), expectedCheckSumStr),
+			}
 		}
 	}
 

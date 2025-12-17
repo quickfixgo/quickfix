@@ -22,6 +22,7 @@ type SessionSettings struct {
 	ResetSeqTime                 time.Time
 	EnableResetSeqTime           bool
 	InChanCapacity               int
+	ValidateChecksum             bool
 
 	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string
