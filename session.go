@@ -906,7 +906,7 @@ func (s *session) run() {
 		}
 
 	})
-	
+
 	if s.SessionTime != nil {
 		// Without this sleep the ticker will be aligned at the millisecond which
 		// corresponds to the creation of the session. If the session creation
@@ -915,7 +915,7 @@ func (s *session) run() {
 		// rejected. Aligning the ticker with a round second fixes that.
 		time.Sleep(time.Until(time.Now().Truncate(time.Second).Add(time.Second)))
 	}
-	
+
 	ticker := time.NewTicker(time.Second)
 
 	defer func() {
