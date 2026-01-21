@@ -26,8 +26,10 @@ import (
 )
 
 type fileLog struct {
-	eventLogger   *log.Logger
-	messageLogger *log.Logger
+	eventLogger    *log.Logger
+	messageLogger  *log.Logger
+	eventWriter   *rollingWriter
+	messageWriter *rollingWriter
 }
 
 func (l fileLog) OnIncoming(msg []byte) {
@@ -46,64 +48,141 @@ func (l fileLog) OnEventf(format string, v ...interface{}) {
 	l.eventLogger.Printf(format, v...)
 }
 
+type rollingConfig struct {
+	maxSize    int
+	maxBackups int
+	maxAge     int
+	compress   bool
+}
+
 type fileLogFactory struct {
 	globalLogPath   string
 	sessionLogPaths map[quickfix.SessionID]string
+	globalConfig    rollingConfig
+	sessionConfigs  map[quickfix.SessionID]rollingConfig
 }
 
 // NewLogFactory creates an instance of LogFactory that writes messages and events to file.
 // The location of global and session log files is configured via FileLogPath.
+// Optional rolling configuration can be set via FileLogMaxSize, FileLogMaxBackups, FileLogMaxAge, and FileLogCompress.
 func NewLogFactory(settings *quickfix.Settings) (quickfix.LogFactory, error) {
 	logFactory := fileLogFactory{}
 
 	var err error
-	if logFactory.globalLogPath, err = settings.GlobalSettings().Setting(config.FileLogPath); err != nil {
+	globalSettings := settings.GlobalSettings()
+	if logFactory.globalLogPath, err = globalSettings.Setting(config.FileLogPath); err != nil {
 		return logFactory, err
 	}
 
-	logFactory.sessionLogPaths = make(map[quickfix.SessionID]string)
+	// Read global rolling configuration
+	logFactory.globalConfig = readRollingConfig(globalSettings)
 
+	logFactory.sessionLogPaths = make(map[quickfix.SessionID]string)
+	logFactory.sessionConfigs = make(map[quickfix.SessionID]rollingConfig)
+
+	// SessionSettings() already merges global settings with session-specific settings
 	for sid, sessionSettings := range settings.SessionSettings() {
 		logPath, err := sessionSettings.Setting(config.FileLogPath)
 		if err != nil {
 			return logFactory, err
 		}
 		logFactory.sessionLogPaths[sid] = logPath
+		// Read merged rolling configuration (global + session overrides)
+		logFactory.sessionConfigs[sid] = readRollingConfig(sessionSettings)
 	}
 
 	return logFactory, nil
 }
 
-func newFileLog(prefix string, logPath string) (fileLog, error) {
+// readRollingConfig reads rolling configuration from settings.
+// Returns default values (all zeros/false) if settings are not present.
+func readRollingConfig(settings *quickfix.SessionSettings) rollingConfig {
+	cfg := rollingConfig{}
+
+	if settings.HasSetting(config.FileLogMaxSize) {
+		if maxSize, err := settings.IntSetting(config.FileLogMaxSize); err == nil {
+			cfg.maxSize = maxSize
+		}
+	}
+
+	if settings.HasSetting(config.FileLogMaxBackups) {
+		if maxBackups, err := settings.IntSetting(config.FileLogMaxBackups); err == nil {
+			cfg.maxBackups = maxBackups
+		}
+	}
+
+	if settings.HasSetting(config.FileLogMaxAge) {
+		if maxAge, err := settings.IntSetting(config.FileLogMaxAge); err == nil {
+			cfg.maxAge = maxAge
+		}
+	}
+
+	if settings.HasSetting(config.FileLogCompress) {
+		if compress, err := settings.BoolSetting(config.FileLogCompress); err == nil {
+			cfg.compress = compress
+		}
+	}
+
+	return cfg
+}
+
+
+func newFileLog(prefix string, logPath string, config rollingConfig) (fileLog, error) {
 	l := fileLog{}
 
 	eventLogName := path.Join(logPath, prefix+".event.current.log")
 	messageLogName := path.Join(logPath, prefix+".messages.current.log")
 
-	if err := os.MkdirAll(logPath, os.ModePerm); err != nil {
-		return l, err
-	}
+	// Use rolling writer if any rolling option is enabled
+	useRolling := config.maxSize > 0 || config.maxAge > 0 || config.maxBackups > 0 || config.compress
 
-	fileFlags := os.O_RDWR | os.O_CREATE | os.O_APPEND
-	eventFile, err := os.OpenFile(eventLogName, fileFlags, os.ModePerm)
-	if err != nil {
-		return l, err
-	}
+	if useRolling {
+		// Create rolling writers
+		eventWriter, err := newRollingWriter(eventLogName, config.maxSize, config.maxBackups, config.maxAge, config.compress)
+		if err != nil {
+			return l, err
+		}
 
-	messageFile, err := os.OpenFile(messageLogName, fileFlags, os.ModePerm)
-	if err != nil {
-		return l, err
-	}
+		messageWriter, err := newRollingWriter(messageLogName, config.maxSize, config.maxBackups, config.maxAge, config.compress)
+		if err != nil {
+			eventWriter.Close()
+			return l, err
+		}
 
-	logFlag := log.Ldate | log.Ltime | log.Lmicroseconds | log.LUTC
-	l.eventLogger = log.New(eventFile, "", logFlag)
-	l.messageLogger = log.New(messageFile, "", logFlag)
+		l.eventWriter = eventWriter
+		l.messageWriter = messageWriter
+
+		logFlag := log.Ldate | log.Ltime | log.Lmicroseconds | log.LUTC
+		l.eventLogger = log.New(eventWriter, "", logFlag)
+		l.messageLogger = log.New(messageWriter, "", logFlag)
+	} else {
+		// Use regular file writers (backward compatible)
+		if err := os.MkdirAll(logPath, os.ModePerm); err != nil {
+			return l, err
+		}
+
+		fileFlags := os.O_RDWR | os.O_CREATE | os.O_APPEND
+		eventFile, err := os.OpenFile(eventLogName, fileFlags, os.ModePerm)
+		if err != nil {
+			return l, err
+		}
+
+		messageFile, err := os.OpenFile(messageLogName, fileFlags, os.ModePerm)
+		if err != nil {
+			eventFile.Close()
+			return l, err
+		}
+
+		logFlag := log.Ldate | log.Ltime | log.Lmicroseconds | log.LUTC
+		l.eventLogger = log.New(eventFile, "", logFlag)
+		l.messageLogger = log.New(messageFile, "", logFlag)
+	}
 
 	return l, nil
 }
 
 func (f fileLogFactory) Create() (quickfix.Log, error) {
-	return newFileLog("GLOBAL", f.globalLogPath)
+	return newFileLog("GLOBAL", f.globalLogPath, f.globalConfig)
 }
 
 func (f fileLogFactory) CreateSessionLog(sessionID quickfix.SessionID) (quickfix.Log, error) {
@@ -114,5 +193,10 @@ func (f fileLogFactory) CreateSessionLog(sessionID quickfix.SessionID) (quickfix
 	}
 
 	prefix := sessionIDFilenamePrefix(sessionID)
-	return newFileLog(prefix, logPath)
+	// Use session config (already merged with global in NewLogFactory)
+	config := f.globalConfig
+	if sessionConfig, hasSessionConfig := f.sessionConfigs[sessionID]; hasSessionConfig {
+		config = sessionConfig
+	}
+	return newFileLog(prefix, logPath, config)
 }
