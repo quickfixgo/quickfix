@@ -26,8 +26,8 @@ import (
 )
 
 type fileLog struct {
-	eventLogger    *log.Logger
-	messageLogger  *log.Logger
+	eventLogger   *log.Logger
+	messageLogger *log.Logger
 	eventWriter   *rollingWriter
 	messageWriter *rollingWriter
 }
@@ -125,7 +125,6 @@ func readRollingConfig(settings *quickfix.SessionSettings) rollingConfig {
 
 	return cfg
 }
-
 
 func newFileLog(prefix string, logPath string, config rollingConfig) (fileLog, error) {
 	l := fileLog{}
