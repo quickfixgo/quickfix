@@ -53,6 +53,7 @@ type session struct {
 	stateTimer *internal.EventTimer
 	peerTimer  *internal.EventTimer
 	sentReset  bool
+	stopCh     chan struct{}
 	stopOnce   sync.Once
 
 	targetDefaultApplVerID string
@@ -98,6 +99,9 @@ type stopReq struct{}
 func (s *session) stop() {
 	// Stop once.
 	s.stopOnce.Do(func() {
+		if s.stopCh != nil {
+			close(s.stopCh)
+		}
 		s.admin <- stopReq{}
 	})
 }
@@ -596,7 +600,13 @@ func (s *session) initiateLogoutInReplyTo(reason string, inReplyTo *Message) (er
 		return
 	}
 	s.log.OnEvent("Inititated logout request")
-	time.AfterFunc(s.LogoutTimeout, func() { s.sessionEvent <- internal.LogoutTimeout })
+	time.AfterFunc(s.LogoutTimeout, func() {
+		select {
+		case <-s.stopCh:
+			return
+		case s.sessionEvent <- internal.LogoutTimeout:
+		}
+	})
 	return
 }
 
