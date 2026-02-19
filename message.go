@@ -297,8 +297,33 @@ func doParsing(mp *msgParser) (err error) {
 	bodyLength, err := mp.msg.Header.getIntNoLock(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
+		return
 	} else if length != bodyLength && !xmlDataMsg {
 		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
+		return
+	}
+
+	calculatedCheckSum := 0
+	for i := 0; i <= mp.fieldIndex; i++ {
+		if mp.msg.fields[i].tag == tagCheckSum {
+			continue
+		}
+		calculatedCheckSum += mp.msg.fields[i].total()
+	}
+
+	calculatedCheckSum = calculatedCheckSum % 256
+
+	var expectedCheckSumStr string
+	expectedCheckSumStr, err = mp.msg.Trailer.getStringNoLock(tagCheckSum)
+	if err != nil {
+		err = parseError{OrigError: "CheckSum tag missing"}
+		return
+	}
+
+	if expectedCheckSumStr != formatCheckSum(calculatedCheckSum) {
+		err = parseError{
+			OrigError: fmt.Sprintf("Expected CheckSum=%s, Received CheckSum=%s", formatCheckSum(calculatedCheckSum), expectedCheckSumStr),
+		}
 	}
 
 	return
