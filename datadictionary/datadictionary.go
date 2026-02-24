@@ -3,10 +3,9 @@ package datadictionary
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
 	"os"
-
-	"github.com/pkg/errors"
 )
 
 // DataDictionary models FIX messages, components, and fields.
@@ -304,7 +303,7 @@ func Parse(path string) (*DataDictionary, error) {
 	var err error
 	xmlFile, err = os.Open(path)
 	if err != nil {
-		return nil, errors.Wrapf(err, "problem opening file: %v", path)
+		return nil, fmt.Errorf("problem opening file: %s: %w", path, err)
 	}
 	defer xmlFile.Close()
 
@@ -320,7 +319,7 @@ func ParseSrc(xmlSrc io.Reader) (*DataDictionary, error) {
 	}
 
 	if err := decoder.Decode(doc); err != nil {
-		return nil, errors.Wrapf(err, "problem parsing XML file")
+		return nil, fmt.Errorf("problem parsing XML file: %w", err)
 	}
 
 	b := new(builder)

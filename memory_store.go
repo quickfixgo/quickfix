@@ -16,9 +16,8 @@
 package quickfix
 
 import (
+	"fmt"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 type memoryStore struct {
@@ -122,7 +121,7 @@ type memoryStoreFactory struct{}
 func (f memoryStoreFactory) Create(_ SessionID) (MessageStore, error) {
 	m := new(memoryStore)
 	if err := m.Reset(); err != nil {
-		return m, errors.Wrap(err, "reset")
+		return m, fmt.Errorf("reset: %w", err)
 	}
 	return m, nil
 }
