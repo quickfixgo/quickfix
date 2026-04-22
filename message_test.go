@@ -143,16 +143,13 @@ func (s *MessageSuite) TestParseGroup_BodyFieldAfterNestedGroup() {
 	// NoQuoteSets count (group delimiter) lands in Body as expected.
 	s.True(s.msg.Body.Has(Tag(296)))
 
-	// ToDo: should be correct — QuoteStatus (297) must be a top-level body
-	// field per FIX 4.4. Current parseGroup logic silently absorbs 297 into
-	// the NoQuoteSets group buffer because it only checks whether the
-	// parent tag is a NumInGroup, not whether 297 is a member of the
-	// parent group template.
-	s.False(s.msg.Body.Has(Tag(297)),
-		"BUG: QuoteStatus (297) is absent from Body.FieldMap — parser "+
-			"mis-attributed it to the parent NoQuoteSets group. This "+
-			"assertion documents the bug; flip to s.True(...) when "+
-			"parseGroup is fixed.")
+	// QuoteStatus (297) must be a top-level body field per FIX 4.4.
+	s.True(s.msg.Body.Has(Tag(297)),
+		"QuoteStatus (297) must land at the body level; it is a body field "+
+			"in MassQuoteAcknowledgement, not a member of NoQuoteSets.")
+	val, verr := s.msg.Body.GetInt(Tag(297))
+	s.Nil(verr)
+	s.Equal(1, val)
 }
 
 func (s *MessageSuite) TestBuild() {
