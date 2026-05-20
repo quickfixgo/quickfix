@@ -1,25 +1,48 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-// Validator validates a FIX message
+const (
+	UserDefinedTagMin int = 5000
+)
+
+// Validator validates a FIX message.
 type Validator interface {
 	Validate(*Message) MessageRejectError
 }
 
-// ValidatorSettings describe validation behavior
+// ValidatorSettings describe validation behavior.
 type ValidatorSettings struct {
-	CheckFieldsOutOfOrder bool
-	RejectInvalidMessage  bool
+	CheckFieldsOutOfOrder     bool
+	RejectInvalidMessage      bool
+	AllowUnknownMessageFields bool
+	CheckUserDefinedFields    bool
 }
 
 // Default configuration for message validation.
 // See http://www.quickfixengine.org/quickfix/doc/html/configuration.html.
 var defaultValidatorSettings = ValidatorSettings{
-	CheckFieldsOutOfOrder: true,
-	RejectInvalidMessage:  true,
+	CheckFieldsOutOfOrder:     true,
+	RejectInvalidMessage:      true,
+	AllowUnknownMessageFields: false,
+	CheckUserDefinedFields:    true,
 }
 
 type fixValidator struct {
@@ -33,7 +56,7 @@ type fixtValidator struct {
 	settings                ValidatorSettings
 }
 
-// NewValidator creates a FIX message validator from the given data dictionaries
+// NewValidator creates a FIX message validator from the given data dictionaries.
 func NewValidator(settings ValidatorSettings, appDataDictionary, transportDataDictionary *datadictionary.DataDictionary) Validator {
 	if transportDataDictionary != nil {
 		return &fixtValidator{
@@ -94,11 +117,11 @@ func validateFIX(d *datadictionary.DataDictionary, settings ValidatorSettings, m
 	}
 
 	if settings.RejectInvalidMessage {
-		if err := validateFields(d, d, msgType, msg); err != nil {
+		if err := validateFields(d, d, settings, msgType, msg); err != nil {
 			return err
 		}
 
-		if err := validateWalk(d, d, msgType, msg); err != nil {
+		if err := validateWalk(d, d, settings, msgType, msg); err != nil {
 			return err
 		}
 	}
@@ -121,25 +144,27 @@ func validateFIXT(transportDD, appDD *datadictionary.DataDictionary, settings Va
 		}
 	}
 
-	if err := validateWalk(transportDD, appDD, msgType, msg); err != nil {
-		return err
-	}
+	if settings.RejectInvalidMessage {
+		if err := validateFields(transportDD, appDD, settings, msgType, msg); err != nil {
+			return err
+		}
 
-	if err := validateFields(transportDD, appDD, msgType, msg); err != nil {
-		return err
+		if err := validateWalk(transportDD, appDD, settings, msgType, msg); err != nil {
+			return err
+		}
 	}
 
 	return nil
 }
 
-func validateMsgType(d *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
+func validateMsgType(d *datadictionary.DataDictionary, msgType string, _ *Message) MessageRejectError {
 	if _, validMsgType := d.Messages[msgType]; !validMsgType {
 		return InvalidMessageType()
 	}
 	return nil
 }
 
-func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, msg *Message) MessageRejectError {
+func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, settings ValidatorSettings, msgType string, msg *Message) MessageRejectError {
 	remainingFields := msg.fields
 	iteratedTags := make(datadictionary.TagSet)
 
@@ -161,14 +186,18 @@ func validateWalk(transportDD *datadictionary.DataDictionary, appDD *datadiction
 			messageDef = appDD.Messages[msgType]
 		}
 
-		if fieldDef, ok = messageDef.Fields[int(tag)]; !ok {
-			return TagNotDefinedForThisMessageType(tag)
-		}
-
 		if _, duplicate := iteratedTags[int(tag)]; duplicate {
 			return tagAppearsMoreThanOnce(tag)
 		}
 		iteratedTags.Add(int(tag))
+
+		if fieldDef, ok = messageDef.Fields[int(tag)]; !ok {
+			if !checkFieldNotDefined(settings, tag) {
+				return TagNotDefinedForThisMessageType(tag)
+			}
+			remainingFields = remainingFields[1:]
+			continue
+		}
 
 		if remainingFields, err = validateVisitField(fieldDef, remainingFields); err != nil {
 			return err
@@ -209,13 +238,13 @@ func validateVisitGroupField(fieldDef *datadictionary.FieldDef, fieldStack []Tag
 
 	for len(fieldStack) > 0 {
 
-		//start of repeating group
+		// Start of repeating group.
 		if int(fieldStack[0].tag) == fieldDef.Fields[0].Tag() {
 			childDefs = fieldDef.Fields
 			groupCount++
 		}
 
-		//group complete
+		// Group complete.
 		if len(childDefs) == 0 {
 			break
 		}
@@ -278,7 +307,7 @@ func validateRequired(transportDD *datadictionary.DataDictionary, appDD *datadic
 	return nil
 }
 
-func validateRequiredFieldMap(msg *Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
+func validateRequiredFieldMap(_ *Message, requiredTags map[int]struct{}, fieldMap FieldMap) MessageRejectError {
 	for required := range requiredTags {
 		requiredTag := Tag(required)
 		if !fieldMap.Has(requiredTag) {
@@ -289,19 +318,24 @@ func validateRequiredFieldMap(msg *Message, requiredTags map[int]struct{}, field
 	return nil
 }
 
-func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadictionary.DataDictionary, msgType string, message *Message) MessageRejectError {
+func validateFields(transportDD *datadictionary.DataDictionary,
+	appDD *datadictionary.DataDictionary,
+	settings ValidatorSettings,
+	msgType string,
+	message *Message,
+) MessageRejectError {
 	for _, field := range message.fields {
 		switch {
 		case field.tag.IsHeader():
-			if err := validateField(transportDD, transportDD.Header.Tags, field); err != nil {
+			if err := validateField(transportDD, settings, transportDD.Header.Tags, field); err != nil {
 				return err
 			}
 		case field.tag.IsTrailer():
-			if err := validateField(transportDD, transportDD.Trailer.Tags, field); err != nil {
+			if err := validateField(transportDD, settings, transportDD.Trailer.Tags, field); err != nil {
 				return err
 			}
 		default:
-			if err := validateField(appDD, appDD.Messages[msgType].Tags, field); err != nil {
+			if err := validateField(appDD, settings, appDD.Messages[msgType].Tags, field); err != nil {
 				return err
 			}
 		}
@@ -310,13 +344,37 @@ func validateFields(transportDD *datadictionary.DataDictionary, appDD *datadicti
 	return nil
 }
 
-func validateField(d *datadictionary.DataDictionary, validFields datadictionary.TagSet, field TagValue) MessageRejectError {
+func getFieldType(d *datadictionary.DataDictionary, field int) (*datadictionary.FieldType, bool) {
+	fieldType, isMessageField := d.FieldTypeByTag[field]
+	return fieldType, isMessageField
+}
+
+func checkFieldNotDefined(settings ValidatorSettings, field Tag) bool {
+	fail := false
+	if int(field) < UserDefinedTagMin {
+		fail = !settings.AllowUnknownMessageFields
+	} else {
+		fail = settings.CheckUserDefinedFields
+	}
+	return !fail
+}
+
+func validateField(d *datadictionary.DataDictionary,
+	settings ValidatorSettings,
+	_ datadictionary.TagSet,
+	field TagValue,
+) MessageRejectError {
 	if len(field.value) == 0 {
 		return TagSpecifiedWithoutAValue(field.tag)
 	}
 
-	if _, valid := d.FieldTypeByTag[int(field.tag)]; !valid {
+	fieldType, isMessageField := getFieldType(d, int(field.tag))
+	if !isMessageField && !checkFieldNotDefined(settings, field.tag) {
 		return InvalidTagNumber(field.tag)
+	}
+
+	if !isMessageField {
+		return nil
 	}
 
 	allowedValues := d.FieldTypeByTag[int(field.tag)].Enums
@@ -326,7 +384,6 @@ func validateField(d *datadictionary.DataDictionary, validFields datadictionary.
 		}
 	}
 
-	fieldType := d.FieldTypeByTag[int(field.tag)]
 	var prototype FieldValue
 	switch fieldType.Type {
 	case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING":

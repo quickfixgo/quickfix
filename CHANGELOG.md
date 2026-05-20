@@ -1,3 +1,193 @@
+## 0.9.10 (August 8, 2025)
+
+### BUG FIXES
+* Send Reset if the ResetTime elapsed in between checks [#725](https://github.com/quickfixgo/quickfix/pull/725)
+
+## 0.9.9 (July 31, 2025)
+
+### BUG FIXES
+* Adds missing tz for resetseqtime without starttime endtime #723 [#723](https://github.com/quickfixgo/quickfix/pull/723)
+
+## 0.9.8 (July 21, 2025)
+
+### ENHANCEMENTS
+* Add DB name configuration [#711](https://github.com/quickfixgo/quickfix/pull/711)
+* Change ResetSeqTime to time.Time based on the config's timeZone [#712](https://github.com/quickfixgo/quickfix/pull/712)
+
+### BUG FIXES
+* Block Sends when Resend Request is active [#715](https://github.com/quickfixgo/quickfix/pull/715)
+* Fix the issue of incorrect time range calculation across days [#718](https://github.com/quickfixgo/quickfix/pull/718)
+
+## 0.9.7 (April 23, 2025)
+
+### FEATURES
+* Adds SQL, MongoDB and Composite FIX Log and LogFactory implementations, see `config/configuration.go` for details [#672](https://github.com/quickfixgo/quickfix/pull/672)
+* Adds convenience getters for session log and store [#675](https://github.com/quickfixgo/quickfix/pull/675)
+* Adds config option for ResetSeqTime [#705](https://github.com/quickfixgo/quickfix/pull/705)
+
+### ENHANCEMENTS
+* File store uses files exclusively [#680](https://github.com/quickfixgo/quickfix/pull/680)
+* Protect concurrent usage of filestore [#688](https://github.com/quickfixgo/quickfix/pull/688)
+* Support udecimal library in code generation [#700](https://github.com/quickfixgo/quickfix/pull/700)
+
+### BUG FIXES
+* Avoid unkeyed fields usage for exported struct in generated code [#683](https://github.com/quickfixgo/quickfix/pull/683)
+* Iterate messages in filestore opens a separate file to avoid deadlock [#703](https://github.com/quickfixgo/quickfix/pull/703)
+* Correct ordering in message trailer [#707](https://github.com/quickfixgo/quickfix/pull/707)
+
+## 0.9.6 (September 20, 2024)
+
+### ENHANCEMENTS
+* Allow the clients of acceptor to specify their own tls.Config https://github.com/quickfixgo/quickfix/pull/667
+* Adds NextExpectedSeqNum setting https://github.com/quickfixgo/quickfix/pull/668
+
+### BUG FIXES
+* Reinit stop sync to prevent deadlock on sequential start/stops https://github.com/quickfixgo/quickfix/pull/669
+* Check logon auth before resetting store https://github.com/quickfixgo/quickfix/pull/670
+* Reverts ToAdmin call sequencing https://github.com/quickfixgo/quickfix/pull/674
+
+## 0.9.5 (August 14, 2024)
+
+### ENHANCEMENTS
+* Introduce message iterator to avoid loading all messages into memory at once upon resend request https://github.com/quickfixgo/quickfix/pull/659
+* Only lock fieldmap once during message parsing https://github.com/quickfixgo/quickfix/pull/658
+* Optimize tag value parsing https://github.com/quickfixgo/quickfix/pull/657
+* Use bytes.Count to count the number of message fields https://github.com/quickfixgo/quickfix/pull/655
+* Port config documentation into proper go doc format https://github.com/quickfixgo/quickfix/pull/649
+* Support TLS configuration as raw bytes https://github.com/quickfixgo/quickfix/pull/647
+
+### BUG FIXES
+* Use the Go generated file convention https://github.com/quickfixgo/quickfix/pull/660
+* Fix stuck call to Dial when calling Stop on the Initiator https://github.com/quickfixgo/quickfix/pull/654
+* Do not increment NextTargetMsgSeqNum for out of sequence Logout and Test Requests https://github.com/quickfixgo/quickfix/pull/645
+
+## 0.9.4 (May 29, 2024)
+
+### ENHANCEMENTS
+* Adds log to readLoop just like writeLoop https://github.com/quickfixgo/quickfix/pull/642
+
+### BUG FIXES
+* Maintain repeating group field order when parsing messages  https://github.com/quickfixgo/quickfix/pull/636
+
+## 0.9.3 (May 9, 2024)
+
+### BUG FIXES
+* Change filestore.offsets from map[int]msgDef to sync.Map https://github.com/quickfixgo/quickfix/pull/639
+* Unregister sessions on stop https://github.com/quickfixgo/quickfix/pull/637
+* Corrects ResetOnLogon behavior for initiators https://github.com/quickfixgo/quickfix/pull/635
+
+### FEATURES
+* Add AllowUnknownMessageFields & CheckUserDefinedFields settings as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/632
+
+## 0.9.2 (April 23, 2024)
+
+### BUG FIXES
+* Prevent message queue blocking in the case of network connection trouble https://github.com/quickfixgo/quickfix/pull/615 https://github.com/quickfixgo/quickfix/pull/628
+* Corrects validation of multiple repeating groups with different fields https://github.com/quickfixgo/quickfix/pull/623
+
+## 0.9.1 (April 15, 2024)
+
+### BUG FIXES
+* Preserve original body when resending https://github.com/quickfixgo/quickfix/pull/624
+
+## 0.9.0 (November 13, 2023)
+
+### FEATURES
+* Add Weekdays config setting as included in QuickFIX/J https://github.com/quickfixgo/quickfix/pull/590
+* `MessageStore` Refactor
+
+The message store types external to a quickfix-go application have been refactored into individual sub-packages within `quickfix`. The benefit of this is that the dependencies for these specific store types are no longer included in the quickfix package itself, so many projects depending on the quickfix package will no longer be bloated with large indirect dependencies if they are not specifically implemented in your application. This applies to the `mongo` (MongoDB), `file` (A file on-disk), and `sql` (Any db accessed with a go sql driver interface). The `memorystore` (in-memory message store) syntax remains unchanged. The minor drawback to this is that with some re-packaging came some minor syntax changes. See https://github.com/quickfixgo/quickfix/issues/547 and https://github.com/quickfixgo/quickfix/pull/592 for more information. The relevant examples are below.
+
+MONGO
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/mongo"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+FILE
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/file"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+SQL
+
+```go
+import "github.com/quickfixgo/quickfix"
+
+...
+acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+becomes 
+```go
+import (
+  "github.com/quickfixgo/quickfix"
+  "github.com/quickfixgo/quickfix/store/sql"
+)
+
+...
+acceptor, err = quickfix.NewAcceptor(app, sql.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+```
+
+
+### ENHANCEMENTS
+* Acceptance suite store type expansions https://github.com/quickfixgo/quickfix/pull/596 and https://github.com/quickfixgo/quickfix/pull/591
+* Support Go v1.21 https://github.com/quickfixgo/quickfix/pull/589
+
+
+### BUG FIXES
+* Resolves outstanding issues with postgres db creation syntax and `pgx` driver https://github.com/quickfixgo/quickfix/pull/598
+* Fix sequence number bug when storage fails https://github.com/quickfixgo/quickfix/pull/432
+
+
+## 0.8.1 (October 27, 2023)
+
+BUG FIXES
+
+* Remove initiator wait [GH 587]
+* for xml charset and bug of "Incorrect NumInGroup" [GH 368, 363, 365, 366]
+* Allow time.Duration or int for timeouts [GH 477]
+* Trim extra non-ascii characters that can arise from manually editing [GH 463, 464]
+
+## 0.8.0 (October 25, 2023)
+
+ENHANCEMENTS
+
+* Remove tag from field map [GH 544]
+* Add message.Bytes() to avoid string conversion [GH 546]
+* Check RejectInvalidMessage on FIXT validation [GH 572]
+
+BUG FIXES
+
+* Fix repeating group read tags lost [GH 462]
+* Acceptance test result must be predictable [GH 578]
+* Makes event timer stop idempotent [GH 580, 581]
+* Added WaitGroup Wait in Initiator [GH 584]
+
 ## 0.7.0 (January 2, 2023)
 
 FEATURES

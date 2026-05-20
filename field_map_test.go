@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -174,4 +189,16 @@ func TestFieldMap_CopyInto(t *testing.T) {
 	s, err = fMapB.GetString(1)
 	assert.Nil(t, err)
 	assert.Equal(t, "a", s)
+}
+
+func TestFieldMap_Remove(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+
+	fMap.SetField(1, FIXString("hello"))
+	fMap.SetField(2, FIXString("world"))
+
+	fMap.Remove(1)
+	assert.False(t, fMap.Has(1))
+	assert.True(t, fMap.Has(2))
 }

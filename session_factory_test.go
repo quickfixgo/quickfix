@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -176,8 +191,11 @@ func (s *SessionFactorySuite) TestStartAndEndTime() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	var weekday []time.Weekday
+	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday)
+	s.Nil(err)
 	s.Equal(
-		*internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0)),
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -191,8 +209,45 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZone() {
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	var weekday []time.Weekday
+	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), weekday, time.Local)
+	s.Nil(err)
 	s.Equal(
-		*internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), time.Local),
+		*expectedRange,
+		*session.SessionTime,
+	)
+}
+
+func (s *SessionFactorySuite) TestStartAndEndTimeAndWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.Weekdays, "Monday,Tuesday,Wednesday")
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.SessionTime)
+
+	expectedRange, err := internal.NewUTCTimeRange(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday, time.Wednesday})
+	s.Nil(err)
+	s.Equal(
+		*expectedRange,
+		*session.SessionTime,
+	)
+}
+
+func (s *SessionFactorySuite) TestStartAndEndTimeAndTimeZoneAndWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.TimeZone, "Local")
+	s.SessionSettings.Set(config.Weekdays, "Mon,Tue")
+
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.NotNil(session.SessionTime)
+
+	expectedRange, err := internal.NewTimeRangeInLocation(internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0), []time.Weekday{time.Monday, time.Tuesday}, time.Local)
+	s.Nil(err)
+	s.Equal(
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -217,11 +272,14 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDay() {
 		s.Nil(err)
 		s.NotNil(session.SessionTime)
 
+		expectedRange, err := internal.NewUTCWeekRange(
+			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+			time.Sunday, time.Thursday,
+		)
+
+		s.Nil(err)
 		s.Equal(
-			*internal.NewUTCWeekRange(
-				internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-				time.Sunday, time.Thursday,
-			),
+			*expectedRange,
 			*session.SessionTime,
 		)
 	}
@@ -238,11 +296,14 @@ func (s *SessionFactorySuite) TestStartAndEndTimeAndStartAndEndDayAndTimeZone() 
 	s.Nil(err)
 	s.NotNil(session.SessionTime)
 
+	expectedRange, err := internal.NewWeekRangeInLocation(
+		internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
+		time.Sunday, time.Thursday, time.Local,
+	)
+
+	s.Nil(err)
 	s.Equal(
-		*internal.NewWeekRangeInLocation(
-			internal.NewTimeOfDay(12, 0, 0), internal.NewTimeOfDay(14, 0, 0),
-			time.Sunday, time.Thursday, time.Local,
-		),
+		*expectedRange,
 		*session.SessionTime,
 	)
 }
@@ -281,6 +342,46 @@ func (s *SessionFactorySuite) TestInvalidTimeZone() {
 	s.NotNil(err)
 }
 
+func (s *SessionFactorySuite) TestInvalidWeekdays() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+
+	testcases := []struct {
+		label string
+		input string
+	}{
+		{
+			label: "invalid day value",
+			input: "Monday,Tuesday,not valid",
+		},
+		{
+			label: "invalid separator",
+			input: "Monday;Tuesday",
+		},
+		{
+			label: "whitespace",
+			input: "Monday, Tuesday",
+		},
+		{
+			label: "trailing comma",
+			input: "Monday,",
+		},
+		{
+			label: "empty value",
+			input: "Monday,,Tuesday",
+		},
+	}
+
+	for _, testcase := range testcases {
+		s.T().Run(testcase.label, func(_ *testing.T) {
+			s.SessionSettings.Set(config.Weekdays, testcase.input)
+
+			_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+			s.NotNil(err)
+		})
+	}
+}
+
 func (s *SessionFactorySuite) TestMissingStartOrEndDay() {
 	s.SessionSettings.Set(config.StartTime, "12:00:00")
 	s.SessionSettings.Set(config.EndTime, "14:00:00")
@@ -311,6 +412,17 @@ func (s *SessionFactorySuite) TestStartOrEndDayParseError() {
 	s.SessionSettings.Set(config.EndDay, "blah")
 
 	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+}
+
+func (s *SessionFactorySuite) TestStartEndDayWithWeekdaysError() {
+	s.SessionSettings.Set(config.StartTime, "12:00:00")
+	s.SessionSettings.Set(config.EndTime, "14:00:00")
+	s.SessionSettings.Set(config.StartDay, "Monday")
+	s.SessionSettings.Set(config.EndDay, "Wednesday")
+	s.SessionSettings.Set(config.Weekdays, "Monday,Tuesday,Wednesday")
+
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.NotNil(err)
 }
 
@@ -358,6 +470,23 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.Equal(10*time.Second, session.LogonTimeout)
 	s.Equal(2*time.Second, session.LogoutTimeout)
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
+}
+
+func (s *SessionFactorySuite) TestDuplicateSession() {
+	s.sessionFactory.BuildInitiators = true
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
+	s.SessionSettings.Set(config.SocketConnectPort, "5000")
+
+	session, err := s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.True(session.InitiateLogon)
+	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+	s.Equal("Duplicate SessionID", err.Error())
+	UnregisterSession(s.SessionID)
+	_, err = s.createSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
 }
 
 func (s *SessionFactorySuite) TestNewSessionBuildAcceptors() {

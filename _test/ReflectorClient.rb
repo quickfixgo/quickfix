@@ -19,6 +19,8 @@
 require 'Reflector'
 require 'FixParser'
 require "socket"
+require 'uri'
+require 'net/http'
 
 class ReflectorClient
 
@@ -62,16 +64,26 @@ class ReflectorClient
       @sockets.delete(cid)
       @parsers.delete(cid)
     end
+    
+    def @reflector.setSeqnum(body)
+      left_array = body.split(" ")
+      uri = URI('http://localhost:8095/seqnum?SESSION='+left_array[1]+'&'+left_array[2])
+      Net::HTTP.get_response(uri)
+    end
 
     def @reflector.waitConnectAction(cid)
     end
 
     def @reflector.waitDisconnectAction(cid)
-      socket = @sockets[cid]
-      if IO.select([socket], nil, nil, 10) == nil then 
-	    raise "Connection hangs after ten seconds."
-      elsif !socket.eof? then
-	    raise "Expected disconnection, got data"
+      begin
+        socket = @sockets[cid]
+        if IO.select([socket], nil, nil, 10) == nil then
+        raise "Connection hangs after ten seconds."
+        elsif !socket.eof? then
+        raise "Expected disconnection, got data"
+        end
+      rescue Errno::ECONNRESET
+        # Ignore, server has already disconnected the socket
       end
     end
 

@@ -2,7 +2,7 @@ package internal
 
 import "time"
 
-// SessionSettings stores all of the configuration for a given session
+// SessionSettings stores all of the configuration for a given session.
 type SessionSettings struct {
 	ResetOnLogon                 bool
 	RefreshOnLogon               bool
@@ -14,14 +14,18 @@ type SessionSettings struct {
 	InitiateLogon                bool
 	ResendRequestChunkSize       int
 	EnableLastMsgSeqNumProcessed bool
+	EnableNextExpectedMsgSeqNum  bool
 	SkipCheckLatency             bool
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
+	TimeZone                     *time.Location
+	ResetSeqTime                 time.Time
+	EnableResetSeqTime           bool
 
-	//required on logon for FIX.T.1 messages
+	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string
 
-	//specific to initiators
+	// Specific to initiators.
 	ReconnectInterval    time.Duration
 	LogoutTimeout        time.Duration
 	LogonTimeout         time.Duration

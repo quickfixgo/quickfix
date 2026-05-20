@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 type routeKey struct {
@@ -5,7 +20,7 @@ type routeKey struct {
 	MsgType    string
 }
 
-// FIX ApplVerID string values
+// FIX ApplVerID string values.
 const (
 	ApplVerIDFIX27    = "0"
 	ApplVerIDFIX30    = "1"
@@ -19,15 +34,15 @@ const (
 	ApplVerIDFIX50SP2 = "9"
 )
 
-// A MessageRoute is a function that can process a fromApp/fromAdmin callback
+// A MessageRoute is a function that can process a fromApp/fromAdmin callback.
 type MessageRoute func(msg *Message, sessionID SessionID) MessageRejectError
 
-// A MessageRouter is a mutex for MessageRoutes
+// A MessageRouter is a mutex for MessageRoutes.
 type MessageRouter struct {
 	routes map[routeKey]MessageRoute
 }
 
-// NewMessageRouter returns an initialized MessageRouter instance
+// NewMessageRouter returns an initialized MessageRouter instance.
 func NewMessageRouter() *MessageRouter {
 	return &MessageRouter{routes: make(map[routeKey]MessageRoute)}
 }

@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -5,7 +20,7 @@ import (
 	"fmt"
 )
 
-// ErrDoNotSend is a convenience error to indicate a DoNotSend in ToApp
+// ErrDoNotSend is a convenience error to indicate a DoNotSend in ToApp.
 var ErrDoNotSend = errors.New("Do Not Send")
 
 // rejectReason enum values.
@@ -31,30 +46,30 @@ const (
 type MessageRejectError interface {
 	error
 
-	//RejectReason, tag 373 for session rejects, tag 380 for business rejects.
+	// RejectReason, tag 373 for session rejects, tag 380 for business rejects.
 	RejectReason() int
 	BusinessRejectRefID() string
 	RefTagID() *Tag
 	IsBusinessReject() bool
 }
 
-// RejectLogon indicates the application is rejecting permission to logon. Implements MessageRejectError
+// RejectLogon indicates the application is rejecting permission to logon. Implements MessageRejectError.
 type RejectLogon struct {
 	Text string
 }
 
 func (e RejectLogon) Error() string { return e.Text }
 
-// RefTagID implements MessageRejectError
+// RefTagID implements MessageRejectError.
 func (RejectLogon) RefTagID() *Tag { return nil }
 
-// RejectReason implements MessageRejectError
+// RejectReason implements MessageRejectError.
 func (RejectLogon) RejectReason() int { return 0 }
 
-// BusinessRejectRefID implements MessageRejectError
+// BusinessRejectRefID implements MessageRejectError.
 func (RejectLogon) BusinessRejectRefID() string { return "" }
 
-// IsBusinessReject implements MessageRejectError
+// IsBusinessReject implements MessageRejectError.
 func (RejectLogon) IsBusinessReject() bool { return false }
 
 type messageRejectError struct {
@@ -71,19 +86,19 @@ func (e messageRejectError) RejectReason() int           { return e.rejectReason
 func (e messageRejectError) BusinessRejectRefID() string { return e.businessRejectRefID }
 func (e messageRejectError) IsBusinessReject() bool      { return e.isBusinessReject }
 
-// NewMessageRejectError returns a MessageRejectError with the given error message, reject reason, and optional reftagid
+// NewMessageRejectError returns a MessageRejectError with the given error message, reject reason, and optional reftagid.
 func NewMessageRejectError(err string, rejectReason int, refTagID *Tag) MessageRejectError {
 	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID}
 }
 
 // NewBusinessMessageRejectError returns a MessageRejectError with the given error mesage, reject reason, and optional reftagid.
-// Reject is treated as a business level reject
+// Reject is treated as a business level reject.
 func NewBusinessMessageRejectError(err string, rejectReason int, refTagID *Tag) MessageRejectError {
 	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID, isBusinessReject: true}
 }
 
 // NewBusinessMessageRejectErrorWithRefID returns a MessageRejectError with the given error mesage, reject reason, refID, and optional reftagid.
-// Reject is treated as a business level reject
+// Reject is treated as a business level reject.
 func NewBusinessMessageRejectErrorWithRefID(err string, rejectReason int, businessRejectRefID string, refTagID *Tag) MessageRejectError {
 	return messageRejectError{text: err, rejectReason: rejectReason, refTagID: refTagID, businessRejectRefID: businessRejectRefID, isBusinessReject: true}
 }
@@ -93,7 +108,7 @@ func IncorrectDataFormatForValue(tag Tag) MessageRejectError {
 	return NewMessageRejectError("Incorrect data format for value", rejectReasonIncorrectDataFormatForValue, &tag)
 }
 
-// repeatingGroupFieldsOutOfOrder returns an error indicating a problem parsing repeating groups fields
+// repeatingGroupFieldsOutOfOrder returns an error indicating a problem parsing repeating groups fields.
 func repeatingGroupFieldsOutOfOrder(tag Tag, reason string) MessageRejectError {
 	if reason != "" {
 		reason = fmt.Sprintf("Repeating group fields out of order (%s)", reason)
@@ -114,12 +129,12 @@ func ConditionallyRequiredFieldMissing(tag Tag) MessageRejectError {
 }
 
 // valueIsIncorrectNoTag returns an error indicating a field with value that is not valid.
-// FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess)
+// FIXME: to be compliant with legacy tests, for certain value issues, do not include reftag? (11c_NewSeqNoLess).
 func valueIsIncorrectNoTag() MessageRejectError {
 	return NewMessageRejectError("Value is incorrect (out of range) for this tag", rejectReasonValueIsIncorrect, nil)
 }
 
-// InvalidMessageType returns an error to indicate an invalid message type
+// InvalidMessageType returns an error to indicate an invalid message type.
 func InvalidMessageType() MessageRejectError {
 	return NewMessageRejectError("Invalid MsgType", rejectReasonInvalidMsgType, nil)
 }

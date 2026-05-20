@@ -1,6 +1,21 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
-// Tag is a typed int representing a FIX tag
+// Tag is a typed int representing a FIX tag.
 type Tag int
 
 const (
@@ -29,6 +44,7 @@ const (
 	tagXMLData                Tag = 213
 	tagMessageEncoding        Tag = 347
 	tagLastMsgSeqNumProcessed Tag = 369
+	tagNextExpectedMsgSeqNum  Tag = 789
 	tagOnBehalfOfSendingTime  Tag = 370
 	tagApplVerID              Tag = 1128
 	tagCstmApplVerID          Tag = 1129
@@ -61,7 +77,7 @@ const (
 	tagCheckSum        Tag = 10
 )
 
-// IsTrailer returns true if tag belongs in the message trailer
+// IsTrailer returns true if tag belongs in the message trailer.
 func (t Tag) IsTrailer() bool {
 	switch t {
 	case tagSignatureLength, tagSignature, tagCheckSum:
@@ -70,7 +86,7 @@ func (t Tag) IsTrailer() bool {
 	return false
 }
 
-// IsHeader returns true if tag belongs in the message header
+// IsHeader returns true if tag belongs in the message header.
 func (t Tag) IsHeader() bool {
 	switch t {
 	case tagBeginString,

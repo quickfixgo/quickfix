@@ -14,7 +14,7 @@ var (
 	GlobalFieldTypes       []*datadictionary.FieldType
 )
 
-//sort fieldtypes by name
+// Sort fieldtypes by name.
 type byFieldName []*datadictionary.FieldType
 
 func (n byFieldName) Len() int           { return len(n) }
@@ -36,14 +36,14 @@ func BuildGlobalFieldTypes(specs []*datadictionary.DataDictionary) {
 	for _, spec := range specs {
 		for _, field := range spec.FieldTypeByTag {
 			if oldField, ok := globalFieldTypesLookup[field.Name()]; ok {
-				//merge old enums with new
+				// Merge old enums with new.
 				if len(oldField.Enums) > 0 && field.Enums == nil {
 					field.Enums = make(map[string]datadictionary.Enum)
 				}
 
 				for enumVal, enum := range oldField.Enums {
 					if _, ok := field.Enums[enumVal]; !ok {
-						//Verify an existing enum doesn't have the same description. Keep newer enum
+						// Verify an existing enum doesn't have the same description. Keep newer enum.
 						okToKeepEnum := true
 						for _, newEnum := range field.Enums {
 							if newEnum.Description == enum.Description {

@@ -1,8 +1,25 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
 	"net"
 	"strconv"
+	"strings"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -42,11 +59,13 @@ var applVerIDLookup = map[string]string{
 }
 
 type sessionFactory struct {
-	//True if building sessions that initiate logon
+	// True if building sessions that initiate logon.
 	BuildInitiators bool
 }
 
-// Creates Session, associates with internal session registry
+const shortForm = "15:04:05"
+
+// Creates Session, associates with internal session registry.
 func (f sessionFactory) createSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings,
 	logFactory LogFactory, application Application,
@@ -68,7 +87,10 @@ func (f sessionFactory) createSession(
 func (f sessionFactory) newSession(
 	sessionID SessionID, storeFactory MessageStoreFactory, settings *SessionSettings, logFactory LogFactory,
 	application Application) (s *session, err error) {
-	s = &session{sessionID: sessionID}
+	s = &session{
+		sessionID: sessionID,
+		stopOnce:  sync.Once{},
+	}
 
 	var validatorSettings = defaultValidatorSettings
 	if settings.HasSetting(config.ValidateFieldsOutOfOrder) {
@@ -83,6 +105,18 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.AllowUnknownMessageFields) {
+		if validatorSettings.AllowUnknownMessageFields, err = settings.BoolSetting(config.AllowUnknownMessageFields); err != nil {
+			return
+		}
+	}
+
+	if settings.HasSetting(config.CheckUserDefinedFields) {
+		if validatorSettings.CheckUserDefinedFields, err = settings.BoolSetting(config.CheckUserDefinedFields); err != nil {
+			return
+		}
+	}
+
 	if sessionID.IsFIXT() {
 		if s.DefaultApplVerID, err = settings.Setting(config.DefaultApplVerID); err != nil {
 			return
@@ -92,7 +126,7 @@ func (f sessionFactory) newSession(
 			s.DefaultApplVerID = applVerID
 		}
 
-		//If the transport or app data dictionary setting is set, the other also needs to be set.
+		// If the transport or app data dictionary setting is set, the other also needs to be set.
 		if settings.HasSetting(config.TransportDataDictionary) || settings.HasSetting(config.AppDataDictionary) {
 			var transportDataDictionaryPath, appDataDictionaryPath string
 			if transportDataDictionaryPath, err = settings.Setting(config.TransportDataDictionary); err != nil {
@@ -164,6 +198,12 @@ func (f sessionFactory) newSession(
 
 	if settings.HasSetting(config.EnableLastMsgSeqNumProcessed) {
 		if s.EnableLastMsgSeqNumProcessed, err = settings.BoolSetting(config.EnableLastMsgSeqNumProcessed); err != nil {
+			return
+		}
+	}
+
+	if settings.HasSetting(config.EnableNextExpectedMsgSeqNum) {
+		if s.EnableNextExpectedMsgSeqNum, err = settings.BoolSetting(config.EnableNextExpectedMsgSeqNum); err != nil {
 			return
 		}
 	}
@@ -242,10 +282,40 @@ func (f sessionFactory) newSession(
 				return
 			}
 		}
+		s.TimeZone = loc
 
 		if !settings.HasSetting(config.StartDay) && !settings.HasSetting(config.EndDay) {
-			s.SessionTime = internal.NewTimeRangeInLocation(start, end, loc)
+			var weekdays []time.Weekday
+			if settings.HasSetting(config.Weekdays) {
+				var weekdaysStr string
+				if weekdaysStr, err = settings.Setting(config.Weekdays); err != nil {
+					return
+				}
+
+				dayStrs := strings.Split(weekdaysStr, ",")
+
+				for _, dayStr := range dayStrs {
+					day, ok := dayLookup[dayStr]
+					if !ok {
+						err = IncorrectFormatForSetting{Setting: config.Weekdays, Value: []byte(weekdaysStr)}
+						return
+					}
+					weekdays = append(weekdays, day)
+				}
+			}
+
+			var sessionTime *internal.TimeRange
+			sessionTime, err = internal.NewTimeRangeInLocation(start, end, weekdays, loc)
+			if err != nil {
+				return
+			}
+			s.SessionTime = sessionTime
 		} else {
+			if settings.HasSetting(config.Weekdays) {
+				err = errors.New("Weekdays cannot be specified with StartDay/EndDay")
+				return
+			}
+
 			var startDayStr, endDayStr string
 			if startDayStr, err = settings.Setting(config.StartDay); err != nil {
 				return
@@ -258,7 +328,7 @@ func (f sessionFactory) newSession(
 			parseDay := func(setting, dayStr string) (day time.Weekday, err error) {
 				day, ok := dayLookup[dayStr]
 				if !ok {
-					return day, IncorrectFormatForSetting{Setting: setting, Value: dayStr}
+					return day, IncorrectFormatForSetting{Setting: setting, Value: []byte(dayStr)}
 				}
 				return
 			}
@@ -272,8 +342,54 @@ func (f sessionFactory) newSession(
 				return
 			}
 
-			s.SessionTime = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+			var sessionTime *internal.TimeRange
+			sessionTime, err = internal.NewWeekRangeInLocation(start, end, startDay, endDay, loc)
+			if err != nil {
+				return
+			}
+			s.SessionTime = sessionTime
 		}
+	}
+
+	if settings.HasSetting(config.ResetSeqTime) {
+
+		if s.TimeZone == nil {
+			loc := time.UTC
+			if settings.HasSetting(config.TimeZone) {
+				var locStr string
+				if locStr, err = settings.Setting(config.TimeZone); err != nil {
+					return
+				}
+
+				loc, err = time.LoadLocation(locStr)
+				if err != nil {
+					err = errors.Wrapf(
+						err, "problem parsing time zone '%v' for setting '%v",
+						settings.settings[config.TimeZone], config.TimeZone,
+					)
+					return
+				}
+			}
+			s.TimeZone = loc
+		}
+
+		var seqTimeStr string
+		if seqTimeStr, err = settings.Setting(config.ResetSeqTime); err != nil {
+			return
+		}
+
+		var seqTime time.Time
+		if seqTime, err = time.ParseInLocation(shortForm, seqTimeStr, s.TimeZone); err != nil {
+			err = errors.Wrapf(
+				err, "problem parsing time of day '%v' for setting '%v",
+				settings.settings[config.ResetSeqTime], config.ResetSeqTime,
+			)
+			return
+		}
+		s.EnableResetSeqTime = true
+		s.ResetSeqTime = seqTime
+	} else {
+		s.EnableResetSeqTime = false
 	}
 
 	if settings.HasSetting(config.TimeStampPrecision) {
@@ -293,7 +409,7 @@ func (f sessionFactory) newSession(
 			s.timestampPrecision = Nanos
 
 		default:
-			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: precisionStr}
+			err = IncorrectFormatForSetting{Setting: config.TimeStampPrecision, Value: []byte(precisionStr)}
 			return
 		}
 	}
@@ -346,47 +462,59 @@ func (f sessionFactory) buildInitiatorSettings(session *session, settings *Sessi
 
 	session.ReconnectInterval = 30 * time.Second
 	if settings.HasSetting(config.ReconnectInterval) {
-
-		interval, err := settings.IntSetting(config.ReconnectInterval)
+		interval, err := settings.DurationSetting(config.ReconnectInterval)
 		if err != nil {
-			return err
+			intervalInt, err := settings.IntSetting(config.ReconnectInterval)
+			if err != nil {
+				return err
+			}
+
+			session.ReconnectInterval = time.Duration(intervalInt) * time.Second
+		} else {
+			session.ReconnectInterval = interval
 		}
 
-		if interval <= 0 {
+		if session.ReconnectInterval <= 0 {
 			return errors.New("ReconnectInterval must be greater than zero")
 		}
-
-		session.ReconnectInterval = time.Duration(interval) * time.Second
 	}
 
 	session.LogoutTimeout = 2 * time.Second
 	if settings.HasSetting(config.LogoutTimeout) {
-
-		timeout, err := settings.IntSetting(config.LogoutTimeout)
+		timeout, err := settings.DurationSetting(config.LogoutTimeout)
 		if err != nil {
-			return err
+			timeoutInt, err := settings.IntSetting(config.LogoutTimeout)
+			if err != nil {
+				return err
+			}
+
+			session.LogoutTimeout = time.Duration(timeoutInt) * time.Second
+		} else {
+			session.LogoutTimeout = timeout
 		}
 
-		if timeout <= 0 {
-			return errors.New("LogoutTimeout must be greater than zero")
+		if session.LogoutTimeout <= 0 {
+			return errors.New("LogonTimeout must be greater than zero")
 		}
-
-		session.LogoutTimeout = time.Duration(timeout) * time.Second
 	}
 
 	session.LogonTimeout = 10 * time.Second
 	if settings.HasSetting(config.LogonTimeout) {
-
-		timeout, err := settings.IntSetting(config.LogonTimeout)
+		timeout, err := settings.DurationSetting(config.LogonTimeout)
 		if err != nil {
-			return err
+			timeoutInt, err := settings.IntSetting(config.LogonTimeout)
+			if err != nil {
+				return err
+			}
+
+			session.LogonTimeout = time.Duration(timeoutInt) * time.Second
+		} else {
+			session.LogonTimeout = timeout
 		}
 
-		if timeout <= 0 {
+		if session.LogonTimeout <= 0 {
 			return errors.New("LogonTimeout must be greater than zero")
 		}
-
-		session.LogonTimeout = time.Duration(timeout) * time.Second
 	}
 
 	return f.configureSocketConnectAddress(session, settings)

@@ -41,7 +41,7 @@ type XMLValue struct {
 	Description string `xml:"description,attr"`
 }
 
-// XMLComponentMember represents child elements of header, trailer, messages/message, and components/component elements
+// XMLComponentMember represents child elements of header, trailer, messages/message, and components/component elements.
 type XMLComponentMember struct {
 	XMLName  xml.Name
 	Name     string `xml:"name,attr"`

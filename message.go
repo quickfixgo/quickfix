@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -9,10 +24,23 @@ import (
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
-// Header is first section of a FIX Message
+// Header is first section of a FIX Message.
 type Header struct{ FieldMap }
 
-// in the message header, the first 3 tags in the message header must be 8,9,35
+// msgparser contains message parsing vars needed to parse a string into a message.
+type msgParser struct {
+	msg                     *Message
+	transportDataDictionary *datadictionary.DataDictionary
+	appDataDictionary       *datadictionary.DataDictionary
+	rawBytes                []byte
+	fieldIndex              int
+	parsedFieldBytes        *TagValue
+	trailerBytes            []byte
+	foundBody               bool
+	foundTrailer            bool
+}
+
+// in the message header, the first 3 tags in the message header must be 8,9,35.
 func headerFieldOrdering(i, j Tag) bool {
 	var ordering = func(t Tag) uint32 {
 		switch t {
@@ -40,23 +68,23 @@ func headerFieldOrdering(i, j Tag) bool {
 	return i < j
 }
 
-// Init initializes the Header instance
+// Init initializes the Header instance.
 func (h *Header) Init() {
 	h.initWithOrdering(headerFieldOrdering)
 }
 
-// Body is the primary application section of a FIX message
+// Body is the primary application section of a FIX message.
 type Body struct{ FieldMap }
 
-// Init initializes the FIX message
+// Init initializes the FIX message.
 func (b *Body) Init() {
 	b.init()
 }
 
-// Trailer is the last section of a FIX message
+// Trailer is the last section of a FIX message.
 type Trailer struct{ FieldMap }
 
-// In the trailer, CheckSum (tag 10) must be last
+// In the trailer, CheckSum (tag 10) must be last.
 func trailerFieldOrdering(i, j Tag) bool {
 	switch {
 	case i == tagCheckSum:
@@ -65,10 +93,10 @@ func trailerFieldOrdering(i, j Tag) bool {
 		return true
 	}
 
-	return i < j
+	return i > j
 }
 
-// Init initializes the FIX message
+// Init initializes the FIX message.
 func (t *Trailer) Init() {
 	t.initWithOrdering(trailerFieldOrdering)
 }
@@ -79,22 +107,19 @@ type Message struct {
 	Trailer Trailer
 	Body    Body
 
-	//ReceiveTime is the time that this message was read from the socket connection
+	// ReceiveTime is the time that this message was read from the socket connection.
 	ReceiveTime time.Time
 
 	rawMessage *bytes.Buffer
 
-	//slice of Bytes corresponding to the message body
+	// Slice of Bytes corresponding to the message body.
 	bodyBytes []byte
 
-	//field bytes as they appear in the raw message
+	// Field bytes as they appear in the raw message.
 	fields []TagValue
-
-	//flag is true if this message should not be returned to pool after use
-	keepMessage bool
 }
 
-// ToMessage returns the message itself
+// ToMessage returns the message itself.
 func (m *Message) ToMessage() *Message { return m }
 
 // parseError is returned when bytes cannot be parsed as a FIX message.
@@ -104,7 +129,7 @@ type parseError struct {
 
 func (e parseError) Error() string { return fmt.Sprintf("error parsing message: %s", e.OrigError) }
 
-// NewMessage returns a newly initialized Message instance
+// NewMessage returns a newly initialized Message instance.
 func NewMessage() *Message {
 	m := new(Message)
 	m.Header.Init()
@@ -140,112 +165,286 @@ func ParseMessageWithDataDictionary(
 	msg *Message,
 	rawMessage *bytes.Buffer,
 	transportDataDictionary *datadictionary.DataDictionary,
-	applicationDataDictionary *datadictionary.DataDictionary,
+	appDataDictionary *datadictionary.DataDictionary,
 ) (err error) {
-	msg.Header.Clear()
-	msg.Body.Clear()
-	msg.Trailer.Clear()
-	msg.rawMessage = rawMessage
-
-	rawBytes := rawMessage.Bytes()
-
-	//allocate fields in one chunk
-	fieldCount := 0
-	for _, b := range rawBytes {
-		if b == '\001' {
-			fieldCount++
-		}
+	// Create msgparser before we go any further.
+	mp := &msgParser{
+		msg:                     msg,
+		transportDataDictionary: transportDataDictionary,
+		appDataDictionary:       appDataDictionary,
 	}
+	mp.msg.rawMessage = rawMessage
+	mp.rawBytes = rawMessage.Bytes()
 
+	return doParsing(mp)
+}
+
+// doParsing executes the message parsing process.
+func doParsing(mp *msgParser) (err error) {
+	mp.msg.Header.rwLock.Lock()
+	defer mp.msg.Header.rwLock.Unlock()
+	mp.msg.Body.rwLock.Lock()
+	defer mp.msg.Body.rwLock.Unlock()
+	mp.msg.Trailer.rwLock.Lock()
+	defer mp.msg.Trailer.rwLock.Unlock()
+
+	// Initialize for parsing.
+	mp.msg.Header.clearNoLock()
+	mp.msg.Body.clearNoLock()
+	mp.msg.Trailer.clearNoLock()
+
+	// Allocate expected message fields in one chunk.
+	fieldCount := bytes.Count(mp.rawBytes, []byte{'\001'})
 	if fieldCount == 0 {
-		return parseError{OrigError: fmt.Sprintf("No Fields detected in %s", string(rawBytes))}
+		return parseError{OrigError: fmt.Sprintf("No Fields detected in %s", string(mp.rawBytes))}
 	}
-
-	if cap(msg.fields) < fieldCount {
-		msg.fields = make([]TagValue, fieldCount)
+	if cap(mp.msg.fields) < fieldCount {
+		mp.msg.fields = make([]TagValue, fieldCount)
 	} else {
-		msg.fields = msg.fields[0:fieldCount]
+		mp.msg.fields = mp.msg.fields[0:fieldCount]
 	}
 
-	fieldIndex := 0
-
-	//message must start with begin string, body length, msg type
-	if rawBytes, err = extractSpecificField(&msg.fields[fieldIndex], tagBeginString, rawBytes); err != nil {
+	// Message must start with begin string, body length, msg type.
+	// Get begin string.
+	if mp.rawBytes, err = extractSpecificField(&mp.msg.fields[mp.fieldIndex], tagBeginString, mp.rawBytes); err != nil {
 		return
 	}
+	mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 
-	msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
-	fieldIndex++
-
-	parsedFieldBytes := &msg.fields[fieldIndex]
-	if rawBytes, err = extractSpecificField(parsedFieldBytes, tagBodyLength, rawBytes); err != nil {
+	// Get body length.
+	mp.fieldIndex++
+	mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
+	if mp.rawBytes, err = extractSpecificField(mp.parsedFieldBytes, tagBodyLength, mp.rawBytes); err != nil {
 		return
 	}
+	mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 
-	msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
-	fieldIndex++
-
-	parsedFieldBytes = &msg.fields[fieldIndex]
-	if rawBytes, err = extractSpecificField(parsedFieldBytes, tagMsgType, rawBytes); err != nil {
+	// Get msg type.
+	mp.fieldIndex++
+	mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
+	if mp.rawBytes, err = extractSpecificField(mp.parsedFieldBytes, tagMsgType, mp.rawBytes); err != nil {
 		return
 	}
+	mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 
-	msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
-	fieldIndex++
-
-	trailerBytes := []byte{}
-	foundBody := false
+	// Start parsing.
+	mp.fieldIndex++
+	xmlDataLen := 0
+	xmlDataMsg := false
+	mp.trailerBytes = []byte{}
+	mp.foundBody = false
+	mp.foundTrailer = false
 	for {
-		parsedFieldBytes = &msg.fields[fieldIndex]
-		rawBytes, err = extractField(parsedFieldBytes, rawBytes)
+		mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
+		if xmlDataLen > 0 {
+			mp.rawBytes, err = extractXMLDataField(mp.parsedFieldBytes, mp.rawBytes, xmlDataLen)
+			xmlDataLen = 0
+			xmlDataMsg = true
+		} else {
+			mp.rawBytes, err = extractField(mp.parsedFieldBytes, mp.rawBytes)
+		}
 		if err != nil {
 			return
 		}
 
 		switch {
-		case isHeaderField(parsedFieldBytes.tag, transportDataDictionary):
-			msg.Header.add(msg.fields[fieldIndex : fieldIndex+1])
-		case isTrailerField(parsedFieldBytes.tag, transportDataDictionary):
-			msg.Trailer.add(msg.fields[fieldIndex : fieldIndex+1])
+		case isHeaderField(mp.parsedFieldBytes.tag, mp.transportDataDictionary):
+			mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+		case isTrailerField(mp.parsedFieldBytes.tag, mp.transportDataDictionary):
+			mp.msg.Trailer.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+			mp.foundTrailer = true
+		case isNumInGroupField(mp.msg, []Tag{mp.parsedFieldBytes.tag}, mp.appDataDictionary):
+			parseGroup(mp, []Tag{mp.parsedFieldBytes.tag})
 		default:
-			foundBody = true
-			trailerBytes = rawBytes
-			msg.Body.add(msg.fields[fieldIndex : fieldIndex+1])
+			mp.foundBody = true
+			mp.trailerBytes = mp.rawBytes
+			mp.msg.Body.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 		}
-
-		if !foundBody {
-			msg.bodyBytes = rawBytes
-		}
-
-		if parsedFieldBytes.tag == tagCheckSum {
+		if mp.parsedFieldBytes.tag == tagCheckSum {
 			break
 		}
-		fieldIndex++
+
+		if !mp.foundBody {
+			mp.msg.bodyBytes = mp.rawBytes
+		}
+
+		if mp.parsedFieldBytes.tag == tagXMLDataLen {
+			xmlDataLen, _ = mp.msg.Header.getIntNoLock(tagXMLDataLen)
+		}
+		mp.fieldIndex++
 	}
 
-	//body length would only be larger than trailer if fields out of order
-	if len(msg.bodyBytes) > len(trailerBytes) {
-		msg.bodyBytes = msg.bodyBytes[:len(msg.bodyBytes)-len(trailerBytes)]
+	// This will happen if there are no fields in the body
+	if mp.foundTrailer && !mp.foundBody {
+		mp.trailerBytes = mp.rawBytes
+		mp.msg.bodyBytes = nil
+	}
+
+	// Body length would only be larger than trailer if fields out of order.
+	if len(mp.msg.bodyBytes) > len(mp.trailerBytes) {
+		mp.msg.bodyBytes = mp.msg.bodyBytes[:len(mp.msg.bodyBytes)-len(mp.trailerBytes)]
 	}
 
 	length := 0
-	for _, field := range msg.fields {
+	for _, field := range mp.msg.fields {
 		switch field.tag {
-		case tagBeginString, tagBodyLength, tagCheckSum: //tags do not contribute to length
+		case tagBeginString, tagBodyLength, tagCheckSum: // Tags do not contribute to length.
 		default:
 			length += field.length()
 		}
 	}
 
-	bodyLength, err := msg.Header.GetInt(tagBodyLength)
+	bodyLength, err := mp.msg.Header.getIntNoLock(tagBodyLength)
 	if err != nil {
 		err = parseError{OrigError: err.Error()}
-	} else if length != bodyLength {
+	} else if length != bodyLength && !xmlDataMsg {
 		err = parseError{OrigError: fmt.Sprintf("Incorrect Message Length, expected %d, got %d", bodyLength, length)}
 	}
 
 	return
+}
 
+// parseGroup iterates through a repeating group to maintain correct order of those fields.
+func parseGroup(mp *msgParser, tags []Tag) {
+	mp.foundBody = true
+	dm := mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1]
+	fields := getGroupFields(mp.msg, tags, mp.appDataDictionary)
+
+	for {
+		mp.fieldIndex++
+		mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
+		mp.rawBytes, _ = extractField(mp.parsedFieldBytes, mp.rawBytes)
+		mp.trailerBytes = mp.rawBytes
+
+		// Is this field a member for the group.
+		if isGroupMember(mp.parsedFieldBytes.tag, fields) {
+			// Is this field a nested repeating group.
+			if isNumInGroupField(mp.msg, append(tags, mp.parsedFieldBytes.tag), mp.appDataDictionary) {
+				dm = append(dm, *mp.parsedFieldBytes)
+				tags = append(tags, mp.parsedFieldBytes.tag)
+				fields = getGroupFields(mp.msg, tags, mp.appDataDictionary)
+				continue
+			}
+			// Add the field member to the group.
+			dm = append(dm, *mp.parsedFieldBytes)
+		} else if isHeaderField(mp.parsedFieldBytes.tag, mp.transportDataDictionary) {
+			// Found a header tag for some reason..
+			mp.msg.Body.add(dm)
+			mp.msg.Header.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+			break
+		} else if isTrailerField(mp.parsedFieldBytes.tag, mp.transportDataDictionary) {
+			// Found the trailer at the end of the message.
+			mp.msg.Body.add(dm)
+			mp.msg.Trailer.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+			mp.foundTrailer = true
+			break
+		} else {
+			// Found a body field outside the group.
+			searchTags := []Tag{mp.parsedFieldBytes.tag}
+			// Is this a new group not inside the existing group.
+			if isNumInGroupField(mp.msg, searchTags, mp.appDataDictionary) {
+				// Add the current repeating group.
+				mp.msg.Body.add(dm)
+				// Cycle again with the new group.
+				dm = mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1]
+				fields = getGroupFields(mp.msg, searchTags, mp.appDataDictionary)
+				continue
+			}
+			if len(tags) > 1 {
+				searchTags = tags[:len(tags)-1]
+			}
+			// Did this tag occur after a nested group and belongs to the parent group.
+			if isNumInGroupField(mp.msg, searchTags, mp.appDataDictionary) {
+				// Add the field member to the group.
+				dm = append(dm, *mp.parsedFieldBytes)
+				// Continue parsing the parent group.
+				fields = getGroupFields(mp.msg, searchTags, mp.appDataDictionary)
+				continue
+			}
+			// Add the repeating group.
+			mp.msg.Body.add(dm)
+			// Add the next body field.
+			mp.msg.Body.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
+
+			break
+		}
+	}
+}
+
+// isNumInGroupField evaluates if this tag is the start of a repeating group.
+// tags slice will contain multiple tags if the tag in question is found while processing a group already.
+func isNumInGroupField(msg *Message, tags []Tag, appDataDictionary *datadictionary.DataDictionary) bool {
+	if appDataDictionary != nil {
+		msgt, err := msg.msgTypeNoLock()
+		if err != nil {
+			return false
+		}
+		mm, ok := appDataDictionary.Messages[msgt]
+		if ok {
+			fields := mm.Fields
+			for idx, tag := range tags {
+				fd, ok := fields[int(tag)]
+				if ok {
+					if idx == len(tags)-1 {
+						if len(fd.Fields) > 0 {
+							return true
+						}
+					} else {
+						// Map nested fields.
+						newFields := make(map[int]*datadictionary.FieldDef)
+						for _, ff := range fd.Fields {
+							newFields[ff.Tag()] = ff
+						}
+						fields = newFields
+					}
+				}
+			}
+		}
+	}
+	return false
+}
+
+// getGroupFields gets the relevant fields for parsing a repeating group if this tag is the start of a repeating group.
+// tags slice will contain multiple tags if the tag in question is found while processing a group already.
+func getGroupFields(msg *Message, tags []Tag, appDataDictionary *datadictionary.DataDictionary) (fields []*datadictionary.FieldDef) {
+	if appDataDictionary != nil {
+		msgt, err := msg.msgTypeNoLock()
+		if err != nil {
+			return
+		}
+		mm, ok := appDataDictionary.Messages[msgt]
+		if ok {
+			fields := mm.Fields
+			for idx, tag := range tags {
+				fd, ok := fields[int(tag)]
+				if ok {
+					if idx == len(tags)-1 {
+						if len(fd.Fields) > 0 {
+							return fd.Fields
+						}
+					} else {
+						// Map nested fields.
+						newFields := make(map[int]*datadictionary.FieldDef)
+						for _, ff := range fd.Fields {
+							newFields[ff.Tag()] = ff
+						}
+						fields = newFields
+					}
+				}
+			}
+		}
+	}
+	return
+}
+
+// isGroupMember evaluates if this tag belongs to a repeating group.
+func isGroupMember(tag Tag, fields []*datadictionary.FieldDef) bool {
+	for _, f := range fields {
+		if f.Tag() == int(tag) {
+			return true
+		}
+	}
+	return false
 }
 
 func isHeaderField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
@@ -274,9 +473,13 @@ func isTrailerField(tag Tag, dataDict *datadictionary.DataDictionary) bool {
 	return ok
 }
 
-// MsgType returns MsgType (tag 35) field's value
+// MsgType returns MsgType (tag 35) field's value.
 func (m *Message) MsgType() (string, MessageRejectError) {
 	return m.Header.GetString(tagMsgType)
+}
+
+func (m *Message) msgTypeNoLock() (string, MessageRejectError) {
+	return m.Header.getStringNoLock(tagMsgType)
 }
 
 // IsMsgTypeOf returns true if the Header contains MsgType (tag 35) field and its value is the specified one.
@@ -291,7 +494,7 @@ func (m *Message) IsMsgTypeOf(msgType string) bool {
 func (m *Message) reverseRoute() *Message {
 	reverseMsg := NewMessage()
 
-	copy := func(src Tag, dest Tag) {
+	copyFunc := func(src Tag, dest Tag) {
 		var field FIXString
 		if m.Header.GetField(src, &field) == nil {
 			if len(field) != 0 {
@@ -300,25 +503,25 @@ func (m *Message) reverseRoute() *Message {
 		}
 	}
 
-	copy(tagSenderCompID, tagTargetCompID)
-	copy(tagSenderSubID, tagTargetSubID)
-	copy(tagSenderLocationID, tagTargetLocationID)
+	copyFunc(tagSenderCompID, tagTargetCompID)
+	copyFunc(tagSenderSubID, tagTargetSubID)
+	copyFunc(tagSenderLocationID, tagTargetLocationID)
 
-	copy(tagTargetCompID, tagSenderCompID)
-	copy(tagTargetSubID, tagSenderSubID)
-	copy(tagTargetLocationID, tagSenderLocationID)
+	copyFunc(tagTargetCompID, tagSenderCompID)
+	copyFunc(tagTargetSubID, tagSenderSubID)
+	copyFunc(tagTargetLocationID, tagSenderLocationID)
 
-	copy(tagOnBehalfOfCompID, tagDeliverToCompID)
-	copy(tagOnBehalfOfSubID, tagDeliverToSubID)
-	copy(tagDeliverToCompID, tagOnBehalfOfCompID)
-	copy(tagDeliverToSubID, tagOnBehalfOfSubID)
+	copyFunc(tagOnBehalfOfCompID, tagDeliverToCompID)
+	copyFunc(tagOnBehalfOfSubID, tagDeliverToSubID)
+	copyFunc(tagDeliverToCompID, tagOnBehalfOfCompID)
+	copyFunc(tagDeliverToSubID, tagOnBehalfOfSubID)
 
-	//tags added in 4.1
+	// Tags added in 4.1.
 	var beginString FIXString
 	if m.Header.GetField(tagBeginString, &beginString) == nil {
 		if string(beginString) != BeginStringFIX40 {
-			copy(tagOnBehalfOfLocationID, tagDeliverToLocationID)
-			copy(tagDeliverToLocationID, tagOnBehalfOfLocationID)
+			copyFunc(tagOnBehalfOfLocationID, tagDeliverToLocationID)
+			copyFunc(tagDeliverToLocationID, tagOnBehalfOfLocationID)
 		}
 	}
 
@@ -338,6 +541,19 @@ func extractSpecificField(field *TagValue, expectedTag Tag, buffer []byte) (remB
 	return
 }
 
+func extractXMLDataField(parsedFieldBytes *TagValue, buffer []byte, dataLen int) (remBytes []byte, err error) {
+	endIndex := bytes.IndexByte(buffer, '=')
+	if endIndex == -1 {
+		err = parseError{OrigError: "extractField: No Trailing Delim in " + string(buffer)}
+		remBytes = buffer
+		return
+	}
+	endIndex += dataLen + 1
+
+	err = parsedFieldBytes.parse(buffer[:endIndex+1])
+	return buffer[(endIndex + 1):], err
+}
+
 func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, err error) {
 	endIndex := bytes.IndexByte(buffer, '\001')
 	if endIndex == -1 {
@@ -348,6 +564,14 @@ func extractField(parsedFieldBytes *TagValue, buffer []byte) (remBytes []byte, e
 
 	err = parsedFieldBytes.parse(buffer[:endIndex+1])
 	return buffer[(endIndex + 1):], err
+}
+
+func (m *Message) Bytes() []byte {
+	if m.rawMessage != nil {
+		return m.rawMessage.Bytes()
+	}
+
+	return m.build()
 }
 
 func (m *Message) String() string {
@@ -362,7 +586,7 @@ func formatCheckSum(value int) string {
 	return fmt.Sprintf("%03d", value)
 }
 
-// Build constructs a []byte from a Message instance
+// Build constructs a []byte from a Message instance.
 func (m *Message) build() []byte {
 	m.cook()
 
@@ -373,14 +597,17 @@ func (m *Message) build() []byte {
 	return b.Bytes()
 }
 
-// introduced to work around issue with resending messages with repeating groups
-// issue described: https://github.com/quickfixgo/quickfix/issues/276
-func (m *Message) buildFromBodyBytes() []byte {
-	m.cookFromBodyBytes()
+// Constructs a []byte from a Message instance, using the given bodyBytes.
+// This is a workaround for the fact that we currently rely on the generated Message types to properly serialize/deserialize RepeatingGroups.
+// In other words, we cannot go from bytes to a Message then back to bytes, which is exactly what we need to do in the case of a Resend.
+// This func lets us pull the Message from the Store, parse it, update the Header, and then build it back into bytes using the original Body.
+// Note: The only standard non-Body group is NoHops.  If that is used in the Header, this workaround may fail.
+func (m *Message) buildWithBodyBytes(bodyBytes []byte) []byte {
+	m.cook()
 
 	var b bytes.Buffer
 	m.Header.write(&b)
-	b.Write(m.bodyBytes)
+	b.Write(bodyBytes)
 	m.Trailer.write(&b)
 	return b.Bytes()
 }
@@ -389,18 +616,5 @@ func (m *Message) cook() {
 	bodyLength := m.Header.length() + m.Body.length() + m.Trailer.length()
 	m.Header.SetInt(tagBodyLength, bodyLength)
 	checkSum := (m.Header.total() + m.Body.total() + m.Trailer.total()) % 256
-	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
-}
-
-func (m *Message) cookFromBodyBytes() {
-	bodyLength := m.Header.length() + len(m.bodyBytes) + m.Trailer.length()
-	m.Header.SetInt(tagBodyLength, bodyLength)
-
-	bodyTotal := 0
-	for _, b := range []byte(m.bodyBytes) {
-		bodyTotal += int(b)
-	}
-
-	checkSum := (m.Header.total() + bodyTotal + m.Trailer.total()) % 256
 	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
 }

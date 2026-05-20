@@ -61,6 +61,8 @@ class Reflector < Array
         connectAction(cid)
       elsif body == "DISCONNECT"
         disconnectAction(cid)
+      elsif body.index("SET_SESSION") == 0
+        setSeqnum(body)
       else
         raise "Syntax error: " + body
       end

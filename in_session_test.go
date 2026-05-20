@@ -1,9 +1,25 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/internal"
@@ -79,6 +95,23 @@ func (s *InSessionTestSuite) TestLogoutResetOnLogout() {
 	s.NextTargetMsgSeqNum(1)
 	s.NextSenderMsgSeqNum(1)
 	s.NoMessageQueued()
+}
+
+func (s *InSessionTestSuite) TestLogoutTargetTooHigh() {
+	s.MessageFactory.seqNum = 5
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.MockApp.On("OnLogout")
+	s.session.fixMsgIn(s.session, s.Logout())
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
+	s.NextTargetMsgSeqNum(1)
+	s.NextSenderMsgSeqNum(2)
 }
 
 func (s *InSessionTestSuite) TestTimeoutNeedHeartbeat() {
@@ -318,7 +351,7 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
 	s.NextSenderMsgSeqNum(4)
 
-	//NOTE: a cheat here, need to reset mock
+	// NOTE: a cheat here, need to reset mock.
 	s.MockApp = MockApp{}
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToApp").Return(ErrDoNotSend)
@@ -339,6 +372,25 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 
 	s.NextSenderMsgSeqNum(4)
 	s.State(inSession{})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
+	s.MockApp.On("ToApp").Return(nil)
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.LastToAppMessageSent()
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
+	s.NextSenderMsgSeqNum(2)
+
+	s.MockStore.On("IterateMessages", mock.Anything, mock.Anything, mock.AnythingOfType("func([]byte) error")).
+		Run(func(_ mock.Arguments) {
+			s.Require().Nil(s.session.send(s.NewOrderSingle()))
+		}).
+		Return(nil)
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.fixMsgIn(s.session, s.ResendRequest(1))
+
+	s.NextSenderMsgSeqNum(2)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {

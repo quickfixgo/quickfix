@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -52,7 +67,7 @@ func (s *QuickFIXSuite) MessageEqualsBytes(expectedBytes []byte, msg *Message) {
 	s.Equal(string(actualBytes), string(expectedBytes))
 }
 
-// MockStore wraps a memory store and mocks Refresh for convenience
+// MockStore wraps a memory store and mocks Refresh for convenience.
 type MockStore struct {
 	mock.Mock
 	memoryStore
@@ -70,18 +85,18 @@ type MockApp struct {
 	lastToApp       *Message
 }
 
-func (e *MockApp) OnCreate(sessionID SessionID) {
+func (e *MockApp) OnCreate(_ SessionID) {
 }
 
-func (e *MockApp) OnLogon(sessionID SessionID) {
+func (e *MockApp) OnLogon(_ SessionID) {
 	e.Called()
 }
 
-func (e *MockApp) OnLogout(sessionID SessionID) {
+func (e *MockApp) OnLogout(_ SessionID) {
 	e.Called()
 }
 
-func (e *MockApp) FromAdmin(msg *Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromAdmin(_ *Message, _ SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}
@@ -89,7 +104,7 @@ func (e *MockApp) FromAdmin(msg *Message, sessionID SessionID) (reject MessageRe
 	return nil
 }
 
-func (e *MockApp) ToAdmin(msg *Message, sessionID SessionID) {
+func (e *MockApp) ToAdmin(msg *Message, _ SessionID) {
 	e.Called()
 
 	if e.decorateToAdmin != nil {
@@ -99,12 +114,12 @@ func (e *MockApp) ToAdmin(msg *Message, sessionID SessionID) {
 	e.lastToAdmin = msg
 }
 
-func (e *MockApp) ToApp(msg *Message, sessionID SessionID) (err error) {
+func (e *MockApp) ToApp(msg *Message, _ SessionID) (err error) {
 	e.lastToApp = msg
 	return e.Called().Error(0)
 }
 
-func (e *MockApp) FromApp(msg *Message, sessionID SessionID) (reject MessageRejectError) {
+func (e *MockApp) FromApp(_ *Message, _ SessionID) (reject MessageRejectError) {
 	if err, ok := e.Called().Get(0).(MessageRejectError); ok {
 		return err
 	}

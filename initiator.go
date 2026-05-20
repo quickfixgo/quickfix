@@ -1,7 +1,23 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
 	"bufio"
+	"context"
 	"crypto/tls"
 	"strings"
 	"sync"
@@ -29,13 +45,13 @@ func (i *Initiator) Start() (err error) {
 	i.stopChan = make(chan interface{})
 
 	for sessionID, settings := range i.sessionSettings {
-		//TODO: move into session factory
+		// TODO: move into session factory.
 		var tlsConfig *tls.Config
 		if tlsConfig, err = loadTLSConfig(settings); err != nil {
 			return
 		}
 
-		var dialer proxy.Dialer
+		var dialer proxy.ContextDialer
 		if dialer, err = loadDialerConfig(settings); err != nil {
 			return
 		}
@@ -46,7 +62,6 @@ func (i *Initiator) Start() (err error) {
 			i.wg.Done()
 		}(sessionID)
 	}
-
 	return
 }
 
@@ -54,12 +69,20 @@ func (i *Initiator) Start() (err error) {
 func (i *Initiator) Stop() {
 	select {
 	case <-i.stopChan:
-		//closed already
+		// Closed already.
 		return
 	default:
 	}
 	close(i.stopChan)
+
 	i.wg.Wait()
+
+	for sessionID := range i.sessionSettings {
+		err := UnregisterSession(sessionID)
+		if err != nil {
+			return
+		}
+	}
 }
 
 // NewInitiator creates and initializes a new Initiator.
@@ -92,7 +115,7 @@ func NewInitiator(app Application, storeFactory MessageStoreFactory, appSettings
 	return i, nil
 }
 
-// waitForInSessionTime returns true if the session is in session, false if the handler should stop
+// waitForInSessionTime returns true if the session is in session, false if the handler should stop.
 func (i *Initiator) waitForInSessionTime(session *session) bool {
 	inSessionTime := make(chan interface{})
 	go func() {
@@ -109,7 +132,7 @@ func (i *Initiator) waitForInSessionTime(session *session) bool {
 	return true
 }
 
-// waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop
+// waitForReconnectInterval returns true if a reconnect should be re-attempted, false if handler should stop.
 func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bool {
 	select {
 	case <-time.After(reconnectInterval):
@@ -120,7 +143,7 @@ func (i *Initiator) waitForReconnectInterval(reconnectInterval time.Duration) bo
 	return true
 }
 
-func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.Dialer) {
+func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, dialer proxy.ContextDialer) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -140,6 +163,19 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			return
 		}
 
+		ctx, cancel := context.WithCancel(context.Background())
+
+		// We start a goroutine in order to be able to cancel the dialer mid-connection
+		// on receiving a stop signal to stop the initiator.
+		go func() {
+			select {
+			case <-i.stopChan:
+				cancel()
+			case <-ctx.Done():
+				return
+			}
+		}()
+
 		var disconnected chan interface{}
 		var msgIn chan fixIn
 		var msgOut chan []byte
@@ -147,7 +183,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
 
-		netConn, err := dialer.Dial("tcp", address)
+		netConn, err := dialer.DialContext(ctx, "tcp", address)
 		if err != nil {
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
@@ -176,7 +212,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			goto reconnect
 		}
 
-		go readLoop(newParser(bufio.NewReader(netConn)), msgIn)
+		go readLoop(newParser(bufio.NewReader(netConn)), msgIn, session.log)
 		disconnected = make(chan interface{})
 		go func() {
 			writeLoop(netConn, msgOut, session.log)
@@ -186,6 +222,10 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			close(disconnected)
 		}()
 
+		// This ensures we properly cleanup the goroutine and context used for
+		// dial cancelation after successful connection.
+		cancel()
+
 		select {
 		case <-disconnected:
 		case <-i.stopChan:
@@ -193,6 +233,8 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		}
 
 	reconnect:
+		cancel()
+
 		connectionAttempt++
 		session.log.OnEventf("Reconnecting in %v", session.ReconnectInterval)
 		if !i.waitForReconnectInterval(session.ReconnectInterval) {

@@ -3,14 +3,23 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
+	"path"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/quickfixgo/quickfix"
+	"github.com/quickfixgo/quickfix/config"
 	field "github.com/quickfixgo/quickfix/gen/field"
 	tag "github.com/quickfixgo/quickfix/gen/tag"
+	filelog "github.com/quickfixgo/quickfix/log/file"
+	"github.com/quickfixgo/quickfix/store/file"
+	"github.com/quickfixgo/quickfix/store/mongo"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()
@@ -92,7 +101,7 @@ func copyMessage(msg *quickfix.Message) *quickfix.Message {
 
 func main() {
 	app := &EchoApplication{}
-	app.log = log.New(ioutil.Discard, "", log.LstdFlags)
+	app.log = log.New(io.Discard, "", log.LstdFlags)
 	//app.log = log.New(os.Stdout, "", log.LstdFlags)
 
 	router.AddRoute(quickfix.BeginStringFIX40, "D", app.processMsg)
@@ -124,14 +133,45 @@ func main() {
 		return
 	}
 
-	fileLogFactory, err := quickfix.NewFileLogFactory(appSettings)
-
+	fileLogFactory, err := filelog.NewLogFactory(appSettings)
 	if err != nil {
 		fmt.Println("Error creating file log factory:", err)
 		return
 	}
+	//fileLogFactory := quickfix.NewScreenLogFactory()
+	// if err != nil {
+	// 	fmt.Println("Error creating file log factory:", err)
+	// 	return
+	// }
 
-	acceptor, err := quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+	storeType := os.Args[2]
+
+	var acceptor *quickfix.Acceptor
+	switch strings.ToUpper(storeType) {
+	case "MONGO":
+		mongoDbCxn := "mongodb://localhost:27017"
+		mongoDatabase := "automated_testing_database"
+		mongoReplicaSet := "replicaset"
+
+		appSettings.GlobalSettings().Set(config.MongoStoreConnection, mongoDbCxn)
+		appSettings.GlobalSettings().Set(config.MongoStoreDatabase, mongoDatabase)
+		appSettings.GlobalSettings().Set(config.MongoStoreReplicaSet, mongoReplicaSet)
+		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
+
+		acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+	case "FILE":
+		fileStoreRootPath := path.Join(os.TempDir(), fmt.Sprintf("FileStoreTestSuite-%d", os.Getpid()))
+		fileStorePath := path.Join(fileStoreRootPath, fmt.Sprintf("%d", time.Now().UnixNano()))
+		appSettings.GlobalSettings().Set(config.FileStorePath, fileStorePath)
+		appSettings.GlobalSettings().Set(config.DynamicSessions, "Y")
+
+		acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), appSettings, fileLogFactory)
+	case "MEMORY":
+		fallthrough
+	default:
+		acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, fileLogFactory)
+	}
+
 	if err != nil {
 		fmt.Println("Unable to create Acceptor: ", err)
 		return
@@ -141,6 +181,69 @@ func main() {
 		fmt.Println("Unable to start Acceptor: ", err)
 		return
 	}
+
+	// http handler for seqnum resets for specific test defs. not applicable for most tests.
+	http.HandleFunc("/seqnum", func(w http.ResponseWriter, r *http.Request) {
+		defer w.WriteHeader(http.StatusOK)
+		queryParams := r.URL.Query()
+		sessionStr, ok := queryParams["SESSION"]
+		if !ok {
+			fmt.Println("cannot find session")
+			os.Exit(1)
+		}
+		splts := strings.Split(sessionStr[0], ":")
+		parties := strings.Split(splts[1], "->")
+		sessionID := quickfix.SessionID{
+			BeginString:  splts[0],
+			SenderCompID: parties[0],
+			TargetCompID: parties[1],
+		}
+		num, ok := queryParams["NEXTTARGETSEQNUM"]
+		if ok {
+			seqnumInt, cErr := strconv.Atoi(num[0])
+			if cErr != nil {
+				fmt.Println("cannot find seqnum")
+				os.Exit(1)
+			}
+			setErr := quickfix.SetNextTargetMsgSeqNum(sessionID, seqnumInt)
+			if setErr != nil {
+				fmt.Println("err setting target seqnum: " + setErr.Error())
+				return
+			}
+			fmt.Println("set target seqnum to: " + num[0])
+			return
+		}
+
+		num, ok = queryParams["NEXTSENDERSEQNUM"]
+		if ok {
+			seqnumInt, cErr := strconv.Atoi(num[0])
+			if cErr != nil {
+				fmt.Println("cannot find seqnum")
+				os.Exit(1)
+			}
+			setErr := quickfix.SetNextSenderMsgSeqNum(sessionID, seqnumInt)
+			if setErr != nil {
+				fmt.Println("err setting sender seqnum: " + setErr.Error())
+				return
+			}
+			fmt.Println("set sender seqnum to: " + num[0])
+			return
+		}
+
+		fmt.Println("never found seqnum")
+		os.Exit(1)
+	})
+	websrvr := http.Server{Addr: ":8095"}
+	defer func() {
+		if err := websrvr.Close(); err != nil {
+			fmt.Println("unable to stop srver: ", err)
+		}
+	}()
+	go func() {
+		if err := websrvr.ListenAndServe(); err != http.ErrServerClosed {
+			fmt.Println("websrvr err: ", err)
+		}
+	}()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)

@@ -1,3 +1,18 @@
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
 package quickfix
 
 import (
@@ -83,7 +98,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogon() {
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(32*time.Second, s.session.HeartBtInt) //should be written from logon message
+	s.Equal(32*time.Second, s.session.HeartBtInt) // Should be written from logon message.
 	s.False(s.session.HeartBtIntOverride)
 
 	s.LastToAdminMessageSent()
@@ -112,7 +127,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonHeartBtIntOverride() {
 	s.MockApp.AssertExpectations(s.T())
 
 	s.State(inSession{})
-	s.Equal(time.Second, s.session.HeartBtInt) //should not have changed
+	s.Equal(time.Second, s.session.HeartBtInt) // Should not have changed.
 	s.True(s.session.HeartBtIntOverride)
 
 	s.LastToAdminMessageSent()
@@ -209,6 +224,27 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonExpectResetSeqNum() 
 
 	s.NextTargetMsgSeqNum(2)
 	s.NextSenderMsgSeqNum(2)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonRejectedSeqNumNotReset() {
+	s.session.InitiateLogon = true
+	s.session.sentReset = true
+	s.Require().Nil(s.store.IncrNextSenderMsgSeqNum())
+
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+
+	s.MockApp.On("FromAdmin").Return(RejectLogon{"reject message"})
+	s.MockApp.On("OnLogout")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(latentState{})
+
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(3)
 }
 
 func (s *LogonStateTestSuite) TestFixMsgInLogonInitiateLogonUnExpectedResetSeqNum() {
@@ -309,7 +345,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.State(resendState{})
 	s.NextTargetMsgSeqNum(1)
 
-	//session should send logon, and then queues resend request for send
+	// Session should send logon, and then queues resend request for send.
 	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 2)
 	msgBytesSent, ok := s.Receiver.LastMessage()
 	s.Require().True(ok)
@@ -318,7 +354,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooHigh() {
 	s.Require().Nil(err)
 	s.MessageType(string(msgTypeLogon), sentMessage)
 
-	s.session.sendQueued()
+	s.session.sendQueued(true)
 	s.MessageType(string(msgTypeResendRequest), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagBeginSeqNo, 1, s.MockApp.lastToAdmin.Body)
 
@@ -343,6 +379,7 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
 	logon.Header.SetInt(tagMsgSeqNum, 1)
 
+	s.MockApp.On("FromAdmin").Return(nil)
 	s.MockApp.On("ToAdmin")
 	s.NextTargetMsgSeqNum(2)
 	s.fixMsgIn(s.session, logon)
@@ -358,7 +395,38 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	s.Require().Nil(err)
 	s.MessageType(string(msgTypeLogout), sentMessage)
 
-	s.session.sendQueued()
+	s.session.sendQueued(true)
 	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagText, "MsgSeqNum too low, expecting 2 but received 1", s.MockApp.lastToAdmin.Body)
+}
+
+func (s *LogonStateTestSuite) TestStayLoggedInOnReset() {
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+
+	logon := s.Logon()
+	logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(inSession{})
+
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+
+	s.NextTargetMsgSeqNum(3)
+	s.NextSenderMsgSeqNum(3)
+
+	s.fixMsgIn(s.session, logon)
+
+	s.True(s.session.IsConnected())
+	s.True(s.session.IsLoggedOn())
+
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(2)
 }
