@@ -141,7 +141,9 @@ func TestValueIsIncorrect(t *testing.T) {
 
 func TestConditionallyRequiredFieldMissing(t *testing.T) {
 	var (
-		expectedRejectReason         = 5
+		// Per FIX spec (tag 373/380 enum), ConditionallyRequiredFieldMissing
+		// is value 8, distinct from ValueIsIncorrect (value 5). See issue #721.
+		expectedRejectReason         = 8
 		expectedRefTagID         Tag = 44
 		expectedErrorString          = fmt.Sprintf("Conditionally Required Field Missing (%d)", expectedRefTagID)
 		expectedIsBusinessReject     = true
@@ -158,6 +160,10 @@ func TestConditionallyRequiredFieldMissing(t *testing.T) {
 	}
 	if msgRej.IsBusinessReject() != expectedIsBusinessReject {
 		t.Error("Expected IsBusinessReject to be true\n")
+	}
+	// Regression guard: the two reject reasons must not collide.
+	if msgRej.RejectReason() == ValueIsIncorrect(expectedRefTagID).RejectReason() {
+		t.Errorf("ConditionallyRequiredFieldMissing and ValueIsIncorrect must not share a reject reason value")
 	}
 }
 
