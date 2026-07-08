@@ -603,7 +603,27 @@ func (m *Message) build() []byte {
 // This func lets us pull the Message from the Store, parse it, update the Header, and then build it back into bytes using the original Body.
 // Note: The only standard non-Body group is NoHops.  If that is used in the Header, this workaround may fail.
 func (m *Message) buildWithBodyBytes(bodyBytes []byte) []byte {
-	m.cook()
+	// BodyLength and CheckSum must reflect the exact bytes written below
+	// (header + bodyBytes + trailer), NOT m.Body. A message parsed from the
+	// store without an app DataDictionary has its repeating-group tags
+	// collapsed by FieldMap.add (tagLookup is one slot per tag), so
+	// m.cook() would size the body from the collapsed field map while we
+	// write the full bodyBytes here -- producing a BodyLength that frames
+	// short at the peer ("Checksum not found").
+	bodyLength := m.Header.length() + len(bodyBytes) + m.Trailer.length()
+	m.Header.SetInt(tagBodyLength, bodyLength)
+
+	// CheckSum is the sum of every byte up to (not including) the CheckSum
+	// field. Header.total()/Trailer.total() already exclude tagCheckSum, and
+	// Header.total() includes BeginString and BodyLength (both covered by the
+	// checksum). Compute it after SetInt(tagBodyLength) so the final
+	// "9=<len>" is counted.
+	checkSum := m.Header.total()
+	for _, b := range bodyBytes {
+		checkSum += int(b)
+	}
+	checkSum = (checkSum + m.Trailer.total()) % 256
+	m.Trailer.SetString(tagCheckSum, formatCheckSum(checkSum))
 
 	var b bytes.Buffer
 	m.Header.write(&b)
