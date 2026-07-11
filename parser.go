@@ -132,7 +132,10 @@ func (p *parser) jumpLength() (int, error) {
 		return length, err
 	}
 
-	if length <= 0 {
+	// Issue 678: if length approaches the int limit, it might overflow when
+	// adding offset and make it negative so we also need to check that
+	// offset+length is not negative.
+	if length <= 0 || offset+length <= 0 {
 		return length, errors.New("Invalid length")
 	}
 
