@@ -19,9 +19,9 @@ import "github.com/quickfixgo/quickfix/internal"
 
 type resendState struct {
 	loggedOn
-	messageStash          map[int]*Message
-	currentResendRangeEnd int
-	resendRangeEnd        int
+	messageStash          map[uint64]*Message
+	currentResendRangeEnd uint64
+	resendRangeEnd        uint64
 }
 
 func (s resendState) String() string { return "Resend" }

@@ -94,7 +94,7 @@ func UnregisterSession(sessionID SessionID) error {
 }
 
 // SetNextTargetMsgSeqNum set the next expected target message sequence number for the session matching the session id.
-func SetNextTargetMsgSeqNum(sessionID SessionID, seqNum int) error {
+func SetNextTargetMsgSeqNum(sessionID SessionID, seqNum uint64) error {
 	session, ok := lookupSession(sessionID)
 	if !ok {
 		return errUnknownSession
@@ -103,7 +103,7 @@ func SetNextTargetMsgSeqNum(sessionID SessionID, seqNum int) error {
 }
 
 // SetNextSenderMsgSeqNum sets the next outgoing message sequence number for the session matching the session id.
-func SetNextSenderMsgSeqNum(sessionID SessionID, seqNum int) error {
+func SetNextSenderMsgSeqNum(sessionID SessionID, seqNum uint64) error {
 	session, ok := lookupSession(sessionID)
 	if !ok {
 		return errUnknownSession
@@ -112,7 +112,7 @@ func SetNextSenderMsgSeqNum(sessionID SessionID, seqNum int) error {
 }
 
 // GetExpectedSenderNum retrieves the expected sender sequence number for the session matching the session id.
-func GetExpectedSenderNum(sessionID SessionID) (int, error) {
+func GetExpectedSenderNum(sessionID SessionID) (uint64, error) {
 	session, ok := lookupSession(sessionID)
 	if !ok {
 		return 0, errUnknownSession
@@ -121,7 +121,7 @@ func GetExpectedSenderNum(sessionID SessionID) (int, error) {
 }
 
 // GetExpectedTargetNum retrieves the next target sequence number for the session matching the session id.
-func GetExpectedTargetNum(sessionID SessionID) (int, error) {
+func GetExpectedTargetNum(sessionID SessionID) (uint64, error) {
 	session, ok := lookupSession(sessionID)
 	if !ok {
 		return 0, errUnknownSession

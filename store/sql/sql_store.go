@@ -245,7 +245,7 @@ func (store *sqlStore) Refresh() error {
 func (store *sqlStore) populateCache() error {
 	s := store.sessionID
 	var creationTime time.Time
-	var incomingSeqNum, outgoingSeqNum int
+	var incomingSeqNum, outgoingSeqNum uint64
 	row := store.db.QueryRow(sqlString(store.sqlGetSeqNums, store.placeholder),
 		s.BeginString, s.Qualifier,
 		s.SenderCompID, s.SenderSubID, s.SenderLocationID,
@@ -283,17 +283,17 @@ func (store *sqlStore) populateCache() error {
 }
 
 // NextSenderMsgSeqNum returns the next MsgSeqNum that will be sent.
-func (store *sqlStore) NextSenderMsgSeqNum() int {
+func (store *sqlStore) NextSenderMsgSeqNum() uint64 {
 	return store.cache.NextSenderMsgSeqNum()
 }
 
 // NextTargetMsgSeqNum returns the next MsgSeqNum that should be received.
-func (store *sqlStore) NextTargetMsgSeqNum() int {
+func (store *sqlStore) NextTargetMsgSeqNum() uint64 {
 	return store.cache.NextTargetMsgSeqNum()
 }
 
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
-func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
+func (store *sqlStore) SetNextSenderMsgSeqNum(next uint64) error {
 	s := store.sessionID
 	_, err := store.db.Exec(sqlString(store.sqlUpdateSenderSeqNum, store.placeholder),
 		next, s.BeginString, s.Qualifier,
@@ -306,7 +306,7 @@ func (store *sqlStore) SetNextSenderMsgSeqNum(next int) error {
 }
 
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
-func (store *sqlStore) SetNextTargetMsgSeqNum(next int) error {
+func (store *sqlStore) SetNextTargetMsgSeqNum(next uint64) error {
 	s := store.sessionID
 	_, err := store.db.Exec(sqlString(store.sqlUpdateTargetSeqNum, store.placeholder),
 		next, s.BeginString, s.Qualifier,
@@ -343,7 +343,7 @@ func (store *sqlStore) CreationTime() time.Time {
 func (store *sqlStore) SetCreationTime(_ time.Time) {
 }
 
-func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
+func (store *sqlStore) SaveMessage(seqNum uint64, msg []byte) error {
 	s := store.sessionID
 
 	_, err := store.db.Exec(sqlString(store.sqlInsertMessage, store.placeholder),
@@ -355,7 +355,7 @@ func (store *sqlStore) SaveMessage(seqNum int, msg []byte) error {
 	return err
 }
 
-func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum uint64, msg []byte) error {
 	s := store.sessionID
 
 	tx, err := store.db.Begin()
@@ -390,7 +390,7 @@ func (store *sqlStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []b
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
 
-func (store *sqlStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
+func (store *sqlStore) IterateMessages(beginSeqNum, endSeqNum uint64, cb func([]byte) error) error {
 	s := store.sessionID
 	rows, err := store.db.Query(sqlString(store.sqlGetMessages, store.placeholder),
 		s.BeginString, s.Qualifier,
@@ -414,7 +414,7 @@ func (store *sqlStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byt
 	return rows.Err()
 }
 
-func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
+func (store *sqlStore) GetMessages(beginSeqNum, endSeqNum uint64) ([][]byte, error) {
 	var msgs [][]byte
 	err := store.IterateMessages(beginSeqNum, endSeqNum, func(msg []byte) error {
 		msgs = append(msgs, msg)

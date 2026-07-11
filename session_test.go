@@ -249,8 +249,8 @@ func (s *SessionSuite) TestShouldSendReset() {
 		ResetOnLogon        bool
 		ResetOnDisconnect   bool
 		ResetOnLogout       bool
-		NextSenderMsgSeqNum int
-		NextTargetMsgSeqNum int
+		NextSenderMsgSeqNum uint64
+		NextTargetMsgSeqNum uint64
 		Expected            bool
 	}{
 		{BeginStringFIX40, true, false, false, 1, 1, false}, // ResetSeqNumFlag not available < fix41.
