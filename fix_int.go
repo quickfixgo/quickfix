@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"errors"
+	"math"
 	"strconv"
 )
 
@@ -31,6 +32,10 @@ const (
 
 // atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func atoi(d []byte) (int, error) {
+	if len(d) == 0 {
+		return 0, errors.New("empty bytes")
+	}
+
 	if d[0] == asciiMinus {
 		n, err := parseUInt(d[1:])
 		return (-1) * n, err
@@ -52,7 +57,13 @@ func parseUInt(d []byte) (n int, err error) {
 			return
 		}
 
-		n = n*10 + (int(dec) - ascii0)
+		digit := int(dec) - ascii0
+		if n > (math.MaxInt-digit)/10 {
+			err = errors.New("value out of range")
+			return
+		}
+
+		n = n*10 + digit
 	}
 
 	return
