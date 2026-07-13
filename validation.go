@@ -16,6 +16,8 @@
 package quickfix
 
 import (
+	"bytes"
+
 	"github.com/quickfixgo/quickfix/datadictionary"
 )
 
@@ -385,10 +387,21 @@ func validateField(d *datadictionary.DataDictionary,
 		return nil
 	}
 
-	allowedValues := d.FieldTypeByTag[int(field.tag)].Enums
+	allowedValues := fieldType.Enums
 	if len(allowedValues) != 0 {
-		if _, validValue := allowedValues[string(field.value)]; !validValue {
-			return ValueIsIncorrect(field.tag)
+		switch fieldType.Type {
+		case "MULTIPLESTRINGVALUE", "MULTIPLEVALUESTRING", "MULTIPLECHARVALUE":
+			// These fields carry a space-delimited set of enum tokens, each of
+			// which must be individually valid (e.g. ExecInst "1 5" = two enums).
+			for _, component := range bytes.Split(field.value, []byte{' '}) {
+				if _, validValue := allowedValues[string(component)]; !validValue {
+					return ValueIsIncorrect(field.tag)
+				}
+			}
+		default:
+			if _, validValue := allowedValues[string(field.value)]; !validValue {
+				return ValueIsIncorrect(field.tag)
+			}
 		}
 	}
 

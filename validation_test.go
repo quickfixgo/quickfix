@@ -86,6 +86,8 @@ func TestValidate(t *testing.T) {
 		tcCheckUserDefinedFieldsDisabled(),
 		tcCheckUserDefinedFieldsDisabledFixT(),
 		tcMultipleRepeatingGroupFields(),
+		tcMultiValueEnumValid(),
+		tcMultiValueEnumInvalidComponent(),
 	}
 
 	msg := NewMessage()
@@ -655,6 +657,42 @@ func tcValueIsIncorrectFixT() validateTest {
 
 	return validateTest{
 		TestName:             "ValueIsIncorrect FIXT",
+		Validator:            validator,
+		MessageBytes:         msgBytes,
+		ExpectedRejectReason: rejectReasonValueIsIncorrect,
+		ExpectedRefTagID:     &tag,
+	}
+}
+
+func tcMultiValueEnumValid() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX43.xml")
+	validator := NewValidator(defaultValidatorSettings, dict, nil)
+
+	// ExecInst (tag 18) is a MULTIPLEVALUESTRING: a space-delimited set of
+	// individually-valid enum tokens (e.g. "Y M") must be accepted.
+	builder := createFIX43NewOrderSingle()
+	builder.Body.SetField(Tag(18), FIXString("Y M"))
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:          "Multi-value enum valid",
+		Validator:         validator,
+		MessageBytes:      msgBytes,
+		DoNotExpectReject: true,
+	}
+}
+
+func tcMultiValueEnumInvalidComponent() validateTest {
+	dict, _ := datadictionary.Parse("spec/FIX43.xml")
+	validator := NewValidator(defaultValidatorSettings, dict, nil)
+
+	tag := Tag(18)
+	builder := createFIX43NewOrderSingle()
+	builder.Body.SetField(tag, FIXString("Y ZZ")) // ZZ is not a valid ExecInst enum
+	msgBytes := builder.build()
+
+	return validateTest{
+		TestName:             "Multi-value enum invalid component",
 		Validator:            validator,
 		MessageBytes:         msgBytes,
 		ExpectedRejectReason: rejectReasonValueIsIncorrect,
