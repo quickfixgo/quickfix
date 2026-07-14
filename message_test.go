@@ -448,6 +448,26 @@ func (s *MessageSuite) TestReBuildWithRepeatingGroupMultipleEntriesInGroupForRes
 	s.True(bytes.Equal(expectedResendBytes, resendBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedResendBytes, resendBytes)
 }
 
+func (s *MessageSuite) TestReBuildWithRepeatingGroupWithDictionaryForResend() {
+	dict, dictErr := datadictionary.Parse("spec/FIX44.xml")
+	s.Nil(dictErr)
+
+	// A message whose body ends in a repeating group (453), parsed WITH a
+	// dictionary so parseGroup handles the group.
+	rawMsg := bytes.NewBufferString(
+		"8=FIX.4.4\x019=165\x0135=D\x0134=2\x0149=01001\x0150=01001a\x0152=20231231-20:19:41\x0156=TEST\x01" +
+			"1=acct1\x0111=13976\x0121=1\x0138=1\x0140=2\x0144=12\x0154=1\x0155=SYMABC\x0159=0\x0160=20231231-20:19:41\x01453=1\x01448=4501\x01447=D\x01452=28\x01" +
+			"10=026\x01")
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+
+	// The trailer must not stay embedded in bodyBytes.
+	s.False(bytes.Contains(s.msg.bodyBytes, []byte("\x0110=")), "trailer leaked into bodyBytes: %s", s.msg.bodyBytes)
+
+	// A resend rebuilt from bodyBytes must carry exactly one 10= checksum.
+	resendBytes := s.msg.buildWithBodyBytes(s.msg.bodyBytes)
+	s.Equal(1, bytes.Count(resendBytes, []byte("\x0110=")), "expected exactly one 10= checksum, got: %s", resendBytes)
+}
+
 func (s *MessageSuite) TestReverseRoute() {
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 

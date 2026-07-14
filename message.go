@@ -313,6 +313,7 @@ func parseGroup(mp *msgParser, tags []Tag) {
 	for {
 		mp.fieldIndex++
 		mp.parsedFieldBytes = &mp.msg.fields[mp.fieldIndex]
+		preExtractBytes := mp.rawBytes
 		mp.rawBytes, _ = extractField(mp.parsedFieldBytes, mp.rawBytes)
 		mp.trailerBytes = mp.rawBytes
 
@@ -337,6 +338,10 @@ func parseGroup(mp *msgParser, tags []Tag) {
 			mp.msg.Body.add(dm)
 			mp.msg.Trailer.add(mp.msg.fields[mp.fieldIndex : mp.fieldIndex+1])
 			mp.foundTrailer = true
+			// Restore the buffer that still holds the trailer so the caller strips
+			// it from bodyBytes; otherwise the trailer stays embedded and resend
+			// emits a duplicate 10= tag.
+			mp.trailerBytes = preExtractBytes
 			break
 		} else {
 			// Found a body field outside the group.
