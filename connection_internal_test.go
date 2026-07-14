@@ -17,11 +17,13 @@ package quickfix
 
 import (
 	"bytes"
+	"context"
 	"strings"
 	"testing"
 )
 
 func TestWriteLoop(t *testing.T) {
+	ctx := context.Background()
 	writer := bytes.NewBufferString("")
 	msgOut := make(chan []byte)
 
@@ -31,7 +33,7 @@ func TestWriteLoop(t *testing.T) {
 		msgOut <- []byte("test msg 3")
 		close(msgOut)
 	}()
-	writeLoop(writer, msgOut, nullLog{})
+	writeLoop(ctx, writer, msgOut, nullLog{})
 
 	expected := "test msg 1 test msg 2 test msg 3"
 
@@ -40,12 +42,32 @@ func TestWriteLoop(t *testing.T) {
 	}
 }
 
+func TestWriteLoopCancel(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	writer := bytes.NewBufferString("")
+	msgOut := make(chan []byte)
+
+	go func() {
+		msgOut <- []byte("test msg 1")
+		cancel()
+	}()
+	writeLoop(ctx, writer, msgOut, nullLog{})
+
+	expected := "test msg 1"
+
+	if writer.String() != expected {
+		t.Errorf("expected %v got %v", expected, writer.String())
+	}
+}
+
 func TestReadLoop(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	msgIn := make(chan fixIn)
 	stream := "hello8=FIX.4.09=5blah10=103garbage8=FIX.4.09=4foo10=103"
 
 	parser := newParser(strings.NewReader(stream))
-	go readLoop(parser, msgIn, nullLog{})
+	go readLoop(ctx, parser, msgIn, nullLog{})
 
 	var tests = []struct {
 		expectedMsg   string
@@ -69,5 +91,20 @@ func TestReadLoop(t *testing.T) {
 		if msg.bytes.String() != test.expectedMsg {
 			t.Errorf("Expected %v got %v", test.expectedMsg, msg.bytes.String())
 		}
+	}
+}
+
+func TestReadLoopCancel(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	msgIn := make(chan fixIn)
+	stream := "hello8=FIX.4.09=5blah10=103garbage8=FIX.4.09=4foo10=103"
+
+	parser := newParser(strings.NewReader(stream))
+
+	cancel()
+	go readLoop(ctx, parser, msgIn, nullLog{})
+	_, ok := <-msgIn
+	if ok {
+		t.Error("Channel should be closed on context cancel")
 	}
 }
