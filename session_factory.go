@@ -61,6 +61,7 @@ var applVerIDLookup = map[string]string{
 type sessionFactory struct {
 	// True if building sessions that initiate logon.
 	BuildInitiators bool
+	*Registry
 }
 
 const shortForm = "15:04:05"
@@ -75,7 +76,7 @@ func (f sessionFactory) createSession(
 		return
 	}
 
-	if err = registerSession(session); err != nil {
+	if err = f.registerSession(session); err != nil {
 		return
 	}
 	application.OnCreate(session.sessionID)
