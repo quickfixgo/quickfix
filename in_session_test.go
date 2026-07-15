@@ -16,10 +16,10 @@
 package quickfix
 
 import (
+	"bytes"
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/quickfixgo/quickfix/internal"
@@ -374,23 +374,84 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestDoNotSendApp() {
 	s.State(inSession{})
 }
 
-func (s *InSessionTestSuite) TestFIXMsgInResendRequestBlocksSend() {
-	s.MockApp.On("ToApp").Return(nil)
-	s.Require().Nil(s.session.send(s.NewOrderSingle()))
-	s.LastToAppMessageSent()
-	s.MockApp.AssertNumberOfCalls(s.T(), "ToApp", 1)
-	s.NextSenderMsgSeqNum(2)
+// resendInterceptStore delegates to a real store but hooks IterateMessages so a
+// test can simulate an application goroutine sending live traffic mid-replay.
+type resendInterceptStore struct {
+	MessageStore
+	afterFirstMsg func()
+}
 
-	s.MockStore.On("IterateMessages", mock.Anything, mock.Anything, mock.AnythingOfType("func([]byte) error")).
-		Run(func(_ mock.Arguments) {
-			s.Require().Nil(s.session.send(s.NewOrderSingle()))
-		}).
-		Return(nil)
+func (s *resendInterceptStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error {
+	n := 0
+	return s.MessageStore.IterateMessages(beginSeqNum, endSeqNum, func(msgBytes []byte) error {
+		err := cb(msgBytes)
+		if n++; n == 1 && s.afterFirstMsg != nil {
+			s.afterFirstMsg()
+		}
+		return err
+	})
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestLiveMessagesDoNotInterleave() {
+	s.MockApp.On("ToApp").Return(nil)
+	for i := 0; i < 3; i++ {
+		s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	}
+	s.NextSenderMsgSeqNum(4)
+	for {
+		if msgBytes, _ := s.Receiver.LastMessage(); msgBytes == nil {
+			break
+		}
+	}
+
+	// While the replay is in progress, an application goroutine sends a live
+	// message the same way SendToTarget does. The send must block until the
+	// replay completes so the message cannot reach the wire mid-replay.
+	liveSent := make(chan error, 1)
+	s.session.store = &resendInterceptStore{
+		MessageStore: &s.MockStore,
+		afterFirstMsg: func() {
+			go func() {
+				liveSent <- s.session.queueForSend(s.NewOrderSingle())
+			}()
+			select {
+			case err := <-liveSent:
+				s.Failf("", "live send completed during replay (err=%v)", err)
+			case <-time.After(20 * time.Millisecond):
+			}
+		},
+	}
 
 	s.MockApp.On("FromAdmin").Return(nil)
 	s.fixMsgIn(s.session, s.ResendRequest(1))
 
-	s.NextSenderMsgSeqNum(2)
+	select {
+	case err := <-liveSent:
+		s.Require().Nil(err)
+	case <-time.After(5 * time.Second):
+		s.FailNow("live send never completed after the replay finished")
+	}
+
+	for expectedSeqNum := 1; expectedSeqNum <= 3; expectedSeqNum++ {
+		msgBytes, _ := s.Receiver.LastMessage()
+		s.Require().NotNil(msgBytes)
+		msg := NewMessage()
+		s.Require().Nil(ParseMessage(msg, bytes.NewBuffer(msgBytes)))
+		s.FieldEquals(tagMsgSeqNum, expectedSeqNum, msg.Header)
+		s.FieldEquals(tagPossDupFlag, true, msg.Header)
+	}
+	msgBytes, _ := s.Receiver.LastMessage()
+	s.Nil(msgBytes, "live message must not be sent during the replay")
+
+	// The live message stays queued and goes out once the event loop resumes.
+	s.session.SendAppMessages(s.session)
+	msgBytes, _ = s.Receiver.LastMessage()
+	s.Require().NotNil(msgBytes)
+	msg := NewMessage()
+	s.Require().Nil(ParseMessage(msg, bytes.NewBuffer(msgBytes)))
+	s.FieldEquals(tagMsgSeqNum, 4, msg.Header)
+	s.False(msg.Header.Has(tagPossDupFlag))
+	s.NextSenderMsgSeqNum(5)
 }
 
 func (s *InSessionTestSuite) TestFIXMsgInTargetTooLow() {
