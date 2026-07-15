@@ -275,6 +275,11 @@ func (s *session) resend(msg *Message) bool {
 
 // queueForSend will validate, persist, and queue the message for send.
 func (s *session) queueForSend(msg *Message) error {
+	// resendMutex must always be locked before sendMutex to prevent a potential deadlock.
+	// Makes sure that live traffic cannot interleave with replayed messages while processing a ResendRequest.
+	s.resendMutex.RLock()
+	defer s.resendMutex.RUnlock()
+
 	s.sendMutex.Lock()
 	defer s.sendMutex.Unlock()
 
