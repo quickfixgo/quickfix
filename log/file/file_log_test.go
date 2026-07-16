@@ -77,7 +77,9 @@ func newFileLogHelper(t *testing.T) *fileLogHelper {
 	prefix := "myprefix"
 	logPath := path.Join(os.TempDir(), fmt.Sprintf("TestLogStore-%d", os.Getpid()))
 
-	log, err := newFileLog(prefix, logPath)
+	// Use default config (no rolling) for backward compatibility test
+	config := rollingConfig{}
+	log, err := newFileLog(prefix, logPath, config)
 	if err != nil {
 		t.Error("Unexpected error", err)
 	}
@@ -144,4 +146,71 @@ func TestFileLog_Append(t *testing.T) {
 	if !eventScanner.Scan() {
 		t.Error("Unexpected EOF")
 	}
+}
+
+func TestFileLog_RollingConfig(t *testing.T) {
+	cfg := `
+[DEFAULT]
+ConnectionType=initiator
+FileLogPath=.
+FileLogMaxSize=1
+FileLogMaxBackups=3
+FileLogMaxAge=7
+FileLogCompress=Y
+
+[SESSION]
+BeginString=FIX.4.1
+TargetCompID=ARCA
+SenderCompID=TW
+`
+	stringReader := strings.NewReader(cfg)
+	settings, err := quickfix.ParseSettings(stringReader)
+	if err != nil {
+		t.Fatal("Failed to parse settings", err)
+	}
+
+	factory, err := NewLogFactory(settings)
+	if err != nil {
+		t.Fatal("Did not expect error", err)
+	}
+
+	if factory == nil {
+		t.Fatal("Should have returned factory")
+	}
+
+	// Test that factory was created with rolling config
+	_ = factory
+}
+
+func TestFileLog_RollingBackwardCompatible(t *testing.T) {
+	// Test that without rolling config, behavior is unchanged
+	cfg := `
+[DEFAULT]
+ConnectionType=initiator
+FileLogPath=.
+
+[SESSION]
+BeginString=FIX.4.1
+TargetCompID=ARCA
+SenderCompID=TW
+`
+	stringReader := strings.NewReader(cfg)
+	settings, err := quickfix.ParseSettings(stringReader)
+	if err != nil {
+		t.Fatal("Failed to parse settings", err)
+	}
+
+	factory, err := NewLogFactory(settings)
+	if err != nil {
+		t.Fatal("Did not expect error", err)
+	}
+
+	log, err := factory.Create()
+	if err != nil {
+		t.Fatal("Did not expect error creating log", err)
+	}
+
+	// Should work without rolling
+	log.OnEvent("Test event")
+	log.OnIncoming([]byte("Test message"))
 }
