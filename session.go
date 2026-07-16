@@ -17,10 +17,13 @@ package quickfix
 
 import (
 	"bytes"
+	"crypto/tls"
 	"errors"
 	"fmt"
 	"sync"
 	"time"
+
+	"golang.org/x/net/proxy"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/quickfixgo/quickfix/internal"
@@ -64,6 +67,10 @@ type session struct {
 
 	timestampPrecision      TimestampPrecision
 	lastCheckedResetSeqTime time.Time
+
+	// Specific to initiators; configured by sessionFactory.
+	tlsConfig *tls.Config
+	dialer    proxy.ContextDialer
 }
 
 func (s *session) logError(err error) {
