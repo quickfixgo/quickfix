@@ -167,6 +167,18 @@ func ParseMessageWithDataDictionary(
 	transportDataDictionary *datadictionary.DataDictionary,
 	appDataDictionary *datadictionary.DataDictionary,
 ) (err error) {
+	// Ensure msg sections are initialized before locking their mutexes.
+	// A zero-value Message has nil rwLock pointers which would panic on Lock.
+	if msg.Header.rwLock == nil {
+		msg.Header.Init()
+	}
+	if msg.Body.rwLock == nil {
+		msg.Body.Init()
+	}
+	if msg.Trailer.rwLock == nil {
+		msg.Trailer.Init()
+	}
+
 	// Create msgparser before we go any further.
 	mp := &msgParser{
 		msg:                     msg,
