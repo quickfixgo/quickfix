@@ -331,3 +331,53 @@ func (s *TLSTestSuite) TestServerNameWithCertsFromBytes() {
 	s.NotNil(tlsConfig)
 	s.Equal("DummyServerNameWithCerts", tlsConfig.ServerName)
 }
+
+func (s *TLSTestSuite) TestAlwaysPresentClientCertificate() {
+	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
+	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
+	s.settings.GlobalSettings().Set(config.SocketAlwaysPresentClientCertificate, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Require().NotNil(tlsConfig.GetClientCertificate)
+
+	// The configured certificate is returned even when the server advertises an
+	// acceptable-CAs list that does not include the certificate's issuer.
+	cert, err := tlsConfig.GetClientCertificate(&tls.CertificateRequestInfo{
+		AcceptableCAs: [][]byte{[]byte("unrelated-ca-name")},
+	})
+	s.Nil(err)
+	s.Require().NotNil(cert)
+	s.Equal(tlsConfig.Certificates[0].Certificate, cert.Certificate)
+}
+
+func (s *TLSTestSuite) TestAlwaysPresentClientCertificateDefaultOff() {
+	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
+	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Nil(tlsConfig.GetClientCertificate)
+
+	s.SetupTest()
+	s.settings.GlobalSettings().Set(config.SocketPrivateKeyFile, s.PrivateKeyFile)
+	s.settings.GlobalSettings().Set(config.SocketCertificateFile, s.CertificateFile)
+	s.settings.GlobalSettings().Set(config.SocketAlwaysPresentClientCertificate, "N")
+
+	tlsConfig, err = loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Nil(tlsConfig.GetClientCertificate)
+}
+
+func (s *TLSTestSuite) TestAlwaysPresentClientCertificateWithoutCerts() {
+	s.settings.GlobalSettings().Set(config.SocketUseSSL, "Y")
+	s.settings.GlobalSettings().Set(config.SocketAlwaysPresentClientCertificate, "Y")
+
+	tlsConfig, err := loadTLSConfig(s.settings.GlobalSettings())
+	s.Nil(err)
+	s.NotNil(tlsConfig)
+	s.Nil(tlsConfig.GetClientCertificate)
+}

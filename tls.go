@@ -106,6 +106,26 @@ func loadTLSConfig(settings *SessionSettings) (*tls.Config, error) {
 		tlsConfig.Certificates[0] = certificate
 	}
 
+	if len(tlsConfig.Certificates) > 0 && settings.HasSetting(config.SocketAlwaysPresentClientCertificate) {
+		alwaysPresent, err := settings.BoolSetting(config.SocketAlwaysPresentClientCertificate)
+		if err != nil {
+			return nil, err
+		}
+
+		if alwaysPresent {
+			// As an initiator, always present the configured client certificate,
+			// bypassing the RFC 8446 acceptable-CAs filtering. Some counterparties
+			// (e.g. stunnel servers pinning exact leaf certificates) advertise a
+			// certificate_authorities list that does not contain the client cert's
+			// issuer; crypto/tls would then silently send no certificate at all,
+			// while OpenSSL-based clients send the configured cert regardless.
+			clientCert := &tlsConfig.Certificates[0]
+			tlsConfig.GetClientCertificate = func(*tls.CertificateRequestInfo) (*tls.Certificate, error) {
+				return clientCert, nil
+			}
+		}
+	}
+
 	if !allowSkipClientCerts {
 		tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
 	}

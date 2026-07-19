@@ -843,6 +843,27 @@ const (
 	//  - Y
 	//  - N
 	SocketUseSSL string = "SocketUseSSL"
+
+	// SocketAlwaysPresentClientCertificate if set to Y, an initiator always presents its configured
+	// client certificate to the server, bypassing crypto/tls's RFC 8446 filtering against the
+	// certificate_authorities list advertised in the server's CertificateRequest.
+	//
+	// Some counterparties (e.g. stunnel servers pinning exact leaf certificates) advertise a list
+	// that does not contain the client certificate's issuer; Go would then silently send no
+	// certificate, failing the handshake, while OpenSSL-based clients send the configured
+	// certificate regardless. Setting this to Y matches the OpenSSL behavior.
+	//
+	// Only meaningful when SocketPrivateKeyFile/SocketCertificateFile (or the Bytes variants)
+	// are supplied.
+	//
+	// Required: No
+	//
+	// Default: N
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	SocketAlwaysPresentClientCertificate string = "SocketAlwaysPresentClientCertificate"
 )
 
 const (
