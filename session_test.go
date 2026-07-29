@@ -544,6 +544,29 @@ func (s *SessionSuite) TestIncomingNotInSessionTime() {
 	}
 }
 
+func (s *SessionSuite) TestIncomingValidateChecksum() {
+	s.session.State = inSession{}
+	s.Require().Nil(s.session.store.Reset())
+
+	msg := s.NewOrderSingle()
+	msg.Header.SetField(tagMsgSeqNum, FIXInt(1))
+	msgBytes := msg.build()
+
+	// Corrupt the checksum in the bytes directly
+	// The message ends with "10=XXX\x01". We flip a bit in the last digit.
+	checksumDigitIndex := len(msgBytes) - 2
+	msgBytes[checksumDigitIndex] ^= 1
+
+	s.session.ValidateChecksum = true
+	s.session.Incoming(s.session, fixIn{bytes: bytes.NewBuffer(msgBytes)})
+	s.MockApp.AssertNotCalled(s.T(), "FromApp")
+
+	s.session.ValidateChecksum = false
+	s.MockApp.On("FromApp").Return(nil)
+	s.session.Incoming(s.session, fixIn{bytes: bytes.NewBuffer(msgBytes)})
+	s.MockApp.AssertExpectations(s.T())
+}
+
 func (s *SessionSuite) TestSendAppMessagesNotInSessionTime() {
 	var tests = []struct {
 		before           sessionState

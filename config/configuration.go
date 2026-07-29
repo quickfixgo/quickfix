@@ -467,6 +467,18 @@ const (
 	//  - N
 	ValidateFieldsHaveValues string = "ValidateFieldsHaveValues"
 
+	// ValidateChecksum if set to N, the checksum verification of incoming messages will be skipped.
+	// Useful when dealing with legacy systems or proxies that might malform the checksum.
+	//
+	// Required: No
+	//
+	// Default: Y
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	ValidateChecksum string = "ValidateChecksum"
+
 	// CheckLatency if set to Y, messages must be received from the counter-party within a defined number of seconds.
 	// It is useful to turn this off if a system uses localtime for it's timestamps instead of GMT.
 	//

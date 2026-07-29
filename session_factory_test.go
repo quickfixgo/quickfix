@@ -426,6 +426,32 @@ func (s *SessionFactorySuite) TestStartEndDayWithWeekdaysError() {
 	s.NotNil(err)
 }
 
+func (s *SessionFactorySuite) TestValidateChecksum() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{
+		{"Y", true},
+		{"N", false},
+	}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.ValidateChecksum, test.setting)
+
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.ValidateChecksum, "Failed to set ValidateChecksum from config")
+	}
+
+	s.SetupTest()
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Nil(err)
+	s.True(session.ValidateChecksum, "Default ValidateChecksum should be true")
+}
+
 func (s *SessionFactorySuite) TestDefaultApplVerID() {
 	s.SessionID = SessionID{BeginString: BeginStringFIXT11, TargetCompID: "TW", SenderCompID: "ISLD"}
 

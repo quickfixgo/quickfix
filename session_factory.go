@@ -216,6 +216,14 @@ func (f sessionFactory) newSession(
 		}
 	}
 
+	if settings.HasSetting(config.ValidateChecksum) {
+		if s.ValidateChecksum, err = settings.BoolSetting(config.ValidateChecksum); err != nil {
+			return
+		}
+	} else {
+		s.ValidateChecksum = true
+	}
+
 	if settings.HasSetting(config.CheckLatency) {
 		var doCheckLatency bool
 		if doCheckLatency, err = settings.BoolSetting(config.CheckLatency); err != nil {

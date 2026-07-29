@@ -65,7 +65,7 @@ func (s *MessageSuite) TestParseMessageEmpty() {
 }
 
 func (s *MessageSuite) TestParseMessage() {
-	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=051")
 
 	err := ParseMessage(s.msg, rawMsg)
 	s.Nil(err)
@@ -99,12 +99,28 @@ func (s *MessageSuite) TestParseMessageWithDataDictionary() {
 			5050: nil,
 		},
 	}
-	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=036")
 
-	err := ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict)
+	err := ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false)
 	s.Nil(err)
 	s.FieldEquals(Tag(10030), "CUST", s.msg.Header)
 	s.FieldEquals(Tag(5050), "HELLO", s.msg.Trailer)
+}
+
+func (s *MessageSuite) TestParseMessageSkipChecksum() {
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=035")
+
+	// Test Strict Mode (skipChecksum = false) -> Should Fail
+	err := ParseMessageWithDataDictionary(s.msg, rawMsg, nil, nil, false)
+	s.NotNil(err, "Expected error when validating invalid checksum")
+	s.Contains(err.Error(), "Expected CheckSum")
+
+	// Test Lenient Mode (skipChecksum = true) -> Should Pass
+	s.msg = NewMessage()
+	rawMsg = bytes.NewBufferString("8=FIX.4.29=12635=D34=249=TW52=20140515-19:49:56.65956=ISLD10030=CUST11=10021=140=154=155=TSLA60=00010101-00:00:00.0005050=HELLO10=035")
+
+	err = ParseMessageWithDataDictionary(s.msg, rawMsg, nil, nil, true)
+	s.Nil(err, "Expected no error when skipping checksum validation")
 }
 
 func (s *MessageSuite) TestParseOutOfOrder() {
@@ -127,7 +143,7 @@ func (s *MessageSuite) TestBuild() {
 }
 
 func (s *MessageSuite) TestReBuild() {
-	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
+	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=051")
 
 	s.Nil(ParseMessage(s.msg, rawMsg))
 
@@ -157,7 +173,7 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithDictionary() {
 			"10=026")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -178,7 +194,7 @@ func (s *MessageSuite) TestRebuildTwoRepeatingGroupsWithDictionary() {
 	rawMsg := bytes.NewBufferString("8=FIX.4.49=21035=D34=2347=UTF-852=20231231-20:19:4149=0100150=01001a56=TEST44=1211=139761=1010040021=1386=1336=NOPL55=SYMABC54=160=20231231-20:19:4138=140=259=0453=1448=4501447=D452=28354=6355=Public10=104")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -199,7 +215,7 @@ func (s *MessageSuite) TestRebuildOneRepeatingGroupWithTwoMembersWithDictionary(
 			"10=044")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -223,7 +239,7 @@ func (s *MessageSuite) TestRebuildTwoSequentialRepeatingGroupWithDictionary() {
 			"10=243")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -248,7 +264,7 @@ func (s *MessageSuite) TestRebuildNestedRepeatingGroupWithDictionary() {
 			"10=206")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -273,7 +289,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedRepeatingGroupWithDictionary() {
 			"10=117")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -298,7 +314,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenAnotherRepeatingGroupWithDicti
 			"10=106")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -323,7 +339,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedThenBodyTagThenAnotherRepeatingGro
 			"10=198")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -368,7 +384,7 @@ func (s *MessageSuite) TestRebuildDoubleNestedWithTwoMembersRepeatingGroupWithDi
 			"10=046")
 
 	// When we parse it into a message
-	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict))
+	s.Nil(ParseMessageWithDataDictionary(s.msg, rawMsg, dict, dict, false))
 
 	// And then rebuild the message bytes
 	rebuildBytes := s.msg.build()
@@ -449,7 +465,7 @@ func (s *MessageSuite) TestReBuildWithRepeatingGroupMultipleEntriesInGroupForRes
 }
 
 func (s *MessageSuite) TestReverseRoute() {
-	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=033")))
 
 	builder := s.msg.reverseRoute()
 
@@ -480,7 +496,7 @@ func (s *MessageSuite) TestReverseRoute() {
 }
 
 func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
-	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=12835=D34=249=TW52=20060102-15:04:0556=ISLD115=116=CS128=MG129=CB11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=041")))
 	builder := s.msg.reverseRoute()
 
 	s.False(builder.Header.Has(tagDeliverToCompID), "Should not reverse if empty")
@@ -488,7 +504,7 @@ func (s *MessageSuite) TestReverseRouteIgnoreEmpty() {
 
 func (s *MessageSuite) TestReverseRouteFIX40() {
 	// The onbehalfof/deliverto location id not supported in fix 4.0.
-	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
+	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.09=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=031")))
 
 	builder := s.msg.reverseRoute()
 
@@ -498,7 +514,7 @@ func (s *MessageSuite) TestReverseRouteFIX40() {
 }
 
 func (s *MessageSuite) TestCopyIntoMessage() {
-	msgString := "8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123"
+	msgString := "8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=033"
 	msgBuf := bytes.NewBufferString(msgString)
 	s.Nil(ParseMessage(s.msg, msgBuf))
 
