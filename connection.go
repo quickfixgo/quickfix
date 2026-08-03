@@ -15,10 +15,19 @@
 
 package quickfix
 
-import "io"
+import (
+	"context"
+	"io"
+)
 
-func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
+func writeLoop(ctx context.Context, connection io.Writer, messageOut chan []byte, log Log) {
 	for {
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
+
 		msg, ok := <-messageOut
 		if !ok {
 			return
@@ -30,10 +39,16 @@ func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
 	}
 }
 
-func readLoop(parser *parser, msgIn chan fixIn, log Log) {
+func readLoop(ctx context.Context, parser *parser, msgIn chan fixIn, log Log) {
 	defer close(msgIn)
 
 	for {
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
+
 		msg, err := parser.ReadMessage()
 		if err != nil {
 			log.OnEvent(err.Error())
