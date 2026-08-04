@@ -200,7 +200,7 @@ func main() {
 		}
 		num, ok := queryParams["NEXTTARGETSEQNUM"]
 		if ok {
-			seqnumInt, cErr := strconv.Atoi(num[0])
+			seqnumInt, cErr := strconv.ParseUint(num[0], 10, 64)
 			if cErr != nil {
 				fmt.Println("cannot find seqnum")
 				os.Exit(1)
@@ -216,7 +216,7 @@ func main() {
 
 		num, ok = queryParams["NEXTSENDERSEQNUM"]
 		if ok {
-			seqnumInt, cErr := strconv.Atoi(num[0])
+			seqnumInt, cErr := strconv.ParseUint(num[0], 10, 64)
 			if cErr != nil {
 				fmt.Println("cannot find seqnum")
 				os.Exit(1)
