@@ -331,3 +331,22 @@ func (s *TLSTestSuite) TestServerNameWithCertsFromBytes() {
 	s.NotNil(tlsConfig)
 	s.Equal("DummyServerNameWithCerts", tlsConfig.ServerName)
 }
+
+func (s *TLSTestSuite) TestTLSConfigForAddress() {
+	s.Nil(tlsConfigForAddress(nil, "example.com:443"))
+
+	configured := &tls.Config{ServerName: "configured.example.com"}
+	s.Equal(configured, tlsConfigForAddress(configured, "other.example.com:443"))
+
+	insecure := &tls.Config{InsecureSkipVerify: true}
+	s.Equal(insecure, tlsConfigForAddress(insecure, "example.com:443"))
+
+	base := &tls.Config{}
+	derived := tlsConfigForAddress(base, "example.com:443")
+	s.NotEqual(base, derived)
+	s.Equal("example.com", derived.ServerName)
+	s.Empty(base.ServerName)
+
+	ipv6 := tlsConfigForAddress(&tls.Config{}, "[2001:db8:a0b:12f0::1]:3001")
+	s.Equal("2001:db8:a0b:12f0::1", ipv6.ServerName)
+}
