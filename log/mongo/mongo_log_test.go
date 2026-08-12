@@ -41,6 +41,7 @@ func (suite *MongoLogTestSuite) SetupTest() {
 	if len(mongoDbCxn) <= 0 {
 		log.Println("MONGODB_TEST_CXN environment arg is not provided, skipping...")
 		suite.T().SkipNow()
+		return
 	}
 	mongoDatabase := "automated_testing_database"
 	mongoReplicaSet := "replicaset"
@@ -64,6 +65,13 @@ TargetCompID=%s`, mongoDbCxn, mongoDatabase, mongoReplicaSet, sessionID.BeginStr
 }
 
 func (suite *MongoLogTestSuite) TestMongoLogNoSession() {
+	mongoDbCxn := os.Getenv("MONGODB_TEST_CXN")
+	if len(mongoDbCxn) <= 0 {
+		log.Println("MONGODB_TEST_CXN environment arg is not provided, skipping...")
+		suite.T().SkipNow()
+		return
+	}
+
 	// create log
 	log, err := NewLogFactory(suite.settings).Create()
 	require.Nil(suite.T(), err)
@@ -87,6 +95,13 @@ func (suite *MongoLogTestSuite) TestMongoLogNoSession() {
 }
 
 func (suite *MongoLogTestSuite) TestMongoLog() {
+	mongoDbCxn := os.Getenv("MONGODB_TEST_CXN")
+	if len(mongoDbCxn) <= 0 {
+		log.Println("MONGODB_TEST_CXN environment arg is not provided, skipping...")
+		suite.T().SkipNow()
+		return
+	}
+
 	// create log
 	log, err := NewLogFactory(suite.settings).CreateSessionLog(suite.sessionID)
 	require.Nil(suite.T(), err)
@@ -110,6 +125,11 @@ func (suite *MongoLogTestSuite) TestMongoLog() {
 }
 
 func (suite *MongoLogTestSuite) TearDownTest() {
+	mongoDbCxn := os.Getenv("MONGODB_TEST_CXN")
+	if len(mongoDbCxn) <= 0 {
+		return
+	}
+
 	entry := generateEntry(&suite.log.sessionID)
 	_, err := suite.log.db.Database(suite.log.mongoDatabase).Collection(suite.log.messagesLogCollection).DeleteMany(context.Background(), entry)
 	require.Nil(suite.T(), err)
