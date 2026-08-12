@@ -186,3 +186,14 @@ func (s *ParserSuite) TestReadMessageGrowBuffer() {
 		s.Equal(tc.expectedBufferLen, len(s.parser.buffer))
 	}
 }
+
+// https://github.com/quickfixgo/quickfix/issues/678
+func TestIssue678(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			t.Error(err)
+		}
+	}()
+	parser := newParser(strings.NewReader(string("8=\x019=119999999999999999999999999999999999999999999999999999999999970\x01")))
+	_, _ = parser.ReadMessage()
+}
