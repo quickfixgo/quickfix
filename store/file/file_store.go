@@ -16,6 +16,7 @@
 package file
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -25,7 +26,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/quickfixgo/quickfix"
 	"github.com/quickfixgo/quickfix/config"
 )
@@ -96,7 +96,7 @@ func newFileStore(sessionID quickfix.SessionID, dirname string, fileSync bool) (
 
 	memStore, memErr := quickfix.NewMemoryStoreFactory().Create(sessionID)
 	if memErr != nil {
-		return nil, errors.Wrap(memErr, "cache creation")
+		return nil, fmt.Errorf("cache creation: %w", memErr)
 	}
 
 	store := &fileStore{
@@ -120,11 +120,11 @@ func newFileStore(sessionID quickfix.SessionID, dirname string, fileSync bool) (
 // Reset deletes the store files and sets the seqnums back to 1.
 func (store *fileStore) Reset() error {
 	if err := store.cache.Reset(); err != nil {
-		return errors.Wrap(err, "cache reset")
+		return fmt.Errorf("cache reset: %w", err)
 	}
 
 	if err := store.Close(); err != nil {
-		return errors.Wrap(err, "close")
+		return fmt.Errorf("close: %w", err)
 	}
 	if err := removeFile(store.bodyFname); err != nil {
 		return err
@@ -147,7 +147,7 @@ func (store *fileStore) Reset() error {
 // Refresh closes the store files and then reloads from them.
 func (store *fileStore) Refresh() (err error) {
 	if err = store.cache.Reset(); err != nil {
-		err = errors.Wrap(err, "cache reset")
+		err = fmt.Errorf("cache reset: %w", err)
 		return
 	}
 
@@ -183,11 +183,11 @@ func (store *fileStore) Refresh() (err error) {
 	}
 
 	if err := store.SetNextSenderMsgSeqNum(store.NextSenderMsgSeqNum()); err != nil {
-		return errors.Wrap(err, "set next sender")
+		return fmt.Errorf("set next sender: %w", err)
 	}
 
 	if err := store.SetNextTargetMsgSeqNum(store.NextTargetMsgSeqNum()); err != nil {
-		return errors.Wrap(err, "set next target")
+		return fmt.Errorf("set next target: %w", err)
 	}
 	return nil
 }
@@ -204,7 +204,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	if senderSeqNumBytes, err := os.ReadFile(store.senderSeqNumsFname); err == nil {
 		if senderSeqNum, err := strconv.Atoi(strings.Trim(string(senderSeqNumBytes), "\r\n")); err == nil {
 			if err = store.cache.SetNextSenderMsgSeqNum(senderSeqNum); err != nil {
-				return creationTimePopulated, errors.Wrap(err, "cache set next sender")
+				return creationTimePopulated, fmt.Errorf("cache set next sender: %w", err)
 			}
 		}
 	}
@@ -212,7 +212,7 @@ func (store *fileStore) populateCache() (creationTimePopulated bool, err error) 
 	if targetSeqNumBytes, err := os.ReadFile(store.targetSeqNumsFname); err == nil {
 		if targetSeqNum, err := strconv.Atoi(strings.Trim(string(targetSeqNumBytes), "\r\n")); err == nil {
 			if err = store.cache.SetNextTargetMsgSeqNum(targetSeqNum); err != nil {
-				return creationTimePopulated, errors.Wrap(err, "cache set next target")
+				return creationTimePopulated, fmt.Errorf("cache set next target: %w", err)
 			}
 		}
 	}
@@ -273,7 +273,7 @@ func (store *fileStore) NextTargetMsgSeqNum() int {
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
 func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
 	if err := store.setSeqNum(store.senderSeqNumsFile, next); err != nil {
-		return errors.Wrap(err, "file")
+		return fmt.Errorf("file: %w", err)
 	}
 	return store.cache.SetNextSenderMsgSeqNum(next)
 }
@@ -281,7 +281,7 @@ func (store *fileStore) SetNextSenderMsgSeqNum(next int) error {
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
 func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
 	if err := store.setSeqNum(store.targetSeqNumsFile, next); err != nil {
-		return errors.Wrap(err, "file")
+		return fmt.Errorf("file: %w", err)
 	}
 	return store.cache.SetNextTargetMsgSeqNum(next)
 }
@@ -289,7 +289,7 @@ func (store *fileStore) SetNextTargetMsgSeqNum(next int) error {
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *fileStore) IncrNextSenderMsgSeqNum() error {
 	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "file")
+		return fmt.Errorf("file: %w", err)
 	}
 	return nil
 }
@@ -297,7 +297,7 @@ func (store *fileStore) IncrNextSenderMsgSeqNum() error {
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *fileStore) IncrNextTargetMsgSeqNum() error {
 	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
-		return errors.Wrap(err, "file")
+		return fmt.Errorf("file: %w", err)
 	}
 	return nil
 }
