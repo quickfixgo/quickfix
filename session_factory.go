@@ -90,6 +90,7 @@ func (f sessionFactory) newSession(
 	s = &session{
 		sessionID: sessionID,
 		stopOnce:  sync.Once{},
+		stopCh:    make(chan struct{}),
 	}
 
 	var validatorSettings = defaultValidatorSettings
