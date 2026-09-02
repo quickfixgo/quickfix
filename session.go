@@ -202,7 +202,7 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 		} else {
 			// We are sending a logon.
 			nextseqnum := s.store.NextTargetMsgSeqNum()
-			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum+1))
+			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum))
 		}
 	}
 
