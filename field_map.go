@@ -196,7 +196,7 @@ func (m FieldMap) GetTime(tag Tag) (t time.Time, err MessageRejectError) {
 	m.rwLock.RLock()
 	defer m.rwLock.RUnlock()
 
-	bytes, err := m.GetBytes(tag)
+	bytes, err := m.getBytesNoLock(tag)
 	if err != nil {
 		return
 	}

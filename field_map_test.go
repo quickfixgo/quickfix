@@ -17,7 +17,9 @@ package quickfix
 
 import (
 	"bytes"
+	"sync"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -201,4 +203,47 @@ func TestFieldMap_Remove(t *testing.T) {
 	fMap.Remove(1)
 	assert.False(t, fMap.Has(1))
 	assert.True(t, fMap.Has(2))
+}
+
+// TestFieldMap_GetTimeConcurrentWithSet verifies the fix guarding against
+// recursive read-locking in GetTime.
+func TestFieldMap_GetTimeConcurrentWithSet(t *testing.T) {
+	var fMap FieldMap
+	fMap.init()
+	fMap.SetField(Tag(1), FIXUTCTimestamp{Time: time.Now()})
+	fMap.SetField(Tag(2), FIXString("blah"))
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 50000; i++ {
+			fMap.SetField(Tag(2), FIXString("blah"))
+		}
+	}()
+
+	for r := 0; r < 8; r++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for i := 0; i < 50000; i++ {
+				if _, err := fMap.GetTime(Tag(1)); err != nil {
+					t.Error(err)
+					return
+				}
+			}
+		}()
+	}
+
+	done := make(chan struct{})
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	select {
+	case <-done:
+	case <-time.After(60 * time.Second):
+		t.Fatal("deadlock: GetTime did not complete concurrently with writers")
+	}
 }
