@@ -157,7 +157,6 @@ func (p *parser) ReadMessage() (msgBytes *bytes.Buffer, err error) {
 	}
 
 	msgBytes = new(bytes.Buffer)
-	msgBytes.Reset()
 	msgBytes.Write(p.buffer[:index])
 	p.buffer = p.buffer[index:]
 
