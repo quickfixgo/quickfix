@@ -418,6 +418,44 @@ func (s *MessageSuite) TestReBuildWithRepeatingGroupForResend() {
 	s.True(bytes.Equal(expectedBytes, resendBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedBytes, resendBytes)
 }
 
+func (s *MessageSuite) TestReBuildWithMultiEntryRepeatingGroupForResend() {
+	// Given the following message with a repeating group holding more than one entry
+	origHeader := "8=FIXT.1.19=18635=834=349=ISLD52=20240415-03:43:17.92356=TW"
+	origBody := "6=1.0011=114=1.0017=131=1.0032=1.0037=138=1.0039=254=155=1150=2151=0.00453=2448=party1447=D452=1448=party2447=D452=11"
+	origTrailer := "10=181"
+	rawMsg := bytes.NewBufferString(origHeader + origBody + origTrailer)
+
+	// When I reparse the message from the store during a resend request
+	s.Nil(ParseMessage(s.msg, rawMsg))
+
+	// Then the bodyBytes retain every group entry
+	s.True(bytes.Equal([]byte(origBody), s.msg.bodyBytes), "Incorrect body bytes, \n expected: %s\n  but was: %s", origBody, s.msg.bodyBytes)
+
+	// But the Body FieldMap is keyed by tag, so without a data dictionary the group has
+	// collapsed to a single occurrence of each member tag
+	partyID, err := s.msg.Body.GetString(Tag(448))
+	s.Nil(err)
+	s.Equal("party2", partyID)
+	s.Len(s.msg.Body.tagLookup[Tag(448)], 1)
+
+	// And I update the headers for resend
+	s.msg.Header.SetField(tagOrigSendingTime, FIXString("20240415-03:43:17.923"))
+	s.msg.Header.SetField(tagSendingTime, FIXString("20240415-14:41:23.456"))
+	s.msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+
+	// When I combine the updated header + the original bodyBytes + the as-is trailer
+	resendBytes := s.msg.buildWithBodyBytes(s.msg.bodyBytes)
+
+	// Then BodyLength and CheckSum describe the bytes that were actually written, not the
+	// collapsed Body FieldMap
+	expectedBytes := []byte("8=FIXT.1.19=21735=834=343=Y49=ISLD52=20240415-14:41:23.45656=TW122=20240415-03:43:17.923" + origBody + "10=176")
+	s.True(bytes.Equal(expectedBytes, resendBytes), "Unexpected bytes,\n expected: %s\n  but was: %s", expectedBytes, resendBytes)
+
+	// And the resent bytes are parseable, which they are not when BodyLength is derived
+	// from the collapsed Body
+	s.Nil(ParseMessage(NewMessage(), bytes.NewBuffer(resendBytes)))
+}
+
 func (s *MessageSuite) TestReverseRoute() {
 	s.Nil(ParseMessage(s.msg, bytes.NewBufferString("8=FIX.4.29=17135=D34=249=TW50=KK52=20060102-15:04:0556=ISLD57=AP144=BB115=JCD116=CS128=MG129=CB142=JV143=RY145=BH11=ID21=338=10040=w54=155=INTC60=20060102-15:04:0510=123")))
 
