@@ -42,6 +42,26 @@ func TestFIXInt_Int(t *testing.T) {
 	assert.Equal(t, 4, f.Int())
 }
 
+func TestFIXInt_ReadOutOfRange(t *testing.T) {
+	// Out-of-range values must be rejected, not silently wrapped.
+	for _, tc := range []string{
+		"9223372036854775808",  // math.MaxInt64 + 1
+		"18446744073709551617", // math.MaxUint64 + 1
+		"99999999999999999999",
+	} {
+		var field FIXInt
+		err := field.Read([]byte(tc))
+		assert.NotNilf(t, err, "expected out-of-range error for %q", tc)
+	}
+}
+
+func TestFIXInt_ReadEmpty(t *testing.T) {
+	// An empty value must return an error, not panic on d[0].
+	var field FIXInt
+	err := field.Read([]byte(""))
+	assert.NotNil(t, err, "expected error for empty bytes")
+}
+
 func BenchmarkFIXInt_Read(b *testing.B) {
 	intBytes := []byte("1500")
 	var field FIXInt
