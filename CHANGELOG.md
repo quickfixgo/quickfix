@@ -1,3 +1,22 @@
+## 0.9.11 (September 14, 2026)
+
+### FEATURES
+* Adds `SetNewListenerCallback` to the Acceptor to allow custom `net.Listener` creation [#729](https://github.com/quickfixgo/quickfix/pull/729)
+* Adds config option for ValidateFieldsHaveValues [#734](https://github.com/quickfixgo/quickfix/pull/734)
+* Adds `Reset()` method to RepeatingGroup [#775](https://github.com/quickfixgo/quickfix/pull/775)
+
+### ENHANCEMENTS
+* Make both initiator and acceptor fixIn channels buffered [#736](https://github.com/quickfixgo/quickfix/pull/736)
+* Update devcontainer Go image to 1.25 [#748](https://github.com/quickfixgo/quickfix/pull/748)
+* Remove redundant buffer Reset when reading messages [#777](https://github.com/quickfixgo/quickfix/pull/777)
+
+### BUG FIXES
+* Resent messages with repeating groups on sessions without a data dictionary no longer produce an incorrect length and checksum [#743](https://github.com/quickfixgo/quickfix/pull/743)
+* Validate each token of multi-value enum fields [#766](https://github.com/quickfixgo/quickfix/pull/766)
+* Fix duplicate 10= checksum when resending a message ending in a repeating group [#767](https://github.com/quickfixgo/quickfix/pull/767)
+* Resend Requests should not interleave with live traffic [#768](https://github.com/quickfixgo/quickfix/pull/768)
+* Fix potential deadlock in FieldMap.GetTime [#776](https://github.com/quickfixgo/quickfix/pull/776)
+
 ## 0.9.10 (August 8, 2025)
 
 ### BUG FIXES
