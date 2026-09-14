@@ -121,6 +121,13 @@ func (f *RepeatingGroup) Add() *Group {
 	return g
 }
 
+// Reset clears all groups from this RepeatingGroup, allowing the instance to be
+// reused for a new message parse without reallocating the template and struct.
+// This avoids the allocation overhead of calling NewRepeatingGroup for each parse.
+func (f *RepeatingGroup) Reset() {
+	f.groups = f.groups[:0]
+}
+
 // Write returns tagValues for all Items in the repeating group ordered by
 // Group sequence and Group template order.
 func (f RepeatingGroup) Write() []TagValue {

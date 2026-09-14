@@ -17,6 +17,7 @@ package quickfix
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -289,5 +290,71 @@ func TestRepeatingGroup_ReadComplete(t *testing.T) {
 				t.Errorf("Expected %v got %v", expectedGroupTags[i][j], actual)
 			}
 		}
+	}
+}
+
+func TestRepeatingGroup_Reset(t *testing.T) {
+	// Issue #758: RepeatingGroup should support Reset() to avoid reallocation
+	template := GroupTemplate{GroupElement(1), GroupElement(2)}
+	rg := NewRepeatingGroup(Tag(100), template)
+
+	// Add two groups
+	g1 := rg.Add()
+	g1.SetField(Tag(1), FIXString("hello"))
+	g1.SetField(Tag(2), FIXString("world"))
+
+	g2 := rg.Add()
+	g2.SetField(Tag(1), FIXString("foo"))
+	g2.SetField(Tag(2), FIXString("bar"))
+
+	require.Equal(t, 2, rg.Len())
+
+	// Reset and reuse
+	rg.Reset()
+	require.Equal(t, 0, rg.Len())
+
+	// Add new groups after reset
+	g3 := rg.Add()
+	g3.SetField(Tag(1), FIXString("reused"))
+	g3.SetField(Tag(2), FIXString("instance"))
+
+	require.Equal(t, 1, rg.Len())
+
+	// Verify the new group has correct data
+	var v1, v2 FIXString
+	require.Nil(t, rg.groups[0].GetField(Tag(1), &v1))
+	require.Nil(t, rg.groups[0].GetField(Tag(2), &v2))
+	require.Equal(t, "reused", string(v1))
+	require.Equal(t, "instance", string(v2))
+
+	// Tag and template should be unchanged
+	require.Equal(t, Tag(100), rg.Tag())
+	require.Equal(t, 2, len(rg.template))
+}
+
+func TestRepeatingGroup_ResetMultipleCycles(t *testing.T) {
+	template := GroupTemplate{GroupElement(1)}
+	rg := NewRepeatingGroup(Tag(50), template)
+
+	// Simulate multiple message parses without reallocation
+	for cycle := 0; cycle < 3; cycle++ {
+		numGroups := cycle + 1
+		for i := 0; i < numGroups; i++ {
+			g := rg.Add()
+			g.SetField(Tag(1), FIXString(fmt.Sprintf("cycle-%d-group-%d", cycle, i)))
+		}
+
+		require.Equal(t, numGroups, rg.Len())
+
+		// Verify data
+		for i := 0; i < numGroups; i++ {
+			var v FIXString
+			require.Nil(t, rg.groups[i].GetField(Tag(1), &v))
+			require.Equal(t, fmt.Sprintf("cycle-%d-group-%d", cycle, i), string(v))
+		}
+
+		// Reset for next cycle
+		rg.Reset()
+		require.Equal(t, 0, rg.Len())
 	}
 }
