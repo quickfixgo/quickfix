@@ -31,7 +31,7 @@ const (
 	rejectReasonUnsupportedMessageType                    = 3
 	rejectReasonTagSpecifiedWithoutAValue                 = 4
 	rejectReasonValueIsIncorrect                          = 5
-	rejectReasonConditionallyRequiredFieldMissing         = 8
+	rejectReasonConditionallyRequiredFieldMissing         = 5
 	rejectReasonIncorrectDataFormatForValue               = 6
 	rejectReasonCompIDProblem                             = 9
 	rejectReasonSendingTimeAccuracyProblem                = 10
