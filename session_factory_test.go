@@ -16,6 +16,7 @@
 package quickfix
 
 import (
+	"net"
 	"testing"
 	"time"
 
@@ -470,6 +471,39 @@ func (s *SessionFactorySuite) TestNewSessionBuildInitiators() {
 	s.Equal(10*time.Second, session.LogonTimeout)
 	s.Equal(2*time.Second, session.LogoutTimeout)
 	s.Equal("127.0.0.1:5000", session.SocketConnectAddress[0])
+	s.NotNil(session.dialer)
+	s.Nil(session.tlsConfig)
+}
+
+func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsTLSAndDialer() {
+	s.sessionFactory.BuildInitiators = true
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
+	s.SessionSettings.Set(config.SocketConnectPort, "5000")
+	s.SessionSettings.Set(config.SocketUseSSL, "Y")
+	s.SessionSettings.Set(config.SocketServerName, "fix.example.com")
+	s.SessionSettings.Set(config.SocketTimeout, "5s")
+
+	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.Require().Nil(err)
+	s.Require().NotNil(session.tlsConfig)
+	s.Equal("fix.example.com", session.tlsConfig.ServerName)
+	s.Require().NotNil(session.dialer)
+
+	stdDialer, ok := session.dialer.(*net.Dialer)
+	s.Require().True(ok)
+	s.Equal(5*time.Second, stdDialer.Timeout)
+}
+
+func (s *SessionFactorySuite) TestNewSessionBuildInitiatorsInvalidDialer() {
+	s.sessionFactory.BuildInitiators = true
+	s.SessionSettings.Set(config.HeartBtInt, "34")
+	s.SessionSettings.Set(config.SocketConnectHost, "127.0.0.1")
+	s.SessionSettings.Set(config.SocketConnectPort, "5000")
+	s.SessionSettings.Set(config.ProxyType, "totallyinvalidproxytype")
+
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
 }
 
 func (s *SessionFactorySuite) TestDuplicateSession() {
@@ -498,6 +532,8 @@ func (s *SessionFactorySuite) TestNewSessionBuildAcceptors() {
 	s.False(session.InitiateLogon)
 	s.Zero(session.HeartBtInt)
 	s.False(session.HeartBtIntOverride)
+	s.Nil(session.tlsConfig)
+	s.Nil(session.dialer)
 
 	s.SessionSettings.Set(config.HeartBtIntOverride, "Y")
 	session, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)

@@ -20,6 +20,7 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
+	"net"
 	"os"
 
 	"github.com/quickfixgo/quickfix/config"
@@ -182,4 +183,24 @@ func setMinVersionExplicit(settings *SessionSettings, tlsConfig *tls.Config) {
 			tlsConfig.MinVersion = tls.VersionTLS12
 		}
 	}
+}
+
+// tlsConfigForAddress returns a TLS config suitable for dialing address.
+// When ServerName is unset and verification is enabled, a clone is returned with
+// ServerName derived from address so the shared session config is not mutated.
+func tlsConfigForAddress(base *tls.Config, address string) *tls.Config {
+	if base == nil {
+		return nil
+	}
+	if base.InsecureSkipVerify || base.ServerName != "" {
+		return base
+	}
+
+	cfg := base.Clone()
+	host, _, err := net.SplitHostPort(address)
+	if err != nil {
+		host = address
+	}
+	cfg.ServerName = host
+	return cfg
 }

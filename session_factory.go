@@ -537,7 +537,20 @@ func (f sessionFactory) buildInitiatorSettings(session *session, settings *Sessi
 		}
 	}
 
-	return f.configureSocketConnectAddress(session, settings)
+	if err := f.configureSocketConnectAddress(session, settings); err != nil {
+		return err
+	}
+
+	var err error
+	if session.tlsConfig, err = loadTLSConfig(settings); err != nil {
+		return err
+	}
+
+	if session.dialer, err = loadDialerConfig(settings); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (f sessionFactory) configureSocketConnectAddress(session *session, settings *SessionSettings) (err error) {
