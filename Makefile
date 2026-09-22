@@ -17,7 +17,7 @@ vet:
 	go vet `go list ./... | grep -v quickfix/gen`
 
 test: 
-	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -cover `go list ./... | grep -v quickfix/gen`
+	MONGODB_TEST_CXN=mongodb://db:27017 go test -v -race -timeout 20s -cover `go list ./... | grep -v quickfix/gen`
 
 linters-install:
 	@golangci-lint --version >/dev/null 2>&1 || { \
