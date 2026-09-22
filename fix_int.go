@@ -31,6 +31,10 @@ const (
 
 // atoi is similar to the function in strconv, but is tuned for ints appearing in FIX field types.
 func atoi(d []byte) (int, error) {
+	if len(d) == 0 {
+		return 0, errors.New("empty bytes")
+	}
+
 	if d[0] == asciiMinus {
 		n, err := parseUInt(d[1:])
 		return (-1) * n, err

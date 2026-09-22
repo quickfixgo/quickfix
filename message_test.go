@@ -64,6 +64,38 @@ func (s *MessageSuite) TestParseMessageEmpty() {
 	s.NotNil(err)
 }
 
+func (s *MessageSuite) TestParseMessageXMLDataLenOutOfRange() {
+	var tests = []struct {
+		name   string
+		rawMsg string
+	}{
+		{"overrun", "8=FIX.4.29=2035=n34=249=CME56=OAEAAAN212=999999999213=<x/>10=000"},
+		{"int overflow", "8=FIX.4.29=2035=n34=249=CME56=OAEAAAN212=9223372036854775807213=<x/>10=000"},
+	}
+
+	for _, test := range tests {
+		s.Run(test.name, func() {
+			s.NotNil(ParseMessage(NewMessage(), bytes.NewBufferString(test.rawMsg)))
+		})
+	}
+}
+
+func (s *MessageSuite) TestParseMessageEmptyIntField() {
+	var tests = []struct {
+		name   string
+		rawMsg string
+	}{
+		{"body length", "8=FIX.4.29=35=D34=249=TW56=ISLD10=000"},
+		{"xml data len", "8=FIX.4.29=2035=n34=249=CME56=OAEAAAN212=213=<x/>10=000"},
+	}
+
+	for _, test := range tests {
+		s.Run(test.name, func() {
+			s.NotNil(ParseMessage(NewMessage(), bytes.NewBufferString(test.rawMsg)))
+		})
+	}
+}
+
 func (s *MessageSuite) TestParseMessage() {
 	rawMsg := bytes.NewBufferString("8=FIX.4.29=10435=D34=249=TW52=20140515-19:49:56.65956=ISLD11=10021=140=154=155=TSLA60=00010101-00:00:00.00010=039")
 
