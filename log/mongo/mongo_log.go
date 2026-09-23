@@ -21,7 +21,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -214,7 +213,7 @@ func (l *mongoLog) close() error {
 	if l.db != nil {
 		err := l.db.Disconnect(context.Background())
 		if err != nil {
-			return errors.Wrap(err, "error disconnecting from database")
+			return fmt.Errorf("error disconnecting from database: %w", err)
 		}
 		l.db = nil
 	}
