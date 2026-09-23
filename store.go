@@ -21,22 +21,22 @@ import (
 
 // The MessageStore interface provides methods to record and retrieve messages for resend purposes.
 type MessageStore interface {
-	NextSenderMsgSeqNum() int
-	NextTargetMsgSeqNum() int
+	NextSenderMsgSeqNum() uint64
+	NextTargetMsgSeqNum() uint64
 
 	IncrNextSenderMsgSeqNum() error
 	IncrNextTargetMsgSeqNum() error
 
-	SetNextSenderMsgSeqNum(next int) error
-	SetNextTargetMsgSeqNum(next int) error
+	SetNextSenderMsgSeqNum(next uint64) error
+	SetNextTargetMsgSeqNum(next uint64) error
 
 	CreationTime() time.Time
 	SetCreationTime(time.Time)
 
-	SaveMessage(seqNum int, msg []byte) error
-	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error
-	GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error)
-	IterateMessages(beginSeqNum, endSeqNum int, cb func([]byte) error) error
+	SaveMessage(seqNum uint64, msg []byte) error
+	SaveMessageAndIncrNextSenderMsgSeqNum(seqNum uint64, msg []byte) error
+	GetMessages(beginSeqNum, endSeqNum uint64) ([][]byte, error)
+	IterateMessages(beginSeqNum, endSeqNum uint64, cb func([]byte) error) error
 
 	Refresh() error
 	Reset() error

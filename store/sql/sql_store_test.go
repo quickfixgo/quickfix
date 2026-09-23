@@ -136,9 +136,9 @@ TargetCompID=%s
 
 	// Get and check sequence numbers
 	nextSender := store.NextSenderMsgSeqNum()
-	suite.Equal(3, nextSender)
+	suite.Equal(uint64(3), nextSender)
 	nextTarget := store.NextTargetMsgSeqNum()
-	suite.Equal(2, nextTarget)
+	suite.Equal(uint64(2), nextTarget)
 
 	// IterateMessages
 	count := 0
@@ -154,9 +154,9 @@ TargetCompID=%s
 
 	// After reset, sequence numbers should be 1
 	nextSender = store.NextSenderMsgSeqNum()
-	suite.Equal(1, nextSender)
+	suite.Equal(uint64(1), nextSender)
 	nextTarget = store.NextTargetMsgSeqNum()
-	suite.Equal(1, nextTarget)
+	suite.Equal(uint64(1), nextTarget)
 }
 
 func (suite *SQLStoreTestSuite) TearDownTest() {

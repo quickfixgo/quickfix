@@ -165,7 +165,7 @@ func (state inSession) handleSequenceReset(session *session, msg *Message) (next
 
 		switch {
 		case newSeqNo > expectedSeqNum:
-			if err := session.store.SetNextTargetMsgSeqNum(int(newSeqNo)); err != nil {
+			if err := session.store.SetNextTargetMsgSeqNum(uint64(newSeqNo)); err != nil {
 				return handleStateError(session, err)
 			}
 		case newSeqNo < expectedSeqNum:
@@ -196,7 +196,7 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 		return state.processReject(session, msg, RequiredTagMissing(tagEndSeqNo))
 	}
 
-	endSeqNo := int(endSeqNoField)
+	endSeqNo := uint64(endSeqNoField)
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
 	expectedSeqNum := session.store.NextSenderMsgSeqNum()
@@ -207,7 +207,7 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 		endSeqNo = expectedSeqNum - 1
 	}
 
-	if err := state.resendMessages(session, int(beginSeqNo), endSeqNo, *msg); err != nil {
+	if err := state.resendMessages(session, uint64(beginSeqNo), endSeqNo, *msg); err != nil {
 		return handleStateError(session, err)
 	}
 
@@ -225,7 +225,7 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 	return state
 }
 
-func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int, inReplyTo Message) error {
+func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo uint64, inReplyTo Message) error {
 	if session.DisableMessagePersist {
 		return state.generateSequenceReset(session, beginSeqNo, endSeqNo+1, inReplyTo)
 	}
@@ -245,7 +245,7 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 			return err // We cant continue with a message that cant be parsed correctly.
 		}
 		msgType, _ := msg.Header.GetBytes(tagMsgType)
-		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
+		sentMessageSeqNum, _ := msg.Header.GetUint64(tagMsgSeqNum)
 
 		if isAdminMessageType(msgType) {
 			nextSeqNum = sentMessageSeqNum + 1
@@ -302,7 +302,7 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 		}
 
 		if nextState.messageStash == nil {
-			nextState.messageStash = make(map[int]*Message)
+			nextState.messageStash = make(map[uint64]*Message)
 		}
 
 		nextState.messageStash[TypedError.ReceivedTarget] = msg
@@ -392,7 +392,7 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 	return state
 }
 
-func (state *inSession) generateSequenceReset(session *session, beginSeqNo int, endSeqNo int, inReplyTo Message) (err error) {
+func (state *inSession) generateSequenceReset(session *session, beginSeqNo uint64, endSeqNo uint64, inReplyTo Message) (err error) {
 	sequenceReset := NewMessage()
 	session.fillDefaultHeader(sequenceReset, &inReplyTo)
 

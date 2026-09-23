@@ -176,6 +176,21 @@ func (m FieldMap) GetInt(tag Tag) (int, MessageRejectError) {
 	return int(val), err
 }
 
+// GetInt is a GetField wrapper for int fields.
+func (m FieldMap) GetUint64(tag Tag) (uint64, MessageRejectError) {
+	bytes, err := m.GetBytes(tag)
+	if err != nil {
+		return 0, err
+	}
+
+	var val FIXUint64
+	if val.Read(bytes) != nil {
+		err = IncorrectDataFormatForValue(tag)
+	}
+
+	return uint64(val), err
+}
+
 // GetInt is a lock free GetField wrapper for int fields.
 func (m FieldMap) getIntNoLock(tag Tag) (int, MessageRejectError) {
 	bytes, err := m.getBytesNoLock(tag)
@@ -267,6 +282,12 @@ func (m *FieldMap) SetBool(tag Tag, value bool) *FieldMap {
 // SetInt is a SetField wrapper for int fields.
 func (m *FieldMap) SetInt(tag Tag, value int) *FieldMap {
 	v := FIXInt(value)
+	return m.SetBytes(tag, v.Write())
+}
+
+// SetUint64 is a SetField wrapper for int fields.
+func (m *FieldMap) SetUint64(tag Tag, value uint64) *FieldMap {
+	v := FIXUint64(value)
 	return m.SetBytes(tag, v.Write())
 }
 
