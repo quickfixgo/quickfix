@@ -744,3 +744,11 @@ func (s *SessionFactorySuite) TestPersistMessages() {
 		s.Equal(test.expected, session.DisableMessagePersist)
 	}
 }
+
+func (s *SessionFactorySuite) TestBadDictionaryPath() {
+	s.SetupTest()
+	s.SessionSettings.Set(config.DataDictionary, "file/does/not/exist.xml")
+	_, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+	s.NotNil(err)
+	s.Contains(err.Error(), "problem parsing XML datadictionary path 'file/does/not/exist.xml' for setting 'DataDictionary':")
+}

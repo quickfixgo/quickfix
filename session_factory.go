@@ -147,16 +147,16 @@ func (f sessionFactory) newSession(
 
 			if s.transportDataDictionary, err = datadictionary.Parse(transportDataDictionaryPath); err != nil {
 				err = errors.Wrapf(
-					err, "problem parsing XML datadictionary path '%v' for setting '%v",
-					settings.settings[config.TransportDataDictionary], config.TransportDataDictionary,
+					err, "problem parsing XML datadictionary path '%v' for setting '%v'",
+					string(settings.settings[config.TransportDataDictionary]), config.TransportDataDictionary,
 				)
 				return
 			}
 
 			if s.appDataDictionary, err = datadictionary.Parse(appDataDictionaryPath); err != nil {
 				err = errors.Wrapf(
-					err, "problem parsing XML datadictionary path '%v' for setting '%v",
-					settings.settings[config.AppDataDictionary], config.AppDataDictionary,
+					err, "problem parsing XML datadictionary path '%v' for setting '%v'",
+					string(settings.settings[config.AppDataDictionary]), config.AppDataDictionary,
 				)
 				return
 			}
@@ -171,8 +171,8 @@ func (f sessionFactory) newSession(
 
 		if s.appDataDictionary, err = datadictionary.Parse(dataDictionaryPath); err != nil {
 			err = errors.Wrapf(
-				err, "problem parsing XML datadictionary path '%v' for setting '%v",
-				settings.settings[config.DataDictionary], config.DataDictionary,
+				err, "problem parsing XML datadictionary path '%v' for setting '%v'",
+				string(settings.settings[config.DataDictionary]), config.DataDictionary,
 			)
 			return
 		}
