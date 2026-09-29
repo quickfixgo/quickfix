@@ -399,3 +399,133 @@ func (s *LogonStateTestSuite) TestFixMsgInLogonSeqNumTooLow() {
 	s.MessageType(string(msgTypeLogout), s.MockApp.lastToAdmin)
 	s.FieldEquals(tagText, "MsgSeqNum too low, expecting 2 but received 1", s.MockApp.lastToAdmin.Body)
 }
+
+// sentMessages drains everything the session wrote, in order.
+func (s *LogonStateTestSuite) sentMessages() (msgs []*Message) {
+	for {
+		select {
+		case raw := <-s.Receiver.sendChannel:
+			msg := NewMessage()
+			s.Require().Nil(ParseMessage(msg, bytes.NewBuffer(raw)))
+			msgs = append(msgs, msg)
+		default:
+			return
+		}
+	}
+}
+
+func (s *LogonStateTestSuite) enableNextExpectedMsgSeqNumRecovery() {
+	s.session.InitiateLogon = true
+	s.session.EnableNextExpectedMsgSeqNum = true
+	s.session.NextExpectedMsgSeqNumRecovery = true
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonNextExpectedMsgSeqNumRecoveryResendsMissedMessages() {
+	s.enableNextExpectedMsgSeqNumRecovery()
+
+	// Orders 1 and 2 are stored but never delivered, then our Logon goes out as 3.
+	s.MockApp.On("ToApp").Return(nil)
+	s.MockApp.On("ToAdmin")
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.Require().Nil(s.session.send(s.NewOrderSingle()))
+	s.Require().Nil(s.session.sendLogon())
+	s.NextSenderMsgSeqNum(4)
+	sentLogon := s.sentMessages()
+	s.Require().Len(sentLogon, 1)
+	s.FieldEquals(tagNextExpectedMsgSeqNum, 1, sentLogon[0].Body)
+
+	// The counterparty's Logon says it expects 1 from us.
+	s.MessageFactory.SetNextSeqNum(1)
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(1))
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.fixMsgIn(s.session, logon)
+
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(4)
+	sent := s.sentMessages()
+	s.Require().Len(sent, 3)
+	for i, seq := range []int{1, 2} {
+		s.MessageType("D", sent[i])
+		s.FieldEquals(tagMsgSeqNum, seq, sent[i].Header)
+		s.FieldEquals(tagPossDupFlag, true, sent[i].Header)
+	}
+	s.MessageType(string(msgTypeSequenceReset), sent[2])
+	s.FieldEquals(tagMsgSeqNum, 3, sent[2].Header)
+	s.FieldEquals(tagNewSeqNo, 4, sent[2].Body)
+	s.FieldEquals(tagGapFillFlag, true, sent[2].Body)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonNextExpectedMsgSeqNumRecoveryGapFillsUnstoredMessages() {
+	s.enableNextExpectedMsgSeqNumRecovery()
+
+	// Our sequence was moved to 3 by hand, so 1 and 2 are not in the store.
+	s.Require().Nil(s.session.store.SetNextSenderMsgSeqNum(3))
+	s.MockApp.On("ToAdmin")
+	s.Require().Nil(s.session.sendLogon())
+	s.Require().Len(s.sentMessages(), 1)
+
+	s.MessageFactory.SetNextSeqNum(1)
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(1))
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.fixMsgIn(s.session, logon)
+
+	s.State(inSession{})
+	sent := s.sentMessages()
+	s.Require().Len(sent, 1)
+	s.MessageType(string(msgTypeSequenceReset), sent[0])
+	s.FieldEquals(tagMsgSeqNum, 1, sent[0].Header)
+	s.FieldEquals(tagNewSeqNo, 4, sent[0].Body)
+	s.FieldEquals(tagGapFillFlag, true, sent[0].Body)
+}
+
+func (s *LogonStateTestSuite) TestFixMsgInLogonNextExpectedMsgSeqNumRecoverySeqNumTooHigh() {
+	s.enableNextExpectedMsgSeqNumRecovery()
+	s.IncrNextSenderMsgSeqNum() // our Logon was 1
+
+	// The counterparty's Logon is 6 while we expect 1, it resends 1..5 on its own.
+	s.MessageFactory.SetNextSeqNum(6)
+	logon := s.Logon()
+	logon.Body.SetField(tagHeartBtInt, FIXInt(32))
+	logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(2))
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(1)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 0)
+	s.NoMessageSent()
+
+	// Its replay closes the gap, including the number of its Logon.
+	s.MessageFactory.SetNextSeqNum(1)
+	s.fixMsgIn(s.session, s.SequenceReset(7))
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(7)
+	s.MockApp.AssertNumberOfCalls(s.T(), "ToAdmin", 0)
+}
+
+func (s *LogonStateTestSuite) TestSendLogonNextExpectedMsgSeqNum() {
+	s.session.InitiateLogon = true
+	s.session.EnableNextExpectedMsgSeqNum = true
+	s.IncrNextTargetMsgSeqNum()
+	s.MockApp.On("ToAdmin")
+
+	s.Require().Nil(s.session.sendLogon())
+	sent := s.sentMessages()
+	s.Require().Len(sent, 1)
+	s.FieldEquals(tagNextExpectedMsgSeqNum, 3, sent[0].Body) // unchanged without recovery
+
+	s.session.NextExpectedMsgSeqNumRecovery = true
+	s.Require().Nil(s.session.sendLogon())
+	sent = s.sentMessages()
+	s.Require().Len(sent, 1)
+	s.FieldEquals(tagNextExpectedMsgSeqNum, 2, sent[0].Body)
+}

@@ -1162,4 +1162,20 @@ const (
 	//  - Y
 	//  - N
 	EnableNextExpectedMsgSeqNum string = "EnableNextExpectedMsgSeqNum"
+
+	// NextExpectedMsgSeqNumRecovery makes logon recovery rely on tag 789 alone, as HKEX OCG-C requires.
+	// Messages the counterparty's 789 says it missed are resent (admin messages gap filled) instead of
+	// gap filling the whole range, and no ResendRequest is sent when the counterparty's Logon MsgSeqNum
+	// is too high, since the counterparty resends from our 789 on its own.
+	// The 789 an initiator sends is its next expected number, without the extra one added otherwise.
+	// Only used together with EnableNextExpectedMsgSeqNum.
+	//
+	// Required: No
+	//
+	// Default: N
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	NextExpectedMsgSeqNumRecovery string = "NextExpectedMsgSeqNumRecovery"
 )

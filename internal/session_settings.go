@@ -19,6 +19,9 @@ type SessionSettings struct {
 	MaxLatency                   time.Duration
 	DisableMessagePersist        bool
 
+	// Logon recovery relies on 789 alone, see config.NextExpectedMsgSeqNumRecovery.
+	NextExpectedMsgSeqNumRecovery bool
+
 	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string
 

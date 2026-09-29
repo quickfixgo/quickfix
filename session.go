@@ -198,7 +198,11 @@ func (s *session) sendLogonInReplyTo(setResetSeqNum bool, inReplyTo *Message) er
 		} else {
 			// We are sending a logon.
 			nextseqnum := s.store.NextTargetMsgSeqNum()
-			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum+1))
+			if !s.NextExpectedMsgSeqNumRecovery {
+				nextseqnum++
+			}
+			// With recovery on, 789 is exactly the next number we expect, the counterparty's Logon
+			logon.Body.SetField(tagNextExpectedMsgSeqNum, FIXInt(nextseqnum))
 		}
 	}
 
@@ -558,7 +562,13 @@ func (s *session) handleLogon(msg *Message) error {
 		targetWantsNextSeqNumToBe, getErr := msg.Body.GetInt(tagNextExpectedMsgSeqNum)
 		if getErr == nil {
 			if targetWantsNextSeqNumToBe != nextSenderMsgNumAtLogonReceived {
-				if !s.DisableMessagePersist {
+				if s.NextExpectedMsgSeqNumRecovery && !s.DisableMessagePersist && targetWantsNextSeqNumToBe < nextSenderMsgNumAtLogonReceived {
+					// Resend what the counterparty missed, our Logon included, so application messages are
+					// replayed and admin messages gap filled, then continue after our Logon.
+					if err := (inSession{}).resendMessages(s, targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived-1, *msg); err != nil {
+						return err
+					}
+				} else if !s.DisableMessagePersist {
 					seqResetErr := s.generateSequenceReset(targetWantsNextSeqNumToBe, nextSenderMsgNumAtLogonReceived+1, *msg)
 					if seqResetErr != nil {
 						return seqResetErr

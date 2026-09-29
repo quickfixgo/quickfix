@@ -45,6 +45,11 @@ func (s logonState) FixMsgIn(session *session, msg *Message) (nextState sessionS
 			return shutdownWithReason(session, msg, false, err.Error())
 
 		case targetTooHigh:
+			if session.EnableNextExpectedMsgSeqNum && session.NextExpectedMsgSeqNumRecovery {
+				// The counterparty resends from our 789 on its own, a ResendRequest now could end the session.
+				// A gap that is still there later is caught and requested as usual.
+				return inSession{}
+			}
 			var tooHighErr error
 			if nextState, tooHighErr = session.doTargetTooHigh(err); tooHighErr != nil {
 				return shutdownWithReason(session, msg, false, tooHighErr.Error())
