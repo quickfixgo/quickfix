@@ -65,7 +65,13 @@ func (sm *stateMachine) Connect(session *session) {
 
 	sm.setState(session, logonState{})
 	// Fire logon timeout event after the pre-configured delay period.
-	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- internal.LogonTimeout })
+	time.AfterFunc(session.LogonTimeout, func() {
+		select {
+		case <-session.stopCh:
+			return
+		case session.sessionEvent <- internal.LogonTimeout:
+		}
+	})
 }
 
 func (sm *stateMachine) Stop(session *session) {
