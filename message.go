@@ -553,6 +553,12 @@ func extractXMLDataField(parsedFieldBytes *TagValue, buffer []byte, dataLen int)
 		remBytes = buffer
 		return
 	}
+	// Compared against the remaining buffer so a large dataLen cannot overflow int.
+	if dataLen < 0 || dataLen > len(buffer)-endIndex-2 {
+		err = parseError{OrigError: fmt.Sprintf("extractXMLDataField: XMLDataLen %d exceeds remaining buffer of %d bytes", dataLen, len(buffer)-endIndex-2)}
+		remBytes = buffer
+		return
+	}
 	endIndex += dataLen + 1
 
 	err = parsedFieldBytes.parse(buffer[:endIndex+1])
