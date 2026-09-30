@@ -18,6 +18,7 @@ package quickfix
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"crypto/tls"
 	"io"
 	"net"
@@ -361,6 +362,7 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 	a.sessionAddr.Store(sessID, netConn.RemoteAddr())
 	msgIn := make(chan fixIn, session.InChanCapacity)
 	msgOut := make(chan []byte)
+	ctx := context.Background()
 
 	if err := session.connect(msgIn, msgOut); err != nil {
 		a.globalLog.OnEventf("Unable to accept session %v connection: %v", sessID, err.Error())
@@ -369,10 +371,10 @@ func (a *Acceptor) handleConnection(netConn net.Conn) {
 
 	go func() {
 		msgIn <- fixIn{msgBytes, parser.lastRead}
-		readLoop(parser, msgIn, a.globalLog)
+		readLoop(ctx, parser, msgIn, a.globalLog)
 	}()
 
-	writeLoop(netConn, msgOut, a.globalLog)
+	writeLoop(ctx, netConn, msgOut, a.globalLog)
 }
 
 func (a *Acceptor) dynamicSessionsLoop() {

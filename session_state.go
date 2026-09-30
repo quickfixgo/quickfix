@@ -36,36 +36,37 @@ func (sm *stateMachine) Start(s *session) {
 	sm.CheckSessionTime(s, time.Now())
 }
 
-func (sm *stateMachine) Connect(session *session) {
+func (sm *stateMachine) Connect(session *session) error {
 	// No special logon logic needed for FIX Acceptors.
 	if !session.InitiateLogon {
 		sm.setState(session, logonState{})
-		return
+		return nil
 	}
 
 	if session.RefreshOnLogon {
 		if err := session.store.Refresh(); err != nil {
 			session.logError(err)
-			return
+			return err
 		}
 	}
 
 	if session.ResetOnLogon {
 		if err := session.store.Reset(); err != nil {
 			session.logError(err)
-			return
+			return err
 		}
 	}
 
 	session.log.OnEvent("Sending logon request")
 	if err := session.sendLogon(); err != nil {
 		session.logError(err)
-		return
+		return err
 	}
 
 	sm.setState(session, logonState{})
 	// Fire logon timeout event after the pre-configured delay period.
 	time.AfterFunc(session.LogonTimeout, func() { session.sessionEvent <- internal.LogonTimeout })
+	return nil
 }
 
 func (sm *stateMachine) Stop(session *session) {

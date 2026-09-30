@@ -163,14 +163,17 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			return
 		}
 
-		ctx, cancel := context.WithCancel(context.Background())
+		ctx := context.Background()
+		dialCtx, dialCancel := context.WithCancel(ctx)
+		readWriteCtx, readWriteCancel := context.WithCancel(ctx)
 
 		// We start a goroutine in order to be able to cancel the dialer mid-connection
 		// on receiving a stop signal to stop the initiator.
 		go func() {
 			select {
 			case <-i.stopChan:
-				cancel()
+				dialCancel()
+				readWriteCancel()
 			case <-ctx.Done():
 				return
 			}
@@ -183,7 +186,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
 
-		netConn, err := dialer.DialContext(ctx, "tcp", address)
+		netConn, err := dialer.DialContext(dialCtx, "tcp", address)
 		if err != nil {
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
@@ -207,24 +210,25 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 
 		msgIn = make(chan fixIn, session.InChanCapacity)
 		msgOut = make(chan []byte)
-		if err := session.connect(msgIn, msgOut); err != nil {
-			session.log.OnEventf("Failed to initiate: %v", err)
-			goto reconnect
-		}
 
-		go readLoop(newParser(bufio.NewReader(netConn)), msgIn, session.log)
+		go readLoop(readWriteCtx, newParser(bufio.NewReader(netConn)), msgIn, session.log)
 		disconnected = make(chan interface{})
 		go func() {
-			writeLoop(netConn, msgOut, session.log)
+			writeLoop(readWriteCtx, netConn, msgOut, session.log)
 			if err := netConn.Close(); err != nil {
 				session.log.OnEvent(err.Error())
 			}
 			close(disconnected)
 		}()
 
+		if err := session.connect(msgIn, msgOut); err != nil {
+			session.log.OnEventf("Failed to initiate: %v", err)
+			goto reconnect
+		}
+
 		// This ensures we properly cleanup the goroutine and context used for
 		// dial cancelation after successful connection.
-		cancel()
+		dialCancel()
 
 		select {
 		case <-disconnected:
@@ -233,7 +237,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		}
 
 	reconnect:
-		cancel()
+		dialCancel()
 
 		connectionAttempt++
 		session.log.OnEventf("Reconnecting in %v", session.ReconnectInterval)
