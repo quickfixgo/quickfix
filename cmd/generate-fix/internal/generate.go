@@ -14,7 +14,7 @@ import (
 var (
 	useFloat    = flag.Bool("use-float", false, "By default, FIX float fields are represented as arbitrary-precision fixed-point decimal numbers.  Set to 'true' to instead generate FIX float fields as float64 values.")
 	useUDecimal = flag.Bool("use-udecimal", false, "By default, FIX uses the shopspring/decimal library for fixed-point decimal numbers.  Set to 'true' to instead use the quagmt/udecimal library.")
-	pkgRoot     = flag.String("pkg-root", "github.com/quickfixgo", "Set a string here to provide a custom import path for generated packages.")
+	pkgRoot     = flag.String("pkg-root", "github.com/quickfixgo/quickfix", "Set a string here to provide a custom import path for generated packages.")
 	tabWidth    = 8
 	printerMode = printer.UseSpaces | printer.TabIndent
 )
