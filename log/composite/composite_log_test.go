@@ -107,3 +107,59 @@ func (suite *CompositeLogTestSuite) TearDownTest() {
 func TestCompositeLogTestSuite(t *testing.T) {
 	suite.Run(t, new(CompositeLogTestSuite))
 }
+
+// recordingLog records the events it is handed so a test can assert on what the
+// composite log forwarded to its wrapped logs.
+type recordingLog struct {
+	events []string
+}
+
+func (r *recordingLog) OnIncoming([]byte) {}
+
+func (r *recordingLog) OnOutgoing([]byte) {}
+
+func (r *recordingLog) OnEvent(s string) { r.events = append(r.events, s) }
+
+func (r *recordingLog) OnEventf(format string, a ...interface{}) {
+	r.events = append(r.events, fmt.Sprintf(format, a...))
+}
+
+// recordingLogFactory hands out one pre-built recordingLog.
+type recordingLogFactory struct {
+	log *recordingLog
+}
+
+func (f recordingLogFactory) Create() (quickfix.Log, error) { return f.log, nil }
+
+func (f recordingLogFactory) CreateSessionLog(quickfix.SessionID) (quickfix.Log, error) {
+	return f.log, nil
+}
+
+func TestCompositeLogOnEventfExpandsFormatArgs(t *testing.T) {
+	tests := []struct {
+		name     string
+		format   string
+		args     []interface{}
+		expected string
+	}{
+		{"single string arg", "session %s", []interface{}{"FIX.4.4"}, "session FIX.4.4"},
+		{"mixed args", "session %s seq %d", []interface{}{"FIX.4.4", 7}, "session FIX.4.4 seq 7"},
+		{"slice arg", "tags %v count %d", []interface{}{[]int{7, 9}, 2}, "tags [7 9] count 2"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			first, second := &recordingLog{}, &recordingLog{}
+			l, err := NewLogFactory([]quickfix.LogFactory{
+				recordingLogFactory{first},
+				recordingLogFactory{second},
+			}).Create()
+			require.NoError(t, err)
+
+			l.OnEventf(tt.format, tt.args...)
+
+			require.Equal(t, []string{tt.expected}, first.events)
+			require.Equal(t, []string{tt.expected}, second.events)
+		})
+	}
+}
