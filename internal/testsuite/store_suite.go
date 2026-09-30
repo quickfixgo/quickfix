@@ -39,23 +39,23 @@ func (s *StoreTestSuite) TestMessageStoreSetNextMsgSeqNumRefreshIncrNextMsgSeqNu
 	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(867, s.MsgStore.NextSenderMsgSeqNum())
-	s.Equal(5309, s.MsgStore.NextTargetMsgSeqNum())
+	s.Equal(uint64(867), s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(5309), s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the sender and target seqnums are incremented
 	s.Require().Nil(s.MsgStore.IncrNextSenderMsgSeqNum())
 	s.Require().Nil(s.MsgStore.IncrNextTargetMsgSeqNum())
 
 	// Then the sender and target seqnums should be
-	s.Equal(868, s.MsgStore.NextSenderMsgSeqNum())
-	s.Equal(5310, s.MsgStore.NextTargetMsgSeqNum())
+	s.Equal(uint64(868), s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(5310), s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
 	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(868, s.MsgStore.NextSenderMsgSeqNum())
-	s.Equal(5310, s.MsgStore.NextTargetMsgSeqNum())
+	s.Equal(uint64(868), s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(5310), s.MsgStore.NextTargetMsgSeqNum())
 }
 
 func (s *StoreTestSuite) TestMessageStoreReset() {
@@ -67,18 +67,18 @@ func (s *StoreTestSuite) TestMessageStoreReset() {
 	s.Require().Nil(s.MsgStore.Reset())
 
 	// Then the sender and target seqnums should be
-	s.Equal(1, s.MsgStore.NextSenderMsgSeqNum())
-	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
+	s.Equal(uint64(1), s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(1), s.MsgStore.NextTargetMsgSeqNum())
 
 	// When the store is refreshed from its backing store
 	s.Require().Nil(s.MsgStore.Refresh())
 
 	// Then the sender and target seqnums should still be
-	s.Equal(1, s.MsgStore.NextSenderMsgSeqNum())
-	s.Equal(1, s.MsgStore.NextTargetMsgSeqNum())
+	s.Equal(uint64(1), s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(1), s.MsgStore.NextTargetMsgSeqNum())
 }
 
-func (s *StoreTestSuite) fetchMessages(beginSeqNum, endSeqNum int) (msgs [][]byte) {
+func (s *StoreTestSuite) fetchMessages(beginSeqNum, endSeqNum uint64) (msgs [][]byte) {
 	s.T().Helper()
 
 	// Fetch messages from the new iterator
@@ -102,16 +102,16 @@ func (s *StoreTestSuite) fetchMessages(beginSeqNum, endSeqNum int) (msgs [][]byt
 
 func (s *StoreTestSuite) TestMessageStoreSaveMessageGetMessage() {
 	// Given the following saved messages
-	expectedMsgsBySeqNum := map[int]string{
+	expectedMsgsBySeqNum := map[uint64]string{
 		1: "In the frozen land of Nador",
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	var seqNums []int
+	var seqNums []uint64
 	for seqNum := range expectedMsgsBySeqNum {
 		seqNums = append(seqNums, seqNum)
 	}
-	sort.Ints(seqNums)
+	sort.Slice(seqNums, func(i, j int) bool { return seqNums[i] < seqNums[j] })
 	for _, seqNum := range seqNums {
 		s.Require().Nil(s.MsgStore.SaveMessage(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
 	}
@@ -142,20 +142,20 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 	s.Require().Nil(s.MsgStore.SetNextSenderMsgSeqNum(420))
 
 	// Given the following saved messages
-	expectedMsgsBySeqNum := map[int]string{
+	expectedMsgsBySeqNum := map[uint64]string{
 		1: "In the frozen land of Nador",
 		2: "they were forced to eat Robin's minstrels",
 		3: "and there was much rejoicing",
 	}
-	var seqNums []int
+	var seqNums []uint64
 	for seqNum := range expectedMsgsBySeqNum {
 		seqNums = append(seqNums, seqNum)
 	}
-	sort.Ints(seqNums)
+	sort.Slice(seqNums, func(i, j int) bool { return seqNums[i] < seqNums[j] })
 	for _, seqNum := range seqNums {
 		s.Require().Nil(s.MsgStore.SaveMessageAndIncrNextSenderMsgSeqNum(seqNum, []byte(expectedMsgsBySeqNum[seqNum])))
 	}
-	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(423), s.MsgStore.NextSenderMsgSeqNum())
 
 	// When the messages are retrieved from the MessageStore
 	actualMsgs := s.fetchMessages(1, 3)
@@ -172,7 +172,7 @@ func (s *StoreTestSuite) TestMessageStoreSaveMessageAndIncrementGetMessage() {
 	// And the messages are retrieved from the MessageStore
 	actualMsgs = s.fetchMessages(1, 3)
 
-	s.Equal(423, s.MsgStore.NextSenderMsgSeqNum())
+	s.Equal(uint64(423), s.MsgStore.NextSenderMsgSeqNum())
 
 	// Then the messages should still be
 	s.Require().Len(actualMsgs, 3)
@@ -199,7 +199,7 @@ func (s *StoreTestSuite) TestMessageStoreGetMessagesVariousRanges() {
 
 	// When the following requests are made to the store
 	var testCases = []struct {
-		beginSeqNo, endSeqNo int
+		beginSeqNo, endSeqNo uint64
 		expectedBytes        [][]byte
 	}{
 		{beginSeqNo: 1, endSeqNo: 1, expectedBytes: [][]byte{[]byte("hello")}},

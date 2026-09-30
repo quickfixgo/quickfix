@@ -61,7 +61,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Nil(session.SessionTime, "By default, start and end time unset")
 	s.Equal("", session.DefaultApplVerID)
 	s.False(session.InitiateLogon)
-	s.Equal(0, session.ResendRequestChunkSize)
+	s.Equal(uint64(0), session.ResendRequestChunkSize)
 	s.False(session.EnableLastMsgSeqNumProcessed)
 	s.False(session.SkipCheckLatency)
 	s.Equal(Millis, session.timestampPrecision)
@@ -143,7 +143,7 @@ func (s *SessionFactorySuite) TestResendRequestChunkSize() {
 	session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
 	s.Nil(err)
 	s.NotNil(session)
-	s.Equal(2500, session.ResendRequestChunkSize)
+	s.Equal(uint64(2500), session.ResendRequestChunkSize)
 
 	s.SessionSettings.Set(config.ResendRequestChunkSize, "notanint")
 	_, err = s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)

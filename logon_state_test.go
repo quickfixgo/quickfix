@@ -430,3 +430,34 @@ func (s *LogonStateTestSuite) TestStayLoggedInOnReset() {
 	s.NextTargetMsgSeqNum(2)
 	s.NextSenderMsgSeqNum(2)
 }
+
+func (s *LogonStateTestSuite) TestLargeSeqNum() {
+
+	logon := s.Logon()
+	logon.Body.SetField(tagResetSeqNumFlag, FIXBoolean(true))
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+
+	s.State(inSession{})
+
+	s.session.store.SetNextSenderMsgSeqNum(16000000000000000000)
+	s.session.store.SetNextTargetMsgSeqNum(16000000000000000000)
+	s.IncrNextTargetMsgSeqNum()
+	s.IncrNextSenderMsgSeqNum()
+
+	s.NextTargetMsgSeqNum(16000000000000000001)
+	s.NextSenderMsgSeqNum(16000000000000000001)
+
+	s.fixMsgIn(s.session, logon)
+
+	s.True(s.session.IsConnected())
+	s.True(s.session.IsLoggedOn())
+
+	s.NextTargetMsgSeqNum(2)
+	s.NextSenderMsgSeqNum(2)
+}
