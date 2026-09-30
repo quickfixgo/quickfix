@@ -1,3 +1,10 @@
+## 0.9.12 (September 30, 2026)
+
+### BUG FIXES
+* Stop misattributing body fields that follow a nested repeating group [#756](https://github.com/quickfixgo/quickfix/pull/756)
+* Forward OnEventf format arguments to the wrapped logs in the composite log [#779](https://github.com/quickfixgo/quickfix/pull/779)
+* Correct the datadictionary parse error message in SessionFactory [#780](https://github.com/quickfixgo/quickfix/pull/780)
+
 ## 0.9.11 (September 14, 2026)
 
 ### FEATURES
