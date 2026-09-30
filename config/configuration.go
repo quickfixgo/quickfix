@@ -884,6 +884,59 @@ const (
 	//  - A valid path
 	FileLogPath string = "FileLogPath"
 
+	// FileLogMaxSize sets the maximum size in megabytes before a log file is rotated.
+	// When set to 0, size-based rotation is disabled.
+	// FileLogMaxSize is only relevant if also using quickfix.NewFileLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: 0 (disabled)
+	//
+	// Valid Values:
+	//  - A positive integer representing megabytes
+	FileLogMaxSize string = "FileLogMaxSize"
+
+	// FileLogMaxBackups sets the maximum number of old log files to retain.
+	// When set to 0, all old log files are retained.
+	// FileLogMaxBackups is only relevant if also using quickfix.NewFileLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: 0 (retain all)
+	//
+	// Valid Values:
+	//  - A non-negative integer
+	FileLogMaxBackups string = "FileLogMaxBackups"
+
+	// FileLogMaxAge sets the maximum number of days to retain old log files based on the timestamp
+	// encoded in their filename. Files older than this will be deleted.
+	// When set to 0, age-based cleanup is disabled.
+	// FileLogMaxAge is only relevant if also using quickfix.NewFileLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: 0 (disabled)
+	//
+	// Valid Values:
+	//  - A non-negative integer representing days
+	FileLogMaxAge string = "FileLogMaxAge"
+
+	// FileLogCompress sets whether to compress rotated log files using gzip.
+	// FileLogCompress is only relevant if also using quickfix.NewFileLogFactory(..) in code
+	// when creating your LogFactory for your initiator or acceptor.
+	//
+	// Required: No
+	//
+	// Default: N (false)
+	//
+	// Valid Values:
+	//  - Y (true)
+	//  - N (false)
+	FileLogCompress string = "FileLogCompress"
+
 	// SQLLogDriver sets the name of the database driver to use for application logs (see https://go.dev/wiki/SQLDrivers for the list of available drivers).
 	// SQLLogDriver is only relevant if also using sql.NewLogFactory(..) in code
 	// when creating your LogFactory for your initiator or acceptor.
