@@ -198,7 +198,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 				tlsConfig.ServerName = serverName
 			}
 			tlsConn := tls.Client(netConn, tlsConfig)
-			if err = tlsConn.Handshake(); err != nil {
+			if err = tlsConn.HandshakeContext(ctx); err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
 				goto reconnect
 			}
