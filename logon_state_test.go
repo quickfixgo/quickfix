@@ -430,3 +430,27 @@ func (s *LogonStateTestSuite) TestStayLoggedInOnReset() {
 	s.NextTargetMsgSeqNum(2)
 	s.NextSenderMsgSeqNum(2)
 }
+
+func (s *LogonStateTestSuite) TestResetOnLogonWithoutIncomingResetFlag() {
+	s.session.ResetOnLogon = true
+
+	s.IncrNextSenderMsgSeqNum()
+	s.IncrNextTargetMsgSeqNum()
+
+	logon := s.Logon()
+
+	s.MockApp.On("FromAdmin").Return(nil)
+	s.MockApp.On("OnLogon")
+	s.MockApp.On("ToAdmin")
+
+	s.fixMsgIn(s.session, logon)
+
+	s.MockApp.AssertExpectations(s.T())
+	s.State(inSession{})
+
+	s.LastToAdminMessageSent()
+	s.FieldEquals(tagResetSeqNumFlag, true, s.MockApp.lastToAdmin.Body)
+
+	s.NextSenderMsgSeqNum(2)
+	s.NextTargetMsgSeqNum(2)
+}
