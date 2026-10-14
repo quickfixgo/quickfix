@@ -558,7 +558,11 @@ func (s *session) handleLogon(msg *Message) error {
 		}
 
 		s.log.OnEvent("Responding to logon request")
-		if err := s.sendLogonInReplyTo(resetSeqNumFlag.Bool(), msg); err != nil {
+
+		setResetSeqNum := resetSeqNumFlag.Bool() ||
+			(resetStore && s.sessionID.BeginString >= BeginStringFIX41)
+
+		if err := s.sendLogonInReplyTo(setResetSeqNum, msg); err != nil {
 			return err
 		}
 	}
