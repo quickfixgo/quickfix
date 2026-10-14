@@ -443,6 +443,15 @@ func (f sessionFactory) newSession(
 		s.InChanCapacity = 1
 	}
 
+	if settings.HasSetting(config.OutChanCapacity) {
+		if s.OutChanCapacity, err = settings.IntSetting(config.OutChanCapacity); err != nil {
+			return
+		} else if s.OutChanCapacity < 0 {
+			err = IncorrectFormatForSetting{Setting: config.OutChanCapacity, Value: []byte(strconv.Itoa(s.OutChanCapacity))}
+			return
+		}
+	}
+
 	if f.BuildInitiators {
 		if err = f.buildInitiatorSettings(s, settings); err != nil {
 			return

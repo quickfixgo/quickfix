@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/quickfixgo/quickfix/datadictionary"
@@ -38,6 +39,10 @@ type session struct {
 
 	// Application messages are queued up for send here.
 	toSend [][]byte
+
+	// Set when a send found a buffered messageOut full; the writer clears it and wakes the session
+	// when it takes a message. See messageTaken.
+	waitingForRoom atomic.Bool
 
 	// Mutex for access to toSend.
 	sendMutex sync.Mutex
@@ -411,14 +416,43 @@ func (s *session) persist(seqNum int, msgBytes []byte) error {
 
 func (s *session) sendQueued(blockUntilSent bool) {
 	for i, msgBytes := range s.toSend {
-		if !s.sendBytes(msgBytes, blockUntilSent) {
-			s.toSend = s.toSend[i:]
-			s.notifyMessageOut()
-			return
+		if s.sendBytes(msgBytes, blockUntilSent) {
+			continue
 		}
+		if s.OutChanCapacity > 0 && s.waitForRoom(msgBytes) {
+			continue
+		}
+		s.toSend = s.toSend[i:]
+		if s.OutChanCapacity == 0 {
+			s.notifyMessageOut()
+		}
+		return
 	}
 
 	s.dropQueued()
+}
+
+// waitForRoom is called when a send found a buffered messageOut full. Nothing the session goroutine does
+// makes room, so instead of coming round again at once it asks the writer to wake it when it takes a
+// message (messageTaken). The flag is set before the send is tried once more, so a message taken in
+// between is either seen by that try or wakes the session. It reports whether that try sent the message.
+func (s *session) waitForRoom(msg []byte) bool {
+	if s.messageOut == nil {
+		return false
+	}
+	s.waitingForRoom.Store(true)
+	if s.sendBytes(msg, false) {
+		s.waitingForRoom.Store(false)
+		return true
+	}
+	return false
+}
+
+// messageTaken is called by the writer each time it takes a message from messageOut.
+func (s *session) messageTaken() {
+	if s.waitingForRoom.CompareAndSwap(true, false) {
+		s.notifyMessageOut()
+	}
 }
 
 func (s *session) dropQueued() {

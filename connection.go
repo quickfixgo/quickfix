@@ -17,11 +17,16 @@ package quickfix
 
 import "io"
 
-func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
+// writeLoop writes each message taken from messageOut to the connection. taken, if set, is called once a
+// message has been taken, before it is written: the channel has room again from that moment.
+func writeLoop(connection io.Writer, messageOut chan []byte, log Log, taken func()) {
 	for {
 		msg, ok := <-messageOut
 		if !ok {
 			return
+		}
+		if taken != nil {
+			taken()
 		}
 
 		if _, err := connection.Write(msg); err != nil {
