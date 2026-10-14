@@ -499,6 +499,18 @@ const (
 	// Valid Values:
 	//  - A positive integer, or zero for an unbuffered channel
 	InChanCapacity string = "InChanCapacity"
+
+	// OutChanCapacity sets the maximum number of messages that can be buffered in the channel for outgoing FIX messages,
+	// between the session and the goroutine that writes them to the connection. With a buffer, a session that finds it
+	// full waits for the writer to take a message instead of retrying at once.
+	//
+	// Required: No
+	//
+	// Default: 0
+	//
+	// Valid Values:
+	//  - A positive integer, or zero for an unbuffered channel
+	OutChanCapacity string = "OutChanCapacity"
 )
 
 const (
