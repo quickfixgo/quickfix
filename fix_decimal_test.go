@@ -16,6 +16,8 @@
 package quickfix
 
 import (
+	"math"
+	"math/rand"
 	"testing"
 
 	"github.com/shopspring/decimal"
@@ -59,6 +61,34 @@ func TestFIXDecimalWrite(t *testing.T) {
 	for _, test := range tests {
 		b := test.decimal.Write()
 		assert.Equal(t, test.expected, string(b))
+	}
+}
+
+func TestFIXDecimalWriteMatchesStringFixed(t *testing.T) {
+	coefs := []int64{
+		0, 1, -1, 5, -5, 9, 10, 49, 50, 51, -49, -50, -51, 99, 100, 995, -995, 1243456, -1243456,
+		math.MaxInt32, math.MinInt32, math.MaxInt64, math.MinInt64, math.MaxInt64 - 1, math.MinInt64 + 1,
+		1e18, -1e18, 9999999999999999999 / 10,
+	}
+	r := rand.New(rand.NewSource(1))
+	for i := 0; i < 200; i++ {
+		coefs = append(coefs, r.Int63()>>uint(r.Intn(63)), -(r.Int63() >> uint(r.Intn(63))))
+	}
+
+	for _, c := range coefs {
+		for exp := int32(-25); exp <= 25; exp++ {
+			for _, scale := range []int32{-2, 0, 1, 2, 4, 8, 12, 18, 19, 20} {
+				dec := FIXDecimal{Decimal: decimal.New(c, exp), Scale: scale}
+				expected := dec.Decimal.StringFixed(scale)
+				assert.Equal(t, expected, string(dec.Write()), "coef=%d exp=%d scale=%d", c, exp, scale)
+			}
+		}
+	}
+
+	big := decimal.RequireFromString("123456789012345678901234567890.123456789")
+	for _, scale := range []int32{0, 4, 9, 12} {
+		dec := FIXDecimal{Decimal: big, Scale: scale}
+		assert.Equal(t, big.StringFixed(scale), string(dec.Write()))
 	}
 }
 
