@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"errors"
 	"io"
+	"math"
 	"time"
 )
 
@@ -132,7 +133,7 @@ func (p *parser) jumpLength() (int, error) {
 		return length, err
 	}
 
-	if length <= 0 {
+	if length <= 0 || length > math.MaxInt-offset {
 		return length, errors.New("Invalid length")
 	}
 

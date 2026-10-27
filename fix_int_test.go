@@ -16,6 +16,8 @@
 package quickfix
 
 import (
+	"math"
+	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -35,6 +37,22 @@ func TestFIXInt_Read(t *testing.T) {
 
 	err = field.Read([]byte("blah"))
 	assert.NotNil(t, err, "Unexpected error")
+}
+
+func TestFIXInt_ReadRange(t *testing.T) {
+	var field FIXInt
+	assert.Nil(t, field.Read([]byte(strconv.Itoa(math.MaxInt))))
+	assert.Equal(t, math.MaxInt, int(field))
+
+	assert.Nil(t, field.Read([]byte(strconv.Itoa(-math.MaxInt))))
+	assert.Equal(t, -math.MaxInt, int(field))
+
+	assert.Nil(t, field.Read([]byte("0000000000000000000000015")))
+	assert.Equal(t, 15, int(field))
+
+	for _, v := range []string{"9223372036854775808", "-9223372036854775809", "99999999999999999999"} {
+		assert.NotNil(t, field.Read([]byte(v)), v)
+	}
 }
 
 func TestFIXInt_Int(t *testing.T) {
