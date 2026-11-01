@@ -183,31 +183,46 @@ func (state inSession) handleResendRequest(session *session, msg *Message) (next
 		return state.processReject(session, msg, err)
 	}
 
-	var err error
 	var beginSeqNoField FIXInt
-	if err = msg.Body.GetField(tagBeginSeqNo, &beginSeqNoField); err != nil {
-		return state.processReject(session, msg, RequiredTagMissing(tagBeginSeqNo))
+	if err := msg.Body.GetField(tagBeginSeqNo, &beginSeqNoField); err != nil {
+		if !msg.Body.Has(tagBeginSeqNo) {
+			err = RequiredTagMissing(tagBeginSeqNo)
+		}
+		return state.processReject(session, msg, err)
 	}
 
-	beginSeqNo := beginSeqNoField
+	beginSeqNo := int(beginSeqNoField)
 
 	var endSeqNoField FIXInt
-	if err = msg.Body.GetField(tagEndSeqNo, &endSeqNoField); err != nil {
-		return state.processReject(session, msg, RequiredTagMissing(tagEndSeqNo))
+	if err := msg.Body.GetField(tagEndSeqNo, &endSeqNoField); err != nil {
+		if !msg.Body.Has(tagEndSeqNo) {
+			err = RequiredTagMissing(tagEndSeqNo)
+		}
+		return state.processReject(session, msg, err)
 	}
 
 	endSeqNo := int(endSeqNoField)
+	openEnded := (session.sessionID.BeginString >= BeginStringFIX42 && endSeqNo == 0) ||
+		(session.sessionID.BeginString <= BeginStringFIX41 && endSeqNo == 999999)
+	if beginSeqNo < 1 {
+		return state.processReject(session, msg, ValueIsIncorrect(tagBeginSeqNo))
+	}
+	if endSeqNo < 0 || (!openEnded && beginSeqNo > endSeqNo) {
+		return state.processReject(session, msg, ValueIsIncorrect(tagEndSeqNo))
+	}
+
+	expectedSeqNum := session.store.NextSenderMsgSeqNum()
+	if beginSeqNo >= expectedSeqNum {
+		return state.processReject(session, msg, ValueIsIncorrect(tagBeginSeqNo))
+	}
 
 	session.log.OnEventf("Received ResendRequest FROM: %d TO: %d", beginSeqNo, endSeqNo)
-	expectedSeqNum := session.store.NextSenderMsgSeqNum()
 
-	if (session.sessionID.BeginString >= BeginStringFIX42 && endSeqNo == 0) ||
-		(session.sessionID.BeginString <= BeginStringFIX42 && endSeqNo == 999999) ||
-		(endSeqNo >= expectedSeqNum) {
+	if openEnded || endSeqNo >= expectedSeqNum {
 		endSeqNo = expectedSeqNum - 1
 	}
 
-	if err := state.resendMessages(session, int(beginSeqNo), endSeqNo, *msg); err != nil {
+	if err := state.resendMessages(session, beginSeqNo, endSeqNo, *msg); err != nil {
 		return handleStateError(session, err)
 	}
 
@@ -331,6 +346,14 @@ func (state inSession) processReject(session *session, msg *Message, rej Message
 	default:
 		if err := session.doReject(msg, rej); err != nil {
 			return handleStateError(session, err)
+		}
+
+		// ResendRequest may be processed before its inbound sequence number is due.
+		if msgType, _ := msg.Header.GetBytes(tagMsgType); bytes.Equal(msgType, msgTypeResendRequest) {
+			seqNum, err := msg.Header.GetInt(tagMsgSeqNum)
+			if err != nil || seqNum != session.store.NextTargetMsgSeqNum() {
+				return state
+			}
 		}
 
 		if err := session.store.IncrNextTargetMsgSeqNum(); err != nil {
