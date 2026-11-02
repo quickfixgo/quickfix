@@ -26,6 +26,8 @@ import (
 	"github.com/quickfixgo/quickfix/internal/testsuite"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/integration/mtest"
 )
 
 // MongoStoreTestSuite runs all tests in the message.StoreTestSuite against the MongoStore implementation.
@@ -72,4 +74,59 @@ func (suite *MongoStoreTestSuite) TearDownTest() {
 
 func TestMongoStoreTestSuite(t *testing.T) {
 	suite.Run(t, new(MongoStoreTestSuite))
+}
+
+func TestIterateMessagesCursorError(t *testing.T) {
+	mt := mtest.New(t, mtest.NewOptions().ClientType(mtest.Mock))
+	for _, count := range []int{0, 2} {
+		mt.Run(fmt.Sprintf("after_%d_messages", count), func(mt *mtest.T) {
+			store := &mongoStore{
+				db:                 mt.Client,
+				mongoDatabase:      mt.DB.Name(),
+				messagesCollection: mt.Coll.Name(),
+			}
+			batch := make([]bson.D, count)
+			for i := range batch {
+				batch[i] = bson.D{{Key: "msgseq", Value: 7 + i}, {Key: "message", Value: []byte("stored message")}}
+			}
+			mt.AddMockResponses(
+				mtest.CreateCursorResponse(123, mt.DB.Name()+"."+mt.Coll.Name(), mtest.FirstBatch, batch...),
+				mtest.CreateCommandErrorResponse(mtest.CommandError{Code: 43, Name: "CursorNotFound", Message: "injected cursor failure"}),
+				mtest.CreateSuccessResponse(),
+			)
+
+			visited := 0
+			err := store.IterateMessages(7, 10, func([]byte) error {
+				visited++
+				return nil
+			})
+			require.Equal(mt, count, visited)
+			require.ErrorContains(mt, err, "injected cursor failure")
+		})
+	}
+}
+
+func TestIterateMessagesCursorExhausted(t *testing.T) {
+	mt := mtest.New(t, mtest.NewOptions().ClientType(mtest.Mock))
+	mt.Run("success", func(mt *mtest.T) {
+		store := &mongoStore{
+			db:                 mt.Client,
+			mongoDatabase:      mt.DB.Name(),
+			messagesCollection: mt.Coll.Name(),
+		}
+		mt.AddMockResponses(mtest.CreateCursorResponse(
+			0,
+			mt.DB.Name()+"."+mt.Coll.Name(),
+			mtest.FirstBatch,
+			bson.D{{Key: "msgseq", Value: 7}, {Key: "message", Value: []byte("stored message")}},
+		))
+
+		visited := 0
+		err := store.IterateMessages(7, 10, func([]byte) error {
+			visited++
+			return nil
+		})
+		require.NoError(mt, err)
+		require.Equal(mt, 1, visited)
+	})
 }

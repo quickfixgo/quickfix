@@ -368,7 +368,7 @@ func (store *mongoStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]b
 			return err
 		}
 	}
-	return nil
+	return cursor.Err()
 }
 
 func (store *mongoStore) GetMessages(beginSeqNum, endSeqNum int) ([][]byte, error) {
