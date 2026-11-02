@@ -16,6 +16,7 @@
 package file
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"path"
@@ -76,4 +77,80 @@ func TestStringParse(t *testing.T) {
 	i, err = strconv.Atoi(strings.Trim("00006\r", "\r\n"))
 	assert.Nil(err)
 	assert.Equal(6, i)
+}
+
+func TestIterateMessagesEOF(t *testing.T) {
+	newStore := func(t *testing.T) *fileStore {
+		t.Helper()
+		store, err := newFileStore(quickfix.SessionID{
+			BeginString:  "FIX.4.4",
+			SenderCompID: "SENDER",
+			TargetCompID: "TARGET",
+		}, t.TempDir(), true)
+		require.NoError(t, err)
+		t.Cleanup(func() { require.NoError(t, store.Close()) })
+		return store
+	}
+
+	t.Run("empty", func(t *testing.T) {
+		store := newStore(t)
+		visited := 0
+		err := store.IterateMessages(7, 10, func([]byte) error {
+			visited++
+			return nil
+		})
+		require.NoError(t, err)
+		require.Zero(t, visited)
+	})
+
+	t.Run("complete records", func(t *testing.T) {
+		store := newStore(t)
+		for seqNum := 7; seqNum <= 10; seqNum++ {
+			require.NoError(t, store.SaveMessage(seqNum, []byte(fmt.Sprintf("stored-%d", seqNum))))
+		}
+		var messages [][]byte
+		err := store.IterateMessages(7, 10, func(message []byte) error {
+			messages = append(messages, message)
+			return nil
+		})
+		require.NoError(t, err)
+		require.Equal(t, [][]byte{
+			[]byte("stored-7"),
+			[]byte("stored-8"),
+			[]byte("stored-9"),
+			[]byte("stored-10"),
+		}, messages)
+	})
+
+	for _, completed := range []int{0, 2} {
+		t.Run(fmt.Sprintf("truncated after %d records", completed), func(t *testing.T) {
+			store := newStore(t)
+			for seqNum := 7; seqNum <= 10; seqNum++ {
+				require.NoError(t, store.SaveMessage(seqNum, []byte(fmt.Sprintf("stored-%d", seqNum))))
+			}
+
+			header, err := os.ReadFile(store.headerFname)
+			require.NoError(t, err)
+			body, err := os.ReadFile(store.bodyFname)
+			require.NoError(t, err)
+			lines := bytes.Split(header, []byte{'\n'})
+			prefix := bytes.Join(lines[:completed], []byte{'\n'})
+			if completed > 0 {
+				prefix = append(prefix, '\n')
+			}
+			partial := lines[completed][:bytes.LastIndexByte(lines[completed], ',')+1]
+			require.NoError(t, os.WriteFile(store.headerFname, append(prefix, partial...), 0600))
+
+			visited := 0
+			err = store.IterateMessages(7, 10, func([]byte) error {
+				visited++
+				return nil
+			})
+			require.Error(t, err)
+			require.Equal(t, completed, visited)
+			after, readErr := os.ReadFile(store.bodyFname)
+			require.NoError(t, readErr)
+			require.Equal(t, body, after)
+		})
+	}
 }

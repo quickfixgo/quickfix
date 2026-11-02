@@ -380,7 +380,7 @@ func (store *fileStore) IterateMessages(beginSeqNum, endSeqNum int, cb func([]by
 		var seqNum, size int
 		var offset int64
 		if cnt, err := fmt.Fscanf(headerFile, "%d,%d,%d\n", &seqNum, &offset, &size); err != nil {
-			if errors.Is(err, io.EOF) {
+			if errors.Is(err, io.EOF) && cnt == 0 {
 				break
 			}
 			return fmt.Errorf("unable to read from file: %s: %s", store.headerFname, err.Error())
