@@ -236,7 +236,6 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 	defer session.resendMutex.Unlock()
 
 	seqNum := beginSeqNo
-	nextSeqNum := seqNum
 	msg := NewMessage()
 	err := session.store.IterateMessages(beginSeqNo, endSeqNo, func(msgBytes []byte) error {
 		err := ParseMessageWithDataDictionary(msg, bytes.NewBuffer(msgBytes), session.transportDataDictionary, session.appDataDictionary)
@@ -248,12 +247,10 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		sentMessageSeqNum, _ := msg.Header.GetInt(tagMsgSeqNum)
 
 		if isAdminMessageType(msgType) {
-			nextSeqNum = sentMessageSeqNum + 1
 			return nil
 		}
 
 		if !session.resend(msg) {
-			nextSeqNum = sentMessageSeqNum + 1
 			return nil
 		}
 
@@ -268,7 +265,6 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		session.EnqueueBytesAndSend(msgBytes)
 
 		seqNum = sentMessageSeqNum + 1
-		nextSeqNum = seqNum
 		return nil
 	})
 	if err != nil {
@@ -276,8 +272,10 @@ func (state inSession) resendMessages(session *session, beginSeqNo, endSeqNo int
 		return err
 	}
 
-	if seqNum != nextSeqNum { // gapfill for catch-up
-		if err = state.generateSequenceReset(session, seqNum, nextSeqNum, inReplyTo); err != nil {
+	// Engine policy: gap-fill missing requested messages after successful store iteration.
+	// FIX does not require skipping unavailable application messages.
+	if seqNum <= endSeqNo {
+		if err = state.generateSequenceReset(session, seqNum, endSeqNo+1, inReplyTo); err != nil {
 			return err
 		}
 	}

@@ -307,6 +307,179 @@ func (s *InSessionTestSuite) TestFIXMsgInResendRequestAllAdminThenApp() {
 	s.State(inSession{})
 }
 
+// TestFIXMsgInResendRequestStoredMessageGaps checks replay and GapFill coverage
+// without consuming new sender sequence numbers.
+// Skipping messages absent from the store is engine policy, not a FIX requirement.
+func (s *InSessionTestSuite) TestFIXMsgInResendRequestStoredMessageGaps() {
+	type storedMessage struct {
+		seqNum int
+		admin  bool
+	}
+	type response struct {
+		seqNum   int
+		newSeqNo int // Zero denotes a replayed application message; otherwise a GapFill.
+	}
+	tests := []struct {
+		name        string
+		beginString string
+		beginSeqNo  int
+		endSeqNo    int
+		stored      []storedMessage
+		rejectLast  bool
+		want        []response
+	}{
+		{
+			// Fill the missing tail after replaying the stored messages.
+			name: "finite_trailing_gap", beginSeqNo: 7, endSeqNo: 10,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 11}},
+		},
+		{
+			// Resolve FIX 4.2's open-ended request to the last sent number.
+			name: "infinite_trailing_gap", beginSeqNo: 7, endSeqNo: 0,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 11}},
+		},
+		{
+			// Fill the entire finite range when no messages are stored.
+			name: "finite_all_missing", beginSeqNo: 7, endSeqNo: 10,
+			want: []response{{seqNum: 7, newSeqNo: 11}},
+		},
+		{
+			// Fill the entire open-ended range when no messages are stored.
+			name: "infinite_all_missing", beginSeqNo: 7, endSeqNo: 0,
+			want: []response{{seqNum: 7, newSeqNo: 11}},
+		},
+		{
+			// Stop at the requested end without replaying the later message.
+			name: "trailing_gap_stops_at_requested_end", beginSeqNo: 7, endSeqNo: 9,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}, {seqNum: 10}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 10}},
+		},
+		{
+			// Ignore stored messages outside the requested range.
+			name: "all_missing_stops_at_requested_end", beginSeqNo: 7, endSeqNo: 9,
+			stored: []storedMessage{{seqNum: 6}, {seqNum: 10}},
+			want:   []response{{seqNum: 7, newSeqNo: 10}},
+		},
+		{
+			// Preserve the engine policy of clamping the end to the last sent number.
+			name: "oversized_end_stops_at_last_sent", beginSeqNo: 7, endSeqNo: 20,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 11}},
+		},
+		{
+			// Equal bounds request one message; the engine policy gap-fills it if missing.
+			name: "single_missing_message", beginSeqNo: 10, endSeqNo: 10,
+			want: []response{{seqNum: 10, newSeqNo: 11}},
+		},
+		{
+			// Preserve GapFill ordering for a hole between stored messages.
+			name: "internal_gap", beginSeqNo: 7, endSeqNo: 10,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 9}, {seqNum: 10}},
+			want:   []response{{seqNum: 7}, {seqNum: 8, newSeqNo: 9}, {seqNum: 9}, {seqNum: 10}},
+		},
+		{
+			// Do not append a GapFill when every requested message is replayed.
+			name: "complete_range", beginSeqNo: 7, endSeqNo: 10,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}, {seqNum: 9}, {seqNum: 10}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9}, {seqNum: 10}},
+		},
+		{
+			// Combine a skipped administrative message with the missing tail.
+			name: "admin_before_trailing_gap", beginSeqNo: 7, endSeqNo: 10,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8, admin: true}},
+			want:   []response{{seqNum: 7}, {seqNum: 8, newSeqNo: 11}},
+		},
+		{
+			// Combine an application-vetoed replay with the missing tail.
+			name: "rejected_app_before_trailing_gap", beginSeqNo: 7, endSeqNo: 10,
+			stored:     []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			rejectLast: true,
+			want:       []response{{seqNum: 7}, {seqNum: 8, newSeqNo: 11}},
+		},
+		{
+			// Cover skipped administrative messages and missing messages in one GapFill.
+			name: "all_admin_before_trailing_gap", beginSeqNo: 7, endSeqNo: 10,
+			stored: []storedMessage{{seqNum: 7, admin: true}, {seqNum: 8, admin: true}},
+			want:   []response{{seqNum: 7, newSeqNo: 11}},
+		},
+		{
+			// Honor FIX 4.0's open-ended sentinel before filling the missing tail.
+			name: "fix40_infinite_trailing_gap", beginString: BeginStringFIX40, beginSeqNo: 7, endSeqNo: 999999,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 11}},
+		},
+		{
+			// Honor FIX 4.1's open-ended sentinel before filling the missing tail.
+			name: "fix41_infinite_trailing_gap", beginString: BeginStringFIX41, beginSeqNo: 7, endSeqNo: 999999,
+			stored: []storedMessage{{seqNum: 7}, {seqNum: 8}},
+			want:   []response{{seqNum: 7}, {seqNum: 8}, {seqNum: 9, newSeqNo: 11}},
+		},
+		{
+			// Fill an empty FIX 4.1 range through the last sent number.
+			name: "fix41_infinite_all_missing", beginString: BeginStringFIX41, beginSeqNo: 7, endSeqNo: 999999,
+			want: []response{{seqNum: 7, newSeqNo: 11}},
+		},
+	}
+
+	for _, test := range tests {
+		s.Run(test.name, func() {
+			s.SetupTest()
+			if test.beginString != "" {
+				s.session.sessionID.BeginString = test.beginString
+			}
+			for _, stored := range test.stored {
+				msg := s.NewOrderSingle()
+				if stored.admin {
+					msg.Header.SetBytes(tagMsgType, msgTypeHeartbeat)
+				}
+				s.session.fillDefaultHeader(msg, nil)
+				msg.Header.SetInt(tagMsgSeqNum, stored.seqNum)
+				s.Require().NoError(s.session.store.SaveMessage(stored.seqNum, msg.build()))
+			}
+			// Sequence numbers remain consumed even when their stored messages are missing.
+			s.Require().NoError(s.session.store.SetNextSenderMsgSeqNum(11))
+			s.SetNextSeqNum(1)
+			s.MockApp.On("FromAdmin").Return(nil).Once()
+			s.MockApp.On("ToAdmin").Maybe()
+			if test.rejectLast {
+				s.MockApp.On("ToApp").Return(nil).Once()
+				s.MockApp.On("ToApp").Return(ErrDoNotSend).Once()
+			} else {
+				s.MockApp.On("ToApp").Return(nil).Maybe()
+			}
+
+			request := s.ResendRequest(test.beginSeqNo)
+			request.Header.SetString(tagBeginString, s.session.sessionID.BeginString)
+			request.Body.SetInt(tagEndSeqNo, test.endSeqNo)
+			s.fixMsgIn(s.session, request)
+
+			s.MockApp.AssertExpectations(s.T())
+			s.State(inSession{})
+			s.NextSenderMsgSeqNum(11)
+			s.NextTargetMsgSeqNum(2)
+			for i, want := range test.want {
+				msgBytes, ok := s.Receiver.LastMessage()
+				s.Require().True(ok, "connection closed before response %d", i)
+				s.Require().NotNil(msgBytes, "missing response %d: MsgSeqNum=%d, NewSeqNo=%d", i, want.seqNum, want.newSeqNo)
+				msg := NewMessage()
+				s.Require().NoError(ParseMessage(msg, bytes.NewBuffer(msgBytes)))
+				s.FieldEquals(tagMsgSeqNum, want.seqNum, msg.Header)
+				s.FieldEquals(tagPossDupFlag, true, msg.Header)
+				if want.newSeqNo != 0 {
+					s.MessageType(string(msgTypeSequenceReset), msg)
+					s.FieldEquals(tagGapFillFlag, true, msg.Body)
+					s.FieldEquals(tagNewSeqNo, want.newSeqNo, msg.Body)
+				} else {
+					s.MessageType("D", msg)
+				}
+			}
+			s.NoMessageSent()
+		})
+	}
+}
+
 func (s *InSessionTestSuite) TestFIXMsgInResendRequestNoMessagePersist() {
 	s.session.DisableMessagePersist = true
 
