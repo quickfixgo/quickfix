@@ -156,6 +156,14 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		wg.Wait()
 	}()
 
+	// SocketTimeout bounds the TLS handshake. Without it LogonTimeout does,
+	// so a counterparty that accepts the connection and never answers cannot
+	// hold a connection attempt open.
+	handshakeTimeout := session.LogonTimeout
+	if timeout, err := loadSocketTimeout(i.sessionSettings[session.sessionID]); err == nil && timeout > 0 {
+		handshakeTimeout = timeout
+	}
+
 	connectionAttempt := 0
 
 	for {
@@ -198,9 +206,14 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 				}
 				tlsConfig.ServerName = serverName
 			}
+			// The handshake ends with the dial context, so Stop cancels it.
 			tlsConn := tls.Client(netConn, tlsConfig)
-			if err = tlsConn.Handshake(); err != nil {
+			handshakeCtx, cancelHandshake := context.WithTimeout(ctx, handshakeTimeout)
+			err = tlsConn.HandshakeContext(handshakeCtx)
+			cancelHandshake()
+			if err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
+				closeTransport(netConn, session.log)
 				goto reconnect
 			}
 			netConn = tlsConn
@@ -210,6 +223,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		msgOut = make(chan []byte)
 		if err := session.connect(msgIn, msgOut); err != nil {
 			session.log.OnEventf("Failed to initiate: %v", err)
+			closeTransport(netConn, session.log)
 			goto reconnect
 		}
 

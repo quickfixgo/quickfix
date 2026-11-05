@@ -587,7 +587,7 @@ const (
 	//
 	// Required: No
 	//
-	// Default: 0 (no timeout)
+	// Default: 0 (the handshake is bounded by LogonTimeout)
 	//
 	// Valid Values:
 	//  - A valid go time.Duration

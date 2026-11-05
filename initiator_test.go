@@ -470,3 +470,173 @@ HeartBtInt=30
 		})
 	}
 }
+
+// silentTLSPeer accepts TCP connections and never answers the TLS
+// handshake. Each accepted connection is handed to the test.
+func silentTLSPeer(t *testing.T) (int, chan net.Conn) {
+	t.Helper()
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	require.NoError(t, err)
+	accepted := make(chan net.Conn, 16)
+	t.Cleanup(func() { _ = listener.Close() })
+	go func() {
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				return
+			}
+			t.Cleanup(func() { _ = conn.Close() })
+			accepted <- conn
+		}
+	}()
+	return listener.Addr().(*net.TCPAddr).Port, accepted
+}
+
+// closedByPeer reports whether the other side closed conn within timeout:
+// it drains what was sent and waits for the end of the stream.
+func closedByPeer(conn net.Conn, timeout time.Duration) bool {
+	_ = conn.SetReadDeadline(time.Now().Add(timeout))
+	_, err := io.Copy(io.Discard, conn)
+	return !errors.Is(err, os.ErrDeadlineExceeded)
+}
+
+// startTLSInitiator runs one initiator session against port over TLS, the
+// way Start would, and returns the initiator.
+func startTLSInitiator(t *testing.T, compIDs string, port int, extra string, tlsConfig *tls.Config) *Initiator {
+	t.Helper()
+	settings, err := ParseSettings(strings.NewReader(fmt.Sprintf(`[DEFAULT]
+ReconnectInterval=1
+%s
+[SESSION]
+BeginString=FIX.4.4
+SenderCompID=%s_INITIATOR
+TargetCompID=%s_ACCEPTOR
+SocketConnectHost=127.0.0.1
+SocketConnectPort=%d
+HeartBtInt=30
+`, extra, compIDs, compIDs, port)))
+	require.NoError(t, err)
+	initiator, err := NewInitiator(logonRecorder{loggedOn: make(chan SessionID, 1), loggedOut: make(chan SessionID, 1)}, NewMemoryStoreFactory(), settings, NewNullLogFactory())
+	require.NoError(t, err)
+	initiator.stopChan = make(chan interface{})
+	for id := range initiator.sessionSettings {
+		initiator.wg.Add(1)
+		go func() {
+			defer initiator.wg.Done()
+			initiator.handleConnection(initiator.sessions[id], tlsConfig, plainDialer{})
+		}()
+	}
+	return initiator
+}
+
+// Stop does not wait on a TLS handshake the counterparty never answers, and
+// closes that connection.
+func TestInitiatorStopDuringAStalledTLSHandshake(t *testing.T) {
+	port, accepted := silentTLSPeer(t)
+	initiator := startTLSInitiator(t, "HANDSHAKE_STOP", port, "LogonTimeout=60", &tls.Config{InsecureSkipVerify: true}) //nolint:gosec // the peer never answers
+	var conn net.Conn
+	select {
+	case conn = <-accepted:
+	case <-time.After(5 * time.Second):
+		t.Fatal("the initiator did not connect")
+	}
+
+	stopped := make(chan struct{})
+	go func() {
+		initiator.Stop()
+		close(stopped)
+	}()
+	select {
+	case <-stopped:
+	case <-time.After(3 * time.Second):
+		_ = conn.Close() // let the stuck Stop end with the test
+		t.Fatal("Stop waited on the handshake")
+	}
+	require.True(t, closedByPeer(conn, 2*time.Second), "the handshake's connection was left open")
+}
+
+// A TLS handshake the counterparty never answers fails after LogonTimeout,
+// closes its connection, and the initiator connects again.
+func TestInitiatorRetriesAStalledTLSHandshake(t *testing.T) {
+	port, accepted := silentTLSPeer(t)
+	initiator := startTLSInitiator(t, "HANDSHAKE_RETRY", port, "LogonTimeout=1", &tls.Config{InsecureSkipVerify: true}) //nolint:gosec // the peer never answers
+	t.Cleanup(initiator.Stop)
+	var first net.Conn
+	select {
+	case first = <-accepted:
+	case <-time.After(5 * time.Second):
+		t.Fatal("the initiator did not connect")
+	}
+	select {
+	case <-accepted:
+	case <-time.After(6 * time.Second): // LogonTimeout 1 s, then ReconnectInterval 1 s
+		t.Fatal("the initiator did not connect again after the stalled handshake")
+	}
+	require.True(t, closedByPeer(first, 2*time.Second), "the stalled handshake's connection was left open")
+}
+
+// A failed TLS handshake closes the connection it was made on.
+func TestInitiatorClosesAConnectionWhoseHandshakeFailed(t *testing.T) {
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = listener.Close() })
+	cert, _ := selfSignedCertificate(t)
+	failed := make(chan net.Conn, 1)
+	go func() {
+		raw, err := listener.Accept()
+		if err != nil {
+			return
+		}
+		t.Cleanup(func() { _ = raw.Close() })
+		server := tls.Server(raw, &tls.Config{Certificates: []tls.Certificate{*cert}})
+		_ = server.Handshake() // fails: the initiator does not trust this certificate
+		failed <- raw
+	}()
+	// An empty root pool trusts nothing.
+	initiator := startTLSInitiator(t, "HANDSHAKE_FAIL", listener.Addr().(*net.TCPAddr).Port, "LogonTimeout=60", &tls.Config{RootCAs: x509.NewCertPool(), MinVersion: tls.VersionTLS12})
+	t.Cleanup(initiator.Stop)
+	var raw net.Conn
+	select {
+	case raw = <-failed:
+	case <-time.After(5 * time.Second):
+		t.Fatal("the handshake did not fail")
+	}
+	require.True(t, closedByPeer(raw, 2*time.Second), "the failed handshake's connection was left open")
+}
+
+// SocketTimeout, when set, bounds the TLS handshake instead of LogonTimeout:
+// a counterparty whose handshake takes longer than LogonTimeout but less
+// than SocketTimeout still completes it, on the first connection.
+func TestInitiatorHandshakeUsesSocketTimeout(t *testing.T) {
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = listener.Close() })
+	cert, roots := selfSignedCertificate(t)
+	accepts := make(chan error, 4)
+	go func() {
+		for {
+			raw, err := listener.Accept()
+			if err != nil {
+				return
+			}
+			t.Cleanup(func() { _ = raw.Close() })
+			go func() {
+				time.Sleep(2 * time.Second) // a slow handshake
+				accepts <- tls.Server(raw, &tls.Config{Certificates: []tls.Certificate{*cert}}).Handshake()
+			}()
+		}
+	}()
+	initiator := startTLSInitiator(t, "HANDSHAKE_SLOW", listener.Addr().(*net.TCPAddr).Port, "LogonTimeout=1\nSocketTimeout=30s", &tls.Config{RootCAs: roots, MinVersion: tls.VersionTLS12})
+	t.Cleanup(initiator.Stop)
+	select {
+	case err := <-accepts:
+		require.NoError(t, err, "the slow handshake did not complete")
+	case <-time.After(6 * time.Second):
+		t.Fatal("the handshake never finished")
+	}
+	select {
+	case err := <-accepts:
+		t.Fatalf("the initiator connected again after a handshake that succeeded: %v", err)
+	case <-time.After(2 * time.Second):
+	}
+}

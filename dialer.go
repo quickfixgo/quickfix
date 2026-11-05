@@ -25,21 +25,30 @@ import (
 	"github.com/quickfixgo/quickfix/config"
 )
 
+// loadSocketTimeout reads SocketTimeout: a duration, else whole seconds. It
+// is zero when the setting is absent.
+func loadSocketTimeout(settings *SessionSettings) (time.Duration, error) {
+	if !settings.HasSetting(config.SocketTimeout) {
+		return 0, nil
+	}
+	timeout, err := settings.DurationSetting(config.SocketTimeout)
+	if err == nil {
+		return timeout, nil
+	}
+	timeoutInt, err := settings.IntSetting(config.SocketTimeout)
+	if err != nil {
+		return 0, err
+	}
+	return time.Duration(timeoutInt) * time.Second, nil
+}
+
 func loadDialerConfig(settings *SessionSettings) (dialer proxy.ContextDialer, err error) {
 	stdDialer := &net.Dialer{}
-	if settings.HasSetting(config.SocketTimeout) {
-		timeout, err := settings.DurationSetting(config.SocketTimeout)
-		if err != nil {
-			timeoutInt, err := settings.IntSetting(config.SocketTimeout)
-			if err != nil {
-				return stdDialer, err
-			}
-
-			stdDialer.Timeout = time.Duration(timeoutInt) * time.Second
-		} else {
-			stdDialer.Timeout = timeout
-		}
+	timeout, err := loadSocketTimeout(settings)
+	if err != nil {
+		return stdDialer, err
 	}
+	stdDialer.Timeout = timeout
 	dialer = stdDialer
 
 	if !settings.HasSetting(config.ProxyType) {
