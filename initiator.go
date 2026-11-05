@@ -156,6 +156,14 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		wg.Wait()
 	}()
 
+	// SocketTimeout bounds the TLS handshake. Without it LogonTimeout does,
+	// so a counterparty that accepts the connection and never answers cannot
+	// hold a connection attempt open.
+	handshakeTimeout := session.LogonTimeout
+	if timeout, err := loadSocketTimeout(i.sessionSettings[session.sessionID]); err == nil && timeout > 0 {
+		handshakeTimeout = timeout
+	}
+
 	connectionAttempt := 0
 
 	for {
@@ -179,6 +187,7 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		var disconnected chan interface{}
 		var msgIn chan fixIn
 		var msgOut chan []byte
+		var writer *stopWriter
 
 		address := session.SocketConnectAddress[connectionAttempt%len(session.SocketConnectAddress)]
 		session.log.OnEventf("Connecting to: %v", address)
@@ -197,9 +206,14 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 				}
 				tlsConfig.ServerName = serverName
 			}
+			// The handshake ends with the dial context, so Stop cancels it.
 			tlsConn := tls.Client(netConn, tlsConfig)
-			if err = tlsConn.Handshake(); err != nil {
+			handshakeCtx, cancelHandshake := context.WithTimeout(ctx, handshakeTimeout)
+			err = tlsConn.HandshakeContext(handshakeCtx)
+			cancelHandshake()
+			if err != nil {
 				session.log.OnEventf("Failed handshake: %v", err)
+				closeTransport(netConn, session.log)
 				goto reconnect
 			}
 			netConn = tlsConn
@@ -209,13 +223,15 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		msgOut = make(chan []byte)
 		if err := session.connect(msgIn, msgOut); err != nil {
 			session.log.OnEventf("Failed to initiate: %v", err)
+			closeTransport(netConn, session.log)
 			goto reconnect
 		}
 
 		go readLoop(newParser(bufio.NewReader(netConn)), msgIn, session.log)
 		disconnected = make(chan interface{})
+		writer = &stopWriter{conn: netConn, timeout: session.LogoutTimeout}
 		go func() {
-			writeLoop(netConn, msgOut, session.log)
+			writeLoop(writer, msgOut, session.log)
 			if err := netConn.Close(); err != nil {
 				session.log.OnEvent(err.Error())
 			}
@@ -229,6 +245,26 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 		select {
 		case <-disconnected:
 		case <-i.stopChan:
+			// A write has no deadline of its own, and the session loop
+			// waits for the writer to take each message: a counterparty
+			// that stops reading would hold a write, the session loop
+			// behind it, and so this stop, with the connection open. From
+			// here every write gets LogoutTimeout. A write still not taken
+			// then closes the connection, and the session can stop.
+			writer.stop()
+			session.stop()
+			wg.Wait()
+			// The writer may still be on its last message (a Logout, or
+			// the answer to the counterparty's) or closing the connection.
+			// Give it LogoutTimeout, then close the transport under it, so
+			// Stop never returns while the connection is open.
+			timer := time.NewTimer(session.LogoutTimeout)
+			select {
+			case <-disconnected:
+			case <-timer.C:
+			}
+			timer.Stop()
+			closeTransport(netConn, session.log)
 			return
 		}
 
