@@ -18,6 +18,7 @@ package mongo
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/pkg/errors"
@@ -36,6 +37,8 @@ type mongoStoreFactory struct {
 }
 
 type mongoStore struct {
+	// Serialize database writes and the corresponding cache access.
+	mu                 sync.Mutex
 	sessionID          quickfix.SessionID
 	cache              quickfix.MessageStore
 	mongoURL           string
@@ -158,6 +161,9 @@ type mongoQuickFixEntryData struct {
 
 // Reset deletes the store records and sets the seqnums back to 1.
 func (store *mongoStore) Reset() error {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
 	msgFilter := generateMessageFilter(&store.sessionID)
 	_, err := store.db.Database(store.mongoDatabase).Collection(store.messagesCollection).DeleteMany(context.Background(), msgFilter)
 
@@ -180,6 +186,9 @@ func (store *mongoStore) Reset() error {
 
 // Refresh reloads the store from the database.
 func (store *mongoStore) Refresh() error {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
 	if err := store.cache.Reset(); err != nil {
 		return err
 	}
@@ -225,16 +234,29 @@ func (store *mongoStore) populateCache() error {
 
 // NextSenderMsgSeqNum returns the next MsgSeqNum that will be sent.
 func (store *mongoStore) NextSenderMsgSeqNum() int {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
 	return store.cache.NextSenderMsgSeqNum()
 }
 
 // NextTargetMsgSeqNum returns the next MsgSeqNum that should be received.
 func (store *mongoStore) NextTargetMsgSeqNum() int {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
 	return store.cache.NextTargetMsgSeqNum()
 }
 
 // SetNextSenderMsgSeqNum sets the next MsgSeqNum that will be sent.
 func (store *mongoStore) SetNextSenderMsgSeqNum(next int) error {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
+	return store.setNextSenderMsgSeqNum(next)
+}
+
+func (store *mongoStore) setNextSenderMsgSeqNum(next int) error {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	sessionUpdate := generateMessageFilter(&store.sessionID)
 	sessionUpdate.IncomingSeqNum = store.cache.NextTargetMsgSeqNum()
@@ -248,6 +270,13 @@ func (store *mongoStore) SetNextSenderMsgSeqNum(next int) error {
 
 // SetNextTargetMsgSeqNum sets the next MsgSeqNum that should be received.
 func (store *mongoStore) SetNextTargetMsgSeqNum(next int) error {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
+	return store.setNextTargetMsgSeqNum(next)
+}
+
+func (store *mongoStore) setNextTargetMsgSeqNum(next int) error {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	sessionUpdate := generateMessageFilter(&store.sessionID)
 	sessionUpdate.IncomingSeqNum = next
@@ -261,7 +290,14 @@ func (store *mongoStore) SetNextTargetMsgSeqNum(next int) error {
 
 // IncrNextSenderMsgSeqNum increments the next MsgSeqNum that will be sent.
 func (store *mongoStore) IncrNextSenderMsgSeqNum() error {
-	if err := store.SetNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
+	return store.incrNextSenderMsgSeqNum()
+}
+
+func (store *mongoStore) incrNextSenderMsgSeqNum() error {
+	if err := store.setNextSenderMsgSeqNum(store.cache.NextSenderMsgSeqNum() + 1); err != nil {
 		return errors.Wrap(err, "save sequence number")
 	}
 	return nil
@@ -269,7 +305,10 @@ func (store *mongoStore) IncrNextSenderMsgSeqNum() error {
 
 // IncrNextTargetMsgSeqNum increments the next MsgSeqNum that should be received.
 func (store *mongoStore) IncrNextTargetMsgSeqNum() error {
-	if err := store.SetNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
+	if err := store.setNextTargetMsgSeqNum(store.cache.NextTargetMsgSeqNum() + 1); err != nil {
 		return errors.Wrap(err, "save sequence number")
 	}
 	return nil
@@ -277,6 +316,9 @@ func (store *mongoStore) IncrNextTargetMsgSeqNum() error {
 
 // CreationTime returns the creation time of the store.
 func (store *mongoStore) CreationTime() time.Time {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
 	return store.cache.CreationTime()
 }
 
@@ -285,6 +327,13 @@ func (store *mongoStore) SetCreationTime(_ time.Time) {
 }
 
 func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {
+	store.mu.Lock()
+	defer store.mu.Unlock()
+
+	return store.saveMessage(seqNum, msg)
+}
+
+func (store *mongoStore) saveMessage(seqNum int, msg []byte) (err error) {
 	msgFilter := generateMessageFilter(&store.sessionID)
 	msgFilter.Msgseq = seqNum
 	msgFilter.Message = msg
@@ -293,13 +342,15 @@ func (store *mongoStore) SaveMessage(seqNum int, msg []byte) (err error) {
 }
 
 func (store *mongoStore) SaveMessageAndIncrNextSenderMsgSeqNum(seqNum int, msg []byte) error {
+	store.mu.Lock()
+	defer store.mu.Unlock()
 
 	if !store.allowTransactions {
-		err := store.SaveMessage(seqNum, msg)
+		err := store.saveMessage(seqNum, msg)
 		if err != nil {
 			return err
 		}
-		return store.IncrNextSenderMsgSeqNum()
+		return store.incrNextSenderMsgSeqNum()
 	}
 
 	// If the mongodb supports replicasets, perform this operation as a transaction instead-
