@@ -467,6 +467,22 @@ const (
 	//  - N
 	ValidateFieldsHaveValues string = "ValidateFieldsHaveValues"
 
+	// RequiresOrigSendingTime if set to N, a SequenceReset (35=4) received with PossDupFlag(43)=Y and a
+	// MsgSeqNum lower than expected is ignored without validating OrigSendingTime(122), so one that omits
+	// the field is not rejected. The FIX spec requires OrigSendingTime whenever PossDupFlag=Y, but the field
+	// means little on a SequenceReset and some counterparties omit it.
+	// Every other message type still requires OrigSendingTime when PossDupFlag=Y.
+	// Matches the QuickFIX/n setting of the same name.
+	//
+	// Required: No
+	//
+	// Default: Y
+	//
+	// Valid Values:
+	//  - Y
+	//  - N
+	RequiresOrigSendingTime string = "RequiresOrigSendingTime"
+
 	// CheckLatency if set to Y, messages must be received from the counter-party within a defined number of seconds.
 	// It is useful to turn this off if a system uses localtime for it's timestamps instead of GMT.
 	//

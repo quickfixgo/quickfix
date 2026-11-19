@@ -225,6 +225,15 @@ func (f sessionFactory) newSession(
 		s.SkipCheckLatency = !doCheckLatency
 	}
 
+	if settings.HasSetting(config.RequiresOrigSendingTime) {
+		var requiresOrigSendingTime bool
+		if requiresOrigSendingTime, err = settings.BoolSetting(config.RequiresOrigSendingTime); err != nil {
+			return
+		}
+
+		s.SkipOrigSendingTimeOnSequenceReset = !requiresOrigSendingTime
+	}
+
 	if !settings.HasSetting(config.MaxLatency) {
 		s.MaxLatency = 120 * time.Second
 	} else {

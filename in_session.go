@@ -358,6 +358,12 @@ func (state inSession) doTargetTooLow(session *session, msg *Message, rej target
 		return logoutState{}
 	}
 
+	// With RequiresOrigSendingTime=N, a PossDup SequenceReset is ignored without checking
+	// OrigSendingTime, as QuickFIX/n does.
+	if session.SkipOrigSendingTimeOnSequenceReset && msg.IsMsgTypeOf(string(msgTypeSequenceReset)) {
+		return state
+	}
+
 	if !msg.Header.Has(tagOrigSendingTime) {
 		if err := session.doReject(msg, RequiredTagMissing(tagOrigSendingTime)); err != nil {
 			return handleStateError(session, err)

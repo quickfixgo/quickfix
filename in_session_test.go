@@ -489,3 +489,67 @@ func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDup() {
 	s.State(inSession{})
 	s.NextTargetMsgSeqNum(2)
 }
+
+func (s *InSessionTestSuite) possDupGapFill(newSeqNo int) *Message {
+	msg := s.SequenceReset(newSeqNo)
+	msg.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+	msg.Body.SetField(tagGapFillFlag, FIXBoolean(true))
+	return msg
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDupSequenceResetRequiresOrigSendingTime() {
+	s.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+	s.fixMsgIn(s.session, s.possDupGapFill(5))
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeReject), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagText, "Required tag missing", s.MockApp.lastToAdmin.Body)
+	s.FieldEquals(tagRefTagID, int(tagOrigSendingTime), s.MockApp.lastToAdmin.Body)
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDupSequenceResetWithoutOrigSendingTime() {
+	s.session.SkipOrigSendingTimeOnSequenceReset = true
+	s.IncrNextTargetMsgSeqNum()
+
+	s.fixMsgIn(s.session, s.possDupGapFill(5))
+	s.MockApp.AssertExpectations(s.T())
+	s.NoMessageSent()
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDupSequenceResetSkipsSendingTimeAccuracy() {
+	s.session.SkipOrigSendingTimeOnSequenceReset = true
+	s.IncrNextTargetMsgSeqNum()
+
+	sequenceReset := s.possDupGapFill(5)
+	sequenceReset.Header.SetField(tagSendingTime, FIXUTCTimestamp{Time: time.Now()})
+	sequenceReset.Header.SetField(tagOrigSendingTime, FIXUTCTimestamp{Time: time.Now().Add(time.Minute)})
+
+	s.fixMsgIn(s.session, sequenceReset)
+	s.MockApp.AssertExpectations(s.T())
+	s.NoMessageSent()
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
+}
+
+func (s *InSessionTestSuite) TestFIXMsgInTargetTooLowPossDupAppMessageStillRequiresOrigSendingTime() {
+	s.session.SkipOrigSendingTimeOnSequenceReset = true
+	s.IncrNextTargetMsgSeqNum()
+
+	s.MockApp.On("ToAdmin")
+	nos := s.NewOrderSingle()
+	nos.Header.SetField(tagPossDupFlag, FIXBoolean(true))
+
+	s.fixMsgIn(s.session, nos)
+	s.MockApp.AssertExpectations(s.T())
+	s.LastToAdminMessageSent()
+	s.MessageType(string(msgTypeReject), s.MockApp.lastToAdmin)
+	s.FieldEquals(tagRefTagID, int(tagOrigSendingTime), s.MockApp.lastToAdmin.Body)
+	s.State(inSession{})
+	s.NextTargetMsgSeqNum(2)
+}
