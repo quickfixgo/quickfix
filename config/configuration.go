@@ -455,7 +455,10 @@ const (
 	ValidateFieldsOutOfOrder string = "ValidateFieldsOutOfOrder"
 
 	// ValidateFieldsHaveValues if set to N, fields without values (i.e. |11=| for an empty ClOrdID)
-	// will not be rejected, even if RejectInvalidMessage is set to N.
+	// will not be rejected, whether RejectInvalidMessage is Y or N.
+	// With RejectInvalidMessage=Y an empty field must still be defined, an empty value for a field with
+	// enumerated values is still rejected as an incorrect value, and an empty value is not checked
+	// against the field's type. This matches QuickFIX/n.
 	// Useful for connecting to systems that improperly send empty tags.
 	//
 	// Required: No
