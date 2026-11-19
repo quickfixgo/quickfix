@@ -374,7 +374,10 @@ func validateField(d *datadictionary.DataDictionary,
 	_ datadictionary.TagSet,
 	field TagValue,
 ) MessageRejectError {
-	if len(field.value) == 0 {
+	// With ValidateFieldsHaveValues=N an empty value is accepted here, as QuickFIX/n does: the tag must
+	// still be defined, and an enum field's empty value is still not one of its enums.
+	isEmpty := len(field.value) == 0
+	if isEmpty && settings.CheckFieldsHaveValues {
 		return TagSpecifiedWithoutAValue(field.tag)
 	}
 
@@ -403,6 +406,12 @@ func validateField(d *datadictionary.DataDictionary,
 				return ValueIsIncorrect(field.tag)
 			}
 		}
+	}
+
+	if isEmpty {
+		// No type check for an empty value: what an empty FLOAT or UTCTIMESTAMP means is the
+		// application's to decide when it reads the field, not the engine's.
+		return nil
 	}
 
 	var prototype FieldValue

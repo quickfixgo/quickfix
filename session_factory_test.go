@@ -64,6 +64,7 @@ func (s *SessionFactorySuite) TestDefaults() {
 	s.Equal(0, session.ResendRequestChunkSize)
 	s.False(session.EnableLastMsgSeqNumProcessed)
 	s.False(session.SkipCheckLatency)
+	s.False(session.SkipOrigSendingTimeOnSequenceReset)
 	s.Equal(Millis, session.timestampPrecision)
 	s.Equal(120*time.Second, session.MaxLatency)
 	s.False(session.DisableMessagePersist)
@@ -181,6 +182,23 @@ func (s *SessionFactorySuite) TestCheckLatency() {
 		s.NotNil(session)
 
 		s.Equal(test.expected, session.SkipCheckLatency)
+	}
+}
+
+func (s *SessionFactorySuite) TestRequiresOrigSendingTime() {
+	var tests = []struct {
+		setting  string
+		expected bool
+	}{{"Y", false}, {"N", true}}
+
+	for _, test := range tests {
+		s.SetupTest()
+		s.SessionSettings.Set(config.RequiresOrigSendingTime, test.setting)
+		session, err := s.newSession(s.SessionID, s.MessageStoreFactory, s.SessionSettings, s.LogFactory, s.App)
+		s.Nil(err)
+		s.NotNil(session)
+
+		s.Equal(test.expected, session.SkipOrigSendingTimeOnSequenceReset)
 	}
 }
 

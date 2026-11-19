@@ -23,6 +23,9 @@ type SessionSettings struct {
 	EnableResetSeqTime           bool
 	InChanCapacity               int
 
+	// SkipOrigSendingTimeOnSequenceReset is the inverse of the RequiresOrigSendingTime setting.
+	SkipOrigSendingTimeOnSequenceReset bool
+
 	// Required on logon for FIX.T.1 messages.
 	DefaultApplVerID string
 

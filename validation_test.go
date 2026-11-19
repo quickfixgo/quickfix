@@ -47,6 +47,13 @@ func TestValidate(t *testing.T) {
 		tcTagSpecifiedWithoutAValueValidateHasValues(),
 		tcTagSpecifiedWithoutAValueFixTValidateHasValues(),
 		tcTagSpecifiedWithoutAValueValidateHasValuesNoDataDictionary(),
+		tcEmptyValueAcceptedNoValidateHasValues(),
+		tcEmptyValueAcceptedNoValidateHasValuesFixT(),
+		tcEmptyNonStringValueAcceptedNoValidateHasValues(),
+		tcEmptyNonStringValueAcceptedNoValidateHasValuesFixT(),
+		tcEmptyEnumValueRejectedNoValidateHasValues(),
+		tcEmptyEnumValueRejectedNoValidateHasValuesFixT(),
+		tcEmptyUndefinedTagRejectedNoValidateHasValues(),
 		tcInvalidMsgType(),
 		tcInvalidMsgTypeFixT(),
 		tcValueIsIncorrect(),
@@ -594,6 +601,77 @@ func tcTagSpecifiedWithoutAValueFixTValidateHasValues() validateTest {
 		ExpectedRejectReason: rejectReasonTagSpecifiedWithoutAValue,
 		ExpectedRefTagID:     &bogusTag,
 	}
+}
+
+// noValidateHasValues is the default validation with ValidateFieldsHaveValues=N; RejectInvalidMessage
+// stays Y, so the per-field dictionary check runs.
+func noValidateHasValues() ValidatorSettings {
+	settings := defaultValidatorSettings
+	settings.CheckFieldsHaveValues = false
+	return settings
+}
+
+// acceptEmpty marks an emptyValueTest that expects no reject.
+const acceptEmpty = -1
+
+func emptyValueTest(name string, fixt bool, tag Tag, expectedReason int) validateTest {
+	var validator Validator
+	var builder *Message
+	if fixt {
+		tDict, _ := datadictionary.Parse("spec/FIXT11.xml")
+		appDict, _ := datadictionary.Parse("spec/FIX50SP2.xml")
+		validator = NewValidator(noValidateHasValues(), appDict, tDict)
+		builder = createFIX50SP2NewOrderSingle()
+	} else {
+		dict, _ := datadictionary.Parse("spec/FIX40.xml")
+		validator = NewValidator(noValidateHasValues(), dict, nil)
+		builder = createFIX40NewOrderSingle()
+	}
+	builder.Body.SetField(tag, FIXString(""))
+
+	test := validateTest{
+		TestName:     name,
+		Validator:    validator,
+		MessageBytes: builder.build(),
+	}
+	if expectedReason == acceptEmpty {
+		test.DoNotExpectReject = true
+	} else {
+		test.ExpectedRejectReason = expectedReason
+		test.ExpectedRefTagID = &tag
+	}
+	return test
+}
+
+func tcEmptyValueAcceptedNoValidateHasValues() validateTest {
+	return emptyValueTest("Empty ClientID accepted, ValidateFieldsHaveValues=N", false, Tag(109), acceptEmpty)
+}
+
+func tcEmptyValueAcceptedNoValidateHasValuesFixT() validateTest {
+	return emptyValueTest("Empty Text accepted, ValidateFieldsHaveValues=N FIXT", true, Tag(58), acceptEmpty)
+}
+
+func tcEmptyNonStringValueAcceptedNoValidateHasValues() validateTest {
+	return emptyValueTest("Empty Price not type checked, ValidateFieldsHaveValues=N", false, Tag(44), acceptEmpty)
+}
+
+func tcEmptyNonStringValueAcceptedNoValidateHasValuesFixT() validateTest {
+	return emptyValueTest("Empty Price not type checked, ValidateFieldsHaveValues=N FIXT", true, Tag(44), acceptEmpty)
+}
+
+func tcEmptyEnumValueRejectedNoValidateHasValues() validateTest {
+	return emptyValueTest("Empty TimeInForce is not an enum value, ValidateFieldsHaveValues=N", false, Tag(59),
+		rejectReasonValueIsIncorrect)
+}
+
+func tcEmptyEnumValueRejectedNoValidateHasValuesFixT() validateTest {
+	return emptyValueTest("Empty TimeInForce is not an enum value, ValidateFieldsHaveValues=N FIXT", true, Tag(59),
+		rejectReasonValueIsIncorrect)
+}
+
+func tcEmptyUndefinedTagRejectedNoValidateHasValues() validateTest {
+	return emptyValueTest("Empty undefined tag still invalid, ValidateFieldsHaveValues=N", false, Tag(4999),
+		rejectReasonInvalidTagNumber)
 }
 
 func tcInvalidMsgType() validateTest {
