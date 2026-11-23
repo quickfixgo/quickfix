@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/quickfixgo/quickfix/datadictionary"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -227,6 +228,88 @@ func TestRepeatingGroup_ReadRecursive(t *testing.T) {
 	require.Nil(t, err)
 
 	assert.Equal(t, 2, f.Len())
+}
+
+func TestParseMessageWithDataDictionaryPreservesRepeatingGroups(t *testing.T) {
+	dict, err := datadictionary.Parse("spec/FIX44.xml")
+	require.NoError(t, err)
+
+	rawMsg := bytes.NewBufferString("8=FIX.4.49=26835=W34=711849=TEST52=20151027-18:41:52.69856=TST22=9948=TSTX15262=7268=4269=4270=0.07499272=20151027273=18:41:52.698269=7270=0.07501272=20151027273=18:41:52.698269=8270=0.07494272=20151027273=18:41:52.698269=B271=60272=20151027273=18:41:52.69810=163")
+
+	msg := NewMessage()
+	require.NoError(t, ParseMessageWithDataDictionary(msg, rawMsg, nil, dict))
+	group := NewRepeatingGroup(268, GroupTemplate{
+		GroupElement(269),
+		GroupElement(270),
+		GroupElement(271),
+		GroupElement(272),
+		GroupElement(273),
+	})
+	require.NoError(t, msg.Body.GetGroup(group))
+	require.Equal(t, 4, group.Len())
+	assert.Equal(t, "4", string(group.Get(0).tagLookup[269][0].value))
+	assert.Equal(t, "B", string(group.Get(3).tagLookup[269][0].value))
+	assert.Contains(t, string(msg.build()), "268=4269=4")
+
+	emptyPayload := "35=W268=0"
+	emptyRaw := bytes.NewBufferString(fmt.Sprintf("8=FIX.4.49=%d%s10=000", len(emptyPayload), emptyPayload))
+	emptyMsg := NewMessage()
+	require.NoError(t, ParseMessageWithDataDictionary(emptyMsg, emptyRaw, nil, dict))
+	emptyGroup := NewRepeatingGroup(268, group.template)
+	require.NoError(t, emptyMsg.Body.GetGroup(emptyGroup))
+	assert.Zero(t, emptyGroup.Len())
+	assert.Contains(t, string(emptyMsg.build()), "268=0")
+}
+
+func TestParseMessageWithDataDictionaryPreservesNestedRepeatingGroups(t *testing.T) {
+	field := func(name string, tag int) *datadictionary.FieldDef {
+		return datadictionary.NewFieldDef(datadictionary.NewFieldType(name, tag, "STRING"), true)
+	}
+	nestedGroup := datadictionary.NewGroupFieldDef(
+		datadictionary.NewFieldType("NoNestedItems", 102, "NUMINGROUP"),
+		true,
+		[]datadictionary.MessagePart{field("NestedValue", 103)},
+	)
+	group := datadictionary.NewGroupFieldDef(
+		datadictionary.NewFieldType("NoItems", 100, "NUMINGROUP"),
+		true,
+		[]datadictionary.MessagePart{field("ItemID", 101), nestedGroup, field("ItemText", 104)},
+	)
+	dict := &datadictionary.DataDictionary{
+		Messages: map[string]*datadictionary.MessageDef{
+			"Z": datadictionary.NewMessageDef("Test", "Z", []datadictionary.MessagePart{
+				group,
+				field("OtherValue", 200),
+				field("NestedValueOutsideGroup", 103),
+			}),
+		},
+		Header:  &datadictionary.MessageDef{Fields: map[int]*datadictionary.FieldDef{}},
+		Trailer: &datadictionary.MessageDef{Fields: map[int]*datadictionary.FieldDef{}},
+	}
+
+	payload := "35=Z100=1101=A102=2103=X103=Y104=B200=OUT103=TOP"
+	rawMessage := bytes.NewBufferString(fmt.Sprintf("8=FIX.4.49=%d%s10=000", len(payload), payload))
+	msg := NewMessage()
+	require.NoError(t, ParseMessageWithDataDictionary(msg, rawMessage, nil, dict))
+
+	outerGroup := NewRepeatingGroup(100, GroupTemplate{
+		GroupElement(101),
+		NewRepeatingGroup(102, GroupTemplate{GroupElement(103)}),
+		GroupElement(104),
+	})
+	require.NoError(t, msg.Body.GetGroup(outerGroup))
+	require.Equal(t, 1, outerGroup.Len())
+	innerGroup := NewRepeatingGroup(102, GroupTemplate{GroupElement(103)})
+	require.NoError(t, outerGroup.Get(0).GetGroup(innerGroup))
+	require.Equal(t, 2, innerGroup.Len())
+	assert.Equal(t, "X", string(innerGroup.Get(0).tagLookup[103][0].value))
+	assert.Equal(t, "Y", string(innerGroup.Get(1).tagLookup[103][0].value))
+
+	rebuilt := string(msg.build())
+	assert.Contains(t, rebuilt, "100=1101=A102=2103=X103=Y104=B")
+	assert.Contains(t, rebuilt, "200=OUT")
+	assert.Contains(t, rebuilt, "103=TOP")
+	assert.Equal(t, 3, bytes.Count([]byte(rebuilt), []byte("103=")))
 }
 
 func TestRepeatingGroup_ReadComplete(t *testing.T) {
