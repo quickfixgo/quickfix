@@ -24,6 +24,13 @@ import (
 
 const (
 	defaultBufSize = 4096
+
+	// maxBodyLength bounds the FIX BodyLength tag 9 that the parser will accept.
+	// A crafted value near the maximum integer overflows the message framing
+	// arithmetic and drives a negative slice index, and a merely large value
+	// forces the read buffer to grow without bound. This ceiling is far above
+	// any real FIX message so valid traffic is unaffected.
+	maxBodyLength = 100 * 1024 * 1024
 )
 
 type parser struct {
@@ -133,6 +140,10 @@ func (p *parser) jumpLength() (int, error) {
 	}
 
 	if length <= 0 {
+		return length, errors.New("Invalid length")
+	}
+
+	if length > maxBodyLength {
 		return length, errors.New("Invalid length")
 	}
 
